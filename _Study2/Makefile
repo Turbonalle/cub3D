@@ -1,47 +1,30 @@
-# Output executable name
-TARGET = cub3D
+NAME	:= Game
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+LIBMLX	:= ./lib/MLX42
 
-# Compiler and flags
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+HEADERS	:= -I ./include -I $(LIBMLX)/include
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+SRCS	:= $(shell find ./src -iname "*.c")
+OBJS	:= ${SRCS:.c=.o}
 
-# Directories
-SRCDIR = src
-INCDIR = incl
-LIBDIR = lib
-MLX42DIR = $(LIBDIR)/MLX42
-LIBFTDIR = $(LIBDIR)/libft
-OBJDIR = obj
+all: libmlx $(NAME)
 
-# Source files and object files
-SRC_FILES = $(wildcard $(SRCDIR)/*.c)
-OBJ_FILES = $(SRC_FILES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-# Include directories
-INC = -I$(INCDIR) -I$(MLX42DIR)/include -I$(LIBFTDIR)/include -I"/Users/$(USER)/.brew/opt/glfw/include"
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
-# Libraries
-LIBS = -L$(MLX42DIR)/build -lmlx42 -L$(LIBFTDIR) -lft -L"/Users/$(USER)/.brew/opt/glfw/lib" -lglfw -framework OpenGL -framework AppKit
-
-all: $(TARGET)
-
-$(TARGET): $(OBJ_FILES) libft
-	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBS) -o $@
-
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-# Build the libft library using the libft Makefile
-libft:
-	@make -C $(LIBFTDIR)
+$(NAME): $(OBJS)
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-	rm -f $(OBJ_FILES)
+	@rm -rf $(OBJS)
+	@rm -rf $(LIBMLX)/build
 
 fclean: clean
-	rm -f $(TARGET)
+	@rm -rf $(NAME)
 
-re: fclean all
+re: clean all
 
-.PHONY: all clean fclean re libft
+.PHONY: all, clean, fclean, re, libmlx

@@ -28,7 +28,7 @@
 # define PLAYER 2
 
 # define MOVEMENT_SPEED 0.5
-# define ROTATION_SPEED 0.1
+# define ROTATION_SPEED 0.02
 
 typedef struct vector_s
 {
@@ -62,13 +62,16 @@ typedef struct map_s
 
 typedef struct player_s
 {
-	double_vector_t d_pos;
-	vector_t	pos;
+	double_vector_t pos;
+	double_vector_t dir;
+	double		angle;
 	int			color;
 	int			left;
 	int			right;
 	int			down;
 	int			up;
+	int			rotate_left;
+	int			rotate_right;
 }				player_t;
 
 typedef struct cub3d_s
@@ -79,6 +82,7 @@ typedef struct cub3d_s
 	player_t player;
 	int lmb_pressed;
 	int	rmb_pressed;
+	int q_pressed;
 }		cub3d_t;
 
 // color.c
@@ -96,6 +100,11 @@ void draw_grid_relative_size(mlx_image_t *img, int color, int columns, int rows)
 // draw_player.c
 void draw_player(cub3d_t *cub3d);
 
+// draw_rays.c
+void draw_rays(cub3d_t *cub3d);
+void draw_direction_ray(cub3d_t *cub3d);
+void connect_player_to_mouse(cub3d_t *cub3d);
+
 // walls.c
 void fill_box(mlx_image_t *img, map_t *map, int row, int column, int color);
 void create_wall(mlx_image_t *img, map_t *map, int row, int column, int color);
@@ -106,8 +115,7 @@ void hook_keytest(mlx_key_data_t keydata, void *param);
 void hook_mouse_scroll(double xdelta, double ydelta, void *param);
 void hook_close(void *param);
 void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);
-void hook_lmb_pressed(void *param);
-void hook_rmb_pressed(void *param);
+void hook_other_functions(void *param);
 void empty_chosen_box(mlx_t *mlx, mlx_image_t *img, map_t *map, int color);
 void fill_chosen_box(mlx_t *mlx, mlx_image_t *img, map_t *map, int color);
 void hook_player_movement(void *param);
@@ -119,7 +127,7 @@ void free_map(map_t *map);
 void draw_map(mlx_image_t *img, map_t *map);
 
 // math.c
-double distance(vector_t a, vector_t b);
+double distance(double_vector_t a, double_vector_t b);
 void switch_values(int *a, int *b);
 
 // raycaster.c

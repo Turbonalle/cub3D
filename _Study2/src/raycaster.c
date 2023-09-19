@@ -44,11 +44,13 @@ void init_cubed(cub3d_t *cub3d)
 	cub3d->map = init_map(cub3d->img, 30, 30, 16);
 	cub3d->player.pos.x = WIDTH / 2;
 	cub3d->player.pos.y = HEIGHT / 2;
-	cub3d->player.d_pos.x = WIDTH / 2;
-	cub3d->player.d_pos.y = HEIGHT / 2;
+	cub3d->player.dir.x = 0;
+	cub3d->player.dir.y = 0;
+	cub3d->player.angle = 0;
 	cub3d->player.color = RED;
 	cub3d->lmb_pressed = FALSE;
 	cub3d->rmb_pressed = FALSE;
+	cub3d->q_pressed = FALSE;
 	cub3d->player.left = FALSE;
 	cub3d->player.right = FALSE;
 	cub3d->player.up = FALSE;
@@ -62,26 +64,18 @@ int	main(void)
 	cub3d_t cub3d;
 
 	init_cubed(&cub3d);
-	printf("TEST\n");
 
 	draw_background(cub3d.img, BG_COLOR);
-	printf("TEST\n");
 	draw_wall_border(cub3d.img, cub3d.map, WALL_COLOR);
-	printf("TEST\n");
 	draw_player(&cub3d);
-	printf("TEST\n");
 
-	print_map(cub3d.map);
-	printf("TEST\n");
 
 	mlx_close_hook(cub3d.mlx, &hook_close, cub3d.mlx);
 	mlx_key_hook(cub3d.mlx, &hook_keytest, &cub3d);
 	mlx_scroll_hook(cub3d.mlx, &hook_mouse_scroll, NULL);
 	mlx_mouse_hook(cub3d.mlx, &hook_mouse_buttons, &cub3d);
-	mlx_loop_hook(cub3d.mlx, &hook_lmb_pressed, &cub3d);
-	mlx_loop_hook(cub3d.mlx, &hook_rmb_pressed, &cub3d);
+	mlx_loop_hook(cub3d.mlx, &hook_other_functions, &cub3d);
 	mlx_loop_hook(cub3d.mlx, &hook_player_movement, &cub3d);
-	printf("TEST\n");
 	
 	mlx_loop(cub3d.mlx);
 	mlx_terminate(cub3d.mlx);

@@ -12,7 +12,7 @@ void set_border(map_t *map)
 		while (++column < map->columns)
 		{
 			if (row == 0 || row == map->rows - 1 || column == 0 || column == map->columns - 1)
-				map->grid[row][column] = 1;
+				map->grid[row][column] = WALL;
 		}
 	}
 }
@@ -28,9 +28,9 @@ void draw_map(mlx_image_t *img, map_t *map)
 		column = -1;
 		while (++column < map->columns)
 		{
-			if (map->grid[row][column] == 1)
+			if (map->grid[row][column] == WALL)
 				fill_box(img, map, row, column, WALL_COLOR);
-			else
+			else if (map->grid[row][column] == EMPTY)
 				fill_box(img, map, row, column, BG_COLOR);
 		}
 	}
@@ -49,7 +49,7 @@ void reset_map(mlx_image_t *img, map_t *map)
 	{
 		column = -1;
 		while (++column < map->columns)
-			map->grid[row][column] = 0;
+			map->grid[row][column] = EMPTY;
 	}
 	set_border(map);
 	draw_map(img, map);
@@ -67,7 +67,7 @@ void set_map(map_t *map)
 	{
 		column = -1;
 		while (++column < map->columns)
-			map->grid[row][column] = 0;
+			map->grid[row][column] = EMPTY;
 	}
 }
 
@@ -94,7 +94,7 @@ void init_relative_grid(mlx_image_t* img, map_t *map)
 			map->grid_relative[row][column].y = (img->height - (BORDER_THICKNESS * 2)) * row / map->rows;
 			map->grid_relative[row][column].end_x = (img->width - (BORDER_THICKNESS * 2)) * (column + 1) / map->columns;
 			map->grid_relative[row][column].end_y = (img->height - (BORDER_THICKNESS * 2)) * (row + 1) / map->rows;
-			map->grid_relative[row][column].value = 0;
+			map->grid_relative[row][column].value = EMPTY;
 		}
 	}
 }

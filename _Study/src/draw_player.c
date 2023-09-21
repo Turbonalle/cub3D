@@ -2,7 +2,7 @@
 
 void draw_player(cub3d_t *cub3d)
 {
-	int radius = 10;
+	int radius = 5;
 	double_vector_t pixel;
 
 	pixel.x = (int)cub3d->player.pos.x - radius;

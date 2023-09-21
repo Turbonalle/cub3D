@@ -25,14 +25,14 @@ int diagonal_movement(player_t player)
 
 //------------------------------------------------------------------------------
 
-void player_strafe(player_t *player, double angle)
+void player_strafe(player_t *player, double angle, double speed)
 {
 	if (angle < 0)
 		angle += (2 * M_PI);
 	else if (angle > (2 * M_PI))
 		angle -= (2 * M_PI);
-	player->pos.x += cos(angle) * MOVEMENT_SPEED;
-	player->pos.y += sin(angle) * MOVEMENT_SPEED;
+	player->pos.x += cos(angle) * speed;
+	player->pos.y += sin(angle) * speed;
 }
 
 void hook_player_movement(void *param)
@@ -62,11 +62,11 @@ void hook_player_movement(void *param)
 	}
 	if (cub3d->player.left == TRUE && cub3d->player.right == FALSE)
 	{
-		player_strafe(&cub3d->player, cub3d->player.angle - (M_PI / 2));
+		player_strafe(&cub3d->player, cub3d->player.angle - (M_PI / 2), speed);
 	}
 	else if (cub3d->player.left == FALSE && cub3d->player.right == TRUE)
 	{
-		player_strafe(&cub3d->player, cub3d->player.angle + (M_PI / 2));
+		player_strafe(&cub3d->player, cub3d->player.angle + (M_PI / 2), speed);
 	}
 	draw_map(cub3d->img, cub3d->map);
 	draw_player(cub3d);
@@ -74,4 +74,5 @@ void hook_player_movement(void *param)
 	if (cub3d->q_pressed == TRUE)
 		connect_player_to_mouse(cub3d);
 	draw_rays(cub3d);
+
 }

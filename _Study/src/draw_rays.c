@@ -114,7 +114,7 @@ void find_end_point(map_t *map, player_t *player, double radians, double_vector_
 		{
 			end->x = player->pos.x + vRayDir.x * dist;
 			end->y = player->pos.y + vRayDir.y * dist;
-			printf(TERMINAL_RED"Wall at [%d][%d]\n"TERMINAL_RESET, vMapCheck.x, vMapCheck.y);
+			// printf(TERMINAL_RED"Wall at [%d][%d]\n"TERMINAL_RESET, vMapCheck.x, vMapCheck.y);
 			// printf("end = [%f,%f]\n", end->x, end->y);
 			end_found = TRUE;
 		}
@@ -128,12 +128,12 @@ void draw_rays(cub3d_t *cub3d)
 	int rays;
 	int i;
 
-	rays = 1;
+	rays = WIDTH;
 	i = 0;
 	while (++i <= rays)
 	{
-		radians = cub3d->player.angle + (2 * M_PI) / 360;
-		// radians = (2 * M_PI) * i / rays;
+		// radians = cub3d->player.angle + (2 * M_PI) / 360;
+		radians = (2 * M_PI) * i / rays;
 		find_end_point(cub3d->map, &cub3d->player, radians, &end);
 		draw_line(cub3d->img, cub3d->player.pos, end, WHITE);
 	}

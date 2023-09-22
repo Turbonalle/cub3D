@@ -41,7 +41,7 @@ void init_cubed(cub3d_t *cub3d)
 	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
 		ft_error();
-	cub3d->map = init_map(cub3d->img, 30, 30, 16);
+	cub3d->map = init_map(cub3d->img, 30, 30);
 	cub3d->player.pos.x = WIDTH / 2;
 	cub3d->player.pos.y = HEIGHT / 2;
 	cub3d->player.dir.x = 0;

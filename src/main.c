@@ -8,8 +8,11 @@ int err(char *error_message)
 
 int main(int ac, char **av)
 {
+	cub3d_t	cub3d;
+
 	if (ac != 2)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
-	get_map(av[1]);
+	if (read_map_file(&cub3d, av[1]) && init_data(&cub3d))
+		start_game(&cub3d);
 	return (0);
 }

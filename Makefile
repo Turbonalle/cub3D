@@ -26,21 +26,24 @@ LIBS = -L$(MLX42DIR)/build -lmlx42 -L$(LIBFTDIR) -lft -L"/Users/$(USER)/.brew/op
 all: $(TARGET)
 
 $(TARGET): $(OBJ_FILES) libft
-    $(CC) $(CFLAGS) $(OBJ_FILES) $(LIBS) -o $@
+	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBS) -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-    @mkdir -p $(@D)
-    $(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 # Build the libft library using the libft Makefile
 libft:
-    @make -C $(LIBFTDIR)
+	@make -C $(LIBFTDIR)
 
 clean:
-    rm -f $(OBJ_FILES)
+	@rm -f $(OBJ_FILES)
+	@rm -rf $(OBJDIR)
+	@make -C $(LIBFTDIR) clean
 
 fclean: clean
-    rm -f $(TARGET)
+	@rm -f $(TARGET)
+	@make -C $(LIBFTDIR) fclean
 
 re: fclean all
 

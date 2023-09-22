@@ -38,6 +38,7 @@ libft:
 
 clean:
 	rm -f $(OBJ_FILES)
+	rm -rf $(OBJDIR)
 
 fclean: clean
 	rm -f $(TARGET)

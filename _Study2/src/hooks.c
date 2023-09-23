@@ -45,6 +45,13 @@ void hook_keytest(mlx_key_data_t keydata, void *param)
 		cub3d->q_pressed = TRUE;
 	else if (keydata.key == MLX_KEY_Q && keydata.action == MLX_RELEASE)
 		cub3d->q_pressed = FALSE;
+	else if (keydata.key == MLX_KEY_TAB && keydata.action == MLX_PRESS)
+	{
+		if (cub3d->rays == FALSE)
+			cub3d->rays = TRUE;
+		else
+			cub3d->rays = FALSE;
+	}
 }
 
 //------------------------------------------------------------------------------

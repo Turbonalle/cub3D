@@ -57,6 +57,7 @@ void init_cubed(cub3d_t *cub3d)
 	cub3d->player.down = FALSE;
 	cub3d->player.rotate_left = FALSE;
 	cub3d->player.rotate_right = FALSE;
+	cub3d->rays = FALSE;
 }
 
 //------------------------------------------------------------------------------

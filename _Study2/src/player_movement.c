@@ -69,7 +69,8 @@ void hook_player_movement(void *param)
 		player_strafe(&cub3d->player, cub3d->player.angle + (M_PI / 2), speed);
 	}
 	draw_map(cub3d->img, cub3d->map);
-	draw_rays(cub3d);
+	if (cub3d->rays == TRUE)
+		draw_rays(cub3d);
 	draw_player(cub3d);
 	draw_direction_ray(cub3d);
 	if (cub3d->q_pressed == TRUE)

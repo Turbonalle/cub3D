@@ -83,6 +83,7 @@ typedef struct cub3d_s
 	int lmb_pressed;
 	int	rmb_pressed;
 	int q_pressed;
+	int rays;
 }		cub3d_t;
 
 // color.c

@@ -13,9 +13,9 @@ void hook_keytest(mlx_key_data_t keydata, void *param)
 		cub3d->player.up = TRUE;
 	else if ((keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP) && keydata.action == MLX_RELEASE)
 		cub3d->player.up = FALSE;
-	else if ((keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_DOWN) && keydata.action == MLX_PRESS)
+	else if ((keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN) && keydata.action == MLX_PRESS)
 		cub3d->player.down = TRUE;
-	else if ((keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_DOWN) && keydata.action == MLX_RELEASE)
+	else if ((keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN) && keydata.action == MLX_RELEASE)
 		cub3d->player.down = FALSE;
 	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
 		cub3d->player.left = TRUE;

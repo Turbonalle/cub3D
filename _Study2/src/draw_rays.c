@@ -72,7 +72,8 @@ void find_end_point(map_t *map, player_t *player, double radians, double_vector_
 
 	
 	double dist = 0;
-	while (!end_found && dist < fmax(WIDTH, HEIGHT))
+	double max_dist = sqrt(WIDTH * WIDTH + HEIGHT * HEIGHT);
+	while (!end_found && dist < max_dist)
 	{
 		if (vRayLength1D.x < vRayLength1D.y)
 		{

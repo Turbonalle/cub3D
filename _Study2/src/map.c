@@ -90,16 +90,16 @@ void init_relative_grid(mlx_image_t* img, map_t *map)
 		column = -1;
 		while (++column < map->columns)
 		{
-			map->grid_relative[row][column].x = (img->width - (BORDER_THICKNESS * 2)) * column / map->columns;
-			map->grid_relative[row][column].y = (img->height - (BORDER_THICKNESS * 2)) * row / map->rows;
-			map->grid_relative[row][column].end_x = (img->width - (BORDER_THICKNESS * 2)) * (column + 1) / map->columns;
-			map->grid_relative[row][column].end_y = (img->height - (BORDER_THICKNESS * 2)) * (row + 1) / map->rows;
+			map->grid_relative[row][column].x = img->width * column / map->columns;
+			map->grid_relative[row][column].y = img->height * row / map->rows;
+			map->grid_relative[row][column].end_x = img->width * (column + 1) / map->columns;
+			map->grid_relative[row][column].end_y = img->height * (row + 1) / map->rows;
 			map->grid_relative[row][column].value = EMPTY;
 		}
 	}
 }
 
-map_t* init_map(mlx_image_t *img, int columns, int rows, int cell_size)
+map_t* init_map(mlx_image_t *img, int columns, int rows)
 {
 	map_t *map;
 	int i;
@@ -109,7 +109,7 @@ map_t* init_map(mlx_image_t *img, int columns, int rows, int cell_size)
 		ft_error();
 	map->columns = columns;
 	map->rows = rows;
-	map->cell_size = cell_size;
+	map->cell_size = img->width / columns;
 	map->grid = malloc(sizeof(int *) * rows);
 	if (!map->grid)
 		ft_error();

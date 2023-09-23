@@ -121,7 +121,7 @@ void fill_chosen_box(mlx_t *mlx, mlx_image_t *img, map_t *map, int color);
 void hook_player_movement(void *param);
 
 // map.c
-map_t* init_map(mlx_image_t *img, int columns, int rows, int cell_size);
+map_t* init_map(mlx_image_t *img, int columns, int rows);
 void print_map(map_t *map);
 void free_map(map_t *map);
 void draw_map(mlx_image_t *img, map_t *map);

@@ -109,7 +109,7 @@ void draw_rays(cub3d_t *cub3d)
 	{
 		radians = (2 * M_PI) * i / rays;
 		find_end_point(cub3d->map, &cub3d->player, radians, &end);
-		draw_line(cub3d->img, cub3d->player.pos, end, WHITE);
+		draw_line(cub3d->img, cub3d->player.pos, end, SADDLEBROWN);
 	}
 }
 
@@ -120,6 +120,8 @@ void connect_player_to_mouse(cub3d_t *cub3d)
 	int mouse_y;
 
 	mlx_get_mouse_pos(cub3d->mlx, &mouse_x, &mouse_y);
+	if (mouse_x < 0 || mouse_x > WIDTH || mouse_y < 0 || mouse_y > HEIGHT)
+		return ;
 	mouse.x = mouse_x;
 	mouse.y = mouse_y;
 	draw_line(cub3d->img, cub3d->player.pos, mouse, YELLOW);

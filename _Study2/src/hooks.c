@@ -28,19 +28,11 @@ void hook_keytest(mlx_key_data_t keydata, void *param)
 	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
 		cub3d->player.rotate_left = TRUE;
 	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
-	{
 		cub3d->player.rotate_left = FALSE;
-		printf("Player angle = %f\n", cub3d->player.angle);
-		printf("Player dir = (%f, %f)\n", cub3d->player.dir.x, cub3d->player.dir.y);
-	}
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 		cub3d->player.rotate_right = TRUE;
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
-	{
 		cub3d->player.rotate_right = FALSE;
-		printf("Player angle = %f\n", cub3d->player.angle);
-		printf("Player dir = (%f, %f)\n", cub3d->player.dir.x, cub3d->player.dir.y);
-	}
 	else if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
 		cub3d->q_pressed = TRUE;
 	else if (keydata.key == MLX_KEY_Q && keydata.action == MLX_RELEASE)
@@ -105,24 +97,20 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 
     if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
     {
-        printf("Left mouse button pressed!\n");
 		cub3d->lmb_pressed = TRUE;
     }
     else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)
     {
-        printf("Left mouse button released!\n");
 		cub3d->lmb_pressed = FALSE;
 		print_map(cub3d->map);
 		draw_player(cub3d);
     }
     else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
     {
-		printf("Right mouse button pressed!\n");
 		cub3d->rmb_pressed = TRUE;
     }
     else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_RELEASE)
     {
-        printf("Right mouse button released!\n");
 		cub3d->rmb_pressed = FALSE;
 		print_map(cub3d->map);
 		draw_player(cub3d);

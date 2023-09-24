@@ -35,13 +35,28 @@ void player_strafe(player_t *player, double angle, double speed)
 	player->pos.y += sin(angle) * speed;
 }
 
+int is_wall(map_t *map, double_vector_t *pos)
+{
+	vector_t box;
+
+	box.x = pos->x * map->columns / WIDTH;
+	box.y = pos->y * map->rows / HEIGHT;
+	if (map->grid_relative[box.y][box.x].value == WALL)
+		return (TRUE);
+	return (FALSE);
+}
+
 void hook_player_movement(void *param)
 {
 	cub3d_t *cub3d;
+	double	movement_direction;
 	double	speed;
+	int movement;
 
 	cub3d = param;
 
+	movement = FALSE;
+	movement_direction = 0;
 	if (diagonal_movement(cub3d->player))
 		speed = MOVEMENT_SPEED * 0.70710678118;									// 1 / sqrt(2)
 	else
@@ -50,23 +65,55 @@ void hook_player_movement(void *param)
 		player_rotation(&cub3d->player, -ROTATION_SPEED);
 	else if (cub3d->player.rotate_right == TRUE && cub3d->player.rotate_left == FALSE)
 		player_rotation(&cub3d->player, ROTATION_SPEED);
-	if (cub3d->player.up == TRUE && cub3d->player.down == FALSE)
+	if (cub3d->player.up == TRUE)
 	{
-		cub3d->player.pos.x += cub3d->player.dir.x * speed;
-		cub3d->player.pos.y += cub3d->player.dir.y * speed;
+		movement_direction = cub3d->player.angle;
+		movement = TRUE;
 	}
-	else if (cub3d->player.up == FALSE && cub3d->player.down == TRUE)
+	if (cub3d->player.down == TRUE)
 	{
-		cub3d->player.pos.x -= cub3d->player.dir.x * speed;
-		cub3d->player.pos.y -= cub3d->player.dir.y * speed;
+		movement_direction = (cub3d->player.angle + M_PI);
+		if (movement_direction > 2 * M_PI)
+			movement_direction -= 2 * M_PI;
+		movement = TRUE;
 	}
-	if (cub3d->player.left == TRUE && cub3d->player.right == FALSE)
+	if (cub3d->player.left == TRUE)
 	{
-		player_strafe(&cub3d->player, cub3d->player.angle - (M_PI / 2), speed);
+		movement_direction = (cub3d->player.angle - M_PI / 2);
+		if (movement_direction < 0)
+			movement_direction += 2 * M_PI;
+		movement = TRUE;
 	}
-	else if (cub3d->player.left == FALSE && cub3d->player.right == TRUE)
+	if (cub3d->player.right == TRUE)
 	{
-		player_strafe(&cub3d->player, cub3d->player.angle + (M_PI / 2), speed);
+		movement_direction = (cub3d->player.angle + M_PI / 2);
+		if (movement_direction > 2 * M_PI)
+			movement_direction -= 2 * M_PI;
+		movement = TRUE;
+	}
+	if (movement == TRUE)
+	{
+		double_vector_t new_pos;
+		// vector_t current_box;
+		// vector_t next_box;
+		
+		new_pos.x = cub3d->player.pos.x + cos(movement_direction) * speed;
+		new_pos.y = cub3d->player.pos.y + sin(movement_direction) * speed;
+		if (!is_wall(cub3d->map, &new_pos))
+		{
+			cub3d->player.pos.x = new_pos.x;
+			cub3d->player.pos.y = new_pos.y;
+		}
+		else
+		{
+			int wall = find_end_point(cub3d->map, &cub3d->player, cub3d->player.angle, &new_pos);
+			if (wall == WEST || wall == EAST)
+				cub3d->player.pos.y = new_pos.y;
+			else if (wall == NORTH || wall == SOUTH)
+				cub3d->player.pos.x = new_pos.x;
+			// char *s[4] = { "WEST", "SOUTH", "EAST", "NORTH" };
+			// printf("Crashed into %s side of the wall\n", s[wall - 1]);
+		}
 	}
 	draw_map(cub3d->img, cub3d->map);
 	if (cub3d->rays == TRUE)

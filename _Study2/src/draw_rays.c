@@ -23,7 +23,7 @@ void draw_line(mlx_image_t *img, double_vector_t start, double_vector_t end, int
 	}
 }
 
-void find_end_point(map_t *map, player_t *player, double radians, double_vector_t *end)
+int find_end_point(map_t *map, player_t *player, double radians, double_vector_t *end)
 {
 	double_vector_t vRayStartingCell;
 	double_vector_t vRayUnitStepSize;
@@ -36,7 +36,7 @@ void find_end_point(map_t *map, player_t *player, double radians, double_vector_
 	vRayDir.x = cos(radians);
 	vRayDir.y = sin(radians);
 	if (vRayDir.x == 0 || vRayDir.y == 0)
-		return ;
+		return (FAIL);
 
 	vRayStartingCell.x = player->pos.x / map->cell_size;
 	vRayStartingCell.y = player->pos.y / map->cell_size;
@@ -73,6 +73,7 @@ void find_end_point(map_t *map, player_t *player, double radians, double_vector_
 	
 	double dist = 0;
 	double max_dist = sqrt(WIDTH * WIDTH + HEIGHT * HEIGHT);
+	int wall_flag = 0;
 	while (!end_found && dist < max_dist)
 	{
 		if (vRayLength1D.x < vRayLength1D.y)
@@ -80,20 +81,31 @@ void find_end_point(map_t *map, player_t *player, double radians, double_vector_
 			vMapCheck.x += vStep.x;
 			dist = vRayLength1D.x;
 			vRayLength1D.x += vRayUnitStepSize.x;
+			wall_flag = 1;
 		}
 		else
 		{
 			vMapCheck.y += vStep.y;
 			dist = vRayLength1D.y;
 			vRayLength1D.y += vRayUnitStepSize.y;
+			wall_flag = 0;
 		}
-		if (vMapCheck.x >= 0 && vMapCheck.x < map->columns && vMapCheck.y >= 0 && vMapCheck.y < map->rows && map->grid[vMapCheck.y][vMapCheck.x] == 1)
+		if (vMapCheck.x >= 0 && vMapCheck.x < map->columns && vMapCheck.y >= 0 && vMapCheck.y < map->rows && map->grid_relative[vMapCheck.y][vMapCheck.x].value == 1)
 		{
+			
 			end->x = player->pos.x + vRayDir.x * dist;
 			end->y = player->pos.y + vRayDir.y * dist;
 			end_found = TRUE;
 		}
 	}
+	if (wall_flag == 1 && player->pos.x < end->x)
+		return (WEST);
+	else if (wall_flag == 1 && end->x < player->pos.x)
+		return (EAST);
+	else if (wall_flag == 0 && player->pos.y < end->y)
+		return (NORTH);
+	else
+		return (SOUTH);
 }
 
 void draw_rays(cub3d_t *cub3d)

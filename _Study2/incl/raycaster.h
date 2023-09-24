@@ -30,6 +30,11 @@
 # define MOVEMENT_SPEED 0.5
 # define ROTATION_SPEED 0.02
 
+# define WEST 1
+# define SOUTH 2
+# define EAST 3
+# define NORTH 4
+
 typedef struct vector_s
 {
 	int32_t	x;
@@ -105,6 +110,7 @@ void draw_player(cub3d_t *cub3d);
 void draw_rays(cub3d_t *cub3d);
 void draw_direction_ray(cub3d_t *cub3d);
 void connect_player_to_mouse(cub3d_t *cub3d);
+int find_end_point(map_t *map, player_t *player, double radians, double_vector_t *end);
 
 // walls.c
 void fill_box(mlx_image_t *img, map_t *map, int row, int column, int color);

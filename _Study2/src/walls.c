@@ -58,9 +58,9 @@ int get_hovered_box(map_t *map, vector_t mouse_pos, vector_t *box)
 
 void destroy_wall(mlx_image_t *img, map_t *map, int row, int column, int color)
 {
-	if (map->grid[row][column] == 0)
+	if (map->grid_relative[row][column].value == 0)
 		return ;
-	map->grid[row][column] = 0;
+	map->grid_relative[row][column].value = 0;
 	fill_box(img, map, row, column, color);
 }
 
@@ -68,9 +68,9 @@ void destroy_wall(mlx_image_t *img, map_t *map, int row, int column, int color)
 
 void create_wall(mlx_image_t *img, map_t *map, int row, int column, int color)
 {
-	if (map->grid[row][column] == 1)
+	if (map->grid_relative[row][column].value == 1)
 		return ;
-	map->grid[row][column] = 1;
+	map->grid_relative[row][column].value = 1;
 	fill_box(img, map, row, column, color);
 }
 

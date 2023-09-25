@@ -65,16 +65,34 @@ void remove_newlines(cub3d_t *cub3d)
 	}
 }
 
+int get_starting_point(cub3d_t *cub3d)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (cub3d->map[++i])
+	{
+		j = -1;
+		while (cub3d->map[i][++j])
+		{
+			if (cub3d->map[i][j] == 'N' || cub3d->map[i][j] == 'S' || cub3d->map[i][j] == 'W' || cub3d->map[i][j] == 'E')
+			{
+				cub3d->starting_pos.x = j;
+				cub3d->starting_pos.y = i;
+				cub3d->starting_dir = cub3d->map[i][j];
+				return (SUCCESS);
+			}
+		}
+	}
+	return (err("No starting point found"));
+}
+
 int get_map(cub3d_t *cub3d, int fd)
 {
 	get_preliminary_map(cub3d, fd);
 	remove_newlines(cub3d);
-	int i = -1;
-	while (cub3d->map[++i])
-	{
-		printf("map[%d] = %s\n", i, cub3d->map[i]);
-	}
-	// get_starting_point(cub3d);
+	get_starting_point(cub3d);
 	return (SUCCESS);
 }
 

@@ -79,12 +79,13 @@ int get_elements(cub3d_t *cub3d, int fd)
 	while (!elements_found(cub3d->element_found))
 	{
 		line = get_next_line(fd);
-		remove_newline(line);
+		// printf("Before nl: line = %s", line);
 		if (!line)
 			return (err("Failed to read map file"));
-		printf("line = %s\n", line);
 		if (line[0] == '\n')
 			continue ;
+		remove_newline(line);
+		// printf("After nl: line = %s\n", line);
 		if (!find_element(cub3d, line))
 		{
 			free(line);	

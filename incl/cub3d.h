@@ -36,6 +36,13 @@ typedef struct cub3d_s
 	int			element_found[6];
 }			cub3d_t;
 
+// color.c
+int get_rgba(int r, int g, int b, int a);
+int get_r(int rgba);
+int get_g(int rgba);
+int get_b(int rgba);
+int get_a(int rgba);
+
 // error.c
 int err(char *error_message);
 

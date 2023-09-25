@@ -14,7 +14,7 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
-	read_map_file(&cub3d, av[1]);
+	read_cub_file(&cub3d, av[1]);
 	printf("NO = %s\n", cub3d.texture[NO].path);
 	printf("SO = %s\n", cub3d.texture[SO].path);
 	printf("WE = %s\n", cub3d.texture[WE].path);

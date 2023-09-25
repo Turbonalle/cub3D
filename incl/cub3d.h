@@ -27,8 +27,29 @@ typedef struct texture_s
 	int		height;
 }			texture_t;
 
+typedef struct vector_s
+{
+	int	x;
+	int	y;
+}		vector_t;
+
+typedef struct dvector_t
+{
+	double	x;
+	double	y;
+}			dvector_t;
+
+typedef struct player_s
+{
+	dvector_t	pos;
+	dvector_t	dir;
+	double		angle;
+}				player_t;
+
 typedef struct cub3d_s
 {
+	vector_t	starting_pos;
+	char		starting_dir;
 	char		**map;
 	texture_t	texture[4];
 	int			floor_color;
@@ -54,7 +75,7 @@ void free_info(char **info);
 int get_elements(cub3d_t *cub3d, int fd);
 
 // get_map.c
-int read_map_file(cub3d_t *cub3d, char *map_path);
+int read_cub_file(cub3d_t *cub3d, char *map_path);
 
 // get_texture.c
 int get_texture(cub3d_t *cub3d, int element, char **info);

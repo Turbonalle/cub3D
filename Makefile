@@ -6,19 +6,19 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
 # Directories
-SRCDIR = src
-INCDIR = incl
-LIBDIR = lib
-MLX42DIR = $(LIBDIR)/MLX42
-LIBFTDIR = $(LIBDIR)/libft
-OBJDIR = obj
+SRC_PATH = src
+INC_PATH = incl
+LIB_PATH = lib
+MLX42DIR = $(LIB_PATH)/MLX42
+LIBFTDIR = $(LIB_PATH)/libft
+OBJ_PATH = obj
 
 # Source files and object files
-SRC_FILES = $(wildcard $(SRCDIR)/*.c)
-OBJ_FILES = $(SRC_FILES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+SRC_FILES = $(wildcard $(SRC_PATH)/*.c)
+OBJ_FILES = $(SRC_FILES:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 
 # Include directories
-INC = -I$(INCDIR) -I$(MLX42DIR)/include -I$(LIBFTDIR)/include -I"/Users/$(USER)/.brew/opt/glfw/include"
+INC = -I$(INC_PATH) -I$(MLX42DIR)/include -I$(LIBFTDIR)/include -I"/Users/$(USER)/.brew/opt/glfw/include"
 
 # Libraries
 LIBS = -L$(MLX42DIR)/build -lmlx42 -L$(LIBFTDIR) -lft -L"/Users/$(USER)/.brew/opt/glfw/lib" -lglfw -framework OpenGL -framework AppKit
@@ -28,7 +28,7 @@ all: $(TARGET)
 $(TARGET): $(OBJ_FILES) libft
 	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBS) -o $@
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
@@ -38,7 +38,7 @@ libft:
 
 clean:
 	@rm -f $(OBJ_FILES)
-	@rm -rf $(OBJDIR)
+	@rm -rf $(OBJ_PATH)
 	@make -C $(LIBFTDIR) clean
 
 fclean: clean

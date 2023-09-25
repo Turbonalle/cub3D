@@ -53,6 +53,19 @@ int find_element(cub3d_t *cub3d, char *line)
 		return (get_element(cub3d, F, info));
 	else if (ft_strcmp(info[0], "C") == 0)
 		return (get_element(cub3d, C, info));
+	return (FAIL);
+}
+
+void remove_newline(char *line)
+{
+	int i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == '\n')
+			line[i] = '\0';
+	}
 }
 
 int get_elements(cub3d_t *cub3d, int fd)
@@ -66,8 +79,10 @@ int get_elements(cub3d_t *cub3d, int fd)
 	while (!elements_found(cub3d->element_found))
 	{
 		line = get_next_line(fd);
+		remove_newline(line);
 		if (!line)
 			return (err("Failed to read map file"));
+		printf("line = %s\n", line);
 		if (line[0] == '\n')
 			continue ;
 		if (!find_element(cub3d, line))

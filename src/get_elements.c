@@ -1,5 +1,15 @@
 #include "../incl/cub3d.h"
 
+void free_info(char **info)
+{
+	int i;
+
+	i = -1;
+	while (info[++i])
+		free(info[i]);
+	free(info);
+}
+
 int elements_found(int *element_found)
 {
 	int i;
@@ -13,32 +23,10 @@ int elements_found(int *element_found)
 	return (SUCCESS);
 }
 
-int get_color(cub3d_t *cub3d, int element, char **info)
-{
-	int i;
-	int color;
-
-	i = 0;
-	while (info[1][i])
-	{
-		if (!ft_isdigit(info[1][i]))
-			return (err("Invalid color"));
-		i++;
-	}
-	color = ft_atoi(info[1]);
-	if (color < 0 || color > 255)
-		return (err("Invalid color"));
-	if (element == F)
-		cub3d->floor_color = color;
-	else
-		cub3d->ceiling_color = color;
-	return (SUCCESS);
-}
-
 int get_element(cub3d_t *cub3d, int element, char **info)
 {
 	if (cub3d->element_found[element])
-		return (err("Duplicate element found"));
+		return (free_info(info), err("Duplicate element found"));
 	cub3d->element_found[element] = 1;
 	if (element == F || element == C)
 		return (get_color(cub3d, element, info));
@@ -48,23 +36,23 @@ int get_element(cub3d_t *cub3d, int element, char **info)
 
 int find_element(cub3d_t *cub3d, char *line)
 {
-	char **split;
+	char **info;
 
-	split = ft_split(line, ' ');
-	if (!split || !split[0] || !split[1])
+	info = ft_split(line, ' ');
+	if (!info || !info[0] || !info[1])
 		return (FAIL);
-	if (ft_strcmp(split[0], "NO") == 0)
-		return (get_element(cub3d, NO, split));
-	else if (ft_strcmp(split[0], "SO") == 0)
-		return (get_element(cub3d, SO, split));
-	else if (ft_strcmp(split[0], "WE") == 0)
-		return (get_element(cub3d, WE, split));
-	else if (ft_strcmp(split[0], "EA") == 0)
-		return (get_element(cub3d, EA, split));
-	else if (ft_strcmp(split[0], "F") == 0)
-		return (get_element(cub3d, F, split));
-	else if (ft_strcmp(split[0], "C") == 0)
-		return (get_element(cub3d, C, split));
+	if (ft_strcmp(info[0], "NO") == 0)
+		return (get_element(cub3d, NO, info));
+	else if (ft_strcmp(info[0], "SO") == 0)
+		return (get_element(cub3d, SO, info));
+	else if (ft_strcmp(info[0], "WE") == 0)
+		return (get_element(cub3d, WE, info));
+	else if (ft_strcmp(info[0], "EA") == 0)
+		return (get_element(cub3d, EA, info));
+	else if (ft_strcmp(info[0], "F") == 0)
+		return (get_element(cub3d, F, info));
+	else if (ft_strcmp(info[0], "C") == 0)
+		return (get_element(cub3d, C, info));
 }
 
 int get_elements(cub3d_t *cub3d, int fd)

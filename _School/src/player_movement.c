@@ -72,21 +72,21 @@ void hook_player_movement(void *param)
 	}
 	if (cub3d->player.down == TRUE)
 	{
-		movement_direction += M_PI;
+		movement_direction = (cub3d->player.angle + M_PI);
 		if (movement_direction > 2 * M_PI)
 			movement_direction -= 2 * M_PI;
 		movement = TRUE;
 	}
 	if (cub3d->player.left == TRUE)
 	{
-		movement_direction -= M_PI / 2;
+		movement_direction = (cub3d->player.angle - M_PI / 2);
 		if (movement_direction < 0)
 			movement_direction += 2 * M_PI;
 		movement = TRUE;
 	}
 	if (cub3d->player.right == TRUE)
 	{
-		movement_direction += M_PI / 2;
+		movement_direction = (cub3d->player.angle + M_PI / 2);
 		if (movement_direction > 2 * M_PI)
 			movement_direction -= 2 * M_PI;
 		movement = TRUE;

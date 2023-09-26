@@ -7,8 +7,6 @@ int all_digits(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		// if (argument == 2 && str[i] == '\n')
-		// 	break ;
 		if (!ft_isdigit(str[i]))
 			return (FAIL);
 	}

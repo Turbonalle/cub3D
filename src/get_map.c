@@ -107,20 +107,6 @@ int get_starting_point(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-int flood_map(char **map)
-{
-	int i;
-
-	i = -1;
-	while (map[0][i] == ' ')
-		i++;
-	if (map[0][i] != '1' || map[0][i] != '0')
-		map[0][i] = 'x';
-	return (SUCCESS);
-}
-
-//------------------------------------------------------------------------------
-
 int create_rectangular_map(char ***old_map)
 {
 	char **new_map;
@@ -180,7 +166,7 @@ int get_map(cub3d_t *cub3d, int fd)
 	create_rectangular_map(&cub3d->map);
 
 	// TODO: Check if map is surrounded by walls
-	// flood_map(cub3d->map);
+	check_map_validity(cub3d->map);
 
 	return (SUCCESS);
 }

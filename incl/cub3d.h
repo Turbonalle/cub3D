@@ -59,6 +59,10 @@ typedef struct cub3d_s
 	int			element_found[6];
 }			cub3d_t;
 
+// main.c
+void free_info(char **info);
+int err(char *error_message);
+
 // color.c
 int get_rgba(int r, int g, int b, int a);
 int get_r(int rgba);
@@ -66,14 +70,13 @@ int get_g(int rgba);
 int get_b(int rgba);
 int get_a(int rgba);
 
-// error.c
-int err(char *error_message);
+// flooding_algorithm.c
+int check_map_validity(char **map);
 
 // get_color.c
 int get_color(cub3d_t *cub3d, int element, char **info);
 
 // get_elements.c
-void free_info(char **info);
 int all_elements_found(int *element_found);
 int get_elements(cub3d_t *cub3d, int fd);
 
@@ -82,5 +85,9 @@ int read_cub_file(cub3d_t *cub3d, char *map_path);
 
 // get_texture.c
 int get_texture(cub3d_t *cub3d, int element, char **info);
+
+// extra.c
+void print_info(cub3d_t *cub3d);
+void print_map(char **map);
 
 #endif

@@ -48,3 +48,5 @@ int main(int ac, char **av)
 	free_cub3d(&cub3d);
 	return (0);
 }
+
+// Map reading doesn't work if lines start with spaces!!!!!

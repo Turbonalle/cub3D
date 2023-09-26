@@ -3,9 +3,11 @@ SO ../textures/south_texture
 EA ../textures/east_texture
 WE ../textures/west_texture
 
+
+
 F 0,1,255
 C 225,30,0
 
-11111
-1N001
-11111
+  1111111
+111N001
+1 111111   

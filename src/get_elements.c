@@ -83,7 +83,10 @@ int get_elements(cub3d_t *cub3d, int fd)
 		if (!line)
 			return (err("Failed to read map file"));
 		if (line[0] == '\n')
+		{
+			free(line);
 			continue ;
+		}
 		remove_newline(line);
 		// printf("After nl: line = %s\n", line);
 		if (!find_element(cub3d, line))

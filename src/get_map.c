@@ -1,5 +1,7 @@
 #include "../incl/cub3d.h"
 
+//------------------------------------------------------------------------------
+
 void copy_pointers(char **tmp, char **map, int pointers)
 {
 	int i;
@@ -8,6 +10,8 @@ void copy_pointers(char **tmp, char **map, int pointers)
 	while (++i < pointers)
 		tmp[i] = map[i];
 }
+
+//------------------------------------------------------------------------------
 
 int get_preliminary_map(cub3d_t *cub3d, int fd)
 {
@@ -50,6 +54,8 @@ int get_preliminary_map(cub3d_t *cub3d, int fd)
 	return (SUCCESS);
 }
 
+//------------------------------------------------------------------------------
+
 void remove_newlines(cub3d_t *cub3d)
 {
 	int i;
@@ -66,6 +72,8 @@ void remove_newlines(cub3d_t *cub3d)
 		}
 	}
 }
+
+//------------------------------------------------------------------------------
 
 int get_starting_point(cub3d_t *cub3d)
 {
@@ -85,16 +93,82 @@ int get_starting_point(cub3d_t *cub3d)
 				cub3d->starting_pos.x = j;
 				cub3d->starting_pos.y = i;
 				cub3d->starting_dir = cub3d->map[i][j];
+				cub3d->map[i][j] = '0';
 				if (starting_point_found == TRUE)
 					return (err("Multiple starting points found"));
 				starting_point_found = TRUE;
 			}
 		}
 	}
-	if (starting_point_found == TRUE)
-		return (SUCCESS);
-	return (err("No starting point found"));
+	if (starting_point_found == FALSE)
+		return (err("No starting point found"));
+	return (SUCCESS);
 }
+
+//------------------------------------------------------------------------------
+
+int flood_map(char **map)
+{
+	int i;
+
+	i = -1;
+	while (map[0][i] == ' ')
+		i++;
+	if (map[0][i] != '1' || map[0][i] != '0')
+		map[0][i] = 'x';
+	return (SUCCESS);
+}
+
+//------------------------------------------------------------------------------
+
+int create_rectangular_map(char ***old_map)
+{
+	char **new_map;
+	int longest_line_len;
+	int longest_line_pos;
+	int len;
+	int i;
+	int j;
+
+	// Find longest line
+	longest_line_len = 0;
+	i = -1;
+	while ((*old_map)[++i])
+	{
+		len = ft_strlen((*old_map)[i]);
+		if (len > longest_line_len)
+		{
+			longest_line_len = len;
+			longest_line_pos = i;
+		}
+	}
+	
+	// Create new_map
+	new_map = malloc(sizeof(char *) * (i + 1));
+	if (!new_map)
+		return (err("Failed to allocate memory for map"));
+	new_map[i] = NULL;
+	i = -1;
+	while ((*old_map)[++i])
+	{
+		new_map[i] = malloc(sizeof(char) * (longest_line_len + 1));
+		if (!new_map[i])
+			return (free(new_map), err("Failed to allocate memory for map"));
+		j = -1;
+		while ((*old_map)[i][++j])
+			new_map[i][j] = (*old_map)[i][j];
+		while (j < longest_line_len)
+			new_map[i][j++] = ' ';
+		new_map[i][longest_line_len] = '\0';
+	}
+	
+	// Free old_map and replace it with new_map
+	free_info(*old_map);
+	*old_map = new_map;
+	return (SUCCESS);
+}
+
+//------------------------------------------------------------------------------
 
 int get_map(cub3d_t *cub3d, int fd)
 {
@@ -103,12 +177,15 @@ int get_map(cub3d_t *cub3d, int fd)
 	remove_newlines(cub3d);
 	if (!get_starting_point(cub3d))
 		return (FAIL);
+	create_rectangular_map(&cub3d->map);
 
 	// TODO: Check if map is surrounded by walls
-
+	// flood_map(cub3d->map);
 
 	return (SUCCESS);
 }
+
+//------------------------------------------------------------------------------
 
 int read_cub_file(cub3d_t *cub3d, char *map_path)
 {

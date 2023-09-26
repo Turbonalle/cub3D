@@ -8,6 +8,8 @@
 
 # define FAIL 0
 # define SUCCESS 1
+# define FALSE 0
+# define TRUE 1
 
 enum elements
 {
@@ -72,6 +74,7 @@ int get_color(cub3d_t *cub3d, int element, char **info);
 
 // get_elements.c
 void free_info(char **info);
+int all_elements_found(int *element_found);
 int get_elements(cub3d_t *cub3d, int fd);
 
 // get_map.c

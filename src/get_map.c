@@ -45,7 +45,9 @@ int get_preliminary_map(cub3d_t *cub3d, int fd)
 		i++;
 		line = get_next_line(fd);
 	}
-	return (FAIL);
+	if (i == 0)
+		return (free(cub3d->map), err("Empty map"));
+	return (SUCCESS);
 }
 
 void remove_newlines(cub3d_t *cub3d)
@@ -67,9 +69,11 @@ void remove_newlines(cub3d_t *cub3d)
 
 int get_starting_point(cub3d_t *cub3d)
 {
+	int starting_point_found;
 	int i;
 	int j;
 
+	starting_point_found = FALSE;
 	i = -1;
 	while (cub3d->map[++i])
 	{
@@ -81,18 +85,28 @@ int get_starting_point(cub3d_t *cub3d)
 				cub3d->starting_pos.x = j;
 				cub3d->starting_pos.y = i;
 				cub3d->starting_dir = cub3d->map[i][j];
-				return (SUCCESS);
+				if (starting_point_found == TRUE)
+					return (err("Multiple starting points found"));
+				starting_point_found = TRUE;
 			}
 		}
 	}
+	if (starting_point_found == TRUE)
+		return (SUCCESS);
 	return (err("No starting point found"));
 }
 
 int get_map(cub3d_t *cub3d, int fd)
 {
-	get_preliminary_map(cub3d, fd);
+	if (!get_preliminary_map(cub3d, fd))
+		return (FAIL);
 	remove_newlines(cub3d);
-	get_starting_point(cub3d);
+	if (!get_starting_point(cub3d))
+		return (FAIL);
+
+	// TODO: Check if map is surrounded by walls
+
+
 	return (SUCCESS);
 }
 
@@ -102,11 +116,12 @@ int read_cub_file(cub3d_t *cub3d, char *map_path)
 
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
-		return (err("Failed to open map file"));
+		return (close(fd), err("Failed to open map file"));
 	get_elements(cub3d, fd);
-	get_map(cub3d, fd);
-	// if (!get_elements(cub3d, fd) || !get_map(cub3d, fd))
-		// handle_file_error(fd);
+	if (!all_elements_found(cub3d->element_found))
+		return (close(fd), err("Missing element(s) in map file"));
+	if (!get_map(cub3d, fd))
+		return (close(fd), free_info(cub3d->map), FAIL);
 	close(fd);
 	return (0);
 }

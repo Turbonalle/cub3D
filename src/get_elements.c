@@ -10,7 +10,7 @@ void free_info(char **info)
 	free(info);
 }
 
-int elements_found(int *element_found)
+int all_elements_found(int *element_found)
 {
 	int i;
 
@@ -76,7 +76,7 @@ int get_elements(cub3d_t *cub3d, int fd)
 	i = 0;
 	while (i < 6)
 		cub3d->element_found[i++] = 0;
-	while (!elements_found(cub3d->element_found))
+	while (!all_elements_found(cub3d->element_found))
 	{
 		line = get_next_line(fd);
 		// printf("Before nl: line = %s", line);

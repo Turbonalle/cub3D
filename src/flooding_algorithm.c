@@ -1,24 +1,24 @@
 #include "../incl/cub3d.h"
 
-void flood(char **map, int row, int column)
+void flood(char **map, int row, int column, int elements)
 {
-	if (map[row][column] == '1')
-		map[row][column] = 'w';
+	if (map[row][column] == '1' || map[row][column] == '0')
+		map[row][column] += elements;
 	else
 		return ;
 	if (row != 0)
-		flood(map, row - 1, column);
+		flood(map, row - 1, column, elements);
 	if (column != 0)
-		flood(map, row, column - 1);
+		flood(map, row, column - 1, elements);
 	if (map[row + 1])
-		flood(map, row + 1, column);
+		flood(map, row + 1, column, elements);
 	if (map[row][column + 1])
-		flood(map, row, column + 1);
+		flood(map, row, column + 1, elements);
 }
 
 //------------------------------------------------------------------------------
 
-int all_walls_changed(char **map)
+int all_walls_changed(char **map, int elements)
 {
 	int row;
 	int column;
@@ -29,13 +29,29 @@ int all_walls_changed(char **map)
 		column = -1;
 		while (map[row][++column])
 		{
-			if (map[row][column] == 'w')
-				map[row][column] = '1';
+			if (map[row][column] == '0' + elements || map[row][column] == '1' + elements)
+				map[row][column] -= elements;
 			else if (map[row][column] == '1')
 				return (FALSE);
 		}
 	}
 	return (TRUE);
+}
+
+//------------------------------------------------------------------------------
+
+int next_to_empty(char **map, int row, int column)
+{
+	if (map[row - 1][column - 1] == ' '
+		|| map[row - 1][column] == ' '
+		|| map[row - 1][column + 1] == ' '
+		|| map[row][column - 1] == ' '
+		|| map[row][column + 1] == ' '
+		|| map[row + 1][column - 1] == ' '
+		|| map[row + 1][column] == ' '
+		|| map[row + 1][column + 1] == ' ')
+		return (TRUE);
+	return (FALSE);
 }
 
 //------------------------------------------------------------------------------
@@ -57,9 +73,7 @@ int surrounded_by_walls(char **map)
 					return (FALSE);
 				if (column == 0 || map[row][column + 1] == '\0')
 					return (FALSE);
-				if (map[row - 1][column] == ' ' || map[row + 1][column] == ' ')
-					return (FALSE);
-				if (map[row][column - 1] == ' ' || map[row][column + 1] == ' ')
+				if (next_to_empty(map, row, column))
 					return (FALSE);
 			}
 		}
@@ -73,17 +87,19 @@ int check_map_validity(char **map)
 {
 	int row;
 	int column;
+	int elements;
 
 	row = 0;
 	column = 0;
 	while (map[row][column] == ' ')
 		column++;
-	printf(TERMINAL_CYAN"FLOODING:\n"TERMINAL_RESET);
-	flood(map, row, column);
-	print_map(map); // DEBUG
-	if (!all_walls_changed(map))
-		return (err("Map is not connected"));
 	if (!surrounded_by_walls(map))
 		return (err("Map is not surrounded by walls"));
+	elements = ft_strlen(MAP_ELEMENTS);
+	printf(TERMINAL_CYAN"FLOODING:\n"TERMINAL_RESET);
+	flood(map, row, column, elements);
+	print_map(map); // DEBUG
+	if (!all_walls_changed(map, elements))
+		return (err("Map is not connected"));
 	return (SUCCESS);
 }

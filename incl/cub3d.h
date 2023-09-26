@@ -11,6 +11,8 @@
 # define FALSE 0
 # define TRUE 1
 
+# define MAP_ELEMENTS "01"
+
 enum elements
 {
 	NO,

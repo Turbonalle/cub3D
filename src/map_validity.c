@@ -42,16 +42,14 @@ int all_walls_changed(char **map, int elements)
 
 int next_to_empty(char **map, int row, int column)
 {
-	if (map[row - 1][column - 1] == ' '
+	return (map[row - 1][column - 1] == ' '
 		|| map[row - 1][column] == ' '
 		|| map[row - 1][column + 1] == ' '
 		|| map[row][column - 1] == ' '
 		|| map[row][column + 1] == ' '
 		|| map[row + 1][column - 1] == ' '
 		|| map[row + 1][column] == ' '
-		|| map[row + 1][column + 1] == ' ')
-		return (TRUE);
-	return (FALSE);
+		|| map[row + 1][column + 1] == ' ');
 }
 
 //------------------------------------------------------------------------------

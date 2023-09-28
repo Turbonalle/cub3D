@@ -20,9 +20,35 @@ void print_info(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
+void print_array(char **array, char *name)
+{
+	printf(TERMINAL_CYAN"%s:\n"TERMINAL_RESET, name);
+	int i = -1;
+	while (array[++i])
+		printf("array[%d] = %s", i, array[i]);
+}
+
+//------------------------------------------------------------------------------
+
 void print_map(char **map)
 {
 	int i = -1;
 	while (map[++i])
-		printf("map[%d] = %s\n", i, map[i]);
+		printf("map[%02d] = |%s|\n", i, map[i]);
+}
+
+//------------------------------------------------------------------------------
+
+void test(void)
+{
+	int fd = open("Maps/test.txt", O_RDONLY);
+	char *line = get_next_line(fd);
+	int i = 0;
+	while (line)
+	{
+		printf("line[%d] = %s", i++, line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	printf("\n");
 }

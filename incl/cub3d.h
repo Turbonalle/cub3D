@@ -11,6 +11,8 @@
 # define FALSE 0
 # define TRUE 1
 
+# define MAP_ALL_ELEMENTS "NSEW 01"
+# define MAP_DIRECTIONS "NSEW"
 # define MAP_ELEMENTS "01"
 
 enum elements
@@ -22,6 +24,9 @@ enum elements
 	F,
 	C
 };
+
+// prototype map_node_t
+typedef struct map_node_s map_node_t;
 
 typedef struct texture_s
 {
@@ -50,10 +55,18 @@ typedef struct player_s
 	double		angle;
 }				player_t;
 
+typedef struct map_node_s
+{
+	char		*line;
+	map_node_t	*next;
+}			map_node_t;
+
 typedef struct cub3d_s
 {
 	vector_t	starting_pos;
 	char		starting_dir;
+	map_node_t	*map_list;
+	int			nodes;
 	char		**map;
 	texture_t	texture[4];
 	int			floor_color;
@@ -80,6 +93,7 @@ int get_color(cub3d_t *cub3d, int element, char **info);
 
 // get_elements.c
 int all_elements_found(int *element_found);
+void remove_newline(char *line);
 int get_elements(cub3d_t *cub3d, int fd);
 
 // get_map.c
@@ -90,6 +104,8 @@ int get_texture(cub3d_t *cub3d, int element, char **info);
 
 // extra.c
 void print_info(cub3d_t *cub3d);
+void print_array(char **array, char  *name);
 void print_map(char **map);
+void test(void);
 
 #endif

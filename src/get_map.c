@@ -2,75 +2,77 @@
 
 //------------------------------------------------------------------------------
 
-void copy_pointers(char **tmp, char **map, int pointers)
+void copy_pointers(char **array_from, char **array_to, int pointers)
 {
 	int i;
 
+	printf("pointers = %d\n", pointers); // DEBUG
 	i = -1;
 	while (++i < pointers)
-		tmp[i] = map[i];
+	{
+		printf("copying arr[%d] = %s\n", i, array_from[i]); // DEBUG
+		array_to[i] = array_from[i];
+	}
+}
+
+//------------------------------------------------------------------------------
+
+int add_map_line(map_node_t **first_node, char *line)
+{
+	map_node_t *new_map_node;
+	map_node_t *current_map_node;
+
+	new_map_node = malloc(sizeof(map_node_t));
+	if (!new_map_node)
+		return (FAIL);
+	new_map_node->line = line;
+	new_map_node->next = NULL;
+	if (!(*first_node))
+	{
+		*first_node = new_map_node;
+		return (SUCCESS);
+	}
+	current_map_node = *first_node;
+	while (current_map_node->next)
+		current_map_node = current_map_node->next;
+	current_map_node->next = new_map_node;
+	return (SUCCESS);
 }
 
 //------------------------------------------------------------------------------
 
 int get_preliminary_map(cub3d_t *cub3d, int fd)
 {
-	char	**tmp;
-	char	*line;
-	int		i;
+	map_node_t *current_map_node;
+	char *line;
+	int i;
 
+	cub3d->map_list = NULL;
 	line = get_next_line(fd);
-	if (line[0] == '\n')
+	while (line && line[0] == '\n')
 	{
 		free(line);
-		while (line[0] == '\n')
-		{
-			line = get_next_line(fd);
-			free(line);
-		}
+		line = get_next_line(fd);
 	}
 	i = 0;
 	while (line)
 	{
-		tmp = malloc(sizeof(char *) * i);
-		if (i != 0 && !tmp)
-			return (free(tmp), err("Failed to allocate memory for map"));
-		copy_pointers(tmp, cub3d->map, i);
-		if (i != 0)
-			free(cub3d->map);
-		cub3d->map = malloc(sizeof(char *) * (i + 2));
-		if (!cub3d->map)
-			return (free(cub3d->map), err("Failed to allocate memory for map"));
-		copy_pointers(cub3d->map, tmp, i);
-		cub3d->map[i] = line;
-		cub3d->map[i + 1] = NULL;
-		if (i != 0)
-			free(tmp);
-		i++;
+		remove_newline(line);
+		if (!ft_strchr(MAP_ALL_ELEMENTS, *line))
+			return (free(line), err("Invalid character in map"));
+		if (!add_map_line(&cub3d->map_list, line))
+			return (free(line), err("Failed to allocate memory for map"));
 		line = get_next_line(fd);
+		i++;
 	}
-	if (i == 0)
-		return (free(cub3d->map), err("Empty map"));
-	return (SUCCESS);
-}
-
-//------------------------------------------------------------------------------
-
-void remove_newlines(cub3d_t *cub3d)
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (cub3d->map[++i])
+	cub3d->nodes = i;
+	current_map_node = cub3d->map_list;
+	while (current_map_node)
 	{
-		j = -1;
-		while (cub3d->map[i][++j])
-		{
-			if (cub3d->map[i][j] == '\n')
-				cub3d->map[i][j] = '\0';
-		}
+		printf("map_list->line = %s\n", current_map_node->line); // DEBUG
+		current_map_node = current_map_node->next;
 	}
+	return (SUCCESS);
 }
 
 //------------------------------------------------------------------------------
@@ -88,7 +90,7 @@ int get_starting_point(cub3d_t *cub3d)
 		j = -1;
 		while (cub3d->map[i][++j])
 		{
-			if (cub3d->map[i][j] == 'N' || cub3d->map[i][j] == 'S' || cub3d->map[i][j] == 'W' || cub3d->map[i][j] == 'E')
+			if (ft_strchr(MAP_DIRECTIONS, cub3d->map[i][j]))
 			{
 				cub3d->starting_pos.x = j;
 				cub3d->starting_pos.y = i;
@@ -102,55 +104,54 @@ int get_starting_point(cub3d_t *cub3d)
 	}
 	if (starting_point_found == FALSE)
 		return (err("No starting point found"));
+	i = -1;
+	while (cub3d->map[++i])
+		printf("map[%02d] = |%s|\n", i, cub3d->map[i]); // DEBUG
 	return (SUCCESS);
 }
 
 //------------------------------------------------------------------------------
 
-int create_rectangular_map(char ***old_map)
+int create_rectangular_map(cub3d_t *cub3d)
 {
-	char **new_map;
-	int longest_line_len;
-	int longest_line_pos;
-	int len;
+	map_node_t *current_map_node;
+	int longest_length;
 	int i;
-	int j;
 
-	// Find longest line
-	longest_line_len = 0;
-	i = -1;
-	while ((*old_map)[++i])
-	{
-		len = ft_strlen((*old_map)[i]);
-		if (len > longest_line_len)
-		{
-			longest_line_len = len;
-			longest_line_pos = i;
-		}
-	}
-	
-	// Create new_map
-	new_map = malloc(sizeof(char *) * (i + 1));
-	if (!new_map)
+	cub3d->map = malloc(sizeof(char *) * (cub3d->nodes + 1));
+	if (!cub3d->map)
 		return (err("Failed to allocate memory for map"));
-	new_map[i] = NULL;
-	i = -1;
-	while ((*old_map)[++i])
+	longest_length = 0;
+	current_map_node = cub3d->map_list;
+	while (current_map_node)
 	{
-		new_map[i] = malloc(sizeof(char) * (longest_line_len + 1));
-		if (!new_map[i])
-			return (free(new_map), err("Failed to allocate memory for map"));
-		j = -1;
-		while ((*old_map)[i][++j])
-			new_map[i][j] = (*old_map)[i][j];
-		while (j < longest_line_len)
-			new_map[i][j++] = ' ';
-		new_map[i][longest_line_len] = '\0';
+		if ((int)ft_strlen(current_map_node->line) > longest_length)
+			longest_length = ft_strlen(current_map_node->line);
+		current_map_node = current_map_node->next;
 	}
-	
-	// Free old_map and replace it with new_map
-	free_info(*old_map);
-	*old_map = new_map;
+	cub3d->map[cub3d->nodes] = NULL;
+	current_map_node = cub3d->map_list;
+	i = 0;
+	while (current_map_node)
+	{
+		cub3d->map[i] = malloc(sizeof(char) * (longest_length + 1));
+		if (!cub3d->map[i])
+			return (err("Failed to allocate memory for map"));
+		int j = 0;
+		while (current_map_node->line[j])
+		{
+			cub3d->map[i][j] = current_map_node->line[j];
+			j++;
+		}
+		while (j < longest_length)
+			cub3d->map[i][j++] = ' ';
+		cub3d->map[i][j] = '\0';
+		current_map_node = current_map_node->next;
+		i++;
+	}
+	i = -1;
+	while (cub3d->map[++i])
+		printf("map[%02d] = |%s|\n", i, cub3d->map[i]); // DEBUG
 	return (SUCCESS);
 }
 
@@ -158,16 +159,15 @@ int create_rectangular_map(char ***old_map)
 
 int get_map(cub3d_t *cub3d, int fd)
 {
+	printf(TERMINAL_CYAN"GETTING PRELIMINARY MAP:\n"TERMINAL_RESET); // DEBUG
 	if (!get_preliminary_map(cub3d, fd))
 		return (FAIL);
-	remove_newlines(cub3d);
+	printf(TERMINAL_CYAN"CREATING RECTANGULAR MAP:\n"TERMINAL_RESET); // DEBUG
+	create_rectangular_map(cub3d);
+	printf(TERMINAL_CYAN"GETTING STARTING POINT:\n"TERMINAL_RESET); // DEBUG
 	if (!get_starting_point(cub3d))
 		return (FAIL);
-	create_rectangular_map(&cub3d->map);
-
-	// TODO: Check if map is surrounded by walls
 	check_map_validity(cub3d->map);
-
 	return (SUCCESS);
 }
 
@@ -180,11 +180,12 @@ int read_cub_file(cub3d_t *cub3d, char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (close(fd), err("Failed to open map file"));
+	printf(TERMINAL_CYAN"GETTING ELEMENTS:\n"TERMINAL_RESET); // DEBUG
 	get_elements(cub3d, fd);
 	if (!all_elements_found(cub3d->element_found))
 		return (close(fd), err("Missing element(s) in map file"));
 	if (!get_map(cub3d, fd))
 		return (close(fd), free_info(cub3d->map), FAIL);
 	close(fd);
-	return (0);
+	return (SUCCESS);
 }

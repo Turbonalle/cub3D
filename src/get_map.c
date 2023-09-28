@@ -6,13 +6,9 @@ void copy_pointers(char **array_from, char **array_to, int pointers)
 {
 	int i;
 
-	printf("pointers = %d\n", pointers); // DEBUG
 	i = -1;
 	while (++i < pointers)
-	{
-		printf("copying arr[%d] = %s\n", i, array_from[i]); // DEBUG
 		array_to[i] = array_from[i];
-	}
 }
 
 //------------------------------------------------------------------------------
@@ -68,10 +64,7 @@ int get_preliminary_map(cub3d_t *cub3d, int fd)
 	cub3d->nodes = i;
 	current_map_node = cub3d->map_list;
 	while (current_map_node)
-	{
-		printf("map_list->line = %s\n", current_map_node->line); // DEBUG
 		current_map_node = current_map_node->next;
-	}
 	return (SUCCESS);
 }
 
@@ -104,9 +97,6 @@ int get_starting_point(cub3d_t *cub3d)
 	}
 	if (starting_point_found == FALSE)
 		return (err("No starting point found"));
-	i = -1;
-	while (cub3d->map[++i])
-		printf("map[%02d] = |%s|\n", i, cub3d->map[i]); // DEBUG
 	return (SUCCESS);
 }
 
@@ -149,9 +139,6 @@ int create_rectangular_map(cub3d_t *cub3d)
 		current_map_node = current_map_node->next;
 		i++;
 	}
-	i = -1;
-	while (cub3d->map[++i])
-		printf("map[%02d] = |%s|\n", i, cub3d->map[i]); // DEBUG
 	return (SUCCESS);
 }
 
@@ -159,12 +146,9 @@ int create_rectangular_map(cub3d_t *cub3d)
 
 int get_map(cub3d_t *cub3d, int fd)
 {
-	printf(TERMINAL_CYAN"GETTING PRELIMINARY MAP:\n"TERMINAL_RESET); // DEBUG
 	if (!get_preliminary_map(cub3d, fd))
 		return (FAIL);
-	printf(TERMINAL_CYAN"CREATING RECTANGULAR MAP:\n"TERMINAL_RESET); // DEBUG
 	create_rectangular_map(cub3d);
-	printf(TERMINAL_CYAN"GETTING STARTING POINT:\n"TERMINAL_RESET); // DEBUG
 	if (!get_starting_point(cub3d))
 		return (FAIL);
 	check_map_validity(cub3d->map);
@@ -180,7 +164,6 @@ int read_cub_file(cub3d_t *cub3d, char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (close(fd), err("Failed to open map file"));
-	printf(TERMINAL_CYAN"GETTING ELEMENTS:\n"TERMINAL_RESET); // DEBUG
 	get_elements(cub3d, fd);
 	if (!all_elements_found(cub3d->element_found))
 		return (close(fd), err("Missing element(s) in map file"));

@@ -94,9 +94,7 @@ int check_map_validity(char **map)
 	if (!surrounded_by_walls(map))
 		return (err("Map is not surrounded by walls"));
 	elements = ft_strlen(MAP_ELEMENTS);
-	printf(TERMINAL_CYAN"FLOODING:\n"TERMINAL_RESET);
 	flood(map, row, column, elements);
-	print_map(map); // DEBUG
 	if (!all_walls_changed(map, elements))
 		return (err("Map is not connected"));
 	return (SUCCESS);

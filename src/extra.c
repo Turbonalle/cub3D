@@ -15,7 +15,7 @@ void print_info(cub3d_t *cub3d)
 	printf(TERMINAL_GREEN"starting_dir"TERMINAL_RESET" = %c\n", cub3d->starting_dir);
 	int i = -1;
 	while (cub3d->map[++i])
-		printf("map[%d] = %s\n", i, cub3d->map[i]);
+		printf("map[%02d] = %s\n", i, cub3d->map[i]);
 }
 
 //------------------------------------------------------------------------------

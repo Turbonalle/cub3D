@@ -119,6 +119,8 @@ int create_rectangular_map(cub3d_t *cub3d)
 			longest_length = ft_strlen(current_map_node->line);
 		current_map_node = current_map_node->next;
 	}
+	cub3d->map_columns = longest_length;
+	cub3d->map_rows = cub3d->nodes;
 	cub3d->map[cub3d->nodes] = NULL;
 	current_map_node = cub3d->map_list;
 	i = 0;

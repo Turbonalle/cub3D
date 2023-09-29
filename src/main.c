@@ -23,29 +23,20 @@ void free_cub3d(cub3d_t *cub3d)
 {
 	int i;
 
-	printf("Freeing cub3d\n"); // DEBUG
 	i = -1;
 	while (++i < 4)
 	{
 		if (cub3d->texture[i].path)
-		{
-			printf("Freeing cub3d->texture[%d].path\n", i); // DEBUG
 			free(cub3d->texture[i].path);
-		}
+
 		// if (cub3d->texture[i].img)
 		// 	free(cub3d->texture[i].img);
 	}
 	i = -1;
 	while (cub3d->map[++i])
-	{
-		printf("Freeing cub3d->map[%d]\n", i); // DEBUG
 		free(cub3d->map[i]);
-	}
 	if (cub3d->map)
-	{
-		printf("Freeing cub3d->map\n"); // DEBUG
 		free(cub3d->map);
-	}
 }
 
 int main(int ac, char **av)
@@ -61,3 +52,20 @@ int main(int ac, char **av)
 	free_cub3d(&cub3d);
 	return (0);
 }
+
+/*
+TODO:
+
+- Create minimap, to see visualize the map and player
+
+- Create forward/backward movement
+- Create left/right movement
+- Create rotation
+
+- Create collision detection
+
+- Create raycasting
+
+- Create wall textures
+- Create sprites
+*/

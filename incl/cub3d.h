@@ -2,6 +2,7 @@
 # define CUB3D_H
 # include "colors.h"
 # include "terminal_colors.h"
+# include "MLX42/MLX42.h"
 # include "../lib/libft/get_next_line.h"
 # include "../lib/libft/libft.h"
 # include <stdio.h>
@@ -10,6 +11,9 @@
 # define SUCCESS 1
 # define FALSE 0
 # define TRUE 1
+
+# define WIDTH 1280
+# define HEIGHT 720
 
 # define MAP_ALL_ELEMENTS "NSEW 01"
 # define MAP_DIRECTIONS "NSEW"
@@ -63,6 +67,8 @@ typedef struct map_node_s
 
 typedef struct cub3d_s
 {
+	mlx_t		*mlx;
+	mlx_image_t	*img;
 	vector_t	starting_pos;
 	char		starting_dir;
 	map_node_t	*map_list;
@@ -101,6 +107,12 @@ int read_cub_file(cub3d_t *cub3d, char *map_path);
 
 // get_texture.c
 int get_texture(cub3d_t *cub3d, int element, char **info);
+
+// init_cub3d.c
+int init_cub3d(cub3d_t *cub3d);
+
+// start_game.c
+void start_game(cub3d_t *cub3d);
 
 // extra.c
 void print_info(cub3d_t *cub3d);

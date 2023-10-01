@@ -67,8 +67,12 @@ typedef struct dvector_t
 typedef struct player_s
 {
 	dvector_t	pos;
+	dvector_t	new_pos;
 	dvector_t	dir;
 	double		angle;
+	double		movement_angle;
+	int			is_walking;
+	int			is_strafing;
 }				player_t;
 
 typedef struct map_node_s

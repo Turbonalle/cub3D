@@ -37,21 +37,21 @@ void draw_minimap(cub3d_t *cub3d)
 				draw_square(cub3d,
 							cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
 							cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
-							cub3d->minimap.tile_size, COLOR_MINIMAP_FLOOR);
+							cub3d->minimap.tile_size, MINIMAP_COLOR_FLOOR);
 			}
 			else if (cub3d->map[row][column] == '1')
 			{
 				draw_square(cub3d,
 							cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
 							cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
-							cub3d->minimap.tile_size, COLOR_MINIMAP_WALL);
+							cub3d->minimap.tile_size, MINIMAP_COLOR_WALL);
 			}
 			else
 			{
 				draw_square(cub3d,
 							cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
 							cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
-							cub3d->minimap.tile_size, COLOR_MINIMAP_EMPTY);
+							cub3d->minimap.tile_size, MINIMAP_COLOR_EMPTY);
 			}
 		}
 	}

@@ -56,16 +56,16 @@ int main(int ac, char **av)
 /*
 TODO:
 
-- Create minimap, to see visualize the map and player
-
-- Create forward/backward movement
-- Create left/right movement
-- Create rotation
-
 - Create collision detection
 
 - Create raycasting
 
 - Create wall textures
 - Create sprites
+
+OPTIONAL:
+
+- Add possibility to move minimap
+- Add possibility to change minimap size
+
 */

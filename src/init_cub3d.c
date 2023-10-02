@@ -16,7 +16,7 @@ int count_minimap_tilesize(cub3d_t *cub3d)
 
 void init_minimap(cub3d_t *cub3d)
 {
-	cub3d->minimap.size_percentage = 20;
+	cub3d->minimap.size_percentage = MINIMAP_SIZE_PERCENTAGE;
 	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d);
 	cub3d->minimap.width = cub3d->minimap.tile_size * cub3d->map_columns;
 	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->map_rows;

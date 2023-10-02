@@ -14,6 +14,7 @@ int is_strafing(cub3d_t *cub3d)
 
 void player_rotation(cub3d_t *cub3d)
 {
+	// printf("player_rotation\n");
 	if (cub3d->keys.left && !cub3d->keys.right)
 	{
 		cub3d->player.angle -= ROTATION_SPEED;
@@ -30,6 +31,7 @@ void player_rotation(cub3d_t *cub3d)
 
 void player_walking(cub3d_t *cub3d)
 {
+	// printf("player_walking\n");
 	if (cub3d->keys.w && !cub3d->keys.s)
 	{
 		cub3d->player.new_pos.x = cos(cub3d->player.angle);
@@ -46,6 +48,7 @@ void player_strafing(cub3d_t *cub3d)
 {
 	double angle;
 
+	// printf("player_strafing\n");
 	if (cub3d->keys.a && !cub3d->keys.d)
 	{
 		angle = cub3d->player.angle - (M_PI / 2);
@@ -64,10 +67,10 @@ void player_strafing(cub3d_t *cub3d)
 	}
 }
 
-void player_both(cub3d *cub3d)
+void player_both(cub3d_t *cub3d)
 {
-
-	if (cub3d->player.keys.w && cub3d->player.keys.a)
+	// printf("player_both\n");
+	if (cub3d->keys.w && cub3d->keys.a)
 	{
 		cub3d->player.movement_angle = cub3d->player.angle - (M_PI / 4);
 		if (cub3d->player.movement_angle < 0)
@@ -75,7 +78,7 @@ void player_both(cub3d *cub3d)
 		cub3d->player.new_pos.x = cos(cub3d->player.movement_angle);
 		cub3d->player.new_pos.y = sin(cub3d->player.movement_angle);
 	}
-	else if (cub3d->player.keys.w && cub3d->player.keys.d)
+	else if (cub3d->keys.w && cub3d->keys.d)
 	{
 		cub3d->player.movement_angle = cub3d->player.angle + (M_PI / 4);
 		if (cub3d->player.movement_angle >= (M_PI + M_PI))
@@ -83,7 +86,7 @@ void player_both(cub3d *cub3d)
 		cub3d->player.new_pos.x = cos(cub3d->player.movement_angle);
 		cub3d->player.new_pos.y = sin(cub3d->player.movement_angle);
 	}
-	if (cub3d->player.keys.s && cub3d->player.keys.a)
+	if (cub3d->keys.s && cub3d->keys.a)
 	{
 		cub3d->player.movement_angle = cub3d->player.angle + (M_PI / 4);
 		if (cub3d->player.movement_angle >= (M_PI + M_PI))
@@ -91,7 +94,7 @@ void player_both(cub3d *cub3d)
 		cub3d->player.new_pos.x = cos(cub3d->player.movement_angle);
 		cub3d->player.new_pos.y = sin(cub3d->player.movement_angle);
 	}
-	else if (cub3d->player.keys.s && cub3d->player.keys.d)
+	else if (cub3d->keys.s && cub3d->keys.d)
 	{
 		cub3d->player.movement_angle = cub3d->player.angle - (M_PI / 4);
 		if (cub3d->player.movement_angle < 0)
@@ -103,9 +106,10 @@ void player_both(cub3d *cub3d)
 
 void player_movement(cub3d_t *cub3d)
 {
+	printf("ori_pos = [%.2f][%.2f]\n", cub3d->player.pos.x, cub3d->player.pos.y);
 	player_rotation(cub3d);
-	cub3d->player.is_walking = is_walking();
-	cub3d->player.is_strafing = is_strafing();
+	cub3d->player.is_walking = is_walking(cub3d);
+	cub3d->player.is_strafing = is_strafing(cub3d);
 	if (!cub3d->player.is_walking && !cub3d->player.is_strafing)
 		return ;
 	if (cub3d->player.is_walking && !cub3d->player.is_strafing)
@@ -114,7 +118,7 @@ void player_movement(cub3d_t *cub3d)
 		player_strafing(cub3d);
 	else
 		player_both(cub3d);
-	if (!collision(new_pos))
-		cub3d->player.pos = cub3d->player.new_pos;
-	printf("pos = [%.2f][%.2f]\n", cub3d->player.pos.x, cub3d->player.pos.y);
+	// if (!collision(new_pos))
+	cub3d->player.pos = cub3d->player.new_pos;
+	printf("new_pos = [%.2f][%.2f]\n", cub3d->player.pos.x, cub3d->player.pos.y);
 }

@@ -28,6 +28,25 @@ void get_input(mlx_key_data_t *keydata, cub3d_t *cub3d)
 		cub3d->keys.right = FALSE;
 }
 
+void draw_background(cub3d_t *cub3d)
+{
+	int row;
+	int column;
+
+	row = -1;
+	while (++row < HEIGHT)
+	{
+		column = -1;
+		while (++column < WIDTH)
+		{
+			if (row < HEIGHT / 2)
+				mlx_put_pixel(cub3d->img, column, row, cub3d->ceiling_color);
+			else
+				mlx_put_pixel(cub3d->img, column, row, cub3d->floor_color);
+		}
+	}
+}
+
 void update(mlx_key_data_t keydata, void *param)
 {
 	cub3d_t *cub3d;
@@ -36,12 +55,17 @@ void update(mlx_key_data_t keydata, void *param)
 	handle_escape_key(&keydata, cub3d->mlx);
 	get_input(&keydata, cub3d);
 	player_movement(cub3d);
+	// draw_background(cub3d);
 	// raycasting(cub3d);
 	minimap(cub3d);
 }
 
 void start_game(cub3d_t *cub3d)
 {
+	printf("start_game\n");
+	// draw_background(cub3d);
+	// raycasting(cub3d);
+	minimap(cub3d);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &update, cub3d);
 	mlx_loop(cub3d->mlx);

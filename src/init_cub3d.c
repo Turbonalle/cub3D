@@ -1,5 +1,29 @@
 #include "../incl/cub3d.h"
 
+int count_minimap_tilesize(cub3d_t *cub3d)
+{
+	float tile_size;
+	float minimap_width;
+	float minimap_height;
+
+	minimap_width = (float)WIDTH * (float)cub3d->minimap.size_percentage / 100;
+	tile_size = minimap_width / (float)cub3d->map_columns;
+	minimap_height = (float)HEIGHT * (float)cub3d->minimap.size_percentage / 100;
+	if (tile_size * (float)cub3d->map_rows > minimap_height)
+		tile_size = minimap_height / (float)cub3d->map_rows;
+	return ((int)tile_size);
+}
+
+void init_minimap(cub3d_t *cub3d)
+{
+	cub3d->minimap.size_percentage = 20;
+	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d);
+	cub3d->minimap.width = cub3d->minimap.tile_size * cub3d->map_columns;
+	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->map_rows;
+	cub3d->minimap.pos.x = 0;
+	cub3d->minimap.pos.y = 0;
+}
+
 void set_initial_direction(cub3d_t *cub3d)
 {
 	if (cub3d->starting_dir == 'N')
@@ -36,5 +60,6 @@ int init_cub3d(cub3d_t *cub3d)
 	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
+	init_minimap(cub3d);
 	return (SUCCESS);
 }

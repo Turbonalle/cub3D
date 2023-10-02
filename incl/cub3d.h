@@ -31,6 +31,9 @@
 # define MOVEMENT_SPEED 0.1
 # define ROTATION_SPEED 0.1
 
+# define COLOR_EMPTY BLACK
+# define COLOR_WALL GRAY
+
 enum elements
 {
 	NO,
@@ -96,6 +99,7 @@ typedef struct minimap_s
 	vector_t	pos;
 	int			width;
 	int			height;
+	int			size_percentage;
 	int			tile_size;
 	int			color;
 }			minimap_t;

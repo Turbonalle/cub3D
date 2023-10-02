@@ -37,14 +37,21 @@ void draw_minimap(cub3d_t *cub3d)
 				draw_square(cub3d,
 							cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
 							cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
-							cub3d->minimap.tile_size, COLOR_EMPTY);
+							cub3d->minimap.tile_size, COLOR_MINIMAP_FLOOR);
 			}
 			else if (cub3d->map[row][column] == '1')
 			{
 				draw_square(cub3d,
 							cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
 							cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
-							cub3d->minimap.tile_size, COLOR_WALL);
+							cub3d->minimap.tile_size, COLOR_MINIMAP_WALL);
+			}
+			else
+			{
+				draw_square(cub3d,
+							cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
+							cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
+							cub3d->minimap.tile_size, COLOR_MINIMAP_EMPTY);
 			}
 		}
 	}
@@ -76,6 +83,8 @@ void draw_minimap_player(cub3d_t *cub3d)
 	int size;
 
 	size = cub3d->minimap.tile_size / 4;
+	if (size < 1)
+		size = 1;
 	row = cub3d->minimap.pos.y + (cub3d->player.pos.y * cub3d->minimap.tile_size) - (size / 2);
 	column = cub3d->minimap.pos.x + (cub3d->player.pos.x * cub3d->minimap.tile_size) - (size / 2);
 	draw_square(cub3d, (int)column, (int)row, size, YELLOW);

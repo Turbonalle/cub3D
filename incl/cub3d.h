@@ -31,8 +31,9 @@
 # define MOVEMENT_SPEED 0.1
 # define ROTATION_SPEED 0.1
 
-# define COLOR_EMPTY BLACK
-# define COLOR_WALL GRAY
+# define COLOR_MINIMAP_EMPTY GRAY
+# define COLOR_MINIMAP_FLOOR BLACK
+# define COLOR_MINIMAP_WALL GRAY
 
 enum elements
 {

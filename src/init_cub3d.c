@@ -26,13 +26,13 @@ void init_minimap(cub3d_t *cub3d)
 
 void set_initial_direction(cub3d_t *cub3d)
 {
-	if (cub3d->starting_dir == 'N')
+	if (cub3d->starting_dir == 'E')
 		cub3d->player.angle = to_radians(0);
-	else if (cub3d->starting_dir == 'E')
-		cub3d->player.angle = to_radians(90);
 	else if (cub3d->starting_dir == 'S')
-		cub3d->player.angle = to_radians(180);
+		cub3d->player.angle = to_radians(90);
 	else if (cub3d->starting_dir == 'W')
+		cub3d->player.angle = to_radians(180);
+	else if (cub3d->starting_dir == 'N')
 		cub3d->player.angle = to_radians(270);
 	cub3d->player.dir.x = cos(cub3d->player.angle);
 	cub3d->player.dir.y = sin(cub3d->player.angle);

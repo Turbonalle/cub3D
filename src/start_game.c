@@ -57,16 +57,13 @@ void update(void *param)
 
 	cub3d = param;
 	player_movement(cub3d);
-	// draw_background(cub3d);
+	draw_background(cub3d);
 	// raycasting(cub3d);
 	minimap(cub3d);
 }
 
 void start_game(cub3d_t *cub3d)
 {
-	printf("start_game\n");
-	// draw_background(cub3d);
-	// raycasting(cub3d);
 	minimap(cub3d);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);

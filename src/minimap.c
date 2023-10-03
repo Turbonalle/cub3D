@@ -61,7 +61,7 @@ void draw_minimap_border(cub3d_t *cub3d)
 {
 	int row;
 	int column;
-	// draw red border
+
 	column = -1;
 	while (++column < cub3d->minimap.width)
 	{
@@ -90,10 +90,29 @@ void draw_minimap_player(cub3d_t *cub3d)
 	draw_square(cub3d, (int)column, (int)row, size, YELLOW);
 }
 
+void draw_minimap_playerdir(cub3d_t *cub3d)
+{
+	dvector_t end;
+
+	cub3d->player.dir.x = cos(cub3d->player.angle);
+	cub3d->player.dir.y = sin(cub3d->player.angle);
+	end.x = cub3d->minimap.player_pos.x + (cub3d->player.dir.x * cub3d->minimap.tile_size / 2);
+	end.y = cub3d->minimap.player_pos.y + (cub3d->player.dir.y * cub3d->minimap.tile_size / 2);
+	draw_line(cub3d->img, cub3d->minimap.player_pos, end, WHITE);
+}
+
+void update_player_minimap_pos(cub3d_t *cub3d)
+{
+	cub3d->minimap.player_pos.x = cub3d->minimap.pos.x + (cub3d->player.pos.x * cub3d->minimap.tile_size);
+	cub3d->minimap.player_pos.y = cub3d->minimap.pos.y + (cub3d->player.pos.y * cub3d->minimap.tile_size);
+}
+
 void minimap(cub3d_t *cub3d)
 {
+	update_player_minimap_pos(cub3d);
 	draw_minimap(cub3d);
 	draw_minimap_border(cub3d);
 	draw_minimap_player(cub3d);
+	draw_minimap_playerdir(cub3d);
 	// draw_minimap_fov(cub3d);
 }

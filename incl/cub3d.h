@@ -31,7 +31,7 @@
 # define MOVEMENT_SPEED 0.1
 # define ROTATION_SPEED 0.1
 
-# define MINIMAP_SIZE_PERCENTAGE 40
+# define MINIMAP_SIZE_PERCENTAGE 100
 # define MINIMAP_COLOR_PLAYER YELLOW
 # define MINIMAP_COLOR_EMPTY GRAY
 # define MINIMAP_COLOR_FLOOR BLACK
@@ -100,6 +100,7 @@ typedef struct keypress_s
 typedef struct minimap_s
 {
 	vector_t	pos;
+	dvector_t	player_pos;
 	int			width;
 	int			height;
 	int			size_percentage;
@@ -132,12 +133,18 @@ typedef struct cub3d_s
 void free_info(char **info);
 int err(char *error_message);
 
+// collision.c
+void collision_checker(cub3d_t *cub3d);
+
 // color.c
 int get_rgba(int r, int g, int b, int a);
 int get_r(int rgba);
 int get_g(int rgba);
 int get_b(int rgba);
 int get_a(int rgba);
+
+// draw_line.c
+void draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
 
 // flooding_algorithm.c
 int check_map_validity(char **map);
@@ -171,6 +178,12 @@ void minimap(cub3d_t *cub3d);
 
 // player_movement.c
 void player_movement(cub3d_t *cub3d);
+
+// raycasting.c
+void draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
+// int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
+void draw_rays(cub3d_t *cub3d);
+void draw_direction_ray(cub3d_t *cub3d);
 
 // start_game.c
 void start_game(cub3d_t *cub3d);

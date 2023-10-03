@@ -56,8 +56,6 @@ int main(int ac, char **av)
 /*
 TODO:
 
-- Create collision detection
-
 - Create raycasting
 
 - Create wall textures

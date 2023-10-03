@@ -20,14 +20,14 @@ void player_rotation(cub3d_t *cub3d)
 		cub3d->player.angle -= ROTATION_SPEED;
 		if (cub3d->player.angle < 0)
 			cub3d->player.angle += (M_PI + M_PI);
-		printf("angle = %.2f\n", cub3d->player.angle);
+		// printf("angle = %.2f\n", cub3d->player.angle);
 	}
 	else if (cub3d->keys.right && !cub3d->keys.left)
 	{
 		cub3d->player.angle += ROTATION_SPEED;
 		if (cub3d->player.angle >= (2 * M_PI))
 			cub3d->player.angle -= (M_PI + M_PI);
-		printf("angle = %.2f\n", cub3d->player.angle);
+		// printf("angle = %.2f\n", cub3d->player.angle);
 	}
 }
 
@@ -106,9 +106,16 @@ void player_both(cub3d_t *cub3d)
 	}
 }
 
+int collision(cub3d_t *cub3d)
+{
+	if (cub3d->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL)
+		return (TRUE);
+	return (FALSE);
+}
+
 void player_movement(cub3d_t *cub3d)
 {
-	printf("ori_pos = [%.2f][%.2f]\n", cub3d->player.pos.x, cub3d->player.pos.y);
+	// printf("ori_pos = [%.2f][%.2f]\n", cub3d->player.pos.x, cub3d->player.pos.y);
 	player_rotation(cub3d);
 	cub3d->player.is_walking = is_walking(cub3d);
 	cub3d->player.is_strafing = is_strafing(cub3d);
@@ -121,7 +128,7 @@ void player_movement(cub3d_t *cub3d)
 		player_strafing(cub3d);
 	else
 		player_both(cub3d);
-	// if (!collision(new_pos))
-	cub3d->player.pos = cub3d->player.new_pos;
-	printf("new_pos = [%.2f][%.2f]\n", cub3d->player.pos.x, cub3d->player.pos.y);
+	if (!collision(cub3d))
+		cub3d->player.pos = cub3d->player.new_pos;
+	// printf("new_pos = [%.2f][%.2f]\n", cub3d->player.pos.x, cub3d->player.pos.y);
 }

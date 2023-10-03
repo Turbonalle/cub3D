@@ -31,7 +31,7 @@
 # define MOVEMENT_SPEED 0.1
 # define ROTATION_SPEED 0.1
 
-# define MINIMAP_SIZE_PERCENTAGE 100
+# define MINIMAP_SIZE_PERCENTAGE 20
 # define MINIMAP_COLOR_PLAYER YELLOW
 # define MINIMAP_COLOR_EMPTY GRAY
 # define MINIMAP_COLOR_FLOOR BLACK
@@ -181,7 +181,7 @@ void player_movement(cub3d_t *cub3d);
 
 // raycasting.c
 void draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
-// int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
+int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
 void draw_rays(cub3d_t *cub3d);
 void draw_direction_ray(cub3d_t *cub3d);
 

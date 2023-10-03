@@ -54,10 +54,12 @@ int main(int ac, char **av)
 }
 
 /*
+--------------------------------------------------------------------------------
+
 TODO:
 
-- Create raycasting
-
+- Change draw_line() to Bresenham's line algorithm
+- Add sliding along walls
 - Create wall textures
 - Create sprites
 
@@ -66,4 +68,5 @@ OPTIONAL:
 - Add possibility to move minimap
 - Add possibility to change minimap size
 
+--------------------------------------------------------------------------------
 */

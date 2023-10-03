@@ -39,10 +39,10 @@ void player_walking(cub3d_t *cub3d)
 		cub3d->player.new_pos.x += cos(cub3d->player.angle) * MOVEMENT_SPEED;
 		cub3d->player.new_pos.y += sin(cub3d->player.angle) * MOVEMENT_SPEED;
 	}
-	else if (cub3d->keys.w && cub3d->keys.s)
+	else if (!cub3d->keys.w && cub3d->keys.s)
 	{
-		cub3d->player.new_pos.x += cos(cub3d->player.angle) * MOVEMENT_SPEED;
-		cub3d->player.new_pos.y += sin(cub3d->player.angle) * MOVEMENT_SPEED;
+		cub3d->player.new_pos.x -= cos(cub3d->player.angle) * MOVEMENT_SPEED;
+		cub3d->player.new_pos.y -= sin(cub3d->player.angle) * MOVEMENT_SPEED;
 	}
 }
 

@@ -32,10 +32,19 @@
 # define ROTATION_SPEED 0.1
 
 # define MINIMAP_SIZE_PERCENTAGE 20
+# define MINIMAP_MAX_SIZE_PERCENTAGE 100
+# define MINIMAP_MIN_SIZE_PERCENTAGE 10
 # define MINIMAP_COLOR_PLAYER YELLOW
 # define MINIMAP_COLOR_EMPTY GRAY
 # define MINIMAP_COLOR_FLOOR BLACK
 # define MINIMAP_COLOR_WALL GRAY
+
+# define MINIMAP_ZOOM_INCREMENT 5
+
+# define FOV 60
+# define FOV_INCREMENT 5
+# define FOV_MIN 1
+# define FOV_MAX 360
 
 enum elements
 {
@@ -95,6 +104,10 @@ typedef struct keypress_s
 	int	d;
 	int	left;
 	int	right;
+	int up;
+	int down;
+	int mouse_left;
+	int mouse_right;
 }			keypress_t;
 
 typedef struct minimap_s
@@ -112,6 +125,9 @@ typedef struct cub3d_s
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	vector_t	mouse;
+	vector_t	mouse_set_pos;
+	vector_t	orig_minimap_pos;
 	keypress_t	keys;
 	player_t	player;
 	double		fov;
@@ -149,6 +165,10 @@ void draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
 // flooding_algorithm.c
 int check_map_validity(char **map);
 
+// fov.c
+void increase_fov(cub3d_t *cub3d);
+void decrease_fov(cub3d_t *cub3d);
+
 // get_color.c
 int get_color(cub3d_t *cub3d, int element, char **info);
 
@@ -164,17 +184,32 @@ int read_cub_file(cub3d_t *cub3d, char *map_path);
 int get_texture(cub3d_t *cub3d, int element, char **info);
 
 // init_cub3d.c
+int count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
 int init_cub3d(cub3d_t *cub3d);
 
 // handle_close.c
 void handle_close_window(void *param);
 void handle_escape_key(mlx_key_data_t *keydata, mlx_t *mlx);
 
+// handle_keys.c
+void get_input(mlx_key_data_t keydata, void *param);
+
+// handle_mouse.c
+void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);
+void hook_mouse_scroll(double xdelta, double ydelta, void *param);
+
 // math.c
+double within_two_pi(double radians);
 double to_radians(double degrees);
 
 // minimap.c
+void update_minimap_player_pos(cub3d_t *cub3d);
 void minimap(cub3d_t *cub3d);
+
+// minimap_zoom.c
+int hover_minimap(cub3d_t *cub3d);
+void zoom_in_minimap(cub3d_t *cub3d);
+void zoom_out_minimap(cub3d_t *cub3d);
 
 // player_movement.c
 void player_movement(cub3d_t *cub3d);

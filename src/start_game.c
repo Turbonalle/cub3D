@@ -1,37 +1,5 @@
 #include "../incl/cub3d.h"
 
-void get_input(mlx_key_data_t keydata, void *param)
-{
-	cub3d_t *cub3d;
-
-	cub3d = param;
-	handle_escape_key(&keydata, cub3d->mlx);
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		cub3d->keys.w = TRUE;
-	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		cub3d->keys.a = TRUE;
-	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		cub3d->keys.s = TRUE;
-	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		cub3d->keys.d = TRUE;
-	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
-		cub3d->keys.left = TRUE;
-	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
-		cub3d->keys.right = TRUE;
-	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
-		cub3d->keys.w = FALSE;
-	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_RELEASE)
-		cub3d->keys.a = FALSE;
-	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_RELEASE)
-		cub3d->keys.s = FALSE;
-	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
-		cub3d->keys.d = FALSE;
-	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
-		cub3d->keys.left = FALSE;
-	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
-		cub3d->keys.right = FALSE;
-}
-
 void draw_background(cub3d_t *cub3d)
 {
 	int row;
@@ -56,6 +24,40 @@ void update(void *param)
 	cub3d_t *cub3d;
 
 	cub3d = param;
+	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
+	if (cub3d->keys.mouse_left && hover_minimap(cub3d))
+	{
+		printf(TERMINAL_GREEN);
+		printf("mouse = [%d, %d]\n", cub3d->mouse.x, cub3d->mouse.y);
+		printf("mouse_set_pos = [%d, %d]\n", cub3d->mouse_set_pos.x, cub3d->mouse_set_pos.y);
+		printf("orig_minimap_pos = [%d, %d]\n", cub3d->orig_minimap_pos.x, cub3d->orig_minimap_pos.y);
+		printf(TERMINAL_RESET);
+		
+		vector_t mouse_moved;
+		mouse_moved.x = cub3d->mouse.x - cub3d->mouse_set_pos.x;
+		mouse_moved.y = cub3d->mouse.y - cub3d->mouse_set_pos.y;
+		if (cub3d->orig_minimap_pos.x + mouse_moved.x < 0)
+		{
+			printf(TERMINAL_RED"x < 0\n"TERMINAL_RESET);
+			cub3d->minimap.pos.x = 0;
+		}
+		else if (cub3d->orig_minimap_pos.x + mouse_moved.x + cub3d->minimap.width > WIDTH)
+		{
+			printf(TERMINAL_RED"x + width > WIDTH\n"TERMINAL_RESET);
+			cub3d->minimap.pos.x = WIDTH - cub3d->minimap.width;
+		}
+		else
+		{
+			printf(TERMINAL_YELLOW"x is OK!\n"TERMINAL_RESET);
+			cub3d->minimap.pos.x = cub3d->orig_minimap_pos.x + mouse_moved.x;
+		}
+		if (cub3d->orig_minimap_pos.y + mouse_moved.y < 0)
+			cub3d->minimap.pos.y = 0;
+		else if (cub3d->orig_minimap_pos.y + mouse_moved.y + cub3d->minimap.height > HEIGHT)
+			cub3d->minimap.pos.y = HEIGHT - cub3d->minimap.height;
+		else
+			cub3d->minimap.pos.y = cub3d->orig_minimap_pos.y + mouse_moved.y;
+	}
 	player_movement(cub3d);
 	draw_background(cub3d);
 	// raycasting(cub3d);
@@ -64,9 +66,10 @@ void update(void *param)
 
 void start_game(cub3d_t *cub3d)
 {
-	minimap(cub3d);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);
+	mlx_scroll_hook(cub3d->mlx, &hook_mouse_scroll, cub3d);
+	mlx_mouse_hook(cub3d->mlx, &hook_mouse_buttons, cub3d);
 	mlx_loop_hook(cub3d->mlx, &update, cub3d);
 	mlx_loop(cub3d->mlx);
 	mlx_terminate(cub3d->mlx);

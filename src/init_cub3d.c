@@ -1,14 +1,14 @@
 #include "../incl/cub3d.h"
 
-int count_minimap_tilesize(cub3d_t *cub3d)
+int count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
 {
 	float tile_size;
 	float minimap_width;
 	float minimap_height;
 
-	minimap_width = (float)WIDTH * (float)cub3d->minimap.size_percentage / 100;
+	minimap_width = (float)WIDTH * (float)size_percentage / 100;
 	tile_size = minimap_width / (float)cub3d->map_columns;
-	minimap_height = (float)HEIGHT * (float)cub3d->minimap.size_percentage / 100;
+	minimap_height = (float)HEIGHT * (float)size_percentage / 100;
 	if (tile_size * (float)cub3d->map_rows > minimap_height)
 		tile_size = minimap_height / (float)cub3d->map_rows;
 	return ((int)tile_size);
@@ -17,7 +17,7 @@ int count_minimap_tilesize(cub3d_t *cub3d)
 void init_minimap(cub3d_t *cub3d)
 {
 	cub3d->minimap.size_percentage = MINIMAP_SIZE_PERCENTAGE;
-	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d);
+	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d, cub3d->minimap.size_percentage);
 	cub3d->minimap.width = cub3d->minimap.tile_size * cub3d->map_columns;
 	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->map_rows;
 	cub3d->minimap.pos.x = 0;
@@ -46,6 +46,8 @@ void set_keys(keypress_t *keys)
 	keys->d = FALSE;
 	keys->left = FALSE;
 	keys->right = FALSE;
+	keys->mouse_left = FALSE;
+	keys->mouse_right = FALSE;
 }
 
 int init_cub3d(cub3d_t *cub3d)
@@ -58,6 +60,9 @@ int init_cub3d(cub3d_t *cub3d)
 		return (!err("Failed to create image"));
 	cub3d->player.pos.x = cub3d->starting_pos.x + 0.5;
 	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;
+	cub3d->mouse_set_pos.x = 0;
+	cub3d->mouse_set_pos.y = 0;
+	cub3d->fov = FOV;
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);

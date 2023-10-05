@@ -25,32 +25,17 @@ void update(void *param)
 
 	cub3d = param;
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
-	if (cub3d->keys.mouse_left && hover_minimap(cub3d))
+	if (cub3d->keys.mouse_left && cub3d->on_minimap)
 	{
-		printf(TERMINAL_GREEN);
-		printf("mouse = [%d, %d]\n", cub3d->mouse.x, cub3d->mouse.y);
-		printf("mouse_set_pos = [%d, %d]\n", cub3d->mouse_set_pos.x, cub3d->mouse_set_pos.y);
-		printf("orig_minimap_pos = [%d, %d]\n", cub3d->orig_minimap_pos.x, cub3d->orig_minimap_pos.y);
-		printf(TERMINAL_RESET);
-		
 		vector_t mouse_moved;
 		mouse_moved.x = cub3d->mouse.x - cub3d->mouse_set_pos.x;
 		mouse_moved.y = cub3d->mouse.y - cub3d->mouse_set_pos.y;
 		if (cub3d->orig_minimap_pos.x + mouse_moved.x < 0)
-		{
-			printf(TERMINAL_RED"x < 0\n"TERMINAL_RESET);
 			cub3d->minimap.pos.x = 0;
-		}
 		else if (cub3d->orig_minimap_pos.x + mouse_moved.x + cub3d->minimap.width > WIDTH)
-		{
-			printf(TERMINAL_RED"x + width > WIDTH\n"TERMINAL_RESET);
 			cub3d->minimap.pos.x = WIDTH - cub3d->minimap.width;
-		}
 		else
-		{
-			printf(TERMINAL_YELLOW"x is OK!\n"TERMINAL_RESET);
 			cub3d->minimap.pos.x = cub3d->orig_minimap_pos.x + mouse_moved.x;
-		}
 		if (cub3d->orig_minimap_pos.y + mouse_moved.y < 0)
 			cub3d->minimap.pos.y = 0;
 		else if (cub3d->orig_minimap_pos.y + mouse_moved.y + cub3d->minimap.height > HEIGHT)

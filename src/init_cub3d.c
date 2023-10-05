@@ -62,6 +62,7 @@ int init_cub3d(cub3d_t *cub3d)
 	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;
 	cub3d->mouse_set_pos.x = 0;
 	cub3d->mouse_set_pos.y = 0;
+	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);

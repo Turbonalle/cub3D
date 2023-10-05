@@ -127,6 +127,7 @@ typedef struct cub3d_s
 	mlx_image_t	*img;
 	vector_t	mouse;
 	vector_t	mouse_set_pos;
+	int			on_minimap;
 	vector_t	orig_minimap_pos;
 	keypress_t	keys;
 	player_t	player;

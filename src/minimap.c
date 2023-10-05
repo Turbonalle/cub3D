@@ -21,6 +21,14 @@ void draw_square(cub3d_t *cub3d, int col, int row, int size, int color)
 	}
 }
 
+void update_minimap_fov(cub3d_t *cub3d)
+{
+	if (cub3d->keys.up)
+		decrease_fov(cub3d);
+	if (cub3d->keys.down)
+		increase_fov(cub3d);
+}
+
 void update_minimap_player_pos(cub3d_t *cub3d)
 {
 	cub3d->minimap.player_pos.x = cub3d->minimap.pos.x + (cub3d->player.pos.x * cub3d->minimap.tile_size);
@@ -116,7 +124,7 @@ void draw_fov(cub3d_t *cub3d)
 	int i;
 
 	fov_start = within_two_pi(cub3d->player.angle - to_radians((cub3d->fov / 2)));
-	rays = WIDTH;
+	rays = cub3d->mlx->width;
 	i = -1;
 	while (++i < rays)
 	{
@@ -124,14 +132,6 @@ void draw_fov(cub3d_t *cub3d)
 		find_end_point(cub3d, &cub3d->player, ray_angle, &end);
 		draw_line(cub3d->img, cub3d->minimap.player_pos, end, SADDLEBROWN);
 	}
-}
-
-void update_minimap_fov(cub3d_t *cub3d)
-{
-	if (cub3d->keys.up)
-		decrease_fov(cub3d);
-	if (cub3d->keys.down)
-		increase_fov(cub3d);
 }
 
 void minimap(cub3d_t *cub3d)

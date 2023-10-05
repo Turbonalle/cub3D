@@ -6,9 +6,9 @@ int count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
 	float minimap_width;
 	float minimap_height;
 
-	minimap_width = (float)WIDTH * (float)size_percentage / 100;
+	minimap_width = (float)cub3d->mlx->width * (float)size_percentage / 100;
 	tile_size = minimap_width / (float)cub3d->map_columns;
-	minimap_height = (float)HEIGHT * (float)size_percentage / 100;
+	minimap_height = (float)cub3d->mlx->height * (float)size_percentage / 100;
 	if (tile_size * (float)cub3d->map_rows > minimap_height)
 		tile_size = minimap_height / (float)cub3d->map_rows;
 	return ((int)tile_size);

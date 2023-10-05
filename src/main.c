@@ -63,10 +63,5 @@ TODO:
 - Create wall textures
 - Create sprites
 
-OPTIONAL:
-
-- Add possibility to move minimap
-- Add possibility to change minimap size
-
 --------------------------------------------------------------------------------
 */

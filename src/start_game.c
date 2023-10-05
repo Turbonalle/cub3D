@@ -6,12 +6,12 @@ void draw_background(cub3d_t *cub3d)
 	int column;
 
 	row = -1;
-	while (++row < HEIGHT)
+	while (++row < cub3d->mlx->height)
 	{
 		column = -1;
-		while (++column < WIDTH)
+		while (++column < cub3d->mlx->width)
 		{
-			if (row < HEIGHT / 2)
+			if (row < cub3d->mlx->height / 2)
 				mlx_put_pixel(cub3d->img, column, row, cub3d->ceiling_color);
 			else
 				mlx_put_pixel(cub3d->img, column, row, cub3d->floor_color);
@@ -24,6 +24,12 @@ void update(void *param)
 	cub3d_t *cub3d;
 
 	cub3d = param;
+	if ((int)cub3d->img->width != cub3d->mlx->width || (int)cub3d->img->height != cub3d->mlx->height)
+	{
+		mlx_delete_image(cub3d->mlx, cub3d->img);
+		cub3d->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width, cub3d->mlx->height);
+		mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0);
+	}
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 	if (cub3d->keys.mouse_left && cub3d->on_minimap)
 	{
@@ -32,14 +38,14 @@ void update(void *param)
 		mouse_moved.y = cub3d->mouse.y - cub3d->mouse_set_pos.y;
 		if (cub3d->orig_minimap_pos.x + mouse_moved.x < 0)
 			cub3d->minimap.pos.x = 0;
-		else if (cub3d->orig_minimap_pos.x + mouse_moved.x + cub3d->minimap.width > WIDTH)
-			cub3d->minimap.pos.x = WIDTH - cub3d->minimap.width;
+		else if (cub3d->orig_minimap_pos.x + mouse_moved.x + cub3d->minimap.width > cub3d->mlx->width)
+			cub3d->minimap.pos.x = cub3d->mlx->width - cub3d->minimap.width;
 		else
 			cub3d->minimap.pos.x = cub3d->orig_minimap_pos.x + mouse_moved.x;
 		if (cub3d->orig_minimap_pos.y + mouse_moved.y < 0)
 			cub3d->minimap.pos.y = 0;
-		else if (cub3d->orig_minimap_pos.y + mouse_moved.y + cub3d->minimap.height > HEIGHT)
-			cub3d->minimap.pos.y = HEIGHT - cub3d->minimap.height;
+		else if (cub3d->orig_minimap_pos.y + mouse_moved.y + cub3d->minimap.height > cub3d->mlx->height)
+			cub3d->minimap.pos.y = cub3d->mlx->height - cub3d->minimap.height;
 		else
 			cub3d->minimap.pos.y = cub3d->orig_minimap_pos.y + mouse_moved.y;
 	}

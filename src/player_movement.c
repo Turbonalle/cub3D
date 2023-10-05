@@ -115,5 +115,4 @@ void player_movement(cub3d_t *cub3d)
 	else
 		player_both(cub3d);
 	collision_checker(cub3d);
-	// cub3d->player.pos = cub3d->player.new_pos;
 }

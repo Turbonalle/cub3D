@@ -58,7 +58,6 @@ int main(int ac, char **av)
 
 TODO:
 
-- Change draw_line() to Bresenham's line algorithm
 - Add sliding along walls
 - Create wall textures
 - Create sprites

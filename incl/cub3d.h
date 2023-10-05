@@ -146,29 +146,9 @@ typedef struct cub3d_s
 	int			element_found[6];
 }			cub3d_t;
 
-// main.c
-void free_info(char **info);
-int err(char *error_message);
 
-// collision.c
-void collision_checker(cub3d_t *cub3d);
 
-// color.c
-int get_rgba(int r, int g, int b, int a);
-int get_r(int rgba);
-int get_g(int rgba);
-int get_b(int rgba);
-int get_a(int rgba);
-
-// draw_line.c
-void draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
-
-// flooding_algorithm.c
-int check_map_validity(char **map);
-
-// fov.c
-void increase_fov(cub3d_t *cub3d);
-void decrease_fov(cub3d_t *cub3d);
+//---- PARSING -----------------------------------------------------------------
 
 // get_color.c
 int get_color(cub3d_t *cub3d, int element, char **info);
@@ -184,9 +164,62 @@ int read_cub_file(cub3d_t *cub3d, char *map_path);
 // get_texture.c
 int get_texture(cub3d_t *cub3d, int element, char **info);
 
+// flooding_algorithm.c
+int check_map_validity(char **map);
+
+
+
+//---- MATH --------------------------------------------------------------------
+
+// math.c
+double within_two_pi(double radians);
+double to_radians(double degrees);
+
+// dda.c
+int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
+
+// color.c
+int get_rgba(int r, int g, int b, int a);
+int get_r(int rgba);
+int get_g(int rgba);
+int get_b(int rgba);
+int get_a(int rgba);
+
+// draw_line.c
+void draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
+
+
+
+//---- MAIN PROGRAM ------------------------------------------------------------
+
+// main.c
+void free_info(char **info);
+int err(char *error_message);
+
 // init_cub3d.c
 int count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
 int init_cub3d(cub3d_t *cub3d);
+
+// start_game.c
+void start_game(cub3d_t *cub3d);
+
+
+
+//---- PLAYER ------------------------------------------------------------------
+
+// collision.c
+void collision_checker(cub3d_t *cub3d);
+
+// player_movement.c
+void player_movement(cub3d_t *cub3d);
+
+// fov.c
+void increase_fov(cub3d_t *cub3d);
+void decrease_fov(cub3d_t *cub3d);
+
+
+
+//---- INPUT -------------------------------------------------------------------
 
 // handle_close.c
 void handle_close_window(void *param);
@@ -199,30 +232,32 @@ void get_input(mlx_key_data_t keydata, void *param);
 void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);
 void hook_mouse_scroll(double xdelta, double ydelta, void *param);
 
-// math.c
-double within_two_pi(double radians);
-double to_radians(double degrees);
+
+
+//---- MINIMAP -----------------------------------------------------------------
 
 // minimap.c
 void update_minimap_player_pos(cub3d_t *cub3d);
 void minimap(cub3d_t *cub3d);
+
+// minimap_draw_base.c
+void draw_square(cub3d_t *cub3d, int x, int y, int size, int color);
+void draw_minimap(cub3d_t *cub3d);
+void draw_minimap_border(cub3d_t *cub3d);
+
+// minimap_draw_player.c
+void draw_minimap_player(cub3d_t *cub3d);
+void draw_minimap_playerdir(cub3d_t *cub3d);
+void draw_fov(cub3d_t *cub3d);
 
 // minimap_zoom.c
 int hover_minimap(cub3d_t *cub3d);
 void zoom_in_minimap(cub3d_t *cub3d);
 void zoom_out_minimap(cub3d_t *cub3d);
 
-// player_movement.c
-void player_movement(cub3d_t *cub3d);
 
-// raycasting.c
-void draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
-int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
-void draw_rays(cub3d_t *cub3d);
-void draw_direction_ray(cub3d_t *cub3d);
 
-// start_game.c
-void start_game(cub3d_t *cub3d);
+//---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 
 // extra.c
 void print_info(cub3d_t *cub3d);

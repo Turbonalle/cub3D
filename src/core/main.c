@@ -61,6 +61,7 @@ TODO:
 - Add sliding along walls
 - Create wall textures
 - Create sprites
+- Fix some resizing bugs (from fullscreen segfault)
 
 --------------------------------------------------------------------------------
 */

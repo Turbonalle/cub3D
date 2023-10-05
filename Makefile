@@ -14,8 +14,10 @@ LIBFTDIR = $(LIB_PATH)/libft
 OBJ_PATH = obj
 
 # Source files and object files
-SRC_FILES = $(wildcard $(SRC_PATH)/*.c)
-OBJ_FILES = $(SRC_FILES:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
+# SRC_FILES = $(wildcard $(SRC_PATH)/*.c)
+# OBJ_FILES = $(SRC_FILES:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
+SRC_FILES = $(wildcard $(SRC_PATH)/*/*.c)
+OBJ_FILES = $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(SRC_FILES))
 
 # Include directories
 INC = -I$(INC_PATH) -I$(MLX42DIR)/include -I$(LIBFTDIR)/include -I"/Users/$(USER)/.brew/opt/glfw/include"

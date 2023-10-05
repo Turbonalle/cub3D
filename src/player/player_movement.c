@@ -81,6 +81,7 @@ void player_both(cub3d_t *cub3d)
 			cub3d->player.movement_angle -= (M_PI + M_PI);
 		cub3d->player.new_pos.x += cos(cub3d->player.movement_angle) * MOVEMENT_SPEED;
 		cub3d->player.new_pos.y += sin(cub3d->player.movement_angle) * MOVEMENT_SPEED;
+		printf("D : player.new_pos = [%.2f][%.2f]\n", cub3d->player.new_pos.x, cub3d->player.new_pos.y);
 	}
 	else if (cub3d->keys.s && cub3d->keys.a)
 	{

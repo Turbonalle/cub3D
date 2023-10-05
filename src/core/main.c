@@ -58,10 +58,14 @@ int main(int ac, char **av)
 
 TODO:
 
-- Add sliding along walls
 - Create wall textures
 - Create sprites
-- Fix some resizing bugs (from fullscreen segfault)
+- Fix update_minimap()
+
+
+OPTIONAL:
+
+- Add enemies
 
 --------------------------------------------------------------------------------
 */

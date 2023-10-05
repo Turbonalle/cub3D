@@ -14,8 +14,6 @@ LIBFTDIR = $(LIB_PATH)/libft
 OBJ_PATH = obj
 
 # Source files and object files
-# SRC_FILES = $(wildcard $(SRC_PATH)/*.c)
-# OBJ_FILES = $(SRC_FILES:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 SRC_FILES = $(wildcard $(SRC_PATH)/*/*.c)
 OBJ_FILES = $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(SRC_FILES))
 

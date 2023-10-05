@@ -65,7 +65,7 @@ int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *
 	}
 
 	double dist = 0;
-	double max_dist = sqrt(cub3d->mlx->width * cub3d->mlx->width + cub3d->mlx->height * cub3d->mlx->height);
+	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
 	int wall_flag = 0;
 	while (!end_found && dist < max_dist)
 	{

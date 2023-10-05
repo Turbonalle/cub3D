@@ -124,7 +124,7 @@ void draw_fov(cub3d_t *cub3d)
 	int i;
 
 	fov_start = within_two_pi(cub3d->player.angle - to_radians((cub3d->fov / 2)));
-	rays = cub3d->mlx->width;
+	rays = cub3d->img->width;
 	i = -1;
 	while (++i < rays)
 	{

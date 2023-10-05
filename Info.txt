@@ -1,0 +1,15 @@
+--------------------------------------------------------------------------------
+==================================== CUB3D =====================================
+--------------------------------------------------------------------------------
+
+
+Size:
+
+- We initialize size with the macros in cub3d.h
+- We always compare with the width and height of img
+- Whenever window is resized, we:
+	- delete our img
+	- create a new img with same size as mlx
+	- put the new img into the window
+
+

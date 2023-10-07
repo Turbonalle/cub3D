@@ -3,6 +3,116 @@
 --------------------------------------------------------------------------------
 
 
+----GAME lOGIC------------------------------------------------------------------
+
+Parsing:
+
+- open .cub file
+- get elements with get_next_line:
+	- skip empty lines
+	- for each line with info, check if it's valid and if we already have element
+	- remove newlines at end of string
+	- store textures in cub3d->texture[0] - cub3d->texture[3]
+	- store floor color in cub3d->floor_color
+	- store ceiling color in cub3d->ceiling_color
+- read map:
+	- skip empty lines before map
+	- get map with get_next_line
+	- store every line of the map in a linked list
+	- convert linked list into an array of strings (easier to work with because you can think of it as a 2d grid)
+	- make every line as long as the longest and fill empty spaces with ' '
+- check map validity:
+	- store grid position of player starting point
+	- change player starting point into '0'
+	- check that every 0 isn't touching an empty space
+	- use flooding algorithm to check that the map consists of only one "island":
+		- start at the top left corner of the map
+		- if it's 0 or 1, add by 2
+		- check if we still have a 1 on the map
+		- subtract 2 from them to get back to initial map
+
+
+Initializing:
+
+- initialize *mlx and *img with the size of macros
+- put img to window
+- create array of rays, the size of img width
+- convert player direction (read from the file) into radians
+- set all keys to FALSE
+- set minimap pos to [0,0] and initial size
+- set various necessary values
+
+
+Setting up hooks:
+
+- mlx_close_hook:
+	- handles what happens if ESC and top left X-button on the window is pressed
+- mlx_key_hook:
+	- recognizes key presses and releases
+	- sets the keys' boolean to TRUE or FALSE (stored in cub3d->keys)
+- mlx_scroll_hook:
+	- recognizes mouse scrolling
+	- handles the minimap zoom
+- mlx_mouse_hook:
+	- recognizes mouse button presses and releases
+	- handles moving of the minimap
+	- !!! should handle player rotation (but isn't implemented yet) !!!
+- mlx_loop_hook:
+	- constantly calls the update() function that does the meat of our game
+- mlx_loop:
+	- not a hook, but it is mlx's way of looping through all the hook functions until game is ended
+
+
+Game loop:
+
+- game is updated in update(), which is hooked in mlx_loop_hook() in start_game() from main()
+- update():
+	- we start by updating img size if window has been resized
+	- we check if minimap is being moved
+		- when lmb is pressed while mouse is hovering above the minimap, cub3d->on_minimap is set to TRUE
+		- in that case the minimap follows the mouse (as long as it stays inside the window)
+	- we update the player movement:
+		- check if any movement keys are set to TRUE
+		- update player angle if player is rotating
+		- based on which keys are being pressed, calculate the moving direction in relation to player angle
+		- calculate the new player position
+		- check if the new player position is inside a wall or not
+		- if there's a collision, only move in the possible axis
+	- draw background:
+		- top half in ceiling color
+		- bottom half in floor color
+	- raycasting:
+		- we have a ray for each pixel column of the img
+		- divide player FOV into as many segments as we have rays
+		- for each ray, use the DDA algorithm to calculate and store:
+			- its length
+			- its angle
+			- its end point
+			- what it hits (1 for WALL, 2 or higher for optional future possibilities)
+			- which side of the box it hits (NO, SO, WE, EA)
+		- !!! draw actual world, based on these values (not implemented yet) !!!
+	- minimap:
+		- update FOV (in case user is scrolling mouse)
+		- update player position, based on the actual position on the grid
+		- we draw the minimap in layers:
+			1. draw the minimap
+				- walls are gray, floor is black
+			2. draw FOV, based on the ray values, taking minimap pos and size into account
+			3. draw player square
+			4. draw player direction line
+
+
+Exiting:
+
+- when game is ended:
+	- call mlx_terminate()
+	- free all the allocated memory with malloc()
+
+
+
+
+----EXPLANATIONS----------------------------------------------------------------
+
 Size:
 
 - We initialize size with the macros in cub3d.h
@@ -11,5 +121,5 @@ Size:
 	- delete our img
 	- create a new img with same size as mlx
 	- put the new img into the window
-
+	- update minimap tilesize
 

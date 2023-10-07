@@ -28,18 +28,14 @@ void draw_minimap_playerdir(cub3d_t *cub3d)
 void draw_fov(cub3d_t *cub3d)
 {
 	dvector_t end;
-	double fov_start;
-	double ray_angle;
-	int rays;
-	int i;
+	unsigned int i;
 
-	fov_start = within_two_pi(cub3d->player.angle - to_radians((cub3d->fov / 2)));
-	rays = cub3d->img->width;
-	i = -1;
-	while (++i < rays)
+	i = 0;
+	while (i < cub3d->img->width)
 	{
-		ray_angle = within_two_pi(fov_start + to_radians((cub3d->fov * i / rays)));
-		find_end_point(cub3d, &cub3d->player, ray_angle, &end);
+		end.x = cub3d->minimap.player_pos.x + cos(cub3d->rays[i].angle) * cub3d->rays[i].length * cub3d->minimap.tile_size;
+		end.y = cub3d->minimap.player_pos.y + sin(cub3d->rays[i].angle) * cub3d->rays[i].length * cub3d->minimap.tile_size;
 		draw_line(cub3d->img, cub3d->minimap.player_pos, end, SADDLEBROWN);
+		i++;
 	}
 }

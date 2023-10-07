@@ -46,6 +46,9 @@
 # define FOV_MIN 1
 # define FOV_MAX 360
 
+# define X 0
+# define Y 1
+
 enum elements
 {
 	NO,
@@ -121,6 +124,15 @@ typedef struct minimap_s
 	int			color;
 }			minimap_t;
 
+typedef struct ray_s
+{
+	dvector_t	end;
+	double		angle;
+	double		length;
+	char		target;
+	int			wall;
+}				ray_t;
+
 typedef struct cub3d_s
 {
 	mlx_t		*mlx;
@@ -144,6 +156,7 @@ typedef struct cub3d_s
 	int			floor_color;
 	int			ceiling_color;
 	int			element_found[6];
+	ray_t		*rays;
 }			cub3d_t;
 
 
@@ -198,6 +211,7 @@ int err(char *error_message);
 
 // init_cub3d.c
 int count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
+int init_rays(cub3d_t *cub3d);
 int init_cub3d(cub3d_t *cub3d);
 
 // start_game.c
@@ -254,6 +268,13 @@ void draw_fov(cub3d_t *cub3d);
 int hover_minimap(cub3d_t *cub3d);
 void zoom_in_minimap(cub3d_t *cub3d);
 void zoom_out_minimap(cub3d_t *cub3d);
+
+
+
+//---- RAYCASTING -----------------------------------------------------------------
+
+// raycasting.c
+void raycasting(cub3d_t *cub3d);
 
 
 

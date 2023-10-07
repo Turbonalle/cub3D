@@ -11,16 +11,30 @@ static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 
  //-----------------------------------------------------------------------------
 
-static void update_end(cub3d_t *cub3d, dvector_t *vRayDir, dvector_t *end, double *dist, int *end_found)
+static void update_end(cub3d_t *cub3d, dvector_t *vRayDir, ray_t *ray, int *end_found)
 {
-	end->x = cub3d->minimap.player_pos.x + (*vRayDir).x * *dist * cub3d->minimap.tile_size;
-	end->y = cub3d->minimap.player_pos.y + (*vRayDir).y * *dist * cub3d->minimap.tile_size;
+	ray->end.x = cub3d->minimap.player_pos.x + (*vRayDir).x * ray->length;
+	ray->end.y = cub3d->minimap.player_pos.y + (*vRayDir).y * ray->length;
 	*end_found = TRUE;
 }
 
 //------------------------------------------------------------------------------
 
-int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end)
+static void set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
+{
+	if (wall_flag == X && player->pos.x < ray->end.x)
+		ray->wall = WE;
+	else if (wall_flag == X && ray->end.x < player->pos.x)
+		ray->wall = EA;
+	else if (wall_flag == Y && player->pos.y < ray->end.y)
+		ray->wall = NO;
+	else
+		ray->wall = SO;
+}
+
+//------------------------------------------------------------------------------
+
+int raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 {
 	dvector_t vRayStartingCell;
 	dvector_t vRayUnitStepSize;
@@ -30,8 +44,8 @@ int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *
 	vector_t vStep;
 	int end_found = FALSE;
 
-	vRayDir.x = cos(radians);
-	vRayDir.y = sin(radians);
+	vRayDir.x = cos(ray->angle);
+	vRayDir.y = sin(ray->angle);
 	if (vRayDir.x == 0 || vRayDir.y == 0)
 		return (FAIL);
 
@@ -64,34 +78,45 @@ int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *
 		vRayLength1D.y = (vMapCheck.y + 1.0 - vRayStartingCell.y) * vRayUnitStepSize.y;
 	}
 
-	double dist = 0;
 	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
 	int wall_flag = 0;
-	while (!end_found && dist < max_dist)
+	while (!end_found && ray->length < max_dist)
 	{
 		if (vRayLength1D.x < vRayLength1D.y)
 		{
 			vMapCheck.x += vStep.x;
-			dist = vRayLength1D.x;
+			ray->length = vRayLength1D.x;
 			vRayLength1D.x += vRayUnitStepSize.x;
-			wall_flag = 1;
+			wall_flag = X;
 		}
 		else
 		{
 			vMapCheck.y += vStep.y;
-			dist = vRayLength1D.y;
+			ray->length = vRayLength1D.y;
 			vRayLength1D.y += vRayUnitStepSize.y;
-			wall_flag = 0;
+			wall_flag = Y;
 		}
 		if (wall_found(cub3d, vMapCheck))
-			update_end(cub3d, &vRayDir, end, &dist, &end_found);
+		{
+			ray->target = cub3d->map[vMapCheck.y][vMapCheck.x];
+			update_end(cub3d, &vRayDir, ray, &end_found);
+		}
 	}
-	if (wall_flag == 1 && player->pos.x < end->x)
-		return (WE);
-	else if (wall_flag == 1 && end->x < player->pos.x)
-		return (EA);
-	else if (wall_flag == 0 && player->pos.y < end->y)
-		return (NO);
-	else
-		return (SO);
+	set_wall_direction(ray, player, wall_flag);
+	return (SUCCESS);
+}
+
+void raycasting(cub3d_t *cub3d)
+{
+	double fov_start;
+	unsigned int i;
+
+	fov_start = within_two_pi(cub3d->player.angle - to_radians((cub3d->fov / 2)));
+	i = 0;
+	while (i < cub3d->img->width)
+	{
+		cub3d->rays[i].angle = within_two_pi(fov_start + to_radians((cub3d->fov * i / cub3d->img->width)));
+		raycast(cub3d, &cub3d->player, &cub3d->rays[i]);
+		i++;
+	}
 }

@@ -57,6 +57,11 @@ void update_img_size(cub3d_t *cub3d)
 		cub3d->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width, cub3d->mlx->height);
 		update_minimap(cub3d);
 		mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0);
+		if (!init_rays(cub3d))
+		{
+			err("Failed to malloc rays");
+			mlx_close_window(cub3d->mlx);
+		}
 	}
 }
 
@@ -71,7 +76,7 @@ void update(void *param)
 		move_minimap(cub3d);
 	player_movement(cub3d);
 	draw_background(cub3d);
-	// raycasting(cub3d);
+	raycasting(cub3d);
 	minimap(cub3d);
 }
 

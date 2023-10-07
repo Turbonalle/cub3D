@@ -50,6 +50,29 @@ void set_keys(keypress_t *keys)
 	keys->mouse_right = FALSE;
 }
 
+int init_rays(cub3d_t *cub3d)
+{
+	int i;
+
+	// If screen has been resized, we free first want to free the old rays
+	if (cub3d->rays)
+		free(cub3d->rays);
+	cub3d->rays = malloc(sizeof(ray_t) * WIDTH);
+	if (!cub3d->rays)
+		return (FAIL);
+	i = -1;
+	while (++i < (int)cub3d->img->width)
+	{
+		cub3d->rays[i].end.x = 0;
+		cub3d->rays[i].end.y = 0;
+		cub3d->rays[i].angle = 0;
+		cub3d->rays[i].length = 0;
+		cub3d->rays[i].target = 0;
+		cub3d->rays[i].wall = 0;
+	}
+	return (SUCCESS);
+}
+
 int init_cub3d(cub3d_t *cub3d)
 {
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", TRUE);
@@ -58,6 +81,9 @@ int init_cub3d(cub3d_t *cub3d)
 	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
 		return (!err("Failed to create image"));
+	cub3d->rays = NULL;
+	if (!init_rays(cub3d))
+		return (!err("Failed to malloc rays"));
 	cub3d->player.pos.x = cub3d->starting_pos.x + 0.5;
 	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;
 	cub3d->mouse_set_pos.x = 0;

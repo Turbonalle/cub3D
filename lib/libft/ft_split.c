@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static size_t	ft_count(const char *s, char c)
 {
@@ -19,7 +20,7 @@ static size_t	ft_count(const char *s, char c)
 
 	i = 0;
 	words = 0;
-	if (s == '\0')
+	if (*s == '\0')
 		return (0);
 	while (s[i] && s[i] == c)
 		i++;
@@ -64,13 +65,16 @@ static char	*ft_strndup(const char *s, size_t n)
 
 static int	ft_free(char **s, size_t i)
 {
+	size_t j;
+
 	if (s)
 		return (1);
-	while (i >= 0)
+	j = 0;
+	while (j < i)
 	{
-		if (s[i])
-			free(s[i]);
-		i--;
+		if (s[j])
+			free(s[j]);
+		j++;
 	}
 	free(s);
 	return (0);
@@ -87,8 +91,9 @@ char	**ft_split(const char *s, char c)
 	result = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!result)
 		return (NULL);
-	i = 0;
-	while (i < words)
+	result[words] = NULL;
+	i = -1;
+	while (++i < words)
 	{
 		while (*s && *s == c)
 			s++;
@@ -97,8 +102,6 @@ char	**ft_split(const char *s, char c)
 		if (!ft_free(result, i))
 			return (NULL);
 		s += len;
-		i++;
 	}
-	result[i] = 0;
 	return (result);
 }

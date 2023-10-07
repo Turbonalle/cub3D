@@ -122,4 +122,16 @@ Size:
 	- create a new img with same size as mlx
 	- put the new img into the window
 	- update minimap tilesize
+	- allocate new memory for the array of rays
 
+
+Rays:
+
+- We dynamically allocate an array of ray_t structs
+- The array size is as big as the width of the *img
+- Whenever the window is resized we free the pointer to the array and allocate a new array accordingly
+- A ray_t struct contains all the necessary data for a ray (end point, length, what it hits, etc.)
+- We raycast before drawing the minimapm so that the minimap will be drawn on top
+- Since we have equally many rays as we have pixel columns in the window, each ray has the values for the corresponding pixel column
+- We draw each column based on the values of its corresponding ray:
+	- The longer the length of the ray, the smaller the drawn wall

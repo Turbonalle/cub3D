@@ -1,0 +1,26 @@
+-----------------------------------------------------------------------------
+
+TODO:
+
+- Create wall textures
+- Create sprites
+- Fix update_minimap()
+- Fix player movement when going backwards and strafing at the same time
+- Dynamically adjust a vector array to fit the width of the screen (so we can store the end points of each ray). Resize the array when the window is resized.
+- Do the raycasting before the minimap. This way we can draw the minimap on top of the raycasting. Minimap will use the vector array to draw the fov.
+
+-----------------------------------------------------------------------------
+
+OPTIONAL:
+
+- Compare with delta time
+- Add enemies
+
+-----------------------------------------------------------------------------
+
+WHEN PROJECT IS DONE:
+
+- Norminette
+- Remove extra folder
+- Remove extra function prototypes from header file
+- Remove debug prints

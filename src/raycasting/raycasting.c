@@ -36,7 +36,6 @@ static void set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 
 int raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 {
-	dvector_t vRayStartingCell;
 	dvector_t vRayUnitStepSize;
 	dvector_t vRayLength1D;
 	dvector_t vRayDir;
@@ -49,33 +48,31 @@ int raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 	if (vRayDir.x == 0 || vRayDir.y == 0)
 		return (FAIL);
 
-	vRayStartingCell.x = player->pos.x;
-	vRayStartingCell.y = player->pos.y;
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
 
-	vMapCheck.x = (int)vRayStartingCell.x;
-	vMapCheck.y = (int)vRayStartingCell.y;
+	vMapCheck.x = (int)player->pos.x;
+	vMapCheck.y = (int)player->pos.y;
 
 	if (vRayDir.x < 0)
 	{
 		vStep.x = -1;
-		vRayLength1D.x = (vRayStartingCell.x - vMapCheck.x) * vRayUnitStepSize.x;
+		vRayLength1D.x = (player->pos.x - vMapCheck.x) * vRayUnitStepSize.x;
 	}
 	else
 	{
 		vStep.x = 1;
-		vRayLength1D.x = (vMapCheck.x + 1.0 - vRayStartingCell.x) * vRayUnitStepSize.x;
+		vRayLength1D.x = (vMapCheck.x + 1.0 - player->pos.x) * vRayUnitStepSize.x;
 	}
 	if (vRayDir.y < 0)
 	{
 		vStep.y = -1;
-		vRayLength1D.y = (vRayStartingCell.y - vMapCheck.y) * vRayUnitStepSize.y;
+		vRayLength1D.y = (player->pos.y - vMapCheck.y) * vRayUnitStepSize.y;
 	}
 	else
 	{
 		vStep.y = 1;
-		vRayLength1D.y = (vMapCheck.y + 1.0 - vRayStartingCell.y) * vRayUnitStepSize.y;
+		vRayLength1D.y = (vMapCheck.y + 1.0 - player->pos.y) * vRayUnitStepSize.y;
 	}
 
 	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);

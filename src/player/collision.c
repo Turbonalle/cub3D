@@ -9,7 +9,7 @@ void collision_checker(cub3d_t *cub3d)
 	{
 		delta.x = cub3d->player.new_pos.x - cub3d->player.pos.x;
 		delta.y = cub3d->player.new_pos.y - cub3d->player.pos.y;
-		wall = find_end_point(cub3d, &cub3d->player, cub3d->player.angle, &cub3d->player.new_pos);
+		wall = find_end_point(cub3d, &cub3d->player, cub3d->player.movement_angle, &cub3d->player.new_pos);
 		if (wall == WE || wall == EA)
 		{
 			cub3d->player.new_pos.y = cub3d->player.pos.y + delta.y;

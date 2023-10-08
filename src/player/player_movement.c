@@ -84,7 +84,7 @@ void player_both(cub3d_t *cub3d)
 	}
 	else if (cub3d->keys.s && cub3d->keys.a)
 	{
-		cub3d->player.movement_angle = cub3d->player.angle + (M_PI / 4);
+		cub3d->player.movement_angle = cub3d->player.angle - 3 * (M_PI / 4);
 		if (cub3d->player.movement_angle >= (M_PI + M_PI))
 			cub3d->player.movement_angle -= (M_PI + M_PI);
 		cub3d->player.new_pos.x += cos(cub3d->player.movement_angle) * MOVEMENT_SPEED;
@@ -92,7 +92,7 @@ void player_both(cub3d_t *cub3d)
 	}
 	else if (cub3d->keys.s && cub3d->keys.d)
 	{
-		cub3d->player.movement_angle = cub3d->player.angle - (M_PI / 4);
+		cub3d->player.movement_angle = cub3d->player.angle + 3 * (M_PI / 4);
 		if (cub3d->player.movement_angle < 0)
 			cub3d->player.movement_angle += (M_PI + M_PI);
 		cub3d->player.new_pos.x += cos(cub3d->player.movement_angle) * MOVEMENT_SPEED;

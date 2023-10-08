@@ -5,7 +5,6 @@ TODO:
 - Create wall textures
 - Create sprites
 - Fix update_minimap()
-- Fix player movement when going backwards and strafing at the same time
 - Decrease minimap alpha to increase its opacity
 
 -----------------------------------------------------------------------------

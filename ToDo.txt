@@ -6,13 +6,17 @@ TODO:
 - Create sprites
 - Fix update_minimap()
 - Decrease minimap alpha to increase its opacity
+- Create formula for converting ray values into a "3D"-world
 
 -----------------------------------------------------------------------------
 
 OPTIONAL:
 
 - Compare with delta time
+- Create floor and ceiling textures
 - Add enemies
+- Add doors
+- Add mirrors
 
 -----------------------------------------------------------------------------
 

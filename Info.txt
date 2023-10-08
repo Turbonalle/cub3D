@@ -135,3 +135,33 @@ Rays:
 - Since we have equally many rays as we have pixel columns in the window, each ray has the values for the corresponding pixel column
 - We draw each column based on the values of its corresponding ray:
 	- The longer the length of the ray, the smaller the drawn wall
+
+
+Player angle and movement:
+
+- The angles work as follows:
+	- east	= 0 degrees
+	- south	= 90 degrees
+	- west	= 180 degrees
+	- north	= 270 degrees
+- We converted into radians so we can calculate x and y with cos() and sin()
+- 360 degrees = 2 * pi, which means:
+	- east	= 0/2 pi
+	- south	= 1/2 pi
+	- west	= 2/2 pi
+	- north	= 3/2 pi
+- Every time we rotate the player, the player angle is updated:
+	- left -> subtract from the angle
+	- right -> add to the angle
+- Every time we move the player, we calculate the movement angle:
+	- first we check which buttons are pressed (W,S,A,D)
+	- if player strafes left -> movement angle = player angle - 90 degrees
+	- if player strafes left and walks forward -> movement angle = player angle - 45 degrees
+	- etc...
+- Then, we derive the new position from the movement angle:
+	- new_pos.x = cos(movement_angle)
+	- new_pos.y = sin(movement_angle)
+- Lastly, we check if the new position is inside a wall
+	- if player is against a horizontal wall, we only move in the x-axis
+	- if player is against a vertical wall, we only move in the y-axis
+	- if player is hitting both (in a corner), we don't move at all

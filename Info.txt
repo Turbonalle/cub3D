@@ -144,7 +144,7 @@ Player angle and movement:
 	- south	= 90 degrees
 	- west	= 180 degrees
 	- north	= 270 degrees
-- We converted into radians so we can calculate x and y with cos() and sin()
+- We convert angle into radians so we can calculate x and y with cos() and sin()
 - 360 degrees = 2 * pi, which means:
 	- east	= 0/2 pi
 	- south	= 1/2 pi
@@ -161,6 +161,13 @@ Player angle and movement:
 - Then, we derive the new position from the movement angle:
 	- new_pos.x = cos(movement_angle)
 	- new_pos.y = sin(movement_angle)
+- By using cos and sin, we get a vector with the length of 1 from player position:
+	- Examples of what vector some angles yield:
+		- east	= 0/2 pi = [1,0]
+		- south	= 1/2 pi = [0,1]
+		- west	= 2/2 pi = [-1,0]
+		- north	= 3/2 pi = [0,-1]
+		- south-east = 1/4 pi = [sqrt(2),srqt(2)]
 - Lastly, we check if the new position is inside a wall
 	- if player is against a horizontal wall, we only move in the x-axis
 	- if player is against a vertical wall, we only move in the y-axis

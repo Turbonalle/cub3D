@@ -25,7 +25,7 @@ LIBS = -L$(MLX42DIR)/build -lmlx42 -L$(LIBFTDIR) -lft -L"/Users/$(USER)/.brew/op
 
 all: $(TARGET)
 
-$(TARGET): $(OBJ_FILES) libft
+$(TARGET): $(OBJ_FILES) libft mlx
 	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBS) -o $@
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
@@ -36,10 +36,15 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 libft:
 	@make -C $(LIBFTDIR)
 
+mlx:
+	@cmake -S $(MLX42DIR) -B $(MLX42DIR)/build
+	@cmake --build $(MLX42DIR)/build -j4
+
 clean:
 	@rm -f $(OBJ_FILES)
 	@rm -rf $(OBJ_PATH)
 	@make -C $(LIBFTDIR) clean
+	rm -rf $(MLX42DIR)/build
 
 fclean: clean
 	@rm -f $(TARGET)

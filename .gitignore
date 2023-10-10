@@ -6,3 +6,6 @@ _Study2/obj
 _Study2/cub3D
 .DS_store
 .vscode
+*.o
+*.a
+lib/MLX42/build

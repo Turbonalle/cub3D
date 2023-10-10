@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 15:09:19 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/10/10 15:59:59 by vvagapov         ###   ########.fr       */
+/*   Created: 2023/10/10 15:52:22 by vvagapov          #+#    #+#             */
+/*   Updated: 2023/10/10 15:53:17 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cub3d.h"
+#include "../../incl/cub3d.h"
 
-int main(int ac, char **av)
+int err(char *error_message)
 {
-	cub3d_t	cub3d;
-
-	if (ac != 2)
-		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
-	if (!read_cub_file(&cub3d, av[1]) || !init_cub3d(&cub3d))
-		return (1);
-	print_info(&cub3d); // DEBUG
-	start_game(&cub3d);
-	free_cub3d(&cub3d);
-	return (0);
+	printf(TERMINAL_RED);
+	printf("Error: %s\n", error_message);
+	printf(TERMINAL_RESET);
+	return (FAIL);
 }

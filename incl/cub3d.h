@@ -164,126 +164,131 @@ typedef struct cub3d_s
 //---- PARSING -----------------------------------------------------------------
 
 // get_color.c
-int get_color(cub3d_t *cub3d, int element, char **info);
+int		get_color(cub3d_t *cub3d, int element, char **info);
 
 // get_elements.c
-int all_elements_found(int *element_found);
-void remove_newline(char *line);
-int get_elements(cub3d_t *cub3d, int fd);
+int		all_elements_found(int *element_found);
+void	remove_newline(char *line);
+int		get_elements(cub3d_t *cub3d, int fd);
 
 // get_map.c
-int read_cub_file(cub3d_t *cub3d, char *map_path);
+int		read_cub_file(cub3d_t *cub3d, char *map_path);
 
 // get_texture.c
-int get_texture(cub3d_t *cub3d, int element, char **info);
+int		get_texture(cub3d_t *cub3d, int element, char **info);
 
 // flooding_algorithm.c
-int check_map_validity(char **map);
+int		check_map_validity(char **map);
 
 
 
 //---- MATH --------------------------------------------------------------------
 
 // math.c
-double within_two_pi(double radians);
-double to_radians(double degrees);
+double	within_two_pi(double radians);
+double	to_radians(double degrees);
 
 // dda.c
-int find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
+int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
 
 // color.c
-int get_rgba(int r, int g, int b, int a);
-int get_r(int rgba);
-int get_g(int rgba);
-int get_b(int rgba);
-int get_a(int rgba);
+int		get_rgba(int r, int g, int b, int a);
+int		get_r(int rgba);
+int		get_g(int rgba);
+int		get_b(int rgba);
+int		get_a(int rgba);
 
 // draw_line.c
-void draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
+void	draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
 
 
 
 //---- MAIN PROGRAM ------------------------------------------------------------
 
-// main.c
-void free_info(char **info);
-int err(char *error_message);
-
 // init_cub3d.c
-int count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
-int init_rays(cub3d_t *cub3d);
-int init_cub3d(cub3d_t *cub3d);
+int		count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
+int		init_rays(cub3d_t *cub3d);
+int		init_cub3d(cub3d_t *cub3d);
 
 // start_game.c
-void start_game(cub3d_t *cub3d);
+void	start_game(cub3d_t *cub3d);
 
 
 
 //---- PLAYER ------------------------------------------------------------------
 
 // collision.c
-void collision_checker(cub3d_t *cub3d);
+void	collision_checker(cub3d_t *cub3d);
 
 // player_movement.c
-void player_movement(cub3d_t *cub3d);
+void	player_movement(cub3d_t *cub3d);
 
 // fov.c
-void increase_fov(cub3d_t *cub3d);
-void decrease_fov(cub3d_t *cub3d);
+void	increase_fov(cub3d_t *cub3d);
+void	decrease_fov(cub3d_t *cub3d);
 
 
 
 //---- INPUT -------------------------------------------------------------------
 
 // handle_close.c
-void handle_close_window(void *param);
-void handle_escape_key(mlx_key_data_t *keydata, mlx_t *mlx);
+void	handle_close_window(void *param);
+void	handle_escape_key(mlx_key_data_t *keydata, mlx_t *mlx);
 
 // handle_keys.c
-void get_input(mlx_key_data_t keydata, void *param);
+void	get_input(mlx_key_data_t keydata, void *param);
 
 // handle_mouse.c
-void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);
-void hook_mouse_scroll(double xdelta, double ydelta, void *param);
+void	hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);
+void	hook_mouse_scroll(double xdelta, double ydelta, void *param);
 
 
 
 //---- MINIMAP -----------------------------------------------------------------
 
 // minimap.c
-void update_minimap_player_pos(cub3d_t *cub3d);
-void minimap(cub3d_t *cub3d);
+void	update_minimap_player_pos(cub3d_t *cub3d);
+void	minimap(cub3d_t *cub3d);
 
 // minimap_draw_base.c
-void draw_square(cub3d_t *cub3d, int x, int y, int size, int color);
-void draw_minimap(cub3d_t *cub3d);
-void draw_minimap_border(cub3d_t *cub3d);
+void	draw_square(cub3d_t *cub3d, int x, int y, int size, int color);
+void	draw_minimap(cub3d_t *cub3d);
+void	draw_minimap_border(cub3d_t *cub3d);
 
 // minimap_draw_player.c
-void draw_minimap_player(cub3d_t *cub3d);
-void draw_minimap_playerdir(cub3d_t *cub3d);
-void draw_fov(cub3d_t *cub3d);
+void	draw_minimap_player(cub3d_t *cub3d);
+void	draw_minimap_playerdir(cub3d_t *cub3d);
+void	draw_fov(cub3d_t *cub3d);
 
 // minimap_zoom.c
-int hover_minimap(cub3d_t *cub3d);
-void zoom_in_minimap(cub3d_t *cub3d);
-void zoom_out_minimap(cub3d_t *cub3d);
+int		hover_minimap(cub3d_t *cub3d);
+void	zoom_in_minimap(cub3d_t *cub3d);
+void	zoom_out_minimap(cub3d_t *cub3d);
 
 
 
-//---- RAYCASTING -----------------------------------------------------------------
+//---- RAYCASTING --------------------------------------------------------------
 
 // raycasting.c
-void raycasting(cub3d_t *cub3d);
+void	raycasting(cub3d_t *cub3d);
 
 
+
+//---- UTILS -------------------------------------------------------------------
+
+// memory_utils.c
+void	free_info(char **info);
+void	free_cub3d(cub3d_t *cub3d);
+
+// error_utils.c
+int		err(char *error_message);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 
 // extra.c
-void print_info(cub3d_t *cub3d);
-void print_array(char **array, char  *name);
-void print_map(char **map);
-void test(void);
+void	print_info(cub3d_t *cub3d);
+void	print_array(char **array, char  *name);
+void	print_map(char **map);
+void	test(void);
 
 #endif

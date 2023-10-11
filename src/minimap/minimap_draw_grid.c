@@ -28,21 +28,21 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 		draw_square(cub3d,
 					cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
 					cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, MINIMAP_COLOR_FLOOR);
+					cub3d->minimap.tile_size, cub3d->minimap.color_floor);
 	}
 	else if (cub3d->map[row][column] == '1')
 	{
 		draw_square(cub3d,
 					cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
 					cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, MINIMAP_COLOR_WALL);
+					cub3d->minimap.tile_size, cub3d->minimap.color_wall);
 	}
 	else
 	{
 		draw_square(cub3d,
 					cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
 					cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, MINIMAP_COLOR_EMPTY);
+					cub3d->minimap.tile_size, cub3d->minimap.color_empty);
 	}
 }
 

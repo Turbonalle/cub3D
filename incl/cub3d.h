@@ -38,6 +38,7 @@
 # define MINIMAP_COLOR_EMPTY GRAY
 # define MINIMAP_COLOR_FLOOR BLACK
 # define MINIMAP_COLOR_WALL GRAY
+# define MINIMAP_TRANSPARENCY 20
 
 # define MINIMAP_ZOOM_INCREMENT 5
 
@@ -121,7 +122,11 @@ typedef struct minimap_s
 	int			height;
 	int			size_percentage;
 	int			tile_size;
-	int			color;
+	int			color;			// DON'T THINK WE NEED THIS...
+	int			color_floor;
+	int			color_wall;
+	int			color_empty;
+	int			transparency;
 }			minimap_t;
 
 typedef struct ray_s
@@ -161,6 +166,26 @@ typedef struct cub3d_s
 
 
 
+//---- COLOR -------------------------------------------------------------------
+
+// get_color.c
+int		get_r(int rgba);
+int		get_g(int rgba);
+int		get_b(int rgba);
+int		get_a(int rgba);
+
+// set_color.c
+int		set_rgba(int r, int g, int b, int a);
+int		set_r(int rgba, int r);
+int		set_g(int rgba, int g);
+int		set_b(int rgba, int b);
+int		set_a(int rgba, int a);
+
+// transparency.c
+int		set_transparency(int color, int transparency);
+
+
+
 //---- PARSING -----------------------------------------------------------------
 
 // get_color.c
@@ -190,13 +215,6 @@ double	to_radians(double degrees);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
-
-// color.c
-int		get_rgba(int r, int g, int b, int a);
-int		get_r(int rgba);
-int		get_g(int rgba);
-int		get_b(int rgba);
-int		get_a(int rgba);
 
 // draw_line.c
 void	draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);

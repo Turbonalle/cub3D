@@ -22,6 +22,10 @@ void init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->map_rows;
 	cub3d->minimap.pos.x = 0;
 	cub3d->minimap.pos.y = 0;
+	cub3d->minimap.transparency = MINIMAP_TRANSPARENCY;
+	cub3d->minimap.color_floor = set_transparency(MINIMAP_COLOR_FLOOR, cub3d->minimap.transparency);
+	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
+	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
 }
 
 void set_initial_direction(cub3d_t *cub3d)

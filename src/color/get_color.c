@@ -1,8 +1,3 @@
-int get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
 int get_r(int rgba)
 {
 	return ((rgba >> 24) & 0xFF);
@@ -22,4 +17,3 @@ int get_a(int rgba)
 {
 	return (rgba & 0xFF);
 }
-

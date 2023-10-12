@@ -20,9 +20,15 @@ void init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d, cub3d->minimap.size_percentage);
 	cub3d->minimap.width = cub3d->minimap.tile_size * cub3d->map_columns;
 	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->map_rows;
+	cub3d->minimap.img = mlx_new_image(cub3d->mlx, cub3d->minimap.width, cub3d->minimap.height);
+	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx, cub3d->minimap.img, 0, 0) < 0))
+		err("Failed to create minimap image");
 	cub3d->minimap.pos.x = 0;
 	cub3d->minimap.pos.y = 0;
 	cub3d->minimap.transparency = MINIMAP_TRANSPARENCY;
+	cub3d->minimap.color_player = set_transparency(MINIMAP_COLOR_PLAYER, cub3d->minimap.transparency);
+	cub3d->minimap.color_playerdir = set_transparency(MINIMAP_COLOR_PLAYERDIR, cub3d->minimap.transparency);
+	cub3d->minimap.color_fov = set_transparency(MINIMAP_COLOR_FOV, cub3d->minimap.transparency);
 	cub3d->minimap.color_floor = set_transparency(MINIMAP_COLOR_FLOOR, cub3d->minimap.transparency);
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);

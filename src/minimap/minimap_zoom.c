@@ -43,14 +43,18 @@ void zoom_in_minimap(cub3d_t *cub3d)
 	cub3d->minimap.width = new_width;
 	cub3d->minimap.height = new_height;
 	cub3d->minimap.pos = new_pos;
+	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+	cub3d->minimap.img = mlx_new_image(cub3d->mlx, cub3d->minimap.width, cub3d->minimap.height);
+	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx, cub3d->minimap.img, cub3d->minimap.pos.x, cub3d->minimap.pos.y) < 0))
+		err("Failed to create minimap image");
 }
 
 void zoom_out_minimap(cub3d_t *cub3d)
 {
 	int new_size_percentage;
-	int new_width;
-	int new_height;
-	int new_tile_size;
+	unsigned int new_width;
+	unsigned int new_height;
+	unsigned int new_tile_size;
 	vector_t new_pos;
 
 	new_size_percentage = cub3d->minimap.size_percentage - MINIMAP_ZOOM_INCREMENT;
@@ -66,4 +70,8 @@ void zoom_out_minimap(cub3d_t *cub3d)
 	cub3d->minimap.width = new_width;
 	cub3d->minimap.height = new_height;
 	cub3d->minimap.pos = new_pos;
+	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+	cub3d->minimap.img = mlx_new_image(cub3d->mlx, cub3d->minimap.width, cub3d->minimap.height);
+	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx, cub3d->minimap.img, cub3d->minimap.pos.x, cub3d->minimap.pos.y) < 0))
+		err("Failed to create minimap image");
 }

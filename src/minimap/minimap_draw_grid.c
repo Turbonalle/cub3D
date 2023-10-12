@@ -14,7 +14,7 @@ void draw_square(cub3d_t *cub3d, int col, int row, int size, int color)
 		col = x;
 		while (col < end.x)
 		{
-			mlx_put_pixel(cub3d->img, col, row, color);
+			mlx_put_pixel(cub3d->minimap.img, col, row, color);
 			col++;
 		}
 		row++;
@@ -26,22 +26,22 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 	if (cub3d->map[row][column] == '0')
 	{
 		draw_square(cub3d,
-					cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
-					cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
+					column * cub3d->minimap.tile_size,
+					row * cub3d->minimap.tile_size,
 					cub3d->minimap.tile_size, cub3d->minimap.color_floor);
 	}
 	else if (cub3d->map[row][column] == '1')
 	{
 		draw_square(cub3d,
-					cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
-					cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
+					column * cub3d->minimap.tile_size,
+					row * cub3d->minimap.tile_size,
 					cub3d->minimap.tile_size, cub3d->minimap.color_wall);
 	}
 	else
 	{
 		draw_square(cub3d,
-					cub3d->minimap.pos.x + column * cub3d->minimap.tile_size,
-					cub3d->minimap.pos.y + row * cub3d->minimap.tile_size,
+					column * cub3d->minimap.tile_size,
+					row * cub3d->minimap.tile_size,
 					cub3d->minimap.tile_size, cub3d->minimap.color_empty);
 	}
 }
@@ -66,15 +66,15 @@ void draw_minimap_border(cub3d_t *cub3d)
 	int column;
 
 	column = -1;
-	while (++column < cub3d->minimap.width)
+	while (++column < (int)cub3d->minimap.img->width)
 	{
-		mlx_put_pixel(cub3d->img, cub3d->minimap.pos.x + column, cub3d->minimap.pos.y, RED);
-		mlx_put_pixel(cub3d->img, cub3d->minimap.pos.x + column, cub3d->minimap.pos.y + cub3d->minimap.height - 1, RED);
+		mlx_put_pixel(cub3d->minimap.img, column, 0, RED);
+		mlx_put_pixel(cub3d->minimap.img, column, cub3d->minimap.img->height - 1, RED);
 	}
 	row = -1;
-	while (++row < cub3d->minimap.height)
+	while (++row < (int)cub3d->minimap.img->height)
 	{
-		mlx_put_pixel(cub3d->img, cub3d->minimap.pos.x, cub3d->minimap.pos.y + row, RED);
-		mlx_put_pixel(cub3d->img, cub3d->minimap.pos.x + cub3d->minimap.width - 1, cub3d->minimap.pos.y + row, RED);
+		mlx_put_pixel(cub3d->minimap.img, 0, row, RED);
+		mlx_put_pixel(cub3d->minimap.img, cub3d->minimap.img->width - 1, row, RED);
 	}
 }

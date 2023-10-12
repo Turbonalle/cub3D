@@ -10,8 +10,8 @@ void update_minimap_fov(cub3d_t *cub3d)
 
 void update_minimap_player_pos(cub3d_t *cub3d)
 {
-	cub3d->minimap.player_pos.x = cub3d->minimap.pos.x + (cub3d->player.pos.x * cub3d->minimap.tile_size);
-	cub3d->minimap.player_pos.y = cub3d->minimap.pos.y + (cub3d->player.pos.y * cub3d->minimap.tile_size);
+	cub3d->minimap.player_pos.x = cub3d->player.pos.x * cub3d->minimap.tile_size;
+	cub3d->minimap.player_pos.y = cub3d->player.pos.y * cub3d->minimap.tile_size;
 }
 
 void minimap(cub3d_t *cub3d)

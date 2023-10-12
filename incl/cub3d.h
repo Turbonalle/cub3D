@@ -35,6 +35,8 @@
 # define MINIMAP_MAX_SIZE_PERCENTAGE 100
 # define MINIMAP_MIN_SIZE_PERCENTAGE 10
 # define MINIMAP_COLOR_PLAYER YELLOW
+# define MINIMAP_COLOR_PLAYERDIR WHITE
+# define MINIMAP_COLOR_FOV SADDLEBROWN
 # define MINIMAP_COLOR_EMPTY GRAY
 # define MINIMAP_COLOR_FLOOR BLACK
 # define MINIMAP_COLOR_WALL GRAY
@@ -116,6 +118,7 @@ typedef struct keypress_s
 
 typedef struct minimap_s
 {
+	mlx_image_t	*img;
 	vector_t	pos;
 	dvector_t	player_pos;
 	int			width;
@@ -123,6 +126,9 @@ typedef struct minimap_s
 	int			size_percentage;
 	int			tile_size;
 	int			color;			// DON'T THINK WE NEED THIS...
+	int			color_player;
+	int			color_playerdir;
+	int			color_fov;
 	int			color_floor;
 	int			color_wall;
 	int			color_empty;
@@ -218,7 +224,7 @@ int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t 
 
 // draw_line.c
 void	draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
-
+void draw_world(cub3d_t *cub3d);
 
 
 //---- MAIN PROGRAM ------------------------------------------------------------

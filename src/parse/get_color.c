@@ -23,10 +23,10 @@ void set_color(cub3d_t *cub3d, int element, int color)
 
 int get_color(cub3d_t *cub3d, int element, char **info)
 {
-	int i;
-	int color_part;
-	int color;
-	char **rgb;
+	int		i;
+	int		color_part;
+	int		color;
+	char	**rgb;
 
 	rgb = ft_split(info[1], ',');
 	free_info(info);

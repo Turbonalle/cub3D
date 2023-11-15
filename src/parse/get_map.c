@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:36 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/14 13:55:37 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/15 09:59:21 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 //------------------------------------------------------------------------------
 
-void copy_pointers(char **array_from, char **array_to, int pointers)
+void	copy_pointers(char **array_from, char **array_to, int pointers)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < pointers)
@@ -25,10 +25,10 @@ void copy_pointers(char **array_from, char **array_to, int pointers)
 
 //------------------------------------------------------------------------------
 
-int add_map_line(map_node_t **first_node, char *line)
+int	add_map_line(map_node_t **first_node, char *line)
 {
-	map_node_t *new_map_node;
-	map_node_t *current_map_node;
+	map_node_t	*new_map_node;
+	map_node_t	*current_map_node;
 
 	new_map_node = malloc(sizeof(map_node_t));
 	if (!new_map_node)
@@ -65,7 +65,7 @@ int	find_member_of_set_from_string(char *set, char *string)
 
 //------------------------------------------------------------------------------
 
-int get_preliminary_map(cub3d_t *cub3d, int fd)
+int	get_preliminary_map(cub3d_t *cub3d, int fd)
 {
 	map_node_t	*current_map_node;
 	char		*line;
@@ -99,7 +99,7 @@ int get_preliminary_map(cub3d_t *cub3d, int fd)
 
 //------------------------------------------------------------------------------
 
-int get_starting_point(cub3d_t *cub3d)
+int	get_starting_point(cub3d_t *cub3d)
 {
 	int	starting_point_found;
 	int	i;
@@ -131,7 +131,7 @@ int get_starting_point(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-int create_rectangular_map(cub3d_t *cub3d)
+int	create_rectangular_map(cub3d_t *cub3d)
 {
 	map_node_t	*current_map_node;
 	int			longest_length;
@@ -176,7 +176,7 @@ int create_rectangular_map(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-int get_map(cub3d_t *cub3d, int fd)
+int	get_map(cub3d_t *cub3d, int fd)
 {
 	if (!get_preliminary_map(cub3d, fd))
 		return (FAIL);
@@ -189,14 +189,15 @@ int get_map(cub3d_t *cub3d, int fd)
 
 //------------------------------------------------------------------------------
 
-int read_cub_file(cub3d_t *cub3d, char *map_path)
+int	read_cub_file(cub3d_t *cub3d, char *map_path)
 {
 	int	fd;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (close(fd), err("Failed to open map file"));
-	get_elements(cub3d, fd);
+	if (!get_elements(cub3d, fd))
+		return (FAIL);
 	if (!all_elements_found(cub3d->element_found))
 		return (close(fd), err("Missing element(s) in map file"));
 	if (!get_map(cub3d, fd))

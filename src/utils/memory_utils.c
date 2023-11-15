@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:41:53 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/10/10 16:00:10 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:38:28 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 void	free_info(char **info)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while (info[++i])
-		free(info[i]);
 	if (info)
+	{
+		while (info[++i])
+			free(info[i]);
 		free(info);
+	}
 }
 
 void	free_cub3d(cub3d_t *cub3d)

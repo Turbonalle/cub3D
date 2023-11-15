@@ -40,7 +40,7 @@ int all_walls_changed(char **map, int elements)
 
 //------------------------------------------------------------------------------
 
-int next_to_empty(char **map, int row, int column)
+int	next_to_empty(char **map, int row, int column)
 {
 	return (map[row - 1][column - 1] == ' '
 		|| map[row - 1][column] == ' '
@@ -54,10 +54,10 @@ int next_to_empty(char **map, int row, int column)
 
 //------------------------------------------------------------------------------
 
-int surrounded_by_walls(char **map)
+int	surrounded_by_walls(char **map)
 {
-	int row;
-	int column;
+	int	row;
+	int	column;
 
 	row = -1;
 	while (map[++row])
@@ -81,11 +81,11 @@ int surrounded_by_walls(char **map)
 
 //------------------------------------------------------------------------------
 
-int check_map_validity(char **map)
+int	check_map_validity(char **map)
 {
-	int row;
-	int column;
-	int elements;
+	int	row;
+	int	column;
+	int	elements;
 
 	row = 0;
 	column = 0;

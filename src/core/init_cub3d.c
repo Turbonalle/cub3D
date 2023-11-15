@@ -1,10 +1,10 @@
 #include "../incl/cub3d.h"
 
-int count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
+int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
 {
-	float tile_size;
-	float minimap_width;
-	float minimap_height;
+	float	tile_size;
+	float	minimap_width;
+	float	minimap_height;
 
 	minimap_width = (float)cub3d->img->width * (float)size_percentage / 100;
 	tile_size = minimap_width / (float)cub3d->map_columns;
@@ -14,7 +14,7 @@ int count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
 	return ((int)tile_size);
 }
 
-void init_minimap(cub3d_t *cub3d)
+void	init_minimap(cub3d_t *cub3d)
 {
 	cub3d->minimap.size_percentage = MINIMAP_SIZE_PERCENTAGE;
 	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d, cub3d->minimap.size_percentage);
@@ -34,7 +34,7 @@ void init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
 }
 
-void set_initial_direction(cub3d_t *cub3d)
+void	set_initial_direction(cub3d_t *cub3d)
 {
 	if (cub3d->starting_dir == 'E')
 		cub3d->player.angle = to_radians(0);
@@ -48,7 +48,7 @@ void set_initial_direction(cub3d_t *cub3d)
 	cub3d->player.dir.y = sin(cub3d->player.angle);
 }
 
-void set_keys(keypress_t *keys)
+void	 set_keys(keypress_t *keys)
 {
 	keys->w = FALSE;
 	keys->a = FALSE;
@@ -60,9 +60,9 @@ void set_keys(keypress_t *keys)
 	keys->mouse_right = FALSE;
 }
 
-int init_rays(cub3d_t *cub3d)
+int	init_rays(cub3d_t *cub3d)
 {
-	int i;
+	int	i;
 
 	// If screen has been resized, we free first want to free the old rays
 	if (cub3d->rays)
@@ -83,7 +83,7 @@ int init_rays(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int init_cub3d(cub3d_t *cub3d)
+int	init_cub3d(cub3d_t *cub3d)
 {
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", TRUE);
 	if (!cub3d->mlx)

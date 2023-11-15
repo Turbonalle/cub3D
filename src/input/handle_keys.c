@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-void handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
 	if (keydata.key == MLX_KEY_W)
 		cub3d->keys.w = TRUE;
@@ -20,7 +20,7 @@ void handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.down = TRUE;
 }
 
-void handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
 	if (keydata.key == MLX_KEY_W)
 		cub3d->keys.w = FALSE;
@@ -40,9 +40,9 @@ void handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.down = FALSE;
 }
 
-void get_input(mlx_key_data_t keydata, void *param)
+void	get_input(mlx_key_data_t keydata, void *param)
 {
-	cub3d_t *cub3d;
+	cub3d_t	*cub3d;
 
 	cub3d = param;
 	handle_escape_key(&keydata, cub3d->mlx);

@@ -1,15 +1,15 @@
 #include "../incl/cub3d.h"
 
-int set_rgba(int r, int g, int b, int a)
+int	set_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int set_r(int rgba, int r)
+int	set_r(int rgba, int r)
 {
-	int g;
-	int b;
-	int a;
+	int	g;
+	int	b;
+	int	a;
 
 	g = get_g(rgba);
 	b = get_b(rgba);
@@ -17,11 +17,11 @@ int set_r(int rgba, int r)
 	return (set_rgba(r, g, b, a));
 }
 
-int set_g(int rgba, int g)
+int	set_g(int rgba, int g)
 {
-	int r;
-	int b;
-	int a;
+	int	r;
+	int	b;
+	int	a;
 
 	r = get_r(rgba);
 	b = get_b(rgba);
@@ -29,11 +29,11 @@ int set_g(int rgba, int g)
 	return (set_rgba(r, g, b, a));
 }
 
-int set_b(int rgba, int b)
+int	set_b(int rgba, int b)
 {
-	int r;
-	int g;
-	int a;
+	int	r;
+	int	g;
+	int	a;
 
 	r = get_r(rgba);
 	g = get_g(rgba);
@@ -41,11 +41,11 @@ int set_b(int rgba, int b)
 	return (set_rgba(r, g, b, a));
 }
 
-int set_a(int rgba, int a)
+int	set_a(int rgba, int a)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	r = get_r(rgba);
 	g = get_g(rgba);

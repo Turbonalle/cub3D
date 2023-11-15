@@ -34,11 +34,11 @@ void bresenham_low_slope(mlx_image_t *img, vector_t start, vector_t end, int col
 
 void bresenham_high_slope(mlx_image_t *img, vector_t start, vector_t end, int color)
 {
-	vector_t delta;
-	vector_t pixel;
-	int xi;
-	int D;
-	
+	vector_t	delta;
+	vector_t	pixel;
+	int			xi;
+	int			D;
+
 	delta.x = end.x - start.x;
 	delta.y = end.y - start.y;
 	xi = 1;
@@ -66,8 +66,8 @@ void bresenham_high_slope(mlx_image_t *img, vector_t start, vector_t end, int co
 
 void draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 {
-	vector_t start;
-	vector_t end;
+	vector_t	start;
+	vector_t	end;
 
 	start.x = start_d.x;
 	start.y = start_d.y;

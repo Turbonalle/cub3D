@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/14 13:55:36 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/14 13:55:37 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 //------------------------------------------------------------------------------
@@ -37,13 +49,30 @@ int add_map_line(map_node_t **first_node, char *line)
 
 //------------------------------------------------------------------------------
 
+int	find_member_of_set_from_string(char *set, char *string)
+{
+	int	i;
+
+	i = 0;
+	while (string[i])
+	{
+		if (ft_strchr(set, string[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+//------------------------------------------------------------------------------
+
 int get_preliminary_map(cub3d_t *cub3d, int fd)
 {
-	map_node_t *current_map_node;
-	char *line;
-	int i;
+	map_node_t	*current_map_node;
+	char		*line;
+	int			i;
 
 	cub3d->map_list = NULL;
+	cub3d->map = NULL;
 	line = get_next_line(fd);
 	while (line && line[0] == '\n')
 	{
@@ -54,7 +83,7 @@ int get_preliminary_map(cub3d_t *cub3d, int fd)
 	while (line)
 	{
 		remove_newline(line);
-		if (!ft_strchr(MAP_ALL_ELEMENTS, *line))
+		if (!find_member_of_set_from_string(MAP_ALL_ELEMENTS, line))
 			return (free(line), err("Invalid character in map"));
 		if (!add_map_line(&cub3d->map_list, line))
 			return (free(line), err("Failed to allocate memory for map"));
@@ -72,9 +101,9 @@ int get_preliminary_map(cub3d_t *cub3d, int fd)
 
 int get_starting_point(cub3d_t *cub3d)
 {
-	int starting_point_found;
-	int i;
-	int j;
+	int	starting_point_found;
+	int	i;
+	int	j;
 
 	starting_point_found = FALSE;
 	i = -1;
@@ -104,9 +133,10 @@ int get_starting_point(cub3d_t *cub3d)
 
 int create_rectangular_map(cub3d_t *cub3d)
 {
-	map_node_t *current_map_node;
-	int longest_length;
-	int i;
+	map_node_t	*current_map_node;
+	int			longest_length;
+	int			i;
+	int			j;
 
 	cub3d->map = malloc(sizeof(char *) * (cub3d->nodes + 1));
 	if (!cub3d->map)
@@ -129,7 +159,7 @@ int create_rectangular_map(cub3d_t *cub3d)
 		cub3d->map[i] = malloc(sizeof(char) * (longest_length + 1));
 		if (!cub3d->map[i])
 			return (err("Failed to allocate memory for map"));
-		int j = 0;
+		j = 0;
 		while (current_map_node->line[j])
 		{
 			cub3d->map[i][j] = current_map_node->line[j];
@@ -161,7 +191,7 @@ int get_map(cub3d_t *cub3d, int fd)
 
 int read_cub_file(cub3d_t *cub3d, char *map_path)
 {
-	int fd;
+	int	fd;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)

@@ -24,9 +24,9 @@ int get_element(cub3d_t *cub3d, int element, char **info)
 		return (get_texture(cub3d, element, info));
 }
 
-int find_element(cub3d_t *cub3d, char *line)
+int	find_element(cub3d_t *cub3d, char *line)
 {
-	char **info;
+	char	**info;
 
 	info = ft_split(line, ' ');
 	if (!info || !info[0] || !info[1])
@@ -79,7 +79,7 @@ int get_elements(cub3d_t *cub3d, int fd)
 		remove_newline(line);
 		if (!find_element(cub3d, line))
 		{
-			free(line);	
+			free(line);
 			return (FAIL);
 		}
 		free(line);

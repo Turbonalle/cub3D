@@ -1,9 +1,9 @@
 #include "../incl/cub3d.h"
 
-void draw_background(cub3d_t *cub3d)
+void	draw_background(cub3d_t *cub3d)
 {
-	unsigned int row;
-	unsigned int column;
+	unsigned int	row;
+	unsigned int	column;
 
 	row = -1;
 	while (++row < cub3d->img->height)
@@ -19,9 +19,9 @@ void draw_background(cub3d_t *cub3d)
 	}
 }
 
-void move_minimap(cub3d_t *cub3d)
+void	move_minimap(cub3d_t *cub3d)
 {
-	vector_t mouse_moved;
+	vector_t	mouse_moved;
 
 	mouse_moved.x = cub3d->mouse.x - cub3d->mouse_set_pos.x;
 	mouse_moved.y = cub3d->mouse.y - cub3d->mouse_set_pos.y;
@@ -41,7 +41,7 @@ void move_minimap(cub3d_t *cub3d)
 	cub3d->minimap.pos.y = cub3d->minimap.img->instances[0].y;
 }
 
-void update_minimap(cub3d_t *cub3d)
+void	update_minimap(cub3d_t *cub3d)
 {
 	(void)cub3d;
 	// compare img size with previous img size
@@ -51,7 +51,7 @@ void update_minimap(cub3d_t *cub3d)
 	// update minimap position in relation to the new img size
 }
 
-void update_img_size(cub3d_t *cub3d)
+void	update_img_size(cub3d_t *cub3d)
 {
 	if ((int)cub3d->img->width != cub3d->mlx->width || (int)cub3d->img->height != cub3d->mlx->height)
 	{
@@ -67,9 +67,9 @@ void update_img_size(cub3d_t *cub3d)
 	}
 }
 
-void update(void *param)
+void	update(void *param)
 {
-	cub3d_t *cub3d;
+	cub3d_t	*cub3d;
 
 	cub3d = param;
 	update_img_size(cub3d);
@@ -79,13 +79,12 @@ void update(void *param)
 	player_movement(cub3d);
 	draw_background(cub3d);
 	raycasting(cub3d);
-	draw_world(cub3d);
+	//draw_world(cub3d);
 	minimap(cub3d);
 }
 
-void start_game(cub3d_t *cub3d)
+void	start_game(cub3d_t *cub3d)
 {
-	
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);
 	mlx_scroll_hook(cub3d->mlx, &hook_mouse_scroll, cub3d);

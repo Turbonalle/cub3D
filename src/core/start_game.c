@@ -79,7 +79,7 @@ void	update(void *param)
 	player_movement(cub3d);
 	draw_background(cub3d);
 	raycasting(cub3d);
-	//draw_world(cub3d);
+	draw_world(cub3d);
 	minimap(cub3d);
 }
 

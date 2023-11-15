@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:41:53 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/11/14 13:38:28 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/15 11:50:59 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,6 @@ void	free_cub3d(cub3d_t *cub3d)
 		free(cub3d->map[i]);
 	if (cub3d->map)
 		free(cub3d->map);
+	empty_map_list(cub3d->map_list);
+	free(cub3d->rays);
 }

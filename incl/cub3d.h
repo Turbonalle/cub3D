@@ -110,9 +110,9 @@ typedef struct keypress_s
 	int	d;
 	int	left;
 	int	right;
-	int up;
-	int down;
-	int mouse_left;
+	int	up;
+	int	down;
+	int	mouse_left;
 	int mouse_right;
 }			keypress_t;
 
@@ -303,6 +303,7 @@ void	raycasting(cub3d_t *cub3d);
 // memory_utils.c
 void	free_info(char **info);
 void	free_cub3d(cub3d_t *cub3d);
+void	empty_map_list(map_node_t *node);
 
 // error_utils.c
 int		err(char *error_message);

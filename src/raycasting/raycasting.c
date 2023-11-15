@@ -13,8 +13,8 @@ static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 
 static void update_end(cub3d_t *cub3d, dvector_t *vRayDir, ray_t *ray, int *end_found)
 {
-	ray->end.x = cub3d->minimap.player_pos.x + (*vRayDir).x * ray->length;
-	ray->end.y = cub3d->minimap.player_pos.y + (*vRayDir).y * ray->length;
+	ray->end.x = cub3d->player.pos.x + (*vRayDir).x * ray->length;
+	ray->end.y = cub3d->player.pos.y + (*vRayDir).y * ray->length;
 	*end_found = TRUE;
 }
 

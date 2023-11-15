@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/15 12:14:17 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/15 14:52:08 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
+static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	return (vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->map_columns
-			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->map_rows
-			&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
+		&& vMapCheck.x < cub3d->map_columns
+		&& vMapCheck.y >= 0
+		&& vMapCheck.y < cub3d->map_rows
+		&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
- //-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
-static void update_end(cub3d_t *cub3d, dvector_t *vRayDir, ray_t *ray, int *end_found)
+static void	update_end(cub3d_t *cub3d, dvector_t *vRayDir, ray_t *ray, int *end_found)
 {
 	ray->end.x = cub3d->player.pos.x + (*vRayDir).x * ray->length;
 	ray->end.y = cub3d->player.pos.y + (*vRayDir).y * ray->length;
@@ -20,7 +32,7 @@ static void update_end(cub3d_t *cub3d, dvector_t *vRayDir, ray_t *ray, int *end_
 
 //------------------------------------------------------------------------------
 
-static void set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
+static void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 {
 	if (wall_flag == X && player->pos.x < ray->end.x)
 		ray->wall = WE;
@@ -34,15 +46,16 @@ static void set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 
 //------------------------------------------------------------------------------
 
-int raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
+int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 {
-	dvector_t vRayUnitStepSize;
-	dvector_t vRayLength1D;
-	dvector_t vRayDir;
-	vector_t vMapCheck;
-	vector_t vStep;
-	int end_found = FALSE;
+	dvector_t	vRayUnitStepSize;
+	dvector_t	vRayLength1D;
+	dvector_t	vRayDir;
+	vector_t	vMapCheck;
+	vector_t	vStep;
+	int			end_found;
 
+	end_found = FALSE;
 	vRayDir.x = cos(ray->angle);
 	vRayDir.y = sin(ray->angle);
 	if (vRayDir.x == 0 || vRayDir.y == 0)
@@ -105,8 +118,8 @@ int raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 
 void raycasting(cub3d_t *cub3d)
 {
-	double fov_start;
-	unsigned int i;
+	double			fov_start;
+	unsigned int	i;
 
 	fov_start = within_two_pi(cub3d->player.angle - to_radians((cub3d->fov / 2)));
 	i = 0;

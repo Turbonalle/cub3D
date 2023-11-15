@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_cub3d.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/15 14:26:13 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/15 14:45:32 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
@@ -49,7 +61,7 @@ void	set_initial_direction(cub3d_t *cub3d)
 	cub3d->player.dir.y = sin(cub3d->player.angle);
 }
 
-void	 set_keys(keypress_t *keys)
+void	set_keys(keypress_t *keys)
 {
 	keys->w = FALSE;
 	keys->a = FALSE;

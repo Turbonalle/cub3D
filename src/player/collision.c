@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   collision.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/15 14:27:31 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/15 14:46:53 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-void collision_checker(cub3d_t *cub3d)
+void	collision_checker(cub3d_t *cub3d)
 {
-	dvector_t delta;
-	int wall;
+	dvector_t	delta;
+	int			wall;
 
 	if (cub3d->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL)
 	{

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validity.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/15 14:47:02 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/15 14:47:11 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-void flood(char **map, int row, int column, int elements)
+void	flood(char **map, int row, int column, int elements)
 {
 	if (map[row][column] == '1' || map[row][column] == '0')
 		map[row][column] += elements;
@@ -18,7 +30,7 @@ void flood(char **map, int row, int column, int elements)
 
 //------------------------------------------------------------------------------
 
-int all_walls_changed(char **map, int elements)
+int	all_walls_changed(char **map, int elements)
 {
 	int row;
 	int column;

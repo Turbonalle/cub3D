@@ -113,7 +113,7 @@ typedef struct keypress_s
 	int	up;
 	int	down;
 	int	mouse_left;
-	int mouse_right;
+	int	mouse_right;
 }			keypress_t;
 
 typedef struct minimap_s

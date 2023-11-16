@@ -6,31 +6,31 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 14:27:15 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/15 14:27:16 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:11:12 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int hover_minimap(cub3d_t *cub3d)
+int	hover_minimap(cub3d_t *cub3d)
 {
-	int mouse_x;
-	int mouse_y;
+	int	mouse_x;
+	int	mouse_y;
 
 	mlx_get_mouse_pos(cub3d->mlx, &mouse_x, &mouse_y);
 	return (mouse_x >= cub3d->minimap.pos.x
-			&& mouse_x <= cub3d->minimap.pos.x + cub3d->minimap.width
-			&& mouse_y >= cub3d->minimap.pos.y
-			&& mouse_y <= cub3d->minimap.pos.y + cub3d->minimap.height);
+		&& mouse_x <= cub3d->minimap.pos.x + cub3d->minimap.width
+		&& mouse_y >= cub3d->minimap.pos.y
+		&& mouse_y <= cub3d->minimap.pos.y + cub3d->minimap.height);
 }
 
-void zoom_in_minimap(cub3d_t *cub3d)
+void	zoom_in_minimap(cub3d_t *cub3d)
 {
-	int new_size_percentage;
-	unsigned int new_width;
-	unsigned int new_height;
-	unsigned int new_tile_size;
-	vector_t new_pos;
+	int				new_size_percentage;
+	unsigned int	new_width;
+	unsigned int	new_height;
+	unsigned int	new_tile_size;
+	vector_t		new_pos;
 
 	new_size_percentage = cub3d->minimap.size_percentage + MINIMAP_ZOOM_INCREMENT;
 	if (new_size_percentage > MINIMAP_MAX_SIZE_PERCENTAGE)
@@ -61,13 +61,13 @@ void zoom_in_minimap(cub3d_t *cub3d)
 		err("Failed to create minimap image");
 }
 
-void zoom_out_minimap(cub3d_t *cub3d)
+void 	oom_out_minimap(cub3d_t *cub3d)
 {
-	int new_size_percentage;
-	unsigned int new_width;
-	unsigned int new_height;
-	unsigned int new_tile_size;
-	vector_t new_pos;
+	int				new_size_percentage;
+	unsigned int	new_width;
+	unsigned int	new_height;
+	unsigned int	new_tile_size;
+	vector_t		new_pos;
 
 	new_size_percentage = cub3d->minimap.size_percentage - MINIMAP_ZOOM_INCREMENT;
 	if (new_size_percentage < MINIMAP_MIN_SIZE_PERCENTAGE)

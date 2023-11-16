@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_elements.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/16 14:04:31 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/16 14:04:50 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-int all_elements_found(int *element_found)
+int	all_elements_found(int *element_found)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 6)
@@ -13,7 +25,7 @@ int all_elements_found(int *element_found)
 	return (SUCCESS);
 }
 
-int get_element(cub3d_t *cub3d, int element, char **info)
+int	get_element(cub3d_t *cub3d, int element, char **info)
 {
 	if (cub3d->element_found[element])
 		return (free_info(info), err("Duplicate element found"));
@@ -46,9 +58,9 @@ int	find_element(cub3d_t *cub3d, char *line)
 	return (FAIL);
 }
 
-void remove_newline(char *line)
+void	remove_newline(char *line)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (line[++i])
@@ -58,10 +70,10 @@ void remove_newline(char *line)
 	}
 }
 
-int get_elements(cub3d_t *cub3d, int fd)
+int	get_elements(cub3d_t *cub3d, int fd)
 {
-	char *line;
-	int i;
+	char	*line;
+	int		i;
 
 	i = 0;
 	while (i < 6)

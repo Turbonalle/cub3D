@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_color.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/16 14:04:05 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/16 14:04:27 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-int all_digits(char *str)
+int	all_digits(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
@@ -13,7 +25,7 @@ int all_digits(char *str)
 	return (SUCCESS);
 }
 
-void set_color(cub3d_t *cub3d, int element, int color)
+void	set_color(cub3d_t *cub3d, int element, int color)
 {
 	if (element == F)
 		cub3d->floor_color = color;
@@ -21,12 +33,12 @@ void set_color(cub3d_t *cub3d, int element, int color)
 		cub3d->ceiling_color = color;
 }
 
-int get_color(cub3d_t *cub3d, int element, char **info)
+int	get_color(cub3d_t *cub3d, int element, char **info)
 {
-	int i;
-	int color_part;
-	int color;
-	char **rgb;
+	int		i;
+	int		color_part;
+	int		color;
+	char	**rgb;
 
 	rgb = ft_split(info[1], ',');
 	free_info(info);

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:14:17 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/15 14:52:08 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:03:05 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,10 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 	vRayDir.y = sin(ray->angle);
 	if (vRayDir.x == 0 || vRayDir.y == 0)
 		return (FAIL);
-
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
-
 	vMapCheck.x = (int)player->pos.x;
 	vMapCheck.y = (int)player->pos.y;
-
 	if (vRayDir.x < 0)
 	{
 		vStep.x = -1;
@@ -87,7 +84,6 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 		vStep.y = 1;
 		vRayLength1D.y = (vMapCheck.y + 1.0 - player->pos.y) * vRayUnitStepSize.y;
 	}
-
 	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
 	int wall_flag = 0;
 	while (!end_found && ray->length < max_dist)
@@ -116,7 +112,7 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 	return (SUCCESS);
 }
 
-void raycasting(cub3d_t *cub3d)
+void	raycasting(cub3d_t *cub3d)
 {
 	double			fov_start;
 	unsigned int	i;

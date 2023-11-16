@@ -6,16 +6,16 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:36 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/15 11:42:36 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:07:35 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
 //------------------------------------------------------------------------------
-void copy_pointers(char **array_from, char **array_to, int pointers)
+void	copy_pointers(char **array_from, char **array_to, int pointers)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < pointers)
@@ -24,10 +24,10 @@ void copy_pointers(char **array_from, char **array_to, int pointers)
 
 //------------------------------------------------------------------------------
 
-int add_map_line(map_node_t **first_node, char *line)
+int	add_map_line(map_node_t **first_node, char *line)
 {
-	map_node_t *new_map_node;
-	map_node_t *current_map_node;
+	map_node_t	*new_map_node;
+	map_node_t	*current_map_node;
 
 	new_map_node = malloc(sizeof(map_node_t));
 	if (!new_map_node)

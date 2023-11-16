@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 14:47:02 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/15 14:47:11 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:07:16 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	flood(char **map, int row, int column, int elements)
 
 int	all_walls_changed(char **map, int elements)
 {
-	int row;
-	int column;
+	int	row;
+	int	column;
 
 	row = -1;
 	while (map[++row])
@@ -41,7 +41,8 @@ int	all_walls_changed(char **map, int elements)
 		column = -1;
 		while (map[row][++column])
 		{
-			if (map[row][column] == '0' + elements || map[row][column] == '1' + elements)
+			if (map[row][column] == '0' + elements
+			|| map[row][column] == '1' + elements)
 				map[row][column] -= elements;
 			else if (map[row][column] == '1')
 				return (FALSE);

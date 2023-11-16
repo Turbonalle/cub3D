@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 14:26:21 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/15 14:26:26 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:01:37 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //------------------------------------------------------------------------------
 
-void print_info(cub3d_t *cub3d)
+void	print_info(cub3d_t *cub3d)
 {
 	printf(TERMINAL_CYAN"INFO:\n"TERMINAL_RESET);
 	printf(TERMINAL_GREEN"NO"TERMINAL_RESET" = %s\n", cub3d->texture[NO].path);
@@ -32,28 +32,32 @@ void print_info(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-void print_array(char **array, char *name)
+void	print_array(char **array, char *name)
 {
+	int	i;
+
+	i = -1;
 	printf(TERMINAL_CYAN"%s:\n"TERMINAL_RESET, name);
-	int i = -1;
 	while (array[++i])
 		printf("array[%d] = %s", i, array[i]);
 }
 
 //------------------------------------------------------------------------------
 
-void print_map(char **map)
+void	print_map(char **map)
 {
-	int i = -1;
+	int	i;
+
+	i = -1;
 	while (map[++i])
 		printf("map[%02d] = |%s|\n", i, map[i]);
 }
 
 //------------------------------------------------------------------------------
 
-void test(void)
+void	test(void)
 {
-	int fd = open("Maps/test.txt", O_RDONLY);
+	int	fd = open("Maps/test.txt", O_RDONLY);
 	char *line = get_next_line(fd);
 	int i = 0;
 	while (line)

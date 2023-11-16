@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 14:27:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/15 14:27:11 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:08:40 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void draw_square(cub3d_t *cub3d, int col, int row, int size, int color)
 {
-	
-	vector_t end;
-	int x;
+	vector_t	end;
+	int			x;
 
 	end.x = col + size;
 	end.y = row + size;
@@ -33,35 +32,35 @@ void draw_square(cub3d_t *cub3d, int col, int row, int size, int color)
 	}
 }
 
-void draw_correct_square(cub3d_t *cub3d, int row, int column)
+void	draw_correct_square(cub3d_t *cub3d, int row, int column)
 {
 	if (cub3d->map[row][column] == '0')
 	{
 		draw_square(cub3d,
-					column * cub3d->minimap.tile_size,
-					row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, cub3d->minimap.color_floor);
+			column * cub3d->minimap.tile_size,
+			row * cub3d->minimap.tile_size,
+			cub3d->minimap.tile_size, cub3d->minimap.color_floor);
 	}
 	else if (cub3d->map[row][column] == '1')
 	{
 		draw_square(cub3d,
-					column * cub3d->minimap.tile_size,
-					row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, cub3d->minimap.color_wall);
+			column * cub3d->minimap.tile_size,
+			row * cub3d->minimap.tile_size,
+			cub3d->minimap.tile_size, cub3d->minimap.color_wall);
 	}
 	else
 	{
 		draw_square(cub3d,
-					column * cub3d->minimap.tile_size,
-					row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, cub3d->minimap.color_empty);
+			column * cub3d->minimap.tile_size,
+			row * cub3d->minimap.tile_size,
+			cub3d->minimap.tile_size, cub3d->minimap.color_empty);
 	}
 }
 
-void draw_minimap(cub3d_t *cub3d)
+void	draw_minimap(cub3d_t *cub3d)
 {
-	int row;
-	int column;
+	int	row;
+	int	column;
 
 	row = -1;
 	while (++row < cub3d->map_rows)
@@ -72,21 +71,23 @@ void draw_minimap(cub3d_t *cub3d)
 	}
 }
 
-void draw_minimap_border(cub3d_t *cub3d)
+void	draw_minimap_border(cub3d_t *cub3d)
 {
-	int row;
-	int column;
+	int	row;
+	int	column;
 
 	column = -1;
 	while (++column < (int)cub3d->minimap.img->width)
 	{
 		mlx_put_pixel(cub3d->minimap.img, column, 0, RED);
-		mlx_put_pixel(cub3d->minimap.img, column, cub3d->minimap.img->height - 1, RED);
+		mlx_put_pixel(cub3d->minimap.img, column,
+			cub3d->minimap.img->height - 1, RED);
 	}
 	row = -1;
 	while (++row < (int)cub3d->minimap.img->height)
 	{
 		mlx_put_pixel(cub3d->minimap.img, 0, row, RED);
-		mlx_put_pixel(cub3d->minimap.img, cub3d->minimap.img->width - 1, row, RED);
+		mlx_put_pixel(cub3d->minimap.img,
+			cub3d->minimap.img->width - 1, row, RED);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 14:27:15 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/16 14:11:12 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/17 09:04:49 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	zoom_in_minimap(cub3d_t *cub3d)
 		err("Failed to create minimap image");
 }
 
-void 	oom_out_minimap(cub3d_t *cub3d)
+void 	zoom_out_minimap(cub3d_t *cub3d)
 {
 	int				new_size_percentage;
 	unsigned int	new_width;

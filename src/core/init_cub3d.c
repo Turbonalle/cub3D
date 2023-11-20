@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:08:35 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/20 10:09:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	set_initial_direction(cub3d_t *cub3d)
 	cub3d->player.dir.y = sin(cub3d->player.angle);
 }
 
-void	 set_keys(keypress_t *keys)
+void	set_keys(keypress_t *keys)
 {
 	keys->w = FALSE;
 	keys->a = FALSE;

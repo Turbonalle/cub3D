@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:08:33 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/20 12:02:11 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,22 @@ double lerp(double y0, double y1, double x0, double x1, double x)
 
 void draw_world(cub3d_t *cub3d)
 {
-	int index;
-	int color;
-	double min_dist;
-	double max_dist;
-	double height;
+	int		index;
+	int		color;
+	double	min_dist;
+	double	max_dist;
+	double	height;
+	double	roomH;
+	double	screenH;
+	double	fovArc;
+	double	perpD;
 	dvector_t start;
 	dvector_t end;
 
 	min_dist = 0;
 	max_dist = 20;
 	index = -1;
+	roomH = 3;
 	while (++index < (int)cub3d->img->width)
 	{
 		if (cub3d->rays[index].length < min_dist)
@@ -37,7 +42,23 @@ void draw_world(cub3d_t *cub3d)
 		else if (cub3d->rays[index].length > max_dist)
 			height = 0;
 		else
-			height = lerp(cub3d->img->height, 0, min_dist, max_dist, cub3d->rays[index].length);
+		{
+			if (cub3d->rays[index].angle < M_PI)
+			{
+				perpD = cub3d->rays[index].length * sin(M_PI / 2 - cub3d->rays[index].angle);
+				if (perpD <= 0)
+					perpD = 0.00000001;
+				fovArc = M_PI * 2 * cub3d->rays[index].length * cub3d->fov / 360.0;
+				screenH = 1.0 / fovArc * cub3d->img->width * roomH;
+				height = screenH;
+				if (height > cub3d->img->height)
+					height = cub3d->img->height;
+			}
+			else
+			{
+				height = lerp(cub3d->img->height, 0, min_dist, max_dist, cub3d->rays[index].length);
+			}
+		}
 		start.x = index;
 		start.y = (cub3d->img->height - height) / 2;
 		end.x = index;

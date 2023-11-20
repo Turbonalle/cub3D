@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:41:53 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/11/14 13:38:28 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/20 10:10:11 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	free_cub3d(cub3d_t *cub3d)
 	{
 		if (cub3d->texture[i].path)
 			free(cub3d->texture[i].path);
-
 		// if (cub3d->texture[i].img)
 		// 	free(cub3d->texture[i].img);
 	}

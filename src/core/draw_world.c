@@ -5,27 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 14:25:41 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/15 14:45:12 by slampine         ###   ########.fr       */
+/*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/20 09:08:33 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-double	lerp(double y0, double y1, double x0, double x1, double x)
+double lerp(double y0, double y1, double x0, double x1, double x)
 {
 	return (y0 + (y1 - y0) * ((x - x0) / (x1 - x0)));
 }
 
-void	draw_world(cub3d_t *cub3d)
+void draw_world(cub3d_t *cub3d)
 {
-	int			index;
-	int			color;
-	double		min_dist;
-	double		max_dist;
-	double		height;
-	dvector_t	start;
-	dvector_t	end;
+	int index;
+	int color;
+	double min_dist;
+	double max_dist;
+	double height;
+	dvector_t start;
+	dvector_t end;
 
 	min_dist = 0;
 	max_dist = 20;

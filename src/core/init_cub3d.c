@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 14:26:13 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/15 14:45:32 by slampine         ###   ########.fr       */
+/*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/20 09:08:35 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
 	return ((int)tile_size);
 }
 
-int	init_minimap(cub3d_t *cub3d)
+void	init_minimap(cub3d_t *cub3d)
 {
 	cub3d->minimap.size_percentage = MINIMAP_SIZE_PERCENTAGE;
 	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d, cub3d->minimap.size_percentage);
@@ -34,7 +34,7 @@ int	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->map_rows;
 	cub3d->minimap.img = mlx_new_image(cub3d->mlx, cub3d->minimap.width, cub3d->minimap.height);
 	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx, cub3d->minimap.img, 0, 0) < 0))
-		return (empty_map_list(cub3d->map_list), free_info(cub3d->map), err("Failed to create minimap image"));
+		err("Failed to create minimap image");
 	cub3d->minimap.pos.x = 0;
 	cub3d->minimap.pos.y = 0;
 	cub3d->minimap.transparency = MINIMAP_TRANSPARENCY;
@@ -44,7 +44,6 @@ int	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_floor = set_transparency(MINIMAP_COLOR_FLOOR, cub3d->minimap.transparency);
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
-	return (SUCCESS);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)
@@ -61,7 +60,7 @@ void	set_initial_direction(cub3d_t *cub3d)
 	cub3d->player.dir.y = sin(cub3d->player.angle);
 }
 
-void	set_keys(keypress_t *keys)
+void	 set_keys(keypress_t *keys)
 {
 	keys->w = FALSE;
 	keys->a = FALSE;
@@ -100,13 +99,13 @@ int	init_cub3d(cub3d_t *cub3d)
 {
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", TRUE);
 	if (!cub3d->mlx)
-		return (empty_map_list(cub3d->map_list), free_info(cub3d->map), err("Failed to initialize mlx"));
+		return (!err("Failed to initialize mlx"));
 	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
-		return (empty_map_list(cub3d->map_list), free_info(cub3d->map), err("Failed to create image"));
+		return (!err("Failed to create image"));
 	cub3d->rays = NULL;
 	if (!init_rays(cub3d))
-		return (empty_map_list(cub3d->map_list), free_info(cub3d->map), err("Failed to malloc rays"));
+		return (!err("Failed to malloc rays"));
 	cub3d->player.pos.x = cub3d->starting_pos.x + 0.5;
 	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;
 	cub3d->mouse_set_pos.x = 0;

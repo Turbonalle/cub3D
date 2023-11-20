@@ -6,16 +6,17 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:36 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/16 14:07:35 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:55:37 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
 //------------------------------------------------------------------------------
-void	copy_pointers(char **array_from, char **array_to, int pointers)
+
+void copy_pointers(char **array_from, char **array_to, int pointers)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (++i < pointers)
@@ -24,10 +25,10 @@ void	copy_pointers(char **array_from, char **array_to, int pointers)
 
 //------------------------------------------------------------------------------
 
-int	add_map_line(map_node_t **first_node, char *line)
+int add_map_line(map_node_t **first_node, char *line)
 {
-	map_node_t	*new_map_node;
-	map_node_t	*current_map_node;
+	map_node_t *new_map_node;
+	map_node_t *current_map_node;
 
 	new_map_node = malloc(sizeof(map_node_t));
 	if (!new_map_node)
@@ -83,9 +84,9 @@ int get_preliminary_map(cub3d_t *cub3d, int fd)
 	{
 		remove_newline(line);
 		if (!find_member_of_set_from_string(MAP_ALL_ELEMENTS, line))
-			return (free(line), empty_map_list(cub3d->map_list), err("Invalid character in map"));
+			return (free(line), err("Invalid character in map"));
 		if (!add_map_line(&cub3d->map_list, line))
-			return (free(line), empty_map_list(cub3d->map_list), err("Failed to allocate memory for map"));
+			return (free(line), err("Failed to allocate memory for map"));
 		line = get_next_line(fd);
 		i++;
 	}
@@ -179,12 +180,10 @@ int get_map(cub3d_t *cub3d, int fd)
 {
 	if (!get_preliminary_map(cub3d, fd))
 		return (FAIL);
-	if (!create_rectangular_map(cub3d))
-		return (FAIL);
+	create_rectangular_map(cub3d);
 	if (!get_starting_point(cub3d))
 		return (FAIL);
-	if (!check_map_validity(cub3d->map))
-		return (FAIL);
+	check_map_validity(cub3d->map);
 	return (SUCCESS);
 }
 
@@ -201,7 +200,7 @@ int read_cub_file(cub3d_t *cub3d, char *map_path)
 	if (!all_elements_found(cub3d->element_found))
 		return (close(fd), err("Missing element(s) in map file"));
 	if (!get_map(cub3d, fd))
-		return (close(fd), empty_map_list(cub3d->map_list), free_info(cub3d->map), FAIL);
+		return (close(fd), free_info(cub3d->map), FAIL);
 	close(fd);
 	return (SUCCESS);
 }

@@ -5,20 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 14:26:58 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/16 12:08:00 by slampine         ###   ########.fr       */
+/*   Created: 2023/11/20 09:08:53 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/20 09:08:54 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
+static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	return (vMapCheck.x >= 0
-		&& vMapCheck.x < cub3d->map_columns
-		&& vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->map_rows
-		&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
+			&& vMapCheck.x < cub3d->map_columns
+			&& vMapCheck.y >= 0
+			&& vMapCheck.y < cub3d->map_rows
+			&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
  //-----------------------------------------------------------------------------

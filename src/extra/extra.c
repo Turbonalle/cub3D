@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 14:26:21 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/16 14:01:37 by slampine         ###   ########.fr       */
+/*   Created: 2023/11/20 09:08:40 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/20 09:08:41 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 //------------------------------------------------------------------------------
 
-void	print_info(cub3d_t *cub3d)
+void print_info(cub3d_t *cub3d)
 {
 	printf(TERMINAL_CYAN"INFO:\n"TERMINAL_RESET);
 	printf(TERMINAL_GREEN"NO"TERMINAL_RESET" = %s\n", cub3d->texture[NO].path);
 	printf(TERMINAL_GREEN"SO"TERMINAL_RESET" = %s\n", cub3d->texture[SO].path);
 	printf(TERMINAL_GREEN"WE"TERMINAL_RESET" = %s\n", cub3d->texture[WE].path);
 	printf(TERMINAL_GREEN"EA"TERMINAL_RESET" = %s\n", cub3d->texture[EA].path);
-	printf(TERMINAL_GREEN"floor_color"TERMINAL_RESET" = %x\n", cub3d->floor_color);
-	printf(TERMINAL_GREEN"ceiling_color"TERMINAL_RESET" = %x\n", cub3d->ceiling_color);
+	printf(TERMINAL_GREEN"floor_color"TERMINAL_RESET" = %d\n", cub3d->floor_color);
+	printf(TERMINAL_GREEN"ceiling_color"TERMINAL_RESET" = %d\n", cub3d->ceiling_color);
 	printf(TERMINAL_GREEN"starting_pos"TERMINAL_RESET" = %d, %d\n", cub3d->starting_pos.x, cub3d->starting_pos.y);
 	printf(TERMINAL_GREEN"starting_dir"TERMINAL_RESET" = %c\n", cub3d->starting_dir);
 	int i = -1;
@@ -32,32 +32,28 @@ void	print_info(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-void	print_array(char **array, char *name)
+void print_array(char **array, char *name)
 {
-	int	i;
-
-	i = -1;
 	printf(TERMINAL_CYAN"%s:\n"TERMINAL_RESET, name);
+	int i = -1;
 	while (array[++i])
 		printf("array[%d] = %s", i, array[i]);
 }
 
 //------------------------------------------------------------------------------
 
-void	print_map(char **map)
+void print_map(char **map)
 {
-	int	i;
-
-	i = -1;
+	int i = -1;
 	while (map[++i])
 		printf("map[%02d] = |%s|\n", i, map[i]);
 }
 
 //------------------------------------------------------------------------------
 
-void	test(void)
+void test(void)
 {
-	int	fd = open("Maps/test.txt", O_RDONLY);
+	int fd = open("Maps/test.txt", O_RDONLY);
 	char *line = get_next_line(fd);
 	int i = 0;
 	while (line)

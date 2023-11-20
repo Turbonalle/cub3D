@@ -5,26 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 14:27:35 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/15 14:46:29 by slampine         ###   ########.fr       */
+/*   Created: 2023/11/20 09:09:25 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/20 09:09:26 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	is_walking(cub3d_t *cub3d)
+int is_walking(cub3d_t *cub3d)
 {
 	return ((cub3d->keys.w && !cub3d->keys.s)
-		|| (!cub3d->keys.w && cub3d->keys.s));
+			|| (!cub3d->keys.w && cub3d->keys.s));
 }
 
-int	is_strafing(cub3d_t *cub3d)
+int is_strafing(cub3d_t *cub3d)
 {
 	return ((cub3d->keys.a && !cub3d->keys.d)
-		|| (!cub3d->keys.a && cub3d->keys.d));
+			|| (!cub3d->keys.a && cub3d->keys.d));
 }
 
-void	player_rotation(cub3d_t *cub3d)
+void player_rotation(cub3d_t *cub3d)
 {
 	if (cub3d->keys.left && !cub3d->keys.right)
 	{
@@ -40,7 +40,7 @@ void	player_rotation(cub3d_t *cub3d)
 	}
 }
 
-void	player_walking(cub3d_t *cub3d)
+void player_walking(cub3d_t *cub3d)
 {
 	if (cub3d->keys.w && !cub3d->keys.s)
 	{
@@ -56,7 +56,7 @@ void	player_walking(cub3d_t *cub3d)
 	}
 }
 
-void	player_strafing(cub3d_t *cub3d)
+void player_strafing(cub3d_t *cub3d)
 {
 	if (cub3d->keys.a && !cub3d->keys.d)
 	{
@@ -72,7 +72,7 @@ void	player_strafing(cub3d_t *cub3d)
 	}
 }
 
-void	player_both(cub3d_t *cub3d)
+void player_both(cub3d_t *cub3d)
 {
 	if (cub3d->keys.w && cub3d->keys.a)
 	{
@@ -100,7 +100,7 @@ void	player_both(cub3d_t *cub3d)
 	}
 }
 
-void	player_movement(cub3d_t *cub3d)
+void player_movement(cub3d_t *cub3d)
 {
 	player_rotation(cub3d);
 	cub3d->player.is_walking = is_walking(cub3d);

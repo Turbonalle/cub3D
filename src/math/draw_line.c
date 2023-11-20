@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:55 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:08:56 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:18:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void bresenham_high_slope(mlx_image_t *img, vector_t start, vector_t end, int co
 	pixel.x = start.x;
 	while (pixel.y <= end.y)
 	{
+		// printf("D is %i, delta.x is %i\n", D, delta.x);
+		// printf("pixel.y is %i, end.y is %i\n",pixel.y, end.y);
 		mlx_put_pixel(img, pixel.x, pixel.y, color);
 		if (D > 0)
 		{

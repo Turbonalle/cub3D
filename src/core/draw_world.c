@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 12:02:11 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:17:37 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void draw_world(cub3d_t *cub3d)
 	max_dist = 20;
 	index = -1;
 	roomH = 3;
+
 	while (++index < (int)cub3d->img->width)
 	{
 		if (cub3d->rays[index].length < min_dist)
@@ -43,7 +44,6 @@ void draw_world(cub3d_t *cub3d)
 			height = 0;
 		else
 		{
-			if (cub3d->rays[index].angle < M_PI)
 			{
 				perpD = cub3d->rays[index].length * sin(M_PI / 2 - cub3d->rays[index].angle);
 				if (perpD <= 0)
@@ -53,10 +53,6 @@ void draw_world(cub3d_t *cub3d)
 				height = screenH;
 				if (height > cub3d->img->height)
 					height = cub3d->img->height;
-			}
-			else
-			{
-				height = lerp(cub3d->img->height, 0, min_dist, max_dist, cub3d->rays[index].length);
 			}
 		}
 		start.x = index;

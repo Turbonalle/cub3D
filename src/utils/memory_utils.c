@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:41:53 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/11/20 10:10:11 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:52:37 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,22 @@ void	free_info(char **info)
 	}
 }
 
+void	free_list(map_node_t *head)
+{
+	map_node_t	*temp;
+
+	while (head)
+	{
+		temp = head->next;
+		free(head->line);
+		free(head);
+		head = temp;
+	}
+}
+
 void	free_cub3d(cub3d_t *cub3d)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)
@@ -38,6 +51,8 @@ void	free_cub3d(cub3d_t *cub3d)
 		// 	free(cub3d->texture[i].img);
 	}
 	i = -1;
+	free_list(cub3d->map_list);
+	free(cub3d->rays);
 	while (cub3d->map[++i])
 		free(cub3d->map[i]);
 	if (cub3d->map)

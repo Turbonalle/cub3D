@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/21 10:55:57 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:48:57 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,18 @@ void draw_world(cub3d_t *cub3d)
 			end.y--;
 		if (cub3d->rays[index].wall == EA)
 		{
-			double hity = cub3d->player.pos.y + sin(cub3d->rays[index].angle) * cub3d->rays[index].length;
-			double spot_on_box_y = fmod(hity, 1);
-			printf("Hit wall at %f from wall start(downleft)\n",spot_on_box_y);
 			color = BLUE;
 		}
 		else if (cub3d->rays[index].wall == SO)
 		{
-			double hitx = cub3d->player.pos.x + cos(cub3d->rays[index].angle) * cub3d->rays[index].length;
-			double spot_on_box_x = fmod(hitx, 1);
-			printf("Hit wall at %f from wall start(downleft)\n",spot_on_box_x);
 			color = RED;
 		}
 		else if (cub3d->rays[index].wall == WE)
 		{
-			double hity = cub3d->player.pos.y + sin(cub3d->rays[index].angle) * cub3d->rays[index].length;
-			double spot_on_box_y = fmod(hity, 1);
-			printf("Hit wall at %f from wall start(downleft)\n",spot_on_box_y);
 			color = GREEN;
 		}
 		else if (cub3d->rays[index].wall == NO)
 		{
-			double hitx = cub3d->player.pos.x + cos(cub3d->rays[index].angle) * cub3d->rays[index].length;
-			double spot_on_box_x = fmod(hitx, 1);
-			printf("Hit wall at %f from wall start(downleft)\n",spot_on_box_x);
 			color = YELLOW;
 		}
 		else

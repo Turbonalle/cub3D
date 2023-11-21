@@ -225,7 +225,7 @@ int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t 
 // draw_line.c
 void	draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
 void	draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
-void draw_world(cub3d_t *cub3d);
+void	draw_world(cub3d_t *cub3d);
 
 
 //---- MAIN PROGRAM ------------------------------------------------------------
@@ -304,7 +304,7 @@ void	raycasting(cub3d_t *cub3d);
 // memory_utils.c
 void	free_info(char **info);
 void	free_cub3d(cub3d_t *cub3d);
-void	empty_map_list(map_node_t *node);
+void	free_list(map_node_t *node);
 
 // error_utils.c
 int		err(char *error_message);
@@ -313,7 +313,7 @@ int		err(char *error_message);
 
 // extra.c
 void	print_info(cub3d_t *cub3d);
-void	print_array(char **array, char  *name);
+void	print_array(char **array, char *name);
 void	print_map(char **map);
 void	test(void);
 

@@ -29,7 +29,7 @@
 # define WALL '1'
 
 # define MOVEMENT_SPEED 0.1
-# define ROTATION_SPEED 0.1
+# define ROTATION_SPEED 0.02
 
 # define MINIMAP_SIZE_PERCENTAGE 20
 # define MINIMAP_MAX_SIZE_PERCENTAGE 100
@@ -211,7 +211,12 @@ int		get_texture(cub3d_t *cub3d, int element, char **info);
 // flooding_algorithm.c
 int		check_map_validity(char **map);
 
+//---- DRAWING -----------------------------------------------------------------
 
+// draw_line.c
+void	draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
+void	draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
+void	draw_world(cub3d_t *cub3d);
 
 //---- MATH --------------------------------------------------------------------
 
@@ -221,11 +226,6 @@ double	to_radians(double degrees);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
-
-// draw_line.c
-void	draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
-void	draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
-void	draw_world(cub3d_t *cub3d);
 
 
 //---- MAIN PROGRAM ------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:14:17 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/21 09:42:51 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:34:41 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ int raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 	return (SUCCESS);
 }
 
-void raycasting(cub3d_t *cub3d)
+void	raycasting(cub3d_t *cub3d)
 {
-	double fov_start;
-	unsigned int i;
+	double			fov_start;
+	unsigned int	i;
 
 	fov_start = within_two_pi(cub3d->player.angle - to_radians((cub3d->fov / 2)));
 	i = 0;

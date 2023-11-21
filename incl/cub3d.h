@@ -27,6 +27,7 @@
 
 # define EMPTY '0'
 # define WALL '1'
+# define ENEMY '2'
 
 # define MOVEMENT_SPEED 0.1
 # define ROTATION_SPEED 0.02
@@ -95,6 +96,16 @@ typedef struct player_s
 	int			is_walking;
 	int			is_strafing;
 }				player_t;
+
+typedef struct s_enemy
+{
+	dvector_t	pos;
+	dvector_t	new_pos;
+	dvector_t	dir;
+	double		angle;
+	int			is_walking;
+	int			is_spinning;
+}	t_enemy;
 
 typedef struct map_node_s
 {
@@ -168,6 +179,7 @@ typedef struct cub3d_s
 	int			ceiling_color;
 	int			element_found[6];
 	ray_t		*rays;
+	int			fisheye;
 }			cub3d_t;
 
 

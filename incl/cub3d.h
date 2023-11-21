@@ -224,6 +224,7 @@ int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t 
 
 // draw_line.c
 void	draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
+void	draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void draw_world(cub3d_t *cub3d);
 
 

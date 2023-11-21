@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:14:17 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:05:13 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/21 09:42:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ int raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 
 	vRayDir.x = cos(ray->angle);
 	vRayDir.y = sin(ray->angle);
-	if (vRayDir.x == 0 || vRayDir.y == 0)
-		return (FAIL);
+	// keeping these results in angle 0 vertical line being wrong
+	// if (vRayDir.x == 0 || vRayDir.y == 0)
+	// 	return (FAIL);
 
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));

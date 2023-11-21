@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:55 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 14:18:06 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/21 09:27:47 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void bresenham_low_slope(mlx_image_t *img, vector_t start, vector_t end, int col
 	vector_t pixel;
 	int yi;
 	int D;
-	
+
 	delta.x = end.x - start.x;
 	delta.y = end.y - start.y;
 	yi = 1;
@@ -64,8 +64,6 @@ void bresenham_high_slope(mlx_image_t *img, vector_t start, vector_t end, int co
 	pixel.x = start.x;
 	while (pixel.y <= end.y)
 	{
-		// printf("D is %i, delta.x is %i\n", D, delta.x);
-		// printf("pixel.y is %i, end.y is %i\n",pixel.y, end.y);
 		mlx_put_pixel(img, pixel.x, pixel.y, color);
 		if (D > 0)
 		{
@@ -78,7 +76,7 @@ void bresenham_high_slope(mlx_image_t *img, vector_t start, vector_t end, int co
 	}
 }
 
-void draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
+void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 {
 	vector_t	start;
 	vector_t	end;
@@ -100,5 +98,21 @@ void draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 			bresenham_high_slope(img, end, start, color);
 		else
 			bresenham_high_slope(img, start, end, color);
+	}
+}
+
+void draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
+{
+	vector_t	start;
+	vector_t	end;
+
+	start.x = start_d.x;
+	start.y = start_d.y;
+	end.x = end_d.x;
+	end.y = end_d.y;
+	while (start.y <= end.y)
+	{
+		mlx_put_pixel(img, start.x, start.y, color);
+		start.y++;
 	}
 }

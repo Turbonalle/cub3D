@@ -119,6 +119,7 @@ typedef struct keypress_s
 	int	a;
 	int	s;
 	int	d;
+	int	f;
 	int	left;
 	int	right;
 	int	up;

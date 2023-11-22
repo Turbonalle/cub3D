@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/21 13:43:18 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/22 11:12:54 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,13 @@ void	update(void *param)
 	if (cub3d->keys.mouse_left && cub3d->on_minimap)
 		move_minimap(cub3d);
 	player_movement(cub3d);
+	if (cub3d->keys.f)
+	{
+		cub3d->fisheye++;
+		cub3d->fisheye %= 2;
+		if (cub3d->fisheye == 0)
+			cub3d->fov = FOV;
+	}
 	draw_background(cub3d);
 	raycasting(cub3d);
 	draw_world(cub3d);

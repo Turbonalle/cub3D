@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/21 16:33:29 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:58:08 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,17 @@ void draw_world(cub3d_t *cub3d)
 		else
 		{
 			{
-				perpD = cub3d->rays[index].length * sin(M_PI / 2 - cub3d->rays[index].angle);
+				perpD = sqrt(pow(cub3d->player.pos.x - cub3d->rays[index].end.x, 2) + (pow(cub3d->player.pos.y - cub3d->rays[index].end.y, 2)));
 				if (cub3d->fisheye)
+				{
 					fovArc = M_PI * 2 * cub3d->rays[index].length * cub3d->fov / 360.0;
+					screenH = 1.0 / fovArc * cub3d->img->width * roomH;
+				}
 				else
-					fovArc =  fabs(cos(cub3d->rays[index].angle) * cub3d->rays[index].length);
-				screenH = 1.0 / fovArc * cub3d->img->width * roomH;
+				{
+					perpD = perpD * cos(to_radians(cub3d->rays[index].angle - cub3d->player.angle));
+					screenH = cub3d->img->height / perpD;
+				}
 				height = screenH;
 				if (height > cub3d->img->height)
 					height = cub3d->img->height;

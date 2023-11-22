@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/21 16:29:50 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/22 11:02:11 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	set_keys(keypress_t *keys)
 	keys->a = FALSE;
 	keys->s = FALSE;
 	keys->d = FALSE;
+	keys->f = FALSE;
 	keys->left = FALSE;
 	keys->right = FALSE;
 	keys->mouse_left = FALSE;

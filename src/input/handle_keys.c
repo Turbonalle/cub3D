@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:45 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:08:46 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/22 11:06:41 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.up = TRUE;
 	else if (keydata.key == MLX_KEY_DOWN)
 		cub3d->keys.down = TRUE;
+	else if (keydata.key == MLX_KEY_SPACE)
+		cub3d->keys.f = TRUE;
 }
 
 void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
@@ -50,6 +52,8 @@ void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.up = FALSE;
 	else if (keydata.key == MLX_KEY_DOWN)
 		cub3d->keys.down = FALSE;
+	else if (keydata.key == MLX_KEY_SPACE)
+		cub3d->keys.f = FALSE;
 }
 
 void	get_input(mlx_key_data_t keydata, void *param)

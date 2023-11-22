@@ -16,9 +16,9 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define MAP_ALL_ELEMENTS "NSWE 01"
+# define MAP_ALL_ELEMENTS "NSWE 01F"
 # define MAP_DIRECTIONS "NSWE"
-# define MAP_ELEMENTS "01"
+# define MAP_ELEMENTS "01F"
 
 # define NORTH 'N'
 # define SOUTH 'S'
@@ -27,7 +27,7 @@
 
 # define EMPTY '0'
 # define WALL '1'
-# define ENEMY '2'
+# define ENEMY 'F'
 
 # define MOVEMENT_SPEED 0.1
 # define ROTATION_SPEED 0.02
@@ -63,8 +63,9 @@ enum elements
 	C
 };
 
-// prototype map_node_t
+// prototype lists
 typedef struct map_node_s map_node_t;
+typedef struct enemy_path_s enemy_path_t;
 
 typedef struct texture_s
 {
@@ -99,12 +100,13 @@ typedef struct player_s
 
 typedef struct s_enemy
 {
-	dvector_t	pos;
-	dvector_t	new_pos;
-	dvector_t	dir;
-	double		angle;
-	int			is_walking;
-	int			is_spinning;
+	dvector_t		pos;
+	dvector_t		new_pos;
+	dvector_t		dir;
+	double			angle;
+	int				is_walking;
+	int				is_spinning;
+	enemy_path_t	*path;
 }	t_enemy;
 
 typedef struct map_node_s
@@ -113,13 +115,20 @@ typedef struct map_node_s
 	map_node_t	*next;
 }			map_node_t;
 
+typedef struct enemy_path_s
+{
+	dvector_t		path;
+	enemy_path_t	*next;
+	enemy_path_t	*prev;
+}		enemy_path_t;
+
 typedef struct keypress_s
 {
 	int	w;
 	int	a;
 	int	s;
 	int	d;
-	int	f;
+	int	fisheye;
 	int	left;
 	int	right;
 	int	up;
@@ -181,6 +190,8 @@ typedef struct cub3d_s
 	int			element_found[6];
 	ray_t		*rays;
 	int			fisheye;
+	int			prev;
+	t_enemy		*enemy;
 }			cub3d_t;
 
 

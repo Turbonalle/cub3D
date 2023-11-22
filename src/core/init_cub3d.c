@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/22 11:02:11 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/22 13:30:33 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	set_keys(keypress_t *keys)
 	keys->a = FALSE;
 	keys->s = FALSE;
 	keys->d = FALSE;
-	keys->f = FALSE;
+	keys->fisheye = FALSE;
 	keys->left = FALSE;
 	keys->right = FALSE;
 	keys->mouse_left = FALSE;
@@ -114,6 +114,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
 	cub3d->fisheye = 0;
+	cub3d->prev = 0;
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);

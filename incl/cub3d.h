@@ -63,7 +63,7 @@ enum elements
 	C
 };
 
-// prototype lists
+// prototypes
 typedef struct map_node_s map_node_t;
 typedef struct enemy_path_s enemy_path_t;
 
@@ -104,6 +104,7 @@ typedef struct s_enemy
 	dvector_t		new_pos;
 	dvector_t		dir;
 	double			angle;
+	double			dir_player;
 	int				is_walking;
 	int				is_spinning;
 	enemy_path_t	*path;
@@ -341,4 +342,7 @@ void	print_array(char **array, char *name);
 void	print_map(char **map);
 void	test(void);
 
+
+int		init_enemy(cub3d_t *cub3d);
+void	check_if_player_is_seen(cub3d_t *cub3d);
 #endif

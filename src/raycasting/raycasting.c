@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:14:17 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/23 11:47:28 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/24 11:53:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 			&& vMapCheck.y >= 0
 			&& vMapCheck.y < cub3d->map_rows
 			&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
+}
+
+static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
+{
+	if(vMapCheck.x >= 0
+			&& vMapCheck.x < cub3d->map_columns
+			&& vMapCheck.y >= 0
+			&& vMapCheck.y < cub3d->map_rows
+			&& (cub3d->map[vMapCheck.y][vMapCheck.x] == '|'
+			|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-'))
+		return (1);
+	return (0);
 }
 
  //-----------------------------------------------------------------------------
@@ -42,6 +54,14 @@ static void set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 		ray->wall = NO;
 	else
 		ray->wall = SO;
+}
+
+static void	set_door_direction(ray_t *ray, int wall_flag)
+{
+	if (wall_flag == X)
+		ray->wall = DE;
+	if (wall_flag == Y)
+		ray->wall = DN;
 }
 
 //------------------------------------------------------------------------------
@@ -108,8 +128,16 @@ int raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 			ray->target = cub3d->map[vMapCheck.y][vMapCheck.x];
 			update_end(cub3d, &vRayDir, ray, &end_found);
 		}
+		if (ray->length > 3 && door_found(cub3d, vMapCheck))
+		{
+			ray->target = cub3d->map[vMapCheck.y][vMapCheck.x];
+			update_end(cub3d, &vRayDir, ray, &end_found);
+		}
 	}
-	set_wall_direction(ray, player, wall_flag);
+	if (ray->target == WALL)
+		set_wall_direction(ray, player, wall_flag);
+	if (ray->target == '-' || ray->target == '|')
+		set_door_direction(ray, wall_flag);
 	return (SUCCESS);
 }
 

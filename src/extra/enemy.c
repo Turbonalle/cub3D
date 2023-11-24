@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 10:46:47 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/24 13:02:33 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	return (vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->map_columns
-			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->map_rows
-			&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
+		&& vMapCheck.x < cub3d->map_columns
+		&& vMapCheck.y >= 0
+		&& vMapCheck.y < cub3d->map_rows
+		&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
 void	init_enemy_dir(t_enemy *enemy, int i, char spec)

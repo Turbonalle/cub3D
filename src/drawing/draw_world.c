@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/22 11:43:31 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/24 11:53:27 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ void draw_world(cub3d_t *cub3d)
 		else if (cub3d->rays[index].wall == NO)
 		{
 			color = YELLOW;
+		}
+		else if (cub3d->rays[index].wall == DE)
+		{
+			color = PURPLE;
 		}
 		else
 			color = WHITE;

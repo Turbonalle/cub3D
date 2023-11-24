@@ -16,9 +16,9 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define MAP_ALL_ELEMENTS "NSWE 01nesw"
+# define MAP_ALL_ELEMENTS "NSWE 01-| nesw"
 # define MAP_DIRECTIONS "NSWE"
-# define MAP_ELEMENTS "012345"
+# define MAP_ELEMENTS "01"
 # define ENEMIES "nesw"
 
 # define NORTH 'N'
@@ -28,6 +28,9 @@
 
 # define EMPTY '0'
 # define WALL '1'
+
+# define DE '|'
+# define DN '-'
 
 # define MOVEMENT_SPEED 0.1
 # define ROTATION_SPEED 0.02
@@ -41,6 +44,7 @@
 # define MINIMAP_COLOR_EMPTY GRAY
 # define MINIMAP_COLOR_FLOOR BLACK
 # define MINIMAP_COLOR_WALL GRAY
+# define MINIMAP_COLOR_DOOR CYAN
 # define MINIMAP_TRANSPARENCY 20
 
 # define MINIMAP_ZOOM_INCREMENT 5
@@ -152,6 +156,7 @@ typedef struct minimap_s
 	int			color_playerdir;
 	int			color_fov;
 	int			color_floor;
+	int			color_door;
 	int			color_wall;
 	int			color_empty;
 	int			transparency;

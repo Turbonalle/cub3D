@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:59 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 10:32:04 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/24 12:50:47 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 					row * cub3d->minimap.tile_size,
 					cub3d->minimap.tile_size, cub3d->minimap.color_wall);
 	}
+	else if (cub3d->map[row][column] == '-' || cub3d->map[row][column] == '|')
+	{
+		draw_square(cub3d,
+					column * cub3d->minimap.tile_size,
+					row * cub3d->minimap.tile_size,
+					cub3d->minimap.tile_size, cub3d->minimap.color_door);
+	}
 	else
 	{
 		draw_square(cub3d,
@@ -58,10 +65,10 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 	}
 }
 
-void draw_minimap(cub3d_t *cub3d)
+void	draw_minimap(cub3d_t *cub3d)
 {
-	int row;
-	int column;
+	int	row;
+	int	column;
 
 	row = -1;
 	while (++row < cub3d->map_rows)

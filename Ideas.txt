@@ -12,7 +12,7 @@ Puzzle:
 - For increased difficulty, you need to find keys or press buttons in order to unlock doors.
 
 
-Lava Sppedrun:
+Lava Speedrun:
 
 - Find your way to the end before the lava catches you.
 - The lava could be shown as a wall of lava.

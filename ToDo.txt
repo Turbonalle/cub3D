@@ -26,3 +26,21 @@ WHEN PROJECT IS DONE:
 - Remove extra folder
 - Remove extra function prototypes from header file
 - Remove debug prints
+
+-----------------------------------------------------------------------------
+
+JBAGGER:
+
+- Add a pause menu (or starting menu if pause menu is too hard)
+- Add ability to adjust settings in menu
+- Enemy difficulty:
+	- stationary
+	- rotating
+	- fixed path
+	- random path
+- Minimap settings:
+	- show only FOV
+	- show whole map
+	- show also enemies
+	- show also enemy FOV
+- Other settings?

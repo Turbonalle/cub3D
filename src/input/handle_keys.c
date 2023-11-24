@@ -18,6 +18,14 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.up = TRUE;
 	else if (keydata.key == MLX_KEY_DOWN)
 		cub3d->keys.down = TRUE;
+	else if (keydata.key == MLX_KEY_P)
+	{
+		if (cub3d->pause)
+			cub3d->pause = FALSE;
+		else
+			cub3d->pause = TRUE;
+		cub3d->img_switch = TRUE;
+	}
 }
 
 void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)

@@ -65,6 +65,8 @@ enum elements
 // prototype map_node_t
 typedef struct map_node_s map_node_t;
 
+//---- TEXTURE -----------------------------------------------------------------
+
 typedef struct texture_s
 {
 	char	*path;
@@ -72,6 +74,8 @@ typedef struct texture_s
 	int		width;
 	int		height;
 }			texture_t;
+
+//---- VECTORS -----------------------------------------------------------------
 
 typedef struct vector_s
 {
@@ -85,6 +89,8 @@ typedef struct dvector_t
 	double	y;
 }			dvector_t;
 
+//---- PLAYER ------------------------------------------------------------------
+
 typedef struct player_s
 {
 	dvector_t	pos;
@@ -96,11 +102,15 @@ typedef struct player_s
 	int			is_strafing;
 }				player_t;
 
+//---- MAP NODE ----------------------------------------------------------------
+
 typedef struct map_node_s
 {
 	char		*line;
 	map_node_t	*next;
 }			map_node_t;
+
+//---- KEYPRESS ----------------------------------------------------------------
 
 typedef struct keypress_s
 {
@@ -115,6 +125,8 @@ typedef struct keypress_s
 	int mouse_left;
 	int mouse_right;
 }			keypress_t;
+
+//---- MINIMAP -----------------------------------------------------------------
 
 typedef struct minimap_s
 {
@@ -135,6 +147,8 @@ typedef struct minimap_s
 	int			transparency;
 }			minimap_t;
 
+//---- RAY ---------------------------------------------------------------------
+
 typedef struct ray_s
 {
 	dvector_t	end;
@@ -143,6 +157,26 @@ typedef struct ray_s
 	char		target;
 	int			wall;
 }				ray_t;
+
+
+
+//---- PAUSE MENU --------------------------------------------------------------
+
+# define MENU_COLOR_BACKGROUND HOT_PINK
+
+typedef struct pause_menu_s
+{
+	mlx_image_t	*img;
+	mlx_image_t	*e_difficulty_text;
+	mlx_image_t	*minimap_view_text;
+	int		background_color;
+}			pause_menu_t;
+
+
+
+
+
+//---- CUB3D -------------------------------------------------------------------
 
 typedef struct cub3d_s
 {
@@ -168,6 +202,9 @@ typedef struct cub3d_s
 	int			ceiling_color;
 	int			element_found[6];
 	ray_t		*rays;
+	int			pause;
+	pause_menu_t	pause_menu;
+	int			img_switch;
 }			cub3d_t;
 
 
@@ -211,6 +248,15 @@ int		get_texture(cub3d_t *cub3d, int element, char **info);
 // flooding_algorithm.c
 int		check_map_validity(char **map);
 
+
+//---- INIT --------------------------------------------------------------------
+
+void init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+
+
+//---- MENU --------------------------------------------------------------------
+
+void pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 
 //---- MATH --------------------------------------------------------------------
@@ -271,6 +317,8 @@ void	hook_mouse_scroll(double xdelta, double ydelta, void *param);
 //---- MINIMAP -----------------------------------------------------------------
 
 // minimap.c
+void	move_minimap(cub3d_t *cub3d);
+void	update_minimap(cub3d_t *cub3d);
 void	update_minimap_player_pos(cub3d_t *cub3d);
 void	minimap(cub3d_t *cub3d);
 

@@ -16,9 +16,10 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define MAP_ALL_ELEMENTS "NSWE 01F"
+# define MAP_ALL_ELEMENTS "NSWE 01nesw"
 # define MAP_DIRECTIONS "NSWE"
-# define MAP_ELEMENTS "01F"
+# define MAP_ELEMENTS "012345"
+# define ENEMIES "nesw"
 
 # define NORTH 'N'
 # define SOUTH 'S'
@@ -27,7 +28,6 @@
 
 # define EMPTY '0'
 # define WALL '1'
-# define ENEMY 'F'
 
 # define MOVEMENT_SPEED 0.1
 # define ROTATION_SPEED 0.02
@@ -192,6 +192,7 @@ typedef struct cub3d_s
 	ray_t		*rays;
 	int			fisheye;
 	int			prev;
+	int			num_enemies;
 	t_enemy		*enemy;
 }			cub3d_t;
 

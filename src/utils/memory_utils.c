@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:41:53 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/11/20 13:52:37 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/24 10:12:26 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,6 @@ void	free_cub3d(cub3d_t *cub3d)
 		free(cub3d->map[i]);
 	if (cub3d->map)
 		free(cub3d->map);
+	if (cub3d->num_enemies)
+		free(cub3d->enemy);
 }

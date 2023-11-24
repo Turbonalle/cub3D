@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 13:02:33 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:22:22 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,11 @@ void	check_if_player_is_seen(cub3d_t *cub3d)
 	i = 0;
 	while (i < cub3d->num_enemies)
 	{
-		cub3d->enemy[i].dir_player = atan2(cub3d->player.pos.y - cub3d->enemy[i].pos.y, cub3d->player.pos.x - cub3d->enemy[i].pos.x) * 180 / M_PI;
-		angle_min = cub3d->enemy[i].angle * 180 / M_PI - 30;
-		angle_max = cub3d->enemy[i].angle * 180 / M_PI + 30;
-		if (cub3d->enemy[i].dir_player < angle_min || cub3d->enemy[i].dir_player> angle_max)
+		cub3d->enemy[i].dir_player = within_360(atan2(cub3d->player.pos.y - cub3d->enemy[i].pos.y, cub3d->player.pos.x - cub3d->enemy[i].pos.x) * 180 / M_PI);
+		angle_min = within_360(cub3d->enemy[i].angle * 180 / M_PI - 30);
+		angle_max = within_360(cub3d->enemy[i].angle * 180 / M_PI + 30);
+		printf("Looking between angles %f,%f, player at dir %f\n",angle_min,angle_max,cub3d->enemy[i].dir_player);
+		if (cub3d->enemy[i].dir_player < angle_min || cub3d->enemy[i].dir_player > angle_max)
 			printf("enemy %i Not looking at you\n", i);
 		else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i))
 			printf("Enemy %i saw you\n", i);

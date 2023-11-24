@@ -252,6 +252,7 @@ void	draw_world(cub3d_t *cub3d);
 //---- MATH --------------------------------------------------------------------
 
 // math.c
+double	within_360(double degree);
 double	within_two_pi(double radians);
 double	to_radians(double degrees);
 

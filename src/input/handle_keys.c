@@ -20,10 +20,10 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.down = TRUE;
 	else if (keydata.key == MLX_KEY_P)
 	{
-		if (cub3d->pause)
-			cub3d->pause = FALSE;
+		if (cub3d->state == STATE_PAUSE)
+			cub3d->state = STATE_GAME;
 		else
-			cub3d->pause = TRUE;
+			cub3d->state = STATE_PAUSE;
 		cub3d->img_switch = TRUE;
 	}
 }

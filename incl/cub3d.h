@@ -158,54 +158,168 @@ typedef struct ray_s
 	int			wall;
 }				ray_t;
 
+//---- RECTANGLE ---------------------------------------------------------------
 
+typedef struct rectangle_s
+{
+	vector_t	pos;
+	int			width;
+	int			height;
+	int			color;
+}				rectangle_t;
+
+//---- SLIDER ------------------------------------------------------------------
+
+typedef struct slider_s
+{
+	mlx_image_t	*img;
+	vector_t	pos;
+	int			width;
+	int			height;
+	int			color;
+	int			background_color;
+	int			value;
+	int			max_value;
+}				slider_t;
+
+//---- BOX ---------------------------------------------------------------------
+
+#define BOX_ON_COLOR GREEN
+#define BOX_OFF_COLOR BLACK
+#define BOX_HOVER_ON_COLOR ORANGE
+#define BOX_HOVER_OFF_COLOR GRAY
+#define BOX_BORDER_COLOR GOLD
+
+typedef struct box_s
+{
+	mlx_image_t	*text;
+	vector_t	pos;
+	int			size;
+	int			background_color;
+	int			border_width;
+	int			border_color;
+	int			value;
+}				box_t;
 
 //---- PAUSE MENU --------------------------------------------------------------
 
-# define MENU_COLOR_BACKGROUND HOT_PINK
+# define PAUSE_MENU_BACKGROUND_COLOR BLACK
+# define PAUSE_MENU_TRANSPARENCY 1
+# define PAUSE_MENU_SETTINGS_RECT_COLOR 0x050708FF
 
 typedef struct pause_menu_s
 {
 	mlx_image_t	*img;
-	mlx_image_t	*e_difficulty_text;
-	mlx_image_t	*minimap_view_text;
-	int		background_color;
-}			pause_menu_t;
+	int			background_color;
+	mlx_image_t	*text_title;
+	mlx_image_t	*text_fps;
+	mlx_image_t	*text_fisheye;
+	mlx_image_t	*text_mouse;
+	rectangle_t	rect_title;
+	int			pos_x_rect_title;
+	int			pos_y_rect_title;
+	int			pos_col_text;
+	int			pos_col_box_1;
+	int			pos_col_box_2;
+	int			pos_col_box_3;
+	int			pos_col_box_4;
+	int			pos_col_box_5;
+	int			pos_text_row_1;
+	int			pos_text_row_2;
+	int			pos_text_row_3;
+	int			pos_row_1;
+	int			pos_row_2;
+	int			pos_row_3;
+	box_t		box_fps[4];
+	box_t		box_fisheye[2];
+	box_t		box_mouse[2];
+}				pause_menu_t;
+
+//---- SETTINGS MENU -----------------------------------------------------------
+
+typedef struct settings_menu_s
+{
+	mlx_image_t	*img;
+	mlx_image_t	*text_settings;
+	mlx_image_t	*text_e_difficulty;
+	mlx_image_t	*text_minimap_view;
+	int			background_color;
+}				settings_menu_t;
 
 
+//---- SETTINGS ----------------------------------------------------------------
 
+enum fps
+{
+	FPS_15,
+	FPS_30,
+	FPS_60,
+	FPS_120
+};
+
+enum fisheye
+{
+	FISHEYE_OFF,
+	FISHEYE_ON
+};
+
+enum mouse
+{
+	MOUSE_OFF,
+	MOUSE_ON
+};
+
+
+typedef struct settings_s
+{
+	int		e_difficulty;
+	int		minimap_view;
+	int 	fps;
+	int		fisheye;
+	int		mouse;
+}			settings_t;
 
 
 //---- CUB3D -------------------------------------------------------------------
 
+enum state
+{
+	STATE_START,
+	STATE_SETTINGS,
+	STATE_GAME,
+	STATE_PAUSE
+};
+
 typedef struct cub3d_s
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	vector_t	mouse;
-	vector_t	mouse_set_pos;
-	int			on_minimap;
-	vector_t	orig_minimap_pos;
-	keypress_t	keys;
-	player_t	player;
-	double		fov;
-	vector_t	starting_pos;
-	char		starting_dir;
-	minimap_t	minimap;
-	map_node_t	*map_list;
-	int			nodes;
-	char		**map;
-	int			map_rows;
-	int			map_columns;
-	texture_t	texture[4];
-	int			floor_color;
-	int			ceiling_color;
-	int			element_found[6];
-	ray_t		*rays;
-	int			pause;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	vector_t		mouse;
+	vector_t		mouse_set_pos;
+	int				on_minimap;
+	vector_t		orig_minimap_pos;
+	keypress_t		keys;
+	player_t		player;
+	double			fov;
+	vector_t		starting_pos;
+	char			starting_dir;
+	minimap_t		minimap;
+	map_node_t		*map_list;
+	int				nodes;
+	char			**map;
+	int				map_rows;
+	int				map_columns;
+	texture_t		texture[4];
+	int				floor_color;
+	int				ceiling_color;
+	int				element_found[6];
+	ray_t			*rays;
+	int				state;
+	int				pause;
 	pause_menu_t	pause_menu;
-	int			img_switch;
-}			cub3d_t;
+	int				img_switch;
+	settings_t		settings;
+}					cub3d_t;
 
 
 
@@ -256,7 +370,30 @@ void init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 //---- MENU --------------------------------------------------------------------
 
+// pause_text.c
+void add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
+void add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
+void add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
+
+// pause_menu.c
+void update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+
+// center.c
+void center(mlx_image_t *img);
+void center_vertically(mlx_image_t *img);
+void center_horizontally(mlx_image_t *img);
+
+// hover.c
+int hover_rectangle(cub3d_t *cub3d, rectangle_t *rect);
+int hover_box(cub3d_t *cub3d, box_t *box);
+int hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
+
+//---- DRAW --------------------------------------------------------------------
+
+void draw_rectangle(cub3d_t *cub3d, rectangle_t *rect);
+void draw_checkbox(cub3d_t *cub3d, box_t *box);
+void draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
 
 
 //---- MATH --------------------------------------------------------------------

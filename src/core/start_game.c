@@ -19,6 +19,8 @@ void	draw_background(cub3d_t *cub3d)
 	}
 }
 
+//------------------------------------------------------------------------------
+
 void	update_img_size(cub3d_t *cub3d)
 {
 	if ((int)cub3d->img->width != cub3d->mlx->width || (int)cub3d->img->height != cub3d->mlx->height)
@@ -35,21 +37,36 @@ void	update_img_size(cub3d_t *cub3d)
 	}
 }
 
+//------------------------------------------------------------------------------
+
 void check_pause_switch(cub3d_t *cub3d)
 {
-	if (cub3d->pause == TRUE)
+	if (cub3d->state == STATE_PAUSE)
 	{
 		init_pause_menu(cub3d, &cub3d->pause_menu);
-		mlx_image_to_window(cub3d->mlx, cub3d->pause_menu.img, 0, 0);
 	}
 	else
 	{
+		// remove pause menu from screen
+		// NEEDED?
 		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.img);
-		mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0);
-		mlx_image_to_window(cub3d->mlx, cub3d->minimap.img, cub3d->minimap.pos.x, cub3d->minimap.pos.y);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_title);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_fps);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_fisheye);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_mouse);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[0].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[1].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[2].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[3].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fisheye[0].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fisheye[1].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_mouse[0].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_mouse[1].text);
 	}
 	cub3d->img_switch = FALSE;
 }
+
+//------------------------------------------------------------------------------
 
 void	update(void *param)
 {
@@ -62,14 +79,12 @@ void	update(void *param)
 		check_pause_switch(cub3d);
 
 	// update game
-	if (cub3d->pause)
+	if (cub3d->state == STATE_PAUSE)
 	{
 		pause_menu(cub3d, &cub3d->pause_menu);
 	}
 	else
 	{
-		// mlx_delete_image(cub3d->mlx, cub3d->pause_menu.e_difficulty_text);
-		// mlx_delete_image(cub3d->mlx, cub3d->pause_menu.minimap_view_text);
 		update_img_size(cub3d);
 		mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 		if (cub3d->keys.mouse_left && cub3d->on_minimap)

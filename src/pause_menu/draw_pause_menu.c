@@ -2,6 +2,25 @@
 
 //------------------------------------------------------------------------------
 
+void	delete_pause_menu(cub3d_t *cub3d)
+{
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.img);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_title);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_fps);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_fisheye);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_mouse);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[0].text);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[1].text);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[2].text);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[3].text);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fisheye[0].text);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fisheye[1].text);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_mouse[0].text);
+	mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_mouse[1].text);
+}
+
+//------------------------------------------------------------------------------
+
 void draw_menu_background(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	unsigned int	row;

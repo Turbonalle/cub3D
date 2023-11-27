@@ -15,7 +15,14 @@ OPTIONAL:
 - Compare with delta time
 - Create floor and ceiling textures
 - Add enemies
+	Currently:
+		supports multiple sessile enemies, checks if any can see the player
+	TODO:
+		movement for enemies
 - Add doors
+	Currently:
+		primitive version, open when player is near enough, seen on minimap
+		enemies are magical, can see through closed doors
 - Add mirrors
 
 -----------------------------------------------------------------------------

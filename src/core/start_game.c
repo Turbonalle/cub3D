@@ -39,11 +39,11 @@ void	update_img_size(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-void check_pause_switch(cub3d_t *cub3d)
+void handle_pause_switch(cub3d_t *cub3d)
 {
 	if (cub3d->state == STATE_PAUSE)
 	{
-		init_pause_menu(cub3d, &cub3d->pause_menu);
+		draw_pause_menu(cub3d, &cub3d->pause_menu);
 	}
 	else
 	{
@@ -74,14 +74,14 @@ void	update(void *param)
 
 	cub3d = param;
 
-	// check if we need to switch between pause menu and game
+	// check if we need to switch between pause menu and game, and then switch
 	if (cub3d->img_switch)
-		check_pause_switch(cub3d);
+		handle_pause_switch(cub3d);
 
 	// update game
 	if (cub3d->state == STATE_PAUSE)
 	{
-		pause_menu(cub3d, &cub3d->pause_menu);
+		update_pause_menu(cub3d, &cub3d->pause_menu);
 	}
 	else
 	{

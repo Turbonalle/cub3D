@@ -1,5 +1,13 @@
 #include "cub3d.h"
 
+void print_settings(cub3d_t *cub3d)
+{
+	printf(TERMINAL_CYAN"[SETTINGS]\n"TERMINAL_RESET);
+	printf("FPS: "TERMINAL_GREEN"%d"TERMINAL_RESET"\n", cub3d->settings.fps);
+	printf("Fisheye: "TERMINAL_GREEN"%d"TERMINAL_RESET"\n", cub3d->settings.fisheye);
+	printf("Mouse: "TERMINAL_GREEN"%d"TERMINAL_RESET"\n", cub3d->settings.mouse);
+}
+
 void update_fps_boxes(cub3d_t *cub3d, pause_menu_t *menu, int n)
 {
 	int i;
@@ -7,11 +15,19 @@ void update_fps_boxes(cub3d_t *cub3d, pause_menu_t *menu, int n)
 	i = -1;
 	while (++i < 4)
 	{
-		if (i != n)
-			menu->box_fps[i].value = FALSE;
+		if (i == n)
+			menu->box_fps[i].state = TRUE;
+		else
+			menu->box_fps[i].state = FALSE;
 	}
-	int fps[4] = {30, 60, 90, 120};
-	cub3d->settings.fps = fps[n];
+	if (n == 0)
+		cub3d->settings.fps = 15;
+	else if (n == 1)
+		cub3d->settings.fps = 30;
+	else if (n == 2)
+		cub3d->settings.fps = 60;
+	else
+		cub3d->settings.fps = 120;
 }
 
 void update_fisheye_boxes(cub3d_t *cub3d, pause_menu_t *menu, int n)
@@ -21,10 +37,15 @@ void update_fisheye_boxes(cub3d_t *cub3d, pause_menu_t *menu, int n)
 	i = -1;
 	while (++i < 2)
 	{
-		if (i != n)
-			menu->box_fisheye[i].value = FALSE;
+		if (i == n)
+			menu->box_fisheye[i].state = TRUE;
+		else
+			menu->box_fisheye[i].state = FALSE;
 	}
-	cub3d->settings.fisheye = n;
+	if (n == 0)
+		cub3d->settings.fisheye = ON;
+	else
+		cub3d->settings.fisheye = OFF;
 }
 
 void update_mouse_boxes(cub3d_t *cub3d, pause_menu_t *menu, int n)
@@ -34,10 +55,15 @@ void update_mouse_boxes(cub3d_t *cub3d, pause_menu_t *menu, int n)
 	i = -1;
 	while (++i < 2)
 	{
-		if (i != n)
-			menu->box_mouse[i].value = FALSE;
+		if (i == n)
+			menu->box_mouse[i].state = TRUE;
+		else
+			menu->box_mouse[i].state = FALSE;
 	}
-	cub3d->settings.mouse = n;
+	if (n == 0)
+		cub3d->settings.mouse = ON;
+	else
+		cub3d->settings.mouse = OFF;
 }
 
 void update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
@@ -49,47 +75,35 @@ void update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
 	{
 		if (hover_box(cub3d, &menu->box_fps[i]))
 		{
-			if (menu->box_fps[i].value == TRUE)
-				menu->box_fps[i].value = FALSE;
-			else
-				menu->box_fps[i].value = TRUE;
+			if (menu->box_fps[i].state == FALSE)
+				update_fps_boxes(cub3d, menu, i);
 			break ;
 		}
 	}
-	if (i < 4)
-		update_fps_boxes(cub3d, menu, i);
 	i = -1;
 	while (++i < 2)
 	{
 		if (hover_box(cub3d, &menu->box_fisheye[i]))
 		{
-			if (menu->box_fisheye[i].value == TRUE)
-				menu->box_fisheye[i].value = FALSE;
-			else
-				menu->box_fisheye[i].value = TRUE;
+			if (menu->box_fisheye[i].state == FALSE)
+				update_fisheye_boxes(cub3d, menu, i);
 			break ;
 		}
 	}
-	if (i < 2)
-		update_fisheye_boxes(cub3d, menu, i);
 	i = -1;
 	while (++i < 2)
 	{
 		if (hover_box(cub3d, &menu->box_mouse[i]))
 		{
-			if (menu->box_mouse[i].value == TRUE)
-				menu->box_mouse[i].value = FALSE;
-			else
-				menu->box_mouse[i].value = TRUE;
+			if (menu->box_mouse[i].state == FALSE)
+				update_mouse_boxes(cub3d, menu, i);
 			break ;
 		}
 	}
-	if (i < 2)
-		update_mouse_boxes(cub3d, menu, i);
-
+	print_settings(cub3d);
 }
 
-void pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+void update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	// Here we update the settings if the user has changed them
 	int i;
@@ -118,5 +132,4 @@ void pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 		else
 			draw_checkbox(cub3d, &menu->box_mouse[i]);
 	}
-	
 }

@@ -84,13 +84,6 @@ int	init_rays(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-void init_settings(settings_t *settings)
-{
-	settings->fps = FPS_60;
-	settings->fisheye = TRUE;
-	settings->mouse = TRUE;
-}
-
 int	init_cub3d(cub3d_t *cub3d)
 {
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", TRUE);
@@ -114,6 +107,6 @@ int	init_cub3d(cub3d_t *cub3d)
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);
 	cub3d->img_switch = FALSE;
-	init_settings(&cub3d->settings);
+	init_pause_menu(cub3d, &cub3d->pause_menu);
 	return (SUCCESS);
 }

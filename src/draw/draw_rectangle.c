@@ -19,7 +19,7 @@ void draw_checkbox(cub3d_t *cub3d, box_t *box)
 	int	row;
 	int	column;
 
-	if (box->value == TRUE)
+	if (box->state == TRUE)
 		box->background_color = BOX_ON_COLOR;
 	else
 		box->background_color = BOX_OFF_COLOR;
@@ -44,7 +44,7 @@ void draw_hovered_checkbox(cub3d_t *cub3d, box_t *box)
 	int	row;
 	int	column;
 
-	if (box->value == TRUE)
+	if (box->state == TRUE)
 		box->background_color = BOX_HOVER_ON_COLOR;
 	else
 		box->background_color = BOX_HOVER_OFF_COLOR;

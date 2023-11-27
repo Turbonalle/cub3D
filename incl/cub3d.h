@@ -184,11 +184,14 @@ typedef struct slider_s
 
 //---- BOX ---------------------------------------------------------------------
 
-#define BOX_ON_COLOR GREEN
-#define BOX_OFF_COLOR BLACK
-#define BOX_HOVER_ON_COLOR ORANGE
-#define BOX_HOVER_OFF_COLOR GRAY
-#define BOX_BORDER_COLOR GOLD
+# define BOX_ON_COLOR GREEN
+# define BOX_OFF_COLOR BLACK
+# define BOX_HOVER_ON_COLOR LAWN_GREEN
+# define BOX_HOVER_OFF_COLOR GRAY
+# define BOX_BORDER_COLOR GOLD
+
+# define OFF 0
+# define ON 1
 
 typedef struct box_s
 {
@@ -199,13 +202,14 @@ typedef struct box_s
 	int			border_width;
 	int			border_color;
 	int			value;
+	int			state;
 }				box_t;
 
 //---- PAUSE MENU --------------------------------------------------------------
 
 # define PAUSE_MENU_BACKGROUND_COLOR BLACK
 # define PAUSE_MENU_TRANSPARENCY 1
-# define PAUSE_MENU_SETTINGS_RECT_COLOR 0x050708FF
+# define PAUSE_MENU_SETTINGS_RECT_COLOR 0x2F1E45FF
 
 typedef struct pause_menu_s
 {
@@ -256,19 +260,6 @@ enum fps
 	FPS_60,
 	FPS_120
 };
-
-enum fisheye
-{
-	FISHEYE_OFF,
-	FISHEYE_ON
-};
-
-enum mouse
-{
-	MOUSE_OFF,
-	MOUSE_ON
-};
-
 
 typedef struct settings_s
 {
@@ -365,35 +356,37 @@ int		check_map_validity(char **map);
 
 //---- INIT --------------------------------------------------------------------
 
-void init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void	init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 
-//---- MENU --------------------------------------------------------------------
+//---- PAUSE MENU --------------------------------------------------------------
 
 // pause_text.c
-void add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
-void add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
-void add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
+void	add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
+void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
+void	add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
 
 // pause_menu.c
-void update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
-void pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
+void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+
 
 // center.c
-void center(mlx_image_t *img);
-void center_vertically(mlx_image_t *img);
-void center_horizontally(mlx_image_t *img);
+void	center(mlx_image_t *img);
+void	center_vertically(mlx_image_t *img);
+void	center_horizontally(mlx_image_t *img);
 
 // hover.c
-int hover_rectangle(cub3d_t *cub3d, rectangle_t *rect);
-int hover_box(cub3d_t *cub3d, box_t *box);
-int hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
+int		hover_rectangle(cub3d_t *cub3d, rectangle_t *rect);
+int		hover_box(cub3d_t *cub3d, box_t *box);
+int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 
 //---- DRAW --------------------------------------------------------------------
 
-void draw_rectangle(cub3d_t *cub3d, rectangle_t *rect);
-void draw_checkbox(cub3d_t *cub3d, box_t *box);
-void draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
+void	draw_rectangle(cub3d_t *cub3d, rectangle_t *rect);
+void	draw_checkbox(cub3d_t *cub3d, box_t *box);
+void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
 
 
 //---- MATH --------------------------------------------------------------------
@@ -407,7 +400,7 @@ int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t 
 
 // draw_line.c
 void	draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
-void draw_world(cub3d_t *cub3d);
+void	draw_world(cub3d_t *cub3d);
 
 
 //---- MAIN PROGRAM ------------------------------------------------------------

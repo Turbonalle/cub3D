@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 13:25:49 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:17:34 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,23 +98,90 @@ int	init_rays(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-void	count_enemies(cub3d_t *cub3d)
+int add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
+{
+	key_t	*new_key;
+
+	new_key = malloc(sizeof(key_t));
+	if (!new_key)
+		return (FAIL);
+	new_key->pos.x = i; // swap x and y if needed
+	new_key->pos.y = j;
+	new_key->collected = FALSE;
+	new_key->next = cub3d->key_groups[key_group_index].keys;
+	cub3d->key_groups[key_group_index].keys = new_key;
+	return (SUCCESS);
+}
+
+int	init_key(cub3d_t *cub3d, int i, int j, int key_group_index)
+{
+	if (add_key(cub3d, i, j, key_group_index) == FAIL)
+		return (FAIL);
+	cub3d->door_groups[key_group_index].num_keys_left++;
+	return (SUCCESS);
+}
+
+int add_door_pos(cub3d_t *cub3d, int i, int j, int door_group_index)
+{
+	door_pos_t	*new_pos;
+
+	new_pos = malloc(sizeof(door_pos_t));
+	if (!new_pos)
+		return (FAIL);
+	new_pos->pos.x = i; // swap x and y if needed
+	new_pos->pos.y = j;
+	new_pos->next = cub3d->door_groups[door_group_index].door_positions;
+	cub3d->door_groups[door_group_index].door_positions = new_pos;
+	return (SUCCESS);
+}
+
+int	init_door(cub3d_t *cub3d, int i, int j, int door_group_index)
+{
+	cub3d->door_groups[door_group_index].index = door_group_index;
+	if (add_door_pos(cub3d, i, j, door_group_index) == FAIL)
+		return (FAIL);
+	cub3d->door_groups[door_group_index].group_size++;
+	return (SUCCESS);
+}
+
+int	init_doors_and_keys(cub3d_t *cub3d)
 {
 	int	i;
 	int	j;
+	int door_key_index;
 
+	i = 0;
+	while (i < NUM_DOORS_MAX)
+	{
+		cub3d->door_groups[i].index = i;
+		cub3d->door_groups[i].door_positions = NULL;
+		cub3d->door_groups[i].group_size = 0;
+		cub3d->door_groups[i].num_keys_left = 0;
+		cub3d->key_groups[i].index = i;
+	}
 	i = 0;
 	while (cub3d->map[i])
 	{
 		j = 0;
 		while (cub3d->map[i][j])
 		{
-			if (ft_strchr(ENEMIES, cub3d->map[i][j]))
-				cub3d->num_enemies++;
+			door_key_index = is_door(cub3d->map[i][j]);
+			if (door_key_index != -1)
+			{
+				if (init_door(cub3d, i, j, door_key_index) == FAIL)
+					return (FAIL);
+			}
+			door_key_index = is_key(cub3d->map[i][j]);
+			if (door_key_index != -1)
+			{
+				if (init_key(cub3d, i, j, door_key_index) == FAIL)
+					return (FAIL);
+			}
 			j++;
 		}
 		i++;
 	}
+	return (SUCCESS);
 }
 
 int	init_cub3d(cub3d_t *cub3d)

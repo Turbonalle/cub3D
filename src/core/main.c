@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:09:19 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/11/24 09:39:44 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:19:16 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int	main(int ac, char **av)
 		if (!init_enemy(&cub3d))
 			return (1);
 	}
+	if (init_doors_and_keys(&cub3d) == FAIL)
+		return (1);
+	// TODO DOORS: validity check
 	print_info(&cub3d); // DEBUG
 	start_game(&cub3d);
 	free_cub3d(&cub3d);

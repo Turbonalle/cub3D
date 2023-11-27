@@ -228,6 +228,42 @@ typedef struct box_s
 	int			state;
 }				box_t;
 
+//---- BUTTON ------------------------------------------------------------------
+
+# define BUTTON_ON_COLOR GREEN
+# define BUTTON_OFF_COLOR BLACK
+# define BUTTON_HOVER_ON_COLOR LAWN_GREEN
+# define BUTTON_HOVER_OFF_COLOR GRAY
+# define BUTTON_BORDER_COLOR GOLD
+
+typedef struct button_s
+{
+	mlx_image_t	*text;
+	vector_t	pos;
+	int			width;
+	int			height;
+	int			background_color;
+	int			border_width;
+	int			border_color;
+	int			state;
+}				button_t;
+
+//---- START MENU --------------------------------------------------------------
+
+# define START_MENU_BACKGROUND_COLOR BLACK
+
+typedef struct start_menu_s
+{
+	mlx_image_t	*img;
+	int			background_color;
+	mlx_image_t	*text_title;
+	mlx_image_t	*text_start;
+	mlx_image_t	*text_settings;
+	rectangle_t	rect_title;
+	button_t	button_start;
+	button_t	button_settings;
+}				start_menu_t;
+
 //---- PAUSE MENU --------------------------------------------------------------
 
 # define PAUSE_MENU_BACKGROUND_COLOR BLACK
@@ -273,6 +309,18 @@ typedef struct settings_menu_s
 	int			background_color;
 }				settings_menu_t;
 
+//---- GAMEOVER MENU -----------------------------------------------------------
+
+typedef struct gameover_menu_s
+{
+	mlx_image_t	*img;
+	mlx_image_t	*text_gameover;
+	mlx_image_t	*text_restart;
+	mlx_image_t	*text_exit;
+	int			background_color;
+	box_t		box_restart;
+	box_t		box_exit;
+}				gameover_menu_t;
 
 //---- SETTINGS ----------------------------------------------------------------
 
@@ -293,7 +341,6 @@ typedef struct settings_s
 	int		mouse;
 }			settings_t;
 
-
 //---- CUB3D -------------------------------------------------------------------
 
 enum state
@@ -301,13 +348,15 @@ enum state
 	STATE_START,
 	STATE_SETTINGS,
 	STATE_GAME,
-	STATE_PAUSE
+	STATE_PAUSE,
+	STATE_GAMEOVER
 };
 
 typedef struct cub3d_s
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
+	double			start_time;
 	vector_t		mouse;
 	vector_t		mouse_set_pos;
 	int				on_minimap;
@@ -329,10 +378,13 @@ typedef struct cub3d_s
 	int				element_found[6];
 	ray_t			*rays;
 	int				state;
-	pause_menu_t	pause_menu;
 	int				prev;
 	int				fisheye;
 	int				num_enemies;
+	start_menu_t	start_menu;
+	pause_menu_t	pause_menu;
+	settings_menu_t	settings_menu;
+	gameover_menu_t	gameover_menu;
 	settings_t		settings;
 	t_enemy			*enemy;
 }					cub3d_t;
@@ -394,6 +446,16 @@ int		init_cub3d(cub3d_t *cub3d);
 // init_pause_menu.c
 void	init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
+// init_start_menu.c
+void	init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+
+//---- START MENU --------------------------------------------------------------
+
+// start_menu.c
+void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+
+// draw_start_menu.c
+void	draw_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 //---- PAUSE MENU --------------------------------------------------------------
 

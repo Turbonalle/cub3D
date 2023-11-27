@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 13:39:00 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/11/27 17:17:24 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,15 @@ void	update(void *param)
 
 	cub3d = param;
 
-	// update game
-	if (cub3d->state == STATE_PAUSE)
+	if (cub3d->state == STATE_START)
+	{
+		update_start_menu(cub3d, &cub3d->start_menu);
+	}
+	else if (cub3d->state == STATE_SETTINGS)
+	{
+		// update_settings_menu(cub3d, &cub3d->settings_menu);
+	}
+	else if (cub3d->state == STATE_PAUSE)
 	{
 		update_pause_menu(cub3d, &cub3d->pause_menu);
 	}
@@ -83,10 +90,16 @@ void	update(void *param)
 		minimap(cub3d);
 		check_if_player_is_seen(cub3d);
 	}
+	else if (cub3d->state == STATE_GAMEOVER)
+	{
+		// update_end_menu(cub3d, &cub3d->gameover_menu);
+	}
 }
 
 void	start_game(cub3d_t *cub3d)
 {
+	cub3d->start_time = mlx_get_time();
+	draw_start_menu(cub3d, &cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);
 	mlx_scroll_hook(cub3d->mlx, &hook_mouse_scroll, cub3d);

@@ -71,6 +71,8 @@ enum elements
 typedef struct map_node_s map_node_t;
 typedef struct enemy_path_s enemy_path_t;
 
+//---- TEXTURE -----------------------------------------------------------------
+
 typedef struct texture_s
 {
 	char	*path;
@@ -78,6 +80,8 @@ typedef struct texture_s
 	int		width;
 	int		height;
 }			texture_t;
+
+//---- VECTORS -----------------------------------------------------------------
 
 typedef struct vector_s
 {
@@ -90,6 +94,8 @@ typedef struct dvector_t
 	double	x;
 	double	y;
 }			dvector_t;
+
+//---- PLAYER ------------------------------------------------------------------
 
 typedef struct player_s
 {
@@ -105,7 +111,7 @@ typedef struct player_s
 typedef struct s_enemy
 {
 	dvector_t		pos;
-	dvector_t		new_pos;
+	dvector_t		target;
 	dvector_t		dir;
 	double			angle;
 	double			dir_player;
@@ -142,6 +148,8 @@ typedef struct keypress_s
 	int	mouse_right;
 }			keypress_t;
 
+//---- MINIMAP -----------------------------------------------------------------
+
 typedef struct minimap_s
 {
 	mlx_image_t	*img;
@@ -162,6 +170,8 @@ typedef struct minimap_s
 	int			transparency;
 }			minimap_t;
 
+//---- RAY ---------------------------------------------------------------------
+
 typedef struct ray_s
 {
 	dvector_t	end;
@@ -171,35 +181,163 @@ typedef struct ray_s
 	int			wall;
 }				ray_t;
 
+//---- RECTANGLE ---------------------------------------------------------------
+
+typedef struct rectangle_s
+{
+	vector_t	pos;
+	int			width;
+	int			height;
+	int			color;
+}				rectangle_t;
+
+//---- SLIDER ------------------------------------------------------------------
+
+typedef struct slider_s
+{
+	mlx_image_t	*img;
+	vector_t	pos;
+	int			width;
+	int			height;
+	int			color;
+	int			background_color;
+	int			value;
+	int			max_value;
+}				slider_t;
+
+//---- BOX ---------------------------------------------------------------------
+
+# define BOX_ON_COLOR GREEN
+# define BOX_OFF_COLOR BLACK
+# define BOX_HOVER_ON_COLOR LAWN_GREEN
+# define BOX_HOVER_OFF_COLOR GRAY
+# define BOX_BORDER_COLOR GOLD
+
+# define OFF 0
+# define ON 1
+
+typedef struct box_s
+{
+	mlx_image_t	*text;
+	vector_t	pos;
+	int			size;
+	int			background_color;
+	int			border_width;
+	int			border_color;
+	int			value;
+	int			state;
+}				box_t;
+
+//---- PAUSE MENU --------------------------------------------------------------
+
+# define PAUSE_MENU_BACKGROUND_COLOR BLACK
+# define PAUSE_MENU_TRANSPARENCY 1
+# define PAUSE_MENU_SETTINGS_RECT_COLOR 0x2F1E45FF
+
+typedef struct pause_menu_s
+{
+	mlx_image_t	*img;
+	int			background_color;
+	mlx_image_t	*text_title;
+	mlx_image_t	*text_fps;
+	mlx_image_t	*text_fisheye;
+	mlx_image_t	*text_mouse;
+	rectangle_t	rect_title;
+	int			pos_x_rect_title;
+	int			pos_y_rect_title;
+	int			pos_col_text;
+	int			pos_col_box_1;
+	int			pos_col_box_2;
+	int			pos_col_box_3;
+	int			pos_col_box_4;
+	int			pos_col_box_5;
+	int			pos_text_row_1;
+	int			pos_text_row_2;
+	int			pos_text_row_3;
+	int			pos_row_1;
+	int			pos_row_2;
+	int			pos_row_3;
+	box_t		box_fps[4];
+	box_t		box_fisheye[2];
+	box_t		box_mouse[2];
+}				pause_menu_t;
+
+//---- SETTINGS MENU -----------------------------------------------------------
+
+typedef struct settings_menu_s
+{
+	mlx_image_t	*img;
+	mlx_image_t	*text_settings;
+	mlx_image_t	*text_e_difficulty;
+	mlx_image_t	*text_minimap_view;
+	int			background_color;
+}				settings_menu_t;
+
+
+//---- SETTINGS ----------------------------------------------------------------
+
+enum fps
+{
+	FPS_15,
+	FPS_30,
+	FPS_60,
+	FPS_120
+};
+
+typedef struct settings_s
+{
+	int		e_difficulty;
+	int		minimap_view;
+	int 	fps;
+	int		fisheye;
+	int		mouse;
+}			settings_t;
+
+
+//---- CUB3D -------------------------------------------------------------------
+
+enum state
+{
+	STATE_START,
+	STATE_SETTINGS,
+	STATE_GAME,
+	STATE_PAUSE
+};
+
 typedef struct cub3d_s
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	vector_t	mouse;
-	vector_t	mouse_set_pos;
-	int			on_minimap;
-	vector_t	orig_minimap_pos;
-	keypress_t	keys;
-	player_t	player;
-	double		fov;
-	vector_t	starting_pos;
-	char		starting_dir;
-	minimap_t	minimap;
-	map_node_t	*map_list;
-	int			nodes;
-	char		**map;
-	int			map_rows;
-	int			map_columns;
-	texture_t	texture[4];
-	int			floor_color;
-	int			ceiling_color;
-	int			element_found[6];
-	ray_t		*rays;
-	int			fisheye;
-	int			prev;
-	int			num_enemies;
-	t_enemy		*enemy;
-}			cub3d_t;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	vector_t		mouse;
+	vector_t		mouse_set_pos;
+	int				on_minimap;
+	vector_t		orig_minimap_pos;
+	keypress_t		keys;
+	player_t		player;
+	double			fov;
+	vector_t		starting_pos;
+	char			starting_dir;
+	minimap_t		minimap;
+	map_node_t		*map_list;
+	int				nodes;
+	char			**map;
+	int				map_rows;
+	int				map_columns;
+	texture_t		texture[4];
+	int				floor_color;
+	int				ceiling_color;
+	int				element_found[6];
+	ray_t			*rays;
+	int				state;
+	int				pause;
+	pause_menu_t	pause_menu;
+	int				img_switch;
+	int				prev;
+	int				fisheye;
+	int				num_enemies;
+	settings_t		settings;
+	t_enemy			*enemy;
+}					cub3d_t;
 
 
 
@@ -259,6 +397,22 @@ double	to_radians(double degrees);
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
 
+//----PAUSE---------------------------------------------------------------------
+
+void draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+
+int hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
+void update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
+void draw_rectangle(cub3d_t *cub3d, rectangle_t *rect);
+void draw_checkbox(cub3d_t *cub3d, box_t *box);
+void draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
+void add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
+void add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
+void add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
+int hover_box(cub3d_t *cub3d, box_t *box);
+void center(mlx_image_t *img);
 
 //---- MAIN PROGRAM ------------------------------------------------------------
 
@@ -304,6 +458,8 @@ void	hook_mouse_scroll(double xdelta, double ydelta, void *param);
 //---- MINIMAP -----------------------------------------------------------------
 
 // minimap.c
+void	move_minimap(cub3d_t *cub3d);
+void	update_minimap(cub3d_t *cub3d);
 void	update_minimap_player_pos(cub3d_t *cub3d);
 void	minimap(cub3d_t *cub3d);
 

@@ -31,6 +31,8 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		}
 		else
 			cub3d->on_minimap = FALSE;
+		if (cub3d->state == STATE_PAUSE && hover_any_box(cub3d, &cub3d->pause_menu))
+			update_pause_settings(cub3d, &cub3d->pause_menu);
 	}
     else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)
 		cub3d->keys.mouse_left = FALSE;

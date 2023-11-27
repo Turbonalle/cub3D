@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 10:10:00 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:12:02 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,37 +31,7 @@ void	draw_background(cub3d_t *cub3d)
 	}
 }
 
-void	move_minimap(cub3d_t *cub3d)
-{
-	vector_t	mouse_moved;
-
-	mouse_moved.x = cub3d->mouse.x - cub3d->mouse_set_pos.x;
-	mouse_moved.y = cub3d->mouse.y - cub3d->mouse_set_pos.y;
-	if (cub3d->orig_minimap_pos.x + mouse_moved.x < 0)
-		cub3d->minimap.img->instances[0].x = 0;
-	else if (cub3d->orig_minimap_pos.x + mouse_moved.x + cub3d->minimap.width > (int)cub3d->img->width)
-		cub3d->minimap.img->instances[0].x = cub3d->img->width - cub3d->minimap.width;
-	else
-		cub3d->minimap.img->instances[0].x = cub3d->orig_minimap_pos.x + mouse_moved.x;
-	if (cub3d->orig_minimap_pos.y + mouse_moved.y < 0)
-		cub3d->minimap.img->instances[0].y = 0;
-	else if (cub3d->orig_minimap_pos.y + mouse_moved.y + cub3d->minimap.height > (int)cub3d->img->height)
-		cub3d->minimap.img->instances[0].y = cub3d->img->height - cub3d->minimap.height;
-	else
-		cub3d->minimap.img->instances[0].y = cub3d->orig_minimap_pos.y + mouse_moved.y;
-	cub3d->minimap.pos.x = cub3d->minimap.img->instances[0].x;
-	cub3d->minimap.pos.y = cub3d->minimap.img->instances[0].y;
-}
-
-void	update_minimap(cub3d_t *cub3d)
-{
-	(void)cub3d;
-	// compare img size with previous img size
-	// calculate previous minimap position in relation to the previous img size
-	// update minimap position in relation to the new img size
-	// calculate previous minimap position in relation to the previous img size
-	// update minimap position in relation to the new img size
-}
+//------------------------------------------------------------------------------
 
 void	update_img_size(cub3d_t *cub3d)
 {
@@ -78,6 +48,37 @@ void	update_img_size(cub3d_t *cub3d)
 		}
 	}
 }
+
+//------------------------------------------------------------------------------
+
+void handle_pause_switch(cub3d_t *cub3d)
+{
+	if (cub3d->state == STATE_PAUSE)
+	{
+		draw_pause_menu(cub3d, &cub3d->pause_menu);
+	}
+	else
+	{
+		// remove pause menu from screen
+		// NEEDED?
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.img);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_title);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_fps);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_fisheye);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_mouse);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[0].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[1].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[2].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[3].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fisheye[0].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fisheye[1].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_mouse[0].text);
+		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_mouse[1].text);
+	}
+	cub3d->img_switch = FALSE;
+}
+
+//------------------------------------------------------------------------------
 
 void	update(void *param)
 {
@@ -102,6 +103,28 @@ void	update(void *param)
 	draw_world(cub3d);
 	minimap(cub3d);
 	check_if_player_is_seen(cub3d);
+
+	// check if we need to switch between pause menu and game, and then switch
+	if (cub3d->img_switch)
+		handle_pause_switch(cub3d);
+
+	// update game
+	if (cub3d->state == STATE_PAUSE)
+	{
+		update_pause_menu(cub3d, &cub3d->pause_menu);
+	}
+	else
+	{
+		update_img_size(cub3d);
+		mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
+		if (cub3d->keys.mouse_left && cub3d->on_minimap)
+			move_minimap(cub3d);
+		player_movement(cub3d);
+		draw_background(cub3d);
+		raycasting(cub3d);
+		draw_world(cub3d);
+		minimap(cub3d);
+	}
 }
 
 void	start_game(cub3d_t *cub3d)

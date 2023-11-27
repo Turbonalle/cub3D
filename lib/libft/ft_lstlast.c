@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:19:06 by jbagger           #+#    #+#             */
-/*   Updated: 2023/02/22 08:43:33 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/11/21 10:49:16 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 t_list *ft_lstlast(t_list *lst)
 {

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:57 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 14:31:56 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:24:17 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 double	within_360(double degree)
 {
-	if (degree < 0)
+	while (degree < 0)
 		degree += 360;
-	else if (degree >= 360)
+	while (degree >= 360)
 		degree -= 360;
 	return (degree);
 }

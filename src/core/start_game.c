@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 13:16:37 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/11/27 13:20:23 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,28 @@ void	update(void *param)
 	draw_world(cub3d);
 	minimap(cub3d);
 	check_if_player_is_seen(cub3d);
+
+	// check if we need to switch between pause menu and game, and then switch
+	if (cub3d->img_switch)
+		handle_pause_switch(cub3d);
+
+	// update game
+	if (cub3d->state == STATE_PAUSE)
+	{
+		update_pause_menu(cub3d, &cub3d->pause_menu);
+	}
+	else
+	{
+		update_img_size(cub3d);
+		mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
+		if (cub3d->keys.mouse_left && cub3d->on_minimap)
+			move_minimap(cub3d);
+		player_movement(cub3d);
+		draw_background(cub3d);
+		raycasting(cub3d);
+		draw_world(cub3d);
+		minimap(cub3d);
+	}
 }
 
 void	start_game(cub3d_t *cub3d)

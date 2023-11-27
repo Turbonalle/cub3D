@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 12:39:43 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:04:01 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ void	check_if_player_is_seen(cub3d_t *cub3d)
 			else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i))
 			{
 				printf("Enemy %i saw you\n", i);
-				enemy_advance(cub3d, i);
+				// enemy_advance(cub3d, i);
 			}
 			else
 				printf("Remained hidden from enemy %i due to wall\n",i );

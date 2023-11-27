@@ -95,7 +95,8 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->rays = NULL;
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));
-	cub3d->state = STATE_START;
+	// cub3d->state = STATE_START;
+	cub3d->state = STATE_GAME;	// Change it back to start, when done with start screen
 	cub3d->pause = FALSE;
 	cub3d->player.pos.x = cub3d->starting_pos.x + 0.5;
 	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;

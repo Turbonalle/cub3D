@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 12:30:57 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:39:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,13 +173,17 @@ static int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 
 void	enemy_advance(cub3d_t *cub3d, int i)
 {
+	double	dist;
 
+	dist = sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2));
 	cub3d->enemy[i].is_walking = 1;
-	while (cub3d->enemy[i].pos.x != cub3d->enemy[i].target.x || cub3d->enemy[i].pos.y != cub3d->enemy[i].target.y)
+	while (dist > 0)
 	{
 		cub3d->enemy[i].pos.x += cos(cub3d->enemy[i].angle) * MOVEMENT_SPEED;
 		cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle) * MOVEMENT_SPEED;
-		printf("Angles are %f,%f\n",cos(cub3d->enemy[i].angle),sin(cub3d->enemy[i].angle));
+		dist -= fabs(cos(cub3d->enemy[i].angle) * MOVEMENT_SPEED);
+		dist -= fabs(sin(cub3d->enemy[i].angle) * MOVEMENT_SPEED);
+		printf("%f\n",dist);
 	printf("enemy is at pos %f,%f, target is %f,%f\n", cub3d->enemy[i].pos.x,cub3d->enemy[i].pos.y, cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
 		usleep(10000);
 	}
@@ -218,7 +222,7 @@ void	check_if_player_is_seen(cub3d_t *cub3d)
 			else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i))
 			{
 				printf("Enemy %i saw you\n", i);
-				//enemy_advance(cub3d, i);
+				enemy_advance(cub3d, i);
 			}
 			else
 				printf("Remained hidden from enemy %i due to wall\n",i );

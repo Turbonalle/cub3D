@@ -334,7 +334,9 @@ typedef struct cub3d_s
 	int				img_switch;
 	int				prev;
 	int				fisheye;
+	int				num_enemies;
 	settings_t		settings;
+	t_enemy			*enemy;
 }					cub3d_t;
 
 
@@ -395,6 +397,22 @@ double	to_radians(double degrees);
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
 
+//----PAUSE---------------------------------------------------------------------
+
+void draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+
+int hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
+void update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
+void draw_rectangle(cub3d_t *cub3d, rectangle_t *rect);
+void draw_checkbox(cub3d_t *cub3d, box_t *box);
+void draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
+void add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
+void add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
+void add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
+int hover_box(cub3d_t *cub3d, box_t *box);
+void center(mlx_image_t *img);
 
 //---- MAIN PROGRAM ------------------------------------------------------------
 

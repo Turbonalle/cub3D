@@ -126,7 +126,9 @@ void	player_movement(cub3d_t *cub3d);
 void	increase_fov(cub3d_t *cub3d);
 void	decrease_fov(cub3d_t *cub3d);
 
+//---- DOORS -------------------------------------------------------------------
 
+int	init_doors_and_keys(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------
 

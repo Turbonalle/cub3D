@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 19:17:34 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:31:09 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ int	init_rays(cub3d_t *cub3d)
 
 int add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 {
-	key_t	*new_key;
+	key_node_t	*new_key;
 
-	new_key = malloc(sizeof(key_t));
+	new_key = malloc(sizeof(key_node_t));
 	if (!new_key)
 		return (FAIL);
 	new_key->pos.x = i; // swap x and y if needed
@@ -142,6 +142,26 @@ int	init_door(cub3d_t *cub3d, int i, int j, int door_group_index)
 		return (FAIL);
 	cub3d->door_groups[door_group_index].group_size++;
 	return (SUCCESS);
+}
+
+int	is_key(char symbol)
+{
+	int	res;
+
+	res = symbol - 'a';
+	if (res - symbol < 0 || res - symbol >= NUM_DOORS_MAX)
+		return (-1);
+	return res;
+}
+
+int	is_door(char symbol)
+{
+	int	res;
+
+	res = symbol - 'A';
+	if (res - symbol < 0 || res - symbol >= NUM_DOORS_MAX)
+		return (-1);
+	return res;
 }
 
 int	init_doors_and_keys(cub3d_t *cub3d)
@@ -206,7 +226,9 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->fisheye = 0;
 	cub3d->prev = 0;
 	cub3d->num_enemies = 0;
-	count_enemies(cub3d);
+	//count_enemies(cub3d);
+	if (init_doors_and_keys(cub3d) == FAIL)
+		return (!err("failed to initialise doors and keys"));
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);

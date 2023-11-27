@@ -6,6 +6,8 @@
 // prototypes
 typedef struct map_node_s map_node_t;
 typedef struct enemy_path_s enemy_path_t;
+typedef struct key_node_s key_node_t;
+typedef struct door_pos_s door_pos_t;
 
 //---- TEXTURE -----------------------------------------------------------------
 
@@ -88,18 +90,18 @@ typedef struct keypress_s
 
 # define NUM_DOORS_MAX 4
 
-typedef struct key_s
+typedef struct key_node_s
 {
 	vector_t	pos;
 	int			collected;
-	key_t		*next;
-}				key_t;
+	key_node_t		*next;
+}				key_node_t;
 
 typedef struct key_group_s
 {
-	int		index;
-	key_t	*keys;
-}			key_group_t;
+	int			index;
+	key_node_t	*keys;
+}				key_group_t;
 
 typedef struct door_pos_s
 {

@@ -16,9 +16,10 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define MAP_ALL_ELEMENTS "NSWE 01"
+# define MAP_ALL_ELEMENTS "NSWE 01-| nesw"
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
+# define ENEMIES "nesw"
 
 # define NORTH 'N'
 # define SOUTH 'S'
@@ -28,8 +29,11 @@
 # define EMPTY '0'
 # define WALL '1'
 
+# define DE '|'
+# define DN '-'
+
 # define MOVEMENT_SPEED 0.1
-# define ROTATION_SPEED 0.1
+# define ROTATION_SPEED 0.02
 
 # define MINIMAP_SIZE_PERCENTAGE 20
 # define MINIMAP_MAX_SIZE_PERCENTAGE 100
@@ -40,6 +44,7 @@
 # define MINIMAP_COLOR_EMPTY GRAY
 # define MINIMAP_COLOR_FLOOR BLACK
 # define MINIMAP_COLOR_WALL GRAY
+# define MINIMAP_COLOR_DOOR CYAN
 # define MINIMAP_TRANSPARENCY 20
 
 # define MINIMAP_ZOOM_INCREMENT 5
@@ -62,8 +67,9 @@ enum elements
 	C
 };
 
-// prototype map_node_t
+// prototypes
 typedef struct map_node_s map_node_t;
+typedef struct enemy_path_s enemy_path_t;
 
 //---- TEXTURE -----------------------------------------------------------------
 
@@ -102,7 +108,17 @@ typedef struct player_s
 	int			is_strafing;
 }				player_t;
 
-//---- MAP NODE ----------------------------------------------------------------
+typedef struct s_enemy
+{
+	dvector_t		pos;
+	dvector_t		target;
+	dvector_t		dir;
+	double			angle;
+	double			dir_player;
+	int				is_walking;
+	int				is_spinning;
+	enemy_path_t	*path;
+}	t_enemy;
 
 typedef struct map_node_s
 {
@@ -110,7 +126,12 @@ typedef struct map_node_s
 	map_node_t	*next;
 }			map_node_t;
 
-//---- KEYPRESS ----------------------------------------------------------------
+typedef struct enemy_path_s
+{
+	dvector_t		path;
+	enemy_path_t	*next;
+	enemy_path_t	*prev;
+}		enemy_path_t;
 
 typedef struct keypress_s
 {
@@ -118,12 +139,13 @@ typedef struct keypress_s
 	int	a;
 	int	s;
 	int	d;
+	int	fisheye;
 	int	left;
 	int	right;
-	int up;
-	int down;
-	int mouse_left;
-	int mouse_right;
+	int	up;
+	int	down;
+	int	mouse_left;
+	int	mouse_right;
 }			keypress_t;
 
 //---- MINIMAP -----------------------------------------------------------------
@@ -142,6 +164,7 @@ typedef struct minimap_s
 	int			color_playerdir;
 	int			color_fov;
 	int			color_floor;
+	int			color_door;
 	int			color_wall;
 	int			color_empty;
 	int			transparency;
@@ -307,6 +330,9 @@ typedef struct cub3d_s
 	ray_t			*rays;
 	int				state;
 	pause_menu_t	pause_menu;
+	int				img_switch;
+	int				prev;
+	int				fisheye;
 	settings_t		settings;
 }					cub3d_t;
 
@@ -351,6 +377,7 @@ int		get_texture(cub3d_t *cub3d, int element, char **info);
 // flooding_algorithm.c
 int		check_map_validity(char **map);
 
+//---- DRAWING -----------------------------------------------------------------
 
 //---- INIT --------------------------------------------------------------------
 
@@ -364,13 +391,11 @@ void	add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
 
-// draw_pause_menu.c
-void	delete_pause_menu(cub3d_t *cub3d);
-void	draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
-
 // pause_menu.c
 void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+
 
 // center.c
 void	center(mlx_image_t *img);
@@ -392,15 +417,12 @@ void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
 //---- MATH --------------------------------------------------------------------
 
 // math.c
+double	within_360(double degree);
 double	within_two_pi(double radians);
 double	to_radians(double degrees);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
-
-// draw_line.c
-void	draw_line(mlx_image_t *img, dvector_t start, dvector_t end, int color);
-void	draw_world(cub3d_t *cub3d);
 
 
 //---- MAIN PROGRAM ------------------------------------------------------------
@@ -481,6 +503,7 @@ void	raycasting(cub3d_t *cub3d);
 // memory_utils.c
 void	free_info(char **info);
 void	free_cub3d(cub3d_t *cub3d);
+void	free_list(map_node_t *node);
 
 // error_utils.c
 int		err(char *error_message);
@@ -489,8 +512,11 @@ int		err(char *error_message);
 
 // extra.c
 void	print_info(cub3d_t *cub3d);
-void	print_array(char **array, char  *name);
+void	print_array(char **array, char *name);
 void	print_map(char **map);
 void	test(void);
 
+
+int		init_enemy(cub3d_t *cub3d);
+void	check_if_player_is_seen(cub3d_t *cub3d);
 #endif

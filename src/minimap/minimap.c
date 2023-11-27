@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/20 09:09:05 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/21 16:04:02 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 void	move_minimap(cub3d_t *cub3d)
@@ -34,10 +46,13 @@ void	update_minimap(cub3d_t *cub3d)
 
 void update_minimap_fov(cub3d_t *cub3d)
 {
-	if (cub3d->keys.up)
-		decrease_fov(cub3d);
-	if (cub3d->keys.down)
-		increase_fov(cub3d);
+	if (cub3d->fisheye == 1)
+	{
+		if (cub3d->keys.up)
+			decrease_fov(cub3d);
+		if (cub3d->keys.down)
+			increase_fov(cub3d);
+	}
 }
 
 void update_minimap_player_pos(cub3d_t *cub3d)

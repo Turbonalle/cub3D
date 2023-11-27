@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 13:20:23 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/11/27 13:39:00 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,60 +51,37 @@ void	update_img_size(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-void handle_pause_switch(cub3d_t *cub3d)
-{
-	if (cub3d->state == STATE_PAUSE)
-		draw_pause_menu(cub3d, &cub3d->pause_menu);
-	else
-		delete_pause_menu(cub3d);
-}
-
-//------------------------------------------------------------------------------
-
 void	update(void *param)
 {
 	cub3d_t	*cub3d;
 
 	cub3d = param;
-	update_img_size(cub3d);
-	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
-	if (cub3d->keys.mouse_left && cub3d->on_minimap)
-		move_minimap(cub3d);
-	player_movement(cub3d);
-	if (cub3d->keys.fisheye && cub3d->prev == 0)
-	{
-		cub3d->prev = 1;
-		cub3d->fisheye++;
-		cub3d->fisheye %= 2;
-		if (cub3d->fisheye == 0)
-			cub3d->fov = FOV;
-	}
-	draw_background(cub3d);
-	raycasting(cub3d);
-	draw_world(cub3d);
-	minimap(cub3d);
-	check_if_player_is_seen(cub3d);
-
-	// check if we need to switch between pause menu and game, and then switch
-	if (cub3d->img_switch)
-		handle_pause_switch(cub3d);
 
 	// update game
 	if (cub3d->state == STATE_PAUSE)
 	{
 		update_pause_menu(cub3d, &cub3d->pause_menu);
 	}
-	else
+	else if (cub3d->state == STATE_GAME)
 	{
 		update_img_size(cub3d);
 		mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 		if (cub3d->keys.mouse_left && cub3d->on_minimap)
 			move_minimap(cub3d);
 		player_movement(cub3d);
+		if (cub3d->keys.fisheye && cub3d->prev == 0)
+		{
+			cub3d->prev = 1;
+			cub3d->fisheye++;
+			cub3d->fisheye %= 2;
+			if (cub3d->fisheye == 0)
+				cub3d->fov = FOV;
+		}
 		draw_background(cub3d);
 		raycasting(cub3d);
 		draw_world(cub3d);
 		minimap(cub3d);
+		check_if_player_is_seen(cub3d);
 	}
 }
 

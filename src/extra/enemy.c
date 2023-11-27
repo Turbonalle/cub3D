@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 13:04:01 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:46:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,6 @@ void	enemy_advance(cub3d_t *cub3d, int i)
 		cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle) * MOVEMENT_SPEED;
 		dist -= fabs(cos(cub3d->enemy[i].angle) * MOVEMENT_SPEED);
 		dist -= fabs(sin(cub3d->enemy[i].angle) * MOVEMENT_SPEED);
-		printf("%f\n",dist);
-	printf("enemy is at pos %f,%f, target is %f,%f\n", cub3d->enemy[i].pos.x,cub3d->enemy[i].pos.y, cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
 		usleep(10000);
 	}
 	cub3d->enemy[i].is_walking = 0;
@@ -202,6 +200,7 @@ void	check_if_player_is_seen(cub3d_t *cub3d)
 		cub3d->enemy[i].dir_player = within_360(atan2(cub3d->player.pos.y - cub3d->enemy[i].pos.y, cub3d->player.pos.x - cub3d->enemy[i].pos.x) * 180 / M_PI);
 		angle_min = within_360(cub3d->enemy[i].angle * 180 / M_PI - 30);
 		angle_max = within_360(cub3d->enemy[i].angle * 180 / M_PI + 30);
+		printf("Enemy is at %f,%f, player is at %f,%f\n",cub3d->enemy[i].pos.x,cub3d->enemy[i].pos.y,cub3d->player.pos.x,cub3d->player.pos.y);
 		printf("Looking between angles %f,%f, player at dir %f\n",angle_min,angle_max,cub3d->enemy[i].dir_player);
 		if (angle_max < angle_min)
 		{
@@ -210,7 +209,7 @@ void	check_if_player_is_seen(cub3d_t *cub3d)
 			else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i))
 			{
 				printf("Enemy %i saw you\n", i);
-				//enemy_advance(cub3d, i);
+				enemy_advance(cub3d, i);
 			}
 			else
 				printf("Remained hidden from enemy %i due to wall\n",i );
@@ -222,7 +221,7 @@ void	check_if_player_is_seen(cub3d_t *cub3d)
 			else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i))
 			{
 				printf("Enemy %i saw you\n", i);
-				// enemy_advance(cub3d, i);
+				enemy_advance(cub3d, i);
 			}
 			else
 				printf("Remained hidden from enemy %i due to wall\n",i );

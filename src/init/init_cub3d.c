@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 13:25:49 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:38:19 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,12 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
-	cub3d->fisheye = 0;
-	cub3d->prev = 0;
 	cub3d->num_enemies = 0;
 	count_enemies(cub3d);
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);
+	init_enemy(cub3d);
 	cub3d->img_switch = FALSE;
 	init_pause_menu(cub3d, &cub3d->pause_menu);
 	return (SUCCESS);

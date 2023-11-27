@@ -332,8 +332,6 @@ typedef struct cub3d_s
 	int				pause;
 	pause_menu_t	pause_menu;
 	int				img_switch;
-	int				prev;
-	int				fisheye;
 	int				num_enemies;
 	settings_t		settings;
 	t_enemy			*enemy;

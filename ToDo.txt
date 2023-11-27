@@ -13,16 +13,15 @@ TODO:
 OPTIONAL:
 
 - Compare with delta time
+	timer done
 - Create floor and ceiling textures
 - Add enemies
 	Currently:
-		supports multiple sessile enemies, checks if any can see the player
-	TODO:
-		movement for enemies
+		multiple enemies, who move, rotate when can not see player, chase to last known spot
 - Add doors
 	Currently:
 		primitive version, open when player is near enough, seen on minimap
-		enemies are magical, can see through closed doors
+		Enemies can no longer see through doors
 - Add mirrors
 
 -----------------------------------------------------------------------------
@@ -39,6 +38,7 @@ WHEN PROJECT IS DONE:
 JBAGGER:
 
 - Add a pause menu (or starting menu if pause menu is too hard)
+	pause menu donr
 - Add ability to adjust settings in menu
 - Enemy difficulty:
 	- stationary

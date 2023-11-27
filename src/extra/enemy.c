@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 15:39:45 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:57:21 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	ray->end.x = 0;
 	ray->end.y = 0;
 	return (ray);
+}
+
+static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
+{
+	if(vMapCheck.x >= 0
+			&& vMapCheck.x < cub3d->map_columns
+			&& vMapCheck.y >= 0
+			&& vMapCheck.y < cub3d->map_rows
+			&& (cub3d->map[vMapCheck.y][vMapCheck.x] == '|'
+			|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-')
+			&& dist_between(vMapCheck, cub3d->player.pos) > 3)
+		return (1);
+	return (0);
 }
 
 static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
@@ -128,6 +141,11 @@ static int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 			vRayLength1D.y += vRayUnitStepSize.y;
 		}
 		if (wall_found(cub3d, vMapCheck) && ray->length < max_dist)
+		{
+			free(ray);
+			return (0);
+		}
+		if (door_found(cub3d, vMapCheck) && ray->length < max_dist)
 		{
 			free(ray);
 			return (0);

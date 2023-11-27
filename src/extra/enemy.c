@@ -6,11 +6,38 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 14:22:22 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:30:57 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
+
+static	enemy_path_t *new_path_node(dvector_t path)
+{
+	enemy_path_t *tail;
+
+	tail = malloc(sizeof(enemy_path_t));
+	tail->next = NULL;
+	tail->prev = NULL;
+	tail->path = path;
+	return (tail);
+}
+
+static void	add_last(t_enemy enemy, enemy_path_t *node)
+{
+	if (enemy.path == NULL)
+	{
+		enemy.path = node;
+		return ;
+	}
+	while (enemy.path->next != NULL)
+	{
+		enemy.path = enemy.path->next;
+	}
+	enemy.path->next = node;
+	node->prev = enemy.path;
+	return ;
+}
 
 static ray_t	*init_ray(t_enemy *enemy, int i)
 {
@@ -73,9 +100,9 @@ static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
 	return (FAIL);
 }
 
-static int enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
+static int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 {
-	//enemy_path_t	*path;
+	enemy_path_t	*path_node;
 	dvector_t		vRayUnitStepSize;
 	dvector_t		vRayLength1D;
 	dvector_t		vRayDir;
@@ -83,7 +110,6 @@ static int enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 	vector_t		vStep;
 	ray_t			*ray;
 	double			max_dist;
-	int				end_found;
 
 	vRayDir.x = cos(to_radians(enemy[i].dir_player));
 	vRayDir.y = sin(to_radians(enemy[i].dir_player));
@@ -92,7 +118,6 @@ static int enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 	vMapCheck.y = (int)enemy[i].pos.y;
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
-
 	if (vRayDir.x < 0)
 	{
 		vStep.x = -1;
@@ -113,11 +138,10 @@ static int enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 		vStep.y = 1;
 		vRayLength1D.y = (vMapCheck.y + 1.0 - enemy[i].pos.y) * vRayUnitStepSize.y;
 	}
-	end_found = 0;
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);
-	while (!end_found && ray->length < max_dist)
+	while (ray->length < max_dist)
 	{
 		if (vRayLength1D.x < vRayLength1D.y)
 		{
@@ -134,12 +158,32 @@ static int enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 		if (wall_found(cub3d, vMapCheck))
 		{
 			free(ray);
-			end_found = 1;
 			return (0);
 		}
 	}
+	printf("ray angle is %f\n",ray->angle);
+	enemy[i].angle = to_radians(ray->angle);
+	printf("enemy %i angle is %f\n",i,enemy[i].angle);
+	path_node = new_path_node(ray->end);
+	add_last(enemy[i], path_node);
+	enemy[i].target = cub3d->player.pos;
 	free(ray);
 	return (1);
+}
+
+void	enemy_advance(cub3d_t *cub3d, int i)
+{
+
+	cub3d->enemy[i].is_walking = 1;
+	while (cub3d->enemy[i].pos.x != cub3d->enemy[i].target.x || cub3d->enemy[i].pos.y != cub3d->enemy[i].target.y)
+	{
+		cub3d->enemy[i].pos.x += cos(cub3d->enemy[i].angle) * MOVEMENT_SPEED;
+		cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle) * MOVEMENT_SPEED;
+		printf("Angles are %f,%f\n",cos(cub3d->enemy[i].angle),sin(cub3d->enemy[i].angle));
+	printf("enemy is at pos %f,%f, target is %f,%f\n", cub3d->enemy[i].pos.x,cub3d->enemy[i].pos.y, cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
+		usleep(10000);
+	}
+	cub3d->enemy[i].is_walking = 0;
 }
 
 void	check_if_player_is_seen(cub3d_t *cub3d)
@@ -155,12 +199,30 @@ void	check_if_player_is_seen(cub3d_t *cub3d)
 		angle_min = within_360(cub3d->enemy[i].angle * 180 / M_PI - 30);
 		angle_max = within_360(cub3d->enemy[i].angle * 180 / M_PI + 30);
 		printf("Looking between angles %f,%f, player at dir %f\n",angle_min,angle_max,cub3d->enemy[i].dir_player);
-		if (cub3d->enemy[i].dir_player < angle_min || cub3d->enemy[i].dir_player > angle_max)
-			printf("enemy %i Not looking at you\n", i);
-		else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i))
-			printf("Enemy %i saw you\n", i);
+		if (angle_max < angle_min)
+		{
+			if (cub3d->enemy[i].dir_player > angle_max && cub3d->enemy[i].dir_player < angle_min)
+				printf("enemy %i Not looking at you\n", i);
+			else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i))
+			{
+				printf("Enemy %i saw you\n", i);
+				//enemy_advance(cub3d, i);
+			}
+			else
+				printf("Remained hidden from enemy %i due to wall\n",i );
+		}
 		else
-			printf("Remained hidden from enemy %i due to wall\n",i );
+		{
+			if (cub3d->enemy[i].dir_player < angle_min || cub3d->enemy[i].dir_player > angle_max)
+				printf("enemy %i Not looking at you\n", i);
+			else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i))
+			{
+				printf("Enemy %i saw you\n", i);
+				//enemy_advance(cub3d, i);
+			}
+			else
+				printf("Remained hidden from enemy %i due to wall\n",i );
+		}
 		i++;
 	}
 }
@@ -181,6 +243,7 @@ int init_enemy(cub3d_t *cub3d)
 		cub3d->enemy[i].is_walking = 0;
 		cub3d->enemy[i].dir.x = 0;
 		cub3d->enemy[i].dir.y = 0;
+		cub3d->enemy[i].path = NULL;
 		i++;
 	}
 	return (1);

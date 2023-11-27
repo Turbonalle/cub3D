@@ -105,7 +105,7 @@ typedef struct player_s
 typedef struct s_enemy
 {
 	dvector_t		pos;
-	dvector_t		new_pos;
+	dvector_t		target;
 	dvector_t		dir;
 	double			angle;
 	double			dir_player;

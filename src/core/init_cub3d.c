@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_cub3d.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/24 13:25:49 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
@@ -32,6 +44,7 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_floor = set_transparency(MINIMAP_COLOR_FLOOR, cub3d->minimap.transparency);
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
+	cub3d->minimap.color_door = set_transparency(MINIMAP_COLOR_DOOR, cub3d->minimap.transparency);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)
@@ -48,12 +61,13 @@ void	set_initial_direction(cub3d_t *cub3d)
 	cub3d->player.dir.y = sin(cub3d->player.angle);
 }
 
-void	 set_keys(keypress_t *keys)
+void	set_keys(keypress_t *keys)
 {
 	keys->w = FALSE;
 	keys->a = FALSE;
 	keys->s = FALSE;
 	keys->d = FALSE;
+	keys->fisheye = FALSE;
 	keys->left = FALSE;
 	keys->right = FALSE;
 	keys->mouse_left = FALSE;
@@ -83,6 +97,25 @@ int	init_rays(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
+void	count_enemies(cub3d_t *cub3d)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (cub3d->map[i])
+	{
+		j = 0;
+		while (cub3d->map[i][j])
+		{
+			if (ft_strchr(ENEMIES, cub3d->map[i][j]))
+				cub3d->num_enemies++;
+			j++;
+		}
+		i++;
+	}
+}
+
 int	init_cub3d(cub3d_t *cub3d)
 {
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", TRUE);
@@ -100,6 +133,10 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
+	cub3d->fisheye = 0;
+	cub3d->prev = 0;
+	cub3d->num_enemies = 0;
+	count_enemies(cub3d);
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);

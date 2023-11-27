@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_game.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
+/*   Updated: 2023/11/24 10:10:00 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 void	draw_background(cub3d_t *cub3d)
@@ -77,10 +89,19 @@ void	update(void *param)
 	if (cub3d->keys.mouse_left && cub3d->on_minimap)
 		move_minimap(cub3d);
 	player_movement(cub3d);
+	if (cub3d->keys.fisheye && cub3d->prev == 0)
+	{
+		cub3d->prev = 1;
+		cub3d->fisheye++;
+		cub3d->fisheye %= 2;
+		if (cub3d->fisheye == 0)
+			cub3d->fov = FOV;
+	}
 	draw_background(cub3d);
 	raycasting(cub3d);
-	//draw_world(cub3d);
+	draw_world(cub3d);
 	minimap(cub3d);
+	check_if_player_is_seen(cub3d);
 }
 
 void	start_game(cub3d_t *cub3d)

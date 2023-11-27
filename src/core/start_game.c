@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 14:23:23 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:31:28 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,7 @@ void	update(void *param)
 	{
 		update_pause_menu(cub3d, &cub3d->pause_menu);
 		if (cub3d->settings.fisheye == OFF)
-		{
 			cub3d->fov = FOV;
-		}
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 15:13:15 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:39:45 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,8 @@ void	enemy_vision(cub3d_t *cub3d)
 			if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < 0.1)
 				cub3d->enemy[i].is_walking = 0;
 		}
+		else
+			cub3d->enemy[i].angle = within_two_pi(cub3d->enemy[i].angle + 0.5 * M_PI / 180);
 		i++;
 	}
 }

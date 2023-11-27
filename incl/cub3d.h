@@ -505,5 +505,5 @@ void	test(void);
 
 
 int		init_enemy(cub3d_t *cub3d);
-void	check_if_player_is_seen(cub3d_t *cub3d);
+void	enemy_vision(cub3d_t *cub3d);
 #endif

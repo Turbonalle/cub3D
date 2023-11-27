@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 13:37:03 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:23:23 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	update(void *param)
 		raycasting(cub3d);
 		draw_world(cub3d);
 		minimap(cub3d);
-		check_if_player_is_seen(cub3d);
+		enemy_vision(cub3d);
 	}
 }
 

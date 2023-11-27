@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:14:17 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/25 20:07:01 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:25:23 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,15 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 	return (0);
 }
 
-static int	key_found(cub3d_t *cub3d, vector_t vMapCheck)
+/* static int	key_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->map_columns && vMapCheck.y >= 0
 		&& vMapCheck.y < cub3d->map_rows
 		&& cub3d->map[vMapCheck.y][vMapCheck.x] == 'k')
 		return (1);
 	return (0);
-}
-
+} */
 //-----------------------------------------------------------------------------
-
 static void	update_end(cub3d_t *cub3d, dvector_t *vRayDir, ray_t *ray,
 		int *end_found)
 {

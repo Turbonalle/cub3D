@@ -22,13 +22,13 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 	{
 		if (cub3d->state == STATE_PAUSE)
 		{
+			delete_pause_menu(cub3d);
 			cub3d->state = STATE_GAME;
-			cub3d->img_switch = TRUE;
 		}
 		else if (cub3d->state == STATE_GAME)
 		{
+			draw_pause_menu(cub3d, &cub3d->pause_menu);
 			cub3d->state = STATE_PAUSE;
-			cub3d->img_switch = TRUE;
 		}
 	}
 }

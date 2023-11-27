@@ -306,9 +306,7 @@ typedef struct cub3d_s
 	int				element_found[6];
 	ray_t			*rays;
 	int				state;
-	int				pause;
 	pause_menu_t	pause_menu;
-	int				img_switch;
 	settings_t		settings;
 }					cub3d_t;
 
@@ -366,11 +364,13 @@ void	add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
 
+// draw_pause_menu.c
+void	delete_pause_menu(cub3d_t *cub3d);
+void	draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+
 // pause_menu.c
 void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
-void draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
-
 
 // center.c
 void	center(mlx_image_t *img);

@@ -42,28 +42,9 @@ void	update_img_size(cub3d_t *cub3d)
 void handle_pause_switch(cub3d_t *cub3d)
 {
 	if (cub3d->state == STATE_PAUSE)
-	{
 		draw_pause_menu(cub3d, &cub3d->pause_menu);
-	}
 	else
-	{
-		// remove pause menu from screen
-		// NEEDED?
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.img);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_title);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_fps);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_fisheye);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.text_mouse);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[0].text);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[1].text);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[2].text);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fps[3].text);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fisheye[0].text);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_fisheye[1].text);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_mouse[0].text);
-		mlx_delete_image(cub3d->mlx, cub3d->pause_menu.box_mouse[1].text);
-	}
-	cub3d->img_switch = FALSE;
+		delete_pause_menu(cub3d);
 }
 
 //------------------------------------------------------------------------------
@@ -74,9 +55,10 @@ void	update(void *param)
 
 	cub3d = param;
 
-	// check if we need to switch between pause menu and game, and then switch
-	if (cub3d->img_switch)
-		handle_pause_switch(cub3d);
+	if (cub3d->state == STATE_START)
+	{
+		
+	}
 
 	// update game
 	if (cub3d->state == STATE_PAUSE)

@@ -230,10 +230,9 @@ typedef struct box_s
 
 //---- BUTTON ------------------------------------------------------------------
 
-# define BUTTON_ON_COLOR GREEN
-# define BUTTON_OFF_COLOR BLACK
-# define BUTTON_HOVER_ON_COLOR LAWN_GREEN
-# define BUTTON_HOVER_OFF_COLOR GRAY
+# define BUTTON_CLICKED_COLOR GREEN
+# define BUTTON_HOVER_COLOR GOLDENBROWN
+# define BUTTON_COLOR GRAY
 # define BUTTON_BORDER_COLOR GOLD
 
 typedef struct button_s
@@ -484,7 +483,7 @@ int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 
 //---- DRAW --------------------------------------------------------------------
 
-void	draw_rectangle(cub3d_t *cub3d, rectangle_t *rect);
+void	draw_rectangle(mlx_image_t *img, rectangle_t *rect);
 void	draw_checkbox(cub3d_t *cub3d, box_t *box);
 void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
 

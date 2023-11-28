@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 11:53:27 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:36:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void draw_world(cub3d_t *cub3d)
 		else
 		{
 			{
-				if (cub3d->fisheye)
+				if (cub3d->settings.fisheye)
 				{
 					fovArc = M_PI * 2 * cub3d->rays[index].length * cub3d->fov / 360.0;
 					screenH = 1.0 / fovArc * cub3d->img->width * roomH;

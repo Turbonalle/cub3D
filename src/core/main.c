@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:09:19 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/11/24 09:39:44 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:45:20 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ int	main(int ac, char **av)
 		return (err("Invalid extension"));
 	if (!read_cub_file(&cub3d, av[1]) || !init_cub3d(&cub3d))
 		return (1);
-	if (cub3d.num_enemies)
-	{
-		if (!init_enemy(&cub3d))
-			return (1);
-	}
 	print_info(&cub3d); // DEBUG
 	start_game(&cub3d);
 	free_cub3d(&cub3d);

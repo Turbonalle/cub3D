@@ -379,6 +379,8 @@ typedef struct cub3d_s
 	int				state;
 	int				prev;
 	int				fisheye;
+	pause_menu_t	pause_menu;
+	int				img_switch;
 	int				num_enemies;
 	start_menu_t	start_menu;
 	pause_menu_t	pause_menu;
@@ -500,6 +502,7 @@ void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
 double	within_360(double degree);
 double	within_two_pi(double radians);
 double	to_radians(double degrees);
+double	dist_between(vector_t a, dvector_t b);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
@@ -594,5 +597,5 @@ void	print_settings(cub3d_t *cub3d);
 
 
 int		init_enemy(cub3d_t *cub3d);
-void	check_if_player_is_seen(cub3d_t *cub3d);
+void	enemy_vision(cub3d_t *cub3d);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 12:57:10 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/11/28 13:23:44 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->rays = NULL;
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));
-	// cub3d->state = STATE_START;
-	cub3d->state = STATE_GAME;	// REMOVE LATER
+	cub3d->state = STATE_START;
+	// cub3d->state = STATE_GAME;	// REMOVE LATER
 	cub3d->player.pos.x = cub3d->starting_pos.x + 0.5;
 	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;
 	cub3d->mouse_set_pos.x = 0;

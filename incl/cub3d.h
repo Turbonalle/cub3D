@@ -457,6 +457,8 @@ void	init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 // draw_start_menu.c
+void	draw_button(mlx_image_t *img, button_t *button);
+void	draw_start_menu_background(cub3d_t *cub3d, start_menu_t *menu);
 void	draw_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 

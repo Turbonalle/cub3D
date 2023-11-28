@@ -484,6 +484,7 @@ void	center_vertically(mlx_image_t *img);
 void	center_horizontally(mlx_image_t *img);
 
 // hover.c
+int		hover_button(cub3d_t *cub3d, button_t *button);
 int		hover_rectangle(cub3d_t *cub3d, rectangle_t *rect);
 int		hover_box(cub3d_t *cub3d, box_t *box);
 int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);

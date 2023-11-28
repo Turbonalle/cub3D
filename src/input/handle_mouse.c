@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mouse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:49 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:08:51 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:01:18 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,46 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 
 	cub3d = param;
     (void)modifier;
+
 	if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 	{
 		cub3d->keys.mouse_left = TRUE;
-		if (hover_minimap(cub3d))
+		if (cub3d->state == STATE_GAME)
 		{
-			cub3d->on_minimap = TRUE;
-			cub3d->mouse_set_pos.x = cub3d->mouse.x;
-			cub3d->mouse_set_pos.y = cub3d->mouse.y;
-			cub3d->orig_minimap_pos.x = cub3d->minimap.pos.x;
-			cub3d->orig_minimap_pos.y = cub3d->minimap.pos.y;
+			if (hover_minimap(cub3d))
+			{
+				cub3d->on_minimap = TRUE;
+				cub3d->mouse_set_pos.x = cub3d->mouse.x;
+				cub3d->mouse_set_pos.y = cub3d->mouse.y;
+				cub3d->orig_minimap_pos.x = cub3d->minimap.pos.x;
+				cub3d->orig_minimap_pos.y = cub3d->minimap.pos.y;
+			}
+			else
+				cub3d->on_minimap = FALSE;
 		}
-		else
-			cub3d->on_minimap = FALSE;
-		if (cub3d->state == STATE_PAUSE && hover_any_box(cub3d, &cub3d->pause_menu))
-			update_pause_settings(cub3d, &cub3d->pause_menu);
+		else if (cub3d->state == STATE_PAUSE)
+		{
+			if (hover_any_box(cub3d, &cub3d->pause_menu))
+				update_pause_settings(cub3d, &cub3d->pause_menu);
+		}
+		else if (cub3d->state == STATE_START)
+		{
+			if (hover_button(cub3d, &cub3d->start_menu.button_start))
+			{
+				cub3d->state = STATE_GAME;
+				mlx_delete_image(cub3d->mlx, cub3d->start_menu.img);
+				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_title);
+				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_start);
+				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_settings);
+			}
+			// else if (hover_button(cub3d, &cub3d->start_menu.button_settings))
+			// {
+			// 	cub3d->state = STATE_SETTINGS;
+			// 	mlx_destroy_image(cub3d->mlx, cub3d->start_menu.img);
+			// 	init_settings(cub3d);
+			// }
+				
+		}
 	}
     else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)
 		cub3d->keys.mouse_left = FALSE;

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 11:02:04 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:44:47 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
 	cub3d->minimap.color_door = set_transparency(MINIMAP_COLOR_DOOR, cub3d->minimap.transparency);
+	cub3d->minimap.color_enemy = set_transparency(MINIMAP_COLOR_ENEMY, cub3d->minimap.transparency);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)
@@ -103,6 +104,7 @@ void	count_enemies(cub3d_t *cub3d)
 	int	j;
 
 	i = 0;
+	cub3d->num_enemies = 0;
 	while (cub3d->map[i])
 	{
 		j = 0;
@@ -135,8 +137,9 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
-	cub3d->num_enemies = 0;
 	count_enemies(cub3d);
+	if (!init_enemy(cub3d))
+		return (!err("Failed to malloc enemies"));
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);

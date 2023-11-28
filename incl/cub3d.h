@@ -35,6 +35,9 @@
 # define MOVEMENT_SPEED 0.1
 # define ROTATION_SPEED 0.02
 
+# define ENEMY_SPEED 0.025
+# define ENEMY_ROT_SPEED 0.25
+
 # define MINIMAP_SIZE_PERCENTAGE 20
 # define MINIMAP_MAX_SIZE_PERCENTAGE 100
 # define MINIMAP_MIN_SIZE_PERCENTAGE 10
@@ -45,6 +48,7 @@
 # define MINIMAP_COLOR_FLOOR BLACK
 # define MINIMAP_COLOR_WALL GRAY
 # define MINIMAP_COLOR_DOOR CYAN
+# define MINIMAP_COLOR_ENEMY OLIVE
 # define MINIMAP_TRANSPARENCY 20
 
 # define MINIMAP_ZOOM_INCREMENT 5
@@ -113,6 +117,7 @@ typedef struct s_enemy
 	dvector_t		pos;
 	dvector_t		target;
 	dvector_t		dir;
+	dvector_t		minimap_pos;
 	double			angle;
 	double			dir_player;
 	int				is_walking;
@@ -167,6 +172,7 @@ typedef struct minimap_s
 	int			color_door;
 	int			color_wall;
 	int			color_empty;
+	int			color_enemy;
 	int			transparency;
 }			minimap_t;
 
@@ -288,7 +294,7 @@ typedef struct settings_s
 {
 	int		e_difficulty;
 	int		minimap_view;
-	int 	fps;
+	int		fps;
 	int		fisheye;
 	int		mouse;
 }			settings_t;

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 11:01:44 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:05:48 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,6 @@ void	update(void *param)
 	cub3d_t	*cub3d;
 
 	cub3d = param;
-
-	// check if we need to switch between pause menu and game, and then switch
-	if (cub3d->img_switch)
-		handle_pause_switch(cub3d);
 
 	// update game
 	if (cub3d->state == STATE_PAUSE)

@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-int	is_closed_door(cub3d_t *cub3d, int y, int x)
+int	is_locked_door(cub3d_t *cub3d, int y, int x)
 {
 	int index;
 	
@@ -9,7 +9,8 @@ int	is_closed_door(cub3d_t *cub3d, int y, int x)
 	{
 		return (FALSE);
 	}
-	return (cub3d->door_groups[index].num_keys_left == 0);
+	printf("number of keys left for this door group: %i\n",cub3d->door_groups[index].num_keys_left);
+	return (cub3d->door_groups[index].num_keys_left > 0);
 }
 
 void	deactivate_key(cub3d_t *cub3d, key_node_t	*head, int y, int x)
@@ -31,7 +32,9 @@ void	collect_key(cub3d_t *cub3d, int y, int x)
 {
 	int index;
 
+	printf("before getting key index\n");
 	index = get_key_index(cub3d->map[y][x]);
+	printf("after getting key index\n");
 	if (index == -1)
 	{
 		return ;
@@ -50,7 +53,7 @@ void collision_checker(cub3d_t *cub3d)
 	dvector_t delta;
 	int wall;
 
-	if (cub3d->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL || is_closed_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x))
+	if (cub3d->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL || is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x))
 	{
 		delta.x = cub3d->player.new_pos.x - cub3d->player.pos.x;
 		delta.y = cub3d->player.new_pos.y - cub3d->player.pos.y;

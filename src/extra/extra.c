@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:40 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/23 10:20:15 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:32:35 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,12 @@ void test(void)
 		line = get_next_line(fd);
 	}
 	printf("\n");
+}
+
+void print_settings(cub3d_t *cub3d)
+{
+	printf(TERMINAL_CYAN"[SETTINGS]\n"TERMINAL_RESET);
+	printf("FPS: "TERMINAL_GREEN"%d"TERMINAL_RESET"\n", cub3d->settings.fps);
+	printf("Fisheye: "TERMINAL_GREEN"%d"TERMINAL_RESET"\n", cub3d->settings.fisheye);
+	printf("Mouse: "TERMINAL_GREEN"%d"TERMINAL_RESET"\n", cub3d->settings.mouse);
 }

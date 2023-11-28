@@ -105,5 +105,8 @@ void init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	init_checkboxes(menu);
 	set_checkbox_values(menu);
 	init_checkbox_states(menu);
+	update_settings(cub3d, menu);
+
+	print_settings(cub3d);	// REMOVE LATER
 }
 

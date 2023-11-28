@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 17:17:24 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/11/28 12:31:52 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	update(void *param)
 void	start_game(cub3d_t *cub3d)
 {
 	cub3d->start_time = mlx_get_time();
-	draw_start_menu(cub3d, &cub3d->start_menu);
+	// draw_start_menu(cub3d, &cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);
 	mlx_scroll_hook(cub3d->mlx, &hook_mouse_scroll, cub3d);

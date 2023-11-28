@@ -33,6 +33,9 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
 	cub3d->minimap.color_door = set_transparency(MINIMAP_COLOR_DOOR, cub3d->minimap.transparency);
+	cub3d->minimap.color_enemy = set_transparency(MINIMAP_COLOR_ENEMY, cub3d->minimap.transparency);
+	cub3d->minimap.color_key = set_transparency(MINIMAP_COLOR_KEY, cub3d->minimap.transparency);
+	cub3d->minimap.color_door_lockable = set_transparency(MINIMAP_COLOR_DOOR_LOCK, cub3d->minimap.transparency);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)
@@ -165,6 +168,8 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		cub3d->door_groups[i].group_size = 0;
 		cub3d->door_groups[i].num_keys_left = 0;
 		cub3d->key_groups[i].index = i;
+		cub3d->key_groups[i].keys = NULL;
+		i++;
 	}
 	i = 0;
 	while (cub3d->map[i])

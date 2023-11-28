@@ -239,7 +239,6 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->fisheye = 0;
 	cub3d->prev = 0;
 	count_enemies(cub3d);
-	init_enemy(cub3d);
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);

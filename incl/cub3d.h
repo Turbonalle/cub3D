@@ -138,6 +138,7 @@ void	start_game(cub3d_t *cub3d);
 
 // collision.c
 void	collision_checker(cub3d_t *cub3d);
+void	item_collected_checker(cub3d_t *cub3d);
 
 // player_movement.c
 void	player_movement(cub3d_t *cub3d);
@@ -148,8 +149,8 @@ void	decrease_fov(cub3d_t *cub3d);
 
 //---- DOORS -------------------------------------------------------------------
 
-int	is_door(char symbol);
-int	is_key(char symbol);
+int	get_door_index(char symbol);
+int	get_key_index(char symbol);
 int	init_doors_and_keys(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------

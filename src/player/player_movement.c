@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:25 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:09:26 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:06:11 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,5 @@ void player_movement(cub3d_t *cub3d)
 	else
 		player_both(cub3d);
 	collision_checker(cub3d);
+	item_collected_checker(cub3d);
 }

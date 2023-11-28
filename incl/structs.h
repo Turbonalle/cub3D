@@ -134,12 +134,13 @@ typedef struct minimap_s
 	int			color_playerdir;
 	int			color_fov;
 	int			color_floor;
-	int			color_door;
-	int			color_door_lockable;
 	int			color_wall;
 	int			color_empty;
 	int			color_enemy;
-	int			color_key;
+	int			color_key_1;
+	int			color_key_2;
+	int			color_key_3;
+	int			color_key_4;
 	int			transparency;
 }			minimap_t;
 

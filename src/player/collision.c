@@ -9,7 +9,7 @@ int	is_locked_door(cub3d_t *cub3d, int y, int x)
 	{
 		return (FALSE);
 	}
-	printf("number of keys left for this door group: %i\n",cub3d->door_groups[index].num_keys_left);
+	printf("number of keys left for this door group: %i\n", cub3d->door_groups[index].num_keys_left);
 	return (cub3d->door_groups[index].num_keys_left > 0);
 }
 
@@ -17,7 +17,6 @@ void	deactivate_key(cub3d_t *cub3d, key_node_t	*head, int y, int x)
 {
 	while(head)
 	{
-		printf("comparing key position [%i, %i] to [%i, %i]\n", head->pos.x, head->pos.y, x, y);
 		if (head->pos.x == x && head->pos.y == y)
 		{
 			head->collected = TRUE;
@@ -32,9 +31,7 @@ void	collect_key(cub3d_t *cub3d, int y, int x)
 {
 	int index;
 
-	printf("before getting key index\n");
 	index = get_key_index(cub3d->map[y][x]);
-	printf("after getting key index\n");
 	if (index == -1)
 	{
 		return ;
@@ -45,7 +42,18 @@ void	collect_key(cub3d_t *cub3d, int y, int x)
 
 void	item_collected_checker(cub3d_t *cub3d)
 {
-	collect_key(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x);
+	int new_y;
+	int	new_x;
+
+	new_y = (int)cub3d->player.new_pos.y;
+	new_x = (int)cub3d->player.new_pos.x;
+	collect_key(cub3d, new_y, new_x);
+}
+
+int	new_pos_is_wall_collision(cub3d_t *cub3d)
+{
+	return (cub3d->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL
+		|| is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x) == TRUE);
 }
 
 void collision_checker(cub3d_t *cub3d)
@@ -53,11 +61,13 @@ void collision_checker(cub3d_t *cub3d)
 	dvector_t delta;
 	int wall;
 
-	if (cub3d->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL || is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x))
+	item_collected_checker(cub3d);
+	if (new_pos_is_wall_collision(cub3d))
 	{
 		delta.x = cub3d->player.new_pos.x - cub3d->player.pos.x;
 		delta.y = cub3d->player.new_pos.y - cub3d->player.pos.y;
 		wall = find_end_point(cub3d, &cub3d->player, cub3d->player.movement_angle, &cub3d->player.new_pos);
+		// TODO: handle closed doors as well, currently player can pass through closed doors randomly
 		if (wall == WE || wall == EA)
 		{
 			cub3d->player.new_pos.y = cub3d->player.pos.y + delta.y;
@@ -72,5 +82,7 @@ void collision_checker(cub3d_t *cub3d)
 		}
 	}
 	else
+	{
 		cub3d->player.pos = cub3d->player.new_pos;
+	}
 }

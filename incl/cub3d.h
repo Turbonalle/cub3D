@@ -113,6 +113,7 @@ int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 void	draw_rectangle(mlx_image_t *img, rectangle_t *rect);
 void	draw_checkbox(cub3d_t *cub3d, box_t *box);
 void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
+int		get_door_key_color(cub3d_t *cub3d, int index);
 
 
 //---- MATH --------------------------------------------------------------------

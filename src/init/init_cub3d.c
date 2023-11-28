@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 12:45:29 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/11/28 12:57:10 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->fov = FOV;
 	cub3d->num_enemies = 0;
 	count_enemies(cub3d);
+	init_enemy(cub3d);
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);

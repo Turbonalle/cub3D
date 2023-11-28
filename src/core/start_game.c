@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   start_game.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 13:24:30 by jbagger          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -57,15 +46,8 @@ void	update(void *param)
 
 	cub3d = param;
 
-	if (cub3d->state == STATE_START)
-	{
-		update_start_menu(cub3d, &cub3d->start_menu);
-	}
-	else if (cub3d->state == STATE_SETTINGS)
-	{
-		// update_settings_menu(cub3d, &cub3d->settings_menu);
-	}
-	else if (cub3d->state == STATE_PAUSE)
+	// update game
+	if (cub3d->state == STATE_PAUSE)
 	{
 		update_pause_menu(cub3d, &cub3d->pause_menu);
 		if (cub3d->settings.fisheye == OFF)

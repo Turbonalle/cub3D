@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   enemy.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 13:24:08 by jbagger          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -30,12 +19,12 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 
 static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
-	if(vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->map_columns
-			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->map_rows
-			&& (cub3d->map[vMapCheck.y][vMapCheck.x] == '|'
-			|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-')
+	if (vMapCheck.x >= 0
+		&& vMapCheck.x < cub3d->map_columns
+		&& vMapCheck.y >= 0
+		&& vMapCheck.y < cub3d->map_rows
+		&& (cub3d->map[vMapCheck.y][vMapCheck.x] == '|'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-')
 			&& dist_between(vMapCheck, cub3d->player.pos) > 3)
 		return (1);
 	return (0);
@@ -160,8 +149,8 @@ static int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 static void	enemy_advance(cub3d_t *cub3d, int i)
 {
 	cub3d->enemy[i].is_walking = 1;
-	cub3d->enemy[i].pos.x += cos(cub3d->enemy[i].angle) * MOVEMENT_SPEED / 10;
-	cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle) * MOVEMENT_SPEED / 10;
+	cub3d->enemy[i].pos.x += cos(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_difficulty);
+	cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_difficulty);
 }
 
 int	check_if_player_is_seen(cub3d_t *cub3d, int i)
@@ -204,9 +193,9 @@ void	enemy_vision(cub3d_t *cub3d)
 		if (check_if_player_is_seen(cub3d, i))
 		{
 			enemy_advance(cub3d, i);
-			// printf("Moving towards %f,%f\n",cub3d->enemy[i].pos.x,cub3d->enemy[i].pos.y);
-			if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
-			{}// printf("You were caught\n");
+			// printf("Moving towards %f,%f\n",cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
+			// if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
+			// 	printf("You were caught\n");
 		}
 		else if (cub3d->enemy[i].is_walking)
 		{
@@ -216,7 +205,7 @@ void	enemy_vision(cub3d_t *cub3d)
 				cub3d->enemy[i].is_walking = 0;
 		}
 		else
-			cub3d->enemy[i].angle = within_two_pi(cub3d->enemy[i].angle + 0.5 * M_PI / 180);
+			cub3d->enemy[i].angle = within_two_pi(cub3d->enemy[i].angle + ENEMY_ROT_SPEED * M_PI / 180);
 		i++;
 	}
 }

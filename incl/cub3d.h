@@ -231,7 +231,7 @@ typedef struct box_s
 //---- BUTTON ------------------------------------------------------------------
 
 # define BUTTON_CLICKED_COLOR GREEN
-# define BUTTON_HOVER_COLOR GOLDENBROWN
+# define BUTTON_HOVER_COLOR GOLDEN_ROD
 # define BUTTON_COLOR GRAY
 # define BUTTON_BORDER_COLOR GOLD
 

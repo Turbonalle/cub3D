@@ -1,12 +1,7 @@
 #include "../incl/cub3d.h"
 
-
-
-void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu)
+void	get_transition_color(cub3d_t *cub3d, int *color)
 {
-	(void)cub3d;
-	(void)menu;	
-
 	double	time;
 
 	time = mlx_get_time() - cub3d->start_time;
@@ -19,14 +14,42 @@ void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 
     int intensity = (int)((amplitude * sineValue + colorShift) * 255);
 
-	menu->background_color = set_rgba(0, intensity, 0, 255);
+	*color = set_rgba(0, intensity, 0, 255);
+}
+
+void	check_button_hover(cub3d_t *cub3d, start_menu_t *menu)
+{
+	int	mouse_x;
+	int	mouse_y;
+
+	mlx_get_mouse_pos(cub3d->mlx, &mouse_x, &mouse_y);
+	if (mouse_x >= menu->button_start.pos.x
+		&& mouse_x <= menu->button_start.pos.x + menu->button_start.width
+		&& mouse_y >= menu->button_start.pos.y
+		&& mouse_y <= menu->button_start.pos.y + menu->button_start.height)
+	{
+		menu->button_start.background_color = BUTTON_HOVER_COLOR;
+	}
+	else
+		menu->button_start.background_color = BUTTON_COLOR;
+
+	if (mouse_x >= menu->button_settings.pos.x
+		&& mouse_x <= menu->button_settings.pos.x + menu->button_settings.width
+		&& mouse_y >= menu->button_settings.pos.y
+		&& mouse_y <= menu->button_settings.pos.y + menu->button_settings.height)
+	{
+		menu->button_settings.background_color = BUTTON_HOVER_COLOR;
+	}
+	else
+		menu->button_settings.background_color = BUTTON_COLOR;
+}
+
+void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu)
+{
+	get_transition_color(cub3d, &menu->background_color);
 	draw_start_menu_background(cub3d, menu);
 	draw_rectangle(menu->img, &menu->rect_title);
+	check_button_hover(cub3d, menu);
 	draw_button(menu->img, &menu->button_start);
 	draw_button(menu->img, &menu->button_settings);
-
-	// // mlx_delete_image(cub3d->mlx, menu->img);
-	// // mlx_delete_image(cub3d->mlx, menu->text_title);
-	// // mlx_delete_image(cub3d->mlx, menu->text_start);
-	// // mlx_delete_image(cub3d->mlx, menu->text_settings);
 }

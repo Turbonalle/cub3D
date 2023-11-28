@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 12:47:11 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:41:22 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
 	cub3d->minimap.color_door = set_transparency(MINIMAP_COLOR_DOOR, cub3d->minimap.transparency);
+	cub3d->minimap.color_key = set_transparency(MINIMAP_COLOR_KEY, cub3d->minimap.transparency);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)
@@ -149,7 +150,7 @@ int	is_key(char symbol)
 	int	res;
 
 	res = symbol - 'a';
-	if (res - symbol < 0 || res - symbol >= NUM_DOORS_MAX)
+	if (res < 0 || res >= NUM_DOORS_MAX)
 		return (-1);
 	return res;
 }
@@ -159,7 +160,7 @@ int	is_door(char symbol)
 	int	res;
 
 	res = symbol - 'A';
-	if (res - symbol < 0 || res - symbol >= NUM_DOORS_MAX)
+	if (res < 0 || res >= NUM_DOORS_MAX)
 		return (-1);
 	return res;
 }
@@ -199,6 +200,18 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 					return (FAIL);
 			}
 			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < NUM_DOORS_MAX)
+	{
+		printf("index: %i\n", cub3d->door_groups[i].index);
+		printf("num of doors: %i\n", cub3d->door_groups[i].group_size);
+		printf("keys left: %i\n", cub3d->door_groups[i].num_keys_left);
+		if (cub3d->key_groups[i].keys)
+		{
+			printf("key 1: %i;%i, collected: %i\n", cub3d->key_groups[i].keys->pos.x, cub3d->key_groups[i].keys->pos.x, cub3d->key_groups[i].keys->collected);
 		}
 		i++;
 	}

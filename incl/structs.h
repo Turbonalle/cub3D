@@ -134,6 +134,7 @@ typedef struct minimap_s
 	int			color_fov;
 	int			color_floor;
 	int			color_door;
+	int			color_key;
 	int			color_wall;
 	int			color_empty;
 	int			transparency;

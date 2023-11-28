@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_draw_grid.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:59 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 12:50:47 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:44:22 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,19 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 					row * cub3d->minimap.tile_size,
 					cub3d->minimap.tile_size, cub3d->minimap.color_wall);
 	}
-	else if (cub3d->map[row][column] == '-' || cub3d->map[row][column] == '|')
+	else if (cub3d->map[row][column] == '-' || cub3d->map[row][column] == '|' || is_door(cub3d->map[row][column]) > -1)
 	{
 		draw_square(cub3d,
 					column * cub3d->minimap.tile_size,
 					row * cub3d->minimap.tile_size,
 					cub3d->minimap.tile_size, cub3d->minimap.color_door);
+	}
+	else if (is_key(cub3d->map[row][column]) > -1)
+	{
+		draw_square(cub3d,
+					column * cub3d->minimap.tile_size,
+					row * cub3d->minimap.tile_size,
+					cub3d->minimap.tile_size, cub3d->minimap.color_key);
 	}
 	else
 	{

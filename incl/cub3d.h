@@ -128,6 +128,8 @@ void	decrease_fov(cub3d_t *cub3d);
 
 //---- DOORS -------------------------------------------------------------------
 
+int	is_door(char symbol);
+int	is_key(char symbol);
 int	init_doors_and_keys(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------

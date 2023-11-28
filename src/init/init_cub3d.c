@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 19:31:09 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:46:27 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		cub3d->door_groups[i].group_size = 0;
 		cub3d->door_groups[i].num_keys_left = 0;
 		cub3d->key_groups[i].index = i;
+		i++;
 	}
 	i = 0;
 	while (cub3d->map[i])

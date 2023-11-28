@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:59 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 13:44:22 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:51:12 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,30 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 	if (cub3d->map[row][column] == '0')
 	{
 		draw_square(cub3d,
-					column * cub3d->minimap.tile_size,
-					row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, cub3d->minimap.color_floor);
+			column * cub3d->minimap.tile_size,
+			row * cub3d->minimap.tile_size,
+			cub3d->minimap.tile_size, cub3d->minimap.color_floor);
 	}
 	else if (cub3d->map[row][column] == '1')
 	{
 		draw_square(cub3d,
-					column * cub3d->minimap.tile_size,
-					row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, cub3d->minimap.color_wall);
+			column * cub3d->minimap.tile_size,
+			row * cub3d->minimap.tile_size,
+			cub3d->minimap.tile_size, cub3d->minimap.color_wall);
 	}
-	else if (cub3d->map[row][column] == '-' || cub3d->map[row][column] == '|' || is_door(cub3d->map[row][column]) > -1)
+	else if (cub3d->map[row][column] == '-' || cub3d->map[row][column] == '|')
 	{
 		draw_square(cub3d,
-					column * cub3d->minimap.tile_size,
-					row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, cub3d->minimap.color_door);
+			column * cub3d->minimap.tile_size,
+			row * cub3d->minimap.tile_size,
+			cub3d->minimap.tile_size, cub3d->minimap.color_door);
+	}
+	else if (is_door(cub3d->map[row][column]) > -1)
+	{
+		draw_square(cub3d,
+			column * cub3d->minimap.tile_size,
+			row * cub3d->minimap.tile_size,
+			cub3d->minimap.tile_size, cub3d->minimap.color_door_lockable);
 	}
 	else if (is_key(cub3d->map[row][column]) > -1)
 	{
@@ -66,9 +73,9 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 	else
 	{
 		draw_square(cub3d,
-					column * cub3d->minimap.tile_size,
-					row * cub3d->minimap.tile_size,
-					cub3d->minimap.tile_size, cub3d->minimap.color_empty);
+			column * cub3d->minimap.tile_size,
+			row * cub3d->minimap.tile_size,
+			cub3d->minimap.tile_size, cub3d->minimap.color_empty);
 	}
 }
 
@@ -82,7 +89,17 @@ void	draw_minimap(cub3d_t *cub3d)
 	{
 		column = -1;
 		while (++column < cub3d->map_columns)
+		{
 			draw_correct_square(cub3d, row, column);
+			if (cub3d->map[row][column] == 'a' || cub3d->map[row][column] == 'b'
+			|| cub3d->map[row][column] == 'c' || cub3d->map[row][column] == 'd')
+			{
+				draw_square(cub3d,
+					column * cub3d->minimap.tile_size,
+					row * cub3d->minimap.tile_size,
+					cub3d->minimap.tile_size / 2, cub3d->minimap.color_key);
+			}
+		}
 	}
 }
 

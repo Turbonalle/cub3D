@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_cub3d.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 13:41:22 by vvagapov         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../incl/cub3d.h"
 
 int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
@@ -45,7 +33,6 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
 	cub3d->minimap.color_door = set_transparency(MINIMAP_COLOR_DOOR, cub3d->minimap.transparency);
-	cub3d->minimap.color_key = set_transparency(MINIMAP_COLOR_KEY, cub3d->minimap.transparency);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)
@@ -73,7 +60,6 @@ void	set_keys(keypress_t *keys)
 	keys->right = FALSE;
 	keys->mouse_left = FALSE;
 	keys->mouse_right = FALSE;
-	
 }
 
 int	init_rays(cub3d_t *cub3d)
@@ -111,7 +97,7 @@ int add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 	new_key->collected = FALSE;
 	new_key->next = cub3d->key_groups[key_group_index].keys;
 	cub3d->key_groups[key_group_index].keys = new_key;
-	return (SUCCESS);
+	return (SUCCESS); 
 }
 
 int	init_key(cub3d_t *cub3d, int i, int j, int key_group_index)
@@ -169,7 +155,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 {
 	int	i;
 	int	j;
-	int door_key_index;
+	int	door_key_index;
 
 	i = 0;
 	while (i < NUM_DOORS_MAX)
@@ -179,7 +165,6 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		cub3d->door_groups[i].group_size = 0;
 		cub3d->door_groups[i].num_keys_left = 0;
 		cub3d->key_groups[i].index = i;
-		i++;
 	}
 	i = 0;
 	while (cub3d->map[i])
@@ -218,6 +203,26 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
+static void	count_enemies(cub3d_t *cub3d)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	cub3d->num_enemies = 0;
+	while (cub3d->map[i])
+	{
+		j = 0;
+		while (cub3d->map[i][j])
+		{
+			if (ft_strchr(ENEMIES, cub3d->map[i][j]))
+				cub3d->num_enemies++;
+			j++;
+		}
+		i++;
+	}
+}
+
 int	init_cub3d(cub3d_t *cub3d)
 {
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", TRUE);
@@ -229,8 +234,8 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->rays = NULL;
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));
-	// cub3d->state = STATE_START;
-	cub3d->state = STATE_GAME;	// Change it back to start, when done with start screen
+	cub3d->state = STATE_START;
+	// cub3d->state = STATE_GAME;	// REMOVE LATER
 	cub3d->player.pos.x = cub3d->starting_pos.x + 0.5;
 	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;
 	cub3d->mouse_set_pos.x = 0;
@@ -239,13 +244,11 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->fov = FOV;
 	cub3d->fisheye = 0;
 	cub3d->prev = 0;
-	cub3d->num_enemies = 0;
-	//count_enemies(cub3d);
-	if (init_doors_and_keys(cub3d) == FAIL)
-		return (!err("failed to initialise doors and keys"));
+	count_enemies(cub3d);
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);
+	init_start_menu(cub3d, &cub3d->start_menu);
 	init_pause_menu(cub3d, &cub3d->pause_menu);
 	return (SUCCESS);
 }

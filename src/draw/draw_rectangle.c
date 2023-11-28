@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-void draw_rectangle(cub3d_t *cub3d, rectangle_t *rect)
+void draw_rectangle(mlx_image_t *img, rectangle_t *rect)
 {
 	int	row;
 	int	column;
@@ -10,7 +10,7 @@ void draw_rectangle(cub3d_t *cub3d, rectangle_t *rect)
 	{
 		column = rect->pos.x;
 		while (++column < rect->pos.x + rect->width)
-			mlx_put_pixel(cub3d->pause_menu.img, column, row, rect->color);
+			mlx_put_pixel(img, column, row, rect->color);
 	}
 }
 

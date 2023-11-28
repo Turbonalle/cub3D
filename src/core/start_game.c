@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   start_game.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 13:39:00 by jbagger          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -61,6 +50,8 @@ void	update(void *param)
 	if (cub3d->state == STATE_PAUSE)
 	{
 		update_pause_menu(cub3d, &cub3d->pause_menu);
+		if (cub3d->settings.fisheye == OFF)
+			cub3d->fov = FOV;
 	}
 	else if (cub3d->state == STATE_GAME)
 	{
@@ -69,24 +60,22 @@ void	update(void *param)
 		if (cub3d->keys.mouse_left && cub3d->on_minimap)
 			move_minimap(cub3d);
 		player_movement(cub3d);
-		if (cub3d->keys.fisheye && cub3d->prev == 0)
-		{
-			cub3d->prev = 1;
-			cub3d->fisheye++;
-			cub3d->fisheye %= 2;
-			if (cub3d->fisheye == 0)
-				cub3d->fov = FOV;
-		}
 		draw_background(cub3d);
 		raycasting(cub3d);
 		draw_world(cub3d);
 		minimap(cub3d);
-		check_if_player_is_seen(cub3d);
+		enemy_vision(cub3d);
+	}
+	else if (cub3d->state == STATE_GAMEOVER)
+	{
+		// update_end_menu(cub3d, &cub3d->gameover_menu);
 	}
 }
 
 void	start_game(cub3d_t *cub3d)
 {
+	cub3d->start_time = mlx_get_time();
+	draw_start_menu(cub3d, &cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);
 	mlx_scroll_hook(cub3d->mlx, &hook_mouse_scroll, cub3d);

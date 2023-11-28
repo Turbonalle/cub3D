@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:36 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 09:45:06 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:13:36 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,8 @@ int get_map(cub3d_t *cub3d, int fd)
 	create_rectangular_map(cub3d);
 	if (!get_starting_point(cub3d))
 		return (FAIL);
-	check_map_validity(cub3d->map);
+	if (!check_map_validity(cub3d->map))
+		return (FAIL);
 	return (SUCCESS);
 }
 

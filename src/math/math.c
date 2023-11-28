@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:57 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 11:24:17 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:55:53 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,9 @@ double	within_two_pi(double radians)
 double	to_radians(double degrees)
 {
 	return (degrees * (M_PI / 180));
+}
+
+double	dist_between(vector_t a, dvector_t b)
+{
+	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }

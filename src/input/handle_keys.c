@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keys.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:45 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 13:06:45 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:47:33 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.up = TRUE;
 	else if (keydata.key == MLX_KEY_DOWN)
 		cub3d->keys.down = TRUE;
-	else if (keydata.key == MLX_KEY_SPACE)
-		cub3d->keys.fisheye = TRUE;
 	else if (keydata.key == MLX_KEY_P)
 	{
 		if (cub3d->state == STATE_PAUSE)
@@ -44,6 +42,10 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 			draw_pause_menu(cub3d, &cub3d->pause_menu);
 			cub3d->state = STATE_PAUSE;
 		}
+	}
+	else if (keydata.key == MLX_KEY_T)
+	{
+		printf("Time passed: %f\n", mlx_get_time() - cub3d->start_time);
 	}
 }
 
@@ -65,11 +67,6 @@ void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.up = FALSE;
 	else if (keydata.key == MLX_KEY_DOWN)
 		cub3d->keys.down = FALSE;
-	else if (keydata.key == MLX_KEY_SPACE)
-	{
-		cub3d->keys.fisheye = FALSE;
-		cub3d->prev = 0;
-	}
 }
 
 void	get_input(mlx_key_data_t keydata, void *param)

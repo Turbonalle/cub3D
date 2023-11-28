@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 11:53:27 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:29:05 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void draw_world(cub3d_t *cub3d)
 		else
 		{
 			{
-				if (cub3d->fisheye)
+				if (cub3d->settings.fisheye)
 				{
 					fovArc = M_PI * 2 * cub3d->rays[index].length * cub3d->fov / 360.0;
 					screenH = 1.0 / fovArc * cub3d->img->width * roomH;
@@ -86,6 +86,26 @@ void draw_world(cub3d_t *cub3d)
 		else if (cub3d->rays[index].wall == DE)
 		{
 			color = PURPLE;
+		}
+		else if (cub3d->rays[index].wall == DN)
+		{
+			color = CORAL;
+		}
+		else if (cub3d->rays[index].wall == 'A')
+		{
+			color = LIME;
+		}
+		else if (cub3d->rays[index].wall == 'B')
+		{
+			color = ORCHID;
+		}
+		else if (cub3d->rays[index].wall == 'C')
+		{
+			color = SNOW;
+		}
+		else if (cub3d->rays[index].wall == 'D')
+		{
+			color = IVORY;
 		}
 		else
 			color = WHITE;

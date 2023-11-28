@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 15:09:19 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/11/27 19:19:16 by vvagapov         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -41,11 +30,8 @@ int	main(int ac, char **av)
 		return (err("Invalid extension"));
 	if (!read_cub_file(&cub3d, av[1]) || !init_cub3d(&cub3d))
 		return (1);
-	if (cub3d.num_enemies)
-	{
-		if (!init_enemy(&cub3d))
-			return (1);
-	}
+	if (!init_enemy(&cub3d))
+		return (1);
 	if (init_doors_and_keys(&cub3d) == FAIL)
 		return (1);
 	// TODO DOORS: validity check

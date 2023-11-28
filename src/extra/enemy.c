@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 13:01:30 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:43:41 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,8 @@ int	check_if_player_is_seen(cub3d_t *cub3d, int i)
 	cub3d->enemy[i].dir_player = within_360(atan2(cub3d->player.pos.y - cub3d->enemy[i].pos.y, cub3d->player.pos.x - cub3d->enemy[i].pos.x) * 180 / M_PI);
 	angle_min = within_360(cub3d->enemy[i].angle * 180 / M_PI - 30);
 	angle_max = within_360(cub3d->enemy[i].angle * 180 / M_PI + 30);
-	printf("Enemy is at %f,%f, player is at %f,%f\n",cub3d->enemy[i].pos.x,cub3d->enemy[i].pos.y,cub3d->player.pos.x,cub3d->player.pos.y);
-	printf("Looking between angles %f,%f, player at dir %f\n",angle_min,angle_max,cub3d->enemy[i].dir_player);
+	// printf("Enemy is at %f,%f, player is at %f,%f\n",cub3d->enemy[i].pos.x,cub3d->enemy[i].pos.y,cub3d->player.pos.x,cub3d->player.pos.y);
+	// printf("Looking between angles %f,%f, player at dir %f\n",angle_min,angle_max,cub3d->enemy[i].dir_player);
 	if (angle_max < angle_min)
 	{
 		if (cub3d->enemy[i].dir_player > angle_max && cub3d->enemy[i].dir_player < angle_min)
@@ -204,7 +204,7 @@ void	enemy_vision(cub3d_t *cub3d)
 		if (check_if_player_is_seen(cub3d, i))
 		{
 			enemy_advance(cub3d, i);
-			printf("Moving towards %f,%f\n",cub3d->enemy[i].pos.x,cub3d->enemy[i].pos.y);
+			printf("Moving towards %f,%f\n",cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
 			if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
 				printf("You were caught\n");
 		}

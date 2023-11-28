@@ -35,6 +35,8 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
 	cub3d->minimap.color_door = set_transparency(MINIMAP_COLOR_DOOR, cub3d->minimap.transparency);
 	cub3d->minimap.color_enemy = set_transparency(MINIMAP_COLOR_ENEMY, cub3d->minimap.transparency);
+	cub3d->minimap.color_key = set_transparency(MINIMAP_COLOR_KEY, cub3d->minimap.transparency);
+	cub3d->minimap.color_door_lockable = set_transparency(MINIMAP_COLOR_DOOR_LOCK, cub3d->minimap.transparency);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)
@@ -99,7 +101,7 @@ int add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 	new_key->collected = FALSE;
 	new_key->next = cub3d->key_groups[key_group_index].keys;
 	cub3d->key_groups[key_group_index].keys = new_key;
-	return (SUCCESS);
+	return (SUCCESS); 
 }
 
 int	init_key(cub3d_t *cub3d, int i, int j, int key_group_index)
@@ -138,7 +140,7 @@ int	is_key(char symbol)
 	int	res;
 
 	res = symbol - 'a';
-	if (res - symbol < 0 || res - symbol >= NUM_DOORS_MAX)
+	if (res < 0 || res >= NUM_DOORS_MAX)
 		return (-1);
 	return res;
 }
@@ -148,7 +150,7 @@ int	is_door(char symbol)
 	int	res;
 
 	res = symbol - 'A';
-	if (res - symbol < 0 || res - symbol >= NUM_DOORS_MAX)
+	if (res < 0 || res >= NUM_DOORS_MAX)
 		return (-1);
 	return res;
 }
@@ -157,7 +159,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 {
 	int	i;
 	int	j;
-	int door_key_index;
+	int	door_key_index;
 
 	i = 0;
 	while (i < NUM_DOORS_MAX)
@@ -167,6 +169,8 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		cub3d->door_groups[i].group_size = 0;
 		cub3d->door_groups[i].num_keys_left = 0;
 		cub3d->key_groups[i].index = i;
+		cub3d->key_groups[i].keys = NULL;
+		i++;
 	}
 	i = 0;
 	while (cub3d->map[i])
@@ -235,8 +239,6 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->fisheye = 0;
 	cub3d->prev = 0;
 	count_enemies(cub3d);
-	if (init_doors_and_keys(cub3d) == FAIL)
-		return (!err("failed to initialise doors and keys"));
 	set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);

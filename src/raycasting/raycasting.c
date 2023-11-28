@@ -8,13 +8,45 @@ static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 		&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
-static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
+static int all_keys_found(cub3d_t *cub3d, int i)
+{
+	key_node_t *temp;
+	temp = cub3d->key_groups[i].keys;
+	while (temp != NULL)
+	{
+		if (temp->collected == 0)
+			return (0);
+		temp = temp->next;
+	}
+	return (1);
+}
+
+static int	door_found(cub3d_t *cub3d, vector_t vMapCheck, ray_t *ray)
 {
 	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->map_columns && vMapCheck.y >= 0
 		&& vMapCheck.y < cub3d->map_rows
-		&& (cub3d->map[vMapCheck.y][vMapCheck.x] == '|'
-			|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-'))
-		return (1);
+		&& (cub3d->map[vMapCheck.y][vMapCheck.x] == 'A'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'B'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'C'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'D'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '|'))
+	{
+		if (ray->length > 3)
+			return (1);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == '-' || cub3d->map[vMapCheck.y][vMapCheck.x] == '|')
+			return (0);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
+			return (0);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)
+			return (0);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'C' && all_keys_found(cub3d, 2) == 1)
+			return (0);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'D' && all_keys_found(cub3d, 3) == 1)
+			return (0);
+		else
+			return (1);
+	}
 	return (0);
 }
 
@@ -47,14 +79,6 @@ static void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 		ray->wall = NO;
 	else
 		ray->wall = SO;
-}
-
-static void	set_door_direction(ray_t *ray, int wall_flag)
-{
-	if (wall_flag == X)
-		ray->wall = DE;
-	if (wall_flag == Y)
-		ray->wall = DN;
 }
 
 //------------------------------------------------------------------------------
@@ -125,7 +149,7 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 			ray->target = cub3d->map[vMapCheck.y][vMapCheck.x];
 			update_end(cub3d, &vRayDir, ray, &end_found);
 		}
-		if (ray->length > 3 && door_found(cub3d, vMapCheck))
+		if (door_found(cub3d, vMapCheck, ray))
 		{
 			ray->target = cub3d->map[vMapCheck.y][vMapCheck.x];
 			update_end(cub3d, &vRayDir, ray, &end_found);
@@ -133,8 +157,8 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 	}
 	if (ray->target == WALL)
 		set_wall_direction(ray, player, wall_flag);
-	if (ray->target == '-' || ray->target == '|')
-		set_door_direction(ray, wall_flag);
+	else
+		ray->wall = ray->target;
 	return (SUCCESS);
 }
 
@@ -148,8 +172,8 @@ void	raycasting(cub3d_t *cub3d)
 	i = 0;
 	while (i < cub3d->img->width)
 	{
-		cub3d->rays[i].angle = within_two_pi(fov_start + to_radians((cub3d->fov
-						* i / cub3d->img->width)));
+		cub3d->rays[i].angle = within_two_pi(fov_start +
+		to_radians((cub3d->fov * i / cub3d->img->width)));
 		raycast(cub3d, &cub3d->player, &cub3d->rays[i]);
 		i++;
 	}

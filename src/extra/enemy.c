@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 13:43:41 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:27:46 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,14 +204,14 @@ void	enemy_vision(cub3d_t *cub3d)
 		if (check_if_player_is_seen(cub3d, i))
 		{
 			enemy_advance(cub3d, i);
-			printf("Moving towards %f,%f\n",cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
-			if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
-				printf("You were caught\n");
+			// printf("Moving towards %f,%f\n",cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
+			// if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
+			// 	printf("You were caught\n");
 		}
 		else if (cub3d->enemy[i].is_walking)
 		{
 			enemy_advance(cub3d, i);
-			printf("Moving towards %f,%f\n",cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
+			// printf("Moving towards %f,%f\n",cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
 			if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < 0.1)
 				cub3d->enemy[i].is_walking = 0;
 		}

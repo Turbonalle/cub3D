@@ -19,7 +19,7 @@ void draw_minimap_player(cub3d_t *cub3d)
 	{
 		row = (cub3d->enemy[i].pos.y * cub3d->minimap.tile_size) - (size / 2);
 		column = (cub3d->enemy[i].pos.x * cub3d->minimap.tile_size) - (size / 2);
-		draw_square(cub3d, (int)column, (int)row, size * 3, cub3d->minimap.color_enemy);
+		draw_square(cub3d, (int)column, (int)row, size * 4, cub3d->minimap.color_enemy);
 		i++;
 	}
 }

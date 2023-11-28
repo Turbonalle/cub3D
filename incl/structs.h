@@ -51,6 +51,7 @@ typedef struct s_enemy
 	dvector_t		pos;
 	dvector_t		target;
 	dvector_t		dir;
+	dvector_t		minimap_pos;
 	double			angle;
 	double			dir_player;
 	int				is_walking;
@@ -134,9 +135,11 @@ typedef struct minimap_s
 	int			color_fov;
 	int			color_floor;
 	int			color_door;
+	int			color_door_lockable;
 	int			color_wall;
 	int			color_empty;
 	int			color_enemy;
+	int			color_key;
 	int			transparency;
 }			minimap_t;
 
@@ -258,7 +261,7 @@ typedef struct settings_s
 {
 	int		e_difficulty;
 	int		minimap_view;
-	int 	fps;
+	int		fps;
 	int		fisheye;
 	int		mouse;
 }			settings_t;

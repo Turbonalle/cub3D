@@ -49,7 +49,8 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_title);
 				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_start);
 				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_settings);
-				cub3d->start_time = mlx_get_time();
+				cub3d->timer.img_time = mlx_put_string(cub3d->mlx, "0s", cub3d->timer.pos.x, cub3d->timer.pos.y);
+				start_timer(cub3d);
 			}
 			// else if (hover_button(cub3d, &cub3d->start_menu.button_settings))
 			// {

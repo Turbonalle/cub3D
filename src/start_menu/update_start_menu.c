@@ -4,7 +4,7 @@ void	get_transition_color(cub3d_t *cub3d, int *color)
 {
 	double	time;
 
-	time = mlx_get_time() - cub3d->start_time;
+	time = mlx_get_time() - cub3d->start_timestamp;
 
     double frequency = 0.1; // Adjust the frequency of the sine wave
     double amplitude = 0.1; // Adjust the amplitude of the sine wave

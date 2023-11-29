@@ -340,6 +340,18 @@ typedef struct settings_s
 	int		mouse;
 }			settings_t;
 
+//---- TIMER -------------------------------------------------------------------
+
+typedef struct gametimer_s
+{
+	mlx_image_t	*img_time;
+	char		*text_time;
+	vector_t	pos;
+	double		start_timestamp;
+	double		pause_timestamp;
+	double		run_time;
+}				gametimer_t;
+
 //---- CUB3D -------------------------------------------------------------------
 
 enum state
@@ -355,9 +367,11 @@ typedef struct cub3d_s
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	double			start_time;
+	double			start_timestamp;
 	double			frame_time;
-	double			frame_start_time;
+	double			frame_start_timestamp;
+	double			run_time;
+	double			pause_timestamp;
 	vector_t		mouse;
 	vector_t		mouse_set_pos;
 	int				on_minimap;
@@ -387,6 +401,7 @@ typedef struct cub3d_s
 	settings_menu_t	settings_menu;
 	gameover_menu_t	gameover_menu;
 	settings_t		settings;
+	gametimer_t		timer;
 	t_enemy			*enemy;
 }					cub3d_t;
 
@@ -434,8 +449,8 @@ int		check_map_validity(char **map);
 
 //---- DRAWING -----------------------------------------------------------------
 
-void draw_world(cub3d_t *cub3d);
-void draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
+void	draw_world(cub3d_t *cub3d);
+void	draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 
 
@@ -519,6 +534,11 @@ void	start_game(cub3d_t *cub3d);
 // time.c
 void	handle_fps(cub3d_t *cub3d);
 void	set_fps(double *frame_time, int fps);
+void	start_timer(cub3d_t *cub3d);
+void	pause_timer(cub3d_t *cub3d);
+void	continue_timer(cub3d_t *cub3d);
+void	draw_timer(cub3d_t *cub3d);
+void	print_timer(cub3d_t *cub3d);
 
 
 //---- PLAYER ------------------------------------------------------------------

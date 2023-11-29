@@ -116,11 +116,10 @@ void	count_enemies(cub3d_t *cub3d)
 	}
 }
 
-void	init_time(cub3d_t *cub3d)
+void	init_timer(cub3d_t *cub3d)
 {
-	cub3d->start_time = mlx_get_time();
-	cub3d->frame_start_time = cub3d->start_time;
-	cub3d->frame_time = 1.0 / (double)cub3d->settings.fps;
+	cub3d->timer.pos.x = cub3d->img->width * 0.95;
+	cub3d->timer.pos.y = cub3d->img->height * 0.05;
 }
 
 int	init_cub3d(cub3d_t *cub3d)
@@ -135,7 +134,6 @@ int	init_cub3d(cub3d_t *cub3d)
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));
 	cub3d->state = STATE_START;
-	// cub3d->state = STATE_GAME;	// REMOVE LATER
 	cub3d->player.pos.x = cub3d->starting_pos.x + 0.5;
 	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;
 	cub3d->mouse_set_pos.x = 0;
@@ -149,7 +147,8 @@ int	init_cub3d(cub3d_t *cub3d)
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);
 	init_start_menu(cub3d, &cub3d->start_menu);
-	init_pause_menu(cub3d, &cub3d->pause_menu);	// here we initialize settings
-	init_time(cub3d);
+	init_pause_menu(cub3d, &cub3d->pause_menu);
+	init_timer(cub3d);
+	cub3d->start_timestamp = mlx_get_time();
 	return (SUCCESS);
 }

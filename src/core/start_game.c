@@ -84,7 +84,8 @@ void	update(void *param)
 		draw_world(cub3d);
 		minimap(cub3d);
 		enemy_vision(cub3d);
-		// print_timer(cub3d, time);
+		draw_timer(cub3d);
+		print_timer(cub3d);	// REMOVE
 	}
 	else if (cub3d->state == STATE_GAMEOVER)
 	{
@@ -94,7 +95,6 @@ void	update(void *param)
 
 void	start_game(cub3d_t *cub3d)
 {
-	cub3d->start_time = mlx_get_time();
 	draw_start_menu(cub3d, &cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);

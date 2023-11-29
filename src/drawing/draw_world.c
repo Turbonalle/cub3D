@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_world.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 14:29:05 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:40:32 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,19 @@ void draw_world(cub3d_t *cub3d)
 		}
 		else if (cub3d->rays[index].wall == 'A')
 		{
-			color = LIME;
+			color = ORANGE_RED;
 		}
 		else if (cub3d->rays[index].wall == 'B')
 		{
-			color = ORCHID;
+			color = SPRING_GREEN;
 		}
 		else if (cub3d->rays[index].wall == 'C')
 		{
-			color = SNOW;
+			color = GOLD;
 		}
 		else if (cub3d->rays[index].wall == 'D')
 		{
-			color = IVORY;
+			color = TEAL;
 		}
 		else
 			color = WHITE;

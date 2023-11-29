@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   start_game.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 13:05:48 by slampine         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -77,10 +66,16 @@ void	update(void *param)
 		minimap(cub3d);
 		enemy_vision(cub3d);
 	}
+	else if (cub3d->state == STATE_GAMEOVER)
+	{
+		// update_end_menu(cub3d, &cub3d->gameover_menu);
+	}
 }
 
 void	start_game(cub3d_t *cub3d)
 {
+	cub3d->start_time = mlx_get_time();
+	draw_start_menu(cub3d, &cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);
 	mlx_scroll_hook(cub3d->mlx, &hook_mouse_scroll, cub3d);

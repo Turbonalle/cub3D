@@ -95,7 +95,7 @@ typedef struct key_node_s
 {
 	vector_t	pos;
 	int			collected;
-	key_node_t		*next;
+	key_node_t	*next;
 }				key_node_t;
 
 typedef struct key_group_s
@@ -134,12 +134,13 @@ typedef struct minimap_s
 	int			color_playerdir;
 	int			color_fov;
 	int			color_floor;
-	int			color_door;
-	int			color_door_lockable;
 	int			color_wall;
 	int			color_empty;
 	int			color_enemy;
-	int			color_key;
+	int			color_key_1;
+	int			color_key_2;
+	int			color_key_3;
+	int			color_key_4;
 	int			transparency;
 }			minimap_t;
 
@@ -200,6 +201,40 @@ typedef struct box_s
 	int			value;
 	int			state;
 }				box_t;
+
+//---- BUTTON ------------------------------------------------------------------
+
+# define BUTTON_CLICKED_COLOR GREEN
+# define BUTTON_HOVER_COLOR GOLDEN_ROD
+# define BUTTON_COLOR GRAY
+# define BUTTON_BORDER_COLOR GOLD
+
+typedef struct button_s
+{
+	mlx_image_t	*text;
+	vector_t	pos;
+	int			width;
+	int			height;
+	int			background_color;
+	int			border_width;
+	int			border_color;
+	int			state;
+}				button_t;
+//---- START MENU --------------------------------------------------------------
+
+# define START_MENU_BACKGROUND_COLOR BLACK
+
+typedef struct start_menu_s
+{
+	mlx_image_t	*img;
+	int			background_color;
+	mlx_image_t	*text_title;
+	mlx_image_t	*text_start;
+	mlx_image_t	*text_settings;
+	rectangle_t	rect_title;
+	button_t	button_start;
+	button_t	button_settings;
+}				start_menu_t;
 
 //---- PAUSE MENU --------------------------------------------------------------
 
@@ -274,7 +309,8 @@ enum state
 	STATE_START,
 	STATE_SETTINGS,
 	STATE_GAME,
-	STATE_PAUSE
+	STATE_PAUSE,
+	STATE_GAMEOVER
 };
 
 typedef struct cub3d_s
@@ -303,9 +339,11 @@ typedef struct cub3d_s
 	ray_t			*rays;
 	int				state;
 	pause_menu_t	pause_menu;
+	start_menu_t	start_menu;
 	int				prev;
 	int				fisheye;
 	int				num_enemies;
+	double			start_time;
 	settings_t		settings;
 	t_enemy			*enemy;
 	door_group_t	door_groups[NUM_DOORS_MAX];

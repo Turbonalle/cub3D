@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keys.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:45 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 13:20:25 by slampine         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:47:33 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 			draw_pause_menu(cub3d, &cub3d->pause_menu);
 			cub3d->state = STATE_PAUSE;
 		}
+	}
+	else if (keydata.key == MLX_KEY_T)
+	{
+		printf("Time passed: %f\n", mlx_get_time() - cub3d->start_time);
 	}
 }
 

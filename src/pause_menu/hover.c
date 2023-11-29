@@ -1,5 +1,17 @@
 #include "../incl/cub3d.h"
 
+int	hover_button(cub3d_t *cub3d, button_t *button)
+{
+	int mouse_x;
+	int mouse_y;
+
+	mlx_get_mouse_pos(cub3d->mlx, &mouse_x, &mouse_y);
+	return (mouse_x >= button->pos.x
+		&& mouse_x <= button->pos.x + button->width
+		&& mouse_y >= button->pos.y
+		&& mouse_y <= button->pos.y + button->height);
+}
+
 int hover_rectangle(cub3d_t *cub3d, rectangle_t *rect)
 {
 	int mouse_x;

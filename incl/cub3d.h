@@ -47,11 +47,13 @@ int		get_texture(cub3d_t *cub3d, int element, char **info);
 // flooding_algorithm.c
 int		check_map_validity(char **map);
 
+
 //---- DRAWING -----------------------------------------------------------------
 
 void draw_world(cub3d_t *cub3d);
 void draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
+
 
 //---- INIT --------------------------------------------------------------------
 
@@ -62,6 +64,20 @@ int		init_cub3d(cub3d_t *cub3d);
 
 // init_pause_menu.c
 void	init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+
+// init_start_menu.c
+void	init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+
+
+//---- START MENU --------------------------------------------------------------
+
+// start_menu.c
+void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+
+// draw_start_menu.c
+void	draw_button(mlx_image_t *img, button_t *button);
+void	draw_start_menu_background(cub3d_t *cub3d, start_menu_t *menu);
+void	draw_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 
 //---- PAUSE MENU --------------------------------------------------------------
@@ -74,6 +90,7 @@ void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
 
 // pause_menu.c
+void	update_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 void	draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
@@ -85,15 +102,18 @@ void	center_vertically(mlx_image_t *img);
 void	center_horizontally(mlx_image_t *img);
 
 // hover.c
+int		hover_button(cub3d_t *cub3d, button_t *button);
 int		hover_rectangle(cub3d_t *cub3d, rectangle_t *rect);
 int		hover_box(cub3d_t *cub3d, box_t *box);
 int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 
+
 //---- DRAW --------------------------------------------------------------------
 
-void	draw_rectangle(cub3d_t *cub3d, rectangle_t *rect);
+void	draw_rectangle(mlx_image_t *img, rectangle_t *rect);
 void	draw_checkbox(cub3d_t *cub3d, box_t *box);
 void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
+int		get_door_key_color(cub3d_t *cub3d, int index);
 
 
 //---- MATH --------------------------------------------------------------------
@@ -105,7 +125,7 @@ double	to_radians(double degrees);
 double	dist_between(vector_t a, dvector_t b);
 
 // dda.c
-int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
+int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);
 
 
 //---- CORE --------------------------------------------------------------------
@@ -119,6 +139,7 @@ void	start_game(cub3d_t *cub3d);
 
 // collision.c
 void	collision_checker(cub3d_t *cub3d);
+void	item_collected_checker(cub3d_t *cub3d);
 
 // player_movement.c
 void	player_movement(cub3d_t *cub3d);
@@ -129,6 +150,8 @@ void	decrease_fov(cub3d_t *cub3d);
 
 //---- DOORS -------------------------------------------------------------------
 
+int	get_door_index(char symbol);
+int	get_key_index(char symbol);
 int	init_doors_and_keys(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------
@@ -195,6 +218,7 @@ void	print_info(cub3d_t *cub3d);
 void	print_array(char **array, char *name);
 void	print_map(char **map);
 void	test(void);
+void	print_settings(cub3d_t *cub3d);
 
 
 int		init_enemy(cub3d_t *cub3d);

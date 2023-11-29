@@ -44,7 +44,7 @@ void draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 		err("Failed to create pause menu image");
 		
 	draw_menu_background(cub3d, menu);
-	draw_rectangle(cub3d, &menu->rect_title);
+	draw_rectangle(menu->img, &menu->rect_title);
 	draw_checkbox(cub3d, &menu->box_fps[0]);
 	draw_checkbox(cub3d, &menu->box_fps[1]);
 	draw_checkbox(cub3d, &menu->box_fps[2]);

@@ -356,6 +356,8 @@ typedef struct cub3d_s
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	double			start_time;
+	double			frame_time;
+	double			frame_start_time;
 	vector_t		mouse;
 	vector_t		mouse_set_pos;
 	int				on_minimap;
@@ -514,6 +516,9 @@ int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t 
 // start_game.c
 void	start_game(cub3d_t *cub3d);
 
+// time.c
+void	handle_fps(cub3d_t *cub3d);
+void	set_fps(double *frame_time, int fps);
 
 
 //---- PLAYER ------------------------------------------------------------------

@@ -73,6 +73,7 @@ void	update(void *param)
 	}
 	else if (cub3d->state == STATE_GAME)
 	{
+		handle_fps(cub3d);
 		update_img_size(cub3d);
 		mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 		if (cub3d->keys.mouse_left && cub3d->on_minimap)
@@ -83,6 +84,7 @@ void	update(void *param)
 		draw_world(cub3d);
 		minimap(cub3d);
 		enemy_vision(cub3d);
+		// print_timer(cub3d, time);
 	}
 	else if (cub3d->state == STATE_GAMEOVER)
 	{

@@ -10,7 +10,10 @@ void update_settings(cub3d_t *cub3d, pause_menu_t *menu)
 	while (++i < 4)
 	{
 		if (menu->box_fps[i].state == TRUE)
+		{
 			cub3d->settings.fps = menu->box_fps[i].value;
+			set_fps(&cub3d->frame_time, cub3d->settings.fps);
+		}
 	}
 	i = -1;
 	while (++i < 2)

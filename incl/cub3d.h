@@ -125,7 +125,7 @@ double	to_radians(double degrees);
 double	dist_between(vector_t a, dvector_t b);
 
 // dda.c
-int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t *end);
+int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);
 
 
 //---- CORE --------------------------------------------------------------------

@@ -17,16 +17,45 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	return (ray);
 }
 
+static int all_keys_found(cub3d_t *cub3d, int i)
+{
+	key_node_t *temp;
+	temp = cub3d->key_groups[i].keys;
+	while (temp != NULL)
+	{
+		if (temp->collected == 0)
+			return (0);
+		temp = temp->next;
+	}
+	return (1);
+}
+
 static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
-	if (vMapCheck.x >= 0
-		&& vMapCheck.x < cub3d->map_columns
-		&& vMapCheck.y >= 0
+	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->map_columns && vMapCheck.y >= 0
 		&& vMapCheck.y < cub3d->map_rows
-		&& (cub3d->map[vMapCheck.y][vMapCheck.x] == '|'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-')
-			&& dist_between(vMapCheck, cub3d->player.pos) > 3)
-		return (1);
+		&& (cub3d->map[vMapCheck.y][vMapCheck.x] == 'A'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'B'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'C'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'D'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-'
+		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '|'))
+	{
+		if (dist_between(vMapCheck, cub3d->player.pos) > 3)
+			return (1);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == '-' || cub3d->map[vMapCheck.y][vMapCheck.x] == '|')
+			return (0);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
+			return (0);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)
+			return (0);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'C' && all_keys_found(cub3d, 2) == 1)
+			return (0);
+		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'D' && all_keys_found(cub3d, 3) == 1)
+			return (0);
+		else
+			return (1);
+	}
 	return (0);
 }
 
@@ -74,6 +103,7 @@ static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
 	}
 	return (FAIL);
 }
+
 
 static int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 {
@@ -148,7 +178,6 @@ static int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 
 static void	enemy_advance(cub3d_t *cub3d, int i)
 {
-	cub3d->enemy[i].is_walking = 1;
 	cub3d->enemy[i].pos.x += cos(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_difficulty);
 	cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_difficulty);
 }
@@ -193,19 +222,39 @@ void	enemy_vision(cub3d_t *cub3d)
 		if (check_if_player_is_seen(cub3d, i))
 		{
 			enemy_advance(cub3d, i);
-			// printf("Moving towards %f,%f\n",cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
+			cub3d->enemy[i].is_walking = 1;
 			// if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
 			// 	printf("You were caught\n");
 		}
 		else if (cub3d->enemy[i].is_walking)
 		{
 			enemy_advance(cub3d, i);
-			// printf("Moving towards %f,%f\n",cub3d->enemy[i].target.x,cub3d->enemy[i].target.y);
+			cub3d->enemy[i].is_walking = 1;
 			if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < 0.1)
 				cub3d->enemy[i].is_walking = 0;
 		}
 		else
+		{
+			if (cub3d->enemy[i].is_spinning == 0)
+			{
+				cub3d->enemy[i].angle_start = within_two_pi(cub3d->enemy[i].angle - ENEMY_ROT_SPEED * M_PI / 180);
+				cub3d->enemy[i].is_spinning = 1;
+			}
 			cub3d->enemy[i].angle = within_two_pi(cub3d->enemy[i].angle + ENEMY_ROT_SPEED * M_PI / 180);
+			if (fabs(cub3d->enemy[i].angle - cub3d->enemy[i].angle_start) < 0.01)
+			{
+				printf("Moved\n");
+				cub3d->enemy[i].angle = to_radians(rand() % 360);
+				// update this to check walls, maybe move longer dist and not all at once
+				int num = 0;
+				while (num < 10)
+				{
+					enemy_advance(cub3d, i);
+					num++;
+				}
+				cub3d->enemy[i].is_spinning = 0;
+			}
+		}
 		i++;
 	}
 }

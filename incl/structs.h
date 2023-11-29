@@ -53,6 +53,7 @@ typedef struct s_enemy
 	dvector_t		dir;
 	dvector_t		minimap_pos;
 	double			angle;
+	double			angle_start;
 	double			dir_player;
 	int				is_walking;
 	int				is_spinning;

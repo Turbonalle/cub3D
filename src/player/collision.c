@@ -67,7 +67,6 @@ void collision_checker(cub3d_t *cub3d)
 		delta.x = cub3d->player.new_pos.x - cub3d->player.pos.x;
 		delta.y = cub3d->player.new_pos.y - cub3d->player.pos.y;
 		wall = find_end_point(cub3d, cub3d->player, cub3d->player.movement_angle, cub3d->player.new_pos);
-		// TODO: handle closed doors as well, currently player can pass through closed doors randomly
 		if (wall == WE || wall == EA)
 		{
 			cub3d->player.new_pos.y = cub3d->player.pos.y + delta.y;

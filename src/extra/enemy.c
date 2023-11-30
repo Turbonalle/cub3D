@@ -218,6 +218,16 @@ static int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 		return (0);
 	while (ray->length < max_dist)
 	{
+		if (wall_found(cub3d, vMapCheck))
+		{
+			free(ray);
+			return (0);
+		}
+		if (door_found(cub3d, vMapCheck))
+		{
+			free(ray);
+			return (0);
+		}
 		if (vRayLength1D.x < vRayLength1D.y)
 		{
 			vMapCheck.x += vStep.x;
@@ -229,16 +239,6 @@ static int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 			vMapCheck.y += vStep.y;
 			ray->length = vRayLength1D.y;
 			vRayLength1D.y += vRayUnitStepSize.y;
-		}
-		if (wall_found(cub3d, vMapCheck) && ray->length < max_dist)
-		{
-			free(ray);
-			return (0);
-		}
-		if (door_found(cub3d, vMapCheck) && ray->length < max_dist)
-		{
-			free(ray);
-			return (0);
 		}
 	}
 	enemy[i].angle = to_radians(ray->angle);
@@ -314,9 +314,13 @@ void	enemy_vision(cub3d_t *cub3d)
 			cub3d->enemy[i].angle = within_two_pi(cub3d->enemy[i].angle + ENEMY_ROT_SPEED * M_PI / 180);
 			if ((fabs(cub3d->enemy[i].angle - cub3d->enemy[i].angle_start) < 0.01 && cub3d->settings.e_difficulty == 1) || cub3d->settings.e_difficulty == 2)
 			{
-				// does not work properly, enemy runs rarely through walls
 				cub3d->enemy[i].angle = to_radians(rand() % 360);
 				enemy_movement_ray(cub3d, cub3d->enemy, i);
+				while (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < sqrt(2))
+				{
+					cub3d->enemy[i].angle = to_radians(rand() % 360);
+					enemy_movement_ray(cub3d, cub3d->enemy, i);
+				}
 				enemy_advance(cub3d, i);
 				cub3d->enemy[i].is_walking = 1;
 				cub3d->enemy[i].is_spinning = 0;

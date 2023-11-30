@@ -32,8 +32,8 @@
 # define DE '|'
 # define DN '-'
 
-# define MOVEMENT_SPEED 0.1
-# define ROTATION_SPEED 0.02
+# define MOVEMENT_SPEED 6
+# define ROTATION_SPEED 1.5
 
 # define MINIMAP_SIZE_PERCENTAGE 20
 # define MINIMAP_MAX_SIZE_PERCENTAGE 100

@@ -22,6 +22,13 @@ void draw_minimap_player(cub3d_t *cub3d)
 		draw_square(cub3d, (int)column, (int)row, size * 4, cub3d->minimap.color_enemy);
 		i++;
 	}
+	row = -1;
+	while (++row < cub3d->map_rows)
+	{
+		column = -1;
+		while (++column < cub3d->map_columns)
+			draw_extras(cub3d, row, column);
+	}
 }
 
 void draw_minimap_playerdir(cub3d_t *cub3d)

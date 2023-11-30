@@ -128,10 +128,7 @@ void	draw_minimap(cub3d_t *cub3d)
 	{
 		column = -1;
 		while (++column < cub3d->map_columns)
-		{
 			draw_correct_square(cub3d, row, column);
-			draw_extras(cub3d, row, column);
-		}
 	}
 }
 

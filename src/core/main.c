@@ -12,24 +12,38 @@
 
 #include "../incl/cub3d.h"
 
+int free_three_strings(char *s1, char *s2, char *s3)
+{
+	free(s1);
+	free(s2);
+	free(s3);
+	return (0);
+}
+
 int	read_all_levels(cub3d_t *cub3d)
 {
 	int		fd;
 	int		i;
 	char	*level_i;
+	char	*path;
+	char	*full_path;
 
 	cub3d->levels = malloc(sizeof(level_t) * 10);
 	i = 0;
-	while (i < 10)
+	while (i < 9)
 	{
-		level_i = ft_itoa(i);
-		fd = open(ft_strjoin("assets/levels/level", level_i), O_RDONLY);
+		printf("i: %d\n", i);
+		level_i = ft_itoa(i + 1);
+		path = ft_strjoin("../assets/levels/level", level_i);
+		full_path = ft_strjoin(path, ".cub");
+		printf("full_path: %s\n", full_path);
+		fd = open(full_path, O_RDONLY);
 		if (fd < 0)
-			return (err("Failed to open level file"));
-		if (!read_cub_file(&cub3d->levels[i], ft_strjoin("levels/level", level_i)))
-			return (err("Failed to read level file"));
+			return (free_three_strings(level_i, path, full_path), err("Failed to open level file"));
+		if (!read_cub_file(&cub3d->levels[i], full_path))
+			return (free_three_strings(level_i, path, full_path), err("Failed to read level file"));
 		close(fd);
-		free(level_i);
+		free_three_strings(level_i, path, full_path);
 		i++;
 	}
 	return (1);
@@ -62,12 +76,13 @@ int	main(int ac, char **av)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
 	if (!check_ext(av[1]))
 		return (err("Invalid extension"));
-	printf("TEST\n");
 	if (!read_cub_file(&cub3d.level, av[1]) || !init_cub3d(&cub3d))
 		return (1);
-	printf("TEST\n");
-	print_info(&cub3d); // DEBUG
-	// read_all_levels(&cub3d);
+	print_level_info(&cub3d.level); // DEBUG
+	if (!read_all_levels(&cub3d))
+		return (1);
+	// for (int i = 0; i < 9; i++)
+	// 	print_level_info(&cub3d.levels[i]); // DEBUG
 	start_game(&cub3d);
 	free_cub3d(&cub3d);
 	return (0);

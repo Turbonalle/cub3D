@@ -45,8 +45,8 @@ void	free_cub3d(cub3d_t *cub3d)
 	i = -1;
 	while (++i < 4)
 	{
-		if (cub3d->texture[i].path)
-			free(cub3d->texture[i].path);
+		if (cub3d->level.texture[i].path)
+			free(cub3d->level.texture[i].path);
 		// if (cub3d->texture[i].img)
 		// 	free(cub3d->texture[i].img);
 	}

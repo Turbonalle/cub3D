@@ -374,6 +374,7 @@ typedef struct level_s
 enum state
 {
 	STATE_START,
+	STATE_LEVEL,
 	STATE_SETTINGS,
 	STATE_GAME,
 	STATE_PAUSE,
@@ -396,22 +397,10 @@ typedef struct cub3d_s
 	keypress_t		keys;
 	player_t		player;
 	double			fov;
-	vector_t		starting_pos;
-	char			starting_dir;
 	minimap_t		minimap;
-	map_node_t		*map_list;
-	int				nodes;
-	char			**map;
-	int				map_rows;
-	int				map_columns;
-	texture_t		texture[4];
-	int				floor_color;
-	int				ceiling_color;
-	int				element_found[6];
 	ray_t			*rays;
 	int				state;
 	int				prev;
-	int				fisheye;
 	int				num_enemies;
 	start_menu_t	start_menu;
 	pause_menu_t	pause_menu;
@@ -638,7 +627,7 @@ int		err(char *error_message);
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 
 // extra.c
-void	print_info(cub3d_t *cub3d);
+void	print_level_info(level_t *level);
 void	print_array(char **array, char *name);
 void	print_map(char **map);
 void	test(void);

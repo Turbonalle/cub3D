@@ -61,6 +61,10 @@ void	update(void *param)
 	{
 		update_start_menu(cub3d, &cub3d->start_menu);
 	}
+	else if (cub3d->state == STATE_LEVEL)
+	{
+		// update_level_menu(cub3d, &cub3d->level_menu);
+	}
 	else if (cub3d->state == STATE_SETTINGS)
 	{
 		// update_settings_menu(cub3d, &cub3d->settings_menu);
@@ -85,7 +89,7 @@ void	update(void *param)
 		minimap(cub3d);
 		enemy_vision(cub3d);
 		draw_timer(cub3d);
-		print_timer(cub3d);	// REMOVE
+		// print_timer(cub3d);	// REMOVE
 	}
 	else if (cub3d->state == STATE_GAMEOVER)
 	{

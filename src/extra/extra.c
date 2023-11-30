@@ -14,20 +14,20 @@
 
 //------------------------------------------------------------------------------
 
-void print_info(cub3d_t *cub3d)
+void print_level_info(level_t *level)
 {
 	printf(TERMINAL_CYAN"INFO:\n"TERMINAL_RESET);
-	printf(TERMINAL_GREEN"NO"TERMINAL_RESET" = %s\n", cub3d->level.texture[NO].path);
-	printf(TERMINAL_GREEN"SO"TERMINAL_RESET" = %s\n", cub3d->level.texture[SO].path);
-	printf(TERMINAL_GREEN"WE"TERMINAL_RESET" = %s\n", cub3d->level.texture[WE].path);
-	printf(TERMINAL_GREEN"EA"TERMINAL_RESET" = %s\n", cub3d->level.texture[EA].path);
-	printf(TERMINAL_GREEN"floor_color"TERMINAL_RESET" = %d\n", cub3d->level.floor_color);
-	printf(TERMINAL_GREEN"ceiling_color"TERMINAL_RESET" = %d\n", cub3d->level.ceiling_color);
-	printf(TERMINAL_GREEN"starting_pos"TERMINAL_RESET" = %d, %d\n", cub3d->level.starting_pos.x, cub3d->level.starting_pos.y);
-	printf(TERMINAL_GREEN"starting_dir"TERMINAL_RESET" = %c\n", cub3d->level.starting_dir);
+	printf(TERMINAL_GREEN"NO"TERMINAL_RESET" = %s\n", level->texture[NO].path);
+	printf(TERMINAL_GREEN"SO"TERMINAL_RESET" = %s\n", level->texture[SO].path);
+	printf(TERMINAL_GREEN"WE"TERMINAL_RESET" = %s\n", level->texture[WE].path);
+	printf(TERMINAL_GREEN"EA"TERMINAL_RESET" = %s\n", level->texture[EA].path);
+	printf(TERMINAL_GREEN"floor_color"TERMINAL_RESET" = %d\n", level->floor_color);
+	printf(TERMINAL_GREEN"ceiling_color"TERMINAL_RESET" = %d\n", level->ceiling_color);
+	printf(TERMINAL_GREEN"starting_pos"TERMINAL_RESET" = %d, %d\n", level->starting_pos.x, level->starting_pos.y);
+	printf(TERMINAL_GREEN"starting_dir"TERMINAL_RESET" = %c\n", level->starting_dir);
 	int i = -1;
-	while (cub3d->level.map[++i])
-		printf("map[%02d] = %s\n", i, cub3d->level.map[i]);
+	while (level->map[++i])
+		printf("map[%02d] = %s\n", i, level->map[i]);
 }
 
 //------------------------------------------------------------------------------

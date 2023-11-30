@@ -49,6 +49,30 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 	{
 		printf("Time passed: %f\n", mlx_get_time() - cub3d->start_timestamp);
 	}
+	else if (keydata.key == MLX_KEY_ESCAPE)
+	{
+		if (cub3d->state == STATE_GAME)
+		{
+			draw_start_menu(cub3d, &cub3d->start_menu);
+			cub3d->state = STATE_START;
+		}
+		else if (cub3d->state == STATE_START)
+		{
+			mlx_close_window(cub3d->mlx);
+		}
+		else if (cub3d->state == STATE_LEVEL)
+		{
+			delete_level_menu(cub3d, &cub3d->level_menu);
+			draw_start_menu(cub3d, &cub3d->start_menu);
+			cub3d->state = STATE_START;
+		}
+		else if (cub3d->state == STATE_SETTINGS)
+		{
+			// delete_settings_menu(cub3d, &cub3d->settings_menu);
+			// draw_start_menu(cub3d, &cub3d->start_menu);
+			cub3d->state = STATE_START;
+		}
+	}
 }
 
 void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
@@ -76,7 +100,6 @@ void	get_input(mlx_key_data_t keydata, void *param)
 	cub3d_t	*cub3d;
 
 	cub3d = param;
-	handle_escape_key(&keydata, cub3d->mlx);
 	if (keydata.action == MLX_PRESS)
 		handle_keypresses(keydata, cub3d);
 	else if (keydata.action == MLX_RELEASE)

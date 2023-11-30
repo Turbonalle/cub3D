@@ -45,12 +45,14 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			if (hover_button(cub3d, &cub3d->start_menu.button_start))
 			{
 				cub3d->state = STATE_GAME;
-				mlx_delete_image(cub3d->mlx, cub3d->start_menu.img);
-				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_title);
-				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_start);
-				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_settings);
-				cub3d->timer.img_time = mlx_put_string(cub3d->mlx, "0s", cub3d->timer.pos.x, cub3d->timer.pos.y);
+				delete_start_menu(cub3d, &cub3d->start_menu);
 				start_timer(cub3d);
+			}
+			else if (hover_button(cub3d, &cub3d->start_menu.button_level))
+			{
+				cub3d->state = STATE_LEVEL;
+				delete_start_menu(cub3d, &cub3d->start_menu);
+				draw_level_menu(cub3d, &cub3d->level_menu);
 			}
 			// else if (hover_button(cub3d, &cub3d->start_menu.button_settings))
 			// {
@@ -58,7 +60,8 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			// 	mlx_destroy_image(cub3d->mlx, cub3d->start_menu.img);
 			// 	init_settings(cub3d);
 			// }
-				
+			else if (hover_button(cub3d, &cub3d->start_menu.button_exit))
+				mlx_close_window(cub3d->mlx);
 		}
 	}
     else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)

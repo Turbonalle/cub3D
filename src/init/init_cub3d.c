@@ -147,6 +147,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	set_keys(&cub3d->keys);
 	init_minimap(cub3d);
 	init_start_menu(cub3d, &cub3d->start_menu);
+	init_level_menu(cub3d, &cub3d->level_menu);
 	init_pause_menu(cub3d, &cub3d->pause_menu);
 	init_timer(cub3d);
 	cub3d->start_timestamp = mlx_get_time();

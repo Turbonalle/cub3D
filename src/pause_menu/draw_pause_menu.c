@@ -21,7 +21,7 @@ void	delete_pause_menu(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-void draw_menu_background(cub3d_t *cub3d, pause_menu_t *menu)
+void draw_pause_menu_background(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	unsigned int	row;
 	unsigned int	column;
@@ -43,7 +43,7 @@ void draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	if (!menu->img)
 		err("Failed to create pause menu image");
 		
-	draw_menu_background(cub3d, menu);
+	draw_pause_menu_background(cub3d, menu);
 	draw_rectangle(menu->img, &menu->rect_title);
 	draw_checkbox(cub3d, &menu->box_fps[0]);
 	draw_checkbox(cub3d, &menu->box_fps[1]);

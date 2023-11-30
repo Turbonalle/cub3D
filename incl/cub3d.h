@@ -228,6 +228,7 @@ typedef struct box_s
 # define BUTTON_HOVER_COLOR GOLDEN_ROD
 # define BUTTON_COLOR GRAY
 # define BUTTON_BORDER_COLOR GOLD
+# define BUTTON_BORDER_THICKNESS 2
 
 typedef struct button_s
 {
@@ -240,22 +241,6 @@ typedef struct button_s
 	int			border_color;
 	int			state;
 }				button_t;
-
-//---- START MENU --------------------------------------------------------------
-
-# define START_MENU_BACKGROUND_COLOR BLACK
-
-typedef struct start_menu_s
-{
-	mlx_image_t	*img;
-	int			background_color;
-	mlx_image_t	*text_title;
-	mlx_image_t	*text_start;
-	mlx_image_t	*text_settings;
-	rectangle_t	rect_title;
-	button_t	button_start;
-	button_t	button_settings;
-}				start_menu_t;
 
 //---- PAUSE MENU --------------------------------------------------------------
 
@@ -290,6 +275,46 @@ typedef struct pause_menu_s
 	box_t		box_fisheye[2];
 	box_t		box_mouse[2];
 }				pause_menu_t;
+
+//---- START MENU --------------------------------------------------------------
+
+# define START_MENU_BACKGROUND_COLOR BLACK
+
+typedef struct start_menu_s
+{
+	mlx_image_t	*img;
+	int			background_color;
+	mlx_image_t	*text_title;
+	mlx_image_t	*text_start;
+	mlx_image_t	*text_settings;
+	mlx_image_t	*text_level;
+	mlx_image_t	*text_exit;
+	rectangle_t	rect_title;
+	button_t	button_start;
+	button_t	button_settings;
+	button_t	button_level;
+	button_t	button_exit;
+}				start_menu_t;
+
+//---- LEVEL MENU --------------------------------------------------------------
+
+typedef struct level_menu_s
+{
+	mlx_image_t	*img;
+	int			background_color;
+	mlx_image_t	*text_title;
+	mlx_image_t	*text_level_1;
+	mlx_image_t	*text_level_2;
+	mlx_image_t	*text_level_3;
+	mlx_image_t	*text_level_4;
+	mlx_image_t	*text_level_5;
+	mlx_image_t	*text_level_6;
+	mlx_image_t	*text_level_7;
+	mlx_image_t	*text_level_8;
+	mlx_image_t	*text_level_9;
+
+	button_t	buttons[9];
+}				level_menu_t;
 
 //---- SETTINGS MENU -----------------------------------------------------------
 
@@ -403,8 +428,9 @@ typedef struct cub3d_s
 	int				prev;
 	int				num_enemies;
 	start_menu_t	start_menu;
-	pause_menu_t	pause_menu;
+	level_menu_t	level_menu;
 	settings_menu_t	settings_menu;
+	pause_menu_t	pause_menu;
 	gameover_menu_t	gameover_menu;
 	settings_t		settings;
 	gametimer_t		timer;
@@ -473,6 +499,9 @@ int		count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
 int		init_rays(cub3d_t *cub3d);
 int		init_cub3d(cub3d_t *cub3d);
 
+// init_level_menu.c
+void	init_level_menu(cub3d_t *cub3d, level_menu_t *menu);
+
 // init_pause_menu.c
 void	init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
@@ -481,6 +510,16 @@ void	init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 
 //---- START MENU --------------------------------------------------------------
+
+// delete_menu.c
+void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu);
+void	delete_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+
+void	draw_menu_background(mlx_image_t *img, int color);
+void	draw_button(mlx_image_t *img, button_t *button);
+
+// draw_level_menu.c
+void	draw_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 
 // start_menu.c
 void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
@@ -571,7 +610,6 @@ void	decrease_fov(cub3d_t *cub3d);
 
 // handle_close.c
 void	handle_close_window(void *param);
-void	handle_escape_key(mlx_key_data_t *keydata, mlx_t *mlx);
 
 // handle_keys.c
 void	get_input(mlx_key_data_t keydata, void *param);

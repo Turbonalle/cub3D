@@ -120,12 +120,6 @@ typedef struct s_enemy
 	enemy_path_t	*path;
 }	t_enemy;
 
-typedef struct map_node_s
-{
-	char		*line;
-	map_node_t	*next;
-}			map_node_t;
-
 typedef struct enemy_path_s
 {
 	dvector_t		path;
@@ -352,6 +346,29 @@ typedef struct gametimer_s
 	double		run_time;
 }				gametimer_t;
 
+//---- MAPS --------------------------------------------------------------------
+
+typedef struct map_node_s
+{
+	char		*line;
+	map_node_t	*next;
+}			map_node_t;
+
+typedef struct level_s
+{
+	char		**map;
+	vector_t	starting_pos;
+	char		starting_dir;
+	int			map_rows;
+	int			map_columns;
+	map_node_t	*map_list;
+	int 		nodes;
+	texture_t	texture[4];
+	int			floor_color;
+	int			ceiling_color;
+	int			element_found[6];
+}			level_t;
+
 //---- CUB3D -------------------------------------------------------------------
 
 enum state
@@ -402,6 +419,8 @@ typedef struct cub3d_s
 	gameover_menu_t	gameover_menu;
 	settings_t		settings;
 	gametimer_t		timer;
+	level_t			*levels;
+	level_t			level;
 	t_enemy			*enemy;
 }					cub3d_t;
 
@@ -430,18 +449,22 @@ int		set_transparency(int color, int transparency);
 //---- PARSING -----------------------------------------------------------------
 
 // get_color.c
-int		get_color(cub3d_t *cub3d, int element, char **info);
+// int		get_color(cub3d_t *cub3d, int element, char **info);
+int		get_color(level_t *level, int element, char **info);
 
 // get_elements.c
 int		all_elements_found(int *element_found);
 void	remove_newline(char *line);
-int		get_elements(cub3d_t *cub3d, int fd);
+// int		get_elements(cub3d_t *cub3d, int fd);
+int		get_elements(level_t *level, int fd);
 
 // get_map.c
-int		read_cub_file(cub3d_t *cub3d, char *map_path);
+// int		read_cub_file(cub3d_t *cub3d, char *map_path);
+int		read_cub_file(level_t *level, char *map_path);
 
 // get_texture.c
-int		get_texture(cub3d_t *cub3d, int element, char **info);
+// int		get_texture(cub3d_t *cub3d, int element, char **info);
+int		get_texture(level_t *level, int element, char **info);
 
 // flooding_algorithm.c
 int		check_map_validity(char **map);

@@ -25,18 +25,18 @@ int all_elements_found(int *element_found)
 	return (SUCCESS);
 }
 
-int get_element(cub3d_t *cub3d, int element, char **info)
+int get_element(level_t *level, int element, char **info)
 {
-	if (cub3d->element_found[element])
+	if (level->element_found[element])
 		return (free_info(info), err("Duplicate element found"));
-	cub3d->element_found[element] = 1;
+	level->element_found[element] = 1;
 	if (element == F || element == C)
-		return (get_color(cub3d, element, info));
+		return (get_color(level, element, info));
 	else
-		return (get_texture(cub3d, element, info));
+		return (get_texture(level, element, info));
 }
 
-int	find_element(cub3d_t *cub3d, char *line)
+int	find_element(level_t *level, char *line)
 {
 	char	**info;
 
@@ -44,17 +44,17 @@ int	find_element(cub3d_t *cub3d, char *line)
 	if (!info || !info[0] || !info[1])
 		return (FAIL);
 	if (ft_strcmp(info[0], "NO") == 0)
-		return (get_element(cub3d, NO, info));
+		return (get_element(level, NO, info));
 	else if (ft_strcmp(info[0], "SO") == 0)
-		return (get_element(cub3d, SO, info));
+		return (get_element(level, SO, info));
 	else if (ft_strcmp(info[0], "WE") == 0)
-		return (get_element(cub3d, WE, info));
+		return (get_element(level, WE, info));
 	else if (ft_strcmp(info[0], "EA") == 0)
-		return (get_element(cub3d, EA, info));
+		return (get_element(level, EA, info));
 	else if (ft_strcmp(info[0], "F") == 0)
-		return (get_element(cub3d, F, info));
+		return (get_element(level, F, info));
 	else if (ft_strcmp(info[0], "C") == 0)
-		return (get_element(cub3d, C, info));
+		return (get_element(level, C, info));
 	return (FAIL);
 }
 
@@ -70,15 +70,15 @@ void remove_newline(char *line)
 	}
 }
 
-int get_elements(cub3d_t *cub3d, int fd)
+int get_elements(level_t *level, int fd)
 {
 	char *line;
 	int i;
 
 	i = 0;
 	while (i < 6)
-		cub3d->element_found[i++] = 0;
-	while (!all_elements_found(cub3d->element_found))
+		level->element_found[i++] = 0;
+	while (!all_elements_found(level->element_found))
 	{
 		line = get_next_line(fd);
 		if (!line)
@@ -89,7 +89,7 @@ int get_elements(cub3d_t *cub3d, int fd)
 			continue ;
 		}
 		remove_newline(line);
-		if (!find_element(cub3d, line))
+		if (!find_element(level, line))
 		{
 			free(line);
 			return (FAIL);

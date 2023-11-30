@@ -15,10 +15,10 @@
 static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	return (vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->map_columns
+			&& vMapCheck.x < cub3d->level.map_columns
 			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->map_rows
-			&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
+			&& vMapCheck.y < cub3d->level.map_rows
+			&& cub3d->level.map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
  //-----------------------------------------------------------------------------

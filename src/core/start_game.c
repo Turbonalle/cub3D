@@ -24,9 +24,9 @@ void	draw_background(cub3d_t *cub3d)
 		while (++column < cub3d->img->width)
 		{
 			if (row < cub3d->img->height / 2)
-				mlx_put_pixel(cub3d->img, column, row, cub3d->ceiling_color);
+				mlx_put_pixel(cub3d->img, column, row, cub3d->level.ceiling_color);
 			else
-				mlx_put_pixel(cub3d->img, column, row, cub3d->floor_color);
+				mlx_put_pixel(cub3d->img, column, row, cub3d->level.floor_color);
 		}
 	}
 }

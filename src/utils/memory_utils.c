@@ -51,12 +51,12 @@ void	free_cub3d(cub3d_t *cub3d)
 		// 	free(cub3d->texture[i].img);
 	}
 	i = -1;
-	free_list(cub3d->map_list);
+	free_list(cub3d->level.map_list);
 	free(cub3d->rays);
-	while (cub3d->map[++i])
-		free(cub3d->map[i]);
-	if (cub3d->map)
-		free(cub3d->map);
+	while (cub3d->level.map[++i])
+		free(cub3d->level.map[i]);
+	if (cub3d->level.map)
+		free(cub3d->level.map);
 	if (cub3d->num_enemies)
 		free(cub3d->enemy);
 }

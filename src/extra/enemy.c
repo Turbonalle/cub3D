@@ -103,6 +103,13 @@ static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
 	}
 	return (FAIL);
 }
+
+static void	update_end(cub3d_t *cub3d, dvector_t vRayDir, ray_t *ray, int i)
+{
+	ray->end.x = cub3d->enemy[i].pos.x + vRayDir.x * ray->length;
+	ray->end.y = cub3d->enemy[i].pos.y + vRayDir.y * ray->length;
+}
+
 static int	enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i)
 {
 	dvector_t		vRayUnitStepSize;
@@ -159,16 +166,16 @@ static int	enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i)
 		}
 		if (wall_found(cub3d, vMapCheck) && ray->length < max_dist)
 		{
+			update_end(cub3d, vRayDir, ray, i);
+			enemy[i].target = ray->end;
 			free(ray);
-			enemy[i].target.x = vMapCheck.x;
-			enemy[i].target.y = vMapCheck.y;
 			return (0);
 		}
 		if (door_found(cub3d, vMapCheck) && ray->length < max_dist)
 		{
+			update_end(cub3d, vRayDir, ray, i);
+			enemy[i].target = ray->end;
 			free(ray);
-			enemy[i].target.x = vMapCheck.x;
-			enemy[i].target.y = vMapCheck.y;
 			return (0);
 		}
 	}
@@ -301,7 +308,7 @@ void	enemy_vision(cub3d_t *cub3d)
 		{
 			enemy_advance(cub3d, i);
 			cub3d->enemy[i].is_walking = 1;
-			if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < sqrt(2))
+			if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < (ENEMY_SPEED * (1 + cub3d->settings.e_difficulty)) * 3)
 				cub3d->enemy[i].is_walking = 0;
 		}
 		else
@@ -316,7 +323,7 @@ void	enemy_vision(cub3d_t *cub3d)
 			{
 				cub3d->enemy[i].angle = to_radians(rand() % 360);
 				enemy_movement_ray(cub3d, cub3d->enemy, i);
-				while (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < sqrt(2))
+				while (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < (ENEMY_SPEED * (1 + cub3d->settings.e_difficulty)) * 3)
 				{
 					cub3d->enemy[i].angle = to_radians(rand() % 360);
 					enemy_movement_ray(cub3d, cub3d->enemy, i);

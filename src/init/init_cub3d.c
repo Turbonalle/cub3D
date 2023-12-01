@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/01 12:22:39 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:38:17 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	count_enemies(cub3d_t *cub3d)
 	int	j;
 
 	i = 0;
+	cub3d->num_enemies = 0;
 	while (cub3d->level->map[i])
 	{
 		j = 0;
@@ -134,18 +135,18 @@ int	init_cub3d(cub3d_t *cub3d)
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));
 	cub3d->state = STATE_START;
-	cub3d->player.pos.x = cub3d->level->starting_pos.x + 0.5;
-	cub3d->player.pos.y = cub3d->level->starting_pos.y + 0.5;
+	// cub3d->player.pos.x = cub3d->level->starting_pos.x + 0.5;
+	// cub3d->player.pos.y = cub3d->level->starting_pos.y + 0.5;
 	cub3d->mouse_set_pos.x = 0;
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
 	cub3d->num_enemies = 0;
-	count_enemies(cub3d);
-	init_enemy(cub3d);
-	set_initial_direction(cub3d);
+	// count_enemies(cub3d);
+	// init_enemy(cub3d);
+	// set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
-	init_minimap(cub3d);
+	// init_minimap(cub3d);
 	init_start_menu(cub3d, &cub3d->start_menu);
 	init_level_menu(cub3d, &cub3d->level_menu);
 	init_pause_menu(cub3d, &cub3d->pause_menu);

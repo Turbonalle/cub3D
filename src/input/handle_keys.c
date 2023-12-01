@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:45 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 12:47:33 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:33:01 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 	{
 		if (cub3d->state == STATE_GAME)
 		{
+			printf("Back to start menu\n");
+			mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 			draw_start_menu(cub3d, &cub3d->start_menu);
+			// free enemies, keys, doors
 			cub3d->state = STATE_START;
 		}
 		else if (cub3d->state == STATE_START)

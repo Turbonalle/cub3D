@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/01 12:13:09 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:44:40 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	update(void *param)
 	}
 	else if (cub3d->state == STATE_LEVEL)
 	{
-		// update_level_menu(cub3d, &cub3d->level_menu);
+		update_level_menu(cub3d, &cub3d->level_menu);
 	}
 	else if (cub3d->state == STATE_SETTINGS)
 	{

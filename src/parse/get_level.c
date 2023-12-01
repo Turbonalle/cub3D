@@ -182,19 +182,14 @@ int read_cub_file(level_t *level, char *map_path)
 {
 	int	fd;
 
-	printf("open: %s\n", map_path);
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (close(fd), err("Failed to open map file"));
-	printf("get_elements\n");
 	get_elements(level, fd);
-	printf("all_elements_found\n");
 	if (!all_elements_found(level->element_found))
 		return (close(fd), err("Missing element(s) in map file"));
-	printf("get_map\n");
 	if (!get_map(level, fd))
 		return (close(fd), free_info(level->map), FAIL);
-	printf("close\n");
 	close(fd);
 	return (SUCCESS);
 }

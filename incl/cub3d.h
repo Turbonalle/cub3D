@@ -302,6 +302,7 @@ typedef struct level_menu_s
 {
 	mlx_image_t	*img;
 	int			background_color;
+	rectangle_t	rect_title;
 	mlx_image_t	*text_title;
 	mlx_image_t	*text_level_1;
 	mlx_image_t	*text_level_2;
@@ -441,6 +442,11 @@ typedef struct cub3d_s
 
 
 
+void	count_enemies(cub3d_t *cub3d);
+void	set_initial_direction(cub3d_t *cub3d);
+int		count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
+void	init_minimap(cub3d_t *cub3d);
+
 //---- COLOR -------------------------------------------------------------------
 
 // get_color.c
@@ -521,14 +527,19 @@ void	draw_button(mlx_image_t *img, button_t *button);
 // draw_level_menu.c
 void	draw_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 
-// start_menu.c
-void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+// update_level_menu.c
+void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu);
+
 
 // draw_start_menu.c
 void	draw_button(mlx_image_t *img, button_t *button);
 void	draw_start_menu_background(cub3d_t *cub3d, start_menu_t *menu);
 void	draw_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
+// update_start_menu.c
+void	get_transition_color(cub3d_t *cub3d, int *color);
+void	check_button_hover(cub3d_t *cub3d, start_menu_t *menu);
+void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 //---- PAUSE MENU --------------------------------------------------------------
 
@@ -578,6 +589,9 @@ int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t 
 
 
 //---- CORE --------------------------------------------------------------------
+
+// load_level.c
+void	load_level(cub3d_t *cub3d, level_t *level);
 
 // start_game.c
 void	start_game(cub3d_t *cub3d);

@@ -25,15 +25,15 @@ int all_digits(char *str)
 	return (SUCCESS);
 }
 
-void set_color(cub3d_t *cub3d, int element, int color)
+void set_color(level_t *level, int element, int color)
 {
 	if (element == F)
-		cub3d->floor_color = color;
+		level->floor_color = color;
 	else if (element == C)
-		cub3d->ceiling_color = color;
+		level->ceiling_color = color;
 }
 
-int get_color(cub3d_t *cub3d, int element, char **info)
+int get_color(level_t *level, int element, char **info)
 {
 	int i;
 	int color_part;
@@ -55,7 +55,7 @@ int get_color(cub3d_t *cub3d, int element, char **info)
 			return (free_info(rgb), err("Color: Invalid value"));
 		color = (color << 8) + color_part;
 	}
-	set_color(cub3d, element, color);
+	set_color(level, element, color);
 	free_info(rgb);
 	return (SUCCESS);
 }

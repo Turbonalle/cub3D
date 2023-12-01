@@ -52,7 +52,7 @@ void	item_collected_checker(cub3d_t *cub3d)
 
 int	new_pos_is_wall_collision(cub3d_t *cub3d)
 {
-	return (cub3d->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL
+	return (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL
 		|| is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x) == TRUE);
 }
 
@@ -70,13 +70,13 @@ void collision_checker(cub3d_t *cub3d)
 		if (wall == WE || wall == EA)
 		{
 			cub3d->player.new_pos.y = cub3d->player.pos.y + delta.y;
-			if (cub3d->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.pos.x))
+			if (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.pos.x))
 				cub3d->player.pos.y = cub3d->player.new_pos.y;
 		}
 		else if (wall == NO || wall == SO)
 		{
 			cub3d->player.new_pos.x = cub3d->player.pos.x + delta.x;
-			if (cub3d->map[(int)cub3d->player.pos.y][(int)cub3d->player.new_pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.pos.y, (int)cub3d->player.new_pos.x))
+			if (cub3d->level->map[(int)cub3d->player.pos.y][(int)cub3d->player.new_pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.pos.y, (int)cub3d->player.new_pos.x))
 				cub3d->player.pos.x = cub3d->player.new_pos.x;
 		}
 	}

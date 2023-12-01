@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:45 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 12:47:33 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:33:01 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,45 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		{
 			delete_pause_menu(cub3d);
 			cub3d->state = STATE_GAME;
+			continue_timer(cub3d);
 		}
 		else if (cub3d->state == STATE_GAME)
 		{
+			pause_timer(cub3d);
 			draw_pause_menu(cub3d, &cub3d->pause_menu);
 			cub3d->state = STATE_PAUSE;
 		}
 	}
 	else if (keydata.key == MLX_KEY_T)
 	{
-		printf("Time passed: %f\n", mlx_get_time() - cub3d->start_time);
+		printf("Time passed: %f\n", mlx_get_time() - cub3d->start_timestamp);
+	}
+	else if (keydata.key == MLX_KEY_ESCAPE)
+	{
+		if (cub3d->state == STATE_GAME)
+		{
+			printf("Back to start menu\n");
+			mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+			draw_start_menu(cub3d, &cub3d->start_menu);
+			// free enemies, keys, doors
+			cub3d->state = STATE_START;
+		}
+		else if (cub3d->state == STATE_START)
+		{
+			mlx_close_window(cub3d->mlx);
+		}
+		else if (cub3d->state == STATE_LEVEL)
+		{
+			delete_level_menu(cub3d, &cub3d->level_menu);
+			draw_start_menu(cub3d, &cub3d->start_menu);
+			cub3d->state = STATE_START;
+		}
+		else if (cub3d->state == STATE_SETTINGS)
+		{
+			// delete_settings_menu(cub3d, &cub3d->settings_menu);
+			// draw_start_menu(cub3d, &cub3d->start_menu);
+			cub3d->state = STATE_START;
+		}
 	}
 }
 
@@ -74,7 +103,6 @@ void	get_input(mlx_key_data_t keydata, void *param)
 	cub3d_t	*cub3d;
 
 	cub3d = param;
-	handle_escape_key(&keydata, cub3d->mlx);
 	if (keydata.action == MLX_PRESS)
 		handle_keypresses(keydata, cub3d);
 	else if (keydata.action == MLX_RELEASE)

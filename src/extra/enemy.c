@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
+/*   Updated: 2023/12/01 15:12:59 by jbagger          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -32,26 +43,26 @@ static int all_keys_found(cub3d_t *cub3d, int i)
 
 static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
-	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->map_columns && vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->map_rows
-		&& (cub3d->map[vMapCheck.y][vMapCheck.x] == 'A'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'B'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'C'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'D'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '|'))
+	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->level->map_columns && vMapCheck.y >= 0
+		&& vMapCheck.y < cub3d->level->map_rows
+		&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|'))
 	{
-		if (dist_between(vMapCheck, cub3d->player.pos) > 3)
+		if (dist_between(vMapCheck, cub3d->level->player.pos) > 3)
 			return (1);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == '-' || cub3d->map[vMapCheck.y][vMapCheck.x] == '|')
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-' || cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|')
 			return (0);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
 			return (0);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)
 			return (0);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'C' && all_keys_found(cub3d, 2) == 1)
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C' && all_keys_found(cub3d, 2) == 1)
 			return (0);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'D' && all_keys_found(cub3d, 3) == 1)
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D' && all_keys_found(cub3d, 3) == 1)
 			return (0);
 		else
 			return (1);
@@ -62,10 +73,10 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	return (vMapCheck.x >= 0
-		&& vMapCheck.x < cub3d->map_columns
+		&& vMapCheck.x < cub3d->level->map_columns
 		&& vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->map_rows
-		&& cub3d->map[vMapCheck.y][vMapCheck.x] == WALL);
+		&& vMapCheck.y < cub3d->level->map_rows
+		&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
 static void	init_enemy_dir(t_enemy *enemy, int i, char spec)
@@ -86,17 +97,17 @@ static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
 	int	j;
 
 	i = -1;
-	while (cub3d->map[++i])
+	while (cub3d->level->map[++i])
 	{
 		j = -1;
-		while (cub3d->map[i][++j])
+		while (cub3d->level->map[i][++j])
 		{
-			if (ft_strchr(ENEMIES, cub3d->map[i][j]))
+			if (ft_strchr(ENEMIES, cub3d->level->map[i][j]))
 			{
 				cub3d->enemy[enemy_i].pos.x = j + 0.5;
 				cub3d->enemy[enemy_i].pos.y = i + 0.5;
-				init_enemy_dir(cub3d->enemy, enemy_i, cub3d->map[i][j]);
-				cub3d->map[i][j] = '0';
+				init_enemy_dir(cub3d->enemy, enemy_i, cub3d->level->map[i][j]);
+				cub3d->level->map[i][j] = '0';
 				return (SUCCESS);
 			}
 		}

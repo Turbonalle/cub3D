@@ -73,21 +73,21 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 {
 	int index;
 
-	index = get_door_index(cub3d->map[row][column]);
+	index = get_door_index(cub3d->level->map[row][column]);
 	if (index > -1)
 	{
 		draw_square(cub3d,
 			column * cub3d->minimap.tile_size,
 			row * cub3d->minimap.tile_size,
 			cub3d->minimap.tile_size, get_door_key_color(cub3d, index));
-	} else if (cub3d->map[row][column] == '0' || get_key_index(cub3d->map[row][column]) > -1)
+	} else if (cub3d->level->map[row][column] == '0' || get_key_index(cub3d->level->map[row][column]) > -1)
 	{
 		draw_square(cub3d,
 			column * cub3d->minimap.tile_size,
 			row * cub3d->minimap.tile_size,
 			cub3d->minimap.tile_size, cub3d->minimap.color_floor);
 	}
-	else if (cub3d->map[row][column] == '1')
+	else if (cub3d->level->map[row][column] == '1')
 	{
 		draw_square(cub3d,
 			column * cub3d->minimap.tile_size,
@@ -107,7 +107,7 @@ void	draw_extras(cub3d_t *cub3d, int row, int column)
 {
 	int index;
 	
-	index = get_key_index(cub3d->map[row][column]);
+	index = get_key_index(cub3d->level->map[row][column]);
 	if (index > -1)
 	{
 		draw_circle(cub3d,
@@ -124,10 +124,10 @@ void	draw_minimap(cub3d_t *cub3d)
 	int	column;
 
 	row = -1;
-	while (++row < cub3d->map_rows)
+	while (++row < cub3d->level->map_rows)
 	{
 		column = -1;
-		while (++column < cub3d->map_columns)
+		while (++column < cub3d->level->map_columns)
 		{
 			draw_correct_square(cub3d, row, column);
 			draw_extras(cub3d, row, column);

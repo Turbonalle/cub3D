@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_game.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
+/*   Updated: 2023/12/01 15:08:35 by jbagger          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -13,9 +24,9 @@ void	draw_background(cub3d_t *cub3d)
 		while (++column < cub3d->img->width)
 		{
 			if (row < cub3d->img->height / 2)
-				mlx_put_pixel(cub3d->img, column, row, cub3d->ceiling_color);
+				mlx_put_pixel(cub3d->img, column, row, cub3d->level->ceiling_color);
 			else
-				mlx_put_pixel(cub3d->img, column, row, cub3d->floor_color);
+				mlx_put_pixel(cub3d->img, column, row, cub3d->level->floor_color);
 		}
 	}
 }
@@ -46,8 +57,19 @@ void	update(void *param)
 
 	cub3d = param;
 
-	// update game
-	if (cub3d->state == STATE_PAUSE)
+	if (cub3d->state == STATE_START)
+	{
+		update_start_menu(cub3d, &cub3d->start_menu);
+	}
+	else if (cub3d->state == STATE_LEVEL)
+	{
+		update_level_menu(cub3d, &cub3d->level_menu);
+	}
+	else if (cub3d->state == STATE_SETTINGS)
+	{
+		// update_settings_menu(cub3d, &cub3d->settings_menu);
+	}
+	else if (cub3d->state == STATE_PAUSE)
 	{
 		update_pause_menu(cub3d, &cub3d->pause_menu);
 		if (cub3d->settings.fisheye == OFF)
@@ -55,6 +77,7 @@ void	update(void *param)
 	}
 	else if (cub3d->state == STATE_GAME)
 	{
+		handle_fps(cub3d);
 		update_img_size(cub3d);
 		mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 		if (cub3d->keys.mouse_left && cub3d->on_minimap)
@@ -65,6 +88,8 @@ void	update(void *param)
 		draw_world(cub3d);
 		minimap(cub3d);
 		enemy_vision(cub3d);
+		draw_timer(cub3d);
+		// print_timer(cub3d);	// REMOVE
 	}
 	else if (cub3d->state == STATE_GAMEOVER)
 	{
@@ -74,7 +99,6 @@ void	update(void *param)
 
 void	start_game(cub3d_t *cub3d)
 {
-	cub3d->start_time = mlx_get_time();
 	draw_start_menu(cub3d, &cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);

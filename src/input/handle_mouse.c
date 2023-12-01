@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:49 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 14:01:18 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:25:13 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,16 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			if (hover_button(cub3d, &cub3d->start_menu.button_start))
 			{
 				cub3d->state = STATE_GAME;
-				mlx_delete_image(cub3d->mlx, cub3d->start_menu.img);
-				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_title);
-				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_start);
-				mlx_delete_image(cub3d->mlx, cub3d->start_menu.text_settings);
+				delete_start_menu(cub3d, &cub3d->start_menu);
+				cub3d->level = &cub3d->levels[0];
+				load_level(cub3d, cub3d->level);
+				start_timer(cub3d);
+			}
+			else if (hover_button(cub3d, &cub3d->start_menu.button_level))
+			{
+				cub3d->state = STATE_LEVEL;
+				delete_start_menu(cub3d, &cub3d->start_menu);
+				draw_level_menu(cub3d, &cub3d->level_menu);
 			}
 			// else if (hover_button(cub3d, &cub3d->start_menu.button_settings))
 			// {
@@ -56,7 +62,25 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			// 	mlx_destroy_image(cub3d->mlx, cub3d->start_menu.img);
 			// 	init_settings(cub3d);
 			// }
-				
+			else if (hover_button(cub3d, &cub3d->start_menu.button_exit))
+				mlx_close_window(cub3d->mlx);
+		}
+		else if (cub3d->state == STATE_LEVEL)
+		{
+			int i;
+
+			i = -1;
+			while (++i < 9)
+			{
+				if (hover_button(cub3d, &cub3d->level_menu.buttons[i]))
+				{
+					cub3d->state = STATE_GAME;
+					delete_level_menu(cub3d, &cub3d->level_menu);
+					cub3d->level = &cub3d->levels[i + 1];
+					load_level(cub3d, &cub3d->levels[i + 1]);
+					start_timer(cub3d);
+				}
+			}
 		}
 	}
     else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)

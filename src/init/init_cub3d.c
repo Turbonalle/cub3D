@@ -7,10 +7,10 @@ int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
 	float	minimap_height;
 
 	minimap_width = (float)cub3d->img->width * (float)size_percentage / 100;
-	tile_size = minimap_width / (float)cub3d->map_columns;
+	tile_size = minimap_width / (float)cub3d->level->map_columns;
 	minimap_height = (float)cub3d->img->height * (float)size_percentage / 100;
-	if (tile_size * (float)cub3d->map_rows > minimap_height)
-		tile_size = minimap_height / (float)cub3d->map_rows;
+	if (tile_size * (float)cub3d->level->map_rows > minimap_height)
+		tile_size = minimap_height / (float)cub3d->level->map_rows;
 	return ((int)tile_size);
 }
 
@@ -18,8 +18,8 @@ void	init_minimap(cub3d_t *cub3d)
 {
 	cub3d->minimap.size_percentage = MINIMAP_SIZE_PERCENTAGE;
 	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d, cub3d->minimap.size_percentage);
-	cub3d->minimap.width = cub3d->minimap.tile_size * cub3d->map_columns;
-	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->map_rows;
+	cub3d->minimap.width = cub3d->minimap.tile_size * cub3d->level->map_columns;
+	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->level->map_rows;
 	cub3d->minimap.img = mlx_new_image(cub3d->mlx, cub3d->minimap.width, cub3d->minimap.height);
 	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx, cub3d->minimap.img, 0, 0) < 0))
 		err("Failed to create minimap image");
@@ -41,13 +41,13 @@ void	init_minimap(cub3d_t *cub3d)
 
 void	set_initial_direction(cub3d_t *cub3d)
 {
-	if (cub3d->starting_dir == 'E')
+	if (cub3d->level->starting_dir == 'E')
 		cub3d->player.angle = to_radians(0);
-	else if (cub3d->starting_dir == 'S')
+	else if (cub3d->level->starting_dir == 'S')
 		cub3d->player.angle = to_radians(90);
-	else if (cub3d->starting_dir == 'W')
+	else if (cub3d->level->starting_dir == 'W')
 		cub3d->player.angle = to_radians(180);
-	else if (cub3d->starting_dir == 'N')
+	else if (cub3d->level->starting_dir == 'N')
 		cub3d->player.angle = to_radians(270);
 	cub3d->player.dir.x = cos(cub3d->player.angle);
 	cub3d->player.dir.y = sin(cub3d->player.angle);
@@ -175,10 +175,11 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	}
 	printf("basic init done\n");
 	i = 0;
-	while (cub3d->map[i])
+	cub3d->num_enemies = 0;
+	while (cub3d->level->map[i])
 	{
 		j = 0;
-		while (cub3d->map[i][j])
+		while (cub3d->level->map[i][j])
 		{
 			printf("cell[%i, %i]\n", i, j);
 			door_key_index = get_door_index(cub3d->map[i][j]);
@@ -224,17 +225,23 @@ static void	count_enemies(cub3d_t *cub3d)
 
 	i = 0;
 	cub3d->num_enemies = 0;
-	while (cub3d->map[i])
+	while (cub3d->level->map[i])
 	{
 		j = 0;
-		while (cub3d->map[i][j])
+		while (cub3d->level->map[i][j])
 		{
-			if (ft_strchr(ENEMIES, cub3d->map[i][j]))
+			if (ft_strchr(ENEMIES, cub3d->level->map[i][j]))
 				cub3d->num_enemies++;
 			j++;
 		}
 		i++;
 	}
+}
+
+void	init_timer(cub3d_t *cub3d)
+{
+	cub3d->timer.pos.x = cub3d->img->width * 0.95;
+	cub3d->timer.pos.y = cub3d->img->height * 0.05;
 }
 
 int	init_cub3d(cub3d_t *cub3d)
@@ -249,20 +256,22 @@ int	init_cub3d(cub3d_t *cub3d)
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));
 	cub3d->state = STATE_START;
-	// cub3d->state = STATE_GAME;	// REMOVE LATER
-	cub3d->player.pos.x = cub3d->starting_pos.x + 0.5;
-	cub3d->player.pos.y = cub3d->starting_pos.y + 0.5;
+	// cub3d->player.pos.x = cub3d->level->starting_pos.x + 0.5;
+	// cub3d->player.pos.y = cub3d->level->starting_pos.y + 0.5;
 	cub3d->mouse_set_pos.x = 0;
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
-	cub3d->fisheye = 0;
-	cub3d->prev = 0;
-	count_enemies(cub3d);
-	set_initial_direction(cub3d);
+	cub3d->num_enemies = 0;
+	// count_enemies(cub3d);
+	// init_enemy(cub3d);
+	// set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
-	init_minimap(cub3d);
+	// init_minimap(cub3d);
 	init_start_menu(cub3d, &cub3d->start_menu);
+	init_level_menu(cub3d, &cub3d->level_menu);
 	init_pause_menu(cub3d, &cub3d->pause_menu);
+	init_timer(cub3d);
+	cub3d->start_timestamp = mlx_get_time();
 	return (SUCCESS);
 }

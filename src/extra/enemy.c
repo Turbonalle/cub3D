@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/01 15:12:59 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:13:55 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-'
 		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|'))
 	{
-		if (dist_between(vMapCheck, cub3d->level->player.pos) > 3)
+		if (dist_between(vMapCheck, cub3d->player.pos) > 3)
 			return (1);
 		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-' || cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|')
 			return (0);

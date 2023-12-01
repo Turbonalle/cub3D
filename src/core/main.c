@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:09:19 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/12/01 15:07:44 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:25:49 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
-	printf("1\n");
 	if (!check_ext(av[1]))
 		return (err("Invalid extension"));
 	if (!read_cub_file(&cub3d, av[1]) || !init_cub3d(&cub3d))

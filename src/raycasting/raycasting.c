@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:14:17 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 11:53:38 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:15:35 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	return (vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->level.map_columns
+			&& vMapCheck.x < cub3d->level->map_columns
 			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->level.map_rows
-			&& cub3d->level.map[vMapCheck.y][vMapCheck.x] == WALL);
+			&& vMapCheck.y < cub3d->level->map_rows
+			&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
 static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	if(vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->level.map_columns
+			&& vMapCheck.x < cub3d->level->map_columns
 			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->level.map_rows
-			&& (cub3d->level.map[vMapCheck.y][vMapCheck.x] == '|'
-			|| cub3d->level.map[vMapCheck.y][vMapCheck.x] == '-'))
+			&& vMapCheck.y < cub3d->level->map_rows
+			&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|'
+			|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-'))
 		return (1);
 	return (0);
 }
@@ -125,12 +125,12 @@ int raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 		}
 		if (wall_found(cub3d, vMapCheck))
 		{
-			ray->target = cub3d->level.map[vMapCheck.y][vMapCheck.x];
+			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
 			update_end(cub3d, &vRayDir, ray, &end_found);
 		}
 		if (ray->length > 3 && door_found(cub3d, vMapCheck))
 		{
-			ray->target = cub3d->level.map[vMapCheck.y][vMapCheck.x];
+			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
 			update_end(cub3d, &vRayDir, ray, &end_found);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 13:24:30 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/01 12:13:09 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	draw_background(cub3d_t *cub3d)
 		while (++column < cub3d->img->width)
 		{
 			if (row < cub3d->img->height / 2)
-				mlx_put_pixel(cub3d->img, column, row, cub3d->level.ceiling_color);
+				mlx_put_pixel(cub3d->img, column, row, cub3d->level->ceiling_color);
 			else
-				mlx_put_pixel(cub3d->img, column, row, cub3d->level.floor_color);
+				mlx_put_pixel(cub3d->img, column, row, cub3d->level->floor_color);
 		}
 	}
 }

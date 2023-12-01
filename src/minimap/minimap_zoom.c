@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_zoom.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:03 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:09:04 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:14:47 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void zoom_in_minimap(cub3d_t *cub3d)
 	if (new_size_percentage > MINIMAP_MAX_SIZE_PERCENTAGE)
 		new_size_percentage = MINIMAP_MAX_SIZE_PERCENTAGE;
 	new_tile_size = count_minimap_tilesize(cub3d, new_size_percentage);
-	new_width = new_tile_size * cub3d->level.map_columns;
-	new_height = new_tile_size * cub3d->level.map_rows;
+	new_width = new_tile_size * cub3d->level->map_columns;
+	new_height = new_tile_size * cub3d->level->map_rows;
 	if (new_width > cub3d->img->width || new_height > cub3d->img->height)
 		return ;
 	new_pos.x = cub3d->minimap.pos.x - (new_width - cub3d->minimap.width) / 2;
@@ -73,8 +73,8 @@ void zoom_out_minimap(cub3d_t *cub3d)
 	if (new_size_percentage < MINIMAP_MIN_SIZE_PERCENTAGE)
 		new_size_percentage = MINIMAP_MIN_SIZE_PERCENTAGE;
 	new_tile_size = count_minimap_tilesize(cub3d, new_size_percentage);
-	new_width = new_tile_size * cub3d->level.map_columns;
-	new_height = new_tile_size * cub3d->level.map_rows;
+	new_width = new_tile_size * cub3d->level->map_columns;
+	new_height = new_tile_size * cub3d->level->map_rows;
 	new_pos.x = cub3d->minimap.pos.x + (cub3d->minimap.width - new_width) / 2;
 	new_pos.y = cub3d->minimap.pos.y + (cub3d->minimap.height - new_height) / 2;
 	cub3d->minimap.size_percentage = new_size_percentage;

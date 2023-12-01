@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:41:53 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/11/24 10:12:26 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:16:00 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ void	free_cub3d(cub3d_t *cub3d)
 	i = -1;
 	while (++i < 4)
 	{
-		if (cub3d->level.texture[i].path)
-			free(cub3d->level.texture[i].path);
+		if (cub3d->level->texture[i].path)
+			free(cub3d->level->texture[i].path);
 		// if (cub3d->texture[i].img)
 		// 	free(cub3d->texture[i].img);
 	}
 	i = -1;
-	free_list(cub3d->level.map_list);
+	free_list(cub3d->level->map_list);
 	free(cub3d->rays);
-	while (cub3d->level.map[++i])
-		free(cub3d->level.map[i]);
-	if (cub3d->level.map)
-		free(cub3d->level.map);
+	while (cub3d->level->map[++i])
+		free(cub3d->level->map[i]);
+	if (cub3d->level->map)
+		free(cub3d->level->map);
 	if (cub3d->num_enemies)
 		free(cub3d->enemy);
 }

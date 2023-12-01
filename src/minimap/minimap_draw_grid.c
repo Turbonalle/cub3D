@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_draw_grid.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:59 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/24 12:50:47 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:14:21 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,21 @@ void draw_square(cub3d_t *cub3d, int col, int row, int size, int color)
 
 void draw_correct_square(cub3d_t *cub3d, int row, int column)
 {
-	if (cub3d->level.map[row][column] == '0')
+	if (cub3d->level->map[row][column] == '0')
 	{
 		draw_square(cub3d,
 					column * cub3d->minimap.tile_size,
 					row * cub3d->minimap.tile_size,
 					cub3d->minimap.tile_size, cub3d->minimap.color_floor);
 	}
-	else if (cub3d->level.map[row][column] == '1')
+	else if (cub3d->level->map[row][column] == '1')
 	{
 		draw_square(cub3d,
 					column * cub3d->minimap.tile_size,
 					row * cub3d->minimap.tile_size,
 					cub3d->minimap.tile_size, cub3d->minimap.color_wall);
 	}
-	else if (cub3d->level.map[row][column] == '-' || cub3d->level.map[row][column] == '|')
+	else if (cub3d->level->map[row][column] == '-' || cub3d->level->map[row][column] == '|')
 	{
 		draw_square(cub3d,
 					column * cub3d->minimap.tile_size,
@@ -71,10 +71,10 @@ void	draw_minimap(cub3d_t *cub3d)
 	int	column;
 
 	row = -1;
-	while (++row < cub3d->level.map_rows)
+	while (++row < cub3d->level->map_rows)
 	{
 		column = -1;
-		while (++column < cub3d->level.map_columns)
+		while (++column < cub3d->level->map_columns)
 			draw_correct_square(cub3d, row, column);
 	}
 }

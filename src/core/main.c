@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:09:19 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/11/27 13:45:20 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:31:06 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int	read_all_levels(cub3d_t *cub3d)
 	char	*path;
 	char	*full_path;
 
-	cub3d->levels = malloc(sizeof(level_t) * 10);
-	i = 0;
-	while (i < 9)
+
+	i = 1;
+	while (i <= 9)
 	{
 		printf("i: %d\n", i);
-		level_i = ft_itoa(i + 1);
-		path = ft_strjoin("../assets/levels/level", level_i);
+		level_i = ft_itoa(i);
+		path = ft_strjoin("assets/levels/level", level_i);
 		full_path = ft_strjoin(path, ".cub");
 		printf("full_path: %s\n", full_path);
 		fd = open(full_path, O_RDONLY);
@@ -68,6 +68,9 @@ int	check_ext(char *str)
 	return (1);
 }
 
+// Store av[1] in cub3d->levels[0]
+// Read levels in level folder into cub3d->levels[1-9]
+
 int	main(int ac, char **av)
 {
 	cub3d_t	cub3d;
@@ -76,13 +79,17 @@ int	main(int ac, char **av)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
 	if (!check_ext(av[1]))
 		return (err("Invalid extension"));
-	if (!read_cub_file(&cub3d.level, av[1]) || !init_cub3d(&cub3d))
+	cub3d.levels = malloc(sizeof(level_t) * 10);
+	cub3d.level = &cub3d.levels[0];
+	if (!cub3d.levels)
+		return (err("Failed to malloc levels"));
+	if (!read_cub_file(cub3d.level, av[1]) || !init_cub3d(&cub3d))
 		return (1);
-	print_level_info(&cub3d.level); // DEBUG
+	// print_level_info(cub3d.level); // DEBUG
 	if (!read_all_levels(&cub3d))
 		return (1);
-	// for (int i = 0; i < 9; i++)
-	// 	print_level_info(&cub3d.levels[i]); // DEBUG
+	for (int i = 0; i <= 9; i++)
+		print_level_info(&cub3d.levels[i]); // DEBUG
 	start_game(&cub3d);
 	free_cub3d(&cub3d);
 	return (0);

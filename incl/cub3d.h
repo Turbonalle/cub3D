@@ -435,7 +435,7 @@ typedef struct cub3d_s
 	settings_t		settings;
 	gametimer_t		timer;
 	level_t			*levels;
-	level_t			level;
+	level_t			*level;
 	t_enemy			*enemy;
 }					cub3d_t;
 

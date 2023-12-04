@@ -171,6 +171,10 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		cub3d->level->door_groups[i].num_keys_left = 0;
 		cub3d->level->key_groups[i].index = i;
 		cub3d->level->key_groups[i].keys = NULL;
+		// TODO: adjust image size to smaller
+		cub3d->level->key_groups[i].img_key_count = mlx_new_image(cub3d->mlx, cub3d->img->width, cub3d->img->height);
+		if (!cub3d->level->key_groups[i].img_key_count || (mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[i].img_key_count, 0, 0) < 0))
+			err("Failed to create minimap image");
 		i++;
 	}
 	printf("basic init done\n");

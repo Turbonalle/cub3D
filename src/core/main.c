@@ -76,6 +76,7 @@ int	main(int ac, char **av)
 		return (1);
 	// for (int i = 0; i <= 9; i++)
 	// 	print_level_info(&cub3d.levels[i]); // DEBUG
+	init_doors_and_keys(&cub3d);
 	start_game(&cub3d);
 	free_cub3d(&cub3d);
 	return (0);

@@ -9,4 +9,5 @@ void	load_level(cub3d_t *cub3d, level_t *level)
 		init_enemy(cub3d);
 	set_initial_direction(cub3d);
 	init_minimap(cub3d);
+	init_doors_and_keys(cub3d);
 }

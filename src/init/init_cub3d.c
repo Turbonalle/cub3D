@@ -175,7 +175,6 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	}
 	printf("basic init done\n");
 	i = 0;
-	cub3d->num_enemies = 0;
 	while (cub3d->level->map[i])
 	{
 		j = 0;
@@ -262,7 +261,6 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
-	cub3d->num_enemies = 0;
 	// count_enemies(cub3d);
 	// init_enemy(cub3d);
 	// set_initial_direction(cub3d);

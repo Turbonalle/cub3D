@@ -180,7 +180,6 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		j = 0;
 		while (cub3d->level->map[i][j])
 		{
-			printf("cell[%i, %i]\n", i, j);
 			door_key_index = get_door_index(cub3d->level->map[i][j]);
 			if (door_key_index != -1)
 			{
@@ -200,18 +199,13 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
-		printf("index: %i\n", cub3d->level->door_groups[i].index);
-		printf("num of doors: %i\n", cub3d->level->door_groups[i].group_size);
-		printf("keys left: %i\n", cub3d->level->door_groups[i].num_keys_left);
 		key_node_t *temp = cub3d->level->key_groups[i].keys;
 		int count = 0;
 		while (temp)
 		{
-			printf("key %i: [%i;%i], collected: %i\n", count, temp->pos.x, temp->pos.y, temp->collected);
 			temp = temp->next;
 			count++;
 		}
-		printf("total key count: %i\n", count);
 		i++;
 	}
 	return (SUCCESS);

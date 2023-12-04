@@ -289,8 +289,9 @@ typedef struct level_menu_s
 	mlx_image_t	*text_level_7;
 	mlx_image_t	*text_level_8;
 	mlx_image_t	*text_level_9;
-
+	mlx_image_t	*text_back;
 	button_t	buttons[9];
+	button_t	button_back;
 }				level_menu_t;
 
 //---- SETTINGS MENU -----------------------------------------------------------

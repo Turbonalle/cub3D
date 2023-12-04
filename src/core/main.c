@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 15:09:19 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/12/01 15:25:49 by jbagger          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../incl/cub3d.h"
 
 int free_three_strings(char *s1, char *s2, char *s3)
@@ -77,9 +65,9 @@ int	main(int ac, char **av)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
 	if (!check_ext(av[1]))
 		return (err("Invalid extension"));
-	if (!read_cub_file(&cub3d, av[1]) || !init_cub3d(&cub3d))
+	if (!read_cub_file(cub3d.level, av[1]) || !init_cub3d(&cub3d))
 		return (1);
-	print_info(&cub3d); // DEBUG
+	print_level_info(cub3d.level); // DEBUG
 	start_game(&cub3d);
 	free_cub3d(&cub3d);
 	return (0);

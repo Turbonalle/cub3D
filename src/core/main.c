@@ -65,9 +65,17 @@ int	main(int ac, char **av)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
 	if (!check_ext(av[1]))
 		return (err("Invalid extension"));
+	cub3d.levels = malloc(sizeof(level_t) * 10);
+	cub3d.level = &cub3d.levels[0];
+	if (!cub3d.levels)
+		return (err("Failed to malloc levels"));
 	if (!read_cub_file(cub3d.level, av[1]) || !init_cub3d(&cub3d))
 		return (1);
-	print_level_info(cub3d.level); // DEBUG
+	// print_level_info(cub3d.level); // DEBUG
+	if (!read_all_levels(&cub3d))
+		return (1);
+	// for (int i = 0; i <= 9; i++)
+	// 	print_level_info(&cub3d.levels[i]); // DEBUG
 	start_game(&cub3d);
 	free_cub3d(&cub3d);
 	return (0);

@@ -25,8 +25,8 @@
 # define DE '|'
 # define DN '-'
 
-# define MOVEMENT_SPEED 0.1
-# define ROTATION_SPEED 0.02
+# define MOVEMENT_SPEED 6
+# define ROTATION_SPEED 1.5
 
 # define ENEMY_SPEED 0.05
 # define ENEMY_ROT_SPEED 0.1

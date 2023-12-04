@@ -51,7 +51,9 @@ typedef struct s_enemy
 	dvector_t		pos;
 	dvector_t		target;
 	dvector_t		dir;
+	dvector_t		minimap_pos;
 	double			angle;
+	double			angle_start;
 	double			dir_player;
 	int				is_walking;
 	int				is_spinning;
@@ -80,6 +82,37 @@ typedef struct keypress_s
 	int	mouse_right;
 }			keypress_t;
 
+//---- DOORS  ------------------------------------------------------------------
+
+# define NUM_DOORS_MAX 4
+
+typedef struct key_node_s
+{
+	vector_t	pos;
+	int			collected;
+	key_node_t	*next;
+}				key_node_t;
+
+typedef struct key_group_s
+{
+	int			index;
+	key_node_t	*keys;
+}				key_group_t;
+
+typedef struct door_pos_s
+{
+	vector_t	pos;
+	door_pos_t	*next;
+}				door_pos_t;
+
+typedef struct door_group_s
+{
+	int			index; // unnecessary?
+	door_pos_t	*door_positions;
+	int			group_size;
+	int			num_keys_left; // is it needed?
+}				door_group_t;
+
 //---- MINIMAP -----------------------------------------------------------------
 
 typedef struct minimap_s
@@ -99,6 +132,11 @@ typedef struct minimap_s
 	int			color_door;
 	int			color_wall;
 	int			color_empty;
+	int			color_enemy;
+	int			color_key_1;
+	int			color_key_2;
+	int			color_key_3;
+	int			color_key_4;
 	int			transparency;
 }			minimap_t;
 
@@ -331,6 +369,8 @@ typedef struct level_s
 	int			floor_color;
 	int			ceiling_color;
 	int			element_found[6];
+	door_group_t	door_groups[NUM_DOORS_MAX];
+	key_group_t		key_groups[NUM_DOORS_MAX];
 }			level_t;
 
 //---- CUB3D -------------------------------------------------------------------

@@ -99,8 +99,8 @@ int add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 	new_key->pos.x = j; // swap x and y if needed
 	new_key->pos.y = i;
 	new_key->collected = FALSE;
-	new_key->next = cub3d->key_groups[key_group_index].keys;
-	cub3d->key_groups[key_group_index].keys = new_key;
+	new_key->next = cub3d->level->key_groups[key_group_index].keys;
+	cub3d->level->key_groups[key_group_index].keys = new_key;
 	return (SUCCESS); 
 }
 
@@ -108,7 +108,7 @@ int	init_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 {
 	if (add_key(cub3d, i, j, key_group_index) == FAIL)
 		return (FAIL);
-	cub3d->door_groups[key_group_index].num_keys_left++;
+	cub3d->level->door_groups[key_group_index].num_keys_left++;
 	return (SUCCESS);
 }
 
@@ -121,17 +121,17 @@ int add_door_pos(cub3d_t *cub3d, int i, int j, int door_group_index)
 		return (FAIL);
 	new_pos->pos.x = j; // swap x and y if needed
 	new_pos->pos.y = i;
-	new_pos->next = cub3d->door_groups[door_group_index].door_positions;
-	cub3d->door_groups[door_group_index].door_positions = new_pos;
+	new_pos->next = cub3d->level->door_groups[door_group_index].door_positions;
+	cub3d->level->door_groups[door_group_index].door_positions = new_pos;
 	return (SUCCESS);
 }
 
 int	init_door(cub3d_t *cub3d, int i, int j, int door_group_index)
 {
-	cub3d->door_groups[door_group_index].index = door_group_index;
+	cub3d->level->door_groups[door_group_index].index = door_group_index;
 	if (add_door_pos(cub3d, i, j, door_group_index) == FAIL)
 		return (FAIL);
-	cub3d->door_groups[door_group_index].group_size++;
+	cub3d->level->door_groups[door_group_index].group_size++;
 	return (SUCCESS);
 }
 
@@ -165,12 +165,12 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
-		cub3d->door_groups[i].index = i;
-		cub3d->door_groups[i].door_positions = NULL;
-		cub3d->door_groups[i].group_size = 0;
-		cub3d->door_groups[i].num_keys_left = 0;
-		cub3d->key_groups[i].index = i;
-		cub3d->key_groups[i].keys = NULL;
+		cub3d->level->door_groups[i].index = i;
+		cub3d->level->door_groups[i].door_positions = NULL;
+		cub3d->level->door_groups[i].group_size = 0;
+		cub3d->level->door_groups[i].num_keys_left = 0;
+		cub3d->level->key_groups[i].index = i;
+		cub3d->level->key_groups[i].keys = NULL;
 		i++;
 	}
 	printf("basic init done\n");
@@ -182,13 +182,13 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		while (cub3d->level->map[i][j])
 		{
 			printf("cell[%i, %i]\n", i, j);
-			door_key_index = get_door_index(cub3d->map[i][j]);
+			door_key_index = get_door_index(cub3d->level->map[i][j]);
 			if (door_key_index != -1)
 			{
 				if (init_door(cub3d, i, j, door_key_index) == FAIL)
 					return (FAIL);
 			}
-			door_key_index = get_key_index(cub3d->map[i][j]);
+			door_key_index = get_key_index(cub3d->level->map[i][j]);
 			if (door_key_index != -1)
 			{
 				if (init_key(cub3d, i, j, door_key_index) == FAIL)
@@ -201,10 +201,10 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
-		printf("index: %i\n", cub3d->door_groups[i].index);
-		printf("num of doors: %i\n", cub3d->door_groups[i].group_size);
-		printf("keys left: %i\n", cub3d->door_groups[i].num_keys_left);
-		key_node_t *temp = cub3d->key_groups[i].keys;
+		printf("index: %i\n", cub3d->level->door_groups[i].index);
+		printf("num of doors: %i\n", cub3d->level->door_groups[i].group_size);
+		printf("keys left: %i\n", cub3d->level->door_groups[i].num_keys_left);
+		key_node_t *temp = cub3d->level->key_groups[i].keys;
 		int count = 0;
 		while (temp)
 		{
@@ -218,7 +218,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-static void	count_enemies(cub3d_t *cub3d)
+void	count_enemies(cub3d_t *cub3d)
 {
 	int	i;
 	int	j;

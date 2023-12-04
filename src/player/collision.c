@@ -4,13 +4,13 @@ int	is_locked_door(cub3d_t *cub3d, int y, int x)
 {
 	int	index;
 
-	index = get_door_index(cub3d->map[y][x]);
+	index = get_door_index(cub3d->level->map[y][x]);
 	if (index == -1)
 	{
 		return (FALSE);
 	}
-	printf("number of keys left for this door group: %i\n", cub3d->door_groups[index].num_keys_left);
-	return (cub3d->door_groups[index].num_keys_left > 0);
+	printf("number of keys left for this door group: %i\n", cub3d->level->door_groups[index].num_keys_left);
+	return (cub3d->level->door_groups[index].num_keys_left > 0);
 }
 
 void	deactivate_key(cub3d_t *cub3d, key_node_t *head, int y, int x)
@@ -20,7 +20,7 @@ void	deactivate_key(cub3d_t *cub3d, key_node_t *head, int y, int x)
 		if (head->pos.x == x && head->pos.y == y)
 		{
 			head->collected = TRUE;
-			cub3d->map[y][x] = '0';
+			cub3d->level->map[y][x] = '0';
 			return ;
 		}
 		head = head->next;
@@ -31,13 +31,13 @@ void	collect_key(cub3d_t *cub3d, int y, int x)
 {
 	int	index;
 
-	index = get_key_index(cub3d->map[y][x]);
+	index = get_key_index(cub3d->level->map[y][x]);
 	if (index == -1)
 	{
 		return ;
 	}
-	deactivate_key(cub3d, cub3d->key_groups[index].keys, y, x);
-	cub3d->door_groups[index].num_keys_left--;
+	deactivate_key(cub3d, cub3d->level->key_groups[index].keys, y, x);
+	cub3d->level->door_groups[index].num_keys_left--;
 }
 
 void	item_collected_checker(cub3d_t *cub3d)

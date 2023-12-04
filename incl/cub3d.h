@@ -222,6 +222,7 @@ void	draw_minimap_border(cub3d_t *cub3d);
 // minimap_draw_player.c
 void	draw_minimap_player(cub3d_t *cub3d);
 void	draw_minimap_playerdir(cub3d_t *cub3d);
+void	draw_extras(cub3d_t *cub3d, int row, int column);
 void	draw_fov(cub3d_t *cub3d);
 
 // minimap_zoom.c

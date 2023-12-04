@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:53 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/01 15:16:08 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/04 10:19:58 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 static int all_keys_found(cub3d_t *cub3d, int i)
 {
 	key_node_t *temp;
-	temp = cub3d->key_groups[i].keys;
+	temp = cub3d->level->key_groups[i].keys;
 	while (temp != NULL)
 	{
 		if (temp->collected == 0)
@@ -36,26 +36,26 @@ static int all_keys_found(cub3d_t *cub3d, int i)
 
 static int	door_found(cub3d_t *cub3d, vector_t vMapCheck, int dist)
 {
-	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->map_columns && vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->map_rows
-		&& (cub3d->map[vMapCheck.y][vMapCheck.x] == 'A'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'B'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'C'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == 'D'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '-'
-		|| cub3d->map[vMapCheck.y][vMapCheck.x] == '|'))
+	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->level->map_columns && vMapCheck.y >= 0
+		&& vMapCheck.y < cub3d->level->map_rows
+		&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-'
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|'))
 	{
 		if (dist > 3)
 			return (1);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == '-' || cub3d->map[vMapCheck.y][vMapCheck.x] == '|')
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-' || cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|')
 			return (0);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
 			return (0);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)
 			return (0);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'C' && all_keys_found(cub3d, 2) == 1)
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C' && all_keys_found(cub3d, 2) == 1)
 			return (0);
-		if (cub3d->map[vMapCheck.y][vMapCheck.x] == 'D' && all_keys_found(cub3d, 3) == 1)
+		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D' && all_keys_found(cub3d, 3) == 1)
 			return (0);
 		else
 			return (1);

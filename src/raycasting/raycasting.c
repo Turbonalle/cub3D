@@ -10,10 +10,11 @@ static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 			&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
-static int all_keys_found(cub3d_t *cub3d, int i)
+static int	all_keys_found(cub3d_t *cub3d, int i)
 {
-	key_node_t *temp;
-	temp = cub3d->key_groups[i].keys;
+	key_node_t	*temp;
+
+	temp = cub3d->level->key_groups[i].keys;
 	while (temp != NULL)
 	{
 		if (temp->collected == 0)
@@ -166,16 +167,16 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 
 void	raycasting(cub3d_t *cub3d)
 {
-	double fov_start;
-	unsigned int i;
+	double			fov_start;
+	unsigned int	i;
 
 	fov_start = within_two_pi(cub3d->player.angle - to_radians((cub3d->fov
 					/ 2)));
 	i = 0;
 	while (i < cub3d->img->width)
 	{
-		cub3d->rays[i].angle = within_two_pi(fov_start +
-		to_radians((cub3d->fov * i / cub3d->img->width)));
+		cub3d->rays[i].angle = within_two_pi(fov_start
+				+ to_radians((cub3d->fov * i / cub3d->img->width)));
 		raycast(cub3d, &cub3d->player, &cub3d->rays[i]);
 		i++;
 	}

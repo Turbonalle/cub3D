@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:36 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/04 11:16:38 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:43:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,5 +203,15 @@ int read_cub_file(level_t *level, char *map_path)
 	if (!get_map(level, fd))
 		return (close(fd), free_info(level->map), FAIL);
 	close(fd);
+	fd = 0;
+	while (level->map[fd])
+		fd++;
+	level->backup = ft_calloc(sizeof(char *), (fd + 1));
+	fd = 0;
+	while (level->map[fd])
+	{
+		level->backup[fd] = ft_strdup(level->map[fd]);
+		fd++;
+	}
 	return (SUCCESS);
 }

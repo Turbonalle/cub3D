@@ -359,6 +359,7 @@ typedef struct map_node_s
 typedef struct level_s
 {
 	char		**map;
+	char		**backup;
 	vector_t	starting_pos;
 	char		starting_dir;
 	int			map_rows;

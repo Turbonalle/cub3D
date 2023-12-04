@@ -20,6 +20,7 @@ int	read_all_levels(cub3d_t *cub3d)
 	i = 1;
 	while (i <= 9)
 	{
+		// TODO maybe: add malloc fail handling?
 		level_i = ft_itoa(i);
 		path = ft_strjoin("assets/levels/level", level_i);
 		full_path = ft_strjoin(path, ".cub");

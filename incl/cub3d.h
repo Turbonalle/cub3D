@@ -192,6 +192,9 @@ int	get_door_index(char symbol);
 int	get_key_index(char symbol);
 int	init_doors_and_keys(cub3d_t *cub3d);
 
+//key_counts.c
+void draw_key_counts(cub3d_t *cub3d);
+
 //---- INPUT -------------------------------------------------------------------
 
 // handle_close.c
@@ -248,6 +251,11 @@ void	free_list(map_node_t *node);
 
 // error_utils.c
 int		err(char *error_message);
+
+// drawing_utils.c
+void draw_square(cub3d_t *cub3d, int col, int row, int size, int color);
+void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
+void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

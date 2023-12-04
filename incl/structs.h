@@ -97,6 +97,8 @@ typedef struct key_group_s
 {
 	int			index;
 	key_node_t	*keys;
+	mlx_image_t	*img_key_count;
+	char		*text_key_count;
 }				key_group_t;
 
 typedef struct door_pos_s
@@ -348,6 +350,16 @@ typedef struct gametimer_s
 	double		pause_timestamp;
 	double		run_time;
 }				gametimer_t;
+
+//---- GAME INFO ---------------------------------------------------------------
+
+/* typedef struct gameinfo_s
+{
+	mlx_image_t	*img_keys;
+	char		*text_keys;
+	vector_t	pos;
+}				gameinfo_t; */
+
 
 //---- MAPS --------------------------------------------------------------------
 

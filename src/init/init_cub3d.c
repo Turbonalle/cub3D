@@ -171,6 +171,10 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		cub3d->level->door_groups[i].num_keys_left = 0;
 		cub3d->level->key_groups[i].index = i;
 		cub3d->level->key_groups[i].keys = NULL;
+		// TODO: adjust image size to smaller
+		cub3d->level->key_groups[i].img_key_count = mlx_new_image(cub3d->mlx, cub3d->img->width, cub3d->img->height);
+		if (!cub3d->level->key_groups[i].img_key_count || (mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[i].img_key_count, 0, 0) < 0))
+			err("Failed to create minimap image");
 		i++;
 	}
 	printf("basic init done\n");
@@ -180,7 +184,6 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		j = 0;
 		while (cub3d->level->map[i][j])
 		{
-			printf("cell[%i, %i]\n", i, j);
 			door_key_index = get_door_index(cub3d->level->map[i][j]);
 			if (door_key_index != -1)
 			{
@@ -200,18 +203,13 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
-		printf("index: %i\n", cub3d->level->door_groups[i].index);
-		printf("num of doors: %i\n", cub3d->level->door_groups[i].group_size);
-		printf("keys left: %i\n", cub3d->level->door_groups[i].num_keys_left);
 		key_node_t *temp = cub3d->level->key_groups[i].keys;
 		int count = 0;
 		while (temp)
 		{
-			printf("key %i: [%i;%i], collected: %i\n", count, temp->pos.x, temp->pos.y, temp->collected);
 			temp = temp->next;
 			count++;
 		}
-		printf("total key count: %i\n", count);
 		i++;
 	}
 	return (SUCCESS);

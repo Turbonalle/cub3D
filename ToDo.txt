@@ -13,11 +13,10 @@ TODO:
 OPTIONAL:
 
 - Compare with delta time
-	timer done
 - Create floor and ceiling textures
 - Add enemies
 	Currently:
-		multiple enemies, who move, rotate when can not see player, chase to last known spot
+		multiple enemies, who move, chase to last known spot, when there rotate if can not see player
 - Add doors
 	Currently:
 		primitive version, open when player is near enough, seen on minimap
@@ -38,13 +37,16 @@ WHEN PROJECT IS DONE:
 JBAGGER:
 
 - Add a pause menu (or starting menu if pause menu is too hard)
-	pause menu donr
+	pause menu done
 - Add ability to adjust settings in menu
+	fisheye setting works, no-fisheye does not
 - Enemy difficulty:
 	- stationary
 	- rotating
 	- fixed path
 	- random path
+		stationary, rotating and random path enemies done, set via settings.e_difficulty
+		Currently all enemies in map have same setting
 - Minimap settings:
 	- show only FOV
 	- show whole map

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/01 14:44:40 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/04 23:15:23 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	update_img_size(cub3d_t *cub3d)
 		}
 	}
 }
-
 //------------------------------------------------------------------------------
 
 void	update(void *param)
@@ -89,6 +88,7 @@ void	update(void *param)
 		minimap(cub3d);
 		enemy_vision(cub3d);
 		draw_timer(cub3d);
+		draw_key_counts(cub3d);
 		// print_timer(cub3d);	// REMOVE
 	}
 	else if (cub3d->state == STATE_GAMEOVER)

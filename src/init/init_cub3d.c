@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_cub3d.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:34 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/01 14:38:17 by jbagger          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../incl/cub3d.h"
 
 int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
@@ -44,7 +32,11 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_floor = set_transparency(MINIMAP_COLOR_FLOOR, cub3d->minimap.transparency);
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
-	cub3d->minimap.color_door = set_transparency(MINIMAP_COLOR_DOOR, cub3d->minimap.transparency);
+	cub3d->minimap.color_enemy = set_transparency(MINIMAP_COLOR_ENEMY, cub3d->minimap.transparency);
+	cub3d->minimap.color_key_1 = set_transparency(MINIMAP_COLOR_KEY_1, cub3d->minimap.transparency);
+	cub3d->minimap.color_key_2 = set_transparency(MINIMAP_COLOR_KEY_2, cub3d->minimap.transparency);
+	cub3d->minimap.color_key_3 = set_transparency(MINIMAP_COLOR_KEY_3, cub3d->minimap.transparency);
+	cub3d->minimap.color_key_4 = set_transparency(MINIMAP_COLOR_KEY_4, cub3d->minimap.transparency);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)
@@ -97,6 +89,132 @@ int	init_rays(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
+int add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
+{
+	key_node_t	*new_key;
+
+	new_key = malloc(sizeof(key_node_t));
+	if (!new_key)
+		return (FAIL);
+	new_key->pos.x = j; // swap x and y if needed
+	new_key->pos.y = i;
+	new_key->collected = FALSE;
+	new_key->next = cub3d->level->key_groups[key_group_index].keys;
+	cub3d->level->key_groups[key_group_index].keys = new_key;
+	return (SUCCESS); 
+}
+
+int	init_key(cub3d_t *cub3d, int i, int j, int key_group_index)
+{
+	if (add_key(cub3d, i, j, key_group_index) == FAIL)
+		return (FAIL);
+	cub3d->level->door_groups[key_group_index].num_keys_left++;
+	return (SUCCESS);
+}
+
+int add_door_pos(cub3d_t *cub3d, int i, int j, int door_group_index)
+{
+	door_pos_t	*new_pos;
+
+	new_pos = malloc(sizeof(door_pos_t));
+	if (!new_pos)
+		return (FAIL);
+	new_pos->pos.x = j; // swap x and y if needed
+	new_pos->pos.y = i;
+	new_pos->next = cub3d->level->door_groups[door_group_index].door_positions;
+	cub3d->level->door_groups[door_group_index].door_positions = new_pos;
+	return (SUCCESS);
+}
+
+int	init_door(cub3d_t *cub3d, int i, int j, int door_group_index)
+{
+	cub3d->level->door_groups[door_group_index].index = door_group_index;
+	if (add_door_pos(cub3d, i, j, door_group_index) == FAIL)
+		return (FAIL);
+	cub3d->level->door_groups[door_group_index].group_size++;
+	return (SUCCESS);
+}
+
+int	get_key_index(char symbol)
+{
+	int	res;
+
+	res = symbol - 'a';
+	if (res < 0 || res >= NUM_DOORS_MAX)
+		return (-1);
+	return res;
+}
+
+int	get_door_index(char symbol)
+{
+	int	res;
+
+	res = symbol - 'A';
+	if (res < 0 || res >= NUM_DOORS_MAX)
+		return (-1);
+	return res;
+}
+
+int	init_doors_and_keys(cub3d_t *cub3d)
+{
+	int	i;
+	int	j;
+	int	door_key_index;
+
+	printf("hello\n");
+	i = 0;
+	while (i < NUM_DOORS_MAX)
+	{
+		cub3d->level->door_groups[i].index = i;
+		cub3d->level->door_groups[i].door_positions = NULL;
+		cub3d->level->door_groups[i].group_size = 0;
+		cub3d->level->door_groups[i].num_keys_left = 0;
+		cub3d->level->key_groups[i].index = i;
+		cub3d->level->key_groups[i].keys = NULL;
+		// TODO: adjust image size to smaller
+		cub3d->level->key_groups[i].img_key_count = mlx_new_image(cub3d->mlx, cub3d->img->width, cub3d->img->height);
+		if (!cub3d->level->key_groups[i].img_key_count || (mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[i].img_key_count, 0, 0) < 0))
+			err("Failed to create minimap image");
+		i++;
+	}
+	printf("basic init done\n");
+	i = 0;
+	while (cub3d->level->map[i])
+	{
+		j = 0;
+		while (cub3d->level->map[i][j])
+		{
+			door_key_index = get_door_index(cub3d->level->map[i][j]);
+			if (door_key_index != -1)
+			{
+				if (init_door(cub3d, i, j, door_key_index) == FAIL)
+					return (FAIL);
+			}
+			door_key_index = get_key_index(cub3d->level->map[i][j]);
+			if (door_key_index != -1)
+			{
+				if (init_key(cub3d, i, j, door_key_index) == FAIL)
+					return (FAIL);
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < NUM_DOORS_MAX)
+	{
+		key_node_t *temp = cub3d->level->key_groups[i].keys;
+		int count = 0;
+		while (temp)
+		{
+			temp = temp->next;
+			count++;
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
+
 void	count_enemies(cub3d_t *cub3d)
 {
 	int	i;
@@ -141,7 +259,6 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
-	cub3d->num_enemies = 0;
 	// count_enemies(cub3d);
 	// init_enemy(cub3d);
 	// set_initial_direction(cub3d);

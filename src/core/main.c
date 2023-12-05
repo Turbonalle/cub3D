@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 15:09:19 by vvagapov          #+#    #+#             */
-/*   Updated: 2023/12/01 14:47:04 by jbagger          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../incl/cub3d.h"
 
 int free_three_strings(char *s1, char *s2, char *s3)
@@ -32,6 +20,7 @@ int	read_all_levels(cub3d_t *cub3d)
 	i = 1;
 	while (i <= 9)
 	{
+		// TODO maybe: add malloc fail handling?
 		level_i = ft_itoa(i);
 		path = ft_strjoin("assets/levels/level", level_i);
 		full_path = ft_strjoin(path, ".cub");
@@ -88,6 +77,7 @@ int	main(int ac, char **av)
 		return (1);
 	// for (int i = 0; i <= 9; i++)
 	// 	print_level_info(&cub3d.levels[i]); // DEBUG
+	init_doors_and_keys(&cub3d);
 	start_game(&cub3d);
 	free_cub3d(&cub3d);
 	return (0);

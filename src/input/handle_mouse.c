@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mouse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:49 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/01 14:25:13 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/04 22:01:54 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 					load_level(cub3d, &cub3d->levels[i + 1]);
 					start_timer(cub3d);
 				}
+			}
+			if (hover_button(cub3d, &cub3d->level_menu.button_back))
+			{
+				delete_level_menu(cub3d, &cub3d->level_menu);
+				draw_start_menu(cub3d, &cub3d->start_menu);
+				cub3d->state = STATE_START;
 			}
 		}
 	}

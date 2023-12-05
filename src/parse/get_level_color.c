@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_color.c                                        :+:      :+:    :+:   */
+/*   get_level_color.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:07 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 20:44:04 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:50:09 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
-
-int all_digits(char *str)
-{
-	int i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (FAIL);
-	}
-	return (SUCCESS);
-}
 
 void set_color(level_t *level, int element, int color)
 {

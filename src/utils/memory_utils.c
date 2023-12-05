@@ -26,6 +26,16 @@ void	free_list(map_node_t *head)
 	}
 }
 
+void	free_record(record_t *record)
+{
+	if (record)
+	{
+		if (record->name)
+			free(record->name);
+		free(record);
+	}
+}
+
 void	free_keys(key_node_t *head)
 {
 	key_node_t	*temp;

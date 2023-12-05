@@ -39,4 +39,6 @@ void	draw_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	center(menu->text_level_9);
 	menu->text_back = mlx_put_string(cub3d->mlx, "<-", menu->button_back.pos.x + menu->button_back.width * 0.5, menu->button_back.pos.y + menu->button_back.height * 0.5);
 	center(menu->text_back);
+	menu->text_leaderboard = mlx_put_string(cub3d->mlx, "Leaderboard", menu->button_leaderboard.pos.x + menu->button_leaderboard.width * 0.5, menu->button_leaderboard.pos.y + menu->button_leaderboard.height * 0.5);
+	center(menu->text_leaderboard);
 }

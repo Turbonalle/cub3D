@@ -157,6 +157,9 @@ int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t e
 
 //---- CORE --------------------------------------------------------------------
 
+// records.c
+int	read_records(level_t *levels);
+
 // load_level.c
 void	load_level(cub3d_t *cub3d, level_t *level);
 
@@ -244,10 +247,16 @@ void	raycasting(cub3d_t *cub3d);
 
 //---- UTILS -------------------------------------------------------------------
 
+// check_utils.c
+int		all_alpha(char *str);
+int		all_digits(char *str);
+
 // memory_utils.c
 void	free_info(char **info);
 void	free_cub3d(cub3d_t *cub3d);
 void	free_list(map_node_t *node);
+void	free_record(record_t *record);
+
 
 // error_utils.c
 int		err(char *error_message);

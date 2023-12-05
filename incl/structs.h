@@ -292,9 +292,21 @@ typedef struct level_menu_s
 	mlx_image_t	*text_level_8;
 	mlx_image_t	*text_level_9;
 	mlx_image_t	*text_back;
+	mlx_image_t	*text_leaderboard;
 	button_t	buttons[9];
 	button_t	button_back;
+	button_t	button_leaderboard;
 }				level_menu_t;
+
+typedef struct leaderboard_s
+{
+	mlx_image_t	*img;
+	int			background_color;
+	rectangle_t	rect_title;
+	mlx_image_t	*text_title;
+	mlx_image_t	*text_back;
+	button_t	button_back;
+}				leaderboard_t;
 
 //---- SETTINGS MENU -----------------------------------------------------------
 
@@ -369,6 +381,13 @@ typedef struct map_node_s
 	map_node_t	*next;
 }			map_node_t;
 
+typedef struct record_s
+{
+	char			*name;
+	double			time;
+	struct record_s	*next;
+}			record_t;
+
 typedef struct level_s
 {
 	char		**map;
@@ -385,6 +404,7 @@ typedef struct level_s
 	int			element_found[6];
 	door_group_t	door_groups[NUM_DOORS_MAX];
 	key_group_t		key_groups[NUM_DOORS_MAX];
+	record_t		*records;
 }			level_t;
 
 //---- CUB3D -------------------------------------------------------------------

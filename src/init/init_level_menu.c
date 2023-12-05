@@ -23,6 +23,14 @@ void	init_level_buttons(cub3d_t *cub3d, level_menu_t *menu)
 	menu->button_back.background_color = BUTTON_COLOR;
 	menu->button_back.border_color = BUTTON_BORDER_COLOR;
 	menu->button_back.border_width = BUTTON_BORDER_THICKNESS;
+	// set leaderboard button
+	menu->button_leaderboard.width = cub3d->mlx->width * 0.1;
+	menu->button_leaderboard.height = cub3d->mlx->height * 0.15;
+	menu->button_leaderboard.pos.x = cub3d->mlx->width * 0.8;
+	menu->button_leaderboard.pos.y = cub3d->mlx->height * 0.05;
+	menu->button_leaderboard.background_color = BUTTON_COLOR;
+	menu->button_leaderboard.border_color = BUTTON_BORDER_COLOR;
+	menu->button_leaderboard.border_width = BUTTON_BORDER_THICKNESS;
 }
 
 void	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)

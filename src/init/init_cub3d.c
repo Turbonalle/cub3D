@@ -253,21 +253,18 @@ int	init_cub3d(cub3d_t *cub3d)
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));
 	cub3d->state = STATE_START;
-	// cub3d->player.pos.x = cub3d->level->starting_pos.x + 0.5;
-	// cub3d->player.pos.y = cub3d->level->starting_pos.y + 0.5;
 	cub3d->mouse_set_pos.x = 0;
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
-	// count_enemies(cub3d);
-	// init_enemy(cub3d);
-	// set_initial_direction(cub3d);
 	set_keys(&cub3d->keys);
-	// init_minimap(cub3d);
 	init_start_menu(cub3d, &cub3d->start_menu);
 	init_level_menu(cub3d, &cub3d->level_menu);
 	init_pause_menu(cub3d, &cub3d->pause_menu);
 	init_timer(cub3d);
+	int i = -1;
+	while (++i < 10)
+		cub3d->levels[i].records = NULL;
 	cub3d->start_timestamp = mlx_get_time();
 	return (SUCCESS);
 }

@@ -242,7 +242,6 @@ void	zoom_out_minimap(cub3d_t *cub3d);
 void	raycasting(cub3d_t *cub3d);
 
 
-
 //---- UTILS -------------------------------------------------------------------
 
 // check_utils.c

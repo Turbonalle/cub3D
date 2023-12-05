@@ -94,13 +94,14 @@ typedef struct key_node_s
 }				key_node_t;
 typedef struct key_group_s
 {
-	int				index;
-	key_node_t		*keys;
-	mlx_image_t		*img_key_count;
-	char			*text_key_count;
-	mlx_texture_t	*frames;
-	int				curr_frame;
-	int				num_frames;
+	int			index;
+	key_node_t	*keys;
+	mlx_image_t	*img_key_count;
+	mlx_image_t	*img_text_key_count;
+	char		*text_key_count;
+	mlx_image_t	*frames;
+	int			curr_frame;
+	int			num_frames;
 }				key_group_t;
 
 typedef struct door_pos_s

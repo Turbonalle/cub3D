@@ -47,6 +47,13 @@
 # define MINIMAP_COLOR_KEY_4 TEAL
 # define MINIMAP_TRANSPARENCY 20
 
+# define MINIMAP_TEXTURE_KEY_1 "key_red_static.png"
+# define MINIMAP_TEXTURE_KEY_2 "key_green_static.png"
+# define MINIMAP_TEXTURE_KEY_3 "key_yellow_static.png"
+# define MINIMAP_TEXTURE_KEY_4 "key_blue_static.png"
+
+# define ANIMATION_INTERVAL_MS 66,6667
+
 # define MINIMAP_ZOOM_INCREMENT 5
 
 # define FOV 60

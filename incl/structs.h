@@ -290,10 +290,9 @@ typedef struct level_menu_s
 	mlx_image_t	*text_level_6;
 	mlx_image_t	*text_level_7;
 	mlx_image_t	*text_level_8;
-	mlx_image_t	*text_level_9;
 	mlx_image_t	*text_back;
 	mlx_image_t	*text_leaderboard;
-	button_t	buttons[9];
+	button_t	buttons[8];
 	button_t	button_back;
 	button_t	button_leaderboard;
 }				level_menu_t;
@@ -306,6 +305,9 @@ typedef struct leaderboard_s
 	mlx_image_t	*text_title;
 	mlx_image_t	*text_back;
 	button_t	button_back;
+	rectangle_t	*rect_level;
+	mlx_image_t	**text_level;
+	mlx_image_t	**text_record_list;
 }				leaderboard_t;
 
 //---- SETTINGS MENU -----------------------------------------------------------
@@ -413,6 +415,7 @@ enum state
 {
 	STATE_START,
 	STATE_LEVEL,
+	STATE_LEADERBOARD,
 	STATE_SETTINGS,
 	STATE_GAME,
 	STATE_PAUSE,
@@ -442,11 +445,13 @@ typedef struct cub3d_s
 	int				num_enemies;
 	start_menu_t	start_menu;
 	level_menu_t	level_menu;
+	leaderboard_t	leaderboard;
 	settings_menu_t	settings_menu;
 	pause_menu_t	pause_menu;
 	gameover_menu_t	gameover_menu;
 	settings_t		settings;
 	gametimer_t		timer;
+	int				n_levels;
 	level_t			*levels;
 	level_t			*level;
 	t_enemy			*enemy;

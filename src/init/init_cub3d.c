@@ -257,9 +257,12 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
+	cub3d->n_levels = 9;
 	set_keys(&cub3d->keys);
 	init_start_menu(cub3d, &cub3d->start_menu);
 	init_level_menu(cub3d, &cub3d->level_menu);
+	if (!init_leaderboard(cub3d, &cub3d->leaderboard))
+		return (FAIL);
 	init_pause_menu(cub3d, &cub3d->pause_menu);
 	init_timer(cub3d);
 	int i = -1;

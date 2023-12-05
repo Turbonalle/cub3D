@@ -26,3 +26,13 @@ void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	mlx_delete_image(cub3d->mlx, menu->text_back);
 	mlx_delete_image(cub3d->mlx, menu->text_leaderboard);
 }
+
+void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
+{
+	mlx_delete_image(cub3d->mlx, board->img);
+	mlx_delete_image(cub3d->mlx, board->text_title);
+	mlx_delete_image(cub3d->mlx, board->text_back);
+	// free(board->rect_level);
+	// free(board->text_level);
+	// free(board->text_record_list);
+}

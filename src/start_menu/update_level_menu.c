@@ -27,11 +27,12 @@ void	check_level_button_hover(cub3d_t *cub3d, level_menu_t *menu)
 
 void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 {
+	int i;
+
 	get_transition_color(cub3d, &menu->background_color);
 	draw_menu_background(menu->img, menu->background_color);
 	draw_rectangle(menu->img, &menu->rect_title);
 	check_level_button_hover(cub3d, menu);
-	int i;
 
 	i = -1;
 	while (++i < 9)

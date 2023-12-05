@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mouse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:49 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/04 22:01:54 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:33:24 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,21 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 				delete_level_menu(cub3d, &cub3d->level_menu);
 				draw_start_menu(cub3d, &cub3d->start_menu);
 				cub3d->state = STATE_START;
+			}
+			if (hover_button(cub3d, &cub3d->level_menu.button_leaderboard))
+			{
+				cub3d->state = STATE_LEADERBOARD;
+				delete_level_menu(cub3d, &cub3d->level_menu);
+				draw_leaderboard(cub3d, &cub3d->leaderboard);
+			}
+		}
+		else if (cub3d->state == STATE_LEADERBOARD)
+		{
+			if (hover_button(cub3d, &cub3d->leaderboard.button_back))
+			{
+				cub3d->state = STATE_LEVEL;
+				delete_leaderboard(cub3d, &cub3d->leaderboard);
+				draw_level_menu(cub3d, &cub3d->level_menu);
 			}
 		}
 	}

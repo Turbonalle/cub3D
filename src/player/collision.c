@@ -38,6 +38,7 @@ void	collect_key(cub3d_t *cub3d, int y, int x)
 	}
 	deactivate_key(cub3d, cub3d->level->key_groups[index].keys, y, x);
 	cub3d->level->door_groups[index].num_keys_left--;
+	draw_key_counts(cub3d);
 }
 
 void	item_collected_checker(cub3d_t *cub3d)

@@ -1,5 +1,7 @@
 #include "../incl/cub3d.h"
 
+// TODO: generic frames-to-image-array 
+
 void	update_key_count(cub3d_t *cub3d, int index, int num_keys_already_drawn)
 {
 	//mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_key_count);
@@ -17,16 +19,15 @@ void	update_key_count(cub3d_t *cub3d, int index, int num_keys_already_drawn)
 	
 	cub3d->level->key_groups[index].text_key_count = ft_itoa(cub3d->level->door_groups[index].num_keys_left);
 
-	mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_text_key_count);
+	if (cub3d->level->key_groups[index].img_text_key_count)
+		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_text_key_count);
+	
 	cub3d->level->key_groups[index].img_text_key_count = mlx_put_string(
 		cub3d->mlx,
 		cub3d->level->key_groups[index].text_key_count,
 		cub3d->mlx->width * 0.1,
 		cub3d->mlx->height * 0.9 - cub3d->mlx->height * 0.05 * num_keys_already_drawn
 	);
-	cub3d->level->key_groups[index].img_text_key_count->instances[0].x -= cub3d->level->key_groups[index].img_text_key_count->width;
-	mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[index].img_text_key_count, cub3d->mlx->width * 0.1, cub3d->mlx->height * 0.9 - cub3d->mlx->height * 0.05 * num_keys_already_drawn);
-
 }
 
 void draw_key_counts(cub3d_t *cub3d)

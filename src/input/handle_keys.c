@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:45 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/01 14:33:01 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:57:56 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,24 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		else if (cub3d->state == STATE_LEVEL)
 		{
 			delete_level_menu(cub3d, &cub3d->level_menu);
+			draw_start_menu(cub3d, &cub3d->start_menu);
+			cub3d->state = STATE_START;
+		}
+		else if (cub3d->state == STATE_LEADERBOARD)
+		{
+			delete_leaderboard(cub3d, &cub3d->leaderboard);
+			draw_level_menu(cub3d, &cub3d->level_menu);
+			cub3d->state = STATE_LEVEL;
+		}
+		else if (cub3d->state == STATE_PAUSE)
+		{
+			delete_pause_menu(cub3d);
+			cub3d->state = STATE_GAME;
+			continue_timer(cub3d);
+		}
+		else if (cub3d->state == STATE_GAMEOVER)
+		{
+			// delete_gameover_menu(cub3d);
 			draw_start_menu(cub3d, &cub3d->start_menu);
 			cub3d->state = STATE_START;
 		}

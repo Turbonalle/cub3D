@@ -72,6 +72,8 @@ void	update_timer(cub3d_t *cub3d)
 		hundredths_str = ft_strjoin("0", ft_itoa(hundredths));
 	else
 		hundredths_str = ft_itoa(hundredths);
+	// TODO: malloc error handling
+	// ALSO: free old text_time (!)
 	cub3d->timer.text_time = ft_strjoin(minutes_str, ":");
 	cub3d->timer.text_time = ft_strjoin(cub3d->timer.text_time, seconds_str);
 	cub3d->timer.text_time = ft_strjoin(cub3d->timer.text_time, ".");
@@ -83,14 +85,8 @@ void	update_timer(cub3d_t *cub3d)
 
 void	draw_timer(cub3d_t *cub3d)
 {
-	
-	// mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[0].img_text_key_count);
-	// mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[1].img_text_key_count);
-	
 	update_timer(cub3d);
 	mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
-	
-	
 	cub3d->timer.img_time = mlx_put_string(cub3d->mlx, cub3d->timer.text_time, cub3d->timer.pos.x, cub3d->timer.pos.y);
 	cub3d->timer.img_time->instances[0].x -= cub3d->timer.img_time->width;
 }
@@ -99,17 +95,3 @@ void	print_timer(cub3d_t *cub3d)
 {
 	printf("Time passed: %f\n", elapsed_time(cub3d));
 }
-
-	// static int num = 0;
-	// if (!num)
-	// {
-	// 	draw_key_counts(cub3d);
-	// 	num++;
-	// }
-	// else
-	// {
-	// 	num = 0;
-	// 	mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
-	// 	cub3d->timer.img_time = mlx_put_string(cub3d->mlx, cub3d->timer.text_time, cub3d->timer.pos.x, cub3d->timer.pos.y);
-	// 	cub3d->timer.img_time->instances[0].x -= cub3d->timer.img_time->width;
-	// }

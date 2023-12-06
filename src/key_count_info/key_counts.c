@@ -2,65 +2,74 @@
 
 // TODO: generic frames-to-image-array 
 
-void	update_key_count(cub3d_t *cub3d, int index, int num_keys_already_drawn)
+void	draw_door_open(cub3d_t *cub3d, int index)
 {
-	//mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_key_count);
-	//printf("update_key_count\n");
-	/* printf("img_key_count: %p\n", cub3d->level->key_groups[index].img_key_count);
-	draw_circle(cub3d->level->key_groups[index].img_key_count, 50, 70 + (50 * num_keys_already_drawn), 10, get_door_key_color(cub3d, index)); */
-
-	/* draw_circle(cub3d->level->key_groups[index].img_key_count,
-		cub3d->mlx->width * 0.05,
-		cub3d->mlx->height * 0.9 - cub3d->mlx->height * 0.05 * num_keys_already_drawn,
-		cub3d->mlx->height * 0.01,
-		get_door_key_color(cub3d, index)); */
-
-	// TODO: handle errors, free
+	mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_text_key_count);
 	
-	cub3d->level->key_groups[index].text_key_count = ft_itoa(cub3d->level->door_groups[index].num_keys_left);
+	cub3d->level->key_groups[index].img_text_key_count = mlx_put_string(
+		cub3d->mlx,
+		"open",
+		cub3d->level->key_groups[index].key_icon_coords.x + cub3d->mlx->width * 0.03,
+		cub3d->level->key_groups[index].key_icon_coords.y + cub3d->mlx->height * 0.01
+	);
+}
+void	draw_key_count(cub3d_t *cub3d, int index)
+{
+	char	*text_collected;
+	char	*text_collected_slash;
+	char	*text_total;
+	char	*text;
 
+	
+	text_collected = ft_itoa(cub3d->level->key_groups[index].num_keys_total - cub3d->level->door_groups[index].num_keys_left);
+	if (!text_collected)
+		err("MALLOC fail in update_key_count");
+	text_total = ft_itoa(cub3d->level->key_groups[index].num_keys_total);
+	if (!text_total)
+	{
+		free(text_collected);
+		err("MALLOC fail in update_key_count");
+	}
+	text_collected_slash = ft_strjoin(text_collected, "/");
+	if (!text_collected_slash)
+	{
+		free(text_collected);
+		free(text_total);
+		err("MALLOC fail in update_key_count");
+	}
+	text = ft_strjoin(text_collected_slash, text_total);
+	free(text_collected);
+	free(text_collected_slash);
+	free(text_total);
+	if (!text)
+		err("MALLOC fail in update_key_count");
+	
 	if (cub3d->level->key_groups[index].img_text_key_count)
 		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_text_key_count);
 	
 	cub3d->level->key_groups[index].img_text_key_count = mlx_put_string(
 		cub3d->mlx,
-		cub3d->level->key_groups[index].text_key_count,
-		cub3d->mlx->width * 0.1,
-		cub3d->mlx->height * 0.9 - cub3d->mlx->height * 0.05 * num_keys_already_drawn
+		text,
+		cub3d->level->key_groups[index].key_icon_coords.x + cub3d->mlx->width * 0.03,
+		cub3d->level->key_groups[index].key_icon_coords.y + cub3d->mlx->height * 0.01
 	);
+	free(text);
 }
 
 void draw_key_counts(cub3d_t *cub3d)
 {
-int	num_keys_already_drawn;
 	int	index;
 
-	num_keys_already_drawn = 0;
 	index = 0;
 	while (index < NUM_DOORS_MAX)
 	{
-		//printf("index:%i\n", index);
 		if (cub3d->level->key_groups[index].keys)
 		{
-			//printf("keys at index:%i exist\n", index);
-			update_key_count(cub3d, index, num_keys_already_drawn);
-			num_keys_already_drawn++;
+			if (cub3d->level->door_groups[index].num_keys_left == 0)
+				draw_door_open(cub3d, index);
+			else
+				draw_key_count(cub3d, index);
 		}
 		index++;
 	}
-
-/* 	int	index;
-
-	index = 0;
-	while (index < NUM_DOORS_MAX)
-	{
-		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_text_key_count);
-		index++;
-	} */
-	//printf("draw_key_counts\n");
-
-	/* cub3d->level->key_groups[index].img_key_count = mlx_put_string(cub3d->mlx,
-		cub3d->level->key_groups[index].text_key_count,
-		cub3d->level->key_groups[index].pos_key_count.x,
-		cub3d->level->key_groups[index].pos_key_count.y); */
 }

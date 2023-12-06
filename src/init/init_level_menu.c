@@ -5,7 +5,7 @@ void	init_level_buttons(cub3d_t *cub3d, level_menu_t *menu)
 	int	i;
 
 	i = -1;
-	while (++i < 9)
+	while (++i < cub3d->n_levels)
 	{
 		menu->buttons[i].width = cub3d->mlx->width * 0.2;
 		menu->buttons[i].height = cub3d->mlx->height * 0.15;

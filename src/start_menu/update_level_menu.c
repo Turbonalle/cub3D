@@ -35,7 +35,7 @@ void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	check_level_button_hover(cub3d, menu);
 
 	i = -1;
-	while (++i < 9)
+	while (++i < cub3d->n_levels)
 		draw_button(menu->img, &menu->buttons[i]);
 	draw_button(menu->img, &menu->button_back);
 	draw_button(menu->img, &menu->button_leaderboard);

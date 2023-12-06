@@ -301,13 +301,14 @@ typedef struct leaderboard_s
 {
 	mlx_image_t	*img;
 	int			background_color;
+	int			n_entries;
 	rectangle_t	rect_title;
 	mlx_image_t	*text_title;
 	mlx_image_t	*text_back;
 	button_t	button_back;
 	rectangle_t	*rect_level;
 	mlx_image_t	**text_level;
-	mlx_image_t	**text_record_list;
+	mlx_image_t	***text_record_list;
 }				leaderboard_t;
 
 //---- SETTINGS MENU -----------------------------------------------------------
@@ -386,7 +387,7 @@ typedef struct map_node_s
 typedef struct record_s
 {
 	char			*name;
-	double			time;
+	int				time;
 	struct record_s	*next;
 }			record_t;
 

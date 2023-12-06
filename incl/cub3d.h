@@ -163,7 +163,7 @@ int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t e
 //---- CORE --------------------------------------------------------------------
 
 // records.c
-int	read_records(level_t *levels);
+int	read_records(cub3d_t *cub3d, level_t *levels);
 
 // load_level.c
 void	load_level(cub3d_t *cub3d, level_t *level);

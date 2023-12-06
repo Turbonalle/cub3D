@@ -109,6 +109,8 @@ int	init_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 	if (add_key(cub3d, i, j, key_group_index) == FAIL)
 		return (FAIL);
 	cub3d->level->door_groups[key_group_index].num_keys_left++;
+	cub3d->level->key_groups[key_group_index].num_keys_total++;
+	draw_key_counts(cub3d);
 	return (SUCCESS);
 }
 
@@ -131,7 +133,6 @@ int	init_door(cub3d_t *cub3d, int i, int j, int door_group_index)
 	cub3d->level->door_groups[door_group_index].index = door_group_index;
 	if (add_door_pos(cub3d, i, j, door_group_index) == FAIL)
 		return (FAIL);
-	cub3d->level->door_groups[door_group_index].group_size++;
 	return (SUCCESS);
 }
 
@@ -160,24 +161,19 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	int	i;
 	int	j;
 	int	door_key_index;
+	
 
-	printf("hello\n");
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
 		cub3d->level->door_groups[i].index = i;
 		cub3d->level->door_groups[i].door_positions = NULL;
-		cub3d->level->door_groups[i].group_size = 0;
 		cub3d->level->door_groups[i].num_keys_left = 0;
 		cub3d->level->key_groups[i].index = i;
 		cub3d->level->key_groups[i].keys = NULL;
-		// TODO: adjust image size to smaller
-		cub3d->level->key_groups[i].img_key_count = mlx_new_image(cub3d->mlx, cub3d->img->width, cub3d->img->height);
-		if (!cub3d->level->key_groups[i].img_key_count || (mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[i].img_key_count, 0, 0) < 0))
-			err("Failed to create minimap image");
+		cub3d->level->key_groups[i].num_keys_total = 0;
 		i++;
 	}
-	printf("basic init done\n");
 	i = 0;
 	while (cub3d->level->map[i])
 	{
@@ -200,15 +196,38 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		}
 		i++;
 	}
+	int	active_key_groups;
+	active_key_groups = 0;
+	cub3d->level->key_groups[0].texture_key_icon = mlx_load_png(MINIMAP_TEXTURE_KEY_1);
+	cub3d->level->key_groups[1].texture_key_icon = mlx_load_png(MINIMAP_TEXTURE_KEY_2);
+	cub3d->level->key_groups[2].texture_key_icon = mlx_load_png(MINIMAP_TEXTURE_KEY_3);
+	cub3d->level->key_groups[3].texture_key_icon = mlx_load_png(MINIMAP_TEXTURE_KEY_4);
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
+		// Count keys
 		key_node_t *temp = cub3d->level->key_groups[i].keys;
 		int count = 0;
 		while (temp)
 		{
 			temp = temp->next;
 			count++;
+		}
+		cub3d->level->key_groups[i].num_keys_total = count;
+		// Create key image if needed
+		if (count)
+		{
+			cub3d->level->key_groups[i].key_icon_coords.x = cub3d->mlx->width * 0.05;
+			cub3d->level->key_groups[i].key_icon_coords.y = cub3d->mlx->height * 0.9 - cub3d->mlx->height * 0.05 * active_key_groups;
+			cub3d->level->key_groups[i].img_key_icon = mlx_texture_to_image(cub3d->mlx, cub3d->level->key_groups[i].texture_key_icon);
+			if (!cub3d->level->key_groups[i].img_key_icon ||
+				(mlx_image_to_window(cub3d->mlx,
+				cub3d->level->key_groups[i].img_key_icon,
+				cub3d->level->key_groups[i].key_icon_coords.x,
+				cub3d->level->key_groups[i].key_icon_coords.y
+				) < 0))
+				err("Failed to create key count image");
+			active_key_groups++;
 		}
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/04 23:15:23 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:02:10 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ void	update(void *param)
 	else if (cub3d->state == STATE_LEVEL)
 	{
 		update_level_menu(cub3d, &cub3d->level_menu);
+	}
+	else if (cub3d->state == STATE_LEADERBOARD)
+	{
+		update_leaderboard(cub3d, &cub3d->leaderboard);
 	}
 	else if (cub3d->state == STATE_SETTINGS)
 	{

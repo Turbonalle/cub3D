@@ -31,7 +31,15 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	mlx_delete_image(cub3d->mlx, board->img);
 	mlx_delete_image(cub3d->mlx, board->text_title);
 	mlx_delete_image(cub3d->mlx, board->text_back);
-	// free(board->rect_level);
-	// free(board->text_level);
-	// free(board->text_record_list);
+	int i = 0;
+	while (++i < cub3d->n_levels)
+	{
+		// mlx_delete_image(cub3d->mlx, board->text_level[i]);
+		int entry = -1;
+		while (++entry < board->n_entries)
+		{
+			printf("deleting %d %d\n", i, entry);
+			mlx_delete_image(cub3d->mlx, board->text_record_list[i][entry]);
+		}
+	}
 }

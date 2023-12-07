@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-void draw_square(cub3d_t *cub3d, int col, int row, int size, int color)
+void draw_square(mlx_image_t *img, int col, int row, int size, int color)
 {
 	
 	vector_t end;
@@ -14,7 +14,7 @@ void draw_square(cub3d_t *cub3d, int col, int row, int size, int color)
 		col = x;
 		while (col < end.x)
 		{
-			mlx_put_pixel(cub3d->minimap.img, col, row, color);
+			mlx_put_pixel(img, col, row, color);
 			col++;
 		}
 		row++;

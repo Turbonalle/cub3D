@@ -80,5 +80,6 @@ int	main(int ac, char **av)
 	init_doors_and_keys(&cub3d);
 	start_game(&cub3d);
 	free_cub3d(&cub3d);
+	printf("freed!\n");
 	return (0);
 }

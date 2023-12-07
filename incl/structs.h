@@ -313,7 +313,8 @@ typedef struct leaderboard_s
 	button_t	button_back;
 	rectangle_t	*rect_level;
 	mlx_image_t	**text_level;
-	mlx_image_t	***text_record_list;
+	mlx_image_t	***text_time_list;
+	mlx_image_t	***text_name_list;
 }				leaderboard_t;
 
 //---- SETTINGS MENU -----------------------------------------------------------

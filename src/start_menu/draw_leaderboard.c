@@ -85,26 +85,12 @@ int	draw_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	mlx_image_to_window(cub3d->mlx, board->img, 0, 0);
 	board->text_title = mlx_put_string(cub3d->mlx, "Leaderboard", board->rect_title.pos.x + board->rect_title.width * 0.5, board->rect_title.pos.y + board->rect_title.height * 0.5);
 	center(board->text_title);
-
-	board->text_level = malloc(sizeof(mlx_image_t *) * cub3d->n_levels);
-	if (!board->text_level)
-		err("Failed to allocate memory for leaderboard text");
-	board->text_record_list = malloc(sizeof(mlx_image_t **) * cub3d->n_levels);
-	if (!board->text_record_list)
-		err("Failed to allocate memory for leaderboard text");
-	i = -1;
-	while (++i < cub3d->n_levels)
-	{
-		board->text_record_list[i] = malloc(sizeof(mlx_image_t *) * board->n_entries);
-		if (!board->text_record_list[i])
-			err("Failed to allocate memory for leaderboard text");
-	}
 	
 	i = 0;
 	while (++i <= 8)
 	{
-		draw_times(cub3d->mlx, &cub3d->levels[i].records, board, board->text_record_list[i], i);
-		draw_names(cub3d->mlx, &cub3d->levels[i].records, board, board->text_record_list[i], i);
+		draw_names(cub3d->mlx, &cub3d->levels[i].records, board, board->text_time_list[i], i);
+		draw_times(cub3d->mlx, &cub3d->levels[i].records, board, board->text_name_list[i], i);
 	}
 	return (SUCCESS);
 }

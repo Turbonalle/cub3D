@@ -50,23 +50,34 @@ int	add_record(record_t **records, int time, char* name, int n_entries)
 	new = new_record(time, name);
 	if (!new)
 		return (err("Failed to malloc new record"));
+	
+	// if no records yet
 	if (!*records)
 	{
 		*records = new;
 		return (SUCCESS);
 	}
+
+	// if new record is better than the first record
+	if ((*records)->time > time)
+	{
+		new->next = *records;
+		*records = new;
+		return (SUCCESS);
+	}
+
 	temp = *records;
 	i = 0;
 	while (temp->next && temp->next->time < time && ++i <= n_entries)
 		temp = temp->next;
-	if (i == n_entries)	// handle new having the last place, but better than previous last place
+	if (i == n_entries)		// if new record is worse than the last record
 		free_record(new);
-	else if (temp->next)
+	else if (temp->next) 	// if new record is better than a record in the middle
 	{
 		new->next = temp->next;
 		temp->next = new;
 	}
-	else
+	else					// if new record is better than the last record
 		temp->next = new;
 	return (SUCCESS);
 }

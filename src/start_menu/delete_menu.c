@@ -43,9 +43,6 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 			mlx_delete_image(cub3d->mlx, ptr->text_time);
 			mlx_delete_image(cub3d->mlx, ptr->text_name);
 			ptr = ptr->next;
-			// printf("deleting %d %d\n", i, entry);
-			// mlx_delete_image(cub3d->mlx, board->text_time_list[i][entry]);
-			// mlx_delete_image(cub3d->mlx, board->text_name_list[i][entry]);
 		}
 	}
 }

@@ -14,7 +14,7 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 
 	// set other variables
 	board->background_color = BLACK;
-	board->n_entries = 3;
+	board->n_entries = 5;
 
 	// set title
 	board->rect_title.width = cub3d->mlx->width * 0.4;

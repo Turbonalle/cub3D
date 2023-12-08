@@ -92,13 +92,18 @@ typedef struct key_node_s
 	int			collected;
 	key_node_t	*next;
 }				key_node_t;
-
 typedef struct key_group_s
 {
 	int			index;
+	int			num_keys_total;
 	key_node_t	*keys;
-	mlx_image_t	*img_key_count;
-	char		*text_key_count;
+	mlx_image_t	*img_key_icon;
+	mlx_image_t	*img_text_key_count;
+	mlx_image_t	*frames;
+	mlx_texture_t	*texture_key_icon;
+	int			curr_frame;
+	int			num_frames;
+	vector_t	key_icon_coords;
 }				key_group_t;
 
 typedef struct door_pos_s
@@ -111,7 +116,7 @@ typedef struct door_group_s
 {
 	int			index; // unnecessary?
 	door_pos_t	*door_positions;
-	int			group_size;
+
 	int			num_keys_left; // is it needed?
 }				door_group_t;
 
@@ -365,16 +370,6 @@ typedef struct gametimer_s
 	double		pause_timestamp;
 	double		run_time;
 }				gametimer_t;
-
-//---- GAME INFO ---------------------------------------------------------------
-
-/* typedef struct gameinfo_s
-{
-	mlx_image_t	*img_keys;
-	char		*text_keys;
-	vector_t	pos;
-}				gameinfo_t; */
-
 
 //---- MAPS --------------------------------------------------------------------
 

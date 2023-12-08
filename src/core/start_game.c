@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/06 16:02:10 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/08 09:43:40 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	update(void *param)
 
 	cub3d = param;
 
+	// TODO: add crash handling if (cub3d->state == STATE_CRASH)
 	if (cub3d->state == STATE_START)
 	{
 		update_start_menu(cub3d, &cub3d->start_menu);
@@ -92,7 +93,6 @@ void	update(void *param)
 		minimap(cub3d);
 		enemy_vision(cub3d);
 		draw_timer(cub3d);
-		draw_key_counts(cub3d);
 		// print_timer(cub3d);	// REMOVE
 	}
 	else if (cub3d->state == STATE_GAMEOVER)

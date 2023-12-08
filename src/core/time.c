@@ -72,6 +72,8 @@ void	update_timer(cub3d_t *cub3d)
 		hundredths_str = ft_strjoin("0", ft_itoa(hundredths));
 	else
 		hundredths_str = ft_itoa(hundredths);
+	// TODO: malloc error handling
+	// ALSO: free old text_time (!)
 	cub3d->timer.text_time = ft_strjoin(minutes_str, ":");
 	cub3d->timer.text_time = ft_strjoin(cub3d->timer.text_time, seconds_str);
 	cub3d->timer.text_time = ft_strjoin(cub3d->timer.text_time, ".");

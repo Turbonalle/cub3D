@@ -229,7 +229,6 @@ void	update_minimap_player_pos(cub3d_t *cub3d);
 void	minimap(cub3d_t *cub3d);
 
 // minimap_draw_base.c
-void	draw_square(cub3d_t *cub3d, int x, int y, int size, int color);
 void	draw_minimap(cub3d_t *cub3d);
 void	draw_minimap_border(cub3d_t *cub3d);
 
@@ -245,12 +244,10 @@ void	zoom_in_minimap(cub3d_t *cub3d);
 void	zoom_out_minimap(cub3d_t *cub3d);
 
 
-
 //---- RAYCASTING --------------------------------------------------------------
 
 // raycasting.c
 void	raycasting(cub3d_t *cub3d);
-
 
 
 //---- UTILS -------------------------------------------------------------------
@@ -270,7 +267,7 @@ void	free_record(record_t *record);
 int		err(char *error_message);
 
 // drawing_utils.c
-void draw_square(cub3d_t *cub3d, int col, int row, int size, int color);
+void draw_square(mlx_image_t *img, int col, int row, int size, int color);
 void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
 void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 

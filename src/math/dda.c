@@ -67,6 +67,7 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck, int dist)
 
 static void update_end(cub3d_t *cub3d, dvector_t *vRayDir, dvector_t end, double *dist, int *end_found)
 {
+	(void)end;
 	end.x = cub3d->minimap.player_pos.x + (*vRayDir).x * *dist * cub3d->minimap.tile_size;
 	end.y = cub3d->minimap.player_pos.y + (*vRayDir).y * *dist * cub3d->minimap.tile_size;
 	*end_found = TRUE;

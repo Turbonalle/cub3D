@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/04 11:22:23 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:35:53 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,6 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	ray->end.x = 0;
 	ray->end.y = 0;
 	return (ray);
-}
-
-static int	all_keys_found(cub3d_t *cub3d, int i)
-{
-	key_node_t	*temp;
-
-	temp = cub3d->level->key_groups[i].keys;
-	while (temp != NULL)
-	{
-		if (temp->collected == 0)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
 }
 
 static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)

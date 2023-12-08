@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/06 19:41:35 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:07:57 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	update(void *param)
 		draw_world(cub3d);
 		minimap(cub3d);
 		enemy_vision(cub3d);
+		draw_enemies(cub3d);
 		draw_timer(cub3d);
 		// print_timer(cub3d);	// REMOVE
 	}

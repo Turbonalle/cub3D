@@ -153,6 +153,7 @@ double	dist_between(vector_t a, dvector_t b);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);
+int		all_keys_found(cub3d_t *cub3d, int i);
 
 
 //---- CORE --------------------------------------------------------------------
@@ -275,4 +276,6 @@ void	print_settings(cub3d_t *cub3d);
 
 int		init_enemy(cub3d_t *cub3d);
 void	enemy_vision(cub3d_t *cub3d);
+
+void	draw_enemies(cub3d_t *cub3d);
 #endif

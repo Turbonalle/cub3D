@@ -11,26 +11,6 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	board->text_level = malloc(sizeof(mlx_image_t *) * cub3d->n_levels);
 	if (!board->text_level)
 		err("Failed to allocate memory for leaderboard text");
-	board->text_time_list = malloc(sizeof(mlx_image_t **) * cub3d->n_levels);
-	if (!board->text_time_list)
-		err("Failed to allocate memory for leaderboard text");
-	board->text_name_list = malloc(sizeof(mlx_image_t **) * cub3d->n_levels);
-	if (!board->text_name_list)
-		err("Failed to allocate memory for leaderboard text");
-	i = -1;
-	while (++i < cub3d->n_levels)
-	{
-		board->text_time_list[i] = malloc(sizeof(mlx_image_t *) * board->n_entries);
-		if (!board->text_time_list[i])
-			err("Failed to allocate memory for leaderboard text");
-	}
-	i = -1;
-	while (++i < cub3d->n_levels)
-	{
-		board->text_name_list[i] = malloc(sizeof(mlx_image_t *) * board->n_entries);
-		if (!board->text_name_list[i])
-			err("Failed to allocate memory for leaderboard text");
-	}
 
 	// set other variables
 	board->background_color = BLACK;

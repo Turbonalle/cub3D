@@ -1,5 +1,32 @@
 #include "../incl/cub3d.h"
 
+void	create_time_string(char *time_str, int time)
+{
+	if (time <= 0 || time >= 6000000)
+	{
+		time_str[0] = '0';
+		time_str[1] = '0';
+		time_str[2] = ':';
+		time_str[3] = '0';
+		time_str[4] = '0';
+		time_str[5] = '.';
+		time_str[6] = '0';
+		time_str[7] = '0';
+	}
+	else
+	{
+		time_str[0] = '0' + time / 600000;
+		time_str[1] = '0' + time / 60000 % 10;
+		time_str[2] = ':';
+		time_str[3] = '0' + time / 10000 % 6;
+		time_str[4] = '0' + time / 1000 % 10;
+		time_str[5] = '.';
+		time_str[6] = '0' + time / 100 % 10;
+		time_str[7] = '0' + time / 10 % 10;
+	}
+	time_str[8] = '\0';
+}
+
 record_t *new_record(int time, char* name)
 {
 	record_t	*new;
@@ -9,6 +36,7 @@ record_t *new_record(int time, char* name)
 		return (NULL);
 	new->time = time;
 	new->name = name;
+	create_time_string(new->time_str, time);
 	new->next = NULL;
 	return (new);
 }

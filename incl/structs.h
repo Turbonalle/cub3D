@@ -313,8 +313,6 @@ typedef struct leaderboard_s
 	button_t	button_back;
 	rectangle_t	*rect_level;
 	mlx_image_t	**text_level;
-	mlx_image_t	***text_time_list;
-	mlx_image_t	***text_name_list;
 }				leaderboard_t;
 
 //---- SETTINGS MENU -----------------------------------------------------------
@@ -382,8 +380,11 @@ typedef struct map_node_s
 
 typedef struct record_s
 {
-	char			*name;
 	int				time;
+	char			*name;
+	char			time_str[9];
+	mlx_image_t		*text_name;
+	mlx_image_t		*text_time;
 	struct record_s	*next;
 }			record_t;
 

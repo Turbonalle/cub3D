@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/04 11:22:44 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:41:35 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	update(void *param)
 
 	cub3d = param;
 
+	// TODO: add crash handling if (cub3d->state == STATE_CRASH)
 	if (cub3d->state == STATE_START)
 	{
 		update_start_menu(cub3d, &cub3d->start_menu);

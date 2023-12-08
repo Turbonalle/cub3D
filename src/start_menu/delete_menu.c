@@ -23,4 +23,6 @@ void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	mlx_delete_image(cub3d->mlx, menu->text_level_7);
 	mlx_delete_image(cub3d->mlx, menu->text_level_8);
 	mlx_delete_image(cub3d->mlx, menu->text_level_9);
+	mlx_delete_image(cub3d->mlx, menu->text_back);
+	mlx_delete_image(cub3d->mlx, menu->text_leaderboard);
 }

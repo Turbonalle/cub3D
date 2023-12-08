@@ -157,6 +157,9 @@ int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t e
 
 //---- CORE --------------------------------------------------------------------
 
+// records.c
+int	read_records(level_t *levels);
+
 // load_level.c
 void	load_level(cub3d_t *cub3d, level_t *level);
 
@@ -192,6 +195,9 @@ int	get_door_index(char symbol);
 int	get_key_index(char symbol);
 int	init_doors_and_keys(cub3d_t *cub3d);
 
+//key_counts.c
+void draw_key_counts(cub3d_t *cub3d);
+
 //---- INPUT -------------------------------------------------------------------
 
 // handle_close.c
@@ -215,7 +221,6 @@ void	update_minimap_player_pos(cub3d_t *cub3d);
 void	minimap(cub3d_t *cub3d);
 
 // minimap_draw_base.c
-void	draw_square(cub3d_t *cub3d, int x, int y, int size, int color);
 void	draw_minimap(cub3d_t *cub3d);
 void	draw_minimap_border(cub3d_t *cub3d);
 
@@ -231,23 +236,32 @@ void	zoom_in_minimap(cub3d_t *cub3d);
 void	zoom_out_minimap(cub3d_t *cub3d);
 
 
-
 //---- RAYCASTING --------------------------------------------------------------
 
 // raycasting.c
 void	raycasting(cub3d_t *cub3d);
 
 
-
 //---- UTILS -------------------------------------------------------------------
+
+// check_utils.c
+int		all_alpha(char *str);
+int		all_digits(char *str);
 
 // memory_utils.c
 void	free_info(char **info);
 void	free_cub3d(cub3d_t *cub3d);
 void	free_list(map_node_t *node);
+void	free_record(record_t *record);
+
 
 // error_utils.c
 int		err(char *error_message);
+
+// drawing_utils.c
+void draw_square(mlx_image_t *img, int col, int row, int size, int color);
+void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
+void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

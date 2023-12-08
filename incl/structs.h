@@ -428,6 +428,7 @@ typedef struct cub3d_s
 	double			frame_time;
 	double			frame_start_timestamp;
 	double			run_time;
+	double			delta_time;
 	double			pause_timestamp;
 	vector_t		mouse;
 	vector_t		mouse_set_pos;

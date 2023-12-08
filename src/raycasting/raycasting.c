@@ -10,6 +10,15 @@ static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 			&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
+static int	goal_found(cub3d_t *cub3d, vector_t vMapCheck)
+{
+	return (vMapCheck.x >= 0
+			&& vMapCheck.x < cub3d->level->map_columns
+			&& vMapCheck.y >= 0
+			&& vMapCheck.y < cub3d->level->map_rows
+			&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'G');
+}
+
 static int	all_keys_found(cub3d_t *cub3d, int i)
 {
 	key_node_t	*temp;
@@ -153,6 +162,11 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 			update_end(cub3d, &vRayDir, ray, &end_found);
 		}
 		if (door_found(cub3d, vMapCheck, ray))
+		{
+			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
+			update_end(cub3d, &vRayDir, ray, &end_found);
+		}
+		if (goal_found(cub3d, vMapCheck))
 		{
 			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
 			update_end(cub3d, &vRayDir, ray, &end_found);

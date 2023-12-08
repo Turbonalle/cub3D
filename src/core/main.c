@@ -36,6 +36,37 @@ int	read_all_levels(cub3d_t *cub3d)
 	return (1);
 }
 
+int	write_records(cub3d_t *cub3d, level_t *levels)
+{
+	int			fd;
+	int			i;
+	record_t	*ptr;
+
+	fd = open("assets/records.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
+		return (!err("Failed to open records file"));
+	i = 0;
+	while (++i <= cub3d->n_levels)
+	{
+		ptr = levels[i].records;
+		while (ptr)
+		{
+			if (ptr->time > 0)
+			{
+				printf("Time = %d\n", ptr->time);
+				write(fd, ft_itoa(ptr->time), ft_strlen(ft_itoa(ptr->time)));
+				write(fd, " ", 1);
+				write(fd, ptr->name, ft_strlen(ptr->name));
+				write(fd, "\n", 1);
+			}
+			ptr = ptr->next;
+		}
+		write(fd, "\n", 1);
+	}
+	close(fd);
+	return (SUCCESS);
+}
+
 int	check_ext(char *str)
 {
 	int		len;
@@ -79,6 +110,7 @@ int	main(int ac, char **av)
 		return (!err("Failed to read records"));
 	init_doors_and_keys(&cub3d);
 	start_game(&cub3d);
+	write_records(&cub3d, cub3d.levels);
 	free_cub3d(&cub3d);
 	printf("freed!\n");
 	return (0);

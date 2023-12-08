@@ -166,7 +166,8 @@ int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t e
 //---- CORE --------------------------------------------------------------------
 
 // records.c
-int	read_records(cub3d_t *cub3d, level_t *levels);
+int		add_record(record_t **records, int time, char *name, int n_entries);
+int		read_records(cub3d_t *cub3d, level_t *levels);
 
 // load_level.c
 void	load_level(cub3d_t *cub3d, level_t *level);
@@ -175,6 +176,7 @@ void	load_level(cub3d_t *cub3d, level_t *level);
 void	start_game(cub3d_t *cub3d);
 
 // time.c
+double	elapsed_time(cub3d_t *cub3d);
 void	handle_fps(cub3d_t *cub3d);
 void	set_fps(double *frame_time, int fps);
 void	start_timer(cub3d_t *cub3d);

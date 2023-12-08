@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:53 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/04 10:19:58 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:49:12 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 			&& vMapCheck.x < cub3d->level->map_columns
 			&& vMapCheck.y >= 0
 			&& vMapCheck.y < cub3d->level->map_rows
-			&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL);
+			&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL
+			|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'G'));
 }
 
 static int all_keys_found(cub3d_t *cub3d, int i)

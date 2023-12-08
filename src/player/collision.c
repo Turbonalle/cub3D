@@ -57,6 +57,11 @@ int	new_pos_is_wall_collision(cub3d_t *cub3d)
 		|| is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x) == TRUE);
 }
 
+int new_pos_is_goal(cub3d_t *cub3d)
+{
+	return (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == 'G');
+}
+
 void collision_checker(cub3d_t *cub3d)
 {
 	dvector_t	delta;
@@ -80,6 +85,13 @@ void collision_checker(cub3d_t *cub3d)
 			if (cub3d->level->map[(int)cub3d->player.pos.y][(int)cub3d->player.new_pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.pos.y, (int)cub3d->player.new_pos.x))
 				cub3d->player.pos.x = cub3d->player.new_pos.x;
 		}
+	}
+	else if (new_pos_is_goal(cub3d))
+	{
+		add_record(&cub3d->level->records, (int)(elapsed_time(cub3d) * 1000), "Test Guy", cub3d->leaderboard.n_entries);
+		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+		draw_start_menu(cub3d, &cub3d->start_menu);
+		cub3d->state = STATE_GAMEOVER;
 	}
 	else
 	{

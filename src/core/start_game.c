@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/08 09:44:27 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/08 13:53:30 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	update(void *param)
 	else if (cub3d->state == STATE_GAMEOVER)
 	{
 		// update_end_menu(cub3d, &cub3d->gameover_menu);
+		cub3d->state = STATE_START;
 	}
 }
 

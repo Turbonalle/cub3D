@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_world.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/30 14:13:43 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:43:43 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,10 @@ void draw_world(cub3d_t *cub3d)
 		else if (cub3d->rays[index].wall == 'D')
 		{
 			color = TEAL;
+		}
+		else if (cub3d->rays[index].wall == 'G')
+		{
+			color = OLIVE;
 		}
 		else
 			color = WHITE;

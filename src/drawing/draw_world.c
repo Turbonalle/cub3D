@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/30 14:13:43 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/08 09:02:30 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,36 @@
 double lerp(double y0, double y1, double x0, double x1, double x)
 {
 	return (y0 + (y1 - y0) * ((x - x0) / (x1 - x0)));
+}
+
+static double	fisheye_correction(cub3d_t *cub3d, int index)
+{
+	double	perpD;
+	dvector_t noseDir;
+	noseDir.y = sin(cub3d->player.angle); 
+	noseDir.x = cos(cub3d->player.angle); 
+	dvector_t ortoDir; // unit vector to the right of the player
+	ortoDir.x = noseDir.y; 
+	ortoDir.y = -noseDir.x; 
+	dvector_t ray;
+	ray.x = cub3d->rays[index].end.x - cub3d->player.pos.x;
+	ray.y = cub3d->rays[index].end.y - cub3d->player.pos.y;
+	// projection of ray on ortoDir = ortoDir´*ray * ortoDir 
+	double projLen = ortoDir.x*ray.x + ortoDir.y*ray.y;
+	dvector_t rayProj;
+	rayProj.x = projLen * ortoDir.x;
+	rayProj.y = projLen * ortoDir.y;
+	// now ray = rayProj + rayPerp
+	dvector_t rayPerp;
+	rayPerp.x = ray.x-rayProj.x;
+	rayPerp.y = ray.y-rayProj.y;
+	perpD = sqrt(rayPerp.x*rayPerp.x + rayPerp.y*rayPerp.y);
+	// calculate the distance in world where the wall fills the screen vertically
+	double wallHeight = 1;
+	double viewFillDistance = wallHeight/2.0/sin(to_radians(FOV/2.0));
+	// playerDistance / viewFillDistance  =  image height / sceenH
+	double windowAspectRatio = (double)cub3d->img->width/(double)cub3d->img->height;
+	return (cub3d->img->height * viewFillDistance / perpD * windowAspectRatio);
 }
 
 void draw_world(cub3d_t *cub3d)
@@ -27,7 +57,6 @@ void draw_world(cub3d_t *cub3d)
 	double	roomH;
 	double	screenH;
 	double	fovArc;
-	double	perpD;
 	dvector_t start;
 	dvector_t end;
 
@@ -52,9 +81,12 @@ void draw_world(cub3d_t *cub3d)
 				}
 				else
 				{
+					screenH = fisheye_correction(cub3d, index);
+					/**
 					perpD = sqrt(pow(cub3d->player.pos.x - cub3d->rays[index].end.x, 2) + (pow(cub3d->player.pos.y - cub3d->rays[index].end.y, 2)));
 					perpD = perpD * cos(to_radians(cub3d->rays[index].angle - cub3d->player.angle));
 					screenH = floor(cub3d->img->height / perpD);
+					*/
 				}
 				height = screenH;
 				if (height > cub3d->img->height)

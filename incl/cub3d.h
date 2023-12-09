@@ -74,6 +74,9 @@ int		init_cub3d(cub3d_t *cub3d);
 // init_level_menu.c
 void	init_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 
+// init_name_menu.c
+void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
+
 // init_pause_menu.c
 void	init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
@@ -89,6 +92,7 @@ int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	delete_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 void	draw_menu_background(mlx_image_t *img, int color);
 void	draw_button(mlx_image_t *img, button_t *button);
@@ -101,6 +105,10 @@ void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 
 // draw_leaderboard.c
 int		draw_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+
+// name menu
+int		draw_name_menu(cub3d_t *cub3d, name_menu_t *menu);
+void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 // update_leaderboard.c
 void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
@@ -164,6 +172,9 @@ int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t e
 
 
 //---- CORE --------------------------------------------------------------------
+
+// game_over.c
+void	game_over(cub3d_t *cub3d);
 
 // records.c
 int		add_record(record_t **records, int time, char *name, int n_entries);

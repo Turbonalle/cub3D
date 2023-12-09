@@ -283,6 +283,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	if (!init_leaderboard(cub3d, &cub3d->leaderboard))
 		return (FAIL);
 	init_pause_menu(cub3d, &cub3d->pause_menu);
+	init_name_menu(cub3d, &cub3d->name_menu);
 	init_timer(cub3d);
 	int i = -1;
 	while (++i < 10)

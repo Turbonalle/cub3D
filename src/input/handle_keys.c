@@ -75,11 +75,15 @@ void	keypress_name_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.backspace = TRUE;
 	else if (keydata.key == MLX_KEY_ENTER)
 		cub3d->keys.enter = TRUE;
+	else if (keydata.key == MLX_KEY_ESCAPE)
+		cub3d->keys.escape = TRUE;
 }
 
 void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
-	if (keydata.key == MLX_KEY_W)
+	if (cub3d->state == STATE_ENTERNAME)
+		keypress_name_input(keydata, cub3d);
+	else if (keydata.key == MLX_KEY_W)
 		cub3d->keys.w = TRUE;
 	else if (keydata.key == MLX_KEY_A)
 		cub3d->keys.a = TRUE;
@@ -159,8 +163,6 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 			cub3d->state = STATE_START;
 		}
 	}
-	if (cub3d->state == STATE_ENTERNAME)
-		keypress_name_input(keydata, cub3d);
 }
 
 void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
@@ -187,6 +189,8 @@ void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.backspace = FALSE;
 	else if (keydata.key == MLX_KEY_ENTER)
 		cub3d->keys.enter = FALSE;
+	else if (keydata.key == MLX_KEY_ESCAPE)
+		cub3d->keys.escape = FALSE;
 }
 
 void	get_input(mlx_key_data_t keydata, void *param)

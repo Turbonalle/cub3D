@@ -12,9 +12,8 @@
 7750 Test Guy
 7866 Test Guy
 
-400 Eemeli
-500 Lucas
-1000 Eemeli
+
+
 
 
 

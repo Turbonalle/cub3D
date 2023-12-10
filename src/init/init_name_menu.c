@@ -13,6 +13,9 @@ void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 	menu->rect_title.pos.y = cub3d->mlx->height * 0.05;
 	menu->rect_title.color = GREEN;
 
+	// set title text
+	
+
 	// set name input
 	menu->rect_input.width = cub3d->mlx->width * 0.4;
 	menu->rect_input.height = cub3d->mlx->height * 0.15;

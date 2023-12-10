@@ -55,15 +55,43 @@ void	set_initial_direction(cub3d_t *cub3d)
 
 void	set_keys(keypress_t *keys)
 {
+	// keys->q = FALSE;
 	keys->w = FALSE;
+	// keys->e = FALSE;
+	// keys->r = FALSE;
+	// keys->t = FALSE;
+	// keys->y = FALSE;
+	// keys->u = FALSE;
+	// keys->i = FALSE;
+	// keys->o = FALSE;
+	keys->p = FALSE;
 	keys->a = FALSE;
 	keys->s = FALSE;
 	keys->d = FALSE;
-	keys->fisheye = FALSE;
+	// keys->f = FALSE;
+	// keys->g = FALSE;
+	// keys->h = FALSE;
+	// keys->j = FALSE;
+	// keys->k = FALSE;
+	// keys->l = FALSE;
+	// keys->z = FALSE;
+	// keys->x = FALSE;
+	// keys->c = FALSE;
+	// keys->v = FALSE;
+	// keys->b = FALSE;
+	// keys->n = FALSE;
+	// keys->m = FALSE;
+	keys->space = FALSE;
+	keys->shift = FALSE;
+	keys->enter = FALSE;
+	keys->escape = FALSE;
+	keys->up = FALSE;
+	keys->down = FALSE;
 	keys->left = FALSE;
 	keys->right = FALSE;
 	keys->mouse_left = FALSE;
 	keys->mouse_right = FALSE;
+	keys->fisheye = FALSE;	// WHAT IS THIS FOR?
 }
 
 int	init_rays(cub3d_t *cub3d)

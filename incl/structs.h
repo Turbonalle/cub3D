@@ -329,6 +329,8 @@ typedef struct level_menu_s
 	button_t	button_leaderboard;
 }				level_menu_t;
 
+# define N_ENTRIES 5
+
 typedef struct leaderboard_s
 {
 	mlx_image_t	*img;

@@ -207,6 +207,7 @@ int	init_doors_and_keys(cub3d_t *cub3d);
 
 //key_counts.c
 void draw_key_counts(cub3d_t *cub3d);
+void    draw_animated_keys(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------
 

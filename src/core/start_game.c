@@ -93,6 +93,7 @@ void	update(void *param)
 		minimap(cub3d);
 		enemy_vision(cub3d);
 		draw_timer(cub3d);
+		draw_animated_keys(cub3d);
 		// print_timer(cub3d);	// REMOVE
 	}
 	else if (cub3d->state == STATE_GAMEOVER)

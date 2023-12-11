@@ -92,6 +92,7 @@ typedef struct key_node_s
 	int			collected;
 	key_node_t	*next;
 }				key_node_t;
+
 typedef struct key_group_s
 {
 	int			index;
@@ -99,8 +100,10 @@ typedef struct key_group_s
 	key_node_t	*keys;
 	mlx_image_t	*img_key_icon;
 	mlx_image_t	*img_text_key_count;
-	mlx_image_t	*frames;
+	mlx_image_t	**frames;
+	mlx_texture_t	**textures_frames;
 	mlx_texture_t	*texture_key_icon;
+	char		*texture_dir;
 	int			curr_frame;
 	int			num_frames;
 	vector_t	key_icon_coords;

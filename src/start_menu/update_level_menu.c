@@ -16,25 +16,25 @@ void	check_level_button_hover(cub3d_t *cub3d, level_menu_t *menu)
 			menu->buttons[i].background_color = BUTTON_COLOR;
 	}
 	if (hover_button(cub3d, &menu->button_back))
-		menu->button_back.background_color = BUTTON_HOVER_COLOR;
-	else
-		menu->button_back.background_color = BUTTON_COLOR;
+			menu->button_back.background_color = BUTTON_HOVER_COLOR;
+		else
+			menu->button_back.background_color = BUTTON_COLOR;
 	if (hover_button(cub3d, &menu->button_leaderboard))
-		menu->button_leaderboard.background_color = BUTTON_HOVER_COLOR;
-	else
-		menu->button_leaderboard.background_color = BUTTON_COLOR;
+			menu->button_leaderboard.background_color = BUTTON_HOVER_COLOR;
+		else
+			menu->button_leaderboard.background_color = BUTTON_COLOR;
 }
 
 void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 {
-	int	i;
+	int i;
 
 	get_transition_color(cub3d, &menu->background_color);
 	draw_menu_background(menu->img, menu->background_color);
 	draw_rectangle(menu->img, &menu->rect_title);
 	check_level_button_hover(cub3d, menu);
 	i = -1;
-	while (++i < 9)
+	while (++i < cub3d->n_levels)
 		draw_button(menu->img, &menu->buttons[i]);
 	draw_button(menu->img, &menu->button_back);
 	draw_button(menu->img, &menu->button_leaderboard);

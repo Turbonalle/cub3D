@@ -22,7 +22,25 @@ void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	mlx_delete_image(cub3d->mlx, menu->text_level_6);
 	mlx_delete_image(cub3d->mlx, menu->text_level_7);
 	mlx_delete_image(cub3d->mlx, menu->text_level_8);
-	mlx_delete_image(cub3d->mlx, menu->text_level_9);
 	mlx_delete_image(cub3d->mlx, menu->text_back);
 	mlx_delete_image(cub3d->mlx, menu->text_leaderboard);
+}
+
+void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
+{
+	mlx_delete_image(cub3d->mlx, board->img);
+	mlx_delete_image(cub3d->mlx, board->text_title);
+	mlx_delete_image(cub3d->mlx, board->text_back);
+	int i = 0;
+	while (++i < cub3d->n_levels)
+	{
+		// mlx_delete_image(cub3d->mlx, board->text_level[i]);
+		int entry = -1;
+		while (++entry < board->n_entries)
+		{
+			printf("deleting %d %d\n", i, entry);
+			// mlx_delete_image(cub3d->mlx, board->text_time_list[i][entry]);
+			// mlx_delete_image(cub3d->mlx, board->text_name_list[i][entry]);
+		}
+	}
 }

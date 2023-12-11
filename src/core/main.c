@@ -75,9 +75,9 @@ int	main(int ac, char **av)
 	// print_level_info(cub3d.level); // DEBUG
 	if (!read_all_levels(&cub3d))
 		return (1);
-	if (!read_records(cub3d.levels))
+	if (!read_records(&cub3d, cub3d.levels))
 		return (!err("Failed to read records"));
-	//init_doors_and_keys(&cub3d);
+	init_doors_and_keys(&cub3d);
 	start_game(&cub3d);
 	free_cub3d(&cub3d);
 	printf("freed!\n");

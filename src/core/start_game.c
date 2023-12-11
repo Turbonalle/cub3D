@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   start_game.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:37 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/08 12:07:57 by slampine         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -64,6 +53,10 @@ void	update(void *param)
 	else if (cub3d->state == STATE_LEVEL)
 	{
 		update_level_menu(cub3d, &cub3d->level_menu);
+	}
+	else if (cub3d->state == STATE_LEADERBOARD)
+	{
+		update_leaderboard(cub3d, &cub3d->leaderboard);
 	}
 	else if (cub3d->state == STATE_SETTINGS)
 	{

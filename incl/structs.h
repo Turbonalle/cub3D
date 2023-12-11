@@ -318,7 +318,6 @@ typedef struct leaderboard_s
 	mlx_image_t	**text_level;
 }				leaderboard_t;
 
-//---- SETTINGS MENU -----------------------------------------------------------
 
 typedef struct settings_menu_s
 {
@@ -354,7 +353,8 @@ enum fps
 
 typedef struct settings_s
 {
-	int		e_difficulty;
+	int		e_speed;
+	int		e_behaviour;
 	int		minimap_view;
 	int 	fps;
 	int		fisheye;

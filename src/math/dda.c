@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   dda.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:53 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/08 13:49:12 by jbagger          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -22,7 +11,7 @@ static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 			|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'G'));
 }
 
-static int all_keys_found(cub3d_t *cub3d, int i)
+int all_keys_found(cub3d_t *cub3d, int i)
 {
 	key_node_t *temp;
 	temp = cub3d->level->key_groups[i].keys;

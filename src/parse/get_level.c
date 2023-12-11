@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:36 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/04 12:43:09 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:29:05 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,8 @@ int get_map(level_t *level, int fd)
 {
 	if (!get_preliminary_map(level, fd))
 		return (FAIL);
-	create_rectangular_map(level);
+	if (!create_rectangular_map(level))
+		return (FAIL);
 	if (!get_starting_point(level))
 		return (FAIL);
 	if (!check_map_validity(level->map))

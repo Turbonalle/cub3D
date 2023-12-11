@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   handle_keys.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:45 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/06 14:57:56 by jbagger          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../incl/cub3d.h"
 
 void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
@@ -56,6 +44,12 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 			printf("Back to start menu\n");
 			mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 			draw_start_menu(cub3d, &cub3d->start_menu);
+			int i = -1;
+			while (++i < NUM_DOORS_MAX)
+			{
+				mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_key_icon);
+				mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_text_key_count);
+			}
 			// free enemies, keys, doors
 			cub3d->state = STATE_START;
 		}

@@ -176,6 +176,7 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 	return ;
 }
 
+// TODO: remove camelKey
 static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 {
 	dvector_t		vRayDir;
@@ -260,6 +261,8 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, int index)
 			break ;
 		i++;
 	}
+
+	
 	int j = 0;
 	while (j < 6)
 	{

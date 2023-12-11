@@ -279,6 +279,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		}
 		i++;
 	}
+			draw_key_counts(cub3d);
 	return (SUCCESS);
 }
 

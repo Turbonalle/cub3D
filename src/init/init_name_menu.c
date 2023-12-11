@@ -21,6 +21,21 @@ void	draw_letter_box(mlx_image_t *img, letter_box_t *box)
 	}
 }
 
+void	init_letter_images(cub3d_t *cub3d, name_menu_t *menu)
+{
+	int i;
+
+	i = -1;
+	while (++i < ALPHABET_LENGTH)
+	{
+		menu->letter_str[i][0] = ALPHABET[i];
+		menu->letter_str[i][1] = '\0';
+		menu->letters_img[i] = mlx_put_string(cub3d->mlx, menu->letter_str[i], 0, 0);
+		menu->letters_img[i]->instances[0].enabled = FALSE;
+		menu->n_letters[i] = 0;
+	}
+}
+
 void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 {
 	int	gap;
@@ -62,6 +77,8 @@ void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 		menu->box[i].border_width = 1;
 		menu->box[i].letter[0] = '\0';
 		menu->box[i].letter[1] = '\0';
+		menu->box[i].img = NULL;
+		// menu->box[i].img->instances[0].enabled = FALSE;
 	}
 
 	// create image
@@ -80,10 +97,17 @@ void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 	while (++i < MAX_NAME_LENGTH)
 		draw_letter_box(menu->img, &menu->box[i]);
 
+	// add image to window
 	mlx_image_to_window(cub3d->mlx, menu->img, 0, 0);
 
-
-	menu->img->instances[0].enabled = FALSE;
+	// create text image
 	menu->text_win_message = mlx_put_string(cub3d->mlx, "You got a top 5 score!", menu->rect_title.pos.x + menu->rect_title.width * 0.5, menu->rect_title.pos.y + menu->rect_title.height * 0.5);
+	center(menu->text_win_message);
+
+	// create letter images
+	init_letter_images(cub3d, menu);
+
+	// disable images
+	menu->img->instances[0].enabled = FALSE;
 	menu->text_win_message->instances[0].enabled = FALSE;
 }

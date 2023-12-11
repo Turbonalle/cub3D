@@ -1,13 +1,9 @@
-33959 nona
+33959 Nona
 34216 Nona
 35000 Nona
 
 
 
-1150 Hello
-1250 Nona
-1516 
-1666 Hii
 
 
 

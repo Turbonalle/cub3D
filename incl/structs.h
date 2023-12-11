@@ -358,6 +358,39 @@ typedef struct settings_menu_s
 //---- NAME MENU ---------------------------------------------------------------
 
 # define MAX_NAME_LENGTH 12
+# define ALPHABET "abcdefghijklmnopqrstuvwxyz "
+# define ALPHABET_LENGTH 27
+
+enum letters
+{
+	a,
+	b,
+	c,
+	d,
+	e,
+	f,
+	g,
+	h,
+	i,
+	j,
+	k,
+	l,
+	m,
+	n,
+	o,
+	p,
+	q,
+	r,
+	s,
+	t,
+	u,
+	v,
+	w,
+	x,
+	y,
+	z,
+	space
+};
 
 typedef struct letter_box_s
 {
@@ -384,6 +417,9 @@ typedef struct name_menu_s
 	rectangle_t	rect_input;
 	int			current;
 	char		letter;
+	mlx_image_t *letters_img[ALPHABET_LENGTH];
+	int			n_letters[ALPHABET_LENGTH];
+	char		letter_str[ALPHABET_LENGTH + 1][2];
 	letter_box_t	box[MAX_NAME_LENGTH];
 	char		name[MAX_NAME_LENGTH + 1];
 	int			changed;

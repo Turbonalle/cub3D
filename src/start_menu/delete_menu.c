@@ -29,6 +29,7 @@ void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 {
 	record_t	*ptr;
+
 	mlx_delete_image(cub3d->mlx, board->img);
 	mlx_delete_image(cub3d->mlx, board->text_title);
 	mlx_delete_image(cub3d->mlx, board->text_back);
@@ -52,7 +53,7 @@ void	delete_name_menu(name_menu_t *menu)
 	menu->img->instances[0].enabled = FALSE;
 	menu->text_win_message->instances[0].enabled = FALSE;
 	// mlx_delete_image(cub3d->mlx, menu->text_title);
-	// int i = 0;
-	// while (++i < MAX_NAME_LENGTH)
-	// 	mlx_delete_image(cub3d->mlx, menu->box[i].img);
+	int i = 0;
+	while (++i < MAX_NAME_LENGTH)
+		menu->box[i].img->instances[0].enabled = FALSE;
 }

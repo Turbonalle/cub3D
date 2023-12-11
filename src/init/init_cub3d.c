@@ -85,6 +85,7 @@ void	set_keys(keypress_t *keys)
 	keys->shift = FALSE;
 	keys->enter = FALSE;
 	keys->escape = FALSE;
+	keys->backspace = FALSE;
 	keys->up = FALSE;
 	keys->down = FALSE;
 	keys->left = FALSE;

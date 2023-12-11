@@ -350,7 +350,8 @@ enum fps
 
 typedef struct settings_s
 {
-	int		e_difficulty;
+	int		e_speed;
+	int		e_behaviour;
 	int		minimap_view;
 	int 	fps;
 	int		fisheye;
@@ -379,8 +380,11 @@ typedef struct map_node_s
 
 typedef struct record_s
 {
-	char			*name;
 	int				time;
+	char			*name;
+	char			time_str[9];
+	mlx_image_t		*text_name;
+	mlx_image_t		*text_time;
 	struct record_s	*next;
 }			record_t;
 

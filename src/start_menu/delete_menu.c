@@ -34,13 +34,12 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	int i = 0;
 	while (++i < cub3d->n_levels)
 	{
-		// mlx_delete_image(cub3d->mlx, board->text_level[i]);
+		mlx_delete_image(cub3d->mlx, board->text_level[i]);
 		int entry = -1;
 		while (++entry < board->n_entries)
 		{
-			printf("deleting %d %d\n", i, entry);
-			// mlx_delete_image(cub3d->mlx, board->text_time_list[i][entry]);
-			// mlx_delete_image(cub3d->mlx, board->text_name_list[i][entry]);
+			mlx_delete_image(cub3d->mlx, board->text_level[entry]);
+			mlx_delete_image(cub3d->mlx, board->text_level[entry]);
 		}
 	}
 }

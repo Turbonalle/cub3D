@@ -176,6 +176,143 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 	return ;
 }
 
+static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
+{
+	dvector_t		vRayDir;
+	dvector_t		vRayUnitStepSize;
+	dvector_t		vRayLength1D;
+	double			max_dist;
+	vector_t		vMapCheck;
+	vector_t		vStep;
+	ray_t			*ray;
+
+	vRayDir.x = cos(to_radians(dir_to_key));
+	vRayDir.y = sin(to_radians(dir_to_key));
+	max_dist = sqrt(pow(cub3d->player.pos.x - temp->pos.x, 2) + pow(cub3d->player.pos.y - temp->pos.y, 2));
+	vMapCheck.x = (int)cub3d->player.pos.x;
+	vMapCheck.y = (int)cub3d->player.pos.y;
+	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
+	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
+	if (vRayDir.x < 0)
+	{
+		vStep.x = -1;
+		vRayLength1D.x = (cub3d->player.pos.x - vMapCheck.x) * vRayUnitStepSize.x;
+	}
+	else
+	{
+		vStep.x = 1;
+		vRayLength1D.x = (vMapCheck.x + 1.0 - cub3d->player.pos.x) * vRayUnitStepSize.x;
+	}
+	if (vRayDir.y < 0)
+	{
+		vStep.y = -1;
+		vRayLength1D.y = (cub3d->player.pos.y - vMapCheck.y) * vRayUnitStepSize.y;
+	}
+	else
+	{
+		vStep.y = 1;
+		vRayLength1D.y = (vMapCheck.y + 1.0 - cub3d->player.pos.y) * vRayUnitStepSize.y;
+	}
+	ray = init_ray(dir_to_key);
+	if (!ray)
+		return (0);
+	while (ray->length < max_dist)
+	{
+		if (wall_found(cub3d, vMapCheck))
+		{
+			free(ray);
+			return (0);
+		}
+		if (door_found(cub3d, vMapCheck))
+		{
+			free(ray);
+			return (0);
+		}
+		if (vRayLength1D.x < vRayLength1D.y)
+		{
+			vMapCheck.x += vStep.x;
+			ray->length = vRayLength1D.x;
+			vRayLength1D.x += vRayUnitStepSize.x;
+		}
+		else
+		{
+			vMapCheck.y += vStep.y;
+			ray->length = vRayLength1D.y;
+			vRayLength1D.y += vRayUnitStepSize.y;
+		}
+	}
+	free(ray);
+	return (1);
+}
+
+static void	draw_key(cub3d_t *cub3d, double dir_to_key, int index)
+{
+	dvector_t start;
+	dvector_t end;
+	double dir_as_rad;
+	int	i;
+	i = 1;
+	dir_as_rad = to_radians(dir_to_key);
+
+	while (i < (int)cub3d->img->width - 1)
+	{
+		if (dir_as_rad > cub3d->rays[i].angle && dir_as_rad < cub3d->rays[i + 1].angle)
+			break ;
+		i++;
+	}
+	int j = 0;
+	while (j < 6)
+	{
+		start.x = i + j;
+		start.y = cub3d->img->height / 2 - 3;
+		end.x = start.x;
+		end.y = cub3d->img->height / 2 + 3;
+		draw_vertical_line(cub3d->img, start, end, ANTIQUE_WHITE);
+		j++;
+	}
+	(void)index;
+	//mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[index].img_key_icon, i, cub3d->img->height / 2);
+}
+
+static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp, int i)
+{
+	double	angle_min;
+	double	angle_max;
+
+	angle_min = within_360(cub3d->player.angle * 180 / M_PI - cub3d->fov / 2);
+	angle_max = within_360(cub3d->player.angle * 180 / M_PI + cub3d->fov / 2);
+	if (angle_max < angle_min)
+	{
+		if (dir_to_key > angle_max && dir_to_key < angle_min)
+			return ;
+		else if (ray_to_key(cub3d, dir_to_key, temp))
+			draw_key(cub3d, dir_to_key, i);
+	}
+	else
+	{
+		if (dir_to_key < angle_min || dir_to_key > angle_max)
+			return ;
+		else if (ray_to_key(cub3d, dir_to_key, temp))
+			draw_key(cub3d, dir_to_key, i);
+	}
+	return ;
+}
+
+static void see_keys(cub3d_t *cub3d, int i)
+{
+	double	dir_to_key;
+	key_node_t	*temp;
+
+	temp = cub3d->level->key_groups[i].keys;
+	while (temp)
+	{
+		dir_to_key = within_360((atan2(temp->pos.y - cub3d->player.pos.y, temp->pos.x - cub3d->player.pos.x) * 180 / M_PI));
+		if (temp->collected == 0)
+			see_key(cub3d, dir_to_key, temp, i);
+		temp = temp->next;
+	}
+}
+
 void	draw_enemies(cub3d_t *cub3d)
 {
 	int	i;
@@ -184,6 +321,15 @@ void	draw_enemies(cub3d_t *cub3d)
 	while (i < cub3d->num_enemies)
 	{
 		see_enemy(cub3d, i);
+		i++;
+	}
+	i = 0;
+	while (i < NUM_DOORS_MAX)
+	{
+		if (cub3d->level->key_groups[i].num_keys_total)
+		{
+			see_keys(cub3d, i);
+		}
 		i++;
 	}
 }

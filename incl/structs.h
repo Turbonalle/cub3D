@@ -88,7 +88,7 @@ typedef struct keypress_s
 
 typedef struct key_node_s
 {
-	vector_t	pos;
+	dvector_t	pos;
 	int			collected;
 	key_node_t	*next;
 }				key_node_t;

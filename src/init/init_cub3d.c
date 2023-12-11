@@ -96,8 +96,8 @@ int add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 	new_key = malloc(sizeof(key_node_t));
 	if (!new_key)
 		return (FAIL);
-	new_key->pos.x = j;
-	new_key->pos.y = i;
+	new_key->pos.x = j + 0.5;
+	new_key->pos.y = i + 0.5;
 	new_key->collected = FALSE;
 	new_key->next = cub3d->level->key_groups[key_group_index].keys;
 	cub3d->level->key_groups[key_group_index].keys = new_key;

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:45 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/08 11:15:03 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:25:26 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 			draw_start_menu(cub3d, &cub3d->start_menu);
 			int i = -1;
 			while (++i < NUM_DOORS_MAX)
-				{
+			{
 				mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_key_icon);
 				mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_text_key_count);
-				}
+			}
 			// free enemies, keys, doors
 			cub3d->state = STATE_START;
 		}

@@ -34,6 +34,8 @@ void	game_over(cub3d_t *cub3d)
 		printf("Drawing name menu\n");
 		draw_name_menu(cub3d, &cub3d->name_menu);
 		printf("Setting state to enter name\n");
+		// while (cub3d->keys.w || cub3d->keys.a || cub3d->keys.s || cub3d->keys.d)
+		// 	;
 		cub3d->state = STATE_ENTERNAME;
 	}
 	else

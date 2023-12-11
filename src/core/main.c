@@ -22,7 +22,7 @@ int	read_all_levels(cub3d_t *cub3d)
 	{
 		// TODO maybe: add malloc fail handling?
 		level_i = ft_itoa(i);
-		path = ft_strjoin("../assets/levels/level", level_i);
+		path = ft_strjoin("assets/levels/level", level_i);
 		full_path = ft_strjoin(path, ".cub");
 		fd = open(full_path, O_RDONLY);
 		if (fd < 0)
@@ -42,7 +42,7 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 	int			i;
 	record_t	*ptr;
 
-	fd = open("../assets/records.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	fd = open("assets/records.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 		return (!err("Failed to open records file"));
 	i = 0;

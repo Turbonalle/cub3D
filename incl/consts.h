@@ -26,7 +26,7 @@
 # define DN '-'
 
 # define MOVEMENT_SPEED 6
-# define ROTATION_SPEED 1.5
+# define ROTATION_SPEED 2
 
 # define ENEMY_SPEED 0.05
 # define ENEMY_ROT_SPEED 0.1
@@ -47,10 +47,10 @@
 # define MINIMAP_COLOR_KEY_4 TEAL
 # define MINIMAP_TRANSPARENCY 20
 
-# define MINIMAP_TEXTURE_KEY_1 "../assets/textures/key_red_static.png"
-# define MINIMAP_TEXTURE_KEY_2 "../assets/textures/key_green_static.png"
-# define MINIMAP_TEXTURE_KEY_3 "../assets/textures/key_yellow_static.png"
-# define MINIMAP_TEXTURE_KEY_4 "../assets/textures/key_blue_static.png"
+# define MINIMAP_TEXTURE_KEY_1 "assets/textures/key_red_static.png"
+# define MINIMAP_TEXTURE_KEY_2 "assets/textures/key_green_static.png"
+# define MINIMAP_TEXTURE_KEY_3 "assets/textures/key_yellow_static.png"
+# define MINIMAP_TEXTURE_KEY_4 "assets/textures/key_blue_static.png"
 
 # define ANIMATION_INTERVAL_MS 66,6667
 

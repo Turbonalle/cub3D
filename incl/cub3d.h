@@ -92,7 +92,8 @@ int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	delete_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
-void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu);
+// void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu);
+void	delete_name_menu(name_menu_t *menu);
 
 void	draw_menu_background(mlx_image_t *img, int color);
 void	draw_button(mlx_image_t *img, button_t *button);

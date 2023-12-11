@@ -148,7 +148,7 @@ int	read_records(cub3d_t *cub3d, level_t *levels)
 	buf = malloc(sizeof(char) * (2048 + 1));
 	if (!buf)
 		return (err("Failed to malloc buf"));
-	fd = open("../assets/records.txt", O_RDONLY);
+	fd = open("assets/records.txt", O_RDONLY);
 	if (fd < 0)
 		return (free(buf), err("Failed to open records file"));
 	int bytes_read = read(fd, buf, 2048);

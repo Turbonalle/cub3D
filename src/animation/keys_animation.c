@@ -1,18 +1,5 @@
 #include "../incl/cub3d.h"
 
-/* int all_frames_to_window(cub3d_t *cub3d, mlx_image_t **frames)
-{
-    int i;
-
-    i = 0;
-    while (i < NUM_FRAMES_KEY)
-    {
-        mlx_image_to_window(cub3d->mlx, frames[i], 100, 100);
-        i++;
-    }
-    return (0);
-} */
-
 void    disable_frames_except(mlx_image_t **frames, int except)
 {
     int i;
@@ -41,7 +28,6 @@ void    draw_animated_keys(cub3d_t *cub3d)
         {
             printf("run_time: %f, divided byy %f : %f, after mod: %d\n", cub3d->run_time, ANIMATION_INTERVAL_MS * 1000, cub3d->run_time / ANIMATION_INTERVAL_MS * 1000, (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_KEY);
             curr_frame_num = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_KEY;
-
             //cub3d->level->key_groups[i].frames[(curr_frame_num + 24 - 1) % 24]->instances[0].enabled = false;
             //cub3d->level->key_groups[i].frames[curr_frame_num]->instances[0].enabled = true;
             //disable_frames_except(cub3d->level->key_groups[i].frames, curr_frame_num);
@@ -53,13 +39,10 @@ void    draw_animated_keys(cub3d_t *cub3d)
             cub3d->level->key_groups[i].frames[0]->instances[0].enabled = false; */
             // TODO: improve to disable all frames
             printf("reached\n");
-            
         }
         i++;
     }
 }
-
-#include "../incl/cub3d.h"
 
 /* void    disable_frames_except(mlx_image_t **frames, int except)
 {

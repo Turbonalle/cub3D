@@ -49,7 +49,7 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 void	draw_extras(cub3d_t *cub3d, int row, int column)
 {
 	int index;
-	
+
 	index = get_key_index(cub3d->level->map[row][column]);
 	if (index > -1)
 	{

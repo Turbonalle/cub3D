@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/04 11:22:23 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/11 13:14:28 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,6 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	ray->end.x = 0;
 	ray->end.y = 0;
 	return (ray);
-}
-
-static int	all_keys_found(cub3d_t *cub3d, int i)
-{
-	key_node_t	*temp;
-
-	temp = cub3d->level->key_groups[i].keys;
-	while (temp != NULL)
-	{
-		if (temp->collected == 0)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
 }
 
 static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
@@ -284,8 +270,8 @@ static int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 
 static void	enemy_advance(cub3d_t *cub3d, int i)
 {
-	cub3d->enemy[i].pos.x += cos(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_difficulty);
-	cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_difficulty);
+	cub3d->enemy[i].pos.x += cos(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
+	cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
 }
 
 int	check_if_player_is_seen(cub3d_t *cub3d, int i)
@@ -294,7 +280,7 @@ int	check_if_player_is_seen(cub3d_t *cub3d, int i)
 	double	angle_max;
 	double	at_target;
 
-	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_difficulty) * 2;
+	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_speed) * 2;
 	cub3d->enemy[i].dir_player = within_360(atan2(cub3d->player.pos.y - cub3d->enemy[i].pos.y, cub3d->player.pos.x - cub3d->enemy[i].pos.x) * 180 / M_PI);
 	angle_min = within_360(cub3d->enemy[i].angle * 180 / M_PI - 30);
 	angle_max = within_360(cub3d->enemy[i].angle * 180 / M_PI + 30);
@@ -324,7 +310,7 @@ void	enemy_vision(cub3d_t *cub3d)
 	double	at_target;
 
 	i = 0;
-	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_difficulty) * 2;
+	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_speed) * 2;
 	while (i < cub3d->num_enemies)
 	{
 		if (check_if_player_is_seen(cub3d, i))
@@ -343,13 +329,13 @@ void	enemy_vision(cub3d_t *cub3d)
 		}
 		else
 		{
-			if (cub3d->enemy[i].is_spinning == 0 && cub3d->settings.e_difficulty < 2)
+			if (cub3d->enemy[i].is_spinning == 0 && cub3d->settings.e_behaviour < 2)
 			{
 				cub3d->enemy[i].angle_start = within_two_pi(cub3d->enemy[i].angle - ENEMY_ROT_SPEED * M_PI / 180);
 				cub3d->enemy[i].is_spinning = 1;
 			}
 			cub3d->enemy[i].angle = within_two_pi(cub3d->enemy[i].angle + ENEMY_ROT_SPEED * M_PI / 180);
-			if ((fabs(cub3d->enemy[i].angle - cub3d->enemy[i].angle_start) < M_PI / 180 * ENEMY_ROT_SPEED && cub3d->settings.e_difficulty == 1) || cub3d->settings.e_difficulty == 2)
+			if ((fabs(cub3d->enemy[i].angle - cub3d->enemy[i].angle_start) < M_PI / 180 * ENEMY_ROT_SPEED && cub3d->settings.e_behaviour == 1) || cub3d->settings.e_behaviour == 2)
 			{
 				cub3d->enemy[i].angle = to_radians(rand() % 360);
 				enemy_movement_ray(cub3d, cub3d->enemy, i);

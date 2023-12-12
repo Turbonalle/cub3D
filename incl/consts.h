@@ -47,12 +47,17 @@
 # define MINIMAP_COLOR_KEY_4 TEAL
 # define MINIMAP_TRANSPARENCY 20
 
-# define MINIMAP_TEXTURE_KEY_1 "assets/textures/key_red_static.png"
-# define MINIMAP_TEXTURE_KEY_2 "assets/textures/key_green_static.png"
-# define MINIMAP_TEXTURE_KEY_3 "assets/textures/key_yellow_static.png"
-# define MINIMAP_TEXTURE_KEY_4 "assets/textures/key_blue_static.png"
+# define TEXTURE_KEY_1 "./assets/textures/key_red_static.png"
+# define TEXTURE_KEY_2 "./assets/textures/key_green_static.png"
+# define TEXTURE_KEY_3 "./assets/textures/key_yellow_static.png"
+# define TEXTURE_KEY_4 "./assets/textures/key_blue_static.png"
+# define FRAME_PATH_KEY_1 "./assets/textures/red/"
+# define FRAME_PATH_KEY_2 "./assets/textures/green/"
+# define FRAME_PATH_KEY_3 "./assets/textures/yellow/"
+# define FRAME_PATH_KEY_4 "./assets/textures/blue/"
 
-# define ANIMATION_INTERVAL_MS 66,6667
+# define ANIMATION_INTERVAL_MS 66.6667
+# define NUM_FRAMES_KEY 24
 
 # define MINIMAP_ZOOM_INCREMENT 5
 

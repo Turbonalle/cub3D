@@ -173,6 +173,7 @@ double	dist_between(vector_t a, dvector_t b);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);
+int		all_keys_found(cub3d_t *cub3d, int i);
 
 
 //---- CORE --------------------------------------------------------------------
@@ -222,6 +223,7 @@ int	init_doors_and_keys(cub3d_t *cub3d);
 
 //key_counts.c
 void draw_key_counts(cub3d_t *cub3d);
+void    draw_animated_keys(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------
 
@@ -301,4 +303,6 @@ void	print_letter_indexes(name_menu_t *menu, int backspace);
 
 int		init_enemy(cub3d_t *cub3d);
 void	enemy_vision(cub3d_t *cub3d);
+
+void	draw_enemies(cub3d_t *cub3d);
 #endif

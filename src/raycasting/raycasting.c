@@ -19,20 +19,6 @@ static int	goal_found(cub3d_t *cub3d, vector_t vMapCheck)
 			&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'G');
 }
 
-static int	all_keys_found(cub3d_t *cub3d, int i)
-{
-	key_node_t	*temp;
-
-	temp = cub3d->level->key_groups[i].keys;
-	while (temp != NULL)
-	{
-		if (temp->collected == 0)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
-}
-
 static int	door_found(cub3d_t *cub3d, vector_t vMapCheck, ray_t *ray)
 {
 	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->level->map_columns && vMapCheck.y >= 0

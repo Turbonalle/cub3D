@@ -359,7 +359,7 @@ typedef struct settings_menu_s
 
 # define MAX_NAME_LENGTH 12
 # define ALPHABET "abcdefghijklmnopqrstuvwxyz "
-# define ALPHABET_LENGTH 27
+# define ALPHABET_LENGTH 26
 
 enum letters
 {
@@ -388,8 +388,7 @@ enum letters
 	w,
 	x,
 	y,
-	z,
-	space
+	z
 };
 
 typedef struct letter_box_s

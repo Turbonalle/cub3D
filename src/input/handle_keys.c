@@ -42,6 +42,7 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		if (cub3d->state == STATE_GAME)
 		{
 			printf("Back to start menu\n");
+			free_info(cub3d->level->map);
 			mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 			draw_start_menu(cub3d, &cub3d->start_menu);
 			int i = -1;

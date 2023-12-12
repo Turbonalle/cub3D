@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:40 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/28 12:32:35 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/12 13:00:07 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void print_array(char **array, char *name)
 	printf(TERMINAL_CYAN"%s:\n"TERMINAL_RESET, name);
 	int i = -1;
 	while (array[++i])
-		printf("array[%d] = %s", i, array[i]);
+		printf("array[%d] = %s\n", i, array[i]);
 }
 
 //------------------------------------------------------------------------------

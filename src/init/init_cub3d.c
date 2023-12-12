@@ -306,6 +306,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
 	cub3d->n_levels = 9;
+	cub3d->num_enemies = 0;
 	set_keys(&cub3d->keys);
 	init_start_menu(cub3d, &cub3d->start_menu);
 	init_level_menu(cub3d, &cub3d->level_menu);

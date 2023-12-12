@@ -47,19 +47,18 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	}
 }
 
-void	delete_name_menu(name_menu_t *menu)
+void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 {
-	int	letter;
-	int	index;
+	int	i;
 
-	menu->img->instances[0].enabled = FALSE;
-	menu->text_win_message->instances[0].enabled = FALSE;
-	while (menu->current > 0)
-	{
-		menu->current--;
-		letter = menu->name[menu->current] - 'a';
-		index = menu->letter_index[menu->current];
-		menu->letters_img[letter]->instances[index].enabled = FALSE;
-		menu->name[menu->current] = '\0';
-	}
+	mlx_delete_image(cub3d->mlx, menu->img);
+	mlx_delete_image(cub3d->mlx, menu->text_title);
+	i = -1;
+	while (++i < ALPHABET_LENGTH)
+		mlx_delete_image(cub3d->mlx, menu->letters_img[i]);
+}
+
+void	delete_menus(cub3d_t *cub3d)
+{
+	delete_name_menu(cub3d, &cub3d->name_menu);
 }

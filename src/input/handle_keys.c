@@ -50,6 +50,13 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 			{
 				mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_key_icon);
 				mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_text_key_count);
+				if (cub3d->level->key_groups[i].num_keys_total)
+				{
+					free(cub3d->level->key_groups[i].textures_frames);
+					free(cub3d->level->key_groups[i].frames);
+					free_keys(cub3d->level->key_groups[i].keys);
+				}
+				free_doors(cub3d->level->door_groups[i].door_positions);
 			}
 			// free enemies, keys, doors
 			cub3d->state = STATE_START;

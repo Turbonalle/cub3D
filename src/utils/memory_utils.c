@@ -98,4 +98,7 @@ void	free_cub3d(cub3d_t *cub3d)
 	}
 	if (cub3d->num_enemies)
 		free(cub3d->enemy);
+	free(cub3d->levels);
+	free(cub3d->leaderboard.rect_level);
+	free(cub3d->leaderboard.text_level);
 }

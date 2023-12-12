@@ -32,7 +32,6 @@ void	init_letter_images(cub3d_t *cub3d, name_menu_t *menu)
 		menu->letter_str[i][1] = '\0';
 		menu->letters_img[i] = mlx_put_string(cub3d->mlx, menu->letter_str[i], 0, 0);
 		menu->letters_img[i]->instances[0].enabled = FALSE;
-		menu->n_letters[i] = 0;
 	}
 }
 
@@ -46,7 +45,10 @@ void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 
 	int i = -1;
 	while (++i < MAX_NAME_LENGTH)
+	{
 		menu->name[i] = '\0';
+		menu->letter_index[i] = 0;
+	}
 
 	// set title
 	menu->rect_title.width = cub3d->mlx->width * 0.4;

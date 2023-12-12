@@ -1,13 +1,57 @@
 #include "../incl/cub3d.h"
 
-void	update_letter(mlx_t *mlx, name_menu_t *menu, char letter, int n)
+void	print_letter_indexes(name_menu_t *menu, int backspace)
 {
-		menu->name[menu->current] = letter;
-		menu->n_letters[n] = mlx_image_to_window(mlx, menu->letters_img[n], menu->box[menu->current].pos.x + menu->box[menu->current].width * 0.5, menu->box[menu->current].pos.y + menu->box[menu->current].height * 0.5);
-		menu->letters_img[n]->instances[menu->n_letters[n]].x -= menu->letters_img[n]->width * 0.5;
-		menu->letters_img[n]->instances[menu->n_letters[n]].y -= menu->letters_img[n]->height * 0.5;
-		if (menu->current < MAX_NAME_LENGTH)
-			menu->current++;
+	int i;
+
+	i = -1;
+	while (++i < menu->current)
+	{
+		if (i == menu->current - 1 && backspace == 0)
+			printf(TERMINAL_GREEN);
+		else if (i == menu->current - 1 && backspace == 1)
+			printf(TERMINAL_RED);
+		else
+			printf(TERMINAL_RESET);
+		if (menu->name[i] == '\0')
+			printf("   ");
+		else
+			printf(" %c ", menu->name[i]);
+	}
+	printf(TERMINAL_RESET);
+	printf("\n");
+	i = -1;
+	while (++i < menu->current)
+	{
+		if (i == menu->current - 1 && backspace == 0)
+			printf(TERMINAL_GREEN);
+		else if (i == menu->current - 1 && backspace == 1)
+			printf(TERMINAL_RED);
+		else
+			printf(TERMINAL_RESET);
+		if (menu->letter_index[i] == 0)
+			printf("   ");
+		else
+		{
+			if (menu->letter_index[i] < 10)
+				printf(" %d ", menu->letter_index[i]);
+			else
+				printf("%d ", menu->letter_index[i]);
+		}
+	}
+	printf(TERMINAL_RESET);
+	printf("\n\n");
+}
+
+void	update_letter(mlx_t *mlx, name_menu_t *menu, char letter, int i)
+{
+	menu->name[menu->current] = letter;
+	menu->letter_index[menu->current] = mlx_image_to_window(mlx, menu->letters_img[i], menu->box[menu->current].pos.x + menu->box[menu->current].width * 0.5, menu->box[menu->current].pos.y + menu->box[menu->current].height * 0.5);
+	menu->letters_img[i]->instances[menu->letter_index[menu->current]].x -= menu->letters_img[i]->width * 0.5;
+	menu->letters_img[i]->instances[menu->letter_index[menu->current]].y -= menu->letters_img[i]->height * 0.5;
+	if (menu->current < MAX_NAME_LENGTH)
+		menu->current++;
+	print_letter_indexes(menu, 0);
 }
 
 void	get_letter(cub3d_t *cub3d, name_menu_t *menu)
@@ -24,12 +68,12 @@ void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu)
 	{
 		if (menu->current > 0)
 		{
-			int letter = menu->name[menu->current - 1] - 'a';
-			int index = menu->n_letters[letter];
-			menu->name[menu->current - 1] = '\0';
-			menu->letters_img[letter]->instances[index].enabled = FALSE;
-			menu->n_letters[letter]--;
 			menu->current--;
+			int letter = menu->name[menu->current] - 'a';
+			int index = menu->letter_index[menu->current];
+			menu->name[menu->current] = '\0';
+			menu->letters_img[letter]->instances[index].enabled = FALSE;
+			print_letter_indexes(menu, 1);
 		}
 	}
 }

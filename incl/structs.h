@@ -418,10 +418,10 @@ typedef struct name_menu_s
 	int			current;
 	char		letter;
 	mlx_image_t *letters_img[ALPHABET_LENGTH];
-	int			n_letters[ALPHABET_LENGTH];
 	char		letter_str[ALPHABET_LENGTH + 1][2];
 	letter_box_t	box[MAX_NAME_LENGTH];
 	char		name[MAX_NAME_LENGTH + 1];
+	int			letter_index[MAX_NAME_LENGTH];
 	int			changed;
 	int			background_color;
 }				name_menu_t;

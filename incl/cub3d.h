@@ -293,6 +293,7 @@ void	print_array(char **array, char *name);
 void	print_map(char **map);
 void	test(void);
 void	print_settings(cub3d_t *cub3d);
+void	print_letter_indexes(name_menu_t *menu, int backspace);
 
 
 int		init_enemy(cub3d_t *cub3d);

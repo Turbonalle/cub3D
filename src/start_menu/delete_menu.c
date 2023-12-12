@@ -36,7 +36,6 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	int i = 0;
 	while (++i < cub3d->n_levels)
 	{
-		// mlx_delete_image(cub3d->mlx, board->text_level[i]);
 		ptr = cub3d->levels[i].records;
 		int entry = -1;
 		while (++entry < board->n_entries && ptr)
@@ -50,10 +49,17 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 
 void	delete_name_menu(name_menu_t *menu)
 {
+	int	letter;
+	int	index;
+
 	menu->img->instances[0].enabled = FALSE;
 	menu->text_win_message->instances[0].enabled = FALSE;
-	// mlx_delete_image(cub3d->mlx, menu->text_title);
-	int i = 0;
-	while (++i < MAX_NAME_LENGTH)
-		menu->box[i].img->instances[0].enabled = FALSE;
+	while (menu->current > 0)
+	{
+		menu->current--;
+		letter = menu->name[menu->current] - 'a';
+		index = menu->letter_index[menu->current];
+		menu->letters_img[letter]->instances[index].enabled = FALSE;
+		menu->name[menu->current] = '\0';
+	}
 }

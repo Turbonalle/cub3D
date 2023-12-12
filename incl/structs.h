@@ -393,10 +393,8 @@ enum letters
 
 typedef struct letter_box_s
 {
-	mlx_image_t	*img;
 	char		letter[2];
 	vector_t	pos;
-	int			size;
 	int			width;
 	int			height;
 	int			background_color;

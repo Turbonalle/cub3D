@@ -1,48 +1,5 @@
 #include "../incl/cub3d.h"
 
-void	print_letter_indexes(name_menu_t *menu, int backspace)
-{
-	int i;
-
-	i = -1;
-	while (++i < menu->current)
-	{
-		if (i == menu->current - 1 && backspace == 0)
-			printf(TERMINAL_GREEN);
-		else if (i == menu->current - 1 && backspace == 1)
-			printf(TERMINAL_RED);
-		else
-			printf(TERMINAL_RESET);
-		if (menu->name[i] == '\0')
-			printf("   ");
-		else
-			printf(" %c ", menu->name[i]);
-	}
-	printf(TERMINAL_RESET);
-	printf("\n");
-	i = -1;
-	while (++i < menu->current)
-	{
-		if (i == menu->current - 1 && backspace == 0)
-			printf(TERMINAL_GREEN);
-		else if (i == menu->current - 1 && backspace == 1)
-			printf(TERMINAL_RED);
-		else
-			printf(TERMINAL_RESET);
-		if (menu->letter_index[i] == 0)
-			printf("   ");
-		else
-		{
-			if (menu->letter_index[i] < 10)
-				printf(" %d ", menu->letter_index[i]);
-			else
-				printf("%d ", menu->letter_index[i]);
-		}
-	}
-	printf(TERMINAL_RESET);
-	printf("\n\n");
-}
-
 void	update_letter(mlx_t *mlx, name_menu_t *menu, char letter, int i)
 {
 	menu->name[menu->current] = letter;
@@ -128,16 +85,7 @@ void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu)
 
 void	submit_name(cub3d_t *cub3d, name_menu_t *menu)
 {
-	int	i;
-
-	i = -1;
-	while (++i < MAX_NAME_LENGTH)
-		menu->name[i] = menu->box[i].letter[0];
-
 	add_record(&cub3d->level->records, cub3d->time_finished, ft_strdup(menu->name), cub3d->leaderboard.n_entries);
-	i = -1;
-	while (++i < MAX_NAME_LENGTH)
-		menu->name[i] = '\0';
 }
 
 void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu)
@@ -147,7 +95,6 @@ void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 		if (cub3d->keys.enter || cub3d->keys.escape)
 		{
 			submit_name(cub3d, menu);
-			menu->img->instances[0].enabled = FALSE;
 			delete_name_menu(menu);
 			draw_leaderboard(cub3d, &cub3d->leaderboard);
 			cub3d->state = STATE_LEADERBOARD;

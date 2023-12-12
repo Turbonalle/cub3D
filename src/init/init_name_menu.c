@@ -79,8 +79,6 @@ void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 		menu->box[i].border_width = 1;
 		menu->box[i].letter[0] = '\0';
 		menu->box[i].letter[1] = '\0';
-		menu->box[i].img = NULL;
-		// menu->box[i].img->instances[0].enabled = FALSE;
 	}
 
 	// create image

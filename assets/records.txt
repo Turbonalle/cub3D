@@ -8,14 +8,14 @@
 16917 nona
 
 7433 nona
-8000 nona
-8001 nona
+7816 nona
 
-1101 w
-1150 w
-1183 
-1533 w
-2200 w
+1083 nona
+1100 nona
+1100 nona
+1100 nona
+1100 nona
+1100 nona
 
 
 

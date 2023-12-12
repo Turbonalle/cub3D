@@ -52,7 +52,7 @@ void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 	int	i;
 
 	mlx_delete_image(cub3d->mlx, menu->img);
-	mlx_delete_image(cub3d->mlx, menu->text_title);
+	mlx_delete_image(cub3d->mlx, menu->text_win_message);
 	i = -1;
 	while (++i < ALPHABET_LENGTH)
 		mlx_delete_image(cub3d->mlx, menu->letters_img[i]);

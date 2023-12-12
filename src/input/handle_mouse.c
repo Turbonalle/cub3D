@@ -86,9 +86,9 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		{
 			if (hover_button(cub3d, &cub3d->leaderboard.button_back))
 			{
-				cub3d->state = STATE_LEVEL;
 				delete_leaderboard(cub3d, &cub3d->leaderboard);
 				draw_level_menu(cub3d, &cub3d->level_menu);
+				cub3d->state = STATE_LEVEL;
 			}
 		}
 	}

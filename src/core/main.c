@@ -40,7 +40,9 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 {
 	int			fd;
 	int			i;
+	char		*time;
 	record_t	*ptr;
+	record_t	*temp;
 
 	fd = open("assets/records.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
@@ -53,13 +55,18 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 		{
 			if (ptr->time > 0)
 			{
+				time = ft_itoa(ptr->time);
 				printf("Time = %d\n", ptr->time);
-				write(fd, ft_itoa(ptr->time), ft_strlen(ft_itoa(ptr->time)));
+				write(fd, time, ft_strlen(time));
 				write(fd, " ", 1);
 				write(fd, ptr->name, ft_strlen(ptr->name));
 				write(fd, "\n", 1);
+				free(time);
 			}
-			ptr = ptr->next;
+			temp = ptr;
+			free(ptr->name);
+			free(ptr);
+			ptr = temp->next;
 		}
 		write(fd, "\n", 1);
 	}

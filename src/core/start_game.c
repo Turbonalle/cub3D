@@ -93,6 +93,7 @@ void	update(void *param)
 	else if (cub3d->state == STATE_GAMEOVER)
 	{
 		// update_end_menu(cub3d, &cub3d->gameover_menu);
+		free_info(cub3d->level->map);
 		cub3d->state = STATE_START;
 	}
 }

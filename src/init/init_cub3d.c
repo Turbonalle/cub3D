@@ -223,7 +223,6 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	int	i;
 	int	j;
 	int	door_key_index;
-	
 
 	i = 0;
 	while (i < NUM_DOORS_MAX)
@@ -253,6 +252,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 			door_key_index = get_door_index(cub3d->level->map[i][j]);
 			if (door_key_index != -1)
 			{
+				printf("DOOR\n");
 				if (init_door(cub3d, i, j, door_key_index) == FAIL)
 					return (FAIL);
 			}

@@ -60,47 +60,45 @@ void	free_doors(door_pos_t *head)
 	}
 }
 
+void	free_backup(level_t level)
+{
+	int	i;
+
+	i = 0;
+	while (level.backup[i])
+	{
+		free(level.backup[i]);
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
+		free(level.texture[i].path);
+		i++;
+	}
+	free(level.backup);
+}
+
 void	free_cub3d(cub3d_t *cub3d)
 {
 	int	i;
 
-	i = -1;
-	while (++i < 4)
+	i = 0;
+	while (i <= 9)
 	{
-		printf("freeing texture %d\n", i);
-		if (cub3d->level->texture[i].path)
-			free(cub3d->level->texture[i].path);
-		// if (cub3d->texture[i].img)
-		// 	free(cub3d->texture[i].img);
+		free_list(cub3d->levels[i].map_list);
+		i++;
 	}
-	i = -1;
-	printf("freeing map list\n");
-	free_list(cub3d->level->map_list);
-	printf("freeing rays\n");
 	free(cub3d->rays);
-	while (cub3d->level->map[++i])
+	i = 0;
+	while (i <= 9)
 	{
-		printf("freeing map line %d\n", i);
-		free(cub3d->level->map[i]);
-	}
-	if (cub3d->level->map)
-	{
-		printf("freeing map\n");
-		free(cub3d->level->map);
+		free_backup(cub3d->levels[i]);
+		i++;
 	}
 	if (cub3d->num_enemies)
-	{
-		printf("freeing enemies\n");
 		free(cub3d->enemy);
-	}
-	i = -1;
-	while (++i < NUM_DOORS_MAX)
-	{
-		printf("freeing key group %d\n", i);
-		free_keys(cub3d->level->key_groups[i].keys);
-		printf("freeing door group %d\n", i);
-		free_doors(cub3d->level->door_groups[i].door_positions);
-	}
-	printf("deleting menus\n");
-	delete_menus(cub3d);
+	free(cub3d->levels);
+	free(cub3d->leaderboard.rect_level);
+	free(cub3d->leaderboard.text_level);
 }

@@ -280,7 +280,8 @@ void	free_info(char **info);
 void	free_cub3d(cub3d_t *cub3d);
 void	free_list(map_node_t *node);
 void	free_record(record_t *record);
-
+void	free_doors(door_pos_t *head);
+void	free_keys(key_node_t *head);
 
 // error_utils.c
 int		err(char *error_message);

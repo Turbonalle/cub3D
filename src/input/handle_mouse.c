@@ -59,7 +59,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			int i;
 
 			i = -1;
-			while (++i < 9)
+			while (++i < cub3d->n_levels - 1)
 			{
 				if (hover_button(cub3d, &cub3d->level_menu.buttons[i]))
 				{
@@ -79,16 +79,16 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			}
 			if (hover_button(cub3d, &cub3d->level_menu.button_leaderboard))
 			{
-				cub3d->state = STATE_LEADERBOARD;
 				disable_level_menu(&cub3d->level_menu);
-				draw_leaderboard(cub3d, &cub3d->leaderboard);
+				enable_leaderboard(cub3d, &cub3d->leaderboard);
+				cub3d->state = STATE_LEADERBOARD;
 			}
 		}
 		else if (cub3d->state == STATE_LEADERBOARD)
 		{
 			if (hover_button(cub3d, &cub3d->leaderboard.button_back))
 			{
-				delete_leaderboard(cub3d, &cub3d->leaderboard);
+				disable_leaderboard(cub3d, &cub3d->leaderboard);
 				enable_level_menu(&cub3d->level_menu);
 				cub3d->state = STATE_LEVEL;
 			}

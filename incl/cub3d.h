@@ -86,7 +86,8 @@ void	init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 // init_leaderboard.c
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 
-//---- START MENU --------------------------------------------------------------
+
+//---- MENUS -------------------------------------------------------------------
 
 // delete_menu.c
 void	delete_menus(cub3d_t *cub3d);
@@ -105,27 +106,24 @@ void	disable_level_menu(level_menu_t *menu);
 void	enable_level_menu(level_menu_t *menu);
 void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 
-// draw_leaderboard.c
-int		draw_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+// leaderboard
+void	disable_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+void	enable_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 
 // name menu
 void	disable_name_menu(name_menu_t *menu);
 void	enable_name_menu(name_menu_t *menu);
 void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
-// update_leaderboard.c
-void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 
-// draw_start_menu.c
-// void	draw_button(mlx_image_t *img, button_t *button);
-// void	draw_start_menu_background(cub3d_t *cub3d, start_menu_t *menu);
+// start menu
 void	disable_start_menu(start_menu_t *menu);
 void	enable_start_menu(start_menu_t *menu);
-
-// update_start_menu.c
 void	get_transition_color(cub3d_t *cub3d, int *color);
 void	check_button_hover(cub3d_t *cub3d, start_menu_t *menu);
 void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+
 
 //---- PAUSE MENU --------------------------------------------------------------
 

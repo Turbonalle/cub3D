@@ -96,7 +96,7 @@ void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 		{
 			submit_name(cub3d, menu);
 			disable_name_menu(menu);
-			draw_leaderboard(cub3d, &cub3d->leaderboard);
+			enable_leaderboard(cub3d, &cub3d->leaderboard);
 			cub3d->state = STATE_LEADERBOARD;
 			menu->changed = FALSE;
 			return ;

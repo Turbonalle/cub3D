@@ -118,6 +118,13 @@ int	set_records(level_t *level, char **buf, int n_entries)
 	char	*name;
 	int		time;
 
+	// if (**buf == '\n')
+	// {
+	// 	printf("No records for this level\n");
+	// 	level->records = NULL;
+	// 	(*buf)++;
+	// 	return (SUCCESS);
+	// }
 	while (**buf && **buf != '\n')
 	{
 		if (!get_record_time(buf, &time))
@@ -125,12 +132,14 @@ int	set_records(level_t *level, char **buf, int n_entries)
 		if (!get_record_name(buf, &name))
 			return (err("Failed to get name string"));
 		add_record(&level->records, time, name, n_entries);
-		if (**buf == '\n')
-			(*buf)++;
-		else
+		// if (**buf == '\n')
+		// 	(*buf)++;
+		// else
+		// 	return (err("Invalid record format"));
+		if (**buf != '\n')
 			return (err("Invalid record format"));
-		if (**buf == '\n')
-			break ;
+		// if (**buf == '\n')
+		// 	break ;
 	}
 	if (**buf == '\n')
 		(*buf)++;
@@ -155,11 +164,20 @@ int	read_records(cub3d_t *cub3d, level_t *levels)
 	if (bytes_read < 0)
 		return (free(buf), err("Failed to read records file"));
 	buf[bytes_read] = '\0';
-	// printf("%s\n", buf);	// DEBUG
+	printf("%s\n", buf);	// DEBUG
 	temp = buf;
 	i = 0;
 	while (*temp && ++i < cub3d->n_levels)
 	{
+		printf("SETTING RECORDS FOR LEVEL %d\n", i);
+		// if (*temp == '\n')
+		// {
+		// 	printf("No records for this level\n");
+		// 	levels->records = NULL;
+		// 	temp++;
+		// 	continue ;
+		// }
+		// printf("Setting records for level %d\n", i);
 		if (!set_records(&cub3d->levels[i], &temp, cub3d->leaderboard.n_entries))
 			return (err("Failed to set records"));
 	}

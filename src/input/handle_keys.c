@@ -140,7 +140,7 @@ void	handle_leaderboard_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
-		delete_leaderboard(cub3d, &cub3d->leaderboard);
+		disable_leaderboard(cub3d, &cub3d->leaderboard);
 		enable_level_menu(&cub3d->level_menu);
 		cub3d->state = STATE_LEVEL;
 	}

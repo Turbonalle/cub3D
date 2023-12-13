@@ -178,6 +178,9 @@ int		all_keys_found(cub3d_t *cub3d, int i);
 
 //---- CORE --------------------------------------------------------------------
 
+// cursor.c
+void	handle_cursor(cub3d_t *cub3d);
+
 // game_over.c
 void	game_over(cub3d_t *cub3d);
 

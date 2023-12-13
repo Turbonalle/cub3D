@@ -21,7 +21,11 @@ void update_settings(cub3d_t *cub3d, pause_menu_t *menu)
 		if (menu->box_fisheye[i].state == TRUE)
 			cub3d->settings.fisheye = menu->box_fisheye[i].value;
 		if (menu->box_mouse[i].state == TRUE)
+		{
 			cub3d->settings.mouse = menu->box_mouse[i].value;
+			// cub3d->mouse_set_pos.x = cub3d->mouse.x;
+			// printf("Mouse active! mouse_set_pos.x: %d\n", cub3d->mouse_set_pos.x);
+		}
 	}
 }
 
@@ -102,7 +106,7 @@ void update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
 		}
 	}
 	update_settings(cub3d, menu);
-	print_settings(cub3d);
+	// print_settings(cub3d);
 }
 
 void update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)

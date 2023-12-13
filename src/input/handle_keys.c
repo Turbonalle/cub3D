@@ -93,6 +93,7 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 		pause_timer(cub3d);
 		draw_pause_menu(cub3d, &cub3d->pause_menu);
 		cub3d->state = STATE_PAUSE;
+		handle_cursor(cub3d);
 	}
 	else if (keydata.key == MLX_KEY_T)
 	{
@@ -114,6 +115,7 @@ void	handle_pause_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	{
 		delete_pause_menu(cub3d);
 		cub3d->state = STATE_GAME;
+		handle_cursor(cub3d);
 		continue_timer(cub3d);
 	}
 }

@@ -130,9 +130,7 @@ void	handle_level_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
-		printf("deleting level menu\n");
-		delete_level_menu(cub3d, &cub3d->level_menu);
-		printf("enabling start menu\n");
+		disable_level_menu(&cub3d->level_menu);
 		enable_start_menu(&cub3d->start_menu);
 		cub3d->state = STATE_START;
 	}
@@ -143,7 +141,7 @@ void	handle_leaderboard_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		delete_leaderboard(cub3d, &cub3d->leaderboard);
-		draw_level_menu(cub3d, &cub3d->level_menu);
+		enable_level_menu(&cub3d->level_menu);
 		cub3d->state = STATE_LEVEL;
 	}
 }

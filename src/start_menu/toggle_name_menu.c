@@ -27,7 +27,7 @@ void	reset_name_menu(name_menu_t *menu)
 		menu->box[i].letter[0] = '\0';
 }
 
-void	draw_name_menu(name_menu_t *menu)
+void	enable_name_menu(name_menu_t *menu)
 {
 	reset_name_menu(menu);
 	menu->img->instances[0].enabled = TRUE;

@@ -96,22 +96,21 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 // disable_menu.c
-void	disable_name_menu(name_menu_t *menu);
 
 void	draw_menu_background(mlx_image_t *img, int color);
 void	draw_button(mlx_image_t *img, button_t *button);
 
-// draw_level_menu.c
-void	draw_level_menu(cub3d_t *cub3d, level_menu_t *menu);
-
-// update_level_menu.c
+// level menu
+void	disable_level_menu(level_menu_t *menu);
+void	enable_level_menu(level_menu_t *menu);
 void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 
 // draw_leaderboard.c
 int		draw_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 
 // name menu
-void	draw_name_menu(name_menu_t *menu);
+void	disable_name_menu(name_menu_t *menu);
+void	enable_name_menu(name_menu_t *menu);
 void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 // update_leaderboard.c

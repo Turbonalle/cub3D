@@ -25,11 +25,13 @@ void	game_over(cub3d_t *cub3d)
 	{
 		draw_name_menu(cub3d, &cub3d->name_menu);
 		cub3d->state = STATE_ENTERNAME;
+		handle_cursor(cub3d);
 	}
 	else
 	{
 		draw_start_menu(cub3d, &cub3d->start_menu);
 		cub3d->state = STATE_START;
+		handle_cursor(cub3d);
 		// cub3d->state = STATE_GAMEOVER;
 	}
 }

@@ -10,7 +10,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 	if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 	{
 		cub3d->keys.mouse_left = TRUE;
-		if (cub3d->state == STATE_GAME)
+		if (cub3d->state == STATE_GAME && cub3d->settings.mouse == FALSE) // added check if settings.mouse is off, to prevent player from moving minimap (and let program use mouse_set_pos for player rotation with mouse)
 		{
 			if (hover_minimap(cub3d))
 			{
@@ -36,6 +36,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 				delete_start_menu(cub3d, &cub3d->start_menu);
 				cub3d->level = &cub3d->levels[0];
 				load_level(cub3d, cub3d->level);
+				handle_cursor(cub3d);
 				start_timer(cub3d);
 			}
 			else if (hover_button(cub3d, &cub3d->start_menu.button_level))
@@ -66,6 +67,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 					delete_level_menu(cub3d, &cub3d->level_menu);
 					cub3d->level = &cub3d->levels[i + 1];
 					load_level(cub3d, &cub3d->levels[i + 1]);
+					handle_cursor(cub3d);
 					start_timer(cub3d);
 				}
 			}

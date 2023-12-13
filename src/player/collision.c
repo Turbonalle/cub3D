@@ -88,6 +88,7 @@ void collision_checker(cub3d_t *cub3d)
 	}
 	else if (new_pos_is_goal(cub3d))
 	{
+		free_info(cub3d->level->map);
 		game_over(cub3d);
 	}
 	else

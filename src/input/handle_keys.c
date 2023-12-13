@@ -103,7 +103,29 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 		printf("Back to start menu\n");
 		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 		draw_start_menu(cub3d, &cub3d->start_menu);
-		// free enemies, keys, doors
+		free_info(cub3d->level->map);
+		if (cub3d->num_enemies)
+			free(cub3d->enemy);
+		int i = 0;
+		int j;
+		while (i < NUM_DOORS_MAX)
+		{
+			free_doors(cub3d->level->door_groups[i].door_positions);
+			if (cub3d->level->key_groups[i].num_keys_total)
+			{
+				free_keys(cub3d->level->key_groups[i].keys);
+				j = 0;
+				while (j < NUM_FRAMES_KEY)
+				{
+					free(cub3d->level->key_groups[i].textures_frames[j]);
+					j++;
+				}
+				free(cub3d->level->key_groups[i].frames);
+				free(cub3d->level->key_groups[i].textures_frames);
+				free(cub3d->level->key_groups[i].texture_key_icon);
+			}
+			i++;
+		}
 		cub3d->state = STATE_START;
 	}
 }

@@ -14,8 +14,6 @@ void	draw_times(mlx_t *mlx, record_t **records, leaderboard_t *board, int level)
 	margin_y = board->rect_level[level - 1].height * 0.2;
 	pos.x = board->rect_level[level - 1].pos.x + margin_x;
 	i = -1;
-	if (ptr == NULL)
-		printf("ptr [%d] is NULL\n", level);
 	while (++i < board->n_entries && ptr)
 	{
 		pos.y = board->rect_level[level - 1].pos.y + margin_y + i * (board->rect_level[level - 1].height - 2 * margin_y) / board->n_entries;
@@ -38,7 +36,6 @@ void	draw_names(mlx_t *mlx, record_t **records, leaderboard_t *board, int level)
 	i = -1;
 	while (++i < board->n_entries && ptr)
 	{
-		printf("drawing name [%d, %d] = %s\n", level, i, ptr->name);
 		pos.y = board->rect_level[level - 1].pos.y + margin_y + i * (board->rect_level[level - 1].height - 2 * margin_y) / board->n_entries;
 		ptr->text_name = mlx_put_string(mlx, ptr->name, pos.x, pos.y);
 		ptr = ptr->next;
@@ -59,7 +56,6 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 
 	// set other variables
 	board->background_color = BLACK;
-	board->n_entries = 5;
 
 	// set title
 	board->rect_title.width = cub3d->mlx->width * 0.4;
@@ -116,12 +112,12 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	board->text_title = mlx_put_string(cub3d->mlx, "Leaderboard", board->rect_title.pos.x + board->rect_title.width * 0.5, board->rect_title.pos.y + board->rect_title.height * 0.5);
 	center(board->text_title);
 	
-	i = 0;
-	while (++i < cub3d->n_levels)
-	{
-		draw_names(cub3d->mlx, &cub3d->levels[i].records, board, i);
-		draw_times(cub3d->mlx, &cub3d->levels[i].records, board, i);
-	}
+	// i = 0;
+	// while (++i < cub3d->n_levels)
+	// {
+	// 	draw_names(cub3d->mlx, &cub3d->levels[i].records, board, i);
+	// 	draw_times(cub3d->mlx, &cub3d->levels[i].records, board, i);
+	// }
 	disable_leaderboard(cub3d, board);
 	return (SUCCESS);
 }

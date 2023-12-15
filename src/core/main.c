@@ -93,9 +93,6 @@ int	check_ext(char *str)
 	return (1);
 }
 
-// Store av[1] in cub3d->levels[0]
-// Read levels in level folder into cub3d->levels[1-9]
-
 int	main(int ac, char **av)
 {
 	cub3d_t	cub3d;

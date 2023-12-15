@@ -107,6 +107,8 @@ void	enable_level_menu(level_menu_t *menu);
 void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 
 // leaderboard
+void	draw_times(mlx_t *mlx, record_t **records, leaderboard_t *board, int level);
+void	draw_names(mlx_t *mlx, record_t **records, leaderboard_t *board, int level);
 void	disable_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	enable_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
@@ -183,7 +185,7 @@ void	handle_cursor(cub3d_t *cub3d);
 void	game_over(cub3d_t *cub3d);
 
 // records.c
-int		add_record(record_t **records, int time, char *name, int n_entries);
+int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
 int		read_records(cub3d_t *cub3d, level_t *levels);
 
 // load_level.c
@@ -273,6 +275,7 @@ void	raycasting(cub3d_t *cub3d);
 //---- UTILS -------------------------------------------------------------------
 
 // check_utils.c
+int		get_current_level(cub3d_t *cub3d);
 int		all_alpha(char *str);
 int		all_digits(char *str);
 

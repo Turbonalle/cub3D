@@ -76,14 +76,17 @@ void	update(void *param)
 		if (cub3d->keys.mouse_left && cub3d->on_minimap)
 			move_minimap(cub3d);
 		player_movement(cub3d);
-		draw_background(cub3d);
-		raycasting(cub3d);
-		draw_world(cub3d);
-		minimap(cub3d);
-		enemy_vision(cub3d);
-		draw_enemies(cub3d);
-		draw_timer(cub3d);
-		draw_animated_keys(cub3d);
+		if (cub3d->state == STATE_GAME)
+		{
+			draw_background(cub3d);
+			raycasting(cub3d);
+			draw_world(cub3d);
+			minimap(cub3d);
+			enemy_vision(cub3d);
+			draw_enemies(cub3d);
+			draw_timer(cub3d);
+			draw_animated_keys(cub3d);
+		}
 		// print_timer(cub3d);	// REMOVE
 	}
 	else if (cub3d->state == STATE_ENTERNAME)

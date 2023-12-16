@@ -86,9 +86,14 @@ void	update(void *param)
 		draw_animated_keys(cub3d);
 		// print_timer(cub3d);	// REMOVE
 	}
+	else if (cub3d->state == STATE_ENTERNAME)
+	{
+		update_name_menu(cub3d, &cub3d->name_menu);
+	}
 	else if (cub3d->state == STATE_GAMEOVER)
 	{
 		// update_end_menu(cub3d, &cub3d->gameover_menu);
+		free_info(cub3d->level->map);
 		cub3d->state = STATE_START;
 	}
 }

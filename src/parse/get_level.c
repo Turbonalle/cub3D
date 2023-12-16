@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_level.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 13:55:36 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/08 10:29:05 by slampine         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -212,7 +201,9 @@ int read_cub_file(level_t *level, char *map_path)
 	while (level->map[fd])
 	{
 		level->backup[fd] = ft_strdup(level->map[fd]);
+		free(level->map[fd]);
 		fd++;
 	}
+	free(level->map);
 	return (SUCCESS);
 }

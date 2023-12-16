@@ -55,15 +55,44 @@ void	set_initial_direction(cub3d_t *cub3d)
 
 void	set_keys(keypress_t *keys)
 {
+	keys->q = FALSE;
 	keys->w = FALSE;
+	keys->e = FALSE;
+	keys->r = FALSE;
+	keys->t = FALSE;
+	keys->y = FALSE;
+	keys->u = FALSE;
+	keys->i = FALSE;
+	keys->o = FALSE;
+	keys->p = FALSE;
 	keys->a = FALSE;
 	keys->s = FALSE;
 	keys->d = FALSE;
-	keys->fisheye = FALSE;
+	keys->f = FALSE;
+	keys->g = FALSE;
+	keys->h = FALSE;
+	keys->j = FALSE;
+	keys->k = FALSE;
+	keys->l = FALSE;
+	keys->z = FALSE;
+	keys->x = FALSE;
+	keys->c = FALSE;
+	keys->v = FALSE;
+	keys->b = FALSE;
+	keys->n = FALSE;
+	keys->m = FALSE;
+	keys->space = FALSE;
+	keys->shift = FALSE;
+	keys->enter = FALSE;
+	keys->escape = FALSE;
+	keys->backspace = FALSE;
+	keys->up = FALSE;
+	keys->down = FALSE;
 	keys->left = FALSE;
 	keys->right = FALSE;
 	keys->mouse_left = FALSE;
 	keys->mouse_right = FALSE;
+	keys->fisheye = FALSE;	// WHAT IS THIS FOR?
 }
 
 int	init_rays(cub3d_t *cub3d)
@@ -193,7 +222,6 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	int	i;
 	int	j;
 	int	door_key_index;
-	
 
 	i = 0;
 	while (i < NUM_DOORS_MAX)
@@ -223,6 +251,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 			door_key_index = get_door_index(cub3d->level->map[i][j]);
 			if (door_key_index != -1)
 			{
+				printf("DOOR\n");
 				if (init_door(cub3d, i, j, door_key_index) == FAIL)
 					return (FAIL);
 			}
@@ -325,12 +354,14 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
 	cub3d->n_levels = 9;
+	cub3d->num_enemies = 0;
 	set_keys(&cub3d->keys);
 	init_start_menu(cub3d, &cub3d->start_menu);
 	init_level_menu(cub3d, &cub3d->level_menu);
 	if (!init_leaderboard(cub3d, &cub3d->leaderboard))
 		return (FAIL);
 	init_pause_menu(cub3d, &cub3d->pause_menu);
+	init_name_menu(cub3d, &cub3d->name_menu);
 	init_timer(cub3d);
 	int i = -1;
 	while (++i < 10)

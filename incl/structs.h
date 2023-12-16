@@ -69,11 +69,38 @@ typedef struct enemy_path_s
 
 typedef struct keypress_s
 {
+	int	q;
 	int	w;
+	int	e;
+	int	r;
+	int	t;
+	int	y;
+	int	u;
+	int	i;
+	int	o;
+	int	p;
 	int	a;
 	int	s;
 	int	d;
-	int	fisheye;
+	int	f;
+	int	g;
+	int	h;
+	int	j;
+	int	k;
+	int	l;
+	int	z;
+	int	x;
+	int	c;
+	int	v;
+	int	b;
+	int	n;
+	int	m;
+	int	space;
+	int	backspace;
+	int shift;
+	int enter;
+	int escape;
+	int	fisheye;		// WHO PUT THIS HERE? IS IT SUPPOSED TO BE HERE?
 	int	left;
 	int	right;
 	int	up;
@@ -307,6 +334,8 @@ typedef struct level_menu_s
 	button_t	button_leaderboard;
 }				level_menu_t;
 
+# define N_ENTRIES 5
+
 typedef struct leaderboard_s
 {
 	mlx_image_t	*img;
@@ -329,6 +358,74 @@ typedef struct settings_menu_s
 	mlx_image_t	*text_minimap_view;
 	int			background_color;
 }				settings_menu_t;
+
+//---- NAME MENU ---------------------------------------------------------------
+
+# define MAX_NAME_LENGTH 12
+# define ALPHABET "abcdefghijklmnopqrstuvwxyz "
+# define ALPHABET_LENGTH 26
+
+enum letters
+{
+	a,
+	b,
+	c,
+	d,
+	e,
+	f,
+	g,
+	h,
+	i,
+	j,
+	k,
+	l,
+	m,
+	n,
+	o,
+	p,
+	q,
+	r,
+	s,
+	t,
+	u,
+	v,
+	w,
+	x,
+	y,
+	z
+};
+
+typedef struct letter_box_s
+{
+	char		letter[2];
+	vector_t	pos;
+	int			width;
+	int			height;
+	int			background_color;
+	int			border_width;
+	int			border_color;
+	int			value;
+	int			state;
+}				letter_box_t;
+
+typedef struct name_menu_s
+{
+	mlx_image_t	*img;
+	mlx_image_t	*text_win_message;
+	mlx_image_t	*text_enter_name;
+	mlx_image_t	*text_title;
+	rectangle_t	rect_title;
+	rectangle_t	rect_input;
+	int			current;
+	char		letter;
+	mlx_image_t *letters_img[ALPHABET_LENGTH];
+	char		letter_str[ALPHABET_LENGTH + 1][2];
+	letter_box_t	box[MAX_NAME_LENGTH];
+	char		name[MAX_NAME_LENGTH + 1];
+	int			letter_index[MAX_NAME_LENGTH];
+	int			changed;
+	int			background_color;
+}				name_menu_t;
 
 //---- GAMEOVER MENU -----------------------------------------------------------
 
@@ -373,6 +470,7 @@ typedef struct gametimer_s
 	double		start_timestamp;
 	double		pause_timestamp;
 	double		run_time;
+	double		delta_time;
 }				gametimer_t;
 
 //---- MAPS --------------------------------------------------------------------
@@ -422,6 +520,7 @@ enum state
 	STATE_SETTINGS,
 	STATE_GAME,
 	STATE_PAUSE,
+	STATE_ENTERNAME,
 	STATE_GAMEOVER
 };
 
@@ -435,6 +534,7 @@ typedef struct cub3d_s
 	double			run_time;
 	double			delta_time;
 	double			pause_timestamp;
+	int				time_finished;
 	vector_t		mouse;
 	vector_t		mouse_set_pos;
 	int				on_minimap;
@@ -452,6 +552,7 @@ typedef struct cub3d_s
 	leaderboard_t	leaderboard;
 	settings_menu_t	settings_menu;
 	pause_menu_t	pause_menu;
+	name_menu_t		name_menu;
 	gameover_menu_t	gameover_menu;
 	settings_t		settings;
 	gametimer_t		timer;

@@ -60,31 +60,45 @@ void	free_doors(door_pos_t *head)
 	}
 }
 
+void	free_backup(level_t level)
+{
+	int	i;
+
+	i = 0;
+	while (level.backup[i])
+	{
+		free(level.backup[i]);
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
+		free(level.texture[i].path);
+		i++;
+	}
+	free(level.backup);
+}
+
 void	free_cub3d(cub3d_t *cub3d)
 {
 	int	i;
 
-	i = -1;
-	while (++i < 4)
+	i = 0;
+	while (i <= 9)
 	{
-		if (cub3d->level->texture[i].path)
-			free(cub3d->level->texture[i].path);
-		// if (cub3d->texture[i].img)
-		// 	free(cub3d->texture[i].img);
+		free_list(cub3d->levels[i].map_list);
+		i++;
 	}
-	i = -1;
-	free_list(cub3d->level->map_list);
 	free(cub3d->rays);
-	while (cub3d->level->map[++i])
-		free(cub3d->level->map[i]);
-	if (cub3d->level->map)
-		free(cub3d->level->map);
+	i = 0;
+	while (i <= 9)
+	{
+		free_backup(cub3d->levels[i]);
+		i++;
+	}
 	if (cub3d->num_enemies)
 		free(cub3d->enemy);
-	i = -1;
-	while (++i < NUM_DOORS_MAX)
-	{
-		free_keys(cub3d->level->key_groups[i].keys);
-		free_doors(cub3d->level->door_groups[i].door_positions);
-	}
+	free(cub3d->levels);
+	free(cub3d->leaderboard.rect_level);
+	free(cub3d->leaderboard.text_level);
 }

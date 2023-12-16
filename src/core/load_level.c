@@ -4,6 +4,7 @@ void	load_level(cub3d_t *cub3d, level_t *level)
 {
 	int	i = 0;
 
+	level->map = ft_calloc(sizeof(char *), level->nodes + 1);
 	while (level->backup[i])
 	{
 		level->map[i] = ft_strdup(level->backup[i]);

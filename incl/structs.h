@@ -130,9 +130,10 @@ typedef struct key_group_s
 	mlx_image_t	*img_key_icon;
 	mlx_image_t	*img_text_key_count;
 	mlx_image_t	**img_frames;
-	mlx_texture_t	**textures_frames;
+	mlx_texture_t	**textures_frames; // TODO: delete testures in the end
 	mlx_texture_t	*texture_key_icon;
 	char		*texture_dir;
+	int			prev_frame_index;
 	int			curr_frame_index;
 	int			num_frames;
 	vector_t	key_icon_coords;

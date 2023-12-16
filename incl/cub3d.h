@@ -222,8 +222,10 @@ int	get_key_index(char symbol);
 int	init_doors_and_keys(cub3d_t *cub3d);
 
 //key_counts.c
-void draw_key_counts(cub3d_t *cub3d);
-void    draw_animated_keys(cub3d_t *cub3d);
+void	draw_key_counts(cub3d_t *cub3d);
+
+// keys_animation.c
+void	draw_animated_keys(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------
 
@@ -236,8 +238,6 @@ void	get_input(mlx_key_data_t keydata, void *param);
 // handle_mouse.c
 void	hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);
 void	hook_mouse_scroll(double xdelta, double ydelta, void *param);
-
-
 
 //---- MINIMAP -----------------------------------------------------------------
 

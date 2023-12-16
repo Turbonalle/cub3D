@@ -234,6 +234,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		cub3d->level->key_groups[i].keys = NULL;
 		cub3d->level->key_groups[i].num_keys_total = 0;
 		cub3d->level->key_groups[i].curr_frame_index = 0;
+		cub3d->level->key_groups[i].prev_frame_index = -1;
 		cub3d->level->key_groups[i].num_frames = 0;
 		cub3d->level->key_groups[i].img_frames = NULL;
 		cub3d->level->key_groups[i].img_key_icon = NULL;
@@ -283,6 +284,8 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		int count = 0;
 		while (temp)
 		{
+			temp->pos_world.x = 200;
+			temp->pos_world.y = 200;
 			temp = temp->next;
 			count++;
 		}

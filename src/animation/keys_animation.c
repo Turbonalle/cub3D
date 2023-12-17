@@ -59,37 +59,53 @@ void scale_curr_frame(mlx_image_t *res, mlx_image_t *src, double factor)
 	uint32_t	col_res;
 
 	//int		pixel;	
-	int i;
+	//int i;
 
 	row_res = 0;
 	printf("factor: %f\n", factor);
 	printf("RES height: %f, width: %f\n", src->height * factor, src->width * factor);
+	ft_memset(res->pixels, 0, res->width * res->height * 4);
 	while (row_res < src->height * factor)
 	{
 		col_res = 0;
-		while (col_res < src->width * factor)
+		if (row_res < res->height)
 		{
-			// TODO: handle out of limits pixels
-			row_src = (uint32_t)(row_res / factor); // TODO: make proper rounding
-			col_src = (uint32_t)(col_res / factor);
-			//ft_memcpy(&pixel, src->pixels + row_src * src->width * 4 + col_src * 4, 4);
-			//printf("res[%u, %u] = src[%u, %u]\n", row_res, col_res, row_src, col_src);
-			//mlx_put_pixel(res, col_res, row_res, pixel);
-			
-			/* printf("[%u, %u] : res pixels[%u] = src pixels[%u]\n",
-			row_res,
-			col_res,
-			row_res * res->width * 4 + col_res * 4,
-			row_src * src->width * 4 + col_src * 4); */
-			i = 0;
-			while (i < 4)
+			while (col_res < src->width * factor)
 			{
+				// TODO: handle out of limits pixels
+				if (col_res < res->width)
+				{
+					row_src = (uint32_t)round(row_res / factor); // TODO: make proper rounding
+					if (row_src >= src->height)
+						row_src--;
+					col_src = (uint32_t)round(col_res / factor);
+					if (col_src >= src->width)
+						col_src--;
+					ft_memcpy(res->pixels + row_res * res->width * 4 + col_res * 4, src->pixels + row_src * src->width * 4 + col_src * 4, 4);
+				}
+				//printf("Before rounding row: %f, col: %f\n", row_res / factor, col_res / factor);
 				
-				res->pixels[row_res * res->width * 4 + col_res * 4 + i]
-					= src->pixels[row_src * src->width * 4 + col_src * 4 + i];
-				i++;
+				//printf("After rounding row: %u, col: %u\n", row_src, col_src);
+				//ft_memcpy(&pixel, src->pixels + row_src * src->width * 4 + col_src * 4, 4);
+				//printf("res[%u, %u] = src[%u, %u]\n", row_res, col_res, row_src, col_src);
+				//mlx_put_pixel(res, col_res, row_res, pixel);
+				
+				/* printf("[%u, %u] : res pixels[%u] = src pixels[%u]\n",
+				row_res,
+				col_res,
+				row_res * res->width * 4 + col_res * 4,
+				row_src * src->width * 4 + col_src * 4); */
+				/* i = 0;
+				while (i < 4)
+				{
+					
+					res->pixels[row_res * res->width * 4 + col_res * 4 + i]
+						= src->pixels[row_src * src->width * 4 + col_src * 4 + i];
+					i++;
+				} */
+				col_res++;
+				// Maybe optimise and skip column complately?
 			}
-			col_res++;
 		}
 		row_res++;
 	}

@@ -51,6 +51,50 @@ mlx_image_t *scale_img(cub3d_t *cub3d, mlx_image_t *src, double factor)
 	return (res);
 }
 
+void scale_curr_frame(mlx_image_t *res, mlx_image_t *src, double factor)
+{
+	uint32_t	row_src;
+	uint32_t	col_src;
+	uint32_t	row_res;
+	uint32_t	col_res;
+
+	//int		pixel;	
+	int i;
+
+	row_res = 0;
+	printf("factor: %f\n", factor);
+	printf("RES height: %f, width: %f\n", src->height * factor, src->width * factor);
+	while (row_res < src->height * factor)
+	{
+		col_res = 0;
+		while (col_res < src->width * factor)
+		{
+			// TODO: handle out of limits pixels
+			row_src = (uint32_t)(row_res / factor); // TODO: make proper rounding
+			col_src = (uint32_t)(col_res / factor);
+			//ft_memcpy(&pixel, src->pixels + row_src * src->width * 4 + col_src * 4, 4);
+			//printf("res[%u, %u] = src[%u, %u]\n", row_res, col_res, row_src, col_src);
+			//mlx_put_pixel(res, col_res, row_res, pixel);
+			
+			/* printf("[%u, %u] : res pixels[%u] = src pixels[%u]\n",
+			row_res,
+			col_res,
+			row_res * res->width * 4 + col_res * 4,
+			row_src * src->width * 4 + col_src * 4); */
+			i = 0;
+			while (i < 4)
+			{
+				
+				res->pixels[row_res * res->width * 4 + col_res * 4 + i]
+					= src->pixels[row_src * src->width * 4 + col_src * 4 + i];
+				i++;
+			}
+			col_res++;
+		}
+		row_res++;
+	}
+}
+
 void	disable_frames_except(mlx_image_t **img_frames, int except, int instance_index)
 {
 	int	i;
@@ -81,7 +125,7 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 {
 	key_node_t  *tmp;
 	double scale_factor;
-	mlx_image_t	*old_img;
+	//mlx_image_t	*old_img;
 
 	printf("curr_frame_num: %i\n", curr_frame_num);
 	tmp = cub3d->level->key_groups[group_index].keys;
@@ -92,14 +136,18 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 			printf("group_index: %i\n", group_index);
 			
 			scale_factor = calculate_scale_factor(tmp->pos, cub3d->player.pos);
-			old_img = tmp->img_curr_frame;
-			tmp->img_curr_frame = scale_img(cub3d,
+			//old_img = tmp->img_curr_frame;
+			/* tmp->img_curr_frame = scale_img(cub3d,
+				cub3d->level->key_groups[group_index].img_frames[curr_frame_num],
+				scale_factor); */
+			scale_curr_frame(
+				tmp->img_curr_frame,
 				cub3d->level->key_groups[group_index].img_frames[curr_frame_num],
 				scale_factor);
 			
-			mlx_image_to_window(cub3d->mlx, tmp->img_curr_frame, tmp->pos_world.x, tmp->pos_world.y);
+			//mlx_image_to_window(cub3d->mlx, tmp->img_curr_frame, tmp->pos_world.x, tmp->pos_world.y);
 			//mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[group_index].img_frames[curr_frame_num], tmp->pos_world.x, tmp->pos_world.y);
-			mlx_delete_image(cub3d->mlx, old_img);
+			//mlx_delete_image(cub3d->mlx, old_img);
 		}
 		tmp = tmp->next;
 	}

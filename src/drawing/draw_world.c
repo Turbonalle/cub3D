@@ -105,14 +105,6 @@ void draw_world(cub3d_t *cub3d)
 		{
 			color = YELLOW;
 		}
-		else if (cub3d->rays[index].wall == DE)
-		{
-			color = PURPLE;
-		}
-		else if (cub3d->rays[index].wall == DN)
-		{
-			color = CORAL;
-		}
 		else if (cub3d->rays[index].wall == 'A')
 		{
 			color = ORANGE_RED;

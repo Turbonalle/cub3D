@@ -256,19 +256,11 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 		i++;
 	}
 
-	key->pos_screen.x = i;
-	key->pos_screen.y = cub3d->img->height / 2;
+	
 	key->dist_to_player = sqrt(pow(key->pos.x - cub3d->player.pos.x, 2) + pow(key->pos.y - cub3d->player.pos.y, 2));
-	/* int j = 0;
-	while (j < 6)
-	{
-		start.x = i + j;
-		start.y = cub3d->img->height / 2 - 3;
-		end.x = start.x;
-		end.y = cub3d->img->height / 2 + 3;
-		draw_vertical_line(cub3d->img, start, end, ANTIQUE_WHITE);
-		j++;
-	} */
+	key->pos_screen.x = i;
+	key->pos_screen.y = cub3d->img->height / 2 + (cub3d->img->height / 2) / key->dist_to_player * 2;
+	//draw_circle(cub3d->img, key->pos_screen.x, key->pos_screen.y, 5, YELLOW);
 }
 
 static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)

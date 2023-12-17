@@ -35,35 +35,15 @@ void scale_curr_frame(mlx_image_t *res, mlx_texture_t *src, double factor, vecto
 						src->pixels + row_src * src->width * 4 + col_src * 4,
 						4);
 				}
-				//printf("Before rounding row: %f, col: %f\n", row_res / factor, col_res / factor);
-				
-				//printf("After rounding row: %u, col: %u\n", row_src, col_src);
-				//ft_memcpy(&pixel, src->pixels + row_src * src->width * 4 + col_src * 4, 4);
-				//printf("res[%u, %u] = src[%u, %u]\n", row_res, col_res, row_src, col_src);
-				//mlx_put_pixel(res, col_res, row_res, pixel);
-				
-				/* printf("[%u, %u] : res pixels[%u] = src pixels[%u]\n",
-				row_res,
-				col_res,
-				row_res * res->width * 4 + col_res * 4,
-				row_src * src->width * 4 + col_src * 4); */
-				/* i = 0;
-				while (i < 4)
-				{
-					
-					res->pixels[row_res * res->width * 4 + col_res * 4 + i]
-						= src->pixels[row_src * src->width * 4 + col_src * 4 + i];
-					i++;
-				} */
 				col_res++;
-				// Maybe optimise and skip column complately?
+				// Maybe optimise and skip column completely?
 			}
 		}
 		row_res++;
 	}
 	//printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
 	res->instances[0].x = pos_screen.x - src->width * factor * 0.5;
-	res->instances[0].y = pos_screen.y - src->height * factor * 0.5;
+	res->instances[0].y = pos_screen.y - src->height * factor * 1.5;
 	//printf("instance pos: x: %d, y: %d\n", res->instances[0].x, res->instances[0].y);
 }
 

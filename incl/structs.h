@@ -131,7 +131,7 @@ typedef struct key_group_s
 	key_node_t	*keys;
 	mlx_image_t	*img_key_icon;
 	mlx_image_t	*img_text_key_count;
-	mlx_texture_t	**textures_frames; // TODO: delete testures in the end
+	mlx_texture_t	**textures_frames; // TODO: delete textures in the end
 	mlx_texture_t	*texture_key_icon;
 	char		*texture_dir;
 	int			prev_frame_index;

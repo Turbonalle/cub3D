@@ -284,8 +284,8 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		int count = 0;
 		while (temp)
 		{
-			temp->pos_world.x = 200;
-			temp->pos_world.y = 200;
+			temp->pos_world.x = -WIDTH;
+			temp->pos_world.y = -HEIGHT;
 			temp->visible = 0;
 			temp->img_curr_frame = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 			mlx_image_to_window(cub3d->mlx, temp->img_curr_frame, 0, 0);

@@ -9,7 +9,7 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd nesw -|G"
+# define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd nesw G"
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
 # define ENEMIES "nesw"
@@ -21,9 +21,6 @@
 
 # define EMPTY '0'
 # define WALL '1'
-
-# define DE '|'
-# define DN '-'
 
 # define MOVEMENT_SPEED 6
 # define ROTATION_SPEED 2

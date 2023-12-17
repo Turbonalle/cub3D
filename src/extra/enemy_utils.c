@@ -256,9 +256,9 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 		i++;
 	}
 
-	key->pos_world.x = i;
-	key->pos_world.y = cub3d->img->height / 2;
-
+	key->pos_screen.x = i;
+	key->pos_screen.y = cub3d->img->height / 2;
+	key->dist_to_player = sqrt(pow(key->pos.x - cub3d->player.pos.x, 2) + pow(key->pos.y - cub3d->player.pos.y, 2));
 	/* int j = 0;
 	while (j < 6)
 	{
@@ -290,6 +290,7 @@ static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 		{
 			key->visible = 1;
 			draw_key(cub3d, dir_to_key, key);
+			
 		}
 	}
 	else

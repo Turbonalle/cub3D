@@ -116,7 +116,8 @@ typedef struct keypress_s
 typedef struct key_node_s
 {
 	dvector_t	pos;
-	vector_t	pos_world;
+	vector_t	pos_screen;
+	double		dist_to_player;
 	int			visible;
 	int			collected;
 	mlx_image_t	*img_curr_frame;
@@ -130,7 +131,6 @@ typedef struct key_group_s
 	key_node_t	*keys;
 	mlx_image_t	*img_key_icon;
 	mlx_image_t	*img_text_key_count;
-	mlx_image_t	**img_frames;
 	mlx_texture_t	**textures_frames; // TODO: delete testures in the end
 	mlx_texture_t	*texture_key_icon;
 	char		*texture_dir;

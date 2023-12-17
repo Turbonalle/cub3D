@@ -185,7 +185,7 @@ int	get_door_index(char symbol)
 	return res;
 }
 
-int	init_key_frames(cub3d_t *cub3d, key_group_t *key_group)
+int	init_key_frames(key_group_t *key_group)
 {
 	int 	i;
 	char	*file_path;
@@ -196,7 +196,6 @@ int	init_key_frames(cub3d_t *cub3d, key_group_t *key_group)
 	key_group->num_frames = NUM_FRAMES_KEY;
 	// TODO: protect mallocs
 	key_group->textures_frames = malloc(sizeof(mlx_texture_t *) * NUM_FRAMES_KEY);
-	key_group->img_frames = malloc(sizeof(mlx_image_t *) * NUM_FRAMES_KEY);
 	i = 0;
 	while (i < NUM_FRAMES_KEY)
 	{
@@ -206,9 +205,6 @@ int	init_key_frames(cub3d_t *cub3d, key_group_t *key_group)
 		file_path = ft_strjoin(key_group->texture_dir, file_name_extension);
 		printf("full file path: %s\n", file_path);
 		key_group->textures_frames[i] = mlx_load_png(file_path);
-		key_group->img_frames[i] = mlx_texture_to_image(cub3d->mlx, key_group->textures_frames[i]);
-		mlx_image_to_window(cub3d->mlx, key_group->img_frames[i], 200, 200);
-		key_group->img_frames[i]->instances[0].enabled = false;
 		free(file_name);
 		free(file_name_extension);
 		free(file_path);
@@ -236,7 +232,6 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		cub3d->level->key_groups[i].curr_frame_index = 0;
 		cub3d->level->key_groups[i].prev_frame_index = -1;
 		cub3d->level->key_groups[i].num_frames = 0;
-		cub3d->level->key_groups[i].img_frames = NULL;
 		cub3d->level->key_groups[i].img_key_icon = NULL;
 		cub3d->level->key_groups[i].img_text_key_count = NULL;
 		cub3d->level->key_groups[i].textures_frames = NULL;
@@ -284,9 +279,10 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		int count = 0;
 		while (temp)
 		{
-			temp->pos_world.x = -WIDTH;
-			temp->pos_world.y = -HEIGHT;
+			temp->pos_screen.x = -WIDTH;
+			temp->pos_screen.y = -HEIGHT;
 			temp->visible = 0;
+			temp->dist_to_player = 100;
 			temp->img_curr_frame = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 			mlx_image_to_window(cub3d->mlx, temp->img_curr_frame, 0, 0);
 			// TODO: handle errors
@@ -309,7 +305,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 				err("Failed to create key count image");
 			active_key_groups++;
 
-			init_key_frames(cub3d, &cub3d->level->key_groups[i]);
+			init_key_frames(&cub3d->level->key_groups[i]);
 			
 		}
 		i++;

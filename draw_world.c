@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   draw_world.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/30 14:13:43 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/17 21:23:50 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-double lerp(double y0, double y1, double x0, double x1, double x)
+/* double lerp(double y0, double y1, double x0, double x1, double x)
 {
 	return (y0 + (y1 - y0) * ((x - x0) / (x1 - x0)));
 }
-
+*/
 void draw_world(cub3d_t *cub3d)
 {
 	int		index;

@@ -141,7 +141,7 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy)
 		start.y = cub3d->img->height / 2 - 5;
 		end.x = start.x;
 		end.y = cub3d->img->height / 2 + 5;
-		draw_vertical_line(cub3d->img, start, end, MAGENTA);
+		draw_vertical_line(cub3d->img, start, end, BURGUNDY);
 		j++;
 	}
 }
@@ -260,7 +260,7 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 	key->dist_to_player = sqrt(pow(key->pos.x - cub3d->player.pos.x, 2) + pow(key->pos.y - cub3d->player.pos.y, 2));
 	key->pos_screen.x = i;
 	key->pos_screen.y = cub3d->img->height / 2 + (cub3d->img->height / 2) / key->dist_to_player * 2;
-	//draw_circle(cub3d->img, key->pos_screen.x, key->pos_screen.y, 5, YELLOW);
+	//draw_circle(cub3d->img, key->pos_screen.x, key->pos_screen.y, 5, YELLOW_PALE);
 }
 
 static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)

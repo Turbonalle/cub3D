@@ -103,27 +103,27 @@ void draw_world(cub3d_t *cub3d)
 		}
 		else if (cub3d->rays[index].wall == NO)
 		{
-			color = YELLOW;
+			color = YELLOW_PALE;
 		}
 		else if (cub3d->rays[index].wall == 'A')
 		{
-			color = ORANGE_RED;
+			color = RED_LIGHT;
 		}
 		else if (cub3d->rays[index].wall == 'B')
 		{
-			color = SPRING_GREEN;
+			color = GREEN;
 		}
 		else if (cub3d->rays[index].wall == 'C')
 		{
-			color = GOLD;
+			color = YELLOW_PALE;
 		}
 		else if (cub3d->rays[index].wall == 'D')
 		{
-			color = TEAL;
+			color = TURQUOISE;
 		}
 		else if (cub3d->rays[index].wall == 'G')
 		{
-			color = OLIVE;
+			color = GREEN_DARK;
 		}
 		else
 			color = WHITE;

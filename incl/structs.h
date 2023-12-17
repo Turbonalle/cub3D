@@ -218,9 +218,9 @@ typedef struct slider_s
 
 # define BOX_ON_COLOR GREEN
 # define BOX_OFF_COLOR BLACK
-# define BOX_HOVER_ON_COLOR LAWN_GREEN
-# define BOX_HOVER_OFF_COLOR GRAY
-# define BOX_BORDER_COLOR GOLD
+# define BOX_HOVER_ON_COLOR GREEN_LIGHT
+# define BOX_HOVER_OFF_COLOR GRAY_DARK
+# define BOX_BORDER_COLOR YELLOW_PALE
 
 # define OFF 0
 # define ON 1
@@ -240,9 +240,9 @@ typedef struct box_s
 //---- BUTTON ------------------------------------------------------------------
 
 # define BUTTON_CLICKED_COLOR GREEN
-# define BUTTON_HOVER_COLOR GOLDEN_ROD
-# define BUTTON_COLOR GRAY
-# define BUTTON_BORDER_COLOR GOLD
+# define BUTTON_HOVER_COLOR GREEN_DARK
+# define BUTTON_COLOR GRAY_DARK
+# define BUTTON_BORDER_COLOR YELLOW_PALE
 # define BUTTON_BORDER_THICKNESS 2
 
 typedef struct button_s

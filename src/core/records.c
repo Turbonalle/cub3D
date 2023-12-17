@@ -75,14 +75,31 @@ void	delete_last_record(mlx_t *mlx, record_t **records)
 	free_record(ptr);
 }
 
+void	set_text_time(cub3d_t *cub3d, record_t *record, int i)
+{
+	vector_t	pos;
+	int			margin_x;
+	int			margin_y;
+	int			level;
+
+	level = get_current_level(cub3d);
+	margin_x = cub3d->leaderboard.rect_level[level - 1].height * 0.1;
+	margin_y = cub3d->leaderboard.rect_level[level - 1].height * 0.2;
+	pos.x = cub3d->leaderboard.rect_level[level - 1].pos.x + margin_x;
+	pos.y = cub3d->leaderboard.rect_level[level - 1].pos.y + margin_y + i * (cub3d->leaderboard.rect_level[level - 1].height - 2 * margin_y) / cub3d->leaderboard.n_entries;
+	record->text_time = mlx_put_string(mlx, record->time_str, pos.x, pos.y);
+}
+
 void	set_text_name(cub3d_t *cub3d, record_t *record, int i)
 {
 	vector_t	pos;
-	int			margin;
+	int			margin_y;
+	int			level;
 
-	margin = cub3d->leaderboard.rect_level[i - 1].height * 0.2;
-	pos.x = record->text_time->pos.x + record->text_time->width * 0.5 + margin_x;
-	pos.y = record->text_time->pos.y + margin_y + i * (record->text_time->height - 2 * margin_y) / 10;
+	level = get_current_level(cub3d);
+	margin_y = cub3d->leaderboard.rect_level[level - 1].height * 0.2;
+	pos.x = cub3d->leaderboard.rect_level[level - 1].pos.x + cub3d->leaderboard.rect_level[level - 1].width * 0.5;
+	pos.y = cub3d->leaderboard.rect_level[level - 1].pos.y + margin_y + i * (cub3d->leaderboard.rect_level[level - 1].height - 2 * margin_y) / cub3d->leaderboard.n_entries;
 	record->text_name = mlx_put_string(mlx, record->name, pos.x, pos.y);
 }
 
@@ -129,8 +146,8 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_e
 	}
 	else					// if new record is better than the last record
 		temp->next = new;
-	set_text_name(cub3d, new, i);	// COMPLETE THIS!!!
-	set_text_time(cub3d, new, i);	// COMPLETE THIS!!!
+	set_text_name(cub3d, new, i - 1);	// COMPLETE THIS!!!
+	set_text_time(cub3d, new, i - 1);	// COMPLETE THIS!!!
 	i = count_records(*records);
 	while (i > n_entries)
 	{

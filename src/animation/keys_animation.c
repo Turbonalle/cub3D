@@ -1,57 +1,6 @@
 #include "../incl/cub3d.h"
 
-void scale_image(mlx_image_t *src, mlx_image_t *res, double factor)
-{
-	uint32_t	row_src;
-	uint32_t	col_src;
-	uint32_t	row_res;
-	uint32_t	col_res;
-	//int		pixel;	
-	int i;
-
-	row_res = 0;
-	printf("factor: %f\n", factor);
-	printf("RES height: %u, width: %u\n", res->height, res->width);
-	while (row_res < res->height)
-	{
-		col_res = 0;
-		while (col_res < res->width)
-		{
-			row_src = (uint32_t)(row_res / factor); // TODO: make proper rounding
-			col_src = (uint32_t)(col_res / factor);
-			//ft_memcpy(&pixel, src->pixels + row_src * src->width * 4 + col_src * 4, 4);
-			//printf("res[%u, %u] = src[%u, %u]\n", row_res, col_res, row_src, col_src);
-			//mlx_put_pixel(res, col_res, row_res, pixel);
-			
-			/* printf("[%u, %u] : res pixels[%u] = src pixels[%u]\n",
-			row_res,
-			col_res,
-			row_res * res->width * 4 + col_res * 4,
-			row_src * src->width * 4 + col_src * 4); */
-			i = 0;
-			while (i < 4)
-			{
-				
-				res->pixels[row_res * res->width * 4 + col_res * 4 + i]
-				= src->pixels[row_src * src->width * 4 + col_src * 4 + i];
-				i++;
-			}
-			col_res++;
-		}
-		row_res++;
-	}
-}
-
-mlx_image_t *scale_img(cub3d_t *cub3d, mlx_image_t *src, double factor)
-{
-	mlx_image_t	*res;
-
-	res = mlx_new_image(cub3d->mlx, src->width * factor, src->height * factor);
-	scale_image(src, res, factor);
-	return (res);
-}
-
-void scale_curr_frame(mlx_image_t *res, mlx_image_t *src, double factor)
+void scale_curr_frame(mlx_image_t *res, mlx_image_t *src, double factor, vector_t pos_world)
 {
 	uint32_t	row_src;
 	uint32_t	col_src;
@@ -75,13 +24,16 @@ void scale_curr_frame(mlx_image_t *res, mlx_image_t *src, double factor)
 				// TODO: handle out of limits pixels
 				if (col_res < res->width)
 				{
-					row_src = (uint32_t)round(row_res / factor); // TODO: make proper rounding
+					row_src = (uint32_t)round(row_res / factor);
+					// make sure that source pixel is not out of limits
 					if (row_src >= src->height)
 						row_src--;
 					col_src = (uint32_t)round(col_res / factor);
 					if (col_src >= src->width)
 						col_src--;
-					ft_memcpy(res->pixels + row_res * res->width * 4 + col_res * 4, src->pixels + row_src * src->width * 4 + col_src * 4, 4);
+					ft_memcpy(res->pixels + row_res * res->width * 4 + col_res * 4,
+						src->pixels + row_src * src->width * 4 + col_src * 4,
+						4);
 				}
 				//printf("Before rounding row: %f, col: %f\n", row_res / factor, col_res / factor);
 				
@@ -109,6 +61,10 @@ void scale_curr_frame(mlx_image_t *res, mlx_image_t *src, double factor)
 		}
 		row_res++;
 	}
+	printf("pos_world: x: %d, y: %d\n", pos_world.x, pos_world.y);
+	res->instances[0].x = pos_world.x - src->width * factor * 0.5;
+	res->instances[0].y = pos_world.y - src->height * factor * 0.5;
+	printf("instance pos: x: %d, y: %d\n", res->instances[0].x, res->instances[0].y);
 }
 
 void	disable_frames_except(mlx_image_t **img_frames, int except, int instance_index)
@@ -143,14 +99,13 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 	double scale_factor;
 	//mlx_image_t	*old_img;
 
-	printf("curr_frame_num: %i\n", curr_frame_num);
+	printf("draw_keys, curr_frame_num: %i\n", curr_frame_num);
 	tmp = cub3d->level->key_groups[group_index].keys;
 	while (tmp)
 	{
-		if (tmp->collected == false)
+		if (tmp->collected == FALSE && tmp->visible == TRUE)
 		{
-			printf("group_index: %i\n", group_index);
-			
+			tmp->img_curr_frame->instances[0].enabled = TRUE;
 			scale_factor = calculate_scale_factor(tmp->pos, cub3d->player.pos);
 			//old_img = tmp->img_curr_frame;
 			/* tmp->img_curr_frame = scale_img(cub3d,
@@ -159,11 +114,16 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 			scale_curr_frame(
 				tmp->img_curr_frame,
 				cub3d->level->key_groups[group_index].img_frames[curr_frame_num],
-				scale_factor);
+				scale_factor,
+				tmp->pos_world);
 			
 			//mlx_image_to_window(cub3d->mlx, tmp->img_curr_frame, tmp->pos_world.x, tmp->pos_world.y);
 			//mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[group_index].img_frames[curr_frame_num], tmp->pos_world.x, tmp->pos_world.y);
 			//mlx_delete_image(cub3d->mlx, old_img);
+		}
+		else if (tmp->visible == FALSE || tmp->collected == TRUE)
+		{
+			tmp->img_curr_frame->instances[0].enabled = FALSE;
 		}
 		tmp = tmp->next;
 	}
@@ -176,8 +136,9 @@ void	draw_animated_keys(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
-		if (cub3d->level->key_groups[i].num_keys_total > 0)
+		if (cub3d->level->door_groups[i].num_keys_left > 0)
 		{
+			printf("key group %d has %d keys left\n", i, cub3d->level->door_groups[i].num_keys_left);
 			/* printf("run_time: %f, divided byy %f : %f, after mod: %d\n", cub3d->run_time, ANIMATION_INTERVAL_MS * 1000, cub3d->run_time / ANIMATION_INTERVAL_MS * 1000, (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_KEY); */
 
 			// set current frame based on time

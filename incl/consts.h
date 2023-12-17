@@ -55,7 +55,7 @@
 # define FRAME_PATH_KEY_2 "./assets/textures/green/"
 # define FRAME_PATH_KEY_3 "./assets/textures/yellow/"
 # define FRAME_PATH_KEY_4 "./assets/textures/blue/"
-# define KEY_NORMAL_SCALE_DISTANCE 8
+# define KEY_NORMAL_SCALE_DISTANCE 10
 
 # define ANIMATION_INTERVAL_MS 66.6667
 # define NUM_FRAMES_KEY 24

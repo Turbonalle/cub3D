@@ -117,6 +117,7 @@ typedef struct key_node_s
 {
 	dvector_t	pos;
 	vector_t	pos_world;
+	int			visible;
 	int			collected;
 	mlx_image_t	*img_curr_frame;
 	key_node_t	*next;

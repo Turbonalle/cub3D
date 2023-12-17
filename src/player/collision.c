@@ -24,7 +24,8 @@ int	deactivate_key(cub3d_t *cub3d, key_node_t *head, double y, double x)
 		if ((pow(head->pos.x - x, 2) + pow(head->pos.y - y, 2) < 1) && head->collected == FALSE)
 		{
 			head->collected = TRUE;
-			mlx_delete_image(cub3d->mlx, head->img_curr_frame);
+			head->img_curr_frame->instances[0].enabled = FALSE;
+			//mlx_delete_image(cub3d->mlx, head->img_curr_frame);
 			cub3d->level->map[(int)y][(int)x] = '0';
 			return TRUE;
 		}

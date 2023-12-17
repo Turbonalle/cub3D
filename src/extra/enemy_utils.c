@@ -246,10 +246,8 @@ static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 	return (1);
 }
 
-static void	draw_key(cub3d_t *cub3d, double dir_to_key, int index)
+static void	draw_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 {
-	dvector_t start;
-	dvector_t end;
 	double dir_as_rad;
 	int	i;
 	i = 1;
@@ -262,8 +260,10 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, int index)
 		i++;
 	}
 
-	
-	int j = 0;
+	key->pos_world.x = i;
+	key->pos_world.y = cub3d->img->height / 2;
+
+	/* int j = 0;
 	while (j < 6)
 	{
 		start.x = i + j;
@@ -272,31 +272,41 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, int index)
 		end.y = cub3d->img->height / 2 + 3;
 		draw_vertical_line(cub3d->img, start, end, ANTIQUE_WHITE);
 		j++;
-	}
-	(void)index;
-	//mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[index].img_key_icon, i, cub3d->img->height / 2);
+	} */
 }
 
-static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp, int i)
+static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 {
 	double	angle_min;
 	double	angle_max;
 
 	angle_min = within_360(cub3d->player.angle * 180 / M_PI - cub3d->fov / 2);
 	angle_max = within_360(cub3d->player.angle * 180 / M_PI + cub3d->fov / 2);
+	key->visible = 0;
 	if (angle_max < angle_min)
 	{
 		if (dir_to_key > angle_max && dir_to_key < angle_min)
+		{
 			return ;
-		else if (ray_to_key(cub3d, dir_to_key, temp))
-			draw_key(cub3d, dir_to_key, i);
+		}
+			
+		else if (ray_to_key(cub3d, dir_to_key, key))
+		{
+			key->visible = 1;
+			draw_key(cub3d, dir_to_key, key);
+		}
 	}
 	else
 	{
 		if (dir_to_key < angle_min || dir_to_key > angle_max)
+		{
 			return ;
-		else if (ray_to_key(cub3d, dir_to_key, temp))
-			draw_key(cub3d, dir_to_key, i);
+		}
+		else if (ray_to_key(cub3d, dir_to_key, key))
+		{
+			key->visible = 1;
+			draw_key(cub3d, dir_to_key, key);
+		}
 	}
 	return ;
 }
@@ -311,7 +321,7 @@ static void see_keys(cub3d_t *cub3d, int i)
 	{
 		dir_to_key = within_360((atan2(temp->pos.y - cub3d->player.pos.y, temp->pos.x - cub3d->player.pos.x) * 180 / M_PI));
 		if (temp->collected == 0)
-			see_key(cub3d, dir_to_key, temp, i);
+			see_key(cub3d, dir_to_key, temp);
 		temp = temp->next;
 	}
 }

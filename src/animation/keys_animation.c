@@ -6,27 +6,37 @@ void scale_image(mlx_image_t *src, mlx_image_t *res, double factor)
 	uint32_t	col_src;
 	uint32_t	row_res;
 	uint32_t	col_res;
+	//int		pixel;	
 	int i;
 
 	row_res = 0;
 	printf("factor: %f\n", factor);
+	printf("RES height: %u, width: %u\n", res->height, res->width);
 	while (row_res < res->height)
 	{
 		col_res = 0;
-		while (col_res < res->width * 4)
+		while (col_res < res->width)
 		{
-			row_src = (uint32_t)(row_res / factor);
+			row_src = (uint32_t)(row_res / factor); // TODO: make proper rounding
 			col_src = (uint32_t)(col_res / factor);
-			//printf("res[%u, %u] = src[%u, %u] = %i\n", row_res, col_res, row_src, col_src, src->pixels[row_src * src->width + col_src]);
-			//mlx_put_pixel(res, col_res, row_res, src->pixels[row_src * src->width + col_src]);
+			//ft_memcpy(&pixel, src->pixels + row_src * src->width * 4 + col_src * 4, 4);
+			//printf("res[%u, %u] = src[%u, %u]\n", row_res, col_res, row_src, col_src);
+			//mlx_put_pixel(res, col_res, row_res, pixel);
+			
+			/* printf("[%u, %u] : res pixels[%u] = src pixels[%u]\n",
+			row_res,
+			col_res,
+			row_res * res->width * 4 + col_res * 4,
+			row_src * src->width * 4 + col_src * 4); */
 			i = 0;
 			while (i < 4)
 			{
-				res->pixels[row_res * res->width + col_res + i]
-				= src->pixels[row_src * src->width + col_src + i];
+				
+				res->pixels[row_res * res->width * 4 + col_res * 4 + i]
+				= src->pixels[row_src * src->width * 4 + col_src * 4 + i];
 				i++;
 			}
-			col_res += 4;
+			col_res++;
 		}
 		row_res++;
 	}
@@ -88,7 +98,7 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 				scale_factor);
 			
 			mlx_image_to_window(cub3d->mlx, tmp->img_curr_frame, tmp->pos_world.x, tmp->pos_world.y);
-			mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[group_index].img_frames[curr_frame_num], tmp->pos_world.x, tmp->pos_world.y);
+			//mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[group_index].img_frames[curr_frame_num], tmp->pos_world.x, tmp->pos_world.y);
 			mlx_delete_image(cub3d->mlx, old_img);
 		}
 		tmp = tmp->next;

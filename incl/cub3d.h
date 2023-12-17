@@ -86,6 +86,9 @@ void	init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 // init_leaderboard.c
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 
+int	init_textures(cub3d_t *cub3d);
+int	init_doors_and_keys(cub3d_t *cub3d);
+
 //---- START MENU --------------------------------------------------------------
 
 // delete_menu.c
@@ -219,7 +222,7 @@ void	decrease_fov(cub3d_t *cub3d);
 
 int	get_door_index(char symbol);
 int	get_key_index(char symbol);
-int	init_doors_and_keys(cub3d_t *cub3d);
+
 
 //key_counts.c
 void	draw_key_counts(cub3d_t *cub3d);
@@ -291,6 +294,12 @@ void draw_square(mlx_image_t *img, int col, int row, int size, int color);
 void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
 void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 
+//---- ENEMIES -------------------------------------------------------------------
+
+int		init_enemy(cub3d_t *cub3d);
+void	enemy_vision(cub3d_t *cub3d);
+void	draw_enemies(cub3d_t *cub3d);
+
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 
 // extra.c
@@ -301,9 +310,4 @@ void	test(void);
 void	print_settings(cub3d_t *cub3d);
 void	print_letter_indexes(name_menu_t *menu, int backspace);
 
-
-int		init_enemy(cub3d_t *cub3d);
-void	enemy_vision(cub3d_t *cub3d);
-
-void	draw_enemies(cub3d_t *cub3d);
 #endif

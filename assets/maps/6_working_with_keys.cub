@@ -1,7 +1,7 @@
-NO ../textures/north_texture
-SO ../textures/south_texture
-EA ../textures/east_texture
-WE ../textures/west_texture
+NO ./assets/textures/key_red_static.png
+SO ./assets/textures/key_green_static.png
+EA ./assets/textures/key_yellow_static.png
+WE ./assets/textures/key_blue_static.png
 
 F 0,0,200
 C 200,0,0

@@ -103,6 +103,7 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	{
 		printf("Back to start menu\n");
 		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+		mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
 		free_level(cub3d);
 		if (cub3d->speedrun)
 		{
@@ -116,7 +117,6 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 			cub3d->speedrun = FALSE;
 			cub3d->state = STATE_START;
 		}
-		// free enemies, keys, doors
 	}
 }
 

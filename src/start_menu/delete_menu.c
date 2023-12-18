@@ -29,15 +29,17 @@ void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 {
 	record_t	*ptr;
+	int			i;
+	int			entry;
 
+	i = 0;
 	mlx_delete_image(cub3d->mlx, board->img);
 	mlx_delete_image(cub3d->mlx, board->text_title);
 	mlx_delete_image(cub3d->mlx, board->text_back);
-	int i = 0;
 	while (++i < cub3d->n_levels)
 	{
 		ptr = cub3d->levels[i].records;
-		int entry = -1;
+		entry = -1;
 		while (++entry < board->n_entries && ptr)
 		{
 			mlx_delete_image(cub3d->mlx, ptr->text_time);

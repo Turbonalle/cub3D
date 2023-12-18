@@ -41,10 +41,10 @@ void scale_curr_frame(mlx_image_t *res, mlx_texture_t *src, double factor, vecto
 		}
 		row_res++;
 	}
-	//printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
+	// printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
 	res->instances[0].x = pos_screen.x - src->width * factor * 0.5;
 	res->instances[0].y = pos_screen.y - src->height * factor * 1.5;
-	//printf("instance pos: x: %d, y: %d\n", res->instances[0].x, res->instances[0].y);
+	// printf("instance pos: x: %d, y: %d\n", res->instances[0].x, res->instances[0].y);
 }
 
 double	calculate_scale_factor(double dist)

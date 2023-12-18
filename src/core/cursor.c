@@ -2,7 +2,7 @@
 
 void	handle_cursor(cub3d_t *cub3d)
 {
-	vector_t mouse_pos;
+	vector_t	mouse_pos;
 
 	if (cub3d->settings.mouse == TRUE && cub3d->state == STATE_GAME)
 	{

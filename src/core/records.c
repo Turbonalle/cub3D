@@ -58,7 +58,7 @@ int count_records(record_t *records)
 	return (count);
 }
 
-void	delete_last_record(mlx_t *mlx, record_t **records)
+void	delete_last_record(cub3d_t *cub3d, mlx_t *mlx, record_t **records)
 {
 	record_t	*ptr;
 	record_t	*prev;
@@ -70,8 +70,11 @@ void	delete_last_record(mlx_t *mlx, record_t **records)
 		ptr = ptr->next;
 	}
 	prev->next = NULL;
-	mlx_delete_image(mlx, ptr->text_name);
-	mlx_delete_image(mlx, ptr->text_time);
+	if (cub3d->state != STATE_START)
+	{
+		mlx_delete_image(mlx, ptr->text_name);
+		mlx_delete_image(mlx, ptr->text_time);
+	}
 	free_record(ptr);
 }
 
@@ -107,7 +110,7 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_e
 		temp = temp->next;
 		i++;
 	}
-	if (i == n_entries)		// if new record is worse than the last record
+	if (i > n_entries)		// if new record is worse than the last record
 	{
 		free_record(new);
 	}
@@ -121,7 +124,7 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_e
 	i = count_records(*records);
 	while (i > n_entries)
 	{
-		delete_last_record(cub3d->mlx, records);
+		delete_last_record(cub3d, cub3d->mlx, records);
 		i = count_records(*records);
 	}
 	return (SUCCESS);
@@ -207,6 +210,7 @@ int	read_records(cub3d_t *cub3d, level_t *levels)
 			line = get_next_line(fd);
 		}
 	}
+	free(line);
 	close(fd);
 	return (SUCCESS);
 }

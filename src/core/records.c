@@ -75,41 +75,13 @@ void	delete_last_record(mlx_t *mlx, record_t **records)
 	free_record(ptr);
 }
 
-void	set_text_time(cub3d_t *cub3d, record_t *record, int i)
-{
-	vector_t	pos;
-	int			margin_x;
-	int			margin_y;
-	int			level;
-
-	level = get_current_level(cub3d);
-	margin_x = cub3d->leaderboard.rect_level[level - 1].height * 0.1;
-	margin_y = cub3d->leaderboard.rect_level[level - 1].height * 0.2;
-	pos.x = cub3d->leaderboard.rect_level[level - 1].pos.x + margin_x;
-	pos.y = cub3d->leaderboard.rect_level[level - 1].pos.y + margin_y + i * (cub3d->leaderboard.rect_level[level - 1].height - 2 * margin_y) / cub3d->leaderboard.n_entries;
-	record->text_time = mlx_put_string(mlx, record->time_str, pos.x, pos.y);
-}
-
-void	set_text_name(cub3d_t *cub3d, record_t *record, int i)
-{
-	vector_t	pos;
-	int			margin_y;
-	int			level;
-
-	level = get_current_level(cub3d);
-	margin_y = cub3d->leaderboard.rect_level[level - 1].height * 0.2;
-	pos.x = cub3d->leaderboard.rect_level[level - 1].pos.x + cub3d->leaderboard.rect_level[level - 1].width * 0.5;
-	pos.y = cub3d->leaderboard.rect_level[level - 1].pos.y + margin_y + i * (cub3d->leaderboard.rect_level[level - 1].height - 2 * margin_y) / cub3d->leaderboard.n_entries;
-	record->text_name = mlx_put_string(mlx, record->name, pos.x, pos.y);
-}
-
 int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_entries)
 {
 	record_t	*new;
 	record_t	*temp;
 	int			i;
 
-	new = new_record(cub3d, time, name);
+	new = new_record(time, name);
 	if (!new)
 		return (err("Failed to malloc new record"));
 	
@@ -146,8 +118,6 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_e
 	}
 	else					// if new record is better than the last record
 		temp->next = new;
-	set_text_name(cub3d, new, i - 1);	// COMPLETE THIS!!!
-	set_text_time(cub3d, new, i - 1);	// COMPLETE THIS!!!
 	i = count_records(*records);
 	while (i > n_entries)
 	{
@@ -197,7 +167,7 @@ int	get_record_name(char *line, char **name)
 	return (SUCCESS);
 }
 
-int	set_records(mlx_t *mlx, level_t *level, char **line, int n_entries, int fd)
+int	set_records(cub3d_t *cub3d, level_t *level, char **line, int n_entries, int fd)
 {
 	char	*name;
 	int		time;
@@ -208,7 +178,7 @@ int	set_records(mlx_t *mlx, level_t *level, char **line, int n_entries, int fd)
 			return (err("Failed to get time string"));
 		if (!get_record_name(*line, &name))
 			return (err("Failed to get name string"));
-		add_record(mlx, &level->records, time, name, n_entries);
+		add_record(cub3d, &level->records, time, name, n_entries);
 		free(*line);
 		*line = get_next_line(fd);
 	}

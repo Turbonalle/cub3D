@@ -42,6 +42,18 @@ void	draw_names(mlx_t *mlx, record_t **records, leaderboard_t *board, int level)
 	}
 }
 
+void	set_record_texts(cub3d_t *cub3d, leaderboard_t *board)
+{
+	int	i;
+
+	i = 0;
+	while (++i < cub3d->n_levels)
+	{
+		draw_names(cub3d->mlx, &cub3d->levels[i].records, board, i);
+		draw_times(cub3d->mlx, &cub3d->levels[i].records, board, i);
+	}
+}
+
 int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 {
 	int	i;
@@ -112,12 +124,7 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	board->text_title = mlx_put_string(cub3d->mlx, "Leaderboard", board->rect_title.pos.x + board->rect_title.width * 0.5, board->rect_title.pos.y + board->rect_title.height * 0.5);
 	center(board->text_title);
 	
-	// i = 0;
-	// while (++i < cub3d->n_levels)
-	// {
-	// 	draw_names(cub3d->mlx, &cub3d->levels[i].records, board, i);
-	// 	draw_times(cub3d->mlx, &cub3d->levels[i].records, board, i);
-	// }
+	set_record_texts(cub3d, board);
 	disable_leaderboard(cub3d, board);
 	return (SUCCESS);
 }

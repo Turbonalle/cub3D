@@ -9,45 +9,51 @@ int	is_locked_door(cub3d_t *cub3d, int y, int x)
 	{
 		return (FALSE);
 	}
-	printf("number of keys left for this door group: %i\n", cub3d->level->door_groups[index].num_keys_left);
+	//printf("number of keys left for this door group: %i\n", cub3d->level->door_groups[index].num_keys_left);
 	return (cub3d->level->door_groups[index].num_keys_left > 0);
 }
 
-void	deactivate_key(cub3d_t *cub3d, key_node_t *head, int y, int x)
+int	deactivate_key(cub3d_t *cub3d, key_node_t *head, double y, double x)
 {
 	while (head)
 	{
-		if (head->pos.x == x && head->pos.y == y)
+		//printf("key: [%f, %f]\n", head->pos.x, head->pos.y);
+		//printf("pos: [%f, %f]\n", x, y);
+		//printf("sum of sqares: %f\n", pow(head->pos.x - x, 2) + pow(head->pos.y - y, 2));
+		//printf("distance: %f\n", pow(head->pos.x - x) + pow(head->pos.y - y));
+		if ((pow(head->pos.x - x, 2) + pow(head->pos.y - y, 2) < 1) && head->collected == FALSE)
 		{
 			head->collected = TRUE;
-			cub3d->level->map[y][x] = '0';
-			return ;
+			head->img_curr_frame->instances[0].enabled = FALSE;
+			//mlx_delete_image(cub3d->mlx, head->img_curr_frame);
+			cub3d->level->map[(int)y][(int)x] = '0';
+			return TRUE;
 		}
 		head = head->next;
 	}
+	return FALSE;
 }
 
-void	collect_key(cub3d_t *cub3d, int y, int x)
+void	collect_key(cub3d_t *cub3d, double y, double x)
 {
 	int	index;
 
-	index = get_key_index(cub3d->level->map[y][x]);
-	if (index == -1)
+	index = get_key_index(cub3d->level->map[(int)y][(int)x]);
+	if (index == -1 || deactivate_key(cub3d, cub3d->level->key_groups[index].keys, y, x) == FALSE)
 	{
 		return ;
 	}
-	deactivate_key(cub3d, cub3d->level->key_groups[index].keys, y, x);
 	cub3d->level->door_groups[index].num_keys_left--;
 	draw_key_counts(cub3d);
 }
 
 void	item_collected_checker(cub3d_t *cub3d)
 {
-	int	new_y;
-	int	new_x;
+	double	new_y;
+	double	new_x;
 
-	new_y = (int)cub3d->player.new_pos.y;
-	new_x = (int)cub3d->player.new_pos.x;
+	new_y = cub3d->player.new_pos.y;
+	new_x = cub3d->player.new_pos.x;
 	collect_key(cub3d, new_y, new_x);
 }
 

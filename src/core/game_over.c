@@ -25,13 +25,15 @@ void	game_over(cub3d_t *cub3d)
 	free_level(cub3d);
 	if (cub3d->level != &cub3d->levels[0] && is_top_score(cub3d->level, cub3d->time_finished))
 	{
-		draw_name_menu(cub3d, &cub3d->name_menu);
+		enable_name_menu(&cub3d->name_menu);
 		cub3d->state = STATE_ENTERNAME;
+		handle_cursor(cub3d);
 	}
 	else
 	{
-		draw_start_menu(cub3d, &cub3d->start_menu);
+		enable_start_menu(&cub3d->start_menu);
 		cub3d->state = STATE_START;
+		handle_cursor(cub3d);
 		// cub3d->state = STATE_GAMEOVER;
 	}
 }

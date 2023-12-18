@@ -103,7 +103,7 @@ void	update(void *param)
 
 void	start_game(cub3d_t *cub3d)
 {
-	draw_start_menu(cub3d, &cub3d->start_menu);
+	enable_start_menu(&cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);
 	mlx_scroll_hook(cub3d->mlx, &hook_mouse_scroll, cub3d);

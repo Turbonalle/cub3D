@@ -1,5 +1,18 @@
 #include "../incl/cub3d.h"
 
+int get_current_level(cub3d_t *cub3d)
+{
+	int i;
+
+	i = 0;
+	while (++i < cub3d->n_levels)
+	{
+		if (cub3d->level == &cub3d->levels[i])
+			return (i);
+	}
+	return (i);
+}
+
 int	all_alpha(char *str)
 {
 	int	i;

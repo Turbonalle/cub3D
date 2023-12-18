@@ -13,19 +13,36 @@ int is_strafing(cub3d_t *cub3d)
 			|| (!cub3d->keys.a && cub3d->keys.d));
 }
 
+#define MOUSE_SENSITIVITY 0.004
+
 void player_rotation(cub3d_t *cub3d)
 {
-	if (cub3d->keys.left && !cub3d->keys.right)
+	if (cub3d->settings.mouse == FALSE)
 	{
-		cub3d->player.angle -= ROTATION_SPEED * cub3d->delta_time;
-		if (cub3d->player.angle < 0)
-			cub3d->player.angle += (M_PI + M_PI);
+		if (cub3d->keys.left && !cub3d->keys.right)
+		{
+			cub3d->player.angle -= ROTATION_SPEED * cub3d->delta_time;
+			if (cub3d->player.angle < 0)
+				cub3d->player.angle += (M_PI + M_PI);
+		}
+		else if (cub3d->keys.right && !cub3d->keys.left)
+		{
+			cub3d->player.angle += ROTATION_SPEED * cub3d->delta_time;
+			if (cub3d->player.angle >= (2 * M_PI))
+				cub3d->player.angle -= (M_PI + M_PI);
+		}
 	}
-	else if (cub3d->keys.right && !cub3d->keys.left)
+	else
 	{
-		cub3d->player.angle += ROTATION_SPEED * cub3d->delta_time;
-		if (cub3d->player.angle >= (2 * M_PI))
-			cub3d->player.angle -= (M_PI + M_PI);
+		if (cub3d->mouse.x != cub3d->mouse_set_pos.x)
+		{
+			cub3d->player.angle += (cub3d->mouse.x - cub3d->mouse_set_pos.x) * MOUSE_SENSITIVITY;
+			if (cub3d->player.angle < 0)
+				cub3d->player.angle += (M_PI + M_PI);
+			else if (cub3d->player.angle >= (2 * M_PI))
+				cub3d->player.angle -= (M_PI + M_PI);
+			cub3d->mouse_set_pos.x = cub3d->mouse.x;
+		}
 	}
 }
 

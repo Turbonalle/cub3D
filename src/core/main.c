@@ -93,9 +93,6 @@ int	check_ext(char *str)
 	return (1);
 }
 
-// Store av[1] in cub3d->levels[0]
-// Read levels in level folder into cub3d->levels[1-9]
-
 int	main(int ac, char **av)
 {
 	cub3d_t	cub3d;
@@ -115,6 +112,8 @@ int	main(int ac, char **av)
 		return (1);
 	if (!read_records(&cub3d, cub3d.levels))
 		return (!err("Failed to read records"));
+	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))
+		return (1);
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
 	free_cub3d(&cub3d);

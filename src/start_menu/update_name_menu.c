@@ -83,9 +83,27 @@ void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu)
 	}
 }
 
+void	remove_record_image_pointers(cub3d_t *cub3d)
+{
+	record_t	*ptr;
+
+	ptr = cub3d->level->records;
+	while (ptr)
+	{
+		mlx_delete_image(cub3d->mlx, ptr->text_name);
+		mlx_delete_image(cub3d->mlx, ptr->text_time);
+		ptr = ptr->next;
+	}
+
+}
+
 void	submit_name(cub3d_t *cub3d, name_menu_t *menu)
 {
-	add_record(&cub3d->level->records, cub3d->time_finished, ft_strdup(menu->name), cub3d->leaderboard.n_entries);
+	remove_record_image_pointers(cub3d);
+	add_record(cub3d, &cub3d->level->records, cub3d->time_finished, ft_strdup(menu->name), cub3d->leaderboard.n_entries);
+	int i = get_current_level(cub3d);
+	draw_names(cub3d->mlx, &cub3d->level->records, &cub3d->leaderboard, i);
+	draw_times(cub3d->mlx, &cub3d->level->records, &cub3d->leaderboard, i);
 }
 
 void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu)
@@ -96,7 +114,7 @@ void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 		{
 			submit_name(cub3d, menu);
 			disable_name_menu(menu);
-			draw_leaderboard(cub3d, &cub3d->leaderboard);
+			enable_leaderboard(cub3d, &cub3d->leaderboard);
 			cub3d->state = STATE_LEADERBOARD;
 			menu->changed = FALSE;
 			return ;

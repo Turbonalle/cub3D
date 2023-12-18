@@ -33,7 +33,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			if (hover_button(cub3d, &cub3d->start_menu.button_start))
 			{
 				cub3d->state = STATE_GAME;
-				delete_start_menu(cub3d, &cub3d->start_menu);
+				disable_start_menu(&cub3d->start_menu);
 				cub3d->level = &cub3d->levels[0];
 				load_level(cub3d, cub3d->level);
 				handle_cursor(cub3d);
@@ -42,8 +42,8 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			else if (hover_button(cub3d, &cub3d->start_menu.button_level))
 			{
 				cub3d->state = STATE_LEVEL;
-				delete_start_menu(cub3d, &cub3d->start_menu);
-				draw_level_menu(cub3d, &cub3d->level_menu);
+				disable_start_menu(&cub3d->start_menu);
+				enable_level_menu(&cub3d->level_menu);
 			}
 			// else if (hover_button(cub3d, &cub3d->start_menu.button_settings))
 			// {
@@ -59,12 +59,12 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			int i;
 
 			i = -1;
-			while (++i < 9)
+			while (++i < cub3d->n_levels - 1)
 			{
 				if (hover_button(cub3d, &cub3d->level_menu.buttons[i]))
 				{
 					cub3d->state = STATE_GAME;
-					delete_level_menu(cub3d, &cub3d->level_menu);
+					disable_level_menu(&cub3d->level_menu);
 					cub3d->level = &cub3d->levels[i + 1];
 					load_level(cub3d, &cub3d->levels[i + 1]);
 					handle_cursor(cub3d);
@@ -73,23 +73,23 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			}
 			if (hover_button(cub3d, &cub3d->level_menu.button_back))
 			{
-				delete_level_menu(cub3d, &cub3d->level_menu);
-				draw_start_menu(cub3d, &cub3d->start_menu);
+				disable_level_menu(&cub3d->level_menu);
+				enable_start_menu(&cub3d->start_menu);
 				cub3d->state = STATE_START;
 			}
 			if (hover_button(cub3d, &cub3d->level_menu.button_leaderboard))
 			{
+				disable_level_menu(&cub3d->level_menu);
+				enable_leaderboard(cub3d, &cub3d->leaderboard);
 				cub3d->state = STATE_LEADERBOARD;
-				delete_level_menu(cub3d, &cub3d->level_menu);
-				draw_leaderboard(cub3d, &cub3d->leaderboard);
 			}
 		}
 		else if (cub3d->state == STATE_LEADERBOARD)
 		{
 			if (hover_button(cub3d, &cub3d->leaderboard.button_back))
 			{
-				delete_leaderboard(cub3d, &cub3d->leaderboard);
-				draw_level_menu(cub3d, &cub3d->level_menu);
+				disable_leaderboard(cub3d, &cub3d->leaderboard);
+				enable_level_menu(&cub3d->level_menu);
 				cub3d->state = STATE_LEVEL;
 			}
 		}

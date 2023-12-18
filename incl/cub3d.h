@@ -89,7 +89,7 @@ int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 int	init_textures(cub3d_t *cub3d);
 int	init_doors_and_keys(cub3d_t *cub3d);
 
-//---- START MENU --------------------------------------------------------------
+//---- MENUS -------------------------------------------------------------------
 
 // delete_menu.c
 void	delete_menus(cub3d_t *cub3d);
@@ -99,36 +99,35 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 // disable_menu.c
-void	disable_name_menu(name_menu_t *menu);
 
 void	draw_menu_background(mlx_image_t *img, int color);
 void	draw_button(mlx_image_t *img, button_t *button);
 
-// draw_level_menu.c
-void	draw_level_menu(cub3d_t *cub3d, level_menu_t *menu);
-
-// update_level_menu.c
+// level menu
+void	disable_level_menu(level_menu_t *menu);
+void	enable_level_menu(level_menu_t *menu);
 void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 
-// draw_leaderboard.c
-int		draw_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
-
-// name menu
-int		draw_name_menu(cub3d_t *cub3d, name_menu_t *menu);
-void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
-
-// update_leaderboard.c
+// leaderboard
+void	draw_times(mlx_t *mlx, record_t **records, leaderboard_t *board, int level);
+void	draw_names(mlx_t *mlx, record_t **records, leaderboard_t *board, int level);
+void	disable_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+void	enable_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 
-// draw_start_menu.c
-void	draw_button(mlx_image_t *img, button_t *button);
-void	draw_start_menu_background(cub3d_t *cub3d, start_menu_t *menu);
-void	draw_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+// name menu
+void	disable_name_menu(name_menu_t *menu);
+void	enable_name_menu(name_menu_t *menu);
+void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
-// update_start_menu.c
+
+// start menu
+void	disable_start_menu(start_menu_t *menu);
+void	enable_start_menu(start_menu_t *menu);
 void	get_transition_color(cub3d_t *cub3d, int *color);
 void	check_button_hover(cub3d_t *cub3d, start_menu_t *menu);
 void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+
 
 //---- PAUSE MENU --------------------------------------------------------------
 
@@ -188,7 +187,7 @@ void	handle_cursor(cub3d_t *cub3d);
 void	game_over(cub3d_t *cub3d);
 
 // records.c
-int		add_record(record_t **records, int time, char *name, int n_entries);
+int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
 int		read_records(cub3d_t *cub3d, level_t *levels);
 
 // load_level.c
@@ -278,6 +277,7 @@ void	raycasting(cub3d_t *cub3d);
 //---- UTILS -------------------------------------------------------------------
 
 // check_utils.c
+int		get_current_level(cub3d_t *cub3d);
 int		all_alpha(char *str);
 int		all_digits(char *str);
 

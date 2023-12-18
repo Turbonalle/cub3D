@@ -38,12 +38,13 @@ void	init_letter_images(cub3d_t *cub3d, name_menu_t *menu)
 void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 {
 	int	gap;
+	int	i;
 
 	menu->background_color = BLACK;
 	menu->changed = FALSE;
 	menu->current = 0;
 
-	int i = -1;
+	i = -1;
 	while (++i < MAX_NAME_LENGTH)
 	{
 		menu->name[i] = '\0';

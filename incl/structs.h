@@ -44,17 +44,29 @@ typedef struct player_s
 	int			is_strafing;
 }				player_t;
 
+enum enemy_state
+{
+	IDLE,
+	WALKING,
+	DYING
+};
+
 typedef struct s_enemy
 {
 	dvector_t		pos;
 	dvector_t		target;
 	dvector_t		dir;
 	dvector_t		minimap_pos;
+	vector_t		pos_screen;
 	double			angle;
 	double			angle_start;
 	double			dir_player;
 	int				is_walking;
 	int				is_spinning;
+	double			dist_to_player;
+	int				state;
+	int				visible;
+	mlx_image_t		*img_curr_frame;
 	enemy_path_t	*path;
 }	t_enemy;
 
@@ -134,7 +146,6 @@ typedef struct key_group_s
 	char		*texture_dir;
 	int			prev_frame_index;
 	int			curr_frame_index;
-	int			num_frames;
 	vector_t	key_icon_coords;
 }				key_group_t;
 
@@ -560,8 +571,10 @@ typedef struct cub3d_s
 	level_t			*levels;
 	level_t			*level;
 	t_enemy			*enemy;
+	mlx_texture_t	*frames_blue_idle[NUM_FRAMES_ENEMY_IDLE];
+	int				curr_frame_index_idle;
+	int				prev_frame_index_idle;
 	int				speedrun;
 }					cub3d_t;
-
 
 #endif

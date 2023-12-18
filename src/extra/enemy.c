@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/17 19:56:03 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:45:38 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,31 @@ void	enemy_vision(cub3d_t *cub3d)
 	}
 }
 
+int	init_enemy_frames(cub3d_t *cub3d)
+{
+	int 	i;
+	char	*file_path;
+	char	*file_name;
+	char	*file_name_extension;
+	
+	// TODO: protect mallocs
+	i = 0;
+	while (i < NUM_FRAMES_ENEMY_IDLE)
+	{
+		//TODO: protect mallocs
+		file_name = ft_itoa(i + 1);
+		file_name_extension = ft_strjoin(file_name, ".png");
+		file_path = ft_strjoin(FRAME_PATH_ENEMY_BLUE_IDLE, file_name_extension);
+		printf("full file path: %s\n", file_path);
+		cub3d->frames_blue_idle[i] = mlx_load_png(file_path);
+		free(file_name);
+		free(file_name_extension);
+		free(file_path);
+		i++;
+	}
+	return 1;
+}
+
 int init_enemy(cub3d_t *cub3d)
 {
 	int	i;
@@ -357,6 +382,8 @@ int init_enemy(cub3d_t *cub3d)
 	cub3d->enemy = malloc(sizeof(t_enemy) * cub3d->num_enemies);
 	if (!cub3d->enemy)
 		return (0);
+	cub3d->curr_frame_index_idle = 0;
+	cub3d->prev_frame_index_idle = 0;
 	while (i < cub3d->num_enemies)
 	{
 		enemy_starting_point(cub3d, i);
@@ -366,7 +393,15 @@ int init_enemy(cub3d_t *cub3d)
 		cub3d->enemy[i].dir.x = 0;
 		cub3d->enemy[i].dir.y = 0;
 		cub3d->enemy[i].path = NULL;
+		cub3d->enemy[i].pos_screen.x = -WIDTH;
+		cub3d->enemy[i].pos_screen.y = -HEIGHT;
+		cub3d->enemy[i].state = IDLE;
+		cub3d->enemy[i].visible = FALSE;
+		cub3d->enemy[i].dist_to_player = 100;
+		cub3d->enemy[i].img_curr_frame = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+		mlx_image_to_window(cub3d->mlx, cub3d->enemy[i].img_curr_frame, 0, 0);
 		i++;
 	}
+	init_enemy_frames(cub3d);
 	return (1);
 }

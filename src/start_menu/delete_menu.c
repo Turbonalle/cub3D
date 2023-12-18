@@ -60,5 +60,8 @@ void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 
 void	delete_menus(cub3d_t *cub3d)
 {
+	delete_start_menu(cub3d, &cub3d->start_menu);
+	delete_level_menu(cub3d, &cub3d->level_menu);
+	delete_leaderboard(cub3d, &cub3d->leaderboard);
 	delete_name_menu(cub3d, &cub3d->name_menu);
 }

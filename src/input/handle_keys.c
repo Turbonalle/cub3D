@@ -93,6 +93,7 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 		pause_timer(cub3d);
 		draw_pause_menu(cub3d, &cub3d->pause_menu);
 		cub3d->state = STATE_PAUSE;
+		handle_cursor(cub3d);
 	}
 	else if (keydata.key == MLX_KEY_T)
 	{
@@ -102,7 +103,7 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	{
 		printf("Back to start menu\n");
 		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
-		draw_start_menu(cub3d, &cub3d->start_menu);
+		enable_start_menu(&cub3d->start_menu);
 		// free enemies, keys, doors
 		cub3d->state = STATE_START;
 	}
@@ -114,6 +115,7 @@ void	handle_pause_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	{
 		delete_pause_menu(cub3d);
 		cub3d->state = STATE_GAME;
+		handle_cursor(cub3d);
 		continue_timer(cub3d);
 	}
 }
@@ -128,8 +130,8 @@ void	handle_level_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
-		delete_level_menu(cub3d, &cub3d->level_menu);
-		draw_start_menu(cub3d, &cub3d->start_menu);
+		disable_level_menu(&cub3d->level_menu);
+		enable_start_menu(&cub3d->start_menu);
 		cub3d->state = STATE_START;
 	}
 }
@@ -138,8 +140,8 @@ void	handle_leaderboard_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
-		delete_leaderboard(cub3d, &cub3d->leaderboard);
-		draw_level_menu(cub3d, &cub3d->level_menu);
+		disable_leaderboard(cub3d, &cub3d->leaderboard);
+		enable_level_menu(&cub3d->level_menu);
 		cub3d->state = STATE_LEVEL;
 	}
 }
@@ -149,7 +151,7 @@ void	handle_settings_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		// delete_settings_menu(cub3d, &cub3d->settings_menu);
-		// draw_start_menu(cub3d, &cub3d->start_menu);
+		// enable_start_menu(&cub3d->start_menu);
 		cub3d->state = STATE_START;
 	}
 }
@@ -159,7 +161,7 @@ void	handle_gameover_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		// delete_gameover_menu(cub3d);
-		draw_start_menu(cub3d, &cub3d->start_menu);
+		enable_start_menu(&cub3d->start_menu);
 		cub3d->state = STATE_START;
 	}
 }

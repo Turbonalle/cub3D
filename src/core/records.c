@@ -37,11 +37,45 @@ record_t *new_record(int time, char* name)
 	new->time = time;
 	new->name = name;
 	create_time_string(new->time_str, time);
+	new->text_name = NULL;
+	new->text_time = NULL;
 	new->next = NULL;
 	return (new);
 }
 
-int	add_record(record_t **records, int time, char* name, int n_entries)
+int count_records(record_t *records)
+{
+	int			count;
+	record_t	*ptr;
+
+	count = 0;
+	ptr = records;
+	while (ptr)
+	{
+		count++;
+		ptr = ptr->next;
+	}
+	return (count);
+}
+
+void	delete_last_record(mlx_t *mlx, record_t **records)
+{
+	record_t	*ptr;
+	record_t	*prev;
+
+	ptr = *records;
+	while (ptr->next)
+	{
+		prev = ptr;
+		ptr = ptr->next;
+	}
+	prev->next = NULL;
+	mlx_delete_image(mlx, ptr->text_name);
+	mlx_delete_image(mlx, ptr->text_time);
+	free_record(ptr);
+}
+
+int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_entries)
 {
 	record_t	*new;
 	record_t	*temp;
@@ -59,7 +93,7 @@ int	add_record(record_t **records, int time, char* name, int n_entries)
 	}
 
 	// if new record is better than the first record
-	if ((*records)->time > time)
+	if (time < (*records)->time)
 	{
 		new->next = *records;
 		*records = new;
@@ -67,103 +101,112 @@ int	add_record(record_t **records, int time, char* name, int n_entries)
 	}
 
 	temp = *records;
-	i = 0;
-	while (temp->next && temp->next->time < time && ++i <= n_entries)
+	i = 1;
+	while (temp->next && temp->next->time < time && i < n_entries)
+	{
 		temp = temp->next;
+		i++;
+	}
 	if (i == n_entries)		// if new record is worse than the last record
+	{
 		free_record(new);
-	else if (temp->next) 	// if new record is better than a record in the middle
+	}
+	if (temp->next) 	// if new record is better than a record in the middle
 	{
 		new->next = temp->next;
 		temp->next = new;
 	}
 	else					// if new record is better than the last record
 		temp->next = new;
+	i = count_records(*records);
+	while (i > n_entries)
+	{
+		delete_last_record(cub3d->mlx, records);
+		i = count_records(*records);
+	}
 	return (SUCCESS);
 }
 
-int	get_record_time(char **buf, int *time)
+int	get_record_time(char *line, int *time)
 {
 	char	*ptr;
 
-	ptr = *buf;
+	ptr = line;
 	*time = 0;
-	while (*ptr && *ptr != '\n' && ft_isdigit(*ptr))
+	while (*ptr && ft_isdigit(*ptr))
 	{
 		*time = *time * 10 + (*ptr - '0');
 		ptr++;
 	}
 	if (*ptr != ' ')
 		return (FAIL);
-	*buf = ptr + 1;
 	return (SUCCESS);
 }
 
-int	get_record_name(char **buf, char **name)
+int	get_record_name(char *line, char **name)
 {
-	char	*ptr;
+	char	*name_start;
+	int		i;
 
-	ptr = *buf;
-	while (*ptr && *ptr != '\n')
-		ptr++;
-	*name = ft_substr(*buf, 0, ptr - *buf);
+	name_start = ft_strchr(line, ' ');
+	if (!name_start)
+		return (FAIL);
+	name_start++;
+	i = 0;
+	while (name_start[i] && name_start[i] != '\n')
+	{
+		if (!ft_isalpha(name_start[i]))
+			return (FAIL);
+		i++;
+	}
+	if (i == 0 || i > MAX_NAME_LENGTH || (name_start[i] != '\n' && name_start[i] != '\0'))
+		return (FAIL);
+	*name = ft_substr(line, name_start - line, i);
 	if (!*name)
 		return (FAIL);
-	*buf = ptr;
 	return (SUCCESS);
 }
 
-int	set_records(level_t *level, char **buf, int n_entries)
+int	set_records(cub3d_t *cub3d, level_t *level, char **line, int n_entries, int fd)
 {
 	char	*name;
 	int		time;
 
-	while (**buf && **buf != '\n')
+	while (*line && **line != '\n')
 	{
-		if (!get_record_time(buf, &time))
+		if (!get_record_time(*line, &time))
 			return (err("Failed to get time string"));
-		if (!get_record_name(buf, &name))
+		if (!get_record_name(*line, &name))
 			return (err("Failed to get name string"));
-		add_record(&level->records, time, name, n_entries);
-		if (**buf == '\n')
-			(*buf)++;
-		else
-			return (err("Invalid record format"));
-		if (**buf == '\n')
-			break ;
+		add_record(cub3d, &level->records, time, name, n_entries);
+		free(*line);
+		*line = get_next_line(fd);
 	}
-	if (**buf == '\n')
-		(*buf)++;
 	return (SUCCESS);
 }
 
 int	read_records(cub3d_t *cub3d, level_t *levels)
 {
+	char	*line;
 	int		fd;
-	char	*buf;
-	char	*temp;
 	int		i;
 
 	(void)levels;
-	buf = malloc(sizeof(char) * (2048 + 1));
-	if (!buf)
-		return (err("Failed to malloc buf"));
 	fd = open("assets/records.txt", O_RDONLY);
 	if (fd < 0)
-		return (free(buf), err("Failed to open records file"));
-	int bytes_read = read(fd, buf, 2048);
-	if (bytes_read < 0)
-		return (free(buf), err("Failed to read records file"));
-	buf[bytes_read] = '\0';
-	// printf("%s\n", buf);	// DEBUG
-	temp = buf;
+		return (err("Failed to open records file"));
 	i = 0;
-	while (*temp && ++i < cub3d->n_levels)
+	line = get_next_line(fd);
+	while (line && ++i < cub3d->n_levels)
 	{
-		if (!set_records(&cub3d->levels[i], &temp, cub3d->leaderboard.n_entries))
+		if (!set_records(cub3d, &cub3d->levels[i], &line, cub3d->leaderboard.n_entries, fd))
 			return (err("Failed to set records"));
+		if (line && *line == '\n')
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
 	}
-	free(buf);
 	close(fd);
 	return (SUCCESS);
 }

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   draw_world.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:31 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/30 14:13:43 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/17 21:23:50 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-double lerp(double y0, double y1, double x0, double x1, double x)
+/* double lerp(double y0, double y1, double x0, double x1, double x)
 {
 	return (y0 + (y1 - y0) * ((x - x0) / (x1 - x0)));
 }
-
+*/
 void draw_world(cub3d_t *cub3d)
 {
 	int		index;
@@ -109,7 +109,7 @@ void draw_world(cub3d_t *cub3d)
 		}
 		else if (cub3d->rays[index].wall == NO)
 		{
-			color = YELLOW;
+			color = YELLOW_PALE;
 		}
 		else if (cub3d->rays[index].wall == DE)
 		{
@@ -121,19 +121,19 @@ void draw_world(cub3d_t *cub3d)
 		}
 		else if (cub3d->rays[index].wall == 'A')
 		{
-			color = ORANGE_RED;
+			color = RED_LIGHT;
 		}
 		else if (cub3d->rays[index].wall == 'B')
 		{
-			color = SPRING_GREEN;
+			color = GREEN;
 		}
 		else if (cub3d->rays[index].wall == 'C')
 		{
-			color = GOLD;
+			color = YELLOW_PALE;
 		}
 		else if (cub3d->rays[index].wall == 'D')
 		{
-			color = TEAL;
+			color = TURQUOISE;
 		}
 		else
 			color = WHITE;

@@ -14,9 +14,7 @@ typedef struct door_pos_s door_pos_t;
 typedef struct texture_s
 {
 	char	*path;
-	int		*img;
-	int		width;
-	int		height;
+	mlx_texture_t	*texture;
 }			texture_t;
 
 //---- VECTORS -----------------------------------------------------------------
@@ -115,8 +113,12 @@ typedef struct keypress_s
 
 typedef struct key_node_s
 {
-	vector_t	pos;
+	dvector_t	pos;
+	vector_t	pos_screen;
+	double		dist_to_player;
+	int			visible;
 	int			collected;
+	mlx_image_t	*img_curr_frame;
 	key_node_t	*next;
 }				key_node_t;
 
@@ -127,11 +129,11 @@ typedef struct key_group_s
 	key_node_t	*keys;
 	mlx_image_t	*img_key_icon;
 	mlx_image_t	*img_text_key_count;
-	mlx_image_t	**frames;
-	mlx_texture_t	**textures_frames;
+	mlx_texture_t	**textures_frames; // TODO: delete textures in the end
 	mlx_texture_t	*texture_key_icon;
 	char		*texture_dir;
-	int			curr_frame;
+	int			prev_frame_index;
+	int			curr_frame_index;
 	int			num_frames;
 	vector_t	key_icon_coords;
 }				key_group_t;
@@ -216,9 +218,9 @@ typedef struct slider_s
 
 # define BOX_ON_COLOR GREEN
 # define BOX_OFF_COLOR BLACK
-# define BOX_HOVER_ON_COLOR LAWN_GREEN
-# define BOX_HOVER_OFF_COLOR GRAY
-# define BOX_BORDER_COLOR GOLD
+# define BOX_HOVER_ON_COLOR GREEN_LIGHT
+# define BOX_HOVER_OFF_COLOR GRAY_DARK
+# define BOX_BORDER_COLOR YELLOW_PALE
 
 # define OFF 0
 # define ON 1
@@ -238,9 +240,9 @@ typedef struct box_s
 //---- BUTTON ------------------------------------------------------------------
 
 # define BUTTON_CLICKED_COLOR GREEN
-# define BUTTON_HOVER_COLOR GOLDEN_ROD
-# define BUTTON_COLOR GRAY
-# define BUTTON_BORDER_COLOR GOLD
+# define BUTTON_HOVER_COLOR GREEN_DARK
+# define BUTTON_COLOR GRAY_DARK
+# define BUTTON_BORDER_COLOR YELLOW_PALE
 # define BUTTON_BORDER_THICKNESS 2
 
 typedef struct button_s

@@ -31,14 +31,10 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck, int dist)
 		&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A'
 		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B'
 		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|'))
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'))
 	{
 		if (dist > 3)
 			return (1);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-' || cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|')
-			return (0);
 		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
 			return (0);
 		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)

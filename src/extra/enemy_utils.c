@@ -23,14 +23,10 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 		&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A'
 		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B'
 		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|'))
+		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'))
 	{
 		if (dist_between(vMapCheck, cub3d->player.pos) > 3)
 			return (1);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == '-' || cub3d->level->map[vMapCheck.y][vMapCheck.x] == '|')
-			return (0);
 		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
 			return (0);
 		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)
@@ -145,7 +141,7 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy)
 		start.y = cub3d->img->height / 2 - 5;
 		end.x = start.x;
 		end.y = cub3d->img->height / 2 + 5;
-		draw_vertical_line(cub3d->img, start, end, MAGENTA);
+		draw_vertical_line(cub3d->img, start, end, BURGUNDY);
 		j++;
 	}
 }
@@ -176,6 +172,7 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 	return ;
 }
 
+// TODO: remove camelKey
 static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 {
 	dvector_t		vRayDir;
@@ -245,10 +242,8 @@ static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 	return (1);
 }
 
-static void	draw_key(cub3d_t *cub3d, double dir_to_key, int index)
+static void	draw_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 {
-	dvector_t start;
-	dvector_t end;
 	double dir_as_rad;
 	int	i;
 	i = 1;
@@ -260,40 +255,47 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, int index)
 			break ;
 		i++;
 	}
-	int j = 0;
-	while (j < 6)
-	{
-		start.x = i + j;
-		start.y = cub3d->img->height / 2 - 3;
-		end.x = start.x;
-		end.y = cub3d->img->height / 2 + 3;
-		draw_vertical_line(cub3d->img, start, end, ANTIQUE_WHITE);
-		j++;
-	}
-	(void)index;
-	//mlx_image_to_window(cub3d->mlx, cub3d->level->key_groups[index].img_key_icon, i, cub3d->img->height / 2);
+
+	
+	key->dist_to_player = sqrt(pow(key->pos.x - cub3d->player.pos.x, 2) + pow(key->pos.y - cub3d->player.pos.y, 2));
+	key->pos_screen.x = i;
+	key->pos_screen.y = cub3d->img->height / 2 + (cub3d->img->height / 2) / key->dist_to_player * 2;
+	//draw_circle(cub3d->img, key->pos_screen.x, key->pos_screen.y, 5, YELLOW_PALE);
 }
 
-static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp, int i)
+static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 {
 	double	angle_min;
 	double	angle_max;
 
 	angle_min = within_360(cub3d->player.angle * 180 / M_PI - cub3d->fov / 2);
 	angle_max = within_360(cub3d->player.angle * 180 / M_PI + cub3d->fov / 2);
+	key->visible = 0;
 	if (angle_max < angle_min)
 	{
 		if (dir_to_key > angle_max && dir_to_key < angle_min)
+		{
 			return ;
-		else if (ray_to_key(cub3d, dir_to_key, temp))
-			draw_key(cub3d, dir_to_key, i);
+		}
+			
+		else if (ray_to_key(cub3d, dir_to_key, key))
+		{
+			key->visible = 1;
+			draw_key(cub3d, dir_to_key, key);
+			
+		}
 	}
 	else
 	{
 		if (dir_to_key < angle_min || dir_to_key > angle_max)
+		{
 			return ;
-		else if (ray_to_key(cub3d, dir_to_key, temp))
-			draw_key(cub3d, dir_to_key, i);
+		}
+		else if (ray_to_key(cub3d, dir_to_key, key))
+		{
+			key->visible = 1;
+			draw_key(cub3d, dir_to_key, key);
+		}
 	}
 	return ;
 }
@@ -308,7 +310,7 @@ static void see_keys(cub3d_t *cub3d, int i)
 	{
 		dir_to_key = within_360((atan2(temp->pos.y - cub3d->player.pos.y, temp->pos.x - cub3d->player.pos.x) * 180 / M_PI));
 		if (temp->collected == 0)
-			see_key(cub3d, dir_to_key, temp, i);
+			see_key(cub3d, dir_to_key, temp);
 		temp = temp->next;
 	}
 }

@@ -14,7 +14,7 @@ typedef struct door_pos_s door_pos_t;
 typedef struct texture_s
 {
 	char	*path;
-	int		*img;
+	mlx_texture_t		*img;
 	int		width;
 	int		height;
 }			texture_t;

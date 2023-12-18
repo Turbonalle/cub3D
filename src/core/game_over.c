@@ -21,6 +21,8 @@ int	is_top_score(level_t *level, int time)
 void	game_over(cub3d_t *cub3d)
 {
 	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
+	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+	free_level(cub3d);
 	if (cub3d->level != &cub3d->levels[0] && is_top_score(cub3d->level, cub3d->time_finished))
 	{
 		draw_name_menu(cub3d, &cub3d->name_menu);

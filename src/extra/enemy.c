@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/18 17:38:09 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/18 23:35:18 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -464,6 +464,10 @@ void	enemy_vision(cub3d_t *cub3d)
 				}
 			}
 		}
+		if (cub3d->enemy[i].is_walking)
+			cub3d->enemy[i].state = WALKING;
+		else
+			cub3d->enemy[i].state = IDLE;
 		i++;
 	}
 }
@@ -490,7 +494,21 @@ int	init_enemy_frames(cub3d_t *cub3d)
 		free(file_path);
 		i++;
 	}
-	return 1;
+	i = 0;
+	while (i < NUM_FRAMES_ENEMY_WALKING)
+	{
+		//TODO: protect mallocs
+		file_name = ft_itoa(i + 1);
+		file_name_extension = ft_strjoin(file_name, ".png");
+		file_path = ft_strjoin(FRAME_PATH_ENEMY_GREEN_WALKING, file_name_extension);
+		printf("full file path: %s\n", file_path);
+		cub3d->frames_green_walking[i] = mlx_load_png(file_path);
+		free(file_name);
+		free(file_name_extension);
+		free(file_path);
+		i++;
+	}
+	return(1);
 }
 
 int init_enemy(cub3d_t *cub3d)

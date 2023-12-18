@@ -54,14 +54,15 @@
 # define FRAME_PATH_KEY_3 "./assets/textures/yellow/"
 # define FRAME_PATH_KEY_4 "./assets/textures/blue/"
 # define KEY_NORMAL_SCALE_DISTANCE 13
+# define NUM_FRAMES_KEY 24
 
 # define ANIMATION_INTERVAL_MS 66.6667
 
-# define NUM_FRAMES_KEY 24
-
-# define FRAME_PATH_ENEMY_BLUE_IDLE "./assets/textures/slime_blue_idle/"
+# define FRAME_PATH_ENEMY_BLUE_IDLE "./assets/textures/blue_idle/"
+# define FRAME_PATH_ENEMY_GREEN_WALKING "./assets/textures/green_walking/"
 # define ENEMY_NORMAL_SCALE_DISTANCE 20
 # define NUM_FRAMES_ENEMY_IDLE 8
+# define NUM_FRAMES_ENEMY_WALKING 8
 
 # define MINIMAP_ZOOM_INCREMENT 5
 

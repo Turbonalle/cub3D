@@ -164,11 +164,14 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->num_enemies = 0;
 	cub3d->leaderboard.n_entries = 5;
 	cub3d->speedrun = FALSE;
+	cub3d->player.health = PLAYER_HEALTH;
+	cub3d->player.hit_timestamp = 0;
 	set_keys(&cub3d->keys);
 	init_start_menu(cub3d, &cub3d->start_menu);
 	init_level_menu(cub3d, &cub3d->level_menu);
 	init_pause_menu(cub3d, &cub3d->pause_menu);
 	init_name_menu(cub3d, &cub3d->name_menu);
+	init_gameover_menu(cub3d, &cub3d->gameover_menu);
 	init_timer(cub3d);
 	int i = -1;
 	while (++i < 10)

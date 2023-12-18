@@ -121,8 +121,6 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 
 void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 {
-	dvector_t start;
-	dvector_t end;
 	double dir_as_rad;
 	int	i;
 	i = 1;
@@ -139,17 +137,6 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 	cub3d->enemy[index].dist_to_player = sqrt(pow(cub3d->enemy[index].pos.x - cub3d->player.pos.x, 2) + pow(cub3d->enemy[index].pos.y - cub3d->player.pos.y, 2));
 	cub3d->enemy[index].pos_screen.x = i;
 	cub3d->enemy[index].pos_screen.y = cub3d->img->height / 2 + (cub3d->img->height / 2) / cub3d->enemy[index].dist_to_player * 2;
-
-	int j = 0;
-	while (j < 10)
-	{
-		start.x = i + j;
-		start.y = cub3d->img->height / 2 - 5;
-		end.x = start.x;
-		end.y = cub3d->img->height / 2 + 5;
-		draw_vertical_line(cub3d->img, start, end, BURGUNDY);
-		j++;
-	}
 }
 
 static void	see_enemy(cub3d_t *cub3d, int i)

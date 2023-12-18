@@ -94,6 +94,27 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 				cub3d->state = STATE_LEVEL;
 			}
 		}
+		else if (cub3d->state == STATE_GAMEOVER)
+		{
+			if (hover_button(cub3d, &cub3d->gameover_menu.button_exit))
+			{
+				disable_gameover_menu(&cub3d->gameover_menu);
+				enable_start_menu(&cub3d->start_menu);
+				cub3d->state = STATE_START;
+			}
+			if (hover_button(cub3d, &cub3d->gameover_menu.button_restart))
+			{
+				// if (cub3d->level == &cub3d->levels[0])
+				// 	cub3d->speedrun = FALSE;
+				// else
+				// 	cub3d->speedrun = TRUE;
+				disable_gameover_menu(&cub3d->gameover_menu);
+				cub3d->state = STATE_GAME;
+				load_level(cub3d, cub3d->level);
+				handle_cursor(cub3d);
+				start_timer(cub3d);
+			}
+		}
 	}
     else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)
 		cub3d->keys.mouse_left = FALSE;

@@ -40,6 +40,8 @@ typedef struct player_s
 	dvector_t	dir;
 	double		angle;
 	double		movement_angle;
+	double		hit_timestamp;
+	int			health;
 	int			is_walking;
 	int			is_strafing;
 }				player_t;
@@ -58,6 +60,7 @@ typedef struct s_enemy
 	dvector_t		dir;
 	dvector_t		minimap_pos;
 	vector_t		pos_screen;
+	double			freeze_start;
 	double			angle;
 	double			angle_start;
 	double			dir_player;
@@ -444,11 +447,9 @@ typedef struct gameover_menu_s
 {
 	mlx_image_t	*img;
 	mlx_image_t	*text_gameover;
-	mlx_image_t	*text_restart;
-	mlx_image_t	*text_exit;
 	int			background_color;
-	box_t		box_restart;
-	box_t		box_exit;
+	button_t	button_restart;
+	button_t	button_exit;
 }				gameover_menu_t;
 
 //---- SETTINGS ----------------------------------------------------------------
@@ -518,6 +519,7 @@ typedef struct level_s
 	int			element_found[6];
 	door_group_t	door_groups[NUM_DOORS_MAX];
 	key_group_t		key_groups[NUM_DOORS_MAX];
+	dvector_t		distraction;
 	record_t		*records;
 }			level_t;
 

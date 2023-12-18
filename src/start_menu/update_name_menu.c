@@ -1,8 +1,9 @@
 #include "../incl/cub3d.h"
 
-void	update_letter(mlx_t *mlx, name_menu_t *menu, char letter, int i)
+void	update_letter(mlx_t *mlx, name_menu_t *menu, int *key, int i)
 {
-	menu->name[menu->current] = letter;
+	*key = FALSE;
+	menu->name[menu->current] = i + 'a';
 	menu->letter_index[menu->current] = mlx_image_to_window(mlx, menu->letters_img[i], menu->box[menu->current].pos.x + menu->box[menu->current].width * 0.5, menu->box[menu->current].pos.y + menu->box[menu->current].height * 0.5);
 	menu->letters_img[i]->instances[menu->letter_index[menu->current]].x -= menu->letters_img[i]->width * 0.5;
 	menu->letters_img[i]->instances[menu->letter_index[menu->current]].y -= menu->letters_img[i]->height * 0.5;
@@ -14,57 +15,57 @@ void	update_letter(mlx_t *mlx, name_menu_t *menu, char letter, int i)
 void	get_letter(cub3d_t *cub3d, name_menu_t *menu)
 {
 	if (cub3d->keys.a)
-		update_letter(cub3d->mlx, menu, 'a', a);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.a, a);
 	else if (cub3d->keys.b)
-		update_letter(cub3d->mlx, menu, 'b', b);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.b, b);
 	else if (cub3d->keys.c)
-		update_letter(cub3d->mlx, menu, 'c', c);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.c, c);
 	else if (cub3d->keys.d)
-		update_letter(cub3d->mlx, menu, 'd', d);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.d, d);
 	else if (cub3d->keys.e)
-		update_letter(cub3d->mlx, menu, 'e', e);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.e, e);
 	else if (cub3d->keys.f)
-		update_letter(cub3d->mlx, menu, 'f', f);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.f, f);
 	else if (cub3d->keys.g)
-		update_letter(cub3d->mlx, menu, 'g', g);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.g, g);
 	else if (cub3d->keys.h)
-		update_letter(cub3d->mlx, menu, 'h', h);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.h, h);
 	else if (cub3d->keys.i)
-		update_letter(cub3d->mlx, menu, 'i', i);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.i, i);
 	else if (cub3d->keys.j)
-		update_letter(cub3d->mlx, menu, 'j', j);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.j, j);
 	else if (cub3d->keys.k)
-		update_letter(cub3d->mlx, menu, 'k', k);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.k, k);
 	else if (cub3d->keys.l)
-		update_letter(cub3d->mlx, menu, 'l', l);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.l, l);
 	else if (cub3d->keys.m)
-		update_letter(cub3d->mlx, menu, 'm', m);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.m, m);
 	else if (cub3d->keys.n)
-		update_letter(cub3d->mlx, menu, 'n', n);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.n, n);
 	else if (cub3d->keys.o)
-		update_letter(cub3d->mlx, menu, 'o', o);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.o, o);
 	else if (cub3d->keys.p)
-		update_letter(cub3d->mlx, menu, 'p', p);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.p, p);
 	else if (cub3d->keys.q)
-		update_letter(cub3d->mlx, menu, 'q', q);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.q, q);
 	else if (cub3d->keys.r)
-		update_letter(cub3d->mlx, menu, 'r', r);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.r, r);
 	else if (cub3d->keys.s)
-		update_letter(cub3d->mlx, menu, 's', s);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.s, s);
 	else if (cub3d->keys.t)
-		update_letter(cub3d->mlx, menu, 't', t);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.t, t);
 	else if (cub3d->keys.u)
-		update_letter(cub3d->mlx, menu, 'u', u);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.u, u);
 	else if (cub3d->keys.v)
-		update_letter(cub3d->mlx, menu, 'v', v);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.v, v);
 	else if (cub3d->keys.w)
-		update_letter(cub3d->mlx, menu, 'w', w);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.w, w);
 	else if (cub3d->keys.x)
-		update_letter(cub3d->mlx, menu, 'x', x);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.x, x);
 	else if (cub3d->keys.y)
-		update_letter(cub3d->mlx, menu, 'y', y);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.y, y);
 	else if (cub3d->keys.z)
-		update_letter(cub3d->mlx, menu, 'z', z);
+		update_letter(cub3d->mlx, menu, &cub3d->keys.z, z);
 }
 
 void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu)

@@ -74,8 +74,6 @@ int	init_key_frames(key_group_t *key_group)
 	char	*file_name;
 	char	*file_name_extension;
 	
-	printf("init_key_frames called\n");
-	key_group->num_frames = NUM_FRAMES_KEY;
 	// TODO: protect mallocs
 	key_group->textures_frames = malloc(sizeof(mlx_texture_t *) * NUM_FRAMES_KEY);
 	i = 0;
@@ -107,13 +105,11 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		cub3d->level->door_groups[i].index = i;
 		cub3d->level->door_groups[i].door_positions = NULL;
 		cub3d->level->door_groups[i].num_keys_left = 0;
-
 		cub3d->level->key_groups[i].index = i;
 		cub3d->level->key_groups[i].keys = NULL;
 		cub3d->level->key_groups[i].num_keys_total = 0;
 		cub3d->level->key_groups[i].curr_frame_index = 0;
 		cub3d->level->key_groups[i].prev_frame_index = -1;
-		cub3d->level->key_groups[i].num_frames = 0;
 		cub3d->level->key_groups[i].img_key_icon = NULL;
 		cub3d->level->key_groups[i].img_text_key_count = NULL;
 		cub3d->level->key_groups[i].textures_frames = NULL;
@@ -144,6 +140,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	}
 	int	active_key_groups;
 	active_key_groups = 0;
+	// TODO:handle errors
 	cub3d->level->key_groups[0].texture_key_icon = mlx_load_png(TEXTURE_KEY_1);
 	cub3d->level->key_groups[1].texture_key_icon = mlx_load_png(TEXTURE_KEY_2);
 	cub3d->level->key_groups[2].texture_key_icon = mlx_load_png(TEXTURE_KEY_3);
@@ -191,6 +188,6 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		}
 		i++;
 	}
-			draw_key_counts(cub3d);
+	draw_key_counts(cub3d);
 	return (SUCCESS);
 }

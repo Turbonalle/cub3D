@@ -1,13 +1,10 @@
 10000 aaa
-20000 bbb
-30000 ccc
-40000 ddd
-43750 nona
 
 10000 aaa
-20000 bbb
-30000 ccc
-40000 ddd
+
+10000 eee
+
+1133 Anonymous
 
 733 qwsd
 733 qwsd
@@ -22,19 +19,7 @@
 1983 asd
 
 10000 mmm
-20000 nnn
-30000 ooo
-40000 ppp
 
 10000 qqq
-20000 rrr
-30000 sss
-40000 ttt
-
-10000 uuu
-20000 vvv
-30000 www
-40000 xxx
-
 
 

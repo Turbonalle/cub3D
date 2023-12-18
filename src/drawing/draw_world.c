@@ -123,7 +123,7 @@ void draw_world(cub3d_t *cub3d)
 		}
 		else if (cub3d->rays[index].wall == 'G')
 		{
-			color = GREEN_DARK;
+			color = WHITE;
 		}
 		else
 			color = WHITE;

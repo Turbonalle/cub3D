@@ -119,7 +119,7 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 	return (1);
 }
 
-void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy)
+void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 {
 	dvector_t start;
 	dvector_t end;
@@ -134,6 +134,12 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy)
 			break ;
 		i++;
 	}
+
+	// TODO: pass enemy to this function instead of index
+	cub3d->enemy[index].dist_to_player = sqrt(pow(cub3d->enemy[index].pos.x - cub3d->player.pos.x, 2) + pow(cub3d->enemy[index].pos.y - cub3d->player.pos.y, 2));
+	cub3d->enemy[index].pos_screen.x = i;
+	cub3d->enemy[index].pos_screen.y = cub3d->img->height / 2 + (cub3d->img->height / 2) / cub3d->enemy[index].dist_to_player * 2;
+
 	int j = 0;
 	while (j < 10)
 	{
@@ -155,19 +161,28 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 	angle_min = within_360(cub3d->player.angle * 180 / M_PI - cub3d->fov / 2);
 	angle_max = within_360(cub3d->player.angle * 180 / M_PI + cub3d->fov / 2);
 	dir_to_enemy = within_360((atan2(cub3d->enemy[i].pos.y - cub3d->player.pos.y, cub3d->enemy[i].pos.x - cub3d->player.pos.x) * 180 / M_PI));
+	cub3d->enemy[i].visible = FALSE;
 	if (angle_max < angle_min)
 	{
 		if (dir_to_enemy > angle_max && dir_to_enemy < angle_min)
 			return ;
 		else if (ray_to_enemy(cub3d, dir_to_enemy, i))
-			draw_enemy(cub3d, dir_to_enemy);
+		{
+			cub3d->enemy[i].visible = TRUE;
+			draw_enemy(cub3d, dir_to_enemy, i);
+		}
+			
 	}
 	else
 	{
 		if (dir_to_enemy < angle_min || dir_to_enemy > angle_max)
 			return ;
 		else if (ray_to_enemy(cub3d, dir_to_enemy, i))
-			draw_enemy(cub3d, dir_to_enemy);
+		{
+			cub3d->enemy[i].visible = TRUE;
+			draw_enemy(cub3d, dir_to_enemy, i);
+		}
+			
 	}
 	return ;
 }
@@ -258,7 +273,6 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 		i++;
 	}
 
-	
 	key->dist_to_player = sqrt(pow(key->pos.x - cub3d->player.pos.x, 2) + pow(key->pos.y - cub3d->player.pos.y, 2));
 	key->pos_screen.x = i;
 	printf("x = %i\n",i);

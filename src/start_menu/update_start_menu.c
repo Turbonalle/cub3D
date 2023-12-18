@@ -14,7 +14,7 @@ void	get_transition_color(cub3d_t *cub3d, int *color)
 
     int intensity = (int)((amplitude * sineValue + colorShift) * 255);
 
-	*color = set_rgba(0, intensity, 0, 255);
+	*color = set_rgba(0, intensity, intensity, 255);
 }
 
 void	check_button_hover(cub3d_t *cub3d, start_menu_t *menu)

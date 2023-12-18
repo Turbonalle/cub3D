@@ -301,6 +301,7 @@ void	enemy_vision(cub3d_t *cub3d)
 		{
 			enemy_advance(cub3d, i);
 			cub3d->enemy[i].is_walking = 1;
+			cub3d->enemy[i].state = WALKING;
 			if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
 				printf("You were caught\n");
 		}
@@ -308,8 +309,12 @@ void	enemy_vision(cub3d_t *cub3d)
 		{
 			enemy_advance(cub3d, i);
 			cub3d->enemy[i].is_walking = 1;
+			cub3d->enemy[i].state = WALKING;
 			if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
+			{
 				cub3d->enemy[i].is_walking = 0;
+				cub3d->enemy[i].state = IDLE;
+			}
 		}
 		else
 		{
@@ -359,7 +364,21 @@ int	init_enemy_frames(cub3d_t *cub3d)
 		free(file_path);
 		i++;
 	}
-	return 1;
+	i = 0;
+	while (i < NUM_FRAMES_ENEMY_WALKING)
+	{
+		//TODO: protect mallocs
+		file_name = ft_itoa(i + 1);
+		file_name_extension = ft_strjoin(file_name, ".png");
+		file_path = ft_strjoin(FRAME_PATH_ENEMY_GREEN_WALKING, file_name_extension);
+		printf("full file path: %s\n", file_path);
+		cub3d->frames_green_walking[i] = mlx_load_png(file_path);
+		free(file_name);
+		free(file_name_extension);
+		free(file_path);
+		i++;
+	}
+	return(1);
 }
 
 int init_enemy(cub3d_t *cub3d)

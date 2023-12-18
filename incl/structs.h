@@ -572,6 +572,9 @@ typedef struct cub3d_s
 	level_t			*level;
 	t_enemy			*enemy;
 	mlx_texture_t	*frames_blue_idle[NUM_FRAMES_ENEMY_IDLE];
+	mlx_texture_t	*frames_green_walking[NUM_FRAMES_ENEMY_WALKING];
+	int				curr_frame_index_walking;
+	int				prev_frame_index_walking;
 	int				curr_frame_index_idle;
 	int				prev_frame_index_idle;
 	int				speedrun;

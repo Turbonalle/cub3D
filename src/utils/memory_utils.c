@@ -133,6 +133,12 @@ void	free_level(cub3d_t *cub3d)
 			}
 			free(cub3d->level->key_groups[i].textures_frames);
 		}
+		j = 0;
+		while (j < cub3d->num_enemies)
+		{
+			mlx_delete_image(cub3d->mlx, cub3d->enemy[j].img_curr_frame);
+			j++;
+		}
 		mlx_delete_texture(cub3d->level->key_groups[i].texture_key_icon);
 		i++;
 	}

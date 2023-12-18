@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/17 19:56:03 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:06:36 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,7 +314,10 @@ void	enemy_vision(cub3d_t *cub3d)
 			enemy_advance(cub3d, i);
 			cub3d->enemy[i].is_walking = 1;
 			if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
-				printf("You were caught\n");
+			{
+				// printf("You were caught\n");
+				player_is_hit(cub3d);
+			}
 		}
 		else if (cub3d->enemy[i].is_walking)
 		{

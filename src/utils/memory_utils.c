@@ -105,6 +105,7 @@ void	free_level(cub3d_t *cub3d)
 {
 	int	i;
 	int	j;
+	key_node_t  *tmp;
 
 	free_info(cub3d->level->map);
 	if (cub3d->num_enemies)
@@ -115,6 +116,14 @@ void	free_level(cub3d_t *cub3d)
 		free_doors(cub3d->level->door_groups[i].door_positions);
 		if (cub3d->level->key_groups[i].num_keys_total)
 		{
+			tmp = cub3d->level->key_groups[i].keys;
+			while (tmp)
+			{
+				tmp->img_curr_frame->instances[0].enabled = FALSE;
+				tmp = tmp->next;
+			}
+			mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_text_key_count);
+			mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_key_icon);
 			free_keys(cub3d->level->key_groups[i].keys);
 			j = 0;
 			while (j < NUM_FRAMES_KEY)

@@ -287,6 +287,7 @@ void	free_record(record_t *record);
 void	free_doors(door_pos_t *head);
 void	free_keys(key_node_t *head);
 void	free_level(cub3d_t *cub3d);
+void	free_backup(level_t level);
 
 // error_utils.c
 int		err(char *error_message);

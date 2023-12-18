@@ -8,6 +8,19 @@ int free_three_strings(char *s1, char *s2, char *s3)
 	return (0);
 }
 
+void	free_already_allocated(cub3d_t *cub3d, int i)
+{
+	while (i >= 0)
+	{
+		printf("%i\n",i);
+		free_list(cub3d->levels[i].map_list);
+		i--;
+		if (i >= 0)
+			free_backup(cub3d->levels[i]);
+	}
+	free(cub3d->levels);
+}
+
 int	read_all_levels(cub3d_t *cub3d)
 {
 	int		fd;
@@ -26,9 +39,15 @@ int	read_all_levels(cub3d_t *cub3d)
 		full_path = ft_strjoin(path, ".cub");
 		fd = open(full_path, O_RDONLY);
 		if (fd < 0)
+		{
+			free_already_allocated(cub3d, i);
 			return (free_three_strings(level_i, path, full_path), err("Failed to open level file"));
+		}
 		if (!read_cub_file(&cub3d->levels[i], full_path))
+		{
+			free_already_allocated(cub3d, i);
 			return (free_three_strings(level_i, path, full_path), err("Failed to read level file"));
+		}
 		close(fd);
 		free_three_strings(level_i, path, full_path);
 		i++;
@@ -105,10 +124,12 @@ int	main(int ac, char **av)
 	cub3d.level = &cub3d.levels[0];
 	if (!cub3d.levels)
 		return (!err("Failed to malloc levels"));
-	if (!read_cub_file(cub3d.level, av[1]) || !init_cub3d(&cub3d))
-		return (1);
+	if (!read_cub_file(cub3d.level, av[1]))
+		return (free(cub3d.levels), 1);
 	// print_level_info(cub3d.level); // DEBUG
 	if (!read_all_levels(&cub3d))
+		return (1);
+	if (!init_cub3d(&cub3d))
 		return (1);
 	if (!read_records(&cub3d, cub3d.levels))
 		return (!err("Failed to read records"));
@@ -116,6 +137,10 @@ int	main(int ac, char **av)
 		return (1);
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
+	if (cub3d.state == 4)
+	{
+		free_level(&cub3d);
+	}
 	free_cub3d(&cub3d);
 	printf("freed!\n");
 	return (0);

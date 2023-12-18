@@ -98,7 +98,7 @@ typedef struct keypress_s
 	int shift;
 	int enter;
 	int escape;
-	int	fisheye;		// WHO PUT THIS HERE? IS IT SUPPOSED TO BE HERE?
+	int	fisheye;		// WHO PUT THIS HERE? IS IT SUPPOSED TO BE HERE? No longer needeed, I think
 	int	left;
 	int	right;
 	int	up;

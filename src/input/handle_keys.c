@@ -103,6 +103,7 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	{
 		printf("Back to start menu\n");
 		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+		free_level(cub3d);
 		enable_start_menu(&cub3d->start_menu);
 		// free enemies, keys, doors
 		cub3d->state = STATE_START;

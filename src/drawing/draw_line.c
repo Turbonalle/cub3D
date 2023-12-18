@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:55 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/05 19:00:37 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:03:00 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,24 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 	}
 }
 
-void draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
+void draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end, int color)
 {
-	vector_t	start;
-	vector_t	end;
-
-	start.x = start_d.x;
-	start.y = start_d.y;
-	end.x = end_d.x;
-	end.y = end_d.y;
 	while (start.y <= end.y)
 	{
 		mlx_put_pixel(img, start.x, start.y, color);
+		start.y++;
+	}
+}
+
+void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray)
+{
+	dvector_t stop;
+	stop.x = fmod(ray.end.x, 1.0);
+	stop.y = fmod(ray.end.y, 1.0);
+	(void)end;
+	while (start.y < end.y)
+	{
+		mlx_put_pixel(cub3d->img, start.x, start.y, /*color of spcific pxel from texture*/ RED);
 		start.y++;
 	}
 }

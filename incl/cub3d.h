@@ -62,6 +62,7 @@ int		check_map_validity(char **map);
 void	draw_world(cub3d_t *cub3d);
 void	draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
+void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);
 
 
 //---- INIT --------------------------------------------------------------------
@@ -288,6 +289,8 @@ void	free_list(map_node_t *node);
 void	free_record(record_t *record);
 void	free_doors(door_pos_t *head);
 void	free_keys(key_node_t *head);
+void	free_level(cub3d_t *cub3d);
+void	free_backup(level_t level);
 
 // error_utils.c
 int		err(char *error_message);

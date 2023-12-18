@@ -2,6 +2,7 @@
 
 void	load_level(cub3d_t *cub3d, level_t *level)
 {
+	//TODO: handle init errors
 	int	i = 0;
 
 	level->map = ft_calloc(sizeof(char *), level->nodes + 1);
@@ -18,4 +19,5 @@ void	load_level(cub3d_t *cub3d, level_t *level)
 	set_initial_direction(cub3d);
 	init_minimap(cub3d);
 	init_doors_and_keys(cub3d);
+	init_textures(cub3d);
 }

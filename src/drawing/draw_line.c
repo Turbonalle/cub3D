@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:55 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/15 14:07:26 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/18 10:39:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,6 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 	stop.x = fmod(ray.end.x, 1.0);
 	stop.y = fmod(ray.end.y, 1.0);
 	(void)end;
-	printf("ray ends at %f,%f\n",ray.end.x, ray.end.y);
-	printf("Ray ends at %f from wall start\n",stop.x);
-	printf("x is %f, y is %f\n",start.x, start.y);
 	while (start.y < end.y)
 	{
 		mlx_put_pixel(cub3d->img, start.x, start.y, /*color of spcific pxel from texture*/ RED);

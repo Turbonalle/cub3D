@@ -122,7 +122,6 @@ void	free_level(cub3d_t *cub3d)
 				mlx_delete_texture(cub3d->level->key_groups[i].textures_frames[j]);
 				j++;
 			}
-			free(cub3d->level->key_groups[i].frames);
 			free(cub3d->level->key_groups[i].textures_frames);
 		}
 		mlx_delete_texture(cub3d->level->key_groups[i].texture_key_icon);

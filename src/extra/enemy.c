@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
+/*   Updated: 2023/12/18 17:38:09 by jbagger          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 static ray_t	*init_ray(t_enemy *enemy, int i)
@@ -412,6 +424,7 @@ void	enemy_vision(cub3d_t *cub3d)
 				{
 					cub3d->enemy[i].freeze_start = cub3d->run_time;
 					printf("You were caught at time %f\n",cub3d->run_time);
+					player_is_hit(cub3d);
 				}
 			}
 			else if (distraction(cub3d, i))

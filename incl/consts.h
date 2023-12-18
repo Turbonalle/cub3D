@@ -65,6 +65,9 @@
 
 # define MINIMAP_ZOOM_INCREMENT 5
 
+# define PLAYER_HEALTH 3
+# define INVULNERABILITY_TIME 1
+
 # define FOV 60
 # define FOV_INCREMENT 5
 # define FOV_MIN 1

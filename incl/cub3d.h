@@ -87,6 +87,9 @@ void	init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 // init_leaderboard.c
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 
+// init_gameover_menu.c
+void	init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
+
 int	init_textures(cub3d_t *cub3d);
 int	init_doors_and_keys(cub3d_t *cub3d);
 
@@ -128,6 +131,11 @@ void	enable_start_menu(start_menu_t *menu);
 void	get_transition_color(cub3d_t *cub3d, int *color);
 void	check_button_hover(cub3d_t *cub3d, start_menu_t *menu);
 void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+
+// gameover menu
+void	disable_gameover_menu(gameover_menu_t *menu);
+void	enable_gameover_menu(gameover_menu_t *menu);
+void	update_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 
 
 //---- PAUSE MENU --------------------------------------------------------------
@@ -185,6 +193,7 @@ int		all_keys_found(cub3d_t *cub3d, int i);
 void	handle_cursor(cub3d_t *cub3d);
 
 // game_over.c
+void	level_finished(cub3d_t *cub3d);
 void	game_over(cub3d_t *cub3d);
 
 // records.c
@@ -213,6 +222,7 @@ void	print_timer(cub3d_t *cub3d);
 // collision.c
 void	collision_checker(cub3d_t *cub3d);
 void	item_collected_checker(cub3d_t *cub3d);
+void	player_is_hit(cub3d_t *cub3d);
 
 // player_movement.c
 void	player_movement(cub3d_t *cub3d);

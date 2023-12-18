@@ -83,10 +83,13 @@ void	update(void *param)
 			draw_world(cub3d);
 			minimap(cub3d);
 			enemy_vision(cub3d);
+			// draw_health(cub3d);
 			draw_enemies(cub3d);
 			draw_timer(cub3d);
 			draw_animated_keys(cub3d);
 		}
+		if (cub3d->player.health <= 0)
+			game_over(cub3d);
 		// print_timer(cub3d);	// REMOVE
 	}
 	else if (cub3d->state == STATE_ENTERNAME)
@@ -95,9 +98,7 @@ void	update(void *param)
 	}
 	else if (cub3d->state == STATE_GAMEOVER)
 	{
-		// update_end_menu(cub3d, &cub3d->gameover_menu);
-		free_info(cub3d->level->map);
-		cub3d->state = STATE_START;
+		update_gameover_menu(cub3d, &cub3d->gameover_menu);
 	}
 }
 

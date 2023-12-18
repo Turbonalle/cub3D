@@ -560,6 +560,7 @@ typedef struct cub3d_s
 	level_t			*levels;
 	level_t			*level;
 	t_enemy			*enemy;
+	int				speedrun;
 }					cub3d_t;
 
 

@@ -83,6 +83,11 @@ void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu)
 	}
 }
 
+int	name_is_empty(name_menu_t *menu)
+{
+	return (menu->name[0] == '\0');
+}
+
 void	remove_record_image_pointers(cub3d_t *cub3d)
 {
 	record_t	*ptr;
@@ -100,7 +105,10 @@ void	remove_record_image_pointers(cub3d_t *cub3d)
 void	submit_name(cub3d_t *cub3d, name_menu_t *menu)
 {
 	remove_record_image_pointers(cub3d);
-	add_record(cub3d, &cub3d->level->records, cub3d->time_finished, ft_strdup(menu->name), cub3d->leaderboard.n_entries);
+	if (name_is_empty(menu))
+		add_record(cub3d, &cub3d->level->records, cub3d->time_finished, ft_strdup("Anonymous"), cub3d->leaderboard.n_entries);
+	else
+		add_record(cub3d, &cub3d->level->records, cub3d->time_finished, ft_strdup(menu->name), cub3d->leaderboard.n_entries);
 	int i = get_current_level(cub3d);
 	draw_names(cub3d->mlx, &cub3d->level->records, &cub3d->leaderboard, i);
 	draw_times(cub3d->mlx, &cub3d->level->records, &cub3d->leaderboard, i);
@@ -110,7 +118,15 @@ void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 {
 	if (menu->changed == TRUE)
 	{
-		if (cub3d->keys.enter || cub3d->keys.escape)
+		if (cub3d->keys.escape)
+		{
+			disable_name_menu(menu);
+			enable_leaderboard(cub3d, &cub3d->leaderboard);
+			cub3d->state = STATE_LEADERBOARD;
+			menu->changed = FALSE;
+			return ;
+		}
+		if (cub3d->keys.enter)
 		{
 			submit_name(cub3d, menu);
 			disable_name_menu(menu);

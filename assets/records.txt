@@ -2,6 +2,7 @@
 20000 bbb
 30000 ccc
 40000 ddd
+43750 nona
 
 10000 aaa
 20000 bbb
@@ -13,10 +14,11 @@
 30000 ggg
 40000 hhh
 
-1100 nona
-1150 nona
-3466 nona
-11910 nona
+1133 Anonymous
+1150 nnna
+1150 Anonymous
+1183 nona
+1366 Anonymous
 
 10000 mmm
 20000 nnn

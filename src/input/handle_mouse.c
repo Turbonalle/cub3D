@@ -63,6 +63,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			{
 				if (hover_button(cub3d, &cub3d->level_menu.buttons[i]))
 				{
+					cub3d->speedrun = TRUE;
 					cub3d->state = STATE_GAME;
 					disable_level_menu(&cub3d->level_menu);
 					cub3d->level = &cub3d->levels[i + 1];

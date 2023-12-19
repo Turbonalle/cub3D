@@ -13,7 +13,7 @@
 void	count_enemies(cub3d_t *cub3d);
 void	set_initial_direction(cub3d_t *cub3d);
 int		count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
-void	init_minimap(cub3d_t *cub3d);
+int		init_minimap(cub3d_t *cub3d);
 
 //---- COLOR -------------------------------------------------------------------
 
@@ -56,14 +56,12 @@ int		get_texture(level_t *level, int element, char **info);
 // flooding_algorithm.c
 int		check_map_validity(char **map);
 
-
 //---- DRAWING -----------------------------------------------------------------
 
 void	draw_world(cub3d_t *cub3d);
 void	draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);
-
 
 //---- INIT --------------------------------------------------------------------
 
@@ -90,8 +88,9 @@ int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 // init_gameover_menu.c
 void	init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 
-int	init_textures(cub3d_t *cub3d);
-int	init_doors_and_keys(cub3d_t *cub3d);
+int		init_textures(cub3d_t *cub3d);
+int		init_doors_and_keys(cub3d_t *cub3d);
+int		init_enemy_frames(cub3d_t *cub3d);
 
 //---- MENUS -------------------------------------------------------------------
 
@@ -124,7 +123,6 @@ void	disable_name_menu(name_menu_t *menu);
 void	enable_name_menu(name_menu_t *menu);
 void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
-
 // start menu
 void	disable_start_menu(start_menu_t *menu);
 void	enable_start_menu(start_menu_t *menu);
@@ -136,7 +134,6 @@ void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 void	disable_gameover_menu(gameover_menu_t *menu);
 void	enable_gameover_menu(gameover_menu_t *menu);
 void	update_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
-
 
 //---- PAUSE MENU --------------------------------------------------------------
 
@@ -153,7 +150,6 @@ void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 void	draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
-
 // center.c
 void	center(mlx_image_t *img);
 void	center_vertically(mlx_image_t *img);
@@ -165,14 +161,12 @@ int		hover_rectangle(cub3d_t *cub3d, rectangle_t *rect);
 int		hover_box(cub3d_t *cub3d, box_t *box);
 int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 
-
 //---- DRAW --------------------------------------------------------------------
 
 void	draw_rectangle(mlx_image_t *img, rectangle_t *rect);
 void	draw_checkbox(cub3d_t *cub3d, box_t *box);
 void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
 int		get_door_key_color(cub3d_t *cub3d, int index);
-
 
 //---- MATH --------------------------------------------------------------------
 
@@ -201,7 +195,7 @@ int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_
 int		read_records(cub3d_t *cub3d, level_t *levels);
 
 // load_level.c
-void	load_level(cub3d_t *cub3d, level_t *level);
+int		load_level(cub3d_t *cub3d, level_t *level);
 
 // start_game.c
 void	start_game(cub3d_t *cub3d);
@@ -233,9 +227,8 @@ void	decrease_fov(cub3d_t *cub3d);
 
 //---- DOORS -------------------------------------------------------------------
 
-int	get_door_index(char symbol);
-int	get_key_index(char symbol);
-
+int		get_door_index(char symbol);
+int		get_key_index(char symbol);
 
 //key_counts.c
 void	draw_key_counts(cub3d_t *cub3d);
@@ -278,12 +271,11 @@ int		hover_minimap(cub3d_t *cub3d);
 void	zoom_in_minimap(cub3d_t *cub3d);
 void	zoom_out_minimap(cub3d_t *cub3d);
 
-
 //---- RAYCASTING --------------------------------------------------------------
 
 // raycasting.c
 void	raycasting(cub3d_t *cub3d);
-
+ray_t	*cast_ray(cub3d_t *cub3d);
 
 //---- UTILS -------------------------------------------------------------------
 
@@ -315,6 +307,7 @@ void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 int		init_enemy(cub3d_t *cub3d);
 void	enemy_vision(cub3d_t *cub3d);
 void	draw_enemies(cub3d_t *cub3d);
+void	cause_distraction(cub3d_t *cub3d);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

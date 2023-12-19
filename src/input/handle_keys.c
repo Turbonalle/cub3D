@@ -118,6 +118,13 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 			cub3d->state = STATE_START;
 		}
 	}
+	else if (keydata.key == MLX_KEY_SPACE)
+	{
+		if (cub3d->player.mushroom_count > 0)
+			cause_distraction(cub3d);
+		else
+			printf("You have no mushroom to throw\n");
+	}
 }
 
 void	handle_pause_input(mlx_key_data_t keydata, cub3d_t *cub3d)

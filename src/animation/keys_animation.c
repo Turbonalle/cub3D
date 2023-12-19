@@ -50,7 +50,8 @@ void scale_curr_enemy_frame(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, 
 	uint32_t	col_src;
 	uint32_t	row_res;
 	uint32_t	col_res;
-enemy->img_curr_frame->instances[0].enabled = TRUE;
+
+	enemy->img_curr_frame->instances[0].enabled = TRUE;
 	ft_memset(enemy->img_curr_frame->pixels, 0, enemy->img_curr_frame->width * enemy->img_curr_frame->height * 4);
 	row_res = 0;
 	while (row_res < src->height * factor)
@@ -74,6 +75,7 @@ enemy->img_curr_frame->instances[0].enabled = TRUE;
 						ft_memcpy(enemy->img_curr_frame->pixels + row_res * enemy->img_curr_frame->width * 4 + col_res * 4,
 							src->pixels + row_src * src->width * 4 + col_src * 4,
 							4);
+					
 				}
 				col_res++;
 				// Maybe optimise and skip column completely?
@@ -82,7 +84,7 @@ enemy->img_curr_frame->instances[0].enabled = TRUE;
 		row_res++;
 	}
 	//printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
-	printf("drew enemy at a distance: %f\n", enemy->dist_to_player);
+	//printf("drew enemy at a distance: %f\n", enemy->dist_to_player);
 	enemy->img_curr_frame->instances[0].x = enemy->pos_screen.x - src->width * factor * 0.5;
 	enemy->img_curr_frame->instances[0].y = enemy->pos_screen.y - src->height * factor;
 	
@@ -105,7 +107,7 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 	//mlx_image_t	*old_img;
 
 	//TODO: handle drawing keys in order of distance
-	//printf("draw_keys, curr_frame_num: %i\n", curr_frame_num);
+	// printf("draw_keys, curr_frame_num: %i\n", curr_frame_num);
 	tmp = cub3d->level->key_groups[group_index].keys;
 	while (tmp)
 	{
@@ -291,8 +293,6 @@ int	count_visible_enemies(cub3d_t *cub3d)
 			count++;
 		i++;
 	}
-	if (count > 0)
-		printf("count_visible_enemies: %d\n", count);
 	return (count);
 }
 
@@ -363,8 +363,53 @@ void print_dist_ordered_enemies(t_enemy **enemies)
 	i = 0;
 	while (enemies[i])
 	{
-		printf("enemy %d, dist: %f\n", i, enemies[i]->dist_to_player);
+		// printf("enemy %d, dist: %f\n", i, enemies[i]->dist_to_player);
 		i++;
+	}
+}
+
+void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_node_t **keys)
+{
+	int	i;
+	int j;
+	int z;
+
+	i = 0;
+	j = 0;
+	z = cub3d->img->instances[0].z;
+	while (enemies[i] || keys[j])
+	{
+		z++;
+		if (enemies[i])
+		{
+			if (keys[j])
+			{
+				if (enemies[i]->dist_to_player > keys[j]->dist_to_player)
+				{
+					enemies[i]->img_curr_frame->instances->z = z;
+					i++;
+				}
+				else
+				{
+					keys[j]->img_curr_frame->instances->z = z;
+					j++;
+				}
+			}
+			else
+				while (enemies[i])
+				{
+					enemies[i]->img_curr_frame->instances->z = z;
+					i++;
+					z++;
+				}
+		}
+		else
+			while (keys[j])
+			{
+				keys[j]->img_curr_frame->instances->z = z;
+				j++;
+				z++;
+			}
 	}
 }
 
@@ -374,6 +419,33 @@ void	draw_animated_keys(cub3d_t *cub3d)
 	key_node_t	**ordered_keys;
 	t_enemy		**ordered_enemies;
 
+
+	cub3d->curr_frame_index_idle = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_IDLE;
+	cub3d->curr_frame_index_walking = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_WALKING;
+	if (cub3d->prev_frame_index_idle != cub3d->curr_frame_index_idle)
+	{
+		ordered_keys = create_list_of_pointers_to_all_keys_ordered_by_dist_to_player(cub3d);
+		//print_pos_and_dist_ordered_keys(ordered_keys);
+		ordered_enemies = create_list_of_pointers_to_all_enemies_ordered_by_dist_to_player(cub3d);
+		assign_z_depth_ordered_by_distance(cub3d, ordered_enemies, ordered_keys);
+		//print_dist_ordered_enemies(ordered_enemies);
+		i = 0;
+		while (ordered_enemies[i])
+		{
+			draw_enemy_frame(cub3d, ordered_enemies[i]);
+			i++;
+		}
+		free(ordered_enemies);
+		free(ordered_keys);
+		/* i = 0;
+		while (i < cub3d->num_enemies)
+		{
+			draw_enemies_frames(cub3d, i);
+			i++;
+		} */
+		cub3d->prev_frame_index_idle = cub3d->curr_frame_index_idle;
+		cub3d->prev_frame_index_walking = cub3d->curr_frame_index_walking; 
+	}
 	
 	i = 0;
 	while (i < NUM_DOORS_MAX)
@@ -393,29 +465,5 @@ void	draw_animated_keys(cub3d_t *cub3d)
 		}
 		i++;
 	}
-	cub3d->curr_frame_index_idle = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_IDLE;
-	cub3d->curr_frame_index_walking = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_WALKING;
-	if (cub3d->prev_frame_index_idle != cub3d->curr_frame_index_idle)
-	{
-		ordered_keys = create_list_of_pointers_to_all_keys_ordered_by_dist_to_player(cub3d);
-		//print_pos_and_dist_ordered_keys(ordered_keys);
-		ordered_enemies = create_list_of_pointers_to_all_enemies_ordered_by_dist_to_player(cub3d);
-		//print_dist_ordered_enemies(ordered_enemies);
-		i = 0;
-		while (ordered_enemies[i])
-		{
-			draw_enemy_frame(cub3d, ordered_enemies[i]);
-			i++;
-		}
-		free(ordered_enemies);
-		free(ordered_keys);
-		/* i = 0;
-		while (i < cub3d->num_enemies)
-		{
-			draw_enemies_frames(cub3d, i);
-			i++;
-		} */
-		cub3d->prev_frame_index_idle = cub3d->curr_frame_index_idle;
-		cub3d->prev_frame_index_walking = cub3d->curr_frame_index_walking; 
-	}
+	
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/18 23:35:18 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:47:45 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,6 +340,7 @@ static int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, doubl
 	ray = init_ray(cub3d->enemy, i);
 	if (!ray)
 		return (0);
+	ray->angle = dir_to_distraction;
 	while (ray->length < max_dist)
 	{
 		if (wall_found(cub3d, vMapCheck))
@@ -366,7 +367,7 @@ static int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, doubl
 		}
 	}
 	cub3d->enemy[i].angle = to_radians(ray->angle);
-	cub3d->enemy[i].target = cub3d->player.pos;
+	cub3d->enemy[i].target = cub3d->level->distraction;
 	free(ray);
 	return (1);
 }
@@ -379,8 +380,9 @@ int	distraction(cub3d_t *cub3d, int i)
 	double		angle_max;
 	double		at_target;
 
-	// distraction = cub3d->level->distraction;
-	distraction = cub3d->player.pos;
+	if (cub3d->level->distraction_amount <= 0)
+		return (0);
+	distraction = cub3d->level->distraction;
 	dir_to_distraction = within_360(atan2(distraction.y - cub3d->enemy[i].pos.y, distraction.x - cub3d->enemy[i].pos.x) * 180 / M_PI);
 	angle_min = within_360(cub3d->enemy[i].angle * 180 / M_PI - 30);
 	angle_max = within_360(cub3d->enemy[i].angle * 180 / M_PI + 30);
@@ -403,6 +405,18 @@ int	distraction(cub3d_t *cub3d, int i)
 		else
 			return (0);
 	}
+}
+
+
+void	cause_distraction(cub3d_t *cub3d)
+{
+	ray_t *ray;
+	
+	ray = cast_ray(cub3d);
+	cub3d->level->distraction = ray->end;
+	cub3d->level->distraction_amount = 10;
+	cub3d->player.mushroom_count--;
+	printf("caused distraction at pos %f,%f\n",ray->end.x,ray->end.y);
 }
 
 void	enemy_vision(cub3d_t *cub3d)
@@ -432,14 +446,38 @@ void	enemy_vision(cub3d_t *cub3d)
 				enemy_advance(cub3d, i);
 				cub3d->enemy[i].is_walking = 1;
 				if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
+				{
 					cub3d->enemy[i].is_walking = 0;
+					if (cub3d->level->distraction_amount > 0)
+					{
+						printf("Started eating at %f\n",cub3d->run_time);
+						cub3d->enemy[i].is_eating = 1;
+					}
+				}
 			}
 			else if (cub3d->enemy[i].is_walking)
 			{
 				enemy_advance(cub3d, i);
 				cub3d->enemy[i].is_walking = 1;
 				if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
+				{
 					cub3d->enemy[i].is_walking = 0;
+					if (cub3d->level->distraction_amount > 0)
+					{
+						printf("Started eating at %f\n",cub3d->run_time);
+						cub3d->enemy[i].is_eating = 1;
+					}
+				}
+			}
+			else if (cub3d->enemy[i].is_eating)
+			{
+				cub3d->level->distraction_amount -= ENEMY_EATING_SPEED;
+				if (cub3d->level->distraction_amount <= 0)
+				{
+					printf("is done eating at %f\n",cub3d->run_time);
+					cub3d->level->map[(int)cub3d->level->distraction.y][(int)cub3d->level->distraction.x] = '0';
+					cub3d->enemy[i].is_eating = 0;
+				}
 			}
 			else
 			{
@@ -472,43 +510,54 @@ void	enemy_vision(cub3d_t *cub3d)
 	}
 }
 
+char	*create_file_path(int i, char *path)
+{
+	char	*file_name;
+	char	*file_ext;
+	char	*file_path;
+
+	file_name = ft_itoa(i + 1);
+	if (!file_name)
+		return (NULL);
+	file_ext = ft_strjoin(file_name, ".png");
+	if (!file_ext)
+		return (free(file_name), NULL);
+	file_path = ft_strjoin(path, file_ext);
+	if (!file_ext)
+		return (free(file_name), free(file_ext), NULL);
+	free(file_name);
+	free(file_ext);
+	return (file_path);
+}
+
 int	init_enemy_frames(cub3d_t *cub3d)
 {
-	int 	i;
+	int		i;
 	char	*file_path;
-	char	*file_name;
-	char	*file_name_extension;
-	
-	// TODO: protect mallocs
+
 	i = 0;
 	while (i < NUM_FRAMES_ENEMY_IDLE)
 	{
-		//TODO: protect mallocs
-		file_name = ft_itoa(i + 1);
-		file_name_extension = ft_strjoin(file_name, ".png");
-		file_path = ft_strjoin(FRAME_PATH_ENEMY_BLUE_IDLE, file_name_extension);
+		file_path = create_file_path(i, FRAME_PATH_ENEMY_BLUE_IDLE);
+		if (!file_path)
+			return (0);
 		printf("full file path: %s\n", file_path);
 		cub3d->frames_blue_idle[i] = mlx_load_png(file_path);
-		free(file_name);
-		free(file_name_extension);
 		free(file_path);
 		i++;
 	}
 	i = 0;
 	while (i < NUM_FRAMES_ENEMY_WALKING)
 	{
-		//TODO: protect mallocs
-		file_name = ft_itoa(i + 1);
-		file_name_extension = ft_strjoin(file_name, ".png");
-		file_path = ft_strjoin(FRAME_PATH_ENEMY_GREEN_WALKING, file_name_extension);
+		file_path = create_file_path(i, FRAME_PATH_ENEMY_GREEN_WALKING);
+		if (!file_path)
+			return (0);
 		printf("full file path: %s\n", file_path);
 		cub3d->frames_green_walking[i] = mlx_load_png(file_path);
-		free(file_name);
-		free(file_name_extension);
 		free(file_path);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 int init_enemy(cub3d_t *cub3d)
@@ -527,6 +576,7 @@ int init_enemy(cub3d_t *cub3d)
 		cub3d->enemy[i].dir_player = 0;
 		cub3d->enemy[i].is_spinning = 0;
 		cub3d->enemy[i].is_walking = 0;
+		cub3d->enemy[i].is_eating = 0;
 		cub3d->enemy[i].dir.x = 0;
 		cub3d->enemy[i].dir.y = 0;
 		cub3d->enemy[i].freeze_start = 0;
@@ -540,6 +590,5 @@ int init_enemy(cub3d_t *cub3d)
 		mlx_image_to_window(cub3d->mlx, cub3d->enemy[i].img_curr_frame, 0, 0);
 		i++;
 	}
-	init_enemy_frames(cub3d);
 	return (1);
 }

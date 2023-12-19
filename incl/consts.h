@@ -47,6 +47,7 @@
 # define MINIMAP_COLOR_KEY_4 BLUE
 # define MINIMAP_TRANSPARENCY 20
 
+# define TEXTURE_MUSHROOM "./assets/textures/mushrooms/1.png"
 # define TEXTURE_HEART_FULL "./assets/textures/heart/full.png"
 # define TEXTURE_HEART_HALF "./assets/textures/heart/half.png"
 # define TEXTURE_HEART_EMPTY "./assets/textures/heart/empty.png"
@@ -54,14 +55,15 @@
 # define TEXTURE_KEY_2 "./assets/textures/keys_static/green.png"
 # define TEXTURE_KEY_3 "./assets/textures/keys_static/yellow.png"
 # define TEXTURE_KEY_4 "./assets/textures/keys_static/blue.png"
+
+# define ANIMATION_INTERVAL_MS 66.6667
+
 # define FRAME_PATH_KEY_1 "./assets/textures/red/"
 # define FRAME_PATH_KEY_2 "./assets/textures/green/"
 # define FRAME_PATH_KEY_3 "./assets/textures/yellow/"
 # define FRAME_PATH_KEY_4 "./assets/textures/blue/"
 # define NUM_FRAMES_KEY 24
 # define KEY_NORMAL_SCALE_DISTANCE 13
-
-# define ANIMATION_INTERVAL_MS 66.6667
 
 # define FRAME_PATH_ENEMY_IDLE "./assets/textures/green_idle/"
 # define FRAME_PATH_ENEMY_WALKING "./assets/textures/red_walking/"

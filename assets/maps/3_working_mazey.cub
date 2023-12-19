@@ -3,8 +3,8 @@ SO ../textures/south_texture
 WE ../textures/west_texture
 EA ../textures/east_texture
 
-F 0,1,0
-C 0,0,240
+F 30,30,30
+C 40,40,40
 
 111111111111111111        111  1111111
 1           1    1        1      1   1

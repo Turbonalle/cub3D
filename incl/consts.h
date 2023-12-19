@@ -47,7 +47,7 @@
 # define MINIMAP_COLOR_KEY_4 BLUE
 # define MINIMAP_TRANSPARENCY 20
 
-# define TEXTURE_HEART_FULL "./assets/textures/heart/filled.png"
+# define TEXTURE_HEART_FULL "./assets/textures/heart/full.png"
 # define TEXTURE_HEART_HALF "./assets/textures/heart/half.png"
 # define TEXTURE_HEART_EMPTY "./assets/textures/heart/empty.png"
 # define TEXTURE_KEY_1 "./assets/textures/keys_static/red.png"

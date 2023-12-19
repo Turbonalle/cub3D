@@ -32,10 +32,11 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		{
 			if (hover_button(cub3d, &cub3d->start_menu.button_start))
 			{
-				cub3d->state = STATE_GAME;
-				disable_start_menu(&cub3d->start_menu);
 				cub3d->level = &cub3d->levels[0];
-				load_level(cub3d, cub3d->level);
+				if (!load_level(cub3d, cub3d->level))
+					return ;
+				disable_start_menu(&cub3d->start_menu);
+				cub3d->state = STATE_GAME;
 				handle_cursor(cub3d);
 				start_timer(cub3d);
 			}
@@ -63,11 +64,12 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			{
 				if (hover_button(cub3d, &cub3d->level_menu.buttons[i]))
 				{
+					cub3d->level = &cub3d->levels[i + 1];
+					if (!load_level(cub3d, &cub3d->levels[i + 1]))
+						return ;
 					cub3d->speedrun = TRUE;
 					cub3d->state = STATE_GAME;
 					disable_level_menu(&cub3d->level_menu);
-					cub3d->level = &cub3d->levels[i + 1];
-					load_level(cub3d, &cub3d->levels[i + 1]);
 					handle_cursor(cub3d);
 					start_timer(cub3d);
 				}
@@ -108,9 +110,10 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 				// 	cub3d->speedrun = FALSE;
 				// else
 				// 	cub3d->speedrun = TRUE;
+				if (!load_level(cub3d, cub3d->level))
+					return ;
 				disable_gameover_menu(&cub3d->gameover_menu);
 				cub3d->state = STATE_GAME;
-				load_level(cub3d, cub3d->level);
 				handle_cursor(cub3d);
 				start_timer(cub3d);
 			}

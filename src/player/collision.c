@@ -47,6 +47,15 @@ void	collect_key(cub3d_t *cub3d, double y, double x)
 	draw_key_counts(cub3d);
 }
 
+void collect_shroom(cub3d_t *cub3d, double y, double x)
+{
+	if (cub3d->level->map[(int)y][(int)x] == 'm')
+	{
+		cub3d->level->map[(int)y][(int)x] = '0';
+		cub3d->player.mushroom_count++;
+	}
+}
+
 void	item_collected_checker(cub3d_t *cub3d)
 {
 	double	new_y;
@@ -55,6 +64,7 @@ void	item_collected_checker(cub3d_t *cub3d)
 	new_y = cub3d->player.new_pos.y;
 	new_x = cub3d->player.new_pos.x;
 	collect_key(cub3d, new_y, new_x);
+	collect_shroom(cub3d, new_y, new_x);
 }
 
 int	new_pos_is_wall_collision(cub3d_t *cub3d)

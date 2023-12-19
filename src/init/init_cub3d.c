@@ -14,7 +14,7 @@ int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
 	return ((int)tile_size);
 }
 
-void	init_minimap(cub3d_t *cub3d)
+int	init_minimap(cub3d_t *cub3d)
 {
 	cub3d->minimap.size_percentage = MINIMAP_SIZE_PERCENTAGE;
 	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d, cub3d->minimap.size_percentage);
@@ -22,8 +22,7 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->level->map_rows;
 	cub3d->minimap.img = mlx_new_image(cub3d->mlx, cub3d->minimap.width, cub3d->minimap.height);
 	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx, cub3d->minimap.img, 0, 0) < 0))
-		err("Failed to create minimap image");
-	printf("minimap z: %d\n", cub3d->minimap.img->instances[0].z);
+		return(err("Failed to create minimap image"));
 	cub3d->minimap.pos.x = 0;
 	cub3d->minimap.pos.y = 0;
 	cub3d->minimap.transparency = MINIMAP_TRANSPARENCY;
@@ -34,10 +33,12 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
 	cub3d->minimap.color_enemy = set_transparency(MINIMAP_COLOR_ENEMY, cub3d->minimap.transparency);
+	cub3d->minimap.color_shroom = set_transparency(MINIMAP_COLOR_SHROOM, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_1 = set_transparency(MINIMAP_COLOR_KEY_1, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_2 = set_transparency(MINIMAP_COLOR_KEY_2, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_3 = set_transparency(MINIMAP_COLOR_KEY_3, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_4 = set_transparency(MINIMAP_COLOR_KEY_4, cub3d->minimap.transparency);
+	return (1);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)
@@ -157,6 +158,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));
 	cub3d->state = STATE_START;
+	cub3d->active = 1;
 	cub3d->mouse_set_pos.x = 0;
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
@@ -166,6 +168,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->leaderboard.n_entries = 5;
 	cub3d->speedrun = FALSE;
 	cub3d->player.health = PLAYER_HEALTH;
+	cub3d->player.mushroom_count = 0;
 	cub3d->player.hit_timestamp = 0;
 	set_keys(&cub3d->keys);
 	init_start_menu(cub3d, &cub3d->start_menu);

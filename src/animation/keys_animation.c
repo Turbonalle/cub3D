@@ -107,7 +107,7 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 	//mlx_image_t	*old_img;
 
 	//TODO: handle drawing keys in order of distance
-	//printf("draw_keys, curr_frame_num: %i\n", curr_frame_num);
+	// printf("draw_keys, curr_frame_num: %i\n", curr_frame_num);
 	tmp = cub3d->level->key_groups[group_index].keys;
 	while (tmp)
 	{
@@ -363,7 +363,7 @@ void print_dist_ordered_enemies(t_enemy **enemies)
 	i = 0;
 	while (enemies[i])
 	{
-		printf("enemy %d, dist: %f\n", i, enemies[i]->dist_to_player);
+		// printf("enemy %d, dist: %f\n", i, enemies[i]->dist_to_player);
 		i++;
 	}
 }

@@ -229,7 +229,7 @@ ray_t *cast_ray(cub3d_t *cub3d)
 		vRayLength1D.y = (vMapCheck.y + 1.0 - cub3d->player.pos.y)
 			* vRayUnitStepSize.y;
 	}
-	max_dist = 5;
+	max_dist = DISTRACTION_THROW_DISTANCE;
 	while (!end_found && ray->length < max_dist)
 	{
 		if (vRayLength1D.x < vRayLength1D.y)

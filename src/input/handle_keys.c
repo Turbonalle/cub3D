@@ -120,12 +120,10 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	}
 	else if (keydata.key == MLX_KEY_SPACE)
 	{
-		/*cause distraction:
-		throw 5? squares away.
-		cast ray, check for wall,
-		else drop on floor.
-		*/
-		cause_distraction(cub3d);
+		if (cub3d->player.mushroom_count > 0)
+			cause_distraction(cub3d);
+		else
+			printf("You have no mushroom to throw\n");
 	}
 }
 

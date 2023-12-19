@@ -106,7 +106,7 @@ void init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	set_checkbox_values(menu);
 	init_checkbox_states(menu);
 	cub3d->settings.e_speed = 1;
-	cub3d->settings.e_behaviour = 1;
+	cub3d->settings.e_behaviour = 0;
 	update_settings(cub3d, menu);
 
 	print_settings(cub3d);	// REMOVE LATER

@@ -33,6 +33,7 @@ int	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_wall = set_transparency(MINIMAP_COLOR_WALL, cub3d->minimap.transparency);
 	cub3d->minimap.color_empty = set_transparency(MINIMAP_COLOR_EMPTY, cub3d->minimap.transparency);
 	cub3d->minimap.color_enemy = set_transparency(MINIMAP_COLOR_ENEMY, cub3d->minimap.transparency);
+	cub3d->minimap.color_shroom = set_transparency(MINIMAP_COLOR_SHROOM, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_1 = set_transparency(MINIMAP_COLOR_KEY_1, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_2 = set_transparency(MINIMAP_COLOR_KEY_2, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_3 = set_transparency(MINIMAP_COLOR_KEY_3, cub3d->minimap.transparency);
@@ -157,6 +158,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));
 	cub3d->state = STATE_START;
+	cub3d->active = 1;
 	cub3d->mouse_set_pos.x = 0;
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
@@ -166,6 +168,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->leaderboard.n_entries = 5;
 	cub3d->speedrun = FALSE;
 	cub3d->player.health = PLAYER_HEALTH;
+	cub3d->player.mushroom_count = 0;
 	cub3d->player.hit_timestamp = 0;
 	set_keys(&cub3d->keys);
 	init_start_menu(cub3d, &cub3d->start_menu);

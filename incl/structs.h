@@ -32,6 +32,7 @@ typedef struct dvector_t
 }			dvector_t;
 
 //---- PLAYER ------------------------------------------------------------------
+# define DISTRACTION_THROW_DISTANCE 5
 
 typedef struct player_s
 {
@@ -42,6 +43,7 @@ typedef struct player_s
 	double		movement_angle;
 	double		hit_timestamp;
 	int			health;
+	int			mushroom_count;
 	int			is_walking;
 	int			is_strafing;
 }				player_t;
@@ -66,6 +68,7 @@ typedef struct s_enemy
 	double			dir_player;
 	int				is_walking;
 	int				is_spinning;
+	int				is_eating;
 	double			dist_to_player;
 	int				state;
 	int				visible;
@@ -185,6 +188,7 @@ typedef struct minimap_s
 	int			color_door;
 	int			color_wall;
 	int			color_empty;
+	int			color_shroom;
 	int			color_enemy;
 	int			color_key_1;
 	int			color_key_2;
@@ -520,6 +524,7 @@ typedef struct level_s
 	door_group_t	door_groups[NUM_DOORS_MAX];
 	key_group_t		key_groups[NUM_DOORS_MAX];
 	dvector_t		distraction;
+	double			distraction_amount;
 	record_t		*records;
 }			level_t;
 
@@ -580,6 +585,7 @@ typedef struct cub3d_s
 	int				curr_frame_index_idle;
 	int				prev_frame_index_idle;
 	int				speedrun;
+	bool			active;
 }					cub3d_t;
 
 #endif

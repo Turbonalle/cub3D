@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/19 11:10:36 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:17:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,8 +380,9 @@ int	distraction(cub3d_t *cub3d, int i)
 	double		angle_max;
 	double		at_target;
 
+	if (cub3d->level->distraction_amount <= 0)
+		return (0);
 	distraction = cub3d->level->distraction;
-	// distraction = cub3d->player.pos;
 	dir_to_distraction = within_360(atan2(distraction.y - cub3d->enemy[i].pos.y, distraction.x - cub3d->enemy[i].pos.x) * 180 / M_PI);
 	angle_min = within_360(cub3d->enemy[i].angle * 180 / M_PI - 30);
 	angle_max = within_360(cub3d->enemy[i].angle * 180 / M_PI + 30);
@@ -413,6 +414,8 @@ void	cause_distraction(cub3d_t *cub3d)
 	
 	ray = cast_ray(cub3d);
 	cub3d->level->distraction = ray->end;
+	cub3d->level->distraction_amount = 10;
+	cub3d->player.mushroom_count--;
 	printf("caused distraction at pos %f,%f\n",ray->end.x,ray->end.y);
 }
 
@@ -443,14 +446,30 @@ void	enemy_vision(cub3d_t *cub3d)
 				enemy_advance(cub3d, i);
 				cub3d->enemy[i].is_walking = 1;
 				if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
+				{
 					cub3d->enemy[i].is_walking = 0;
+					if (cub3d->level->distraction_amount > 0)
+						cub3d->enemy[i].is_eating = 1;
+				}
 			}
 			else if (cub3d->enemy[i].is_walking)
 			{
 				enemy_advance(cub3d, i);
 				cub3d->enemy[i].is_walking = 1;
 				if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
+				{
 					cub3d->enemy[i].is_walking = 0;
+					if (cub3d->level->distraction_amount > 0)
+						cub3d->enemy[i].is_eating = 1;
+				}
+			}
+			else if (cub3d->enemy[i].is_eating)
+			{
+				cub3d->level->distraction_amount -= ENEMY_EATING_SPEED;
+				if (cub3d->level->distraction_amount <= 0)
+				{
+					cub3d->enemy[i].is_eating = 0;
+				}
 			}
 			else
 			{
@@ -549,6 +568,7 @@ int init_enemy(cub3d_t *cub3d)
 		cub3d->enemy[i].dir_player = 0;
 		cub3d->enemy[i].is_spinning = 0;
 		cub3d->enemy[i].is_walking = 0;
+		cub3d->enemy[i].is_eating = 0;
 		cub3d->enemy[i].dir.x = 0;
 		cub3d->enemy[i].dir.y = 0;
 		cub3d->enemy[i].freeze_start = 0;

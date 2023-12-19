@@ -14,7 +14,7 @@ int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
 	return ((int)tile_size);
 }
 
-void	init_minimap(cub3d_t *cub3d)
+int	init_minimap(cub3d_t *cub3d)
 {
 	cub3d->minimap.size_percentage = MINIMAP_SIZE_PERCENTAGE;
 	cub3d->minimap.tile_size = count_minimap_tilesize(cub3d, cub3d->minimap.size_percentage);
@@ -22,7 +22,7 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->level->map_rows;
 	cub3d->minimap.img = mlx_new_image(cub3d->mlx, cub3d->minimap.width, cub3d->minimap.height);
 	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx, cub3d->minimap.img, 0, 0) < 0))
-		err("Failed to create minimap image");
+		return(err("Failed to create minimap image"));
 	cub3d->minimap.pos.x = 0;
 	cub3d->minimap.pos.y = 0;
 	cub3d->minimap.transparency = MINIMAP_TRANSPARENCY;
@@ -37,6 +37,7 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.color_key_2 = set_transparency(MINIMAP_COLOR_KEY_2, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_3 = set_transparency(MINIMAP_COLOR_KEY_3, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_4 = set_transparency(MINIMAP_COLOR_KEY_4, cub3d->minimap.transparency);
+	return (1);
 }
 
 void	set_initial_direction(cub3d_t *cub3d)

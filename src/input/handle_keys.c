@@ -118,6 +118,15 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 			cub3d->state = STATE_START;
 		}
 	}
+	else if (keydata.key == MLX_KEY_SPACE)
+	{
+		/*cause distraction:
+		throw 5? squares away.
+		cast ray, check for wall,
+		else drop on floor.
+		*/
+		cause_distraction(cub3d);
+	}
 }
 
 void	handle_pause_input(mlx_key_data_t keydata, cub3d_t *cub3d)

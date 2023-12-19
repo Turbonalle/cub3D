@@ -13,7 +13,7 @@
 void	count_enemies(cub3d_t *cub3d);
 void	set_initial_direction(cub3d_t *cub3d);
 int		count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
-void	init_minimap(cub3d_t *cub3d);
+int		init_minimap(cub3d_t *cub3d);
 
 //---- COLOR -------------------------------------------------------------------
 
@@ -202,7 +202,7 @@ int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_
 int		read_records(cub3d_t *cub3d, level_t *levels);
 
 // load_level.c
-void	load_level(cub3d_t *cub3d, level_t *level);
+int	load_level(cub3d_t *cub3d, level_t *level);
 
 // start_game.c
 void	start_game(cub3d_t *cub3d);
@@ -284,6 +284,7 @@ void	zoom_out_minimap(cub3d_t *cub3d);
 
 // raycasting.c
 void	raycasting(cub3d_t *cub3d);
+ray_t 	*cast_ray(cub3d_t *cub3d);
 
 
 //---- UTILS -------------------------------------------------------------------
@@ -316,6 +317,7 @@ void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 int		init_enemy(cub3d_t *cub3d);
 void	enemy_vision(cub3d_t *cub3d);
 void	draw_enemies(cub3d_t *cub3d);
+void	cause_distraction(cub3d_t *cub3d);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

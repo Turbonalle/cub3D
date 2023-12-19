@@ -177,3 +177,90 @@ void	raycasting(cub3d_t *cub3d)
 		i++;
 	}
 }
+
+ray_t *cast_ray(cub3d_t *cub3d)
+{
+	ray_t		*ray;
+	dvector_t	vRayUnitStepSize;
+	dvector_t	vRayLength1D;
+	dvector_t	vRayDir;
+	vector_t	vMapCheck;
+	vector_t	vStep;
+	int			end_found;
+	double		max_dist;
+
+	ray = malloc(sizeof(ray_t));
+	if (!ray)
+		return (NULL);
+	ray->angle = cub3d->player.angle;
+	ray->length = 0;
+	ray->target = 0;
+	ray->wall = 0;
+	ray->end.x = 0;
+	ray->end.y = 0;
+	end_found = FALSE;
+	vRayDir.x = cos(ray->angle);
+	vRayDir.y = sin(ray->angle);
+	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y
+				/ vRayDir.x));
+	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x
+				/ vRayDir.y));
+	vMapCheck.x = (int)cub3d->player.pos.x;
+	vMapCheck.y = (int)cub3d->player.pos.y;
+	if (vRayDir.x < 0)
+	{
+		vStep.x = -1;
+		vRayLength1D.x = (cub3d->player.pos.x - vMapCheck.x) * vRayUnitStepSize.x;
+	}
+	else
+	{
+		vStep.x = 1;
+		vRayLength1D.x = (vMapCheck.x + 1.0 - cub3d->player.pos.x)
+			* vRayUnitStepSize.x;
+	}
+	if (vRayDir.y < 0)
+	{
+		vStep.y = -1;
+		vRayLength1D.y = (cub3d->player.pos.y - vMapCheck.y) * vRayUnitStepSize.y;
+	}
+	else
+	{
+		vStep.y = 1;
+		vRayLength1D.y = (vMapCheck.y + 1.0 - cub3d->player.pos.y)
+			* vRayUnitStepSize.y;
+	}
+	max_dist = 5;
+	while (!end_found && ray->length < max_dist)
+	{
+		if (vRayLength1D.x < vRayLength1D.y)
+		{
+			vMapCheck.x += vStep.x;
+			ray->length = vRayLength1D.x;
+			vRayLength1D.x += vRayUnitStepSize.x;
+		}
+		else
+		{
+			vMapCheck.y += vStep.y;
+			ray->length = vRayLength1D.y;
+			vRayLength1D.y += vRayUnitStepSize.y;
+		}
+		if (wall_found(cub3d, vMapCheck))
+		{
+			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
+			update_end(cub3d, &vRayDir, ray, &end_found);
+		}
+		if (door_found(cub3d, vMapCheck, ray))
+		{
+			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
+			update_end(cub3d, &vRayDir, ray, &end_found);
+		}
+		if (goal_found(cub3d, vMapCheck))
+		{
+			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
+			update_end(cub3d, &vRayDir, ray, &end_found);
+		}
+	}
+	update_end(cub3d, &vRayDir, ray, &end_found);
+	printf("ray ends at %f,%f\n",ray->end.x,ray->end.y);
+	return (ray);
+}

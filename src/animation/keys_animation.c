@@ -82,7 +82,7 @@ enemy->img_curr_frame->instances[0].enabled = TRUE;
 		row_res++;
 	}
 	//printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
-	printf("drew enemy at a distance: %f\n", enemy->dist_to_player);
+	// printf("drew enemy at a distance: %f\n", enemy->dist_to_player);
 	enemy->img_curr_frame->instances[0].x = enemy->pos_screen.x - src->width * factor * 0.5;
 	enemy->img_curr_frame->instances[0].y = enemy->pos_screen.y - src->height * factor;
 	
@@ -291,8 +291,8 @@ int	count_visible_enemies(cub3d_t *cub3d)
 			count++;
 		i++;
 	}
-	if (count > 0)
-		printf("count_visible_enemies: %d\n", count);
+	// if (count > 0)
+	// 	printf("count_visible_enemies: %d\n", count);
 	return (count);
 }
 

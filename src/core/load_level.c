@@ -13,6 +13,7 @@ void	load_level(cub3d_t *cub3d, level_t *level)
 	}
 	cub3d->player.pos.x = level->starting_pos.x + 0.5;
 	cub3d->player.pos.y = level->starting_pos.y + 0.5;
+	cub3d->player.health = PLAYER_HEALTH;
 	count_enemies(cub3d);
 	if (cub3d->num_enemies > 0)
 		init_enemy(cub3d);

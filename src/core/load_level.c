@@ -17,6 +17,7 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	cub3d->player.pos.y = level->starting_pos.y + 0.5;
 	cub3d->player.mushroom_count = 0;
 	cub3d->level->distraction_amount = 0;
+	cub3d->player.health = PLAYER_HEALTH;
 	count_enemies(cub3d);
 	if (cub3d->num_enemies > 0)
 	{

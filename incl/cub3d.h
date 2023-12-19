@@ -92,6 +92,7 @@ void	init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 
 int	init_textures(cub3d_t *cub3d);
 int	init_doors_and_keys(cub3d_t *cub3d);
+int	init_enemy_frames(cub3d_t *cub3d);
 
 //---- MENUS -------------------------------------------------------------------
 

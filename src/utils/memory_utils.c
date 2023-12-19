@@ -96,6 +96,13 @@ void	free_cub3d(cub3d_t *cub3d)
 		free_backup(cub3d->levels[i]);
 		i++;
 	}
+	i = 0;
+	while (i < NUM_FRAMES_ENEMY_IDLE)
+	{
+		mlx_delete_texture(cub3d->frames_blue_idle[i]);
+		mlx_delete_texture(cub3d->frames_green_walking[i]);
+		i++;
+	}
 	free(cub3d->levels);
 	free(cub3d->leaderboard.rect_level);
 	free(cub3d->leaderboard.text_level);

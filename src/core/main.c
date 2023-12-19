@@ -88,7 +88,7 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 			if (ptr->time > 0)
 			{
 				time = ft_itoa(ptr->time);
-				printf("Time = %d\n", ptr->time);
+				// printf("Time = %d\n", ptr->time);
 				write(fd, time, ft_strlen(time));
 				write(fd, " ", 1);
 				write(fd, ptr->name, ft_strlen(ptr->name));
@@ -148,12 +148,12 @@ int	main(int ac, char **av)
 		return (!err("Failed to read records"));
 	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))
 		return (1);
+	if (!init_enemy_frames(&cub3d))
+		return (1);
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
 	if (cub3d.state == 4)
-	{
 		free_level(&cub3d);
-	}
 	free_cub3d(&cub3d);
 	printf("freed!\n");
 	return (0);

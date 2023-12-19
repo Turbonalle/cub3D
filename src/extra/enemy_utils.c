@@ -262,7 +262,7 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 
 	key->dist_to_player = sqrt(pow(key->pos.x - cub3d->player.pos.x, 2) + pow(key->pos.y - cub3d->player.pos.y, 2));
 	key->pos_screen.x = i;
-	printf("x = %i\n",i);
+	// printf("x = %i\n",i);
 	key->pos_screen.y = cub3d->img->height / 2 + (cub3d->img->height / 2) / key->dist_to_player * 2;
 	//draw_circle(cub3d->img, key->pos_screen.x, key->pos_screen.y, 5, YELLOW_PALE);
 }

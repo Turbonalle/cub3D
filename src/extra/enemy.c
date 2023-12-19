@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/19 12:47:45 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:54:24 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -538,7 +538,7 @@ int	init_enemy_frames(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_FRAMES_ENEMY_IDLE)
 	{
-		file_path = create_file_path(i, FRAME_PATH_ENEMY_BLUE_IDLE);
+		file_path = create_file_path(i, FRAME_PATH_ENEMY_IDLE);
 		if (!file_path)
 			return (0);
 		printf("full file path: %s\n", file_path);
@@ -549,7 +549,7 @@ int	init_enemy_frames(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_FRAMES_ENEMY_WALKING)
 	{
-		file_path = create_file_path(i, FRAME_PATH_ENEMY_GREEN_WALKING);
+		file_path = create_file_path(i, FRAME_PATH_ENEMY_WALKING);
 		if (!file_path)
 			return (0);
 		printf("full file path: %s\n", file_path);

@@ -23,6 +23,7 @@ void	init_minimap(cub3d_t *cub3d)
 	cub3d->minimap.img = mlx_new_image(cub3d->mlx, cub3d->minimap.width, cub3d->minimap.height);
 	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx, cub3d->minimap.img, 0, 0) < 0))
 		err("Failed to create minimap image");
+	printf("minimap z: %d\n", cub3d->minimap.img->instances[0].z);
 	cub3d->minimap.pos.x = 0;
 	cub3d->minimap.pos.y = 0;
 	cub3d->minimap.transparency = MINIMAP_TRANSPARENCY;

@@ -172,6 +172,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	init_pause_menu(cub3d, &cub3d->pause_menu);
 	init_name_menu(cub3d, &cub3d->name_menu);
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
+	init_halo(cub3d, &cub3d->halo);
 	init_timer(cub3d);
 	int i = -1;
 	while (++i < 10)

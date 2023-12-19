@@ -14,5 +14,6 @@ void	player_is_hit(cub3d_t *cub3d)
 	}
 	cub3d->player.hit_timestamp = mlx_get_time();
 	cub3d->player.health -= 1;
+	activate_halo(&cub3d->halo, RED);
 	printf("Player health: %i\n", cub3d->player.health);
 }

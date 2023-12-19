@@ -20,6 +20,7 @@ int	is_top_score(level_t *level, int time)
 
 void	level_finished(cub3d_t *cub3d)
 {
+	cub3d->halo.img->instances[0].enabled = FALSE;
 	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 	mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
@@ -45,6 +46,7 @@ void	level_finished(cub3d_t *cub3d)
 
 void	game_over(cub3d_t *cub3d)
 {
+	cub3d->halo.img->instances[0].enabled = FALSE;
 	// free_info(cub3d->level->map);
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 	free_level(cub3d);

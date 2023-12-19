@@ -45,6 +45,7 @@ void	collect_key(cub3d_t *cub3d, double y, double x)
 	}
 	cub3d->level->door_groups[index].num_keys_left--;
 	draw_key_counts(cub3d);
+	activate_halo(&cub3d->halo, GREEN);
 }
 
 void	item_collected_checker(cub3d_t *cub3d)

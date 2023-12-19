@@ -217,6 +217,13 @@ void	draw_timer(cub3d_t *cub3d);
 void	print_timer(cub3d_t *cub3d);
 
 
+//---- HALO --------------------------------------------------------------------
+
+void	init_halo(cub3d_t *cub3d, halo_t *halo);
+void	handle_halo(halo_t *halo);
+void	activate_halo(halo_t *halo, int color);
+
+
 //---- PLAYER ------------------------------------------------------------------
 
 // collision.c

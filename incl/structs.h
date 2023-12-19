@@ -523,6 +523,16 @@ typedef struct level_s
 	record_t		*records;
 }			level_t;
 
+//---- HALO --------------------------------------------------------------------
+
+typedef struct halo_s
+{
+	mlx_image_t	*img;
+	int			active;
+	int			color;
+	double		timestamp;
+}				halo_t;
+
 //---- CUB3D -------------------------------------------------------------------
 
 enum state
@@ -556,6 +566,7 @@ typedef struct cub3d_s
 	player_t		player;
 	double			fov;
 	minimap_t		minimap;
+	halo_t			halo;
 	ray_t			*rays;
 	int				state;
 	int				prev;

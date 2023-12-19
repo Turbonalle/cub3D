@@ -118,6 +118,7 @@ void	free_level(cub3d_t *cub3d)
 	if (cub3d->num_enemies)
 		free(cub3d->enemy);
 	i = 0;
+	mlx_delete_image(cub3d->mlx, cub3d->level->health);
 	while (i < NUM_DOORS_MAX)
 	{
 		free_doors(cub3d->level->door_groups[i].door_positions);

@@ -276,23 +276,17 @@ static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 	if (angle_max < angle_min)
 	{
 		if (dir_to_key > angle_max && dir_to_key < angle_min)
-		{
 			return ;
-		}
-			
 		else if (ray_to_key(cub3d, dir_to_key, key))
 		{
 			key->visible = 1;
 			draw_key(cub3d, dir_to_key, key);
-			
 		}
 	}
 	else
 	{
 		if (dir_to_key < angle_min || dir_to_key > angle_max)
-		{
 			return ;
-		}
 		else if (ray_to_key(cub3d, dir_to_key, key))
 		{
 			key->visible = 1;

@@ -25,7 +25,7 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C'
 		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'))
 	{
-		if (dist_between(vMapCheck, cub3d->player.pos) > 3)
+		if (dist_between(vMapCheck, cub3d->player.pos) > 4)
 			return (1);
 		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
 			return (0);
@@ -97,7 +97,7 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 			free(ray);
 			return (0);
 		}
-		if (door_found(cub3d, vMapCheck))
+		else if (door_found(cub3d, vMapCheck))
 		{
 			free(ray);
 			return (0);
@@ -158,7 +158,6 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 			cub3d->enemy[i].visible = TRUE;
 			draw_enemy(cub3d, dir_to_enemy, i);
 		}
-			
 	}
 	else
 	{
@@ -169,7 +168,6 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 			cub3d->enemy[i].visible = TRUE;
 			draw_enemy(cub3d, dir_to_enemy, i);
 		}
-			
 	}
 	return ;
 }

@@ -69,6 +69,17 @@ void set_z_of_all_images(cub3d_t *cub3d)
 	//TODO: think about menus
 	z++;
 }
+void	draw_heart(cub3d_t *cub3d)
+{
+	draw_health(cub3d);
+	cub3d->level->heart.texture = mlx_load_png(TEXTURE_HEART);
+	if (!cub3d->level->heart.texture)
+		return ;
+	cub3d->level->heart_img = mlx_texture_to_image(cub3d->mlx, cub3d->level->heart.texture);
+	if (!cub3d->level->heart_img)
+		return ;
+	mlx_image_to_window(cub3d->mlx, cub3d->level->heart_img, cub3d->mlx->width / 2 - 10, cub3d->mlx->height * 0.01);
+}
 
 int	load_level(cub3d_t *cub3d, level_t *level)
 {
@@ -100,5 +111,6 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	init_doors_and_keys(cub3d);
 	init_textures(cub3d);
 	set_z_of_all_images(cub3d);
+	draw_heart(cub3d);
 	return (1);
 }

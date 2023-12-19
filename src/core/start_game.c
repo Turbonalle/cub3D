@@ -83,7 +83,6 @@ void	update(void *param)
 			draw_world(cub3d);
 			minimap(cub3d);
 			enemy_vision(cub3d);
-			// draw_health(cub3d);
 			draw_enemies(cub3d);
 			draw_timer(cub3d);
 			draw_animated_keys(cub3d);

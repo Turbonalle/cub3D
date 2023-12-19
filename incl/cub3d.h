@@ -224,6 +224,7 @@ void	activate_halo(halo_t *halo, int color);
 void	collision_checker(cub3d_t *cub3d);
 void	item_collected_checker(cub3d_t *cub3d);
 void	player_is_hit(cub3d_t *cub3d);
+void	draw_health(cub3d_t *cub3d);
 
 // player_movement.c
 void	player_movement(cub3d_t *cub3d);

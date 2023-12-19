@@ -84,7 +84,7 @@ void scale_curr_enemy_frame(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, 
 		row_res++;
 	}
 	//printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
-	//printf("drew enemy at a distance: %f\n", enemy->dist_to_player);
+	// printf("drew enemy at a distance: %f\n", enemy->dist_to_player);
 	enemy->img_curr_frame->instances[0].x = enemy->pos_screen.x - src->width * factor * 0.5;
 	enemy->img_curr_frame->instances[0].y = enemy->pos_screen.y - src->height * factor;
 	
@@ -274,7 +274,7 @@ void print_pos_and_dist_ordered_keys(key_node_t **keys)
 	i = 0;
 	while (keys[i])
 	{
-		printf("key %d, pos: x: %f, y: %f, dist: %f\n", i, keys[i]->pos.x, keys[i]->pos.y, keys[i]->dist_to_player);
+		// printf("key %d, pos: x: %f, y: %f, dist: %f\n", i, keys[i]->pos.x, keys[i]->pos.y, keys[i]->dist_to_player);
 		i++;
 	}
 }

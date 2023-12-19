@@ -87,6 +87,7 @@ void	update(void *param)
 			draw_enemies(cub3d);
 			draw_timer(cub3d);
 			draw_animated_keys(cub3d);
+			handle_halo(&cub3d->halo);
 		}
 		if (cub3d->player.health <= 0)
 			game_over(cub3d);

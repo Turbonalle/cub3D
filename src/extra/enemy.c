@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/19 12:17:34 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:47:45 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -449,7 +449,10 @@ void	enemy_vision(cub3d_t *cub3d)
 				{
 					cub3d->enemy[i].is_walking = 0;
 					if (cub3d->level->distraction_amount > 0)
+					{
+						printf("Started eating at %f\n",cub3d->run_time);
 						cub3d->enemy[i].is_eating = 1;
+					}
 				}
 			}
 			else if (cub3d->enemy[i].is_walking)
@@ -460,7 +463,10 @@ void	enemy_vision(cub3d_t *cub3d)
 				{
 					cub3d->enemy[i].is_walking = 0;
 					if (cub3d->level->distraction_amount > 0)
+					{
+						printf("Started eating at %f\n",cub3d->run_time);
 						cub3d->enemy[i].is_eating = 1;
+					}
 				}
 			}
 			else if (cub3d->enemy[i].is_eating)
@@ -468,6 +474,8 @@ void	enemy_vision(cub3d_t *cub3d)
 				cub3d->level->distraction_amount -= ENEMY_EATING_SPEED;
 				if (cub3d->level->distraction_amount <= 0)
 				{
+					printf("is done eating at %f\n",cub3d->run_time);
+					cub3d->level->map[(int)cub3d->level->distraction.y][(int)cub3d->level->distraction.x] = '0';
 					cub3d->enemy[i].is_eating = 0;
 				}
 			}

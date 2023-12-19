@@ -23,7 +23,7 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 			column * cub3d->minimap.tile_size,
 			row * cub3d->minimap.tile_size,
 			cub3d->minimap.tile_size, get_door_key_color(cub3d, index));
-	} else if (cub3d->level->map[row][column] == '0' || get_key_index(cub3d->level->map[row][column]) > -1)
+	} else if (cub3d->level->map[row][column] == '0' || get_key_index(cub3d->level->map[row][column]) > -1 || cub3d->level->map[row][column] == 'm')
 	{
 		draw_square(cub3d->minimap.img,
 			column * cub3d->minimap.tile_size,
@@ -36,13 +36,6 @@ void draw_correct_square(cub3d_t *cub3d, int row, int column)
 			column * cub3d->minimap.tile_size,
 			row * cub3d->minimap.tile_size,
 			cub3d->minimap.tile_size, cub3d->minimap.color_wall);
-	}
-	else if (cub3d->level->map[row][column] == 'm')
-	{
-		draw_square(cub3d->minimap.img,
-			column * cub3d->minimap.tile_size,
-			row * cub3d->minimap.tile_size,
-			cub3d->minimap.tile_size, cub3d->minimap.color_shroom);
 	}
 	else
 	{
@@ -65,6 +58,14 @@ void	draw_extras(cub3d_t *cub3d, int row, int column)
 			row * cub3d->minimap.tile_size,
 			cub3d->minimap.tile_size / 2,
 			get_door_key_color(cub3d, index));
+	}
+	if (cub3d->level->map[row][column] == 'm')
+	{
+		draw_circle(cub3d->minimap.img,
+			column * cub3d->minimap.tile_size,
+			row * cub3d->minimap.tile_size,
+			cub3d->minimap.tile_size / 2,
+			MINIMAP_COLOR_SHROOM);
 	}
 }
 

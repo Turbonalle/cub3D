@@ -81,7 +81,7 @@ enemy->img_curr_frame->instances[0].enabled = TRUE;
 		}
 		row_res++;
 	}
-	//printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
+	// printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
 	// printf("drew enemy at a distance: %f\n", enemy->dist_to_player);
 	enemy->img_curr_frame->instances[0].x = enemy->pos_screen.x - src->width * factor * 0.5;
 	enemy->img_curr_frame->instances[0].y = enemy->pos_screen.y - src->height * factor;
@@ -105,7 +105,7 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 	//mlx_image_t	*old_img;
 
 	//TODO: handle drawing keys in order of distance
-	//printf("draw_keys, curr_frame_num: %i\n", curr_frame_num);
+	// printf("draw_keys, curr_frame_num: %i\n", curr_frame_num);
 	tmp = cub3d->level->key_groups[group_index].keys;
 	while (tmp)
 	{
@@ -363,7 +363,7 @@ void print_dist_ordered_enemies(t_enemy **enemies)
 	i = 0;
 	while (enemies[i])
 	{
-		printf("enemy %d, dist: %f\n", i, enemies[i]->dist_to_player);
+		// printf("enemy %d, dist: %f\n", i, enemies[i]->dist_to_player);
 		i++;
 	}
 }
@@ -374,7 +374,6 @@ void	draw_animated_keys(cub3d_t *cub3d)
 	key_node_t	**ordered_keys;
 	t_enemy		**ordered_enemies;
 
-	
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
@@ -400,7 +399,7 @@ void	draw_animated_keys(cub3d_t *cub3d)
 		ordered_keys = create_list_of_pointers_to_all_keys_ordered_by_dist_to_player(cub3d);
 		//print_pos_and_dist_ordered_keys(ordered_keys);
 		ordered_enemies = create_list_of_pointers_to_all_enemies_ordered_by_dist_to_player(cub3d);
-		//print_dist_ordered_enemies(ordered_enemies);
+		print_dist_ordered_enemies(ordered_enemies);
 		i = 0;
 		while (ordered_enemies[i])
 		{

@@ -74,6 +74,7 @@ enemy->img_curr_frame->instances[0].enabled = TRUE;
 						ft_memcpy(enemy->img_curr_frame->pixels + row_res * enemy->img_curr_frame->width * 4 + col_res * 4,
 							src->pixels + row_src * src->width * 4 + col_src * 4,
 							4);
+					
 				}
 				col_res++;
 				// Maybe optimise and skip column completely?
@@ -81,6 +82,7 @@ enemy->img_curr_frame->instances[0].enabled = TRUE;
 		}
 		row_res++;
 	}
+	mlx_put_pixel(enemy->img_curr_frame, 0, 0, RED);
 	//printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
 	printf("drew enemy at a distance: %f\n", enemy->dist_to_player);
 	enemy->img_curr_frame->instances[0].x = enemy->pos_screen.x - src->width * factor * 0.5;
@@ -368,6 +370,18 @@ void print_dist_ordered_enemies(t_enemy **enemies)
 	}
 }
 
+void assign_z_depth(t_enemy **enemies)
+{
+	int	i;
+
+	i = 0;
+	while (enemies[i])
+	{
+		enemies[i]->img_curr_frame->instances[0].z = 10 + i;
+		i++;
+	}
+}
+
 void	draw_animated_keys(cub3d_t *cub3d)
 {
 	int 		i;
@@ -400,6 +414,7 @@ void	draw_animated_keys(cub3d_t *cub3d)
 		ordered_keys = create_list_of_pointers_to_all_keys_ordered_by_dist_to_player(cub3d);
 		//print_pos_and_dist_ordered_keys(ordered_keys);
 		ordered_enemies = create_list_of_pointers_to_all_enemies_ordered_by_dist_to_player(cub3d);
+		assign_z_depth(ordered_enemies);
 		//print_dist_ordered_enemies(ordered_enemies);
 		i = 0;
 		while (ordered_enemies[i])

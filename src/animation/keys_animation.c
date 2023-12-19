@@ -368,7 +368,7 @@ void print_dist_ordered_enemies(t_enemy **enemies)
 	}
 }
 
-void assign_z_depth_ordered_by_distance(t_enemy **enemies, key_node_t **keys)
+void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_node_t **keys)
 {
 	int	i;
 	int j;
@@ -376,7 +376,7 @@ void assign_z_depth_ordered_by_distance(t_enemy **enemies, key_node_t **keys)
 
 	i = 0;
 	j = 0;
-	z = 0;
+	z = cub3d->img->instances[0].z;
 	while (enemies[i] || keys[j])
 	{
 		z++;
@@ -427,7 +427,7 @@ void	draw_animated_keys(cub3d_t *cub3d)
 		ordered_keys = create_list_of_pointers_to_all_keys_ordered_by_dist_to_player(cub3d);
 		//print_pos_and_dist_ordered_keys(ordered_keys);
 		ordered_enemies = create_list_of_pointers_to_all_enemies_ordered_by_dist_to_player(cub3d);
-		assign_z_depth_ordered_by_distance(ordered_enemies, ordered_keys);
+		assign_z_depth_ordered_by_distance(cub3d, ordered_enemies, ordered_keys);
 		//print_dist_ordered_enemies(ordered_enemies);
 		i = 0;
 		while (ordered_enemies[i])

@@ -17,18 +17,12 @@ int	count_all_keys(cub3d_t *cub3d)
 {
 	int			count;
 	int			i;
-	key_node_t	*tmp;
 
 	count = 0;
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
-		tmp = cub3d->level->key_groups[i].keys;
-		while (tmp)
-		{
-			count++;
-			tmp = tmp->next;
-		}
+		count += cub3d->level->key_groups[i].num_keys_total;
 		i++;
 	}
 	return (count);
@@ -41,10 +35,13 @@ int set_z_for_key_groups(cub3d_t *cub3d, int starting_z)
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
-		cub3d->level->key_groups[i].img_key_icon->instances[0].z = starting_z;
-		starting_z++;
-		cub3d->level->key_groups[i].img_text_key_count->instances[0].z = starting_z;
-		starting_z++;
+		if (cub3d->level->key_groups[i].num_keys_total)
+		{
+			cub3d->level->key_groups[i].img_key_icon->instances[0].z = starting_z;
+			starting_z++;
+			cub3d->level->key_groups[i].img_text_key_count->instances[0].z = starting_z;
+			starting_z++;
+		}
 		i++;
 	}
 	return (starting_z);
@@ -72,7 +69,7 @@ void set_z_of_all_images(cub3d_t *cub3d)
 void	draw_heart(cub3d_t *cub3d)
 {
 	draw_health(cub3d);
-	cub3d->level->heart.texture = mlx_load_png(TEXTURE_HEART);
+	cub3d->level->heart.texture = mlx_load_png(TEXTURE_HEART_FULL);
 	if (!cub3d->level->heart.texture)
 		return ;
 	cub3d->level->heart_img = mlx_texture_to_image(cub3d->mlx, cub3d->level->heart.texture);

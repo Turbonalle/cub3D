@@ -99,8 +99,8 @@ void	free_cub3d(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_FRAMES_ENEMY_IDLE)
 	{
-		mlx_delete_texture(cub3d->frames_blue_idle[i]);
-		mlx_delete_texture(cub3d->frames_green_walking[i]);
+		mlx_delete_texture(cub3d->frames_idle[i]);
+		mlx_delete_texture(cub3d->frames_walking[i]);
 		i++;
 	}
 	free(cub3d->levels);

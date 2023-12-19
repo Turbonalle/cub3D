@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/19 16:54:24 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:00:14 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -542,7 +542,7 @@ int	init_enemy_frames(cub3d_t *cub3d)
 		if (!file_path)
 			return (0);
 		printf("full file path: %s\n", file_path);
-		cub3d->frames_blue_idle[i] = mlx_load_png(file_path);
+		cub3d->frames_idle[i] = mlx_load_png(file_path);
 		free(file_path);
 		i++;
 	}
@@ -553,7 +553,7 @@ int	init_enemy_frames(cub3d_t *cub3d)
 		if (!file_path)
 			return (0);
 		printf("full file path: %s\n", file_path);
-		cub3d->frames_green_walking[i] = mlx_load_png(file_path);
+		cub3d->frames_walking[i] = mlx_load_png(file_path);
 		free(file_path);
 		i++;
 	}

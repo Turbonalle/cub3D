@@ -29,7 +29,7 @@ int get_color(level_t *level, int element, char **info)
 
 	rgb = ft_split(info[1], ',');
 	free_info(info);
-	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
+	if (!rgb || !rgb[2] || rgb[3])
 		return (free_info(rgb), err("Color: Wrong amount of arguments"));
 	color = 0;
 	i = -1;
@@ -42,6 +42,7 @@ int get_color(level_t *level, int element, char **info)
 			return (free_info(rgb), err("Color: Invalid value"));
 		color = (color << 8) + color_part;
 	}
+	color = (color << 8) + 255;
 	set_color(level, element, color);
 	free_info(rgb);
 	return (SUCCESS);

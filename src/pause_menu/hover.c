@@ -1,5 +1,18 @@
 #include "../incl/cub3d.h"
 
+int	hover_image(cub3d_t *cub3d, mlx_image_t *img)
+{
+	vector_t	mouse;
+
+	mlx_get_mouse_pos(cub3d->mlx, &mouse.x, &mouse.y);
+	if (mouse.x >= (int)img->instances[0].x
+		&& mouse.x <= (int)(img->instances[0].x + img->width)
+		&& mouse.y >= (int)img->instances[0].y
+		&& mouse.y <= (int)(img->instances[0].y + img->height))
+		return (TRUE);
+	return (FALSE);
+}
+
 int	hover_button(cub3d_t *cub3d, button_t *button)
 {
 	int mouse_x;

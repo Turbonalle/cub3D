@@ -3,11 +3,10 @@
 void	delete_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 {
 	mlx_delete_image(cub3d->mlx, menu->img);
-	mlx_delete_image(cub3d->mlx, menu->text_title);
-	mlx_delete_image(cub3d->mlx, menu->text_start);
-	mlx_delete_image(cub3d->mlx, menu->text_level);
-	mlx_delete_image(cub3d->mlx, menu->text_settings);
-	mlx_delete_image(cub3d->mlx, menu->text_exit);
+	mlx_delete_image(cub3d->mlx, menu->title.img);
+	mlx_delete_image(cub3d->mlx, menu->start.img);
+	mlx_delete_image(cub3d->mlx, menu->level.img);
+	mlx_delete_image(cub3d->mlx, menu->exit.img);
 }
 
 void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu)

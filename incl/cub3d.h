@@ -17,6 +17,9 @@ int		init_minimap(cub3d_t *cub3d);
 
 //---- COLOR -------------------------------------------------------------------
 
+// mix_color.c
+int		get_color_mix(int color1, int color2);
+
 // get_color.c
 int		get_r(int rgba);
 int		get_g(int rgba);
@@ -80,7 +83,8 @@ void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 void	init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 // init_start_menu.c
-void	init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+void	draw_start_menu_border(mlx_image_t *img);
+int		init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 // init_leaderboard.c
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
@@ -156,6 +160,7 @@ void	center_vertically(mlx_image_t *img);
 void	center_horizontally(mlx_image_t *img);
 
 // hover.c
+int		hover_image(cub3d_t *cub3d, mlx_image_t *img);
 int		hover_button(cub3d_t *cub3d, button_t *button);
 int		hover_rectangle(cub3d_t *cub3d, rectangle_t *rect);
 int		hover_box(cub3d_t *cub3d, box_t *box);

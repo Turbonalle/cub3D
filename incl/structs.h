@@ -312,21 +312,38 @@ typedef struct pause_menu_s
 //---- START MENU --------------------------------------------------------------
 
 # define START_MENU_BACKGROUND_COLOR BLACK
+# define START_TITLE_PNG "./assets/textures/logox2.png"
+# define START_START_PNG "./assets/textures/menu/start_normal.png"
+# define START_START_HOVER_PNG "./assets/textures/menu/start_hover.png"
+# define START_LEVEL_PNG "./assets/textures/menu/levels_normal.png"
+# define START_LEVEL_HOVER_PNG "./assets/textures/menu/levels_hover.png"
+# define START_EXIT_PNG "./assets/textures/menu/exit_normal.png"
+# define START_EXIT_HOVER_PNG "./assets/textures/menu/exit_hover.png"
+# define START_MENU_BORDER_THICKNESS 50
+# define START_MENU_BORDER_TOP_COLOR GREEN_PALE
+# define START_MENU_BORDER_BOTTOM_COLOR BURGUNDY_DARK
+# define START_MENU_BORDER_LEFT_COLOR TURQUOISE_LIGHT
+# define START_MENU_BORDER_RIGHT_COLOR RED_LIGHT
+
+typedef struct png_s
+{
+	mlx_image_t		*img;
+	mlx_texture_t	*texture;
+	vector_t		pos;
+	int				width;
+	int				height;
+}					png_t;
 
 typedef struct start_menu_s
 {
 	mlx_image_t	*img;
-	int			background_color;
-	mlx_image_t	*text_title;
-	mlx_image_t	*text_start;
-	mlx_image_t	*text_settings;
-	mlx_image_t	*text_level;
-	mlx_image_t	*text_exit;
-	rectangle_t	rect_title;
-	button_t	button_start;
-	button_t	button_settings;
-	button_t	button_level;
-	button_t	button_exit;
+	png_t		title;
+	png_t		exit;
+	png_t		start;
+	png_t		level;
+	png_t		exit_hover;
+	png_t		start_hover;
+	png_t		level_hover;
 }				start_menu_t;
 
 //---- LEVEL MENU --------------------------------------------------------------

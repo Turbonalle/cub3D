@@ -5,7 +5,6 @@
 
 // prototypes
 typedef struct map_node_s map_node_t;
-typedef struct enemy_path_s enemy_path_t;
 typedef struct key_node_s key_node_t;
 typedef struct door_pos_s door_pos_t;
 
@@ -73,15 +72,8 @@ typedef struct s_enemy
 	int				state;
 	int				visible;
 	mlx_image_t		*img_curr_frame;
-	enemy_path_t	*path;
 }	t_enemy;
 
-typedef struct enemy_path_s
-{
-	dvector_t		path;
-	enemy_path_t	*next;
-	enemy_path_t	*prev;
-}		enemy_path_t;
 
 typedef struct keypress_s
 {

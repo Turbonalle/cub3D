@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:57 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/19 19:09:13 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/20 12:43:27 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ double	to_radians(double degrees)
 }
 
 double	dist_between(vector_t a, dvector_t b)
+{
+	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
+}
+
+double	dist_between_d_vectors(dvector_t a, dvector_t b)
 {
 	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }

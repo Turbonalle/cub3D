@@ -176,6 +176,7 @@ double	within_360(double degree);
 double	within_two_pi(double radians);
 double	to_radians(double degrees);
 double	dist_between(vector_t a, dvector_t b);
+double	dist_between_d_vectors(dvector_t a, dvector_t b);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);
@@ -285,6 +286,7 @@ void	zoom_out_minimap(cub3d_t *cub3d);
 // raycasting.c
 void	raycasting(cub3d_t *cub3d);
 ray_t	*cast_ray(cub3d_t *cub3d);
+vector_t	init_v_step(dvector_t v_ray_dir);
 
 //---- UTILS -------------------------------------------------------------------
 
@@ -314,9 +316,16 @@ void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 //---- ENEMIES -------------------------------------------------------------------
 
 int		init_enemy(cub3d_t *cub3d);
+int		enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i);
+void	enemy_advance(cub3d_t *cub3d, int i);
 void	enemy_vision(cub3d_t *cub3d);
 void	draw_enemies(cub3d_t *cub3d);
+int		distraction(cub3d_t *cub3d, int i);
+int		enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_to_distraction, int i);
 void	cause_distraction(cub3d_t *cub3d);
+int		check_if_door_open(cub3d_t *cub3d, int xcoord, int ycoord);
+char	*create_file_path(int i, char *path);
+int		check_if_player_is_seen(cub3d_t *cub3d, int i);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

@@ -35,13 +35,7 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck, int dist)
 	{
 		if (dist > 3)
 			return (1);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
-			return (0);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)
-			return (0);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C' && all_keys_found(cub3d, 2) == 1)
-			return (0);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D' && all_keys_found(cub3d, 3) == 1)
+		if (check_if_door_open(cub3d, vMapCheck.x, vMapCheck.y))
 			return (0);
 		else
 			return (1);
@@ -84,26 +78,15 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 	vMapCheck.x = (int)vRayStartingCell.x;
 	vMapCheck.y = (int)vRayStartingCell.y;
 
+	vStep = init_v_step(vRayDir);
 	if (vRayDir.x < 0)
-	{
-		vStep.x = -1;
 		vRayLength1D.x = (vRayStartingCell.x - vMapCheck.x) * vRayUnitStepSize.x;
-	}
 	else
-	{
-		vStep.x = 1;
 		vRayLength1D.x = (vMapCheck.x + 1.0 - vRayStartingCell.x) * vRayUnitStepSize.x;
-	}
 	if (vRayDir.y < 0)
-	{
-		vStep.y = -1;
 		vRayLength1D.y = (vRayStartingCell.y - vMapCheck.y) * vRayUnitStepSize.y;
-	}
 	else
-	{
-		vStep.y = 1;
 		vRayLength1D.y = (vMapCheck.y + 1.0 - vRayStartingCell.y) * vRayUnitStepSize.y;
-	}
 
 	double dist = 0;
 	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);

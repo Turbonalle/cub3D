@@ -5,14 +5,11 @@ TODO:
 - Create wall textures
 - Create sprites
 - Fix update_minimap()
-- Decrease minimap alpha to increase its opacity
-- Create formula for converting ray values into a "3D"-world
 
 -----------------------------------------------------------------------------
 
 OPTIONAL:
 
-- Compare with delta time
 - Create floor and ceiling textures
 - Add enemies
 	Currently:
@@ -23,23 +20,6 @@ OPTIONAL:
 		Enemies can no longer see through doors
 - Add mirrors
 
------------------------------------------------------------------------------
-
-WHEN PROJECT IS DONE:
-
-- Norminette
-- Remove extra folder
-- Remove extra function prototypes from header file
-- Remove debug prints
-
------------------------------------------------------------------------------
-
-JBAGGER:
-
-- Add a pause menu (or starting menu if pause menu is too hard)
-	pause menu done
-- Add ability to adjust settings in menu
-	fisheye setting works, no-fisheye does not
 - Enemy difficulty:
 	- stationary
 	- rotating
@@ -53,3 +33,14 @@ JBAGGER:
 	- show also enemies
 	- show also enemy FOV
 - Other settings?
+
+-----------------------------------------------------------------------------
+
+WHEN PROJECT IS DONE:
+
+- Norminette
+- Remove extra folder
+- Remove extra function prototypes from header file
+- Remove debug prints
+
+-----------------------------------------------------------------------------

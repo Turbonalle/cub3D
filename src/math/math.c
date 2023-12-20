@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:57 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/27 15:55:53 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:09:13 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
+
+int min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
 
 double	within_360(double degree)
 {

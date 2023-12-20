@@ -19,31 +19,55 @@ void	activate_halo(halo_t *halo, int color)
 	halo->timestamp = mlx_get_time();
 }
 
-static void	set_halo_fade(halo_t *halo)
+static int	get_distance_from_edge(mlx_image_t *img, unsigned int row, unsigned int column)
+{
+	int	distance_from_edge;
+
+	distance_from_edge = row;
+	distance_from_edge = min(distance_from_edge, img->height - row);
+	distance_from_edge = min(distance_from_edge, column);
+	distance_from_edge = min(distance_from_edge, img->width - column);
+	return (distance_from_edge);
+}
+
+static int	get_time_fade(halo_t *halo)
 {
 	int	fade;
 
 	fade = (mlx_get_time() - halo->timestamp) * 100 / HALO_TIME;
-	halo->color = set_transparency(halo->color, fade);
+	return (fade);
 }
 
 static void	draw_halo(mlx_image_t *img, halo_t *halo)
 {
 	unsigned int	column;
 	unsigned int	row;
+	int				time_fade;
+	int				edge_fade;
+	int				distance_from_edge;
+	int				fade;
+	int				color;
 
-	set_halo_fade(halo);
+	time_fade = get_time_fade(halo);
 	row = -1;
 	while (++row < img->height)
 	{
 		column = -1;
 		while (++column < img->width)
 		{
-			if (row < HALO_THICKNESS
-				|| row > img->height - HALO_THICKNESS
-				|| column < HALO_THICKNESS
-				|| column > img->width - HALO_THICKNESS)
-				mlx_put_pixel(img, column, row, halo->color);
+			distance_from_edge = get_distance_from_edge(img, row, column);
+			if (distance_from_edge < HALO_THICKNESS)
+				edge_fade = distance_from_edge * 100 / HALO_THICKNESS;
+			else
+				edge_fade = 100;
+			color = halo->color;
+			if (time_fade + edge_fade > 100)
+				fade = 100;
+			else
+				fade = time_fade + edge_fade;
+			color = set_transparency(color, fade);
+			if (distance_from_edge < HALO_THICKNESS)
+				mlx_put_pixel(img, column, row, color);
 		}
 	}
 }

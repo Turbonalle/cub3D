@@ -311,7 +311,7 @@ typedef struct pause_menu_s
 
 //---- START MENU --------------------------------------------------------------
 
-# define START_MENU_BACKGROUND_COLOR BLACK
+# define START_MENU_BACKGROUND_COLOR GRAY_DARK
 # define START_TITLE_PNG "./assets/textures/logox2.png"
 # define START_START_PNG "./assets/textures/menu/start_normal.png"
 # define START_START_HOVER_PNG "./assets/textures/menu/start_hover.png"
@@ -319,8 +319,9 @@ typedef struct pause_menu_s
 # define START_LEVEL_HOVER_PNG "./assets/textures/menu/levels_hover.png"
 # define START_EXIT_PNG "./assets/textures/menu/exit_normal.png"
 # define START_EXIT_HOVER_PNG "./assets/textures/menu/exit_hover.png"
+# define START_ARROW_PNG "./assets/textures/menu/arrow_pick.png"
 # define START_MENU_BORDER_THICKNESS 50
-# define START_MENU_BORDER_TOP_COLOR GREEN_PALE
+# define START_MENU_BORDER_TOP_COLOR GREEN
 # define START_MENU_BORDER_BOTTOM_COLOR BURGUNDY_DARK
 # define START_MENU_BORDER_LEFT_COLOR TURQUOISE_LIGHT
 # define START_MENU_BORDER_RIGHT_COLOR RED_LIGHT
@@ -344,6 +345,9 @@ typedef struct start_menu_s
 	png_t		exit_hover;
 	png_t		start_hover;
 	png_t		level_hover;
+	png_t		arrow_exit;
+	png_t		arrow_start;
+	png_t		arrow_level;
 }				start_menu_t;
 
 //---- LEVEL MENU --------------------------------------------------------------

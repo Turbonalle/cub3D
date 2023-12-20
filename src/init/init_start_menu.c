@@ -9,6 +9,9 @@ static void	load_png(start_menu_t *menu)
 	menu->start_hover.texture = mlx_load_png(START_START_HOVER_PNG);
 	menu->level.texture = mlx_load_png(START_LEVEL_PNG);
 	menu->level_hover.texture = mlx_load_png(START_LEVEL_HOVER_PNG);
+	menu->arrow_exit.texture = mlx_load_png(START_ARROW_PNG);
+	menu->arrow_start.texture = mlx_load_png(START_ARROW_PNG);
+	menu->arrow_level.texture = mlx_load_png(START_ARROW_PNG);
 }
 
 static int	init_images(mlx_t *mlx, start_menu_t *menu)
@@ -37,6 +40,15 @@ static int	init_images(mlx_t *mlx, start_menu_t *menu)
 	menu->level_hover.img = mlx_texture_to_image(mlx, menu->level_hover.texture);
 	if (!menu->level_hover.img)
 		return (err("Failed to create start menu level hover image"));
+	menu->arrow_exit.img = mlx_texture_to_image(mlx, menu->arrow_exit.texture);
+	if (!menu->arrow_exit.img)
+		return (err("Failed to create start menu arrow exit image"));
+	menu->arrow_start.img = mlx_texture_to_image(mlx, menu->arrow_start.texture);
+	if (!menu->arrow_start.img)
+		return (err("Failed to create start menu arrow start image"));
+	menu->arrow_level.img = mlx_texture_to_image(mlx, menu->arrow_level.texture);
+	if (!menu->arrow_level.img)
+		return (err("Failed to create start menu arrow level image"));
 	return (SUCCESS);
 }
 
@@ -46,11 +58,13 @@ static void	set_positions(start_menu_t *menu)
 	int		start_x;
 	int		level_x;
 	int		button_y;
+	int		arrow_y;
 
-	exit_x = menu->img->width * 0.3;
+	exit_x = menu->img->width * 0.35;
 	start_x = menu->img->width * 0.5;
-	level_x = menu->img->width * 0.7;
+	level_x = menu->img->width * 0.65;
 	button_y = menu->img->height * 0.7;
+	arrow_y = button_y + menu->exit.img->height * 0.5 - menu->arrow_exit.img->height * 0.5;
 	menu->title.pos.x = menu->img->width * 0.5 - menu->title.img->width * 0.5;
 	menu->title.pos.y = menu->img->height * 0.3;
 	menu->exit.pos.x = exit_x - menu->exit.img->width * 0.5;
@@ -65,6 +79,12 @@ static void	set_positions(start_menu_t *menu)
 	menu->level.pos.y = button_y;
 	menu->level_hover.pos.x = level_x - menu->level_hover.img->width * 0.5;
 	menu->level_hover.pos.y = button_y;
+	menu->arrow_exit.pos.x = menu->exit.pos.x - menu->arrow_exit.img->width * 1.5;
+	menu->arrow_exit.pos.y = arrow_y;
+	menu->arrow_start.pos.x = menu->start.pos.x - menu->arrow_start.img->width * 1.5;
+	menu->arrow_start.pos.y = arrow_y;
+	menu->arrow_level.pos.x = menu->level.pos.x - menu->arrow_level.img->width * 1.5;
+	menu->arrow_level.pos.y = arrow_y;
 }
 
 static int	put_images_to_window(mlx_t *mlx, start_menu_t *menu)
@@ -85,11 +105,18 @@ static int	put_images_to_window(mlx_t *mlx, start_menu_t *menu)
 		return (err("Failed to put start menu start hover image to window"));
 	if (mlx_image_to_window(mlx, menu->level_hover.img, menu->level_hover.pos.x, menu->level_hover.pos.y) < 0)
 		return (err("Failed to put start menu level hover image to window"));
+	if (mlx_image_to_window(mlx, menu->arrow_exit.img, menu->arrow_exit.pos.x, menu->arrow_exit.pos.y) < 0)
+		return (err("Failed to put start menu arrow exit image to window"));
+	if (mlx_image_to_window(mlx, menu->arrow_start.img, menu->arrow_start.pos.x, menu->arrow_start.pos.y) < 0)
+		return (err("Failed to put start menu arrow start image to window"));
+	if (mlx_image_to_window(mlx, menu->arrow_level.img, menu->arrow_level.pos.x, menu->arrow_level.pos.y) < 0)
+		return (err("Failed to put start menu arrow level image to window"));
 	return (SUCCESS);
 }
 
 int	init_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 {
+	printf("Initializing start menu...\n");
 	load_png(menu);
 	if (!init_images(cub3d->mlx, menu))
 		return (FAIL);
@@ -98,5 +125,6 @@ int	init_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 	draw_start_menu_border(menu->img);
 	if (!put_images_to_window(cub3d->mlx, menu))
 		return (FAIL);
+	printf("Start menu initialized\n");
 	return (SUCCESS);
 }

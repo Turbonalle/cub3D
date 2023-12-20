@@ -10,6 +10,9 @@ void	disable_start_menu(start_menu_t *menu)
 	menu->exit_hover.img->instances[0].enabled = FALSE;
 	menu->start_hover.img->instances[0].enabled = FALSE;
 	menu->level_hover.img->instances[0].enabled = FALSE;
+	menu->arrow_exit.img->instances[0].enabled = FALSE;
+	menu->arrow_start.img->instances[0].enabled = FALSE;
+	menu->arrow_level.img->instances[0].enabled = FALSE;
 }
 
 void	enable_start_menu(start_menu_t *menu)
@@ -22,4 +25,7 @@ void	enable_start_menu(start_menu_t *menu)
 	menu->exit_hover.img->instances[0].enabled = FALSE;
 	menu->start_hover.img->instances[0].enabled = FALSE;
 	menu->level_hover.img->instances[0].enabled = FALSE;
+	menu->arrow_exit.img->instances[0].enabled = FALSE;
+	menu->arrow_start.img->instances[0].enabled = FALSE;
+	menu->arrow_level.img->instances[0].enabled = FALSE;
 }

@@ -104,7 +104,9 @@ void	update(void *param)
 
 void	start_game(cub3d_t *cub3d)
 {
+	printf("TEST1\n");
 	enable_start_menu(&cub3d->start_menu);
+	printf("TEST2\n");
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
 	mlx_key_hook(cub3d->mlx, &get_input, cub3d);
 	mlx_scroll_hook(cub3d->mlx, &hook_mouse_scroll, cub3d);

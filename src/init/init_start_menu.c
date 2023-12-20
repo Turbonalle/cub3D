@@ -116,15 +116,14 @@ static int	put_images_to_window(mlx_t *mlx, start_menu_t *menu)
 
 int	init_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 {
-	printf("Initializing start menu...\n");
 	load_png(menu);
 	if (!init_images(cub3d->mlx, menu))
 		return (FAIL);
 	set_positions(menu);
-	draw_menu_background(menu->img, START_MENU_BACKGROUND_COLOR);
-	draw_start_menu_border(menu->img);
+	draw_menu_background(menu->img, MENU_BACKGROUND_COLOR);
+	draw_menu_border(menu->img);
 	if (!put_images_to_window(cub3d->mlx, menu))
 		return (FAIL);
-	printf("Start menu initialized\n");
+	disable_start_menu(menu);
 	return (SUCCESS);
 }

@@ -1,90 +1,103 @@
 #include "../incl/cub3d.h"
 
-void	init_level_buttons(cub3d_t *cub3d, level_menu_t *menu)
+static load_png(level_menu_t *menu)
+{
+	menu->title.texture = mlx_load_png(LEVEL_TITLE_PNG);
+	menu->back.texture = mlx_load_png(LEVEL_BACK_PNG);
+	menu->back_hover.texture = mlx_load_png(LEVEL_BACK_HOVER_PNG);
+	menu->leaderboard.texture = mlx_load_png(LEVEL_LEADERBOARD_PNG);
+	menu->leaderboard_hover.texture = mlx_load_png(LEVEL_LEADERBOARD_HOVER_PNG);
+}
+
+static int	init_images(mlx_t *mlx, level_menu_t *menu)
 {
 	int	i;
 
+	menu->img = mlx_new_image(mlx, mlx->width, mlx->height);
+	if (!menu->img)
+		return (err("Failed to create level menu image"));
+	menu->title.img = mlx_texture_to_image(mlx, menu->title.texture);
+	if (!menu->title.img)
+		return (err("Failed to create level menu title image"));
+	menu->back.img = mlx_texture_to_image(mlx, menu->back.texture);
+	if (!menu->back.img)
+		return (err("Failed to create level menu back image"));
+	menu->back_hover.img = mlx_texture_to_image(mlx, menu->back_hover.texture);
+	if (!menu->back_hover.img)
+		return (err("Failed to create level menu back hover image"));
+	// menu->leaderboard.img = mlx_texture_to_image(mlx, menu->leaderboard.texture);
+	// if (!menu->leaderboard.img)
+	// 	return (err("Failed to create level menu leaderboard image"));
+	// menu->leaderboard_hover.img = mlx_texture_to_image(mlx, menu->leaderboard_hover.texture);
+	// if (!menu->leaderboard_hover.img)
+	// 	return (err("Failed to create level menu leaderboard hover image"));
 	i = -1;
-	while (++i < cub3d->n_levels)
+	while (++i < LEVELS)
 	{
-		menu->buttons[i].width = cub3d->mlx->width * 0.2;
-		menu->buttons[i].height = cub3d->mlx->height * 0.15;
-		menu->buttons[i].pos.x = cub3d->mlx->width * 0.1 + (i % 3) * (menu->buttons[i].width + cub3d->mlx->width * 0.1);
-		menu->buttons[i].pos.y = cub3d->mlx->height * 0.3 + (i / 3) * (menu->buttons[i].height + cub3d->mlx->height * 0.1);
-		menu->buttons[i].background_color = BUTTON_COLOR;
-		menu->buttons[i].border_color = BUTTON_BORDER_COLOR;
-		menu->buttons[i].border_width = BUTTON_BORDER_THICKNESS;
+		menu->minilevels[i].img = mlx_new_image(mlx, mlx->width * 0.2, mlx->height * 0.15);
+		if (!menu->minilevels[i].img)
+			return (err("Failed to create level menu minilevel image"));
 	}
-	// set back button
-	menu->button_back.width = cub3d->mlx->height * 0.15;
-	menu->button_back.height = cub3d->mlx->height * 0.15;
-	menu->button_back.pos.x = cub3d->mlx->width * 0.1;
-	menu->button_back.pos.y = cub3d->mlx->height * 0.05;
-	menu->button_back.background_color = BUTTON_COLOR;
-	menu->button_back.border_color = BUTTON_BORDER_COLOR;
-	menu->button_back.border_width = BUTTON_BORDER_THICKNESS;
-	// set leaderboard button
-	menu->button_leaderboard.width = cub3d->mlx->width * 0.1;
-	menu->button_leaderboard.height = cub3d->mlx->height * 0.15;
-	menu->button_leaderboard.pos.x = cub3d->mlx->width * 0.8;
-	menu->button_leaderboard.pos.y = cub3d->mlx->height * 0.05;
-	menu->button_leaderboard.background_color = BUTTON_COLOR;
-	menu->button_leaderboard.border_color = BUTTON_BORDER_COLOR;
-	menu->button_leaderboard.border_width = BUTTON_BORDER_THICKNESS;
+	return (SUCCESS);
 }
 
-void	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
+static void	set_positions(level_menu_t *menu)
 {
-	int i;
+	int	i;
+	int	mini_width;
+	int	mini_height;
+	int	gap;
 
-	menu->background_color = BLACK;
-	menu->rect_title.width = cub3d->mlx->width * 0.4;
-	menu->rect_title.height = cub3d->mlx->height * 0.15;
-	menu->rect_title.pos.x = (cub3d->mlx->width - menu->rect_title.width) / 2;
-	menu->rect_title.pos.y = cub3d->mlx->height * 0.05;
-	menu->rect_title.color = GREEN;
-	init_level_buttons(cub3d, menu);
-
-
-	menu->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width, cub3d->mlx->height);
-	if (!menu->img)
-		err("Failed to create pause menu image");
-
-	draw_menu_background(menu->img, menu->background_color);
-
-	draw_rectangle(menu->img, &menu->rect_title);
-
+	menu->title.pos.x = (menu->img->width - menu->title.img->width) / 2;
+	menu->title.pos.y = menu->img->height * 0.2;
+	menu->back.pos.x = menu->img->width * 0.2;
+	menu->back.pos.y = menu->img->height * 0.2;
+	// menu->leaderboard.pos.x = menu->img->width * 0.8 - menu->leaderboard.img->width;
+	// menu->leaderboard.pos.y = menu->img->height * 0.2;
+	mini_width = menu->minilevels[0].img->width;
 	i = -1;
-	while (++i < cub3d->n_levels)
+	while (++i < LEVELS)
 	{
-		// draw_button(menu->img, &menu->buttons[i]);
-		// printf("Drawing minimap preview for level %d\n", i + 1);
-		// draw_minimap_preview(menu->img, &menu->buttons[i], &cub3d->levels[i + 1]);
+		menu->minilevels[i].pos.x = menu->img->width * 0.2 + (i * menu->img->width * 0.2);
+		menu->minilevels[i].pos.y = menu->img->height * 0.4 + (i * menu->img->height * 0.15);
 	}
+}
 
-	mlx_image_to_window(cub3d->mlx, menu->img, 0, 0);
-	menu->text_title = mlx_put_string(cub3d->mlx, "Select Level", menu->rect_title.pos.x + menu->rect_title.width * 0.5, menu->rect_title.pos.y + menu->rect_title.height * 0.5);
-	center(menu->text_title);
-	menu->text_level_1 = mlx_put_string(cub3d->mlx, "Level 1", menu->buttons[0].pos.x + menu->buttons[0].width * 0.5, menu->buttons[0].pos.y + menu->buttons[0].height * 0.5);
-	center(menu->text_level_1);
-	menu->text_level_2 = mlx_put_string(cub3d->mlx, "Level 2", menu->buttons[1].pos.x + menu->buttons[1].width * 0.5, menu->buttons[1].pos.y + menu->buttons[1].height * 0.5);
-	center(menu->text_level_2);
-	menu->text_level_3 = mlx_put_string(cub3d->mlx, "Level 3", menu->buttons[2].pos.x + menu->buttons[2].width * 0.5, menu->buttons[2].pos.y + menu->buttons[2].height * 0.5);
-	center(menu->text_level_3);
-	menu->text_level_4 = mlx_put_string(cub3d->mlx, "Level 4", menu->buttons[3].pos.x + menu->buttons[3].width * 0.5, menu->buttons[3].pos.y + menu->buttons[3].height * 0.5);
-	center(menu->text_level_4);
-	menu->text_level_5 = mlx_put_string(cub3d->mlx, "Level 5", menu->buttons[4].pos.x + menu->buttons[4].width * 0.5, menu->buttons[4].pos.y + menu->buttons[4].height * 0.5);
-	center(menu->text_level_5);
-	menu->text_level_6 = mlx_put_string(cub3d->mlx, "Level 6", menu->buttons[5].pos.x + menu->buttons[5].width * 0.5, menu->buttons[5].pos.y + menu->buttons[5].height * 0.5);
-	center(menu->text_level_6);
-	menu->text_level_7 = mlx_put_string(cub3d->mlx, "Level 7", menu->buttons[6].pos.x + menu->buttons[6].width * 0.5, menu->buttons[6].pos.y + menu->buttons[6].height * 0.5);
-	center(menu->text_level_7);
-	menu->text_level_8 = mlx_put_string(cub3d->mlx, "Level 8", menu->buttons[7].pos.x + menu->buttons[7].width * 0.5, menu->buttons[7].pos.y + menu->buttons[7].height * 0.5);
-	center(menu->text_level_8);
-	menu->text_back = mlx_put_string(cub3d->mlx, "<-", menu->button_back.pos.x + menu->button_back.width * 0.5, menu->button_back.pos.y + menu->button_back.height * 0.5);
-	center(menu->text_back);
-	menu->text_leaderboard = mlx_put_string(cub3d->mlx, "Leaderboard", menu->button_leaderboard.pos.x + menu->button_leaderboard.width * 0.5, menu->button_leaderboard.pos.y + menu->button_leaderboard.height * 0.5);
-	center(menu->text_leaderboard);
+static int	put_images_to_window(mlx_t *mlx, level_menu_t *menu)
+{
+	int	i;
 
+	if (mlx_image_to_window(mlx, menu->img, 0, 0) < 0)
+		return (err("Failed to put level menu image to window"));
+	if (mlx_image_to_image(mlx, menu->title.img, menu->title.pos.x, menu->title.pos.y) < 0)
+		return (err("Failed to put level menu title image to window"));
+	if (mlx_image_to_image(mlx, menu->back.img, menu->back.pos.x, menu->back.pos.y) < 0)
+		return (err("Failed to put level menu back image to window"));
+	if (mlx_image_to_image(mlx, menu->back_hover.img, menu->back.pos.x, menu->back.pos.y) < 0)
+		return (err("Failed to put level menu back hover image to window"));
+	// if (mlx_image_to_image(mlx, menu->leaderboard.img, menu->leaderboard.pos.x, menu->leaderboard.pos.y) < 0)
+	// 	return (err("Failed to put level menu leaderboard image to window"));
+	// if (mlx_image_to_image(mlx, menu->leaderboard_hover.img, menu->leaderboard.pos.x, menu->leaderboard.pos.y) < 0)
+	// 	return (err("Failed to put level menu leaderboard hover image to window"));
+	i = -1;
+	while (++i < LEVELS)
+	{
+		if (mlx_image_to_image(mlx, menu->minilevels[i].img, menu->minilevels[i].pos.x, menu->minilevels[i].pos.y) < 0)
+			return (err("Failed to put level menu minilevel image to window"));
+	}
+	return (SUCCESS);
+}
+
+int	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
+{
+	load_png(menu);
+	if (!init_images(cub3d->mlx, menu))
+		return (FAIL);
+	set_positions(menu);
+	draw_menu_background(menu->img, MENU_BACKGROUND_COLOR);
+	draw_menu_border(menu->img);
+	if (!put_images_to_window(cub3d->mlx, menu))
+		return (FAIL);
 	disable_level_menu(menu);
+	return (SUCCESS);
 }

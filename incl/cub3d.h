@@ -171,6 +171,7 @@ int		get_door_key_color(cub3d_t *cub3d, int index);
 //---- MATH --------------------------------------------------------------------
 
 // math.c
+int		min(int a, int b);
 double	within_360(double degree);
 double	within_two_pi(double radians);
 double	to_radians(double degrees);

@@ -56,7 +56,11 @@ void	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 
 	i = -1;
 	while (++i < cub3d->n_levels)
-		draw_button(menu->img, &menu->buttons[i]);
+	{
+		// draw_button(menu->img, &menu->buttons[i]);
+		// printf("Drawing minimap preview for level %d\n", i + 1);
+		// draw_minimap_preview(menu->img, &menu->buttons[i], &cub3d->levels[i + 1]);
+	}
 
 	mlx_image_to_window(cub3d->mlx, menu->img, 0, 0);
 	menu->text_title = mlx_put_string(cub3d->mlx, "Select Level", menu->rect_title.pos.x + menu->rect_title.width * 0.5, menu->rect_title.pos.y + menu->rect_title.height * 0.5);

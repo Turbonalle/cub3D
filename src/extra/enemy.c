@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/19 17:00:14 by vvagapov         ###   ########.fr       */
+/*   Updated: 2023/12/20 10:16:07 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,7 +448,7 @@ void	enemy_vision(cub3d_t *cub3d)
 				if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
 				{
 					cub3d->enemy[i].is_walking = 0;
-					if (cub3d->level->distraction_amount > 0)
+					if (cub3d->level->distraction_amount > 0 && cub3d->enemy[i].target.x == cub3d->level->distraction.x && cub3d->enemy[i].target.y == cub3d->level->distraction.y)
 					{
 						printf("Started eating at %f\n",cub3d->run_time);
 						cub3d->enemy[i].is_eating = 1;
@@ -462,7 +462,7 @@ void	enemy_vision(cub3d_t *cub3d)
 				if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
 				{
 					cub3d->enemy[i].is_walking = 0;
-					if (cub3d->level->distraction_amount > 0)
+					if (cub3d->level->distraction_amount > 0 && cub3d->enemy[i].target.x == cub3d->level->distraction.x && cub3d->enemy[i].target.y == cub3d->level->distraction.y)
 					{
 						printf("Started eating at %f\n",cub3d->run_time);
 						cub3d->enemy[i].is_eating = 1;

@@ -7,12 +7,13 @@ static int	player_is_invulnerable(cub3d_t *cub3d)
 
 void	draw_health(cub3d_t *cub3d)
 {
-	char	*health;
-
-	health = ft_itoa(cub3d->player.health);
-	if (cub3d->level->health)
-		mlx_delete_image(cub3d->mlx, cub3d->level->health);
-	cub3d->level->health = mlx_put_string(cub3d->mlx, health, cub3d->mlx->width / 2, cub3d->mlx->height * 0.01);
+	cub3d->level->heart_img->instances[0].enabled = FALSE;
+	cub3d->level->heart_half_img->instances[0].enabled = FALSE;
+	cub3d->level->heart_empty_img->instances[0].enabled = FALSE;
+	if (cub3d->player.health == 2)
+		cub3d->level->heart_half_img->instances[0].enabled = TRUE;
+	if (cub3d->player.health == 1)
+		cub3d->level->heart_empty_img->instances[0].enabled = TRUE;
 }
 
 void	player_is_hit(cub3d_t *cub3d)

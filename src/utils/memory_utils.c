@@ -118,7 +118,12 @@ void	free_level(cub3d_t *cub3d)
 	if (cub3d->num_enemies)
 		free(cub3d->enemy);
 	i = 0;
-	mlx_delete_image(cub3d->mlx, cub3d->level->health);
+	mlx_delete_texture(cub3d->level->heart.texture);
+	mlx_delete_texture(cub3d->level->heart_half.texture);
+	mlx_delete_texture(cub3d->level->heart_empty.texture);
+	mlx_delete_image(cub3d->mlx, cub3d->level->heart_img);
+	mlx_delete_image(cub3d->mlx, cub3d->level->heart_half_img);
+	mlx_delete_image(cub3d->mlx, cub3d->level->heart_empty_img);
 	while (i < NUM_DOORS_MAX)
 	{
 		free_doors(cub3d->level->door_groups[i].door_positions);

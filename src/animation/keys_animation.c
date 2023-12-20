@@ -139,11 +139,11 @@ void	draw_enemies_frames(cub3d_t *cub3d, int index)
 		cub3d->enemy[index].img_curr_frame->instances[0].enabled = TRUE;
 		scale_factor = calculate_scale_factor(cub3d->enemy[index].dist_to_player, ENEMY_NORMAL_SCALE_DISTANCE);
 		if (cub3d->enemy[index].state == IDLE)
-			frame = cub3d->frames_blue_idle[cub3d->curr_frame_index_idle];
+			frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
 		else if (cub3d->enemy[index].state == WALKING)
-			frame = cub3d->frames_green_walking[cub3d->curr_frame_index_walking];
+			frame = cub3d->frames_walking[cub3d->curr_frame_index_walking];
 		else
-			frame = cub3d->frames_blue_idle[cub3d->curr_frame_index_idle];
+			frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
 		scale_curr_enemy_frame(
 				cub3d,
 				&cub3d->enemy[index],
@@ -163,11 +163,11 @@ void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
 
 	scale_factor = calculate_scale_factor(enemy->dist_to_player, ENEMY_NORMAL_SCALE_DISTANCE);
 	if (enemy->state == IDLE)
-		frame = cub3d->frames_blue_idle[cub3d->curr_frame_index_idle];
+		frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
 	else if (enemy->state == WALKING)
-		frame = cub3d->frames_green_walking[cub3d->curr_frame_index_walking];
+		frame = cub3d->frames_walking[cub3d->curr_frame_index_walking];
 	else
-		frame = cub3d->frames_blue_idle[cub3d->curr_frame_index_idle];
+		frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
 	scale_curr_enemy_frame(
 		cub3d,
 		enemy,

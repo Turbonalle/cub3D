@@ -2,32 +2,41 @@
 
 void	disable_level_menu(level_menu_t *menu)
 {
+	int	i;
+
 	menu->img->instances[0].enabled = FALSE;
-	menu->text_title->instances[0].enabled = FALSE;
-	menu->text_level_1->instances[0].enabled = FALSE;
-	menu->text_level_2->instances[0].enabled = FALSE;
-	menu->text_level_3->instances[0].enabled = FALSE;
-	menu->text_level_4->instances[0].enabled = FALSE;
-	menu->text_level_5->instances[0].enabled = FALSE;
-	menu->text_level_6->instances[0].enabled = FALSE;
-	menu->text_level_7->instances[0].enabled = FALSE;
-	menu->text_level_8->instances[0].enabled = FALSE;
-	menu->text_back->instances[0].enabled = FALSE;
-	menu->text_leaderboard->instances[0].enabled = FALSE;
+	menu->title.img->instances[0].enabled = FALSE;
+	menu->back.img->instances[0].enabled = FALSE;
+	menu->leaderboard.img->instances[0].enabled = FALSE;
+	menu->back_hover.img->instances[0].enabled = FALSE;
+	menu->leaderboard_hover.img->instances[0].enabled = FALSE;
+	i = -1;
+	while (++i < LEVELS)
+	{
+		printf("i = %d\n", i);
+		menu->minilevels[i].img->instances[0].enabled = FALSE;
+		printf("i = %d\n", i);
+		menu->minilevels[i].number.img->instances[0].enabled = FALSE;
+		printf("i = %d\n", i);
+		menu->minilevels[i].border->instances[0].enabled = FALSE;
+	}
 }
 
 void	enable_level_menu(level_menu_t *menu)
 {
+	int	i;
+
 	menu->img->instances[0].enabled = TRUE;
-	menu->text_title->instances[0].enabled = TRUE;
-	menu->text_level_1->instances[0].enabled = TRUE;
-	menu->text_level_2->instances[0].enabled = TRUE;
-	menu->text_level_3->instances[0].enabled = TRUE;
-	menu->text_level_4->instances[0].enabled = TRUE;
-	menu->text_level_5->instances[0].enabled = TRUE;
-	menu->text_level_6->instances[0].enabled = TRUE;
-	menu->text_level_7->instances[0].enabled = TRUE;
-	menu->text_level_8->instances[0].enabled = TRUE;
-	menu->text_back->instances[0].enabled = TRUE;
-	menu->text_leaderboard->instances[0].enabled = TRUE;
+	menu->title.img->instances[0].enabled = TRUE;
+	menu->back.img->instances[0].enabled = TRUE;
+	menu->leaderboard.img->instances[0].enabled = TRUE;
+	menu->back_hover.img->instances[0].enabled = FALSE;
+	menu->leaderboard_hover.img->instances[0].enabled = FALSE;
+	i = -1;
+	while (++i < LEVELS)
+	{
+		menu->minilevels[i].img->instances[0].enabled = TRUE;
+		menu->minilevels[i].number.img->instances[0].enabled = TRUE;
+		menu->minilevels[i].border->instances[0].enabled = FALSE;
+	}
 }

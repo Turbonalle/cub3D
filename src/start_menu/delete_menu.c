@@ -11,18 +11,21 @@ void	delete_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 
 void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 {
+	int	i;
+
 	mlx_delete_image(cub3d->mlx, menu->img);
-	mlx_delete_image(cub3d->mlx, menu->text_title);
-	mlx_delete_image(cub3d->mlx, menu->text_level_1);
-	mlx_delete_image(cub3d->mlx, menu->text_level_2);
-	mlx_delete_image(cub3d->mlx, menu->text_level_3);
-	mlx_delete_image(cub3d->mlx, menu->text_level_4);
-	mlx_delete_image(cub3d->mlx, menu->text_level_5);
-	mlx_delete_image(cub3d->mlx, menu->text_level_6);
-	mlx_delete_image(cub3d->mlx, menu->text_level_7);
-	mlx_delete_image(cub3d->mlx, menu->text_level_8);
-	mlx_delete_image(cub3d->mlx, menu->text_back);
-	mlx_delete_image(cub3d->mlx, menu->text_leaderboard);
+	mlx_delete_image(cub3d->mlx, menu->title.img);
+	mlx_delete_image(cub3d->mlx, menu->back.img);
+	mlx_delete_image(cub3d->mlx, menu->back_hover.img);
+	mlx_delete_image(cub3d->mlx, menu->leaderboard.img);
+	mlx_delete_image(cub3d->mlx, menu->leaderboard_hover.img);
+	i = -1;
+	while (++i < LEVELS)
+	{
+		mlx_delete_image(cub3d->mlx, menu->minilevels[i].img);
+		mlx_delete_image(cub3d->mlx, menu->minilevels[i].number.img);
+		mlx_delete_image(cub3d->mlx, menu->minilevels[i].border);
+	}
 }
 
 void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)

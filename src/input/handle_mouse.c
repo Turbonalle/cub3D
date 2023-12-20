@@ -22,6 +22,39 @@ void	mouse_start_menu(cub3d_t *cub3d)
 	}
 }
 
+void	mouse_level_menu(cub3d_t *cub3d)
+{
+	int i;
+
+	i = -1;
+	while (++i < cub3d->n_levels - 1)
+	{
+		if (hover_image(cub3d, cub3d->level_menu.minilevels[i].img))
+		{
+			cub3d->level = &cub3d->levels[i + 1];
+			if (!load_level(cub3d, &cub3d->levels[i + 1]))
+				return ;
+			cub3d->speedrun = TRUE;
+			cub3d->state = STATE_GAME;
+			disable_level_menu(&cub3d->level_menu);
+			handle_cursor(cub3d);
+			start_timer(cub3d);
+		}
+	}
+	if (hover_image(cub3d, cub3d->level_menu.back.img))
+	{
+		disable_level_menu(&cub3d->level_menu);
+		enable_start_menu(&cub3d->start_menu);
+		cub3d->state = STATE_START;
+	}
+	if (hover_image(cub3d, cub3d->level_menu.leaderboard.img))
+	{
+		disable_level_menu(&cub3d->level_menu);
+		enable_leaderboard(cub3d, &cub3d->leaderboard);
+		cub3d->state = STATE_LEADERBOARD;
+	}
+}
+
 void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param)
 {
 	cub3d_t *cub3d;
@@ -53,62 +86,10 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		else if (cub3d->state == STATE_START)
 		{
 			mouse_start_menu(cub3d);
-			// if (hover_button(cub3d, &cub3d->start_menu.button_start))
-			// {
-			// 	cub3d->level = &cub3d->levels[0];
-			// 	if (!load_level(cub3d, cub3d->level))
-			// 		return ;
-			// 	disable_start_menu(&cub3d->start_menu);
-			// 	cub3d->state = STATE_GAME;
-			// 	handle_cursor(cub3d);
-			// 	start_timer(cub3d);
-			// }
-			// else if (hover_button(cub3d, &cub3d->start_menu.button_level))
-			// {
-			// 	cub3d->state = STATE_LEVEL;
-			// 	disable_start_menu(&cub3d->start_menu);
-			// 	enable_level_menu(&cub3d->level_menu);
-			// }
-			// // else if (hover_button(cub3d, &cub3d->start_menu.button_settings))
-			// // {
-			// // 	cub3d->state = STATE_SETTINGS;
-			// // 	mlx_destroy_image(cub3d->mlx, cub3d->start_menu.img);
-			// // 	init_settings(cub3d);
-			// // }
-			// else if (hover_button(cub3d, &cub3d->start_menu.button_exit))
-			// 	mlx_close_window(cub3d->mlx);
 		}
 		else if (cub3d->state == STATE_LEVEL)
 		{
-			int i;
-
-			i = -1;
-			while (++i < cub3d->n_levels - 1)
-			{
-				if (hover_button(cub3d, &cub3d->level_menu.buttons[i]))
-				{
-					cub3d->level = &cub3d->levels[i + 1];
-					if (!load_level(cub3d, &cub3d->levels[i + 1]))
-						return ;
-					cub3d->speedrun = TRUE;
-					cub3d->state = STATE_GAME;
-					disable_level_menu(&cub3d->level_menu);
-					handle_cursor(cub3d);
-					start_timer(cub3d);
-				}
-			}
-			if (hover_button(cub3d, &cub3d->level_menu.button_back))
-			{
-				disable_level_menu(&cub3d->level_menu);
-				enable_start_menu(&cub3d->start_menu);
-				cub3d->state = STATE_START;
-			}
-			if (hover_button(cub3d, &cub3d->level_menu.button_leaderboard))
-			{
-				disable_level_menu(&cub3d->level_menu);
-				enable_leaderboard(cub3d, &cub3d->leaderboard);
-				cub3d->state = STATE_LEADERBOARD;
-			}
+			mouse_level_menu(cub3d);
 		}
 		else if (cub3d->state == STATE_LEADERBOARD)
 		{

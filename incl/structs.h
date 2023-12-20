@@ -316,7 +316,7 @@ typedef struct pause_menu_s
 # define MENU_BORDER_BOTTOM_COLOR BURGUNDY_DARK
 # define MENU_BORDER_LEFT_COLOR TURQUOISE_LIGHT
 # define MENU_BORDER_RIGHT_COLOR RED_LIGHT
-# define MENU_BORDER_THICKNESS 50
+# define MENU_BORDER_THICKNESS 30
 
 # define START_TITLE_PNG "./assets/textures/logox2.png"
 # define START_START_PNG "./assets/textures/menu/start_normal.png"
@@ -353,32 +353,12 @@ typedef struct start_menu_s
 
 //---- LEVEL MENU --------------------------------------------------------------
 
-// typedef struct level_menu_s
-// {
-// 	mlx_image_t	*img;
-// 	int			background_color;
-// 	rectangle_t	rect_title;
-// 	mlx_image_t	*text_title;
-// 	mlx_image_t	*text_level_1;
-// 	mlx_image_t	*text_level_2;
-// 	mlx_image_t	*text_level_3;
-// 	mlx_image_t	*text_level_4;
-// 	mlx_image_t	*text_level_5;
-// 	mlx_image_t	*text_level_6;
-// 	mlx_image_t	*text_level_7;
-// 	mlx_image_t	*text_level_8;
-// 	mlx_image_t	*text_back;
-// 	mlx_image_t	*text_leaderboard;
-// 	button_t	buttons[8];
-// 	button_t	button_back;
-// 	button_t	button_leaderboard;
-// }				level_menu_t;
-
 # define LEVEL_TITLE_PNG "./assets/textures/menu/level_title.png"
 # define LEVEL_BACK_PNG "./assets/textures/menu/back_normal.png"
 # define LEVEL_BACK_HOVER_PNG "./assets/textures/menu/back_hover.png"
 # define LEVEL_LEADERBOARD_PNG "./assets/textures/menu/leaderboard_normal.png"
 # define LEVEL_LEADERBOARD_HOVER_PNG "./assets/textures/menu/leaderboard_hover.png"
+# define NUMBER_PNGS { "./assets/textures/level_numbers/1.png", "./assets/textures/level_numbers/2.png", "./assets/textures/level_numbers/3.png", "./assets/textures/level_numbers/4.png", "./assets/textures/level_numbers/5.png", "./assets/textures/level_numbers/6.png", "./assets/textures/level_numbers/7.png", "./assets/textures/level_numbers/8.png" }
 # define MINILEVEL_BORDER_COLOR YELLOW_PALE
 # define MINILEVEL_BORDER_THICKNESS 10
 # define MINILEVEL_MARGIN 10
@@ -387,8 +367,8 @@ typedef struct minilevel_s
 {
 	mlx_image_t	*img;
 	vector_t	pos;
-	mlx_image_t	border;
 	png_t		number;
+	mlx_image_t	*border;
 }				minilevel_t;
 
 typedef struct level_menu_s

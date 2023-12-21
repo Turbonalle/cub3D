@@ -117,6 +117,7 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 			cub3d->speedrun = FALSE;
 			cub3d->state = STATE_START;
 		}
+		handle_cursor(cub3d);
 	}
 	else if (keydata.key == MLX_KEY_SPACE)
 	{

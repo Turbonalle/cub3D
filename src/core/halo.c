@@ -1,6 +1,8 @@
 #include "../incl/cub3d.h"
 
-static int	get_distance_from_edge(mlx_image_t *img, unsigned int row, unsigned int column)
+static int	get_distance_from_edge(mlx_image_t *img,
+	unsigned int row,
+	unsigned int column)
 {
 	int	distance_from_edge;
 

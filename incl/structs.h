@@ -360,15 +360,25 @@ typedef struct start_menu_s
 # define LEVEL_LEADERBOARD_HOVER_PNG "./assets/textures/menu/leaderboard_hover.png"
 # define NUMBER_PNGS { "./assets/textures/level_numbers/1.png", "./assets/textures/level_numbers/2.png", "./assets/textures/level_numbers/3.png", "./assets/textures/level_numbers/4.png", "./assets/textures/level_numbers/5.png", "./assets/textures/level_numbers/6.png", "./assets/textures/level_numbers/7.png", "./assets/textures/level_numbers/8.png" }
 # define MINILEVEL_BORDER_COLOR YELLOW_PALE
+# define MINILEVEL_BG_COLOR BLACK
+# define MINILEVEL_RECT_COLOR RED_LIGHT
 # define MINILEVEL_BORDER_THICKNESS 10
 # define MINILEVEL_MARGIN 10
+# define PREVIEW_WALL_COLOR GRAY_VERY_DARK
+# define PREVIEW_FLOOR_COLOR GRAY_DARK
 
 typedef struct minilevel_s
 {
 	mlx_image_t	*img;
 	vector_t	pos;
 	png_t		number;
+	rectangle_t	number_rect;
+	int			size;
 	mlx_image_t	*border;
+	vector_t	preview_pos;
+	int			preview_width;
+	int			preview_height;
+	int			preview_square_size;
 }				minilevel_t;
 
 typedef struct level_menu_s

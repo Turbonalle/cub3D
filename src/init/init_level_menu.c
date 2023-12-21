@@ -41,8 +41,9 @@ void	set_number_values(minilevel_t *minilevel)
 
 void	draw_preview_map(minilevel_t *minilevel, level_t *level)
 {
-	int	row;
-	int	column;
+	int			row;
+	int			column;
+	vector_t	coord;
 
 	row = -1;
 	while (++row < level->map_rows)
@@ -50,19 +51,19 @@ void	draw_preview_map(minilevel_t *minilevel, level_t *level)
 		column = -1;
 		while (++column < level->map_columns)
 		{
+			coord.x = minilevel->preview_pos.x + column * minilevel->preview_square_size;
+			coord.y = minilevel->preview_pos.y + row * minilevel->preview_square_size;
 			if (level->backup[row][column] == '1')
 			{
 				draw_square(minilevel->img,
-					minilevel->preview_pos.x + column * minilevel->preview_square_size,
-					minilevel->preview_pos.y + row * minilevel->preview_square_size,
+					coord,
 					minilevel->preview_square_size,
 					PREVIEW_WALL_COLOR);
 			}
 			else
 			{
 				draw_square(minilevel->img,
-					minilevel->preview_pos.x + column * minilevel->preview_square_size,
-					minilevel->preview_pos.y + row * minilevel->preview_square_size,
+					coord,
 					minilevel->preview_square_size,
 					PREVIEW_FLOOR_COLOR);
 			}
@@ -239,7 +240,6 @@ int	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	i = -1;
 	while (++i < LEVELS)
 	{
-		printf(TERMINAL_GREEN"LEVEL %d\n"TERMINAL_RESET, i + 1);
 		draw_minimap_preview(&menu->minilevels[i], &cub3d->levels[i + 1]);
 		draw_border_image(&menu->minilevels[i]);
 	}

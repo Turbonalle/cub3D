@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/21 13:45:58 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:12:45 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ static int	enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i)
 	vMapCheck.y = (int)enemy[i].pos.y;
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
-	vStep = init_v_step(vRayDir);
-	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos, vRayDir, vMapCheck, vRayUnitStepSize);
+	vStep = init_v_step(enemy[i].angle * 180 / M_PI);
+	vRayLength1D = init_ray_1D_length_vec(cub3d->enemy[i].pos, vRayDir, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);
@@ -140,8 +140,8 @@ int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 	vMapCheck.y = (int)enemy[i].pos.y;
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
-	vStep = init_v_step(vRayDir);
-	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos, vRayDir, vMapCheck, vRayUnitStepSize);
+	vStep = init_v_step(enemy[i].dir_player);
+	vRayLength1D = init_ray_1D_length_dir(cub3d->enemy[i].pos, enemy[i].dir_player, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);

@@ -178,7 +178,7 @@ void	handle_gameover_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
-		// delete_gameover_menu(cub3d);
+		disable_gameover_menu(&cub3d->gameover_menu);
 		enable_start_menu(&cub3d->start_menu);
 		cub3d->state = STATE_START;
 	}

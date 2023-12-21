@@ -5,21 +5,22 @@ void draw_minimap_player(cub3d_t *cub3d)
 {
 	double row;
 	double column;
+	vector_t	coord;
 	int size;
 	int	i;
 
 	size = cub3d->minimap.tile_size / 4;
 	if (size < 1)
 		size = 1;
-	row = (cub3d->player.pos.y * cub3d->minimap.tile_size) - (size / 2);
-	column = (cub3d->player.pos.x * cub3d->minimap.tile_size) - (size / 2);
-	draw_square(cub3d->minimap.img, (int)column, (int)row, size, cub3d->minimap.color_player);
+	coord.y = (cub3d->player.pos.y * cub3d->minimap.tile_size) - (size / 2);
+	coord.x = (cub3d->player.pos.x * cub3d->minimap.tile_size) - (size / 2);
+	draw_square(cub3d->minimap.img, coord, size, cub3d->minimap.color_player);
 	i = 0;
 	while (i < cub3d->num_enemies)
 	{
-		row = (cub3d->enemy[i].pos.y * cub3d->minimap.tile_size) - (size / 2);
-		column = (cub3d->enemy[i].pos.x * cub3d->minimap.tile_size) - (size / 2);
-		draw_square(cub3d->minimap.img, (int)column, (int)row, size * 4, cub3d->minimap.color_enemy);
+		coord.y = (cub3d->enemy[i].pos.y * cub3d->minimap.tile_size) - (size / 2);
+		coord.x = (cub3d->enemy[i].pos.x * cub3d->minimap.tile_size) - (size / 2);
+		draw_square(cub3d->minimap.img, coord, size * 4, cub3d->minimap.color_enemy);
 		i++;
 	}
 	row = -1;

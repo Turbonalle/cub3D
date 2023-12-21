@@ -437,16 +437,9 @@ void	draw_animated_keys(cub3d_t *cub3d)
 		}
 		free(ordered_enemies);
 		free(ordered_keys);
-		/* i = 0;
-		while (i < cub3d->num_enemies)
-		{
-			draw_enemies_frames(cub3d, i);
-			i++;
-		} */
 		cub3d->prev_frame_index_idle = cub3d->curr_frame_index_idle;
-		cub3d->prev_frame_index_walking = cub3d->curr_frame_index_walking; 
+		cub3d->prev_frame_index_walking = cub3d->curr_frame_index_walking;
 	}
-	
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
@@ -465,5 +458,4 @@ void	draw_animated_keys(cub3d_t *cub3d)
 		}
 		i++;
 	}
-	
 }

@@ -28,7 +28,7 @@ int	count_all_keys(cub3d_t *cub3d)
 	return (count);
 }
 
-int set_z_for_key_groups(cub3d_t *cub3d, int starting_z)
+int	set_z_for_key_groups(cub3d_t *cub3d, int starting_z)
 {
 	int			i;
 
@@ -47,9 +47,9 @@ int set_z_for_key_groups(cub3d_t *cub3d, int starting_z)
 	return (starting_z);
 }
 
-void set_z_of_all_images(cub3d_t *cub3d)
+void	set_z_of_all_images(cub3d_t *cub3d)
 {
-	int z;
+	int	z;
 
 	z = 0;
 	cub3d->img->instances[0].z = z;
@@ -63,6 +63,7 @@ void set_z_of_all_images(cub3d_t *cub3d)
 	//TODO: think about menus
 	z++;
 }
+
 void	draw_heart(cub3d_t *cub3d)
 {
 	cub3d->level->heart.texture = mlx_load_png(TEXTURE_HEART_FULL);

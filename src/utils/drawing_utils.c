@@ -1,27 +1,27 @@
 #include "../incl/cub3d.h"
 
-void draw_square(mlx_image_t *img, int col, int row, int size, int color)
+void draw_square(mlx_image_t *img, vector_t coord, int size, int color)
 {
-	
-	vector_t end;
-	int x;
+	vector_t	end;
+	int			x;
 
-	end.x = col + size;
-	end.y = row + size;
-	x = col;
-	while (row < end.y)
+	end.x = coord.x + size;
+	end.y = coord.y + size;
+	x = coord.x;
+	while (coord.y < end.y)
 	{
-		col = x;
-		while (col < end.x)
+		coord.x = x;
+		while (coord.x < end.x)
 		{
-			mlx_put_pixel(img, col, row, color);
-			col++;
+			mlx_put_pixel(img, coord.x, coord.y, color);
+			coord.x++;
 		}
-		row++;
+		coord.y++;
 	}
 }
 
-void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color) {
+void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color) 
+{
 	while (x1 <= x2)
 	{
 		mlx_put_pixel(img, x1, y, color);
@@ -29,11 +29,12 @@ void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color
 	}
 }
 
-void draw_circle(mlx_image_t *img, int col, int row, int radius, int color) {
-    vector_t center;
-	int x;
-    int y;
-    int decision;
+void draw_circle(mlx_image_t *img, int col, int row, int radius, int color) 
+{
+    vector_t	center;
+	int			x;
+    int			y;
+    int			decision;
 
     center.x = col + radius;
     center.y = row + radius;

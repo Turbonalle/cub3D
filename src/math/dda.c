@@ -75,8 +75,8 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 	vMapCheck.x = (int)vRayStartingCell.x;
 	vMapCheck.y = (int)vRayStartingCell.y;
 
-	vStep = init_v_step(vRayDir);
-	vRayLength1D = init_ray_1D_length(vRayStartingCell, vRayDir, vMapCheck, vRayUnitStepSize);
+	vStep = init_v_step(radians * 180 / M_PI);
+	vRayLength1D = init_ray_1D_length_vec(vRayStartingCell, vRayDir, vMapCheck, vRayUnitStepSize);
 
 	double dist = 0;
 	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);

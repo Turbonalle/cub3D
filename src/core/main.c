@@ -1,13 +1,5 @@
 #include "../incl/cub3d.h"
 
-int free_three_strings(char *s1, char *s2, char *s3)
-{
-	free(s1);
-	free(s2);
-	free(s3);
-	return (0);
-}
-
 void	free_already_allocated(cub3d_t *cub3d, int i)
 {
 	while (i >= 0)
@@ -54,13 +46,11 @@ int	read_all_levels(cub3d_t *cub3d)
 			return (free_already_allocated(cub3d, i), err("Malloc error"));
 		fd = open(full_path, O_RDONLY);
 		if (fd < 0)
-		{
-			return (free(full_path), free_already_allocated(cub3d, i), err("Failed to open level file"));
-		}
+			return (free(full_path), free_already_allocated(cub3d, i),
+				err("Failed to open level file"));
 		if (!read_cub_file(&cub3d->levels[i], full_path))
-		{
-			return (free(full_path), free_already_allocated(cub3d, i), err("Failed to read level file"));
-		}
+			return (free(full_path), free_already_allocated(cub3d, i),
+				err("Failed to read level file"));
 		close(fd);
 		free(full_path);
 		i++;
@@ -139,7 +129,6 @@ int	main(int ac, char **av)
 		return (!err("Failed to malloc levels"));
 	if (!read_cub_file(cub3d.level, av[1]))
 		return (free(cub3d.levels), 1);
-	// print_level_info(cub3d.level); // DEBUG
 	if (!read_all_levels(&cub3d))
 		return (1);
 	if (!init_cub3d(&cub3d))

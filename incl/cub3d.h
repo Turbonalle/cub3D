@@ -224,7 +224,7 @@ void	print_timer(cub3d_t *cub3d);
 void	init_halo(cub3d_t *cub3d, halo_t *halo);
 void	handle_halo(halo_t *halo);
 void	activate_halo(halo_t *halo, int color);
-
+void	draw_halo(mlx_image_t *img, halo_t *halo);
 
 //---- PLAYER ------------------------------------------------------------------
 
@@ -292,8 +292,9 @@ void	zoom_out_minimap(cub3d_t *cub3d);
 // raycasting.c
 void	raycasting(cub3d_t *cub3d);
 ray_t	*cast_ray(cub3d_t *cub3d);
-vector_t	init_v_step(dvector_t v_ray_dir);
-dvector_t init_ray_1D_length(dvector_t start_pos, dvector_t v_ray_dir, vector_t vMapCheck, dvector_t vRayUnitStepSize);
+vector_t	init_v_step(double dir);
+dvector_t 	init_ray_1D_length_vec(dvector_t start_pos, dvector_t v_ray_dir, vector_t vMapCheck, dvector_t vRayUnitStepSize);
+dvector_t 	init_ray_1D_length_dir(dvector_t start_pos, double dir, vector_t vMapCheck, dvector_t vRayUnitStepSize);
 
 //---- UTILS -------------------------------------------------------------------
 
@@ -316,7 +317,7 @@ void	free_backup(level_t level);
 int		err(char *error_message);
 
 // drawing_utils.c
-void draw_square(mlx_image_t *img, int col, int row, int size, int color);
+void	draw_square(mlx_image_t *img, vector_t coord, int size, int color);
 void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
 void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 

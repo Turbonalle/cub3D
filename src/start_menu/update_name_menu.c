@@ -70,13 +70,16 @@ void	get_letter(cub3d_t *cub3d, name_menu_t *menu)
 
 void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu)
 {
+	int	letter;
+	int	index;
+	
 	if (cub3d->keys.backspace)
 	{
 		if (menu->current > 0)
 		{
 			menu->current--;
-			int letter = menu->name[menu->current] - 'a';
-			int index = menu->letter_index[menu->current];
+			letter = menu->name[menu->current] - 'a';
+			index = menu->letter_index[menu->current];
 			menu->name[menu->current] = '\0';
 			menu->letters_img[letter]->instances[index].enabled = FALSE;
 			print_letter_indexes(menu, 1);

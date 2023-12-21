@@ -83,10 +83,13 @@ static void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 
 //------------------------------------------------------------------------------
 
-vector_t	init_v_step(dvector_t v_ray_dir)
+vector_t	init_v_step(double dir)
 {
-	vector_t v_step;
+	vector_t 	v_step;
+	dvector_t	v_ray_dir;
 
+	v_ray_dir.x = cos(to_radians(dir));
+	v_ray_dir.y = sin(to_radians(dir));
 	if (v_ray_dir.x < 0)
 		v_step.x = -1;
 	else
@@ -118,8 +121,8 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 				/ vRayDir.y));
 	vMapCheck.x = (int)player->pos.x;
 	vMapCheck.y = (int)player->pos.y;
-	vStep = init_v_step(vRayDir);
-	vRayLength1D = init_ray_1D_length(cub3d->player.pos, vRayDir, vMapCheck, vRayUnitStepSize);
+	vStep = init_v_step(ray->angle * 180 / M_PI);
+	vRayLength1D = init_ray_1D_length_vec(cub3d->player.pos, vRayDir, vMapCheck, vRayUnitStepSize);
 	max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height
 			* cub3d->img->height);
 	wall_flag = 0;
@@ -198,8 +201,8 @@ ray_t *cast_ray(cub3d_t *cub3d)
 				/ vRayDir.y));
 	vMapCheck.x = (int)cub3d->player.pos.x;
 	vMapCheck.y = (int)cub3d->player.pos.y;
-	vStep = init_v_step(vRayDir);
-	vRayLength1D = init_ray_1D_length(cub3d->player.pos, vRayDir, vMapCheck, vRayUnitStepSize);
+	vStep = init_v_step(ray->angle * 180 / M_PI);
+	vRayLength1D = init_ray_1D_length_vec(cub3d->player.pos, vRayDir, vMapCheck, vRayUnitStepSize);
 	max_dist = DISTRACTION_THROW_DISTANCE;
 	while (!end_found && ray->length < max_dist)
 	{

@@ -10,6 +10,7 @@ void	cause_distraction(cub3d_t *cub3d)
 	cub3d->level->distraction_amount = 10;
 	cub3d->player.mushroom_count--;
 	printf("caused distraction at pos %f,%f\n",ray->end.x,ray->end.y);
+	free(ray);
 }
 
 

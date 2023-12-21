@@ -4,19 +4,19 @@
 static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	return (vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->level->map_columns
-			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->level->map_rows
-			&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL);
+		&& vMapCheck.x < cub3d->level->map_columns
+		&& vMapCheck.y >= 0
+		&& vMapCheck.y < cub3d->level->map_rows
+		&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
 static int	goal_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
 	return (vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->level->map_columns
-			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->level->map_rows
-			&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'G');
+		&& vMapCheck.x < cub3d->level->map_columns
+		&& vMapCheck.y >= 0
+		&& vMapCheck.y < cub3d->level->map_rows
+		&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'G');
 }
 
 static int	door_found(cub3d_t *cub3d, vector_t vMapCheck, ray_t *ray)
@@ -30,19 +30,25 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck, ray_t *ray)
 	{
 		if (ray->length > 3)
 			return (1);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A' && all_keys_found(cub3d, 0) == 1)
-			return (0);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B' && all_keys_found(cub3d, 1) == 1)
-			return (0);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C' && all_keys_found(cub3d, 2) == 1)
-			return (0);
-		if (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D' && all_keys_found(cub3d, 3) == 1)
+		if (check_if_door_open(cub3d, vMapCheck.x, vMapCheck.y))
 			return (0);
 		else
 			return (1);
 	}
 	return (0);
 }
+
+static int	obstacle_found(cub3d_t *cub3d, vector_t vMapCheck, ray_t *ray)
+{
+	if (wall_found(cub3d, vMapCheck))
+		return (1);
+	if (goal_found(cub3d, vMapCheck))
+		return (1);
+	if (door_found(cub3d, vMapCheck, ray))
+		return (1);
+	return (0);
+}
+
 
 /* static int	key_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
@@ -113,16 +119,7 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 	vMapCheck.x = (int)player->pos.x;
 	vMapCheck.y = (int)player->pos.y;
 	vStep = init_v_step(vRayDir);
-	if (vRayDir.x < 0)
-		vRayLength1D.x = (player->pos.x - vMapCheck.x) * vRayUnitStepSize.x;
-	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - player->pos.x)
-			* vRayUnitStepSize.x;
-	if (vRayDir.y < 0)
-		vRayLength1D.y = (player->pos.y - vMapCheck.y) * vRayUnitStepSize.y;
-	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - player->pos.y)
-			* vRayUnitStepSize.y;
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, vRayDir, vMapCheck, vRayUnitStepSize);
 	max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height
 			* cub3d->img->height);
 	wall_flag = 0;
@@ -142,17 +139,7 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray)
 			vRayLength1D.y += vRayUnitStepSize.y;
 			wall_flag = Y;
 		}
-		if (wall_found(cub3d, vMapCheck))
-		{
-			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
-			update_end(cub3d, &vRayDir, ray, &end_found);
-		}
-		if (door_found(cub3d, vMapCheck, ray))
-		{
-			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
-			update_end(cub3d, &vRayDir, ray, &end_found);
-		}
-		if (goal_found(cub3d, vMapCheck))
+		if (obstacle_found(cub3d, vMapCheck, ray))
 		{
 			ray->target = cub3d->level->map[vMapCheck.y][vMapCheck.x];
 			update_end(cub3d, &vRayDir, ray, &end_found);
@@ -212,16 +199,7 @@ ray_t *cast_ray(cub3d_t *cub3d)
 	vMapCheck.x = (int)cub3d->player.pos.x;
 	vMapCheck.y = (int)cub3d->player.pos.y;
 	vStep = init_v_step(vRayDir);
-	if (vRayDir.x < 0)
-		vRayLength1D.x = (cub3d->player.pos.x - vMapCheck.x) * vRayUnitStepSize.x;
-	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - cub3d->player.pos.x)
-			* vRayUnitStepSize.x;
-	if (vRayDir.y < 0)
-		vRayLength1D.y = (cub3d->player.pos.y - vMapCheck.y) * vRayUnitStepSize.y;
-	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - cub3d->player.pos.y)
-			* vRayUnitStepSize.y;
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, vRayDir, vMapCheck, vRayUnitStepSize);
 	max_dist = DISTRACTION_THROW_DISTANCE;
 	while (!end_found && ray->length < max_dist)
 	{

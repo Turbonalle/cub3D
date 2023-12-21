@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/20 13:31:16 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:45:58 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@ dvector_t	shorten_vector(dvector_t pos, dvector_t target)
 	return (result);
 }
 
-static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
+static int	wall_or_door_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
+	if (vMapCheck.x >= 0
+		&& vMapCheck.x < cub3d->level->map_columns
+		&& vMapCheck.y >= 0
+		&& vMapCheck.y < cub3d->level->map_rows
+		&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL)
+		return (1);
 	if (vMapCheck.x >= 0 && vMapCheck.x
 		< cub3d->level->map_columns && vMapCheck.y >= 0
 		&& vMapCheck.y < cub3d->level->map_rows
@@ -60,15 +66,6 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 			return (1);
 	}
 	return (0);
-}
-
-static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
-{
-	return (vMapCheck.x >= 0
-		&& vMapCheck.x < cub3d->level->map_columns
-		&& vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->level->map_rows
-		&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
 static void	update_end(cub3d_t *cub3d, dvector_t vRayDir, ray_t *ray, int i)
@@ -95,14 +92,7 @@ static int	enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i)
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
 	vStep = init_v_step(vRayDir);
-	if (vRayDir.x < 0)
-		vRayLength1D.x = (enemy[i].pos.x - vMapCheck.x) * vRayUnitStepSize.x;
-	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - enemy[i].pos.x) * vRayUnitStepSize.x;
-	if (vRayDir.y < 0)
-		vRayLength1D.y = (enemy[i].pos.y - vMapCheck.y) * vRayUnitStepSize.y;
-	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - enemy[i].pos.y) * vRayUnitStepSize.y;
+	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos, vRayDir, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);
@@ -120,15 +110,7 @@ static int	enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i)
 			ray->length = vRayLength1D.y;
 			vRayLength1D.y += vRayUnitStepSize.y;
 		}
-		if (wall_found(cub3d, vMapCheck) && ray->length < max_dist)
-		{
-			update_end(cub3d, vRayDir, ray, i);
-			enemy[i].target = ray->end;
-			enemy[i].target = shorten_vector(enemy[i].pos, enemy[i].target);
-			free(ray);
-			return (0);
-		}
-		if (door_found(cub3d, vMapCheck) && ray->length < max_dist)
+		if (wall_or_door_found(cub3d, vMapCheck) && ray->length < max_dist)
 		{
 			update_end(cub3d, vRayDir, ray, i);
 			enemy[i].target = ray->end;
@@ -159,25 +141,13 @@ int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
 	vStep = init_v_step(vRayDir);
-	if (vRayDir.x < 0)
-		vRayLength1D.x = (enemy[i].pos.x - vMapCheck.x) * vRayUnitStepSize.x;
-	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - enemy[i].pos.x) * vRayUnitStepSize.x;
-	if (vRayDir.y < 0)
-		vRayLength1D.y = (enemy[i].pos.y - vMapCheck.y) * vRayUnitStepSize.y;
-	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - enemy[i].pos.y) * vRayUnitStepSize.y;
+	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos, vRayDir, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);
 	while (ray->length < max_dist)
 	{
-		if (wall_found(cub3d, vMapCheck))
-		{
-			free(ray);
-			return (0);
-		}
-		if (door_found(cub3d, vMapCheck))
+		if (wall_or_door_found(cub3d, vMapCheck))
 		{
 			free(ray);
 			return (0);

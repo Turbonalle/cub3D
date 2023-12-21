@@ -495,7 +495,7 @@ typedef struct settings_s
 	int		e_speed;
 	int		e_behaviour;
 	int		minimap_view;
-	int 	fps;
+	int		fps;
 	int		fisheye;
 	int		mouse;
 }			settings_t;
@@ -533,21 +533,21 @@ typedef struct record_s
 
 typedef struct level_s
 {
-	char		**map;
-	char		**backup;
-	vector_t	starting_pos;
-	char		starting_dir;
-	int			map_rows;
-	int			map_columns;
-	map_node_t	*map_list;
-	int 		nodes;
-	texture_t	texture[4];
-	texture_t	heart;
-	texture_t	heart_half;
-	texture_t	heart_empty;
-	int			floor_color;
-	int			ceiling_color;
-	int			element_found[6];
+	char			**map;
+	char			**backup;
+	vector_t		starting_pos;
+	char			starting_dir;
+	int				map_rows;
+	int				map_columns;
+	map_node_t		*map_list;
+	int				nodes;
+	texture_t		texture[4];
+	texture_t		heart;
+	texture_t		heart_half;
+	texture_t		heart_empty;
+	int				floor_color;
+	int				ceiling_color;
+	int				element_found[6];
 	door_group_t	door_groups[NUM_DOORS_MAX];
 	key_group_t		key_groups[NUM_DOORS_MAX];
 	dvector_t		distraction;

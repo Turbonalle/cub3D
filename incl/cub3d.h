@@ -293,6 +293,7 @@ void	zoom_out_minimap(cub3d_t *cub3d);
 void	raycasting(cub3d_t *cub3d);
 ray_t	*cast_ray(cub3d_t *cub3d);
 vector_t	init_v_step(dvector_t v_ray_dir);
+dvector_t init_ray_1D_length(dvector_t start_pos, dvector_t v_ray_dir, vector_t vMapCheck, dvector_t vRayUnitStepSize);
 
 //---- UTILS -------------------------------------------------------------------
 

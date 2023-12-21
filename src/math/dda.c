@@ -1,16 +1,6 @@
 
 #include "../incl/cub3d.h"
 
-static int wall_found(cub3d_t *cub3d, vector_t vMapCheck)
-{
-	return (vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->level->map_columns
-			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->level->map_rows
-			&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL
-			|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'G'));
-}
-
 int all_keys_found(cub3d_t *cub3d, int i)
 {
 	key_node_t *temp;
@@ -24,8 +14,15 @@ int all_keys_found(cub3d_t *cub3d, int i)
 	return (1);
 }
 
-static int	door_found(cub3d_t *cub3d, vector_t vMapCheck, int dist)
+static int	wall_or_door_found(cub3d_t *cub3d, vector_t vMapCheck, int dist)
 {
+	if	(vMapCheck.x >= 0
+			&& vMapCheck.x < cub3d->level->map_columns
+			&& vMapCheck.y >= 0
+			&& vMapCheck.y < cub3d->level->map_rows
+			&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL
+			|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'G'))
+		return (1);
 	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->level->map_columns && vMapCheck.y >= 0
 		&& vMapCheck.y < cub3d->level->map_rows
 		&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A'
@@ -79,14 +76,7 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 	vMapCheck.y = (int)vRayStartingCell.y;
 
 	vStep = init_v_step(vRayDir);
-	if (vRayDir.x < 0)
-		vRayLength1D.x = (vRayStartingCell.x - vMapCheck.x) * vRayUnitStepSize.x;
-	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - vRayStartingCell.x) * vRayUnitStepSize.x;
-	if (vRayDir.y < 0)
-		vRayLength1D.y = (vRayStartingCell.y - vMapCheck.y) * vRayUnitStepSize.y;
-	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - vRayStartingCell.y) * vRayUnitStepSize.y;
+	vRayLength1D = init_ray_1D_length(vRayStartingCell, vRayDir, vMapCheck, vRayUnitStepSize);
 
 	double dist = 0;
 	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
@@ -107,9 +97,7 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 			vRayLength1D.y += vRayUnitStepSize.y;
 			wall_flag = 0;
 		}
-		if (wall_found(cub3d, vMapCheck))
-			update_end(cub3d, &vRayDir, end, &dist, &end_found);
-		if (door_found(cub3d, vMapCheck, dist))
+		if (wall_or_door_found(cub3d, vMapCheck, dist))
 			update_end(cub3d, &vRayDir, end, &dist, &end_found);
 	}
 	if (wall_flag == 1 )

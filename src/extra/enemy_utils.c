@@ -27,8 +27,14 @@ int	check_if_door_open(cub3d_t *cub3d, int xcoord, int ycoord)
 	return (0);
 }
 
-static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
+static int	wall_or_door_found(cub3d_t *cub3d, vector_t vMapCheck)
 {
+	if (vMapCheck.x >= 0
+		&& vMapCheck.x < cub3d->level->map_columns
+		&& vMapCheck.y >= 0
+		&& vMapCheck.y < cub3d->level->map_rows
+		&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL)
+		return (1);
 	if (vMapCheck.x >= 0
 		&& vMapCheck.x < cub3d->level->map_columns && vMapCheck.y >= 0
 		&& vMapCheck.y < cub3d->level->map_rows
@@ -45,15 +51,6 @@ static int	door_found(cub3d_t *cub3d, vector_t vMapCheck)
 			return (1);
 	}
 	return (0);
-}
-
-static int	wall_found(cub3d_t *cub3d, vector_t vMapCheck)
-{
-	return (vMapCheck.x >= 0
-		&& vMapCheck.x < cub3d->level->map_columns
-		&& vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->level->map_rows
-		&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL);
 }
 
 static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
@@ -74,25 +71,13 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
 	vStep = init_v_step(vRayDir);
-	if (vRayDir.x < 0)
-		vRayLength1D.x = (cub3d->player.pos.x - vMapCheck.x) * vRayUnitStepSize.x;
-	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - cub3d->player.pos.x) * vRayUnitStepSize.x;
-	if (vRayDir.y < 0)
-		vRayLength1D.y = (cub3d->player.pos.y - vMapCheck.y) * vRayUnitStepSize.y;
-	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - cub3d->player.pos.y) * vRayUnitStepSize.y;
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, vRayDir, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(dir_to_enemy);
 	if (!ray)
 		return (0);
 	while (ray->length < max_dist)
 	{
-		if (wall_found(cub3d, vMapCheck))
-		{
-			free(ray);
-			return (0);
-		}
-		else if (door_found(cub3d, vMapCheck))
+		 if (wall_or_door_found(cub3d, vMapCheck))
 		{
 			free(ray);
 			return (0);
@@ -148,7 +133,7 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 	cub3d->enemy[i].visible = FALSE;
 	if (angle_max < angle_min)
 	{
-		if (dir_to_enemy > angle_max && dir_to_enemy < angle_min)
+		if (cub3d->fov < 360 && dir_to_enemy > angle_max && dir_to_enemy < angle_min)
 			return ;
 		else if (ray_to_enemy(cub3d, dir_to_enemy, i))
 		{
@@ -158,7 +143,7 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 	}
 	else
 	{
-		if (dir_to_enemy < angle_min || dir_to_enemy > angle_max)
+		if (cub3d->fov < 360 && (dir_to_enemy < angle_min || dir_to_enemy > angle_max))
 			return ;
 		else if (ray_to_enemy(cub3d, dir_to_enemy, i))
 		{
@@ -188,25 +173,13 @@ static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
 	vStep = init_v_step(vRayDir);
-	if (vRayDir.x < 0)
-		vRayLength1D.x = (cub3d->player.pos.x - vMapCheck.x) * vRayUnitStepSize.x;
-	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - cub3d->player.pos.x) * vRayUnitStepSize.x;
-	if (vRayDir.y < 0)
-		vRayLength1D.y = (cub3d->player.pos.y - vMapCheck.y) * vRayUnitStepSize.y;
-	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - cub3d->player.pos.y) * vRayUnitStepSize.y;
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, vRayDir, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(dir_to_key);
 	if (!ray)
 		return (0);
 	while (ray->length < max_dist)
 	{
-		if (wall_found(cub3d, vMapCheck))
-		{
-			free(ray);
-			return (0);
-		}
-		if (door_found(cub3d, vMapCheck))
+		if (wall_or_door_found(cub3d, vMapCheck))
 		{
 			free(ray);
 			return (0);

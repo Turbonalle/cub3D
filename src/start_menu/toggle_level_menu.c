@@ -13,11 +13,8 @@ void	disable_level_menu(level_menu_t *menu)
 	i = -1;
 	while (++i < LEVELS)
 	{
-		printf("i = %d\n", i);
 		menu->minilevels[i].img->instances[0].enabled = FALSE;
-		printf("i = %d\n", i);
 		menu->minilevels[i].number.img->instances[0].enabled = FALSE;
-		printf("i = %d\n", i);
 		menu->minilevels[i].border->instances[0].enabled = FALSE;
 	}
 }

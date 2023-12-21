@@ -1,33 +1,82 @@
 #include "../incl/cub3d.h"
 
+void	set_preview_values(minilevel_t *minilevel, level_t *level)
+{
+	int	drawable_area_size;
+
+	drawable_area_size = minilevel->size - MINILEVEL_MARGIN * 2;
+	if (drawable_area_size < 0)
+		drawable_area_size = 0;
+	if (level->map_columns > level->map_rows)
+	{
+		minilevel->preview_square_size = drawable_area_size / level->map_columns;
+		minilevel->preview_width = minilevel->preview_square_size * level->map_columns;
+		minilevel->preview_height = minilevel->preview_square_size * level->map_rows;
+		minilevel->preview_pos.x = (minilevel->size - minilevel->preview_width) / 2;
+		minilevel->preview_pos.y = (minilevel->size - minilevel->preview_height) / 2;
+	}
+	else
+	{
+		minilevel->preview_square_size = drawable_area_size / level->map_rows;
+		minilevel->preview_width = minilevel->preview_square_size * level->map_columns;
+		minilevel->preview_height = minilevel->preview_square_size * level->map_rows;
+		minilevel->preview_pos.x = (minilevel->size - minilevel->preview_width) / 2;
+		minilevel->preview_pos.y = (minilevel->size - minilevel->preview_height) / 2;
+	}
+}
+
+void	set_number_values(minilevel_t *minilevel)
+{
+	int	number_rect_size;
+
+	number_rect_size = minilevel->size * 0.15;
+	minilevel->number_rect.width = number_rect_size;
+	minilevel->number_rect.height = number_rect_size;
+	minilevel->number_rect.pos.x = 0;
+	minilevel->number_rect.pos.y = 0;
+	minilevel->number_rect.color = MINILEVEL_RECT_COLOR;
+	minilevel->number.pos.x = minilevel->pos.x + number_rect_size / 2 - minilevel->number.img->width / 2;
+	minilevel->number.pos.y = minilevel->pos.y + number_rect_size / 2 - minilevel->number.img->height / 2;
+}
+
+void	draw_preview_map(minilevel_t *minilevel, level_t *level)
+{
+	int	row;
+	int	column;
+
+	row = -1;
+	while (++row < level->map_rows)
+	{
+		column = -1;
+		while (++column < level->map_columns)
+		{
+			if (level->backup[row][column] == '1')
+			{
+				draw_square(minilevel->img,
+					minilevel->preview_pos.x + column * minilevel->preview_square_size,
+					minilevel->preview_pos.y + row * minilevel->preview_square_size,
+					minilevel->preview_square_size,
+					PREVIEW_WALL_COLOR);
+			}
+			else
+			{
+				draw_square(minilevel->img,
+					minilevel->preview_pos.x + column * minilevel->preview_square_size,
+					minilevel->preview_pos.y + row * minilevel->preview_square_size,
+					minilevel->preview_square_size,
+					PREVIEW_FLOOR_COLOR);
+			}
+		}
+	}
+}
+
 static void	draw_minimap_preview(minilevel_t *minilevel, level_t *level)
 {
-	(void)level;
-	draw_menu_background(minilevel->img, BLACK);
-	// int	width;
-	// int	height;
-	// int	square_size;
-	// int	row;
-	// int	column;
-	// int	margin;
-
-	// width = button->width;
-	// height = button->height;
-	// square_size = min(width / level->map_columns, height / level->map_rows);
-	// margin = (width - square_size * level->map_columns) / 2;
-
-	// row = -1;
-	// while (++row < level->map_rows)
-	// {
-	// 	column = -1;
-	// 	while (++column < level->map_columns)
-	// 	{
-	// 		if (level->backup[row][column] == '1')
-	// 			draw_square(img, button->pos.x + margin + column * square_size, button->pos.y + row * square_size, square_size, GRAY_LIGHT);
-	// 		else
-	// 			draw_square(img, button->pos.x + margin + column * square_size, button->pos.y + row * square_size, square_size, MINIMAP_COLOR_EMPTY);
-	// 	}
-	// }
+	draw_menu_background(minilevel->img, MINILEVEL_BG_COLOR);
+	set_preview_values(minilevel, level);
+	set_number_values(minilevel);
+	draw_preview_map(minilevel, level);
+	draw_rectangle(minilevel->img, &minilevel->number_rect);
 }
 
 static void	draw_border_image(minilevel_t *minilevel)
@@ -58,8 +107,8 @@ static void load_png(level_menu_t *menu)
 	menu->title.texture = mlx_load_png(LEVEL_TITLE_PNG);
 	menu->back.texture = mlx_load_png(LEVEL_BACK_PNG);
 	menu->back_hover.texture = mlx_load_png(LEVEL_BACK_HOVER_PNG);
-	menu->leaderboard.texture = mlx_load_png(LEVEL_BACK_PNG);					// Change to leaderboard png
-	menu->leaderboard_hover.texture = mlx_load_png(LEVEL_BACK_HOVER_PNG);		// Change to leaderboard hover png
+	menu->leaderboard.texture = mlx_load_png(LEVEL_LEADERBOARD_PNG);					// Change to leaderboard png
+	menu->leaderboard_hover.texture = mlx_load_png(LEVEL_LEADERBOARD_HOVER_PNG);		// Change to leaderboard hover png
 	i = -1;
 	while (++i < LEVELS)
 	{
@@ -140,6 +189,7 @@ static void	set_positions(level_menu_t *menu)
 	i = -1;
 	while (++i < LEVELS)
 	{
+		menu->minilevels[i].size = size;
 		menu->minilevels[i].pos.x = margin_x + (i % columns) * (size + gap);
 		menu->minilevels[i].pos.y = menu->img->height * 0.32 + (i / columns) * (size + gap);
 		menu->minilevels[i].number.pos.x = menu->minilevels[i].pos.x + number_square_size / 2 - menu->minilevels[i].number.img->width / 2;
@@ -189,13 +239,12 @@ int	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	i = -1;
 	while (++i < LEVELS)
 	{
+		printf(TERMINAL_GREEN"LEVEL %d\n"TERMINAL_RESET, i + 1);
 		draw_minimap_preview(&menu->minilevels[i], &cub3d->levels[i + 1]);
 		draw_border_image(&menu->minilevels[i]);
 	}
 	if (!put_images_to_window(cub3d->mlx, menu))
 		return (FAIL);
-	printf("init_level_menu\n");
 	disable_level_menu(menu);
-	printf("init_level_menu end\n");
 	return (SUCCESS);
 }

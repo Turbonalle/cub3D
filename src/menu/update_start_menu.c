@@ -2,7 +2,6 @@
 
 void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 {
-
 	if (hover_image(cub3d, menu->exit.img))
 	{
 		menu->exit_hover.img->instances[0].enabled = TRUE;

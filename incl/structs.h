@@ -578,6 +578,19 @@ typedef struct halo_s
 	double		timestamp;
 }				halo_t;
 
+//---- HEARTS ------------------------------------------------------------------
+
+# define HEART_FULL_PNG "./assets/textures/heart/full.png"
+# define HEART_EMPTY_PNG "./assets/textures/heart/empty.png"
+# define HEARTS 3
+# define HEART_GAP 10
+
+typedef struct heart_s
+{
+	png_t		full;
+	png_t		empty;
+}				heart_t;
+
 //---- CUB3D -------------------------------------------------------------------
 
 enum state
@@ -612,6 +625,7 @@ typedef struct cub3d_s
 	double			fov;
 	minimap_t		minimap;
 	halo_t			halo;
+	heart_t			hearts[HEARTS];
 	ray_t			*rays;
 	int				state;
 	int				prev;

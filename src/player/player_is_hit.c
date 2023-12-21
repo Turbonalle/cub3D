@@ -26,7 +26,8 @@ void	player_is_hit(cub3d_t *cub3d)
 	cub3d->player.hit_timestamp = mlx_get_time();
 	cub3d->player.health -= 1;
 	activate_halo(&cub3d->halo, RED);
-	if (cub3d->player.health > 0)
-		draw_health(cub3d);
+	// adjust_hearts(cub3d);
+	// if (cub3d->player.health > 0)
+	// 	draw_health(cub3d);
 	printf("Player health: %i\n", cub3d->player.health);
 }

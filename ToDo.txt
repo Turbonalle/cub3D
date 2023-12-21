@@ -36,6 +36,12 @@ OPTIONAL:
 
 -----------------------------------------------------------------------------
 
+BUGS:
+
+- If pressing esc while another key is pressed in-game -> segfault
+
+-----------------------------------------------------------------------------
+
 WHEN PROJECT IS DONE:
 
 - Norminette

@@ -198,6 +198,13 @@ void	handle_cursor(cub3d_t *cub3d);
 void	level_finished(cub3d_t *cub3d);
 void	game_over(cub3d_t *cub3d);
 
+// hearts.c
+void	delete_hearts(cub3d_t *cub3d);
+void	disable_hearts(cub3d_t *cub3d);
+void	enable_hearts(cub3d_t *cub3d);
+void	adjust_hearts(cub3d_t *cub3d);
+int		init_hearts(cub3d_t *cub3d);
+
 // records.c
 int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
 int		read_records(cub3d_t *cub3d, level_t *levels);

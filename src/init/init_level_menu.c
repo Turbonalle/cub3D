@@ -102,22 +102,17 @@ static void	draw_border_image(minilevel_t *minilevel)
 
 static void load_png(level_menu_t *menu)
 {
-	const char	*number_png[LEVELS] = NUMBER_PNGS;
+	const char	*number_png[LEVELS] = NUMBER_PNGS;		// Allowed or not?
 	int	i;
 
 	menu->title.texture = mlx_load_png(LEVEL_TITLE_PNG);
 	menu->back.texture = mlx_load_png(LEVEL_BACK_PNG);
 	menu->back_hover.texture = mlx_load_png(LEVEL_BACK_HOVER_PNG);
-	menu->leaderboard.texture = mlx_load_png(LEVEL_LEADERBOARD_PNG);					// Change to leaderboard png
-	menu->leaderboard_hover.texture = mlx_load_png(LEVEL_LEADERBOARD_HOVER_PNG);		// Change to leaderboard hover png
+	menu->leaderboard.texture = mlx_load_png(LEVEL_LEADERBOARD_PNG);
+	menu->leaderboard_hover.texture = mlx_load_png(LEVEL_LEADERBOARD_HOVER_PNG);
 	i = -1;
 	while (++i < LEVELS)
-	{
 		menu->minilevels[i].number.texture = mlx_load_png(number_png[i]);
-		if (!menu->minilevels[i].number.texture)
-			err("Failed to load level menu minilevel png");
-	}
-
 }
 
 static int	init_images(mlx_t *mlx, level_menu_t *menu)

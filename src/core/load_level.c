@@ -118,6 +118,7 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	init_doors_and_keys(cub3d);
 	init_textures(cub3d);
 	set_z_of_all_images(cub3d);
-	draw_heart(cub3d);
+	// enable_hearts(cub3d);
+	// draw_heart(cub3d);
 	return (1);
 }

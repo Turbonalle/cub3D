@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/21 16:12:45 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:17:47 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +180,12 @@ void	enemy_vision(cub3d_t *cub3d)
 	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_speed) * 2;
 	while (i < cub3d->num_enemies)
 	{
+		cub3d->enemy[i].is_hunting = FALSE;
 		if (cub3d->run_time > cub3d->enemy[i].freeze_start + ENEMY_FREEZE)
 		{
 			if (check_if_player_is_seen(cub3d, i))
 			{
+				cub3d->enemy[i].is_hunting = TRUE;
 				enemy_advance(cub3d, i);
 				cub3d->enemy[i].is_walking = 1;
 				if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)

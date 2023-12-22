@@ -71,6 +71,7 @@ typedef struct s_enemy
 	double			dist_to_player;
 	int				state;
 	int				visible;
+	int				is_hunting;
 	mlx_image_t		*img_curr_frame;
 }	t_enemy;
 

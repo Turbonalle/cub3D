@@ -341,6 +341,7 @@ void	cause_distraction(cub3d_t *cub3d);
 int		check_if_door_open(cub3d_t *cub3d, int xcoord, int ycoord);
 char	*create_file_path(int i, char *path);
 int		check_if_player_is_seen(cub3d_t *cub3d, int i);
+void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

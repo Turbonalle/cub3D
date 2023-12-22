@@ -22,7 +22,7 @@ dvector_t init_ray_1D_length(dvector_t start_pos, double dir, vector_t vMapCheck
 void	raycasting(cub3d_t *cub3d)
 {
 	double			fov_start;
-	double		max_dist;
+	double			max_dist;
 	unsigned int	i;
 
 	fov_start = within_two_pi(cub3d->player.angle - to_radians((cub3d->fov
@@ -67,4 +67,31 @@ void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 		ray->wall = NO;
 	else
 		ray->wall = SO;
+}
+
+int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
+{
+	dvector_t	vRayUnitStepSize;
+	dvector_t	vRayLength1D;
+	vector_t	vMapCheck;
+	vector_t	vStep;
+	int			wall_flag;
+
+	vRayUnitStepSize = init_step_size(ray->angle);
+	vMapCheck.x = (int)player->pos.x;
+	vMapCheck.y = (int)player->pos.y;
+	vStep = init_v_step(ray->angle * 180 / M_PI);
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, ray->angle * 180 / M_PI, vMapCheck, vRayUnitStepSize);
+	while (ray->length < max_dist)
+	{
+		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
+		adjust_wall_flag(&vRayLength1D, vRayUnitStepSize, &wall_flag);
+		if (obstacle_found(cub3d, vMapCheck, ray, ray->angle))
+			break ;
+	}
+	if (ray->target == WALL)
+		set_wall_direction(ray, player, wall_flag);
+	else
+		ray->wall = ray->target;
+	return (SUCCESS);
 }

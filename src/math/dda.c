@@ -67,8 +67,7 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 
 	vRayStartingCell.x = player.pos.x;
 	vRayStartingCell.y = player.pos.y;
-	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
-	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
+	vRayUnitStepSize = init_step_size(radians);
 
 	vMapCheck.x = (int)vRayStartingCell.x;
 	vMapCheck.y = (int)vRayStartingCell.y;
@@ -106,4 +105,18 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 		return (NO);
 	else
 		return (SO);
+}
+
+dvector_t init_step_size(double angle)
+{
+	dvector_t	vRayUnitStepSize;
+	dvector_t	vRayDir;
+
+	vRayDir.x = cos(angle);
+	vRayDir.y = sin(angle);
+	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y
+				/ vRayDir.x));
+	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x
+				/ vRayDir.y));
+	return (vRayUnitStepSize);
 }

@@ -84,18 +84,8 @@ int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_t
 			free(ray);
 			return (0);
 		}
-		if (vRayLength1D.x < vRayLength1D.y)
-		{
-			vMapCheck.x += vStep.x;
-			ray->length = vRayLength1D.x;
-			vRayLength1D.x += vRayUnitStepSize.x;
-		}
-		else
-		{
-			vMapCheck.y += vStep.y;
-			ray->length = vRayLength1D.y;
-			vRayLength1D.y += vRayUnitStepSize.y;
-		}
+		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
+		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
 	}
 	cub3d->enemy[i].angle = to_radians(ray->angle);
 	cub3d->enemy[i].target = cub3d->level->distraction;

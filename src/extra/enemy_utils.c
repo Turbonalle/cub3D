@@ -68,10 +68,9 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 	max_dist = sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2));
 	vMapCheck.x = (int)cub3d->player.pos.x;
 	vMapCheck.y = (int)cub3d->player.pos.y;
-	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
-	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
+	vRayUnitStepSize = init_step_size(to_radians(dir_to_enemy));
 	vStep = init_v_step(dir_to_enemy);
-	vRayLength1D = init_ray_1D_length_dir(cub3d->player.pos, dir_to_enemy, vMapCheck, vRayUnitStepSize);
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, dir_to_enemy, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(dir_to_enemy);
 	if (!ray)
 		return (0);
@@ -82,18 +81,8 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 			free(ray);
 			return (0);
 		}
-		if (vRayLength1D.x < vRayLength1D.y)
-		{
-			vMapCheck.x += vStep.x;
-			ray->length = vRayLength1D.x;
-			vRayLength1D.x += vRayUnitStepSize.x;
-		}
-		else
-		{
-			vMapCheck.y += vStep.y;
-			ray->length = vRayLength1D.y;
-			vRayLength1D.y += vRayUnitStepSize.y;
-		}
+		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
+		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
 	}
 	free(ray);
 	return (1);
@@ -114,7 +103,16 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 			break ;
 		i++;
 	}
-
+	if (dir_as_rad == 0)
+	{
+		i = 1;
+		while (i < (int)cub3d->img->width - 1)
+		{
+			if (cub3d->rays[i].angle > cub3d->rays[i + 1].angle)
+				break ;
+			i++;
+		}
+	}
 	// TODO: pass enemy to this function instead of index
 	cub3d->enemy[index].dist_to_player = sqrt(pow(cub3d->enemy[index].pos.x - cub3d->player.pos.x, 2) + pow(cub3d->enemy[index].pos.y - cub3d->player.pos.y, 2));
 	cub3d->enemy[index].pos_screen.x = i;
@@ -170,10 +168,9 @@ static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 	max_dist = sqrt(pow(cub3d->player.pos.x - temp->pos.x, 2) + pow(cub3d->player.pos.y - temp->pos.y, 2));
 	vMapCheck.x = (int)cub3d->player.pos.x;
 	vMapCheck.y = (int)cub3d->player.pos.y;
-	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
-	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
+	vRayUnitStepSize = init_step_size(to_radians(dir_to_key));
 	vStep = init_v_step(dir_to_key);
-	vRayLength1D = init_ray_1D_length_dir(cub3d->player.pos, dir_to_key, vMapCheck, vRayUnitStepSize);
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, dir_to_key, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(dir_to_key);
 	if (!ray)
 		return (0);
@@ -184,18 +181,8 @@ static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 			free(ray);
 			return (0);
 		}
-		if (vRayLength1D.x < vRayLength1D.y)
-		{
-			vMapCheck.x += vStep.x;
-			ray->length = vRayLength1D.x;
-			vRayLength1D.x += vRayUnitStepSize.x;
-		}
-		else
-		{
-			vMapCheck.y += vStep.y;
-			ray->length = vRayLength1D.y;
-			vRayLength1D.y += vRayUnitStepSize.y;
-		}
+		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
+		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
 	}
 	free(ray);
 	return (1);

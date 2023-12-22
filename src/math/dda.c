@@ -64,19 +64,16 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 
 	vRayDir.x = cos(radians);
 	vRayDir.y = sin(radians);
-	// if (vRayDir.x == 0 || vRayDir.y == 0)
-	// 	return (FAIL);
 
 	vRayStartingCell.x = player.pos.x;
 	vRayStartingCell.y = player.pos.y;
-	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
-	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
+	vRayUnitStepSize = init_step_size(radians);
 
 	vMapCheck.x = (int)vRayStartingCell.x;
 	vMapCheck.y = (int)vRayStartingCell.y;
 
 	vStep = init_v_step(radians * 180 / M_PI);
-	vRayLength1D = init_ray_1D_length_vec(vRayStartingCell, vRayDir, vMapCheck, vRayUnitStepSize);
+	vRayLength1D = init_ray_1D_length(vRayStartingCell, radians * 180 / M_PI, vMapCheck, vRayUnitStepSize);
 
 	double dist = 0;
 	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
@@ -108,4 +105,18 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 		return (NO);
 	else
 		return (SO);
+}
+
+dvector_t init_step_size(double angle)
+{
+	dvector_t	vRayUnitStepSize;
+	dvector_t	vRayDir;
+
+	vRayDir.x = cos(angle);
+	vRayDir.y = sin(angle);
+	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y
+				/ vRayDir.x));
+	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x
+				/ vRayDir.y));
+	return (vRayUnitStepSize);
 }

@@ -43,39 +43,6 @@ static int	wall_or_door_found(cub3d_t *cub3d, vector_t vMapCheck)
 	return (0);
 }
 
-dvector_t init_ray_1D_length_vec(dvector_t start_pos, dvector_t v_ray_dir, vector_t vMapCheck, dvector_t vRayUnitStepSize)
-{
-	dvector_t	vRayLength1D;
-
-	if (v_ray_dir.x < 0)
-		vRayLength1D.x = (start_pos.x - vMapCheck.x) * vRayUnitStepSize.x;
-	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - start_pos.x) * vRayUnitStepSize.x;
-	if (v_ray_dir.y < 0)
-		vRayLength1D.y = (start_pos.y - vMapCheck.y) * vRayUnitStepSize.y;
-	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - start_pos.y) * vRayUnitStepSize.y;
-	return (vRayLength1D);
-}
-
-dvector_t init_ray_1D_length_dir(dvector_t start_pos, double dir, vector_t vMapCheck, dvector_t vRayUnitStepSize)
-{
-	dvector_t	vRayLength1D;
-	dvector_t		vRayDir;
-
-	vRayDir.x = cos(to_radians(dir));
-	vRayDir.y = sin(to_radians(dir));
-	if (vRayDir.x < 0)
-		vRayLength1D.x = (start_pos.x - vMapCheck.x) * vRayUnitStepSize.x;
-	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - start_pos.x) * vRayUnitStepSize.x;
-	if (vRayDir.y < 0)
-		vRayLength1D.y = (start_pos.y - vMapCheck.y) * vRayUnitStepSize.y;
-	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - start_pos.y) * vRayUnitStepSize.y;
-	return (vRayLength1D);
-}
-
 dvector_t init_ray_step_size(double dir)
 {
 	dvector_t		vRayDir;
@@ -105,7 +72,7 @@ int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_t
 	vMapCheck.y = (int)cub3d->enemy[i].pos.y;
 	vStep = init_v_step(dir_to_distraction);
 	vRayUnitStepSize = init_ray_step_size(dir_to_distraction);
-	vRayLength1D = init_ray_1D_length_dir(cub3d->enemy[i].pos, dir_to_distraction, vMapCheck, vRayUnitStepSize);
+	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos, dir_to_distraction, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(cub3d->enemy, i);
 	if (!ray)
 		return (0);
@@ -117,18 +84,8 @@ int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_t
 			free(ray);
 			return (0);
 		}
-		if (vRayLength1D.x < vRayLength1D.y)
-		{
-			vMapCheck.x += vStep.x;
-			ray->length = vRayLength1D.x;
-			vRayLength1D.x += vRayUnitStepSize.x;
-		}
-		else
-		{
-			vMapCheck.y += vStep.y;
-			ray->length = vRayLength1D.y;
-			vRayLength1D.y += vRayUnitStepSize.y;
-		}
+		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
+		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
 	}
 	cub3d->enemy[i].angle = to_radians(ray->angle);
 	cub3d->enemy[i].target = cub3d->level->distraction;

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:55 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/18 12:03:00 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:38:42 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,19 @@ void draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end, int co
 void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray)
 {
 	dvector_t stop;
+	// unsigned char	color;
+	int	i;
+
 	stop.x = fmod(ray.end.x, 1.0);
 	stop.y = fmod(ray.end.y, 1.0);
 	(void)end;
+	i = 0;
+	// color = cub3d->level->texture[0].texture->pixels[i];
 	while (start.y < end.y)
 	{
+		// color = *cub3d->level->texture[0].texture->pixels + i;
 		mlx_put_pixel(cub3d->img, start.x, start.y, /*color of spcific pxel from texture*/ RED);
 		start.y++;
+		i += 4;
 	}
 }

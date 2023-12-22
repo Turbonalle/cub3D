@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/21 16:12:45 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:42:23 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,27 +89,16 @@ static int	enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i)
 	max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
 	vMapCheck.x = (int)enemy[i].pos.x;
 	vMapCheck.y = (int)enemy[i].pos.y;
-	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
-	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
+	vRayUnitStepSize = init_step_size(enemy[i].angle);
 	vStep = init_v_step(enemy[i].angle * 180 / M_PI);
-	vRayLength1D = init_ray_1D_length_vec(cub3d->enemy[i].pos, vRayDir, vMapCheck, vRayUnitStepSize);
+	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos, enemy[i].angle * 180 / M_PI, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);
 	while (ray->length < max_dist)
 	{
-		if (vRayLength1D.x < vRayLength1D.y)
-		{
-			vMapCheck.x += vStep.x;
-			ray->length = vRayLength1D.x;
-			vRayLength1D.x += vRayUnitStepSize.x;
-		}
-		else
-		{
-			vMapCheck.y += vStep.y;
-			ray->length = vRayLength1D.y;
-			vRayLength1D.y += vRayUnitStepSize.y;
-		}
+		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
+		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
 		if (wall_or_door_found(cub3d, vMapCheck) && ray->length < max_dist)
 		{
 			update_end(cub3d, vRayDir, ray, i);
@@ -138,10 +127,9 @@ int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 	max_dist = sqrt(pow(player.pos.x - enemy[i].pos.x, 2) + pow(player.pos.y - enemy[i].pos.y, 2));
 	vMapCheck.x = (int)enemy[i].pos.x;
 	vMapCheck.y = (int)enemy[i].pos.y;
-	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
-	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
+	vRayUnitStepSize = init_step_size(to_radians(enemy[i].dir_player));
 	vStep = init_v_step(enemy[i].dir_player);
-	vRayLength1D = init_ray_1D_length_dir(cub3d->enemy[i].pos, enemy[i].dir_player, vMapCheck, vRayUnitStepSize);
+	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos, enemy[i].dir_player, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);
@@ -152,23 +140,42 @@ int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 			free(ray);
 			return (0);
 		}
-		if (vRayLength1D.x < vRayLength1D.y)
-		{
-			vMapCheck.x += vStep.x;
-			ray->length = vRayLength1D.x;
-			vRayLength1D.x += vRayUnitStepSize.x;
-		}
-		else
-		{
-			vMapCheck.y += vStep.y;
-			ray->length = vRayLength1D.y;
-			vRayLength1D.y += vRayUnitStepSize.y;
-		}
+		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
+		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
 	}
 	enemy[i].angle = to_radians(ray->angle);
 	enemy[i].target = cub3d->player.pos;
 	free(ray);
 	return (1);
+}
+
+void	handle_movement(cub3d_t *cub3d, double at_target, int target, int i)
+{
+	if (target == 0)
+	{
+		enemy_advance(cub3d, i);
+		cub3d->enemy[i].is_walking = 1;
+		if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
+		{
+			cub3d->enemy[i].freeze_start = cub3d->run_time;
+			printf("You were caught at time %f\n",cub3d->run_time);
+			player_is_hit(cub3d);
+		}
+	}
+	if (target == 1)
+	{
+		enemy_advance(cub3d, i);
+		cub3d->enemy[i].is_walking = 1;
+		if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
+		{
+			cub3d->enemy[i].is_walking = 0;
+			if (cub3d->level->distraction_amount > 0 && cub3d->enemy[i].target.x == cub3d->level->distraction.x && cub3d->enemy[i].target.y == cub3d->level->distraction.y)
+			{
+				printf("Started eating at %f\n",cub3d->run_time);
+				cub3d->enemy[i].is_eating = 1;
+			}
+		}
+	}
 }
 
 void	enemy_vision(cub3d_t *cub3d)
@@ -183,44 +190,11 @@ void	enemy_vision(cub3d_t *cub3d)
 		if (cub3d->run_time > cub3d->enemy[i].freeze_start + ENEMY_FREEZE)
 		{
 			if (check_if_player_is_seen(cub3d, i))
-			{
-				enemy_advance(cub3d, i);
-				cub3d->enemy[i].is_walking = 1;
-				if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
-				{
-					cub3d->enemy[i].freeze_start = cub3d->run_time;
-					printf("You were caught at time %f\n",cub3d->run_time);
-					player_is_hit(cub3d);
-				}
-			}
+				handle_movement(cub3d, at_target, 0, i);
 			else if (distraction(cub3d, i))
-			{
-				enemy_advance(cub3d, i);
-				cub3d->enemy[i].is_walking = 1;
-				if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
-				{
-					cub3d->enemy[i].is_walking = 0;
-					if (cub3d->level->distraction_amount > 0 && cub3d->enemy[i].target.x == cub3d->level->distraction.x && cub3d->enemy[i].target.y == cub3d->level->distraction.y)
-					{
-						printf("Started eating at %f\n",cub3d->run_time);
-						cub3d->enemy[i].is_eating = 1;
-					}
-				}
-			}
+				handle_movement(cub3d, at_target, 1, i);
 			else if (cub3d->enemy[i].is_walking)
-			{
-				enemy_advance(cub3d, i);
-				cub3d->enemy[i].is_walking = 1;
-				if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
-				{
-					cub3d->enemy[i].is_walking = 0;
-					if (cub3d->level->distraction_amount > 0 && cub3d->enemy[i].target.x == cub3d->level->distraction.x && cub3d->enemy[i].target.y == cub3d->level->distraction.y)
-					{
-						printf("Started eating at %f\n",cub3d->run_time);
-						cub3d->enemy[i].is_eating = 1;
-					}
-				}
-			}
+				handle_movement(cub3d, at_target, 1, i);
 			else if (cub3d->enemy[i].is_eating)
 			{
 				if (cub3d->enemy[i].target.x != cub3d->level->distraction.x || cub3d->enemy[i].target.y != cub3d->level->distraction.y)

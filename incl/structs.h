@@ -105,10 +105,9 @@ typedef struct keypress_s
 	int	m;
 	int	space;
 	int	backspace;
-	int shift;
-	int enter;
-	int escape;
-	int	fisheye;		// WHO PUT THIS HERE? IS IT SUPPOSED TO BE HERE? No longer needeed, I think
+	int	shift;
+	int	enter;
+	int	escape;
 	int	left;
 	int	right;
 	int	up;

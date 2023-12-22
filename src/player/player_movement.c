@@ -1,21 +1,21 @@
 
 #include "../incl/cub3d.h"
 
-int is_walking(cub3d_t *cub3d)
+int	is_walking(cub3d_t *cub3d)
 {
 	return ((cub3d->keys.w && !cub3d->keys.s)
-			|| (!cub3d->keys.w && cub3d->keys.s));
+		|| (!cub3d->keys.w && cub3d->keys.s));
 }
 
-int is_strafing(cub3d_t *cub3d)
+int	is_strafing(cub3d_t *cub3d)
 {
 	return ((cub3d->keys.a && !cub3d->keys.d)
-			|| (!cub3d->keys.a && cub3d->keys.d));
+		|| (!cub3d->keys.a && cub3d->keys.d));
 }
 
 #define MOUSE_SENSITIVITY 0.004
 
-void player_rotation(cub3d_t *cub3d)
+void	player_rotation(cub3d_t *cub3d)
 {
 	if (cub3d->settings.mouse == FALSE)
 	{

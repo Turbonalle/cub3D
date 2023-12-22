@@ -29,19 +29,23 @@ static int	init_images(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-static void	set_positions(cub3d_t *cub3d)
+static int	set_positions(cub3d_t *cub3d)
 {
 	int		i;
 	int		gap;
 	int		margin;
 	int		width;
 	int		height;
+	unsigned int	heart_area;
 
 	i = -1;
 	gap = HEART_GAP;
 	width = cub3d->hearts[0].full.texture->width;
 	height = cub3d->hearts[0].full.texture->height;
-	margin = (cub3d->img->width - (width * HEARTS + gap * (HEARTS - 1))) / 2;
+	heart_area = (width * HEARTS + gap * (HEARTS - 1));
+	if (heart_area > cub3d->img->width)
+		return (err("Hearts are too many for the screen"));
+	margin = (cub3d->img->width - heart_area) / 2;
 	while (++i < HEARTS)
 	{
 		cub3d->hearts[i].full.pos.x = margin + (width + gap) * i;
@@ -49,6 +53,7 @@ static void	set_positions(cub3d_t *cub3d)
 		cub3d->hearts[i].empty.pos.x = margin + (width + gap) * i;
 		cub3d->hearts[i].empty.pos.y = cub3d->img->height * 0.95 - height;
 	}
+	return (SUCCESS);
 }
 
 static int	put_images_to_window(cub3d_t *cub3d)
@@ -73,7 +78,8 @@ int	init_hearts(cub3d_t *cub3d)
 	load_png(cub3d);
 	if (!init_images(cub3d))
 		return (FAIL);
-	set_positions(cub3d);
+	if (!set_positions(cub3d))
+		return (FAIL);
 	if (!put_images_to_window(cub3d))
 		return (FAIL);
 	disable_hearts(cub3d);

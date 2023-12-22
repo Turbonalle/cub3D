@@ -71,7 +71,7 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
 	vStep = init_v_step(dir_to_enemy);
-	vRayLength1D = init_ray_1D_length_dir(cub3d->player.pos, dir_to_enemy, vMapCheck, vRayUnitStepSize);
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, dir_to_enemy, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(dir_to_enemy);
 	if (!ray)
 		return (0);
@@ -173,7 +173,7 @@ static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
 	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
 	vStep = init_v_step(dir_to_key);
-	vRayLength1D = init_ray_1D_length_dir(cub3d->player.pos, dir_to_key, vMapCheck, vRayUnitStepSize);
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, dir_to_key, vMapCheck, vRayUnitStepSize);
 	ray = init_ray(dir_to_key);
 	if (!ray)
 		return (0);

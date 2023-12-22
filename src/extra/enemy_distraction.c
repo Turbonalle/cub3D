@@ -5,7 +5,16 @@ void	cause_distraction(cub3d_t *cub3d)
 {
 	ray_t	*ray;
 
-	ray = cast_ray(cub3d);
+	ray = malloc(sizeof(ray_t));
+	if (!ray)
+		return ;
+	ray->angle = cub3d->player.angle;
+	ray->length = 0;
+	ray->target = 0;
+	ray->wall = 0;
+	ray->end.x = 0;
+	ray->end.y = 0;
+	cast_ray(cub3d, ray);
 	cub3d->level->distraction = ray->end;
 	cub3d->level->distraction_amount = 10;
 	cub3d->player.mushroom_count--;

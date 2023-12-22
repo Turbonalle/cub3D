@@ -291,10 +291,12 @@ void	zoom_out_minimap(cub3d_t *cub3d);
 
 // raycasting.c
 void	raycasting(cub3d_t *cub3d);
-ray_t	*cast_ray(cub3d_t *cub3d);
+int		raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist);
+ray_t	*cast_ray(cub3d_t *cub3d, ray_t *ray);
+void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag);
+int		obstacle_found(cub3d_t *cub3d, vector_t vMapCheck, ray_t *ray);
 vector_t	init_v_step(double dir);
-dvector_t 	init_ray_1D_length_vec(dvector_t start_pos, dvector_t v_ray_dir, vector_t vMapCheck, dvector_t vRayUnitStepSize);
-dvector_t 	init_ray_1D_length_dir(dvector_t start_pos, double dir, vector_t vMapCheck, dvector_t vRayUnitStepSize);
+dvector_t 	init_ray_1D_length(dvector_t start_pos, double dir, vector_t vMapCheck, dvector_t vRayUnitStepSize);
 
 //---- UTILS -------------------------------------------------------------------
 

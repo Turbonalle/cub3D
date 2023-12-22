@@ -94,14 +94,12 @@ void	set_keys(keypress_t *keys)
 	keys->right = FALSE;
 	keys->mouse_left = FALSE;
 	keys->mouse_right = FALSE;
-	keys->fisheye = FALSE;	// WHAT IS THIS FOR?
 }
 
 int	init_rays(cub3d_t *cub3d)
 {
 	int	i;
 
-	// If screen has been resized, we free first want to free the old rays
 	if (cub3d->rays)
 		free(cub3d->rays);
 	cub3d->rays = malloc(sizeof(ray_t) * WIDTH);
@@ -146,17 +144,8 @@ void	init_timer(cub3d_t *cub3d)
 	cub3d->timer.pos.y = cub3d->img->height * 0.05;
 }
 
-int	init_cub3d(cub3d_t *cub3d)
+static void	set_init_stats(cub3d_t *cub3d)
 {
-	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", TRUE);
-	if (!cub3d->mlx)
-		return (!err("Failed to initialize mlx"));
-	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
-		return (!err("Failed to create image"));
-	cub3d->rays = NULL;
-	if (!init_rays(cub3d))
-		return (!err("Failed to malloc rays"));
 	cub3d->state = STATE_START;
 	cub3d->active = 1;
 	cub3d->mouse_set_pos.x = 0;
@@ -170,7 +159,24 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->player.health = PLAYER_HEALTH;
 	cub3d->player.mushroom_count = 0;
 	cub3d->player.hit_timestamp = 0;
+}
+
+int	init_cub3d(cub3d_t *cub3d)
+{
+	int i;
+
+	i = -1;
+	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", TRUE);
+	if (!cub3d->mlx)
+		return (!err("Failed to initialize mlx"));
+	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
+		return (!err("Failed to create image"));
+	cub3d->rays = NULL;
+	if (!init_rays(cub3d))
+		return (!err("Failed to malloc rays"));
 	set_keys(&cub3d->keys);
+	set_init_stats(cub3d);
 	init_start_menu(cub3d, &cub3d->start_menu);
 	init_level_menu(cub3d, &cub3d->level_menu);
 	init_pause_menu(cub3d, &cub3d->pause_menu);
@@ -178,7 +184,6 @@ int	init_cub3d(cub3d_t *cub3d)
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
 	init_halo(cub3d, &cub3d->halo);
 	init_timer(cub3d);
-	int i = -1;
 	while (++i < 10)
 		cub3d->levels[i].records = NULL;
 	cub3d->start_timestamp = mlx_get_time();

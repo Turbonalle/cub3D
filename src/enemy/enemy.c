@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/22 16:22:22 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/22 16:41:42 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,10 @@ void	enemy_vision(cub3d_t *cub3d)
 		if (cub3d->run_time > cub3d->enemy[i].freeze_start + ENEMY_FREEZE)
 		{
 			if (check_if_player_is_seen(cub3d, i))
+			{
+				cub3d->enemy[i].is_hunting = TRUE;
 				handle_movement(cub3d, at_target, 0, i);
+			}
 			else if (distraction(cub3d, i))
 				handle_movement(cub3d, at_target, 1, i);
 			else if (cub3d->enemy[i].is_walking)

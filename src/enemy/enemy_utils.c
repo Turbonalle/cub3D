@@ -101,7 +101,7 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 		if (dir_as_rad >= cub3d->rays[i].angle
 			&& dir_as_rad < cub3d->rays[i + 1].angle)
 			break ;
-			printf("dir as ray is %f, Rays are %f and %f\n",dir_as_rad, cub3d->rays[i].angle, cub3d->rays[i + 1].angle);
+			// printf("dir as ray is %f, Rays are %f and %f\n",dir_as_rad, cub3d->rays[i].angle, cub3d->rays[i + 1].angle);
 		i++;
 	}
 	if (dir_as_rad == 0)
@@ -115,7 +115,8 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 		}
 	}
 	// TODO: pass enemy to this function instead of index
-	cub3d->enemy[index].dist_to_player = sqrt(pow(cub3d->enemy[index].pos.x - cub3d->player.pos.x, 2) + pow(cub3d->enemy[index].pos.y - cub3d->player.pos.y, 2));
+	// cub3d->enemy[index].dist_to_player = sqrt(pow(cub3d->enemy[index].pos.x - cub3d->player.pos.x, 2) + pow(cub3d->enemy[index].pos.y - cub3d->player.pos.y, 2));
+	cub3d->enemy[index].dist_to_player = dist_between_d_vectors(cub3d->enemy[index].pos, cub3d->player.pos);
 	cub3d->enemy[index].pos_screen.x = i;
 	cub3d->enemy[index].pos_screen.y = cub3d->img->height / 2 + (cub3d->img->height / 2) / cub3d->enemy[index].dist_to_player * 2;
 }
@@ -136,8 +137,7 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 		{
 			if (cub3d->enemy[i].is_hunting)
 			{
-				double angle = within_360(cub3d->player.angle / M_PI - cub3d->fov / 2);
-				enemy_cursor(cub3d, angle, cub3d->enemy[i].dist_to_player);
+				enemy_cursor(cub3d, dir_to_enemy, dist_between_d_vectors(cub3d->enemy[i].pos, cub3d->player.pos));
 			}
 		}
 		else if (ray_to_enemy(cub3d, dir_to_enemy, i))	// enemy is within the fov
@@ -152,8 +152,7 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 		{
 			if (cub3d->enemy[i].is_hunting)
 			{
-				double angle = within_360(cub3d->player.angle / M_PI - cub3d->fov / 2);
-				enemy_cursor(cub3d, angle, cub3d->enemy[i].dist_to_player);
+				enemy_cursor(cub3d, dir_to_enemy, dist_between_d_vectors(cub3d->enemy[i].pos, cub3d->player.pos));
 			}
 		}
 		else if (ray_to_enemy(cub3d, dir_to_enemy, i))	// enemy is within the fov

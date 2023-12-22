@@ -156,7 +156,7 @@ static void	set_init_stats(cub3d_t *cub3d)
 	cub3d->num_enemies = 0;
 	cub3d->leaderboard.n_entries = 5;
 	cub3d->speedrun = FALSE;
-	cub3d->player.health = PLAYER_HEALTH;
+	cub3d->player.health = HEARTS;
 	cub3d->player.mushroom_count = 0;
 	cub3d->player.hit_timestamp = 0;
 }
@@ -182,6 +182,8 @@ int	init_cub3d(cub3d_t *cub3d)
 	init_pause_menu(cub3d, &cub3d->pause_menu);
 	init_name_menu(cub3d, &cub3d->name_menu);
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
+	if (!init_hearts(cub3d))
+		return (err("Failed to init hearts"));
 	init_halo(cub3d, &cub3d->halo);
 	init_timer(cub3d);
 	while (++i < 10)

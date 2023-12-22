@@ -130,11 +130,17 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 	angle_max = within_360(cub3d->player.angle * 180 / M_PI + cub3d->fov / 2);
 	dir_to_enemy = within_360((atan2(cub3d->enemy[i].pos.y - cub3d->player.pos.y, cub3d->enemy[i].pos.x - cub3d->player.pos.x) * 180 / M_PI));
 	cub3d->enemy[i].visible = FALSE;
-	if (angle_max < angle_min)
+	if (angle_max < angle_min)	// check if 0 radians is within the fov
 	{
-		if (cub3d->fov < 360 && dir_to_enemy > angle_max && dir_to_enemy < angle_min)
-			return ;
-		else if (ray_to_enemy(cub3d, dir_to_enemy, i))
+		if (cub3d->fov < 360 && dir_to_enemy > angle_max && dir_to_enemy < angle_min)	// check if enemy is outside the fov
+		{
+			if (cub3d->enemy[i].is_hunting)
+			{
+				double angle = within_360(cub3d->player.angle / M_PI - cub3d->fov / 2);
+				enemy_cursor(cub3d, angle, cub3d->enemy[i].dist_to_player);
+			}
+		}
+		else if (ray_to_enemy(cub3d, dir_to_enemy, i))	// enemy is within the fov
 		{
 			cub3d->enemy[i].visible = TRUE;
 			draw_enemy(cub3d, dir_to_enemy, i);
@@ -142,9 +148,15 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 	}
 	else
 	{
-		if (cub3d->fov < 360 && (dir_to_enemy < angle_min || dir_to_enemy > angle_max))
-			return ;
-		else if (ray_to_enemy(cub3d, dir_to_enemy, i))
+		if (cub3d->fov < 360 && (dir_to_enemy < angle_min || dir_to_enemy > angle_max))	// check if enemy is outside the fov
+		{
+			if (cub3d->enemy[i].is_hunting)
+			{
+				double angle = within_360(cub3d->player.angle / M_PI - cub3d->fov / 2);
+				enemy_cursor(cub3d, angle, cub3d->enemy[i].dist_to_player);
+			}
+		}
+		else if (ray_to_enemy(cub3d, dir_to_enemy, i))	// enemy is within the fov
 		{
 			cub3d->enemy[i].visible = TRUE;
 			draw_enemy(cub3d, dir_to_enemy, i);

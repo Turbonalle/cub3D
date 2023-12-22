@@ -90,7 +90,6 @@ void	update(void *param)
 		}
 		if (cub3d->player.health <= 0)
 			game_over(cub3d);
-		// print_timer(cub3d);	// REMOVE
 	}
 	else if (cub3d->state == STATE_ENTERNAME)
 	{

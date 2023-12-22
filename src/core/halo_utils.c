@@ -2,7 +2,9 @@
 
 void	init_halo(cub3d_t *cub3d, halo_t *halo)
 {
-	halo->img = mlx_new_image(cub3d->mlx, cub3d->img->width, cub3d->img->height);
+	halo->img = mlx_new_image(cub3d->mlx,
+			cub3d->img->width,
+			cub3d->img->height);
 	if (!halo->img || (mlx_image_to_window(cub3d->mlx, halo->img, 0, 0) < 0))
 		err("Failed to create halo image");
 	halo->img->instances[0].enabled = FALSE;

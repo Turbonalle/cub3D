@@ -70,6 +70,7 @@ static void	set_enemy_stats(cub3d_t *cub3d, int i)
 	cub3d->enemy[i].is_spinning = 0;
 	cub3d->enemy[i].is_walking = 0;
 	cub3d->enemy[i].is_eating = 0;
+	cub3d->enemy[i].is_hunting = FALSE;
 	cub3d->enemy[i].dir.x = 0;
 	cub3d->enemy[i].dir.y = 0;
 	cub3d->enemy[i].freeze_start = 0;

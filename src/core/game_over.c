@@ -25,7 +25,8 @@ void	level_finished(cub3d_t *cub3d)
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 	mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
 	free_level(cub3d);
-	if (cub3d->level != &cub3d->levels[0] && is_top_score(cub3d->level, cub3d->time_finished))
+	if (cub3d->level != &cub3d->levels[0]
+		&& is_top_score(cub3d->level, cub3d->time_finished))
 	{
 		enable_name_menu(&cub3d->name_menu);
 		cub3d->state = STATE_ENTERNAME;
@@ -47,7 +48,6 @@ void	level_finished(cub3d_t *cub3d)
 void	game_over(cub3d_t *cub3d)
 {
 	cub3d->halo.img->instances[0].enabled = FALSE;
-	// free_info(cub3d->level->map);
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 	free_level(cub3d);
 	enable_gameover_menu(&cub3d->gameover_menu);

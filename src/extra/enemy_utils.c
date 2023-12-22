@@ -98,9 +98,10 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 
 	while (i < (int)cub3d->img->width - 1)
 	{
-		if (dir_as_rad > cub3d->rays[i].angle
+		if (dir_as_rad >= cub3d->rays[i].angle
 			&& dir_as_rad < cub3d->rays[i + 1].angle)
 			break ;
+			printf("dir as ray is %f, Rays are %f and %f\n",dir_as_rad, cub3d->rays[i].angle, cub3d->rays[i + 1].angle);
 		i++;
 	}
 	if (dir_as_rad == 0)

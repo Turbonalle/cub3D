@@ -70,7 +70,7 @@ void	free_level(cub3d_t *cub3d)
 			cub3d->enemy[i++].img_curr_frame->instances[0].enabled = FALSE;
 		free(cub3d->enemy);
 	}
-	delete_heart(cub3d);
+	disable_hearts(cub3d);
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{

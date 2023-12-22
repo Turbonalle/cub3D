@@ -19,15 +19,9 @@ void	draw_health(cub3d_t *cub3d)
 void	player_is_hit(cub3d_t *cub3d)
 {
 	if (player_is_invulnerable(cub3d))
-	{
-		// printf("Player is invulnerable [%f]\n", mlx_get_time() - cub3d->player.hit_timestamp);
 		return ;
-	}
 	cub3d->player.hit_timestamp = mlx_get_time();
 	cub3d->player.health -= 1;
 	activate_halo(&cub3d->halo, RED);
-	// adjust_hearts(cub3d);
-	// if (cub3d->player.health > 0)
-	// 	draw_health(cub3d);
-	printf("Player health: %i\n", cub3d->player.health);
+	adjust_hearts(cub3d);
 }

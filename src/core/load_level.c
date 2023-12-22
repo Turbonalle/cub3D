@@ -64,28 +64,6 @@ void	set_z_of_all_images(cub3d_t *cub3d)
 	z++;
 }
 
-void	draw_heart(cub3d_t *cub3d)
-{
-	cub3d->level->heart.texture = mlx_load_png(TEXTURE_HEART_FULL);
-	if (!cub3d->level->heart.texture)
-		return ;
-	cub3d->level->heart_img = mlx_texture_to_image(cub3d->mlx, cub3d->level->heart.texture);
-	cub3d->level->heart_half.texture = mlx_load_png(TEXTURE_HEART_HALF);
-	if (!cub3d->level->heart_half.texture)
-		return ;
-	cub3d->level->heart_half_img = mlx_texture_to_image(cub3d->mlx, cub3d->level->heart_half.texture);
-	cub3d->level->heart_empty.texture = mlx_load_png(TEXTURE_HEART_EMPTY);
-	if (!cub3d->level->heart_empty.texture)
-		return ;
-	cub3d->level->heart_empty_img = mlx_texture_to_image(cub3d->mlx, cub3d->level->heart_empty.texture);
-	mlx_image_to_window(cub3d->mlx, cub3d->level->heart_img, cub3d->mlx->width / 2, cub3d->mlx->height * 0.01);
-	mlx_image_to_window(cub3d->mlx, cub3d->level->heart_half_img, cub3d->mlx->width / 2, cub3d->mlx->height * 0.01);
-	mlx_image_to_window(cub3d->mlx, cub3d->level->heart_empty_img, cub3d->mlx->width / 2, cub3d->mlx->height * 0.01);
-	cub3d->level->heart_img->instances[0].enabled = TRUE;
-	cub3d->level->heart_half_img->instances[0].enabled = FALSE;
-	cub3d->level->heart_empty_img->instances[0].enabled = FALSE;
-}
-
 int	load_level(cub3d_t *cub3d, level_t *level)
 {
 	//TODO: handle init errors
@@ -118,7 +96,6 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	init_doors_and_keys(cub3d);
 	init_textures(cub3d);
 	set_z_of_all_images(cub3d);
-	// enable_hearts(cub3d);
-	// draw_heart(cub3d);
+	enable_hearts(cub3d);
 	return (1);
 }

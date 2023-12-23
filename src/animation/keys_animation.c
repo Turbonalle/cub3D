@@ -6,6 +6,7 @@ void scale_curr_frame(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *src, doubl
 	uint32_t	col_src;
 	uint32_t	row_res;
 	uint32_t	col_res;
+	int			ray_index;
 
 	ft_memset(key->img_curr_frame->pixels, 0, key->img_curr_frame->width * key->img_curr_frame->height * 4);
 	row_res = 0;
@@ -26,7 +27,8 @@ void scale_curr_frame(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *src, doubl
 					col_src = (uint32_t)round(col_res / factor);
 					if (col_src >= src->width)
 						col_src--;
-					if (cub3d->rays[(int)(key->pos_screen.x - src->width * factor * 0.5 + col_res)].length > key->dist_to_player)
+					ray_index = (int)(key->pos_screen.x - src->width * factor * 0.5 + col_res);
+					if (ray_index >= 0 && ray_index < WIDTH && cub3d->rays[(int)(key->pos_screen.x - src->width * factor * 0.5 + col_res)].length > key->dist_to_player)
 						ft_memcpy(key->img_curr_frame->pixels + row_res * key->img_curr_frame->width * 4 + col_res * 4,
 							src->pixels + row_src * src->width * 4 + col_src * 4,
 							4);
@@ -50,6 +52,7 @@ void scale_curr_enemy_frame(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, 
 	uint32_t	col_src;
 	uint32_t	row_res;
 	uint32_t	col_res;
+	int			ray_index;
 
 	enemy->img_curr_frame->instances[0].enabled = TRUE;
 	ft_memset(enemy->img_curr_frame->pixels, 0, enemy->img_curr_frame->width * enemy->img_curr_frame->height * 4);
@@ -71,7 +74,8 @@ void scale_curr_enemy_frame(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, 
 					col_src = (uint32_t)round(col_res / factor);
 					if (col_src >= src->width)
 						col_src--;
-					if (cub3d->rays[(int)(enemy->pos_screen.x - src->width * factor * 0.5 + col_res)].length > enemy->dist_to_player)
+					ray_index = (int)(enemy->pos_screen.x - src->width * factor * 0.5 + col_res);
+					if (ray_index >= 0 && ray_index < WIDTH && cub3d->rays[ray_index].length > enemy->dist_to_player)
 						ft_memcpy(enemy->img_curr_frame->pixels + row_res * enemy->img_curr_frame->width * 4 + col_res * 4,
 							src->pixels + row_src * src->width * 4 + col_src * 4,
 							4);

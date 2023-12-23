@@ -64,7 +64,7 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 	int			i;
 	char		*time;
 	record_t	*ptr;
-	record_t	*temp;
+	record_t	*next;
 
 	fd = open("assets/records.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
@@ -85,10 +85,10 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 				write(fd, "\n", 1);
 				free(time);
 			}
-			temp = ptr;
+			next = ptr->next;
 			free(ptr->name);
 			free(ptr);
-			ptr = temp->next;
+			ptr = next;
 		}
 		write(fd, "\n", 1);
 	}
@@ -144,6 +144,5 @@ int	main(int ac, char **av)
 	if (cub3d.state == 4)
 		free_level(&cub3d);
 	free_cub3d(&cub3d);
-	printf("freed!\n");
 	return (0);
 }

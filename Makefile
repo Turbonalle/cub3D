@@ -4,7 +4,7 @@ TARGET = cub3D
 # Compiler and flags
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-DEBUG_FLAGS = -g
+DEBUG_FLAGS = -g -fsanitize=address
 
 # Directories
 SRC_PATH = src
@@ -27,11 +27,14 @@ LIBS = -L$(MLX42DIR)/build -lmlx42 -L$(LIBFTDIR) -lft -L"/Users/$(USER)/.brew/op
 all: $(TARGET)
 
 $(TARGET): $(OBJ_FILES) libft mlx
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(OBJ_FILES) $(LIBS) -o $@
+	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBS) -o $@
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+debug: CFLAGS += $(DEBUG_FLAGS)
+debug: all
 
 # Build the libft library using the libft Makefile
 libft:

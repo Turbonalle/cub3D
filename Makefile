@@ -3,8 +3,8 @@ TARGET = cub3D
 
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
-DEBUG_FLAGS = -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g
+DEBUG_FLAGS = -fsanitize=address
 
 # Directories
 SRC_PATH = src

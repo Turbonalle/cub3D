@@ -50,6 +50,7 @@ void	free_cub3d(cub3d_t *cub3d)
 		mlx_delete_texture(cub3d->frames_walking[i]);
 		i++;
 	}
+	//mlx_delete_image(cub3d->mlx, cub3d->halo.img);
 	delete_textures(cub3d, 0);
 	free(cub3d->levels);
 }

@@ -75,10 +75,10 @@
 
 # define MINIMAP_ZOOM_INCREMENT 5
 
-# define INVULNERABILITY_TIME 100
+# define INVULNERABILITY_TIME 1
 
 # define HALO_THICKNESS 50
-# define HALO_TIME 3
+# define HALO_TIME 1
 
 # define FOV 60
 # define FOV_INCREMENT 5

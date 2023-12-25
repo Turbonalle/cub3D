@@ -66,8 +66,8 @@ void	free_level(cub3d_t *cub3d)
 		i++;
 	}
 	free_info(cub3d->level->map);
-	mlx_delete_image(cub3d->mlx, cub3d->halo.img);
-	//cub3d->halo.img->instances[0].enabled = FALSE;
+	//mlx_delete_image(cub3d->mlx, cub3d->halo.img);
+	cub3d->halo.img->instances[0].enabled = FALSE;
 	if (cub3d->num_enemies)
 	{
 		i = 0;

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_line.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:55 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/22 15:38:42 by slampine         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../incl/cub3d.h"
 
 void bresenham_low_slope(mlx_image_t *img, vector_t start, vector_t end, int color)
@@ -32,7 +20,14 @@ void bresenham_low_slope(mlx_image_t *img, vector_t start, vector_t end, int col
 	pixel.y = start.y;
 	while (pixel.x <= end.x)
 	{
-		mlx_put_pixel(img, pixel.x, pixel.y, color);
+		if (pixel.x >= 0 && pixel.x < (int)img->width && pixel.y >= 0 && pixel.y < (int)img->height)
+			mlx_put_pixel(img, pixel.x, pixel.y, color);
+		else
+		{
+			printf("bresenham_low_slope FAIL!\n");
+			printf("pixel.x: %d\n", pixel.x);
+			printf("pixel.y: %d\n", pixel.y);
+		}
 		if (D > 0)
 		{
 			pixel.y = pixel.y + yi;
@@ -64,7 +59,14 @@ void bresenham_high_slope(mlx_image_t *img, vector_t start, vector_t end, int co
 	pixel.x = start.x;
 	while (pixel.y <= end.y)
 	{
-		mlx_put_pixel(img, pixel.x, pixel.y, color);
+		if (pixel.x >= 0 && pixel.x < (int)img->width && pixel.y >= 0 && pixel.y < (int)img->height)
+			mlx_put_pixel(img, pixel.x, pixel.y, color);
+		else
+		{
+			printf("bresenham_high_slope FAIL!\n");
+			printf("pixel.x: %d\n", pixel.x);
+			printf("pixel.y: %d\n", pixel.y);
+		}
 		if (D > 0)
 		{
 			pixel.x = pixel.x + xi;
@@ -85,6 +87,15 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 	start.y = start_d.y;
 	end.x = end_d.x;
 	end.y = end_d.y;
+	if (start.x < 0 || start.x >= (int)img->width || end.y < 0 || end.y >= (int)img->height)
+	{
+		printf("draw_line FAIL!\n");
+		printf("start.x: %d\n", start.x);
+		printf("start.y: %d\n", start.y);
+		printf("end.x: %d\n", end.x);
+		printf("end.y: %d\n", end.y);
+		return;
+	}
 	if (abs(end.y - start.y) < abs(end.x - start.x))
 	{
 		if (start.x > end.x)

@@ -39,7 +39,7 @@ void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 		menu->arrow_level.img->instances[0].enabled = FALSE;
 	}
 }
-
+/* 
 void	get_transition_color(cub3d_t *cub3d, int *color)
 {
 	double	time;
@@ -56,3 +56,4 @@ void	get_transition_color(cub3d_t *cub3d, int *color)
 	*color = set_rgba(20, 20 + intensity * 0.8, 20 + intensity, 255);
 }
 
+ */

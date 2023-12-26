@@ -35,6 +35,7 @@ void	free_key_groups(cub3d_t *cub3d, int i)
 	key_node_t	*tmp;
 
 	free_doors(cub3d->level->door_groups[i].door_positions);
+	mlx_delete_texture(cub3d->level->key_groups[i].texture_key_icon);
 	if (cub3d->level->key_groups[i].num_keys_total)
 	{
 		tmp = cub3d->level->key_groups[i].keys;
@@ -46,7 +47,6 @@ void	free_key_groups(cub3d_t *cub3d, int i)
 		}
 		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_text_key_count);
 		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_key_icon);
-		mlx_delete_texture(cub3d->level->key_groups[i].texture_key_icon);
 		free_keys(cub3d->level->key_groups[i].keys);
 		j = 0;
 		while (j < NUM_FRAMES_KEY)

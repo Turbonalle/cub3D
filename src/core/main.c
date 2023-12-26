@@ -141,7 +141,7 @@ int	main(int ac, char **av)
 		return (1);
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
-	if (cub3d.state == 4)
+	if (cub3d.state == STATE_GAME)
 		free_level(&cub3d);
 	free_cub3d(&cub3d);
 	system("leaks cub3D");

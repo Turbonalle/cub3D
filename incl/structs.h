@@ -309,6 +309,8 @@ typedef struct pause_menu_s
 # define MENU_BORDER_LEFT_COLOR TURQUOISE_LIGHT
 # define MENU_BORDER_RIGHT_COLOR RED_LIGHT
 # define MENU_BORDER_THICKNESS 30
+# define BACK_PNG "./assets/textures/menu/back_normal.png"
+# define BACK_HOVER_PNG "./assets/textures/menu/back_hover.png"
 
 # define START_TITLE_PNG "./assets/textures/logox2.png"
 # define START_START_PNG "./assets/textures/menu/start_normal.png"
@@ -346,10 +348,8 @@ typedef struct start_menu_s
 //---- LEVEL MENU --------------------------------------------------------------
 
 # define LEVEL_TITLE_PNG "./assets/textures/menu/level_title.png"
-# define LEVEL_BACK_PNG "./assets/textures/menu/back_normal.png"
-# define LEVEL_BACK_HOVER_PNG "./assets/textures/menu/back_hover.png"
-# define LEVEL_LEADERBOARD_PNG "./assets/textures/menu/leaderboard_normal.png"
-# define LEVEL_LEADERBOARD_HOVER_PNG "./assets/textures/menu/leaderboard_hover.png"
+# define LEADERBOARD_PNG "./assets/textures/menu/leaderboard_normal.png"
+# define LEADERBOARD_HOVER_PNG "./assets/textures/menu/leaderboard_hover.png"
 # define NUMBER_PNGS { "./assets/textures/level_numbers/1.png", "./assets/textures/level_numbers/2.png", "./assets/textures/level_numbers/3.png", "./assets/textures/level_numbers/4.png", "./assets/textures/level_numbers/5.png", "./assets/textures/level_numbers/6.png", "./assets/textures/level_numbers/7.png", "./assets/textures/level_numbers/8.png" }
 # define MINILEVEL_BORDER_COLOR YELLOW_PALE
 # define MINILEVEL_BG_COLOR BLACK
@@ -358,6 +358,10 @@ typedef struct start_menu_s
 # define MINILEVEL_MARGIN 10
 # define PREVIEW_WALL_COLOR GRAY_VERY_DARK
 # define PREVIEW_FLOOR_COLOR GRAY_DARK
+
+//---- LEADERBOARD MENU --------------------------------------------------------
+
+# define LEADERBOARD_LEVEL_BACKGROUND_COLOR BLACK
 
 typedef struct minilevel_s
 {
@@ -386,7 +390,7 @@ typedef struct level_menu_s
 
 //---- LEADERBOARD -------------------------------------------------------------
 
-# define N_ENTRIES 5
+# define N_ENTRIES 3
 
 typedef struct leaderboard_s
 {

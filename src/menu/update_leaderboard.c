@@ -3,8 +3,7 @@
 void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 {
 	int i;
-	get_transition_color(cub3d, &board->background_color);
-	draw_menu_background(board->img, board->background_color);
+	draw_menu_background(board->img, MENU_BACKGROUND_COLOR);
 	draw_rectangle(board->img, &board->rect_title);
 
 	i = -1;

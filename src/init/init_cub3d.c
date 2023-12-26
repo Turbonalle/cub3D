@@ -154,7 +154,7 @@ static void	set_init_stats(cub3d_t *cub3d)
 	cub3d->fov = FOV;
 	cub3d->n_levels = LEVELS;
 	cub3d->num_enemies = 0;
-	cub3d->leaderboard.n_entries = 5;
+	cub3d->leaderboard.n_entries = N_ENTRIES;
 	cub3d->speedrun = FALSE;
 	cub3d->player.health = HEARTS;
 	cub3d->player.mushroom_count = 0;

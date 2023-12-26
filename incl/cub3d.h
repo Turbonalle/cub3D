@@ -132,7 +132,7 @@ void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 // start menu
 void	disable_start_menu(start_menu_t *menu);
 void	enable_start_menu(start_menu_t *menu);
-void	get_transition_color(cub3d_t *cub3d, int *color);
+/* void	get_transition_color(cub3d_t *cub3d, int *color); */
 void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 // gameover menu

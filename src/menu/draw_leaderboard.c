@@ -11,7 +11,7 @@ void	disable_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	board->text_title->instances[0].enabled = FALSE;
 	// board->text_back->instances[0].enabled = FALSE;
 	i = 0;
-	while (++i < cub3d->n_levels)
+	while (++i < cub3d->n_levels + 1)
 	{
 		// printf("level %d/%d\n", i, cub3d->n_levels);
 		ptr = cub3d->levels[i].records;
@@ -39,7 +39,7 @@ void	enable_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	board->text_title->instances[0].enabled = TRUE;
 	// board->text_back->instances[0].enabled = TRUE;
 	i = 0;
-	while (++i < cub3d->n_levels)
+	while (++i < cub3d->n_levels + 1)
 	{
 		// printf("level %d/%d\n", i, cub3d->n_levels);
 		ptr = cub3d->levels[i].records;

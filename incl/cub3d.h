@@ -228,7 +228,7 @@ void	print_timer(cub3d_t *cub3d);
 
 //---- HALO --------------------------------------------------------------------
 
-void	init_halo(cub3d_t *cub3d, halo_t *halo);
+void	init_halo(cub3d_t *cub3d);
 void	handle_halo(halo_t *halo);
 void	activate_halo(halo_t *halo, int color);
 void	draw_halo(mlx_image_t *img, halo_t *halo);

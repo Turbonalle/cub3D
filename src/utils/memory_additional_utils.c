@@ -73,7 +73,6 @@ void	free_level(cub3d_t *cub3d)
 		i++;
 	}
 	free_info(cub3d->level->map);
-	//mlx_delete_image(cub3d->mlx, cub3d->halo.img);
 	cub3d->halo.img->instances[0].enabled = FALSE;
 	if (cub3d->num_enemies)
 	{
@@ -83,6 +82,5 @@ void	free_level(cub3d_t *cub3d)
 			//cub3d->enemy[i++].img_curr_frame->instances[0].enabled = FALSE;
 		free(cub3d->enemy);
 	}
-	
 	disable_hearts(cub3d);
 }

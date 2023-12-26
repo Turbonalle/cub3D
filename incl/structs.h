@@ -381,7 +381,7 @@ typedef struct level_menu_s
 	png_t		leaderboard;
 	png_t		back_hover;
 	png_t		leaderboard_hover;
-	minilevel_t	minilevels[8];
+	minilevel_t	minilevels[LEVELS];
 }				level_menu_t;
 
 //---- LEADERBOARD -------------------------------------------------------------

@@ -194,13 +194,14 @@ int	read_records(cub3d_t *cub3d, level_t *levels)
 	int		fd;
 	int		i;
 
+	//TODO: remove levels parameter
 	(void)levels;
 	fd = open("assets/records.txt", O_RDONLY);
 	if (fd < 0)
 		return (err("Failed to open records file"));
 	i = 0;
 	line = get_next_line(fd);
-	while (line && ++i < cub3d->n_levels)
+	while (line && ++i < cub3d->n_levels + 1)
 	{
 		if (!set_records(cub3d, &cub3d->levels[i], &line, cub3d->leaderboard.n_entries, fd))
 			return (err("Failed to set records"));

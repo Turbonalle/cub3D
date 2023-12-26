@@ -165,7 +165,6 @@ int	init_cub3d(cub3d_t *cub3d)
 {
 	int i;
 
-	i = -1;
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", TRUE);
 	if (!cub3d->mlx)
 		return (!err("Failed to initialize mlx"));
@@ -184,9 +183,10 @@ int	init_cub3d(cub3d_t *cub3d)
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
 	if (!init_hearts(cub3d))
 		return (err("Failed to init hearts"));
-	init_halo(cub3d, &cub3d->halo);
+	init_halo(cub3d);
 	init_timer(cub3d);
-	while (++i < 10)
+	i = -1;
+	while (++i < LEVELS + 1)
 		cub3d->levels[i].records = NULL;
 	cub3d->start_timestamp = mlx_get_time();
 	return (SUCCESS);

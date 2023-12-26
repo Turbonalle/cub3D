@@ -27,7 +27,7 @@ void	mouse_level_menu(cub3d_t *cub3d)
 	int i;
 
 	i = -1;
-	while (++i < cub3d->n_levels - 1)
+	while (++i < cub3d->n_levels)
 	{
 		if (hover_image(cub3d, cub3d->level_menu.minilevels[i].img))
 		{

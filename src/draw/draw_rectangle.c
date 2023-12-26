@@ -9,8 +9,19 @@ void draw_rectangle(mlx_image_t *img, rectangle_t *rect)
 	while (++row < rect->pos.y + rect->height)
 	{
 		column = rect->pos.x;
+		//printf("draw_rectangle: row: %d, column: %d\n", row, column);
 		while (++column < rect->pos.x + rect->width)
+		{
+			/* if (column < 0 || column >= (int)img->width || row < 0 || row >= (int)img->height)
+			{
+				printf("ERROR: rectangle out of bounds\n");
+				printf("rect->pos.x: %d, rect->pos.y: %d\n", rect->pos.x, rect->pos.y);
+				printf("rect->width: %d, rect->height: %d\n", rect->width, rect->height);
+				printf("row: %d, column: %d\n", row, column);
+			} */
 			mlx_put_pixel(img, column, row, rect->color);
+		}
+			
 	}
 }
 

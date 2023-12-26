@@ -49,6 +49,7 @@ void	game_over(cub3d_t *cub3d)
 {
 	cub3d->halo.img->instances[0].enabled = FALSE;
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+	mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
 	free_level(cub3d);
 	enable_gameover_menu(&cub3d->gameover_menu);
 	cub3d->state = STATE_GAMEOVER;

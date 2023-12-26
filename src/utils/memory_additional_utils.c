@@ -57,12 +57,19 @@ void	free_key_groups(cub3d_t *cub3d, int i)
 
 void	free_level(cub3d_t *cub3d)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
 		free_key_groups(cub3d, i);
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
+		if(cub3d->level->texture[i].texture)
+			mlx_delete_texture(cub3d->level->texture[i].texture);
 		i++;
 	}
 	free_info(cub3d->level->map);
@@ -76,11 +83,6 @@ void	free_level(cub3d_t *cub3d)
 			//cub3d->enemy[i++].img_curr_frame->instances[0].enabled = FALSE;
 		free(cub3d->enemy);
 	}
-	i = 0;
-	while (i < 4)
-	{
-		mlx_delete_texture(cub3d->level->texture[i].texture);
-		i++;
-	}
+	
 	disable_hearts(cub3d);
 }

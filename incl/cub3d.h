@@ -132,7 +132,7 @@ void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 // start menu
 void	disable_start_menu(start_menu_t *menu);
 void	enable_start_menu(start_menu_t *menu);
-void	get_transition_color(cub3d_t *cub3d, int *color);
+/* void	get_transition_color(cub3d_t *cub3d, int *color); */
 void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 // gameover menu
@@ -228,7 +228,7 @@ void	print_timer(cub3d_t *cub3d);
 
 //---- HALO --------------------------------------------------------------------
 
-void	init_halo(cub3d_t *cub3d, halo_t *halo);
+void	init_halo(cub3d_t *cub3d);
 void	handle_halo(halo_t *halo);
 void	activate_halo(halo_t *halo, int color);
 void	draw_halo(mlx_image_t *img, halo_t *halo);
@@ -348,6 +348,11 @@ int		check_if_door_open(cub3d_t *cub3d, int xcoord, int ycoord);
 char	*create_file_path(int i, char *path);
 int		check_if_player_is_seen(cub3d_t *cub3d, int i);
 void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance);
+
+int	init_distractions(cub3d_t *cub3d);
+void	count_distractions(cub3d_t *cub3d);
+void draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
+
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

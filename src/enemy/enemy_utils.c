@@ -88,6 +88,41 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 	return (1);
 }
 
+static int ray_to_distraction(cub3d_t *cub3d, double dir_to_distraction, int i)
+{
+	dvector_t		vRayDir;
+	dvector_t		vRayUnitStepSize;
+	dvector_t		vRayLength1D;
+	double			max_dist;
+	vector_t		vMapCheck;
+	vector_t		vStep;
+	ray_t			*ray;
+
+	vRayDir.x = cos(to_radians(dir_to_distraction));
+	vRayDir.y = sin(to_radians(dir_to_distraction));
+	max_dist = sqrt(pow(cub3d->player.pos.x - cub3d->level->distractions[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->level->distractions[i].pos.y, 2));
+	vMapCheck.x = (int)cub3d->player.pos.x;
+	vMapCheck.y = (int)cub3d->player.pos.y;
+	vRayUnitStepSize = init_step_size(to_radians(dir_to_distraction));
+	vStep = init_v_step(dir_to_distraction);
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, dir_to_distraction, vMapCheck, vRayUnitStepSize);
+	ray = init_ray(dir_to_distraction);
+	if (!ray)
+		return (0);
+	while (ray->length < max_dist)
+	{
+		if (wall_or_door_found(cub3d, vMapCheck))
+		{
+			free(ray);
+			return (0);
+		}
+		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
+		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
+	}
+	free(ray);
+	return (1);
+}
+
 void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 {
 	double	dir_as_rad;
@@ -119,6 +154,36 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 	cub3d->enemy[index].dist_to_player = dist_between_d_vectors(cub3d->enemy[index].pos, cub3d->player.pos);
 	cub3d->enemy[index].pos_screen.x = i;
 	cub3d->enemy[index].pos_screen.y = cub3d->img->height / 2 + (cub3d->img->height / 2) / cub3d->enemy[index].dist_to_player * 2;
+}
+
+void draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int index)
+{
+	double	dir_as_rad;
+	int		i;
+
+	i = 1;
+	dir_as_rad = to_radians(dir_to_distraction);
+
+	while (i < (int)cub3d->img->width - 1)
+	{
+		if (dir_as_rad >= cub3d->rays[i].angle
+			&& dir_as_rad < cub3d->rays[i + 1].angle)
+			break ;
+		i++;
+	}
+	if (dir_as_rad == 0)
+	{
+		i = 1;
+		while (i < (int)cub3d->img->width - 1)
+		{
+			if (cub3d->rays[i].angle > cub3d->rays[i + 1].angle)
+				break ;
+			i++;
+		}
+	}
+	cub3d->level->distractions[index].dist_to_player = dist_between_d_vectors(cub3d->level->distractions[index].pos, cub3d->player.pos);
+	cub3d->level->distractions[index].pos_screen.x = i;
+	cub3d->level->distractions[index].pos_screen.y = cub3d->img->height / 2 + (cub3d->img->height / 2) / cub3d->level->distractions[index].dist_to_player * 2;
 }
 
 static void	see_enemy(cub3d_t *cub3d, int i)
@@ -207,7 +272,7 @@ static void	draw_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 
 	i = 1;
 	dir_as_rad = to_radians(dir_to_key);
-	key->visible = 1;
+	key->visible = TRUE;
 	while (i < (int)cub3d->img->width - 1)
 	{
 		if (dir_as_rad == cub3d->rays[i].angle)
@@ -232,7 +297,7 @@ static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 
 	angle_min = within_360(cub3d->player.angle * 180 / M_PI - cub3d->fov / 2);
 	angle_max = within_360(cub3d->player.angle * 180 / M_PI + cub3d->fov / 2);
-	key->visible = 0;
+	key->visible = FALSE;
 	if (angle_max < angle_min)
 	{
 		if (cub3d->fov < 360 && dir_to_key > angle_max && dir_to_key < angle_min)
@@ -246,6 +311,38 @@ static void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key)
 			return ;
 		else if (ray_to_key(cub3d, dir_to_key, key))
 			draw_key(cub3d, dir_to_key, key);
+	}
+	return ;
+}
+
+static void see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i)
+{
+	double	angle_min;
+	double	angle_max;
+
+	angle_min = within_360(cub3d->player.angle * 180 / M_PI - cub3d->fov / 2);
+	angle_max = within_360(cub3d->player.angle * 180 / M_PI + cub3d->fov / 2);
+	cub3d->level->distractions[i].visible = FALSE;
+	if (angle_max < angle_min)
+	{
+		if (cub3d->fov < 360 && dir_to_distraction > angle_max && dir_to_distraction < angle_min)
+			return ;
+		else if (ray_to_distraction(cub3d, dir_to_distraction, i))
+		{
+			cub3d->level->distractions[i].visible = TRUE;
+			draw_distraction(cub3d, dir_to_distraction, i);
+		}
+			
+	}
+	else
+	{
+		if (cub3d->fov < 360 && (dir_to_distraction < angle_min || dir_to_distraction > angle_max))
+			return ;
+		else if (ray_to_distraction(cub3d, dir_to_distraction, i))
+		{
+			cub3d->level->distractions[i].visible = TRUE;
+			draw_distraction(cub3d, dir_to_distraction, i);
+		}
 	}
 	return ;
 }
@@ -266,6 +363,15 @@ static void see_keys(cub3d_t *cub3d, int i)
 	}
 }
 
+static void check_distraction(cub3d_t *cub3d, int i)
+{
+	double		dir_to_distraction;
+
+	dir_to_distraction = within_360((atan2(cub3d->level->distractions[i].pos.y - cub3d->player.pos.y, cub3d->level->distractions[i].pos.x - cub3d->player.pos.x) * 180 / M_PI));
+	if (cub3d->level->distractions[i].collected == FALSE)
+		see_distraction(cub3d, dir_to_distraction, i);
+}
+
 void	draw_enemies(cub3d_t *cub3d)
 {
 	int	i;
@@ -283,6 +389,12 @@ void	draw_enemies(cub3d_t *cub3d)
 		{
 			see_keys(cub3d, i);
 		}
+		i++;
+	}
+	i = 0;
+	while (i < cub3d->level->num_distractions)
+	{
+		check_distraction(cub3d, i);
 		i++;
 	}
 }

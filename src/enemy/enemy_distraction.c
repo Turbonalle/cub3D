@@ -22,7 +22,6 @@ void	cause_distraction(cub3d_t *cub3d)
 	free(ray);
 }
 
-
 static int	check_angles(cub3d_t *cub3d, int i, double dir_to_distraction)
 {
 	double	angle_min;

@@ -56,12 +56,14 @@ void	set_z_of_all_images(cub3d_t *cub3d)
 	z++;
 	z += count_all_keys(cub3d);
 	z += cub3d->num_enemies;
+	z += cub3d->level->num_distractions;
+	z += set_z_for_key_groups(cub3d, z);
 	cub3d->minimap.img->instances[0].z = z;
-	z = set_z_for_key_groups(cub3d, z);
 	//cub3d->timer.img_time->instances[0].z = z;
 	//printf("timer z: %d\n", cub3d->timer.img_time->instances[0].z);
 	//TODO: think about menus
 	z++;
+	//printf("LAST z: %d\n", z);
 }
 
 int	load_level(cub3d_t *cub3d, level_t *level)
@@ -88,6 +90,12 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	if (cub3d->num_enemies > 0)
 	{
 		if (!init_enemy(cub3d))
+			return (0);
+	}
+	count_distractions(cub3d);
+	if (cub3d->level->num_distractions > 0)
+	{
+		if (!init_distractions(cub3d))
 			return (0);
 	}
 	set_initial_direction(cub3d);

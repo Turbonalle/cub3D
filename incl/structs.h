@@ -309,6 +309,8 @@ typedef struct pause_menu_s
 # define MENU_BORDER_LEFT_COLOR TURQUOISE_LIGHT
 # define MENU_BORDER_RIGHT_COLOR RED_LIGHT
 # define MENU_BORDER_THICKNESS 30
+# define BACK_PNG "./assets/textures/menu/back_normal.png"
+# define BACK_HOVER_PNG "./assets/textures/menu/back_hover.png"
 
 # define START_TITLE_PNG "./assets/textures/logox2.png"
 # define START_START_PNG "./assets/textures/menu/start_normal.png"
@@ -346,10 +348,8 @@ typedef struct start_menu_s
 //---- LEVEL MENU --------------------------------------------------------------
 
 # define LEVEL_TITLE_PNG "./assets/textures/menu/level_title.png"
-# define LEVEL_BACK_PNG "./assets/textures/menu/back_normal.png"
-# define LEVEL_BACK_HOVER_PNG "./assets/textures/menu/back_hover.png"
-# define LEVEL_LEADERBOARD_PNG "./assets/textures/menu/leaderboard_normal.png"
-# define LEVEL_LEADERBOARD_HOVER_PNG "./assets/textures/menu/leaderboard_hover.png"
+# define LEADERBOARD_PNG "./assets/textures/menu/leaderboard_normal.png"
+# define LEADERBOARD_HOVER_PNG "./assets/textures/menu/leaderboard_hover.png"
 # define NUMBER_PNGS { "./assets/textures/level_numbers/1.png", "./assets/textures/level_numbers/2.png", "./assets/textures/level_numbers/3.png", "./assets/textures/level_numbers/4.png", "./assets/textures/level_numbers/5.png", "./assets/textures/level_numbers/6.png", "./assets/textures/level_numbers/7.png", "./assets/textures/level_numbers/8.png" }
 # define MINILEVEL_BORDER_COLOR YELLOW_PALE
 # define MINILEVEL_BG_COLOR BLACK
@@ -358,6 +358,10 @@ typedef struct start_menu_s
 # define MINILEVEL_MARGIN 10
 # define PREVIEW_WALL_COLOR GRAY_VERY_DARK
 # define PREVIEW_FLOOR_COLOR GRAY_DARK
+
+//---- LEADERBOARD MENU --------------------------------------------------------
+
+# define LEADERBOARD_LEVEL_BACKGROUND_COLOR BLACK
 
 typedef struct minilevel_s
 {
@@ -381,12 +385,12 @@ typedef struct level_menu_s
 	png_t		leaderboard;
 	png_t		back_hover;
 	png_t		leaderboard_hover;
-	minilevel_t	minilevels[8];
+	minilevel_t	minilevels[LEVELS];
 }				level_menu_t;
 
 //---- LEADERBOARD -------------------------------------------------------------
 
-# define N_ENTRIES 5
+# define N_ENTRIES 3
 
 typedef struct leaderboard_s
 {
@@ -541,6 +545,16 @@ typedef struct record_s
 	struct record_s	*next;
 }			record_t;
 
+typedef struct distraction_s
+{
+	bool		collected;
+	bool		visible;
+	dvector_t	pos;
+	vector_t	pos_screen;
+	double		dist_to_player;
+	mlx_image_t	*img_distraction;
+}			distraction_t;
+
 typedef struct level_s
 {
 	char			**map;
@@ -560,6 +574,8 @@ typedef struct level_s
 	int				element_found[6];
 	door_group_t	door_groups[NUM_DOORS_MAX];
 	key_group_t		key_groups[NUM_DOORS_MAX];
+	distraction_t	*distractions;
+	int				num_distractions;
 	dvector_t		distraction;
 	double			distraction_amount;
 	record_t		*records;
@@ -645,6 +661,7 @@ typedef struct cub3d_s
 	t_enemy			*enemy;
 	mlx_texture_t	*frames_idle[NUM_FRAMES_ENEMY_IDLE];
 	mlx_texture_t	*frames_walking[NUM_FRAMES_ENEMY_WALKING];
+	mlx_texture_t	*distraction_texture;
 	int				curr_frame_index_walking;
 	int				prev_frame_index_walking;
 	int				curr_frame_index_idle;

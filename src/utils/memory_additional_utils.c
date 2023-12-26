@@ -35,6 +35,7 @@ void	free_key_groups(cub3d_t *cub3d, int i)
 	key_node_t	*tmp;
 
 	free_doors(cub3d->level->door_groups[i].door_positions);
+	mlx_delete_texture(cub3d->level->key_groups[i].texture_key_icon);
 	if (cub3d->level->key_groups[i].num_keys_total)
 	{
 		tmp = cub3d->level->key_groups[i].keys;
@@ -46,7 +47,6 @@ void	free_key_groups(cub3d_t *cub3d, int i)
 		}
 		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_text_key_count);
 		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_key_icon);
-		mlx_delete_texture(cub3d->level->key_groups[i].texture_key_icon);
 		free_keys(cub3d->level->key_groups[i].keys);
 		j = 0;
 		while (j < NUM_FRAMES_KEY)
@@ -57,7 +57,7 @@ void	free_key_groups(cub3d_t *cub3d, int i)
 
 void	free_level(cub3d_t *cub3d)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i < NUM_DOORS_MAX)
@@ -65,8 +65,14 @@ void	free_level(cub3d_t *cub3d)
 		free_key_groups(cub3d, i);
 		i++;
 	}
+	i = 0;
+	while (i < 4)
+	{
+		if(cub3d->level->texture[i].texture)
+			mlx_delete_texture(cub3d->level->texture[i].texture);
+		i++;
+	}
 	free_info(cub3d->level->map);
-	//mlx_delete_image(cub3d->mlx, cub3d->halo.img);
 	cub3d->halo.img->instances[0].enabled = FALSE;
 	if (cub3d->num_enemies)
 	{
@@ -76,11 +82,16 @@ void	free_level(cub3d_t *cub3d)
 			//cub3d->enemy[i++].img_curr_frame->instances[0].enabled = FALSE;
 		free(cub3d->enemy);
 	}
-	i = 0;
-	while (i < 4)
+	if (cub3d->level->num_distractions)
 	{
-		mlx_delete_texture(cub3d->level->texture[i].texture);
-		i++;
+		i = 0;
+		while (i < cub3d->level->num_distractions)
+		{
+			printf("deleted distraction image %d\n", i);
+			mlx_delete_image(cub3d->mlx, cub3d->level->distractions[i].img_distraction);
+			i++;
+		}
+		free(cub3d->level->distractions);
 	}
 	disable_hearts(cub3d);
 }

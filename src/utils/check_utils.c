@@ -5,7 +5,7 @@ int get_current_level(cub3d_t *cub3d)
 	int i;
 
 	i = 0;
-	while (++i < cub3d->n_levels)
+	while (++i < cub3d->n_levels + 1)
 	{
 		if (cub3d->level == &cub3d->levels[i])
 			return (i);

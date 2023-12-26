@@ -11,7 +11,7 @@ void	draw_times(mlx_t *mlx, record_t **records, leaderboard_t *board, int level)
 	ptr = *records;
 
 	margin_x = board->rect_level[level - 1].width * 0.1;
-	margin_y = board->rect_level[level - 1].height * 0.2;
+	margin_y = board->rect_level[level - 1].height * 0.1;
 	pos.x = board->rect_level[level - 1].pos.x + margin_x;
 	i = -1;
 	while (++i < board->n_entries && ptr)
@@ -26,17 +26,19 @@ void	draw_names(mlx_t *mlx, record_t **records, leaderboard_t *board, int level)
 {
 	record_t 	*ptr;
 	vector_t	pos;
-	int	i;
-	int margin_y;
+	int			i;
+	int			margin_x;
+	int 		margin_y;
 
 	ptr = *records;
 
-	margin_y = board->rect_level[level - 1].height * 0.2;
-	pos.x = board->rect_level[level - 1].pos.x + board->rect_level[level - 1].width * 0.5;
+	margin_x = board->rect_level[level - 1].width * 0.1;
+	margin_y = board->rect_level[level - 1].height * 0.1;
+	pos.x = board->rect_level[level - 1].pos.x + margin_x;
 	i = -1;
 	while (++i < board->n_entries && ptr)
 	{
-		pos.y = board->rect_level[level - 1].pos.y + margin_y + i * (board->rect_level[level - 1].height - 2 * margin_y) / board->n_entries;
+		pos.y = board->rect_level[level - 1].pos.y + margin_y + i * (board->rect_level[level - 1].height - 2 * margin_y) / board->n_entries + margin_y;
 		ptr->text_name = mlx_put_string(mlx, ptr->name, pos.x, pos.y);
 		ptr = ptr->next;
 	}
@@ -79,27 +81,26 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	int rows = 2;
 	int columns = (cub3d->n_levels % 2 == 0) ? cub3d->n_levels / rows : (cub3d->n_levels + 1) / rows;
 	int title_space = board->rect_title.pos.y + board->rect_title.height + cub3d->mlx->height * 0.02;
-	int width_margin = cub3d->mlx->width * 0.02;
-	int height_margin = cub3d->mlx->height * 0.05;
-	int width_gap = cub3d->mlx->width * 0.01;
-	int height_gap = width_gap;
-	int width = (cub3d->mlx->width - 2 * width_margin - (columns - 1) * width_gap) / (cub3d->n_levels / rows);
-	int height = (cub3d->mlx->height - title_space - height_margin * 2) / rows;
+	
+	int size = cub3d->level_menu.minilevels[0].img->width;
+	int gap = min(cub3d->mlx->width * 0.05, cub3d->mlx->height * 0.05);
+	if (gap < MINILEVEL_BORDER_THICKNESS)
+		gap = MINILEVEL_BORDER_THICKNESS;
+	int width_margin = (cub3d->mlx->width - (columns * size + (columns - 1) * gap)) / 2;
+	int height_margin = size * 0.32;
 
-	printf("init_leaderboard: width: %d, height: %d\n", width, height);
 	// set rectangles
 	i = -1;
 	while (++i < cub3d->n_levels)
 	{
-		board->rect_level[i].width = width;
-		board->rect_level[i].height = height;
-		board->rect_level[i].pos.x = width_margin + (i % columns) * (width + width_gap);
+		board->rect_level[i].width = size;
+		board->rect_level[i].height = size;
+		board->rect_level[i].pos.x = width_margin + (i % columns) * (size + gap);
 		if (i < cub3d->n_levels / rows)
 			board->rect_level[i].pos.y = title_space + height_margin;
 		else
-			board->rect_level[i].pos.y = title_space + height_margin + height + height_gap;
-		printf("init_leaderboard: pos.x: %d, pos.y: %d, width: %d, height: %d\n", board->rect_level[i].pos.x, board->rect_level[i].pos.y, board->rect_level[i].width, board->rect_level[i].height);
-		board->rect_level[i].color = GREEN;
+			board->rect_level[i].pos.y = title_space + height_margin + size + gap;
+		board->rect_level[i].color = LEADERBOARD_LEVEL_BACKGROUND_COLOR;
 	}
 
 	// set back button
@@ -114,7 +115,7 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	board->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width, cub3d->mlx->height);
 	if (!board->img)
 		err("Failed to create leaderboard image");
-	draw_menu_background(board->img, board->background_color);
+	draw_menu_background(board->img, MENU_BACKGROUND_COLOR);
 	draw_rectangle(board->img, &board->rect_title);
 	draw_button(board->img, &board->button_back);
 

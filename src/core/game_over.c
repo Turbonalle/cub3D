@@ -30,6 +30,7 @@ void	level_finished(cub3d_t *cub3d)
 {
 	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
 	clean_level_data(cub3d);
+	printf("Level finished, all freed\n");
 	if (cub3d->level != &cub3d->levels[0]
 		&& is_top_score(cub3d->level, cub3d->time_finished))
 	{

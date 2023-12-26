@@ -106,10 +106,10 @@ static void load_png(level_menu_t *menu)
 	int	i;
 
 	menu->title.texture = mlx_load_png(LEVEL_TITLE_PNG);
-	menu->back.texture = mlx_load_png(LEVEL_BACK_PNG);
-	menu->back_hover.texture = mlx_load_png(LEVEL_BACK_HOVER_PNG);
-	menu->leaderboard.texture = mlx_load_png(LEVEL_LEADERBOARD_PNG);
-	menu->leaderboard_hover.texture = mlx_load_png(LEVEL_LEADERBOARD_HOVER_PNG);
+	menu->back.texture = mlx_load_png(BACK_PNG);
+	menu->back_hover.texture = mlx_load_png(BACK_HOVER_PNG);
+	menu->leaderboard.texture = mlx_load_png(LEADERBOARD_PNG);
+	menu->leaderboard_hover.texture = mlx_load_png(LEADERBOARD_HOVER_PNG);
 	i = -1;
 	while (++i < LEVELS)
 		menu->minilevels[i].number.texture = mlx_load_png(number_png[i]);

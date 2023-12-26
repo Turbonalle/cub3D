@@ -159,7 +159,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 		{
 			temp->pos_screen.x = -WIDTH;
 			temp->pos_screen.y = -HEIGHT;
-			temp->visible = 0;
+			temp->visible = FALSE;
 			temp->dist_to_player = 100;
 			temp->img_curr_frame = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 			mlx_image_to_window(cub3d->mlx, temp->img_curr_frame, 0, 0);

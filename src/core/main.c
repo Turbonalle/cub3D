@@ -39,7 +39,7 @@ int	read_all_levels(cub3d_t *cub3d)
 	char	*full_path;
 
 	i = 1;
-	while (i <= 9)
+	while (i < LEVELS + 1)
 	{
 		full_path = create_path(i);
 		if (full_path == NULL)
@@ -70,7 +70,7 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 	if (fd < 0)
 		return (!err("Failed to open records file"));
 	i = 0;
-	while (++i <= cub3d->n_levels)
+	while (++i < cub3d->n_levels + 1)
 	{
 		ptr = levels[i].records;
 		while (ptr)
@@ -123,10 +123,10 @@ int	main(int ac, char **av)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
 	if (!check_ext(av[1]))
 		return (!err("Invalid extension"));
-	cub3d.levels = malloc(sizeof(level_t) * 10);
-	cub3d.level = &cub3d.levels[0];
+	cub3d.levels = malloc(sizeof(level_t) * (LEVELS + 1));
 	if (!cub3d.levels)
 		return (!err("Failed to malloc levels"));
+	cub3d.level = &cub3d.levels[0];
 	if (!read_cub_file(cub3d.level, av[1]))
 		return (free(cub3d.levels), 1);
 	if (!read_all_levels(&cub3d))
@@ -141,7 +141,7 @@ int	main(int ac, char **av)
 		return (1);
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
-	if (cub3d.state == 4)
+	if (cub3d.state == STATE_GAME)
 		free_level(&cub3d);
 	free_cub3d(&cub3d);
 	system("leaks cub3D");

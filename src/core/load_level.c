@@ -103,7 +103,6 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 		return (free_info(level->map), free(cub3d->enemy), 0);
 	init_doors_and_keys(cub3d);
 	init_textures(cub3d);
-	init_distractions(cub3d);
 	set_z_of_all_images(cub3d);
 	enable_hearts(cub3d);
 	return (1);

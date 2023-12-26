@@ -21,6 +21,8 @@ static void	delete_textures(cub3d_t *cub3d)
 	mlx_delete_texture(cub3d->level_menu.leaderboard.texture);
 	mlx_delete_texture(cub3d->level_menu.back_hover.texture);
 	mlx_delete_texture(cub3d->level_menu.leaderboard_hover.texture);
+	mlx_delete_texture(cub3d->distraction_texture);
+	printf("Deleted distraction texture\n");
 	i = 0;
 	while (i < LEVELS)
 	{

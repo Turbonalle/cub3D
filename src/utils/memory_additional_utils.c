@@ -82,5 +82,16 @@ void	free_level(cub3d_t *cub3d)
 			//cub3d->enemy[i++].img_curr_frame->instances[0].enabled = FALSE;
 		free(cub3d->enemy);
 	}
+	if (cub3d->level->num_distractions)
+	{
+		i = 0;
+		while (i < cub3d->level->num_distractions)
+		{
+			printf("deleted distraction image %d\n", i);
+			mlx_delete_image(cub3d->mlx, cub3d->level->distractions[i].img_distraction);
+			i++;
+		}
+		free(cub3d->level->distractions);
+	}
 	disable_hearts(cub3d);
 }

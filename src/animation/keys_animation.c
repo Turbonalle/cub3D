@@ -550,6 +550,7 @@ void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_n
 				z++;
 			}
 	}
+	// TODO: order this properly
 	i = 0;
 	while (distractions[i])
 	{

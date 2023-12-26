@@ -152,7 +152,7 @@ static void	set_init_stats(cub3d_t *cub3d)
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->fov = FOV;
-	cub3d->n_levels = 9;
+	cub3d->n_levels = LEVELS;
 	cub3d->num_enemies = 0;
 	cub3d->leaderboard.n_entries = 5;
 	cub3d->speedrun = FALSE;

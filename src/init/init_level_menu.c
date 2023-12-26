@@ -167,10 +167,6 @@ static void	set_positions(level_menu_t *menu)
 
 	menu->title.pos.x = (menu->img->width - menu->title.img->width) / 2;
 	menu->title.pos.y = menu->img->height * 0.12;
-	menu->back.pos.x = menu->img->width * 0.2;
-	menu->back.pos.y = menu->img->height * 0.12;
-	menu->leaderboard.pos.x = menu->img->width * 0.8 - menu->leaderboard.img->width;
-	menu->leaderboard.pos.y = menu->img->height * 0.12;
 	size = menu->minilevels[0].img->width;
 	rows = 2;
 	if (LEVELS % rows == 0)
@@ -182,6 +178,12 @@ static void	set_positions(level_menu_t *menu)
 		gap = MINILEVEL_BORDER_THICKNESS;
 	margin_x = (menu->img->width - (columns * size + (columns - 1) * gap)) / 2;
 	number_square_size = size * 0.15;
+
+	menu->back.pos.x = margin_x;
+	menu->back.pos.y = menu->img->height * 0.12;
+	menu->leaderboard.pos.x = menu->img->width - margin_x - menu->leaderboard.img->width;
+	menu->leaderboard.pos.y = menu->img->height * 0.12;
+	
 	i = -1;
 	while (++i < LEVELS)
 	{

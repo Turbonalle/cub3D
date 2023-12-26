@@ -31,7 +31,10 @@ void	handle_halo(halo_t *halo)
 	if (halo->active)
 	{
 		if (halo_is_active(halo))
+		{
 			draw_halo(halo->img, halo);
+		}
+			
 		else
 		{
 			halo->img->instances[0].enabled = FALSE;

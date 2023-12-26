@@ -77,18 +77,19 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	board->rect_title.color = GREEN;
 
 	int rows = 2;
-	int columns = ((cub3d->n_levels - 1) % 2 == 0) ? (cub3d->n_levels - 1) / rows : ((cub3d->n_levels - 1) + 1) / rows;
+	int columns = (cub3d->n_levels % 2 == 0) ? cub3d->n_levels / rows : (cub3d->n_levels + 1) / rows;
 	int title_space = board->rect_title.pos.y + board->rect_title.height + cub3d->mlx->height * 0.02;
 	int width_margin = cub3d->mlx->width * 0.02;
 	int height_margin = cub3d->mlx->height * 0.05;
 	int width_gap = cub3d->mlx->width * 0.01;
 	int height_gap = width_gap;
-	int width = (cub3d->mlx->width - 2 * width_margin - (columns - 1) * width_gap) / ((cub3d->n_levels - 1) / rows);
+	int width = (cub3d->mlx->width - 2 * width_margin - (columns - 1) * width_gap) / (cub3d->n_levels / rows);
 	int height = (cub3d->mlx->height - title_space - height_margin * 2) / rows;
 
+	printf("init_leaderboard: width: %d, height: %d\n", width, height);
 	// set rectangles
 	i = -1;
-	while (++i < cub3d->n_levels - 1)
+	while (++i < cub3d->n_levels)
 	{
 		board->rect_level[i].width = width;
 		board->rect_level[i].height = height;
@@ -97,6 +98,7 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 			board->rect_level[i].pos.y = title_space + height_margin;
 		else
 			board->rect_level[i].pos.y = title_space + height_margin + height + height_gap;
+		printf("init_leaderboard: pos.x: %d, pos.y: %d, width: %d, height: %d\n", board->rect_level[i].pos.x, board->rect_level[i].pos.y, board->rect_level[i].width, board->rect_level[i].height);
 		board->rect_level[i].color = GREEN;
 	}
 
@@ -117,7 +119,7 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	draw_button(board->img, &board->button_back);
 
 	i = -1;
-	while (++i < cub3d->n_levels - 1)
+	while (++i < cub3d->n_levels)
 		draw_rectangle(board->img, &board->rect_level[i]);
 
 	mlx_image_to_window(cub3d->mlx, board->img, 0, 0);

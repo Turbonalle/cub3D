@@ -18,13 +18,18 @@ int	is_top_score(level_t *level, int time)
 	return (FALSE);
 }
 
-void	level_finished(cub3d_t *cub3d)
+void	clean_level_data(cub3d_t *cub3d)
 {
 	cub3d->halo.img->instances[0].enabled = FALSE;
-	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 	mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
 	free_level(cub3d);
+}
+
+void	level_finished(cub3d_t *cub3d)
+{
+	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
+	clean_level_data(cub3d);
 	if (cub3d->level != &cub3d->levels[0]
 		&& is_top_score(cub3d->level, cub3d->time_finished))
 	{
@@ -47,9 +52,7 @@ void	level_finished(cub3d_t *cub3d)
 
 void	game_over(cub3d_t *cub3d)
 {
-	cub3d->halo.img->instances[0].enabled = FALSE;
-	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
-	free_level(cub3d);
+	clean_level_data(cub3d);
 	enable_gameover_menu(&cub3d->gameover_menu);
 	cub3d->state = STATE_GAMEOVER;
 	handle_cursor(cub3d);

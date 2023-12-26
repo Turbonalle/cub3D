@@ -545,6 +545,16 @@ typedef struct record_s
 	struct record_s	*next;
 }			record_t;
 
+typedef struct distraction_s
+{
+	bool		collected;
+	bool		visible;
+	dvector_t	pos;
+	vector_t	pos_screen;
+	double		dist_to_player;
+	mlx_image_t	*img_distraction;
+}			distraction_t;
+
 typedef struct level_s
 {
 	char			**map;
@@ -564,6 +574,8 @@ typedef struct level_s
 	int				element_found[6];
 	door_group_t	door_groups[NUM_DOORS_MAX];
 	key_group_t		key_groups[NUM_DOORS_MAX];
+	distraction_t	*distractions;
+	int				num_distractions;
 	dvector_t		distraction;
 	double			distraction_amount;
 	record_t		*records;
@@ -649,6 +661,7 @@ typedef struct cub3d_s
 	t_enemy			*enemy;
 	mlx_texture_t	*frames_idle[NUM_FRAMES_ENEMY_IDLE];
 	mlx_texture_t	*frames_walking[NUM_FRAMES_ENEMY_WALKING];
+	mlx_texture_t	*distraction_texture;
 	int				curr_frame_index_walking;
 	int				prev_frame_index_walking;
 	int				curr_frame_index_idle;

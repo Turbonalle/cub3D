@@ -144,6 +144,6 @@ int	main(int ac, char **av)
 	if (cub3d.state == STATE_GAME)
 		free_level(&cub3d);
 	free_cub3d(&cub3d);
-	system("leaks cub3D");
+	//system("leaks cub3D");
 	return (0);
 }

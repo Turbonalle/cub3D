@@ -138,6 +138,26 @@ void	count_enemies(cub3d_t *cub3d)
 	}
 }
 
+void	count_distractions(cub3d_t *cub3d)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	cub3d->level->num_distractions = 0;
+	while (cub3d->level->map[i])
+	{
+		j = 0;
+		while (cub3d->level->map[i][j])
+		{
+			if (cub3d->level->map[i][j] == 'm')
+				cub3d->level->num_distractions++;
+			j++;
+		}
+		i++;
+	}
+}
+
 void	init_timer(cub3d_t *cub3d)
 {
 	cub3d->timer.pos.x = cub3d->img->width * 0.95;
@@ -185,6 +205,11 @@ int	init_cub3d(cub3d_t *cub3d)
 		return (err("Failed to init hearts"));
 	init_halo(cub3d);
 	init_timer(cub3d);
+	cub3d->distraction_texture = mlx_load_png(TEXTURE_MUSHROOM);
+	if (!cub3d->distraction_texture)
+		return (err("Failed to load mushroom texture"));
+	else
+		printf("Loaded mushroom texture\n");
 	i = -1;
 	while (++i < LEVELS + 1)
 		cub3d->levels[i].records = NULL;

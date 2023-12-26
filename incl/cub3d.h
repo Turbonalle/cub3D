@@ -349,6 +349,11 @@ char	*create_file_path(int i, char *path);
 int		check_if_player_is_seen(cub3d_t *cub3d, int i);
 void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance);
 
+int	init_distractions(cub3d_t *cub3d);
+void	count_distractions(cub3d_t *cub3d);
+void draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
+
+
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 
 // extra.c

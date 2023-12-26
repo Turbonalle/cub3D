@@ -76,5 +76,11 @@ void	free_level(cub3d_t *cub3d)
 			//cub3d->enemy[i++].img_curr_frame->instances[0].enabled = FALSE;
 		free(cub3d->enemy);
 	}
+	i = 0;
+	while (i < 4)
+	{
+		mlx_delete_texture(cub3d->level->texture[i].texture);
+		i++;
+	}
 	disable_hearts(cub3d);
 }

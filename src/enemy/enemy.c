@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/22 16:41:42 by jbagger          ###   ########.fr       */
+/*   Updated: 2023/12/27 14:04:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,8 @@ void	enemy_vision(cub3d_t *cub3d)
 				if (cub3d->level->distraction_amount <= 0)
 				{
 					printf("is done eating at %f\n",cub3d->run_time);
-					cub3d->level->map[(int)cub3d->level->distraction.y][(int)cub3d->level->distraction.x] = '0';
+					cub3d->player.thrown = FALSE;
+					cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
 					cub3d->enemy[i].is_eating = 0;
 				}
 			}

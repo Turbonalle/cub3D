@@ -38,6 +38,7 @@ typedef struct player_s
 	dvector_t	pos;
 	dvector_t	new_pos;
 	dvector_t	dir;
+	bool		thrown;
 	double		angle;
 	double		movement_angle;
 	double		hit_timestamp;

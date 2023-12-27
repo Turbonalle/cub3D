@@ -44,12 +44,26 @@ void	collect_key(cub3d_t *cub3d, double y, double x)
 
 void collect_shroom(cub3d_t *cub3d, double y, double x)
 {
+	int i;
+
 	if (cub3d->level->map[(int)y][(int)x] == 'm')
 	{
 		cub3d->level->map[(int)y][(int)x] = '0';
 		cub3d->player.mushroom_count++;
+		activate_halo(&cub3d->halo, BLUE);
+		i = 0;
+		while (i < cub3d->level->num_distractions)
+		{
+			if (cub3d->level->distractions[i].pos.x == (int)x + 0.5 && cub3d->level->distractions[i].pos.y == (int)y + 0.5)
+			{
+				cub3d->level->distractions[i].collected = TRUE;
+				cub3d->level->distractions[i].img_distraction->instances[0].enabled = FALSE;
+				cub3d->level->distractions[i].visible = FALSE;
+			}
+			i++;
+		}
+		
 	}
-	activate_halo(&cub3d->halo, BLUE);
 	//TODO: correct halo colour
 }
 
@@ -102,6 +116,8 @@ void collision_checker(cub3d_t *cub3d)
 	}
 	else if (new_pos_is_goal(cub3d))
 	{
+		if (cub3d->player.thrown)
+			cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
 		level_finished(cub3d);
 	}
 	else

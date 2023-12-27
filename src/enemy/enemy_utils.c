@@ -392,7 +392,7 @@ void	draw_enemies(cub3d_t *cub3d)
 		i++;
 	}
 	i = 0;
-	while (i < cub3d->level->num_distractions)
+	while (i < cub3d->level->num_distractions + cub3d->player.thrown)
 	{
 		check_distraction(cub3d, i);
 		i++;

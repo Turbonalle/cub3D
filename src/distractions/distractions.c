@@ -5,8 +5,8 @@ int	init_distractions(cub3d_t *cub3d)
 	int	i;
 	int	j;
 	int	distr_index;
-	
-	cub3d->level->distractions = malloc(sizeof(distraction_t) * cub3d->level->num_distractions);
+
+	cub3d->level->distractions = malloc(sizeof(distraction_t) * (cub3d->level->num_distractions + 1));
 	if (!cub3d->level->distractions)
 		return (FAIL);
 	i = 0;

@@ -366,7 +366,7 @@ int count_visible_distractions(cub3d_t *cub3d)
 
 	count = 0;
 	i = 0;
-	while (i < cub3d->level->num_distractions)
+	while (i < cub3d->level->num_distractions + cub3d->player.thrown)
 	{
 		if (cub3d->level->distractions[i].visible == TRUE)
 			count++;
@@ -405,7 +405,7 @@ void	fill_visible_distractions_array(cub3d_t *cub3d, distraction_t **distraction
 
 	i = 0;
 	j = 0;
-	while (i < cub3d->level->num_distractions)
+	while (i < cub3d->level->num_distractions + cub3d->player.thrown)
 	{
 		if (cub3d->level->distractions[i].visible == TRUE)
 		{
@@ -610,5 +610,4 @@ void	draw_animated_keys(cub3d_t *cub3d)
 			i++;
 		}
 	}
-	
 }

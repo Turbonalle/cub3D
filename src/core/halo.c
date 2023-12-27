@@ -13,12 +13,12 @@ static int	get_distance_from_edge(mlx_image_t *img,
 	return (distance_from_edge);
 }
 
-static double parametric_blend(double t)
+static double	parametric_blend(double t)
 {
-    double sqt;
-	
+	double	sqt;
+
 	sqt = t * t;
-    return sqt / (2 * (sqt - t) + 1);
+	return (sqt / (2 * (sqt - t) + 1));
 }
 
 static double	get_time_fade(halo_t *halo)
@@ -33,7 +33,8 @@ static double	get_time_fade(halo_t *halo)
 	}
 	else
 	{
-		fade = (double)parametric_blend(1 - (time_delta - HALO_TIME / 5.0f) / HALO_TIME * 1.25);
+		fade = (double)parametric_blend(1 - (time_delta
+					- HALO_TIME / 5.0f) / HALO_TIME * 1.25);
 	}
 	return (fade);
 }
@@ -75,10 +76,10 @@ void	draw_halo(mlx_image_t *img, halo_t *halo)
 			distance_from_edge = get_distance_from_edge(img, row, column);
 			if (distance_from_edge < HALO_THICKNESS)
 			{
-				color = set_transparency(halo->color, set_fade(time_fade, set_edge_fade(distance_from_edge)));
+				color = set_transparency(halo->color,
+						set_fade(time_fade, set_edge_fade(distance_from_edge)));
 				mlx_put_pixel(img, column, row, color);
 			}
-			
 		}
 	}
 }

@@ -7,7 +7,7 @@ typedef struct triangle_s
 	dvector_t	a;
 	dvector_t	b;
 	dvector_t	c;
-} 				triangle_t;
+}				triangle_t;
 
 void	draw_triangle(cub3d_t *cub3d, triangle_t triangle, int color)
 {
@@ -18,8 +18,8 @@ void	draw_triangle(cub3d_t *cub3d, triangle_t triangle, int color)
 
 void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance)
 {
-	int	height;
-	int	base;
+	int			height;
+	int			base;
 	dvector_t	rotating_point;
 	triangle_t	triangle;
 

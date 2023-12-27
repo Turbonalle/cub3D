@@ -1,9 +1,7 @@
 #include "../../incl/cub3d.h"
 
-static void	delete_textures(cub3d_t *cub3d)
+static void	delete_textures_additional(cub3d_t *cub3d)
 {
-	int i;
-	
 	free(cub3d->leaderboard.rect_level);
 	free(cub3d->leaderboard.text_level);
 	mlx_delete_texture(cub3d->start_menu.title.texture);
@@ -22,31 +20,33 @@ static void	delete_textures(cub3d_t *cub3d)
 	mlx_delete_texture(cub3d->level_menu.back_hover.texture);
 	mlx_delete_texture(cub3d->level_menu.leaderboard_hover.texture);
 	mlx_delete_texture(cub3d->distraction_texture);
-	printf("Deleted distraction texture\n");
+}
+
+static void	delete_textures(cub3d_t *cub3d)
+{
+	int	i;
+
+	delete_textures_additional(cub3d);
 	i = 0;
 	while (i < LEVELS)
 	{
-		mlx_delete_texture(cub3d->level_menu.minilevels[i].number.texture);
-		i++;
+		mlx_delete_texture(cub3d->level_menu.minilevels[i++].number.texture);
 	}
 	i = 0;
 	while (i < HEARTS)
 	{
 		mlx_delete_texture(cub3d->hearts[i].full.texture);
-		mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		i++;
+		mlx_delete_texture(cub3d->hearts[i++].empty.texture);
 	}
 	i = 0;
 	while (i < NUM_FRAMES_ENEMY_IDLE)
 	{
-		mlx_delete_texture(cub3d->frames_idle[i]);
-		i++;
+		mlx_delete_texture(cub3d->frames_idle[i++]);
 	}
 	i = 0;
 	while (i < NUM_FRAMES_ENEMY_WALKING)
 	{
-		mlx_delete_texture(cub3d->frames_walking[i]);
-		i++;
+		mlx_delete_texture(cub3d->frames_walking[i++]);
 	}
 }
 

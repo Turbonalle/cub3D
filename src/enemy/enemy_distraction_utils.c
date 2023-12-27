@@ -58,7 +58,6 @@ dvector_t init_ray_step_size(double dir)
 int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_to_distraction, int i)
 {
 	dvector_t		vRayUnitStepSize;
-	dvector_t		vRayDir;
 	dvector_t		vRayLength1D;
 	vector_t		vMapCheck;
 	vector_t		vStep;
@@ -66,8 +65,6 @@ int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_t
 	double			max_dist;
 
 	max_dist = dist_between_d_vectors(distraction, cub3d->enemy[i].pos);
-	vRayDir.x = cos(to_radians(dir_to_distraction));
-	vRayDir.y = sin(to_radians(dir_to_distraction));
 	vMapCheck.x = (int)cub3d->enemy[i].pos.x;
 	vMapCheck.y = (int)cub3d->enemy[i].pos.y;
 	vStep = init_v_step(dir_to_distraction);

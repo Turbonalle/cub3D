@@ -39,6 +39,30 @@ void	update_img_size(cub3d_t *cub3d)
 }
 //------------------------------------------------------------------------------
 
+void	handle_state_game(cub3d_t *cub3d)
+{
+	handle_fps(cub3d);
+	update_img_size(cub3d);
+	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
+	if (cub3d->keys.mouse_left && cub3d->on_minimap)
+		move_minimap(cub3d);
+	player_movement(cub3d);
+	if (cub3d->state == STATE_GAME)
+	{
+		draw_background(cub3d);
+		raycasting(cub3d);
+		draw_world(cub3d);
+		minimap(cub3d);
+		enemy_vision(cub3d);
+		draw_enemies(cub3d);
+		draw_timer(cub3d);
+		draw_animated_keys(cub3d);
+		handle_halo(&cub3d->halo);
+	}
+	if (cub3d->player.health <= 0)
+		game_over(cub3d);
+}
+
 void	update(void *param)
 {
 	cub3d_t	*cub3d;
@@ -47,17 +71,11 @@ void	update(void *param)
 
 	// TODO: add crash handling if (cub3d->state == STATE_CRASH)
 	if (cub3d->state == STATE_START)
-	{
 		update_start_menu(cub3d, &cub3d->start_menu);
-	}
 	else if (cub3d->state == STATE_LEVEL)
-	{
 		update_level_menu(cub3d, &cub3d->level_menu);
-	}
 	else if (cub3d->state == STATE_LEADERBOARD)
-	{
 		update_leaderboard(cub3d, &cub3d->leaderboard);
-	}
 	else if (cub3d->state == STATE_SETTINGS)
 	{
 		// update_settings_menu(cub3d, &cub3d->settings_menu);
@@ -69,36 +87,11 @@ void	update(void *param)
 			cub3d->fov = FOV;
 	}
 	else if (cub3d->state == STATE_GAME)
-	{
-		handle_fps(cub3d);
-		update_img_size(cub3d);
-		mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
-		if (cub3d->keys.mouse_left && cub3d->on_minimap)
-			move_minimap(cub3d);
-		player_movement(cub3d);
-		if (cub3d->state == STATE_GAME)
-		{
-			draw_background(cub3d);
-			raycasting(cub3d);
-			draw_world(cub3d);
-			minimap(cub3d);
-			enemy_vision(cub3d);
-			draw_enemies(cub3d);
-			draw_timer(cub3d);
-			draw_animated_keys(cub3d);
-			handle_halo(&cub3d->halo);
-		}
-		if (cub3d->player.health <= 0)
-			game_over(cub3d);
-	}
+		handle_state_game(cub3d);
 	else if (cub3d->state == STATE_ENTERNAME)
-	{
 		update_name_menu(cub3d, &cub3d->name_menu);
-	}
 	else if (cub3d->state == STATE_GAMEOVER)
-	{
 		update_gameover_menu(cub3d, &cub3d->gameover_menu);
-	}
 }
 
 void	start_game(cub3d_t *cub3d)

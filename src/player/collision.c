@@ -62,9 +62,7 @@ void collect_shroom(cub3d_t *cub3d, double y, double x)
 			}
 			i++;
 		}
-		
 	}
-	//TODO: correct halo colour
 }
 
 void	item_collected_checker(cub3d_t *cub3d)
@@ -76,7 +74,6 @@ void	item_collected_checker(cub3d_t *cub3d)
 	new_x = cub3d->player.new_pos.x;
 	collect_key(cub3d, new_y, new_x);
 	collect_shroom(cub3d, new_y, new_x);
-	// TODO: connect this to new distraction_t struct in level
 }
 
 int	new_pos_is_wall_collision(cub3d_t *cub3d)

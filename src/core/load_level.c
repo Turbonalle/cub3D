@@ -1,18 +1,5 @@
 #include "../incl/cub3d.h"
 
-int	key_list_len(key_node_t	*keys)
-{
-	int	count;
-
-	count = 0;
-	while (keys)
-	{
-		count++;
-		keys = keys->next;
-	}
-	return (count);
-}
-
 int	count_all_keys(cub3d_t *cub3d)
 {
 	int			count;
@@ -37,9 +24,11 @@ int	set_z_for_key_groups(cub3d_t *cub3d, int starting_z)
 	{
 		if (cub3d->level->key_groups[i].num_keys_total)
 		{
-			cub3d->level->key_groups[i].img_key_icon->instances[0].z = starting_z;
+			cub3d->level->key_groups[i]
+				.img_key_icon->instances[0].z = starting_z;
 			starting_z++;
-			cub3d->level->key_groups[i].img_text_key_count->instances[0].z = starting_z;
+			cub3d->level->key_groups[i]
+				.img_text_key_count->instances[0].z = starting_z;
 			starting_z++;
 		}
 		i++;
@@ -65,6 +54,19 @@ void	set_z_of_all_images(cub3d_t *cub3d)
 	z++;
 	//printf("LAST z: %d\n", z);
 }
+int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
+{
+	cub3d->player.pos.x = level->starting_pos.x + 0.5;
+	cub3d->player.pos.y = level->starting_pos.y + 0.5;
+	cub3d->player.mushroom_count = 0;
+	cub3d->level->distraction_amount = 0;
+	cub3d->player.health = HEARTS;
+	cub3d->player.thrown = FALSE;
+	count_enemies(cub3d);
+	if (!init_enemy(cub3d))
+		return (0);
+	return (1);
+}
 
 int	load_level(cub3d_t *cub3d, level_t *level)
 {
@@ -81,24 +83,10 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 		}
 		i++;
 	}
-	cub3d->player.pos.x = level->starting_pos.x + 0.5;
-	cub3d->player.pos.y = level->starting_pos.y + 0.5;
-	cub3d->player.mushroom_count = 0;
-	cub3d->level->distraction_amount = 0;
-	cub3d->player.health = HEARTS;
-	cub3d->player.thrown = FALSE;
-	count_enemies(cub3d);
-	if (cub3d->num_enemies > 0)
-	{
-		if (!init_enemy(cub3d))
-			return (0);
-	}
+	init_player_and_enemies(cub3d, level);
 	count_distractions(cub3d);
-	if (cub3d->level->num_distractions > 0)
-	{
-		if (!init_distractions(cub3d))
-			return (0);
-	}
+	if (!init_distractions(cub3d))
+		return (0);
 	set_initial_direction(cub3d);
 	if (!init_minimap(cub3d))
 		return (free_info(level->map), free(cub3d->enemy), 0);

@@ -55,7 +55,6 @@ static int	wall_or_door_found(cub3d_t *cub3d, vector_t vMapCheck)
 
 static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 {
-	dvector_t		vRayDir;
 	dvector_t		vRayUnitStepSize;
 	dvector_t		vRayLength1D;
 	double			max_dist;
@@ -63,8 +62,6 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 	vector_t		vStep;
 	ray_t			*ray;
 
-	vRayDir.x = cos(to_radians(dir_to_enemy));
-	vRayDir.y = sin(to_radians(dir_to_enemy));
 	max_dist = sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2));
 	vMapCheck.x = (int)cub3d->player.pos.x;
 	vMapCheck.y = (int)cub3d->player.pos.y;
@@ -76,7 +73,7 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 		return (0);
 	while (ray->length < max_dist)
 	{
-		 if (wall_or_door_found(cub3d, vMapCheck))
+		if (wall_or_door_found(cub3d, vMapCheck))
 		{
 			free(ray);
 			return (0);
@@ -88,9 +85,8 @@ static int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, int i)
 	return (1);
 }
 
-static int ray_to_distraction(cub3d_t *cub3d, double dir_to_distraction, int i)
+static int	ray_to_distraction(cub3d_t *cub3d, double dir_to_distraction, int i)
 {
-	dvector_t		vRayDir;
 	dvector_t		vRayUnitStepSize;
 	dvector_t		vRayLength1D;
 	double			max_dist;
@@ -98,8 +94,6 @@ static int ray_to_distraction(cub3d_t *cub3d, double dir_to_distraction, int i)
 	vector_t		vStep;
 	ray_t			*ray;
 
-	vRayDir.x = cos(to_radians(dir_to_distraction));
-	vRayDir.y = sin(to_radians(dir_to_distraction));
 	max_dist = sqrt(pow(cub3d->player.pos.x - cub3d->level->distractions[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->level->distractions[i].pos.y, 2));
 	vMapCheck.x = (int)cub3d->player.pos.x;
 	vMapCheck.y = (int)cub3d->player.pos.y;
@@ -130,7 +124,6 @@ void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 
 	i = 1;
 	dir_as_rad = to_radians(dir_to_enemy);
-
 	while (i < (int)cub3d->img->width - 1)
 	{
 		if (dir_as_rad >= cub3d->rays[i].angle
@@ -163,7 +156,6 @@ void draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int index)
 
 	i = 1;
 	dir_as_rad = to_radians(dir_to_distraction);
-
 	while (i < (int)cub3d->img->width - 1)
 	{
 		if (dir_as_rad >= cub3d->rays[i].angle
@@ -232,7 +224,6 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 // TODO: remove camelKey
 static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 {
-	dvector_t		vRayDir;
 	dvector_t		vRayUnitStepSize;
 	dvector_t		vRayLength1D;
 	double			max_dist;
@@ -240,8 +231,6 @@ static int	ray_to_key(cub3d_t *cub3d, double dir_to_key, key_node_t *temp)
 	vector_t		vStep;
 	ray_t			*ray;
 
-	vRayDir.x = cos(to_radians(dir_to_key));
-	vRayDir.y = sin(to_radians(dir_to_key));
 	max_dist = sqrt(pow(cub3d->player.pos.x - temp->pos.x, 2) + pow(cub3d->player.pos.y - temp->pos.y, 2));
 	vMapCheck.x = (int)cub3d->player.pos.x;
 	vMapCheck.y = (int)cub3d->player.pos.y;
@@ -332,7 +321,6 @@ static void see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i)
 			cub3d->level->distractions[i].visible = TRUE;
 			draw_distraction(cub3d, dir_to_distraction, i);
 		}
-			
 	}
 	else
 	{
@@ -385,7 +373,7 @@ void	draw_enemies(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
-		if (cub3d->level->key_groups[i].num_keys_total)
+		if (cub3d->level->door_groups[i].num_keys_left)
 		{
 			see_keys(cub3d, i);
 		}

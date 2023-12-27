@@ -53,6 +53,9 @@ void	level_finished(cub3d_t *cub3d)
 
 void	game_over(cub3d_t *cub3d)
 {
+	if (cub3d->player.thrown)
+		cub3d->level->distractions[cub3d->level->num_distractions]
+			.img_distraction->instances[0].enabled = FALSE;
 	clean_level_data(cub3d);
 	enable_gameover_menu(&cub3d->gameover_menu);
 	cub3d->state = STATE_GAMEOVER;

@@ -85,6 +85,8 @@ int	init_enemy(cub3d_t *cub3d)
 	int	i;
 
 	i = 0;
+	if (cub3d->num_enemies == 0)
+		return (1);
 	cub3d->enemy = malloc(sizeof(t_enemy) * cub3d->num_enemies);
 	if (!cub3d->enemy)
 		return (0);

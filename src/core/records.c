@@ -27,7 +27,7 @@ void	create_time_string(char *time_str, int time)
 	time_str[8] = '\0';
 }
 
-record_t *new_record(int time, char* name)
+record_t	*new_record(int time, char *name)
 {
 	record_t	*new;
 
@@ -43,7 +43,7 @@ record_t *new_record(int time, char* name)
 	return (new);
 }
 
-int count_records(record_t *records)
+int	count_records(record_t *records)
 {
 	int			count;
 	record_t	*ptr;

@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-void draw_rectangle(mlx_image_t *img, rectangle_t *rect)
+void	draw_rectangle(mlx_image_t *img, rectangle_t *rect)
 {
 	int	row;
 	int	column;
@@ -21,11 +21,10 @@ void draw_rectangle(mlx_image_t *img, rectangle_t *rect)
 			} */
 			mlx_put_pixel(img, column, row, rect->color);
 		}
-			
 	}
 }
 
-void draw_checkbox(cub3d_t *cub3d, box_t *box)
+void	draw_checkbox(cub3d_t *cub3d, box_t *box)
 {
 	int	row;
 	int	column;
@@ -50,7 +49,7 @@ void draw_checkbox(cub3d_t *cub3d, box_t *box)
 	}
 }
 
-void draw_hovered_checkbox(cub3d_t *cub3d, box_t *box)
+void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box)
 {
 	int	row;
 	int	column;

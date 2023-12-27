@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-void draw_square(mlx_image_t *img, vector_t coord, int size, int color)
+void	draw_square(mlx_image_t *img, vector_t coord, int size, int color)
 {
 	vector_t	end;
 	int			x;

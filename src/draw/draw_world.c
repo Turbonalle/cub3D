@@ -119,9 +119,9 @@ void draw_world(cub3d_t *cub3d)
 		}
 		else
 			color = WHITE;
-		if (cub3d->rays[index].wall != SO)
+		// if (cub3d->rays[index].wall != SO)
 			draw_vertical_line(cub3d->img, start, end, color);
-		else
-			draw_textured_line(cub3d, start, end, cub3d->rays[index]);
+		// else
+		// 	draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 	}
 }

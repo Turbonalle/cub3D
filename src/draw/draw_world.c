@@ -39,6 +39,7 @@ static double	fisheye_correction(cub3d_t *cub3d, int index)
 void draw_world(cub3d_t *cub3d)
 {
 	int		index;
+	bool	close;
 	double	min_dist;
 	double	max_dist;
 	double	height;
@@ -55,6 +56,7 @@ void draw_world(cub3d_t *cub3d)
 
 	while (++index < (int)cub3d->img->width)
 	{
+		close = 0;
 		if (cub3d->rays[index].length < min_dist)
 			height = cub3d->img->height;
 		else if (cub3d->rays[index].length > max_dist)
@@ -71,7 +73,7 @@ void draw_world(cub3d_t *cub3d)
 					screenH = fisheye_correction(cub3d, index);
 				height = screenH;
 				if (height > cub3d->img->height)
-					height = cub3d->img->height;
+					close = 1;
 			}
 		}
 		start.x = index;
@@ -82,38 +84,79 @@ void draw_world(cub3d_t *cub3d)
 			end.y--;
 		if (cub3d->rays[index].wall == EA)
 		{
+			if (close)
+			{
+				start.y = 0;
+				end.y = cub3d->img->height;
+			}
 			draw_vertical_line(cub3d->img, start, end, BLUE);
 		}
 		else if (cub3d->rays[index].wall == SO)
 		{
-			draw_textured_line(cub3d, start, end, cub3d->rays[index]);
+			if (close)
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 		else if (cub3d->rays[index].wall == WE)
 		{
+			if (close)
+			{
+				start.y = 0;
+				end.y = cub3d->img->height;
+			}
 			draw_vertical_line(cub3d->img, start, end, GREEN);
 		}
 		else if (cub3d->rays[index].wall == NO)
 		{
-			draw_textured_line(cub3d, start, end, cub3d->rays[index]);
+			if (close)
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 		else if (cub3d->rays[index].wall == 'A')
 		{
+			if (close)
+			{
+				start.y = 0;
+				end.y = cub3d->img->height;
+			}
 			draw_vertical_line(cub3d->img, start, end, RED_LIGHT);
 		}
 		else if (cub3d->rays[index].wall == 'B')
 		{
+			if (close)
+			{
+				start.y = 0;
+				end.y = cub3d->img->height;
+			}
 			draw_vertical_line(cub3d->img, start, end, GREEN);
 		}
 		else if (cub3d->rays[index].wall == 'C')
 		{
+			if (close)
+			{
+				start.y = 0;
+				end.y = cub3d->img->height;
+			}
 			draw_vertical_line(cub3d->img, start, end, YELLOW_PALE);
 		}
 		else if (cub3d->rays[index].wall == 'D')
 		{
+			if (close)
+			{
+				start.y = 0;
+				end.y = cub3d->img->height;
+			}
 			draw_vertical_line(cub3d->img, start, end, TURQUOISE);
 		}
 		else if (cub3d->rays[index].wall == 'G')
 		{
+			if (close)
+			{
+				start.y = 0;
+				end.y = cub3d->img->height;
+			}
 			draw_vertical_line(cub3d->img, start, end, WHITE);
 		}
 	}

@@ -1,11 +1,6 @@
 
 #include "../incl/cub3d.h"
 
-double lerp(double y0, double y1, double x0, double x1, double x)
-{
-	return (y0 + (y1 - y0) * ((x - x0) / (x1 - x0)));
-}
-
 static double	fisheye_correction(cub3d_t *cub3d, int index)
 {
 	double	perp_dist;

@@ -201,6 +201,17 @@ typedef struct ray_s
 	int			wall;
 }				ray_t;
 
+//---- TRIANGLE ----------------------------------------------------------------
+
+# define MAX_TRIANGLE_HEIGHT 150
+
+typedef struct triangle_s
+{
+	dvector_t	a;
+	dvector_t	b;
+	dvector_t	c;
+}				triangle_t;
+
 //---- RECTANGLE ---------------------------------------------------------------
 
 typedef struct rectangle_s

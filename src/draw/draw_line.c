@@ -24,9 +24,9 @@ void bresenham_low_slope(mlx_image_t *img, vector_t start, vector_t end, int col
 			mlx_put_pixel(img, pixel.x, pixel.y, color);
 		else
 		{
-			printf("bresenham_low_slope FAIL!\n");
-			printf("pixel.x: %d\n", pixel.x);
-			printf("pixel.y: %d\n", pixel.y);
+			// printf("bresenham_low_slope FAIL!\n");
+			// printf("pixel.x: %d\n", pixel.x);
+			// printf("pixel.y: %d\n", pixel.y);
 		}
 		if (D > 0)
 		{
@@ -63,9 +63,9 @@ void bresenham_high_slope(mlx_image_t *img, vector_t start, vector_t end, int co
 			mlx_put_pixel(img, pixel.x, pixel.y, color);
 		else
 		{
-			printf("bresenham_high_slope FAIL!\n");
-			printf("pixel.x: %d\n", pixel.x);
-			printf("pixel.y: %d\n", pixel.y);
+			// printf("bresenham_high_slope FAIL!\n");
+			// printf("pixel.x: %d\n", pixel.x);
+			// printf("pixel.y: %d\n", pixel.y);
 		}
 		if (D > 0)
 		{
@@ -89,11 +89,11 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 	end.y = end_d.y;
 	if (start.x < 0 || start.x >= (int)img->width || end.y < 0 || end.y >= (int)img->height)
 	{
-		printf("draw_line FAIL!\n");
-		printf("start.x: %d\n", start.x);
-		printf("start.y: %d\n", start.y);
-		printf("end.x: %d\n", end.x);
-		printf("end.y: %d\n", end.y);
+		// printf("draw_line FAIL!\n");
+		// printf("start.x: %d\n", start.x);
+		// printf("start.y: %d\n", start.y);
+		// printf("end.x: %d\n", end.x);
+		// printf("end.y: %d\n", end.y);
 		return;
 	}
 	if (abs(end.y - start.y) < abs(end.x - start.x))

@@ -39,7 +39,6 @@ static double	fisheye_correction(cub3d_t *cub3d, int index)
 void draw_world(cub3d_t *cub3d)
 {
 	int		index;
-	int		color;
 	double	min_dist;
 	double	max_dist;
 	double	height;
@@ -83,45 +82,39 @@ void draw_world(cub3d_t *cub3d)
 			end.y--;
 		if (cub3d->rays[index].wall == EA)
 		{
-			color = BLUE;
+			draw_vertical_line(cub3d->img, start, end, BLUE);
 		}
 		else if (cub3d->rays[index].wall == SO)
 		{
-			color = RED;
+			draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 		else if (cub3d->rays[index].wall == WE)
 		{
-			color = GREEN;
+			draw_vertical_line(cub3d->img, start, end, GREEN);
 		}
 		else if (cub3d->rays[index].wall == NO)
 		{
-			color = YELLOW_PALE;
+			draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 		else if (cub3d->rays[index].wall == 'A')
 		{
-			color = RED_LIGHT;
+			draw_vertical_line(cub3d->img, start, end, RED_LIGHT);
 		}
 		else if (cub3d->rays[index].wall == 'B')
 		{
-			color = GREEN;
+			draw_vertical_line(cub3d->img, start, end, GREEN);
 		}
 		else if (cub3d->rays[index].wall == 'C')
 		{
-			color = YELLOW_PALE;
+			draw_vertical_line(cub3d->img, start, end, YELLOW_PALE);
 		}
 		else if (cub3d->rays[index].wall == 'D')
 		{
-			color = TURQUOISE;
+			draw_vertical_line(cub3d->img, start, end, TURQUOISE);
 		}
 		else if (cub3d->rays[index].wall == 'G')
 		{
-			color = WHITE;
+			draw_vertical_line(cub3d->img, start, end, WHITE);
 		}
-		else
-			color = WHITE;
-		// if (cub3d->rays[index].wall != SO)
-			draw_vertical_line(cub3d->img, start, end, color);
-		// else
-		// 	draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 	}
 }

@@ -94,7 +94,7 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 		printf("start.y: %d\n", start.y);
 		printf("end.x: %d\n", end.x);
 		printf("end.y: %d\n", end.y);
-		return;
+		return ;
 	}
 	if (abs(end.y - start.y) < abs(end.x - start.x))
 	{
@@ -112,7 +112,7 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 	}
 }
 
-void draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end, int color)
+void	draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end, int color)
 {
 	while (start.y <= end.y)
 	{
@@ -121,30 +121,52 @@ void draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end, int co
 	}
 }
 
+texture_t	find_texture(cub3d_t *cub3d, ray_t ray)
+{
+	texture_t	texture;
+
+	if (ray.wall == NO)
+		texture = cub3d->level->texture[0];
+	if (ray.wall == SO)
+		texture = cub3d->level->texture[1];
+	if (ray.wall == EA)
+		texture = cub3d->level->texture[2];
+	if (ray.wall == WE)
+		texture = cub3d->level->texture[3];
+	return (texture);
+}
+
 void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray)
 {
-	dvector_t		stop;
+	texture_t	texture;
+	int			y;
+	int			src_x;
+	int			src_y;
+	int			dst_x;
+	int			dst_y;
+	int			y_count;
 	uint32_t	color;
-	int				src_i;
-	double roomH = 3;
+	int			src_i;
 
-	stop.x = fmod(ray.end.x, 1.0);
-	stop.y = fmod(ray.end.y, 1.0);
-	color = *cub3d->level->texture[0].texture->pixels;   
-	int y_count = round(end.y)-round(start.y);          
-	int y=0;
-	int src_x, src_y;
-	int dst_x, dst_y;
-	while (y <= y_count) 
+	texture = find_texture(cub3d, ray);
+	y_count = round(end.y) - round(start.y);
+	y = 0;
+	while (y <= y_count)
 	{
-		dst_x = round(start.x);
-		dst_y = round(start.y) + y;
-		src_x = round(stop.x * cub3d->level->texture[0].texture->width);
-		src_y = round(y * roomH * cub3d->level->texture[0].texture->height / (end.y-start.y));
-		src_y = src_y % cub3d->level->texture[0].texture->height;
-		src_i = src_y * cub3d->level->texture[0].texture->width * 4 + src_x * 4;
-
-		color = cub3d->level->texture[0].texture->pixels[src_i];
+		dst_x = start.x;
+		dst_y = start.y + y;
+		src_x = fmod(ray.end.x, 1.0) * texture.texture->width;
+		if (ray.wall == NO)
+			src_x = texture.texture->width - src_x;
+		src_y = y * texture.texture->height / (end.y - start.y);
+		src_i = round(src_y * texture.texture->width * 4 + src_x * 4);
+		color = texture.texture->pixels[src_i];
+		color = color << 8;
+		color += texture.texture->pixels[src_i + 1];
+		color = color << 8;
+		color += texture.texture->pixels[src_i + 2];
+		color = color << 8;
+		color += texture.texture->pixels[src_i + 3];
 		mlx_put_pixel(cub3d->img, dst_x, dst_y, color);
 		y++;
 	}

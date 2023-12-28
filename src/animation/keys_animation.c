@@ -57,7 +57,7 @@ void scale_distraction(cub3d_t *cub3d, distraction_t *distraction, mlx_texture_t
 	distraction->img_distraction->instances[0].enabled = TRUE;
 	ft_memset(distraction->img_distraction->pixels, 0, distraction->img_distraction->width * distraction->img_distraction->height * 4);
 	row_res = 0;
-	printf("src width: %d, src height: %d\n", src->width, src->height);
+	// printf("src width: %d, src height: %d\n", src->width, src->height);
 	while (row_res < src->height * factor)
 	{
 		col_res = 0;
@@ -89,7 +89,7 @@ void scale_distraction(cub3d_t *cub3d, distraction_t *distraction, mlx_texture_t
 	}
 	distraction->img_distraction->instances[0].x = distraction->pos_screen.x - src->width * factor * 0.5;
 	distraction->img_distraction->instances[0].y = distraction->pos_screen.y - src->height * factor * 1.5;
-	printf("distraction pos_screen: x: %d, y: %d\n", distraction->pos_screen.x, distraction->pos_screen.y);
+	// printf("distraction pos_screen: x: %d, y: %d\n", distraction->pos_screen.x, distraction->pos_screen.y);
 }
 
 void scale_curr_enemy_frame(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, double factor)
@@ -555,7 +555,7 @@ void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_n
 	while (distractions[i])
 	{
 		z++;
-		printf("distraction %d z %d\n", i, z);
+		// printf("distraction %d z %d\n", i, z);
 		distractions[i]->img_distraction->instances->z = z;
 		i++;
 	}

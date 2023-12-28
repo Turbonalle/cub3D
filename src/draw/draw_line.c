@@ -141,7 +141,7 @@ static uint32_t	get_pixel_color(texture_t texture, vector_t src)
 	uint32_t	color;
 	int			src_i;
 
-	src_i = round(src.y * texture.texture->width * 4 + src.x * 4);
+	src_i = src.y * texture.texture->width * 4 + src.x * 4;
 	color = texture.texture->pixels[src_i];
 	color = color << 8;
 	color += texture.texture->pixels[src_i + 1];
@@ -166,10 +166,12 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ra
 	{
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
 		if (ray.wall == NO)
-			src.x = texture.texture->width - src.x;
+			src.x = texture.texture->width - src.x - 1;
 		wall_height = end.y - start.y;
 		src_start = (wall_height - cub3d->img->height) / 2 * (texture.texture->height / wall_height);
 		src.y = src_start + (y * texture.texture->height / wall_height);
+		if (src.y > (int)texture.texture->height - 1)
+			src.y = (int)texture.texture->height - 1;
 		mlx_put_pixel(cub3d->img, start.x, y, get_pixel_color(texture, src));
 		y++;
 	}
@@ -190,8 +192,10 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 	{
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
 		if (ray.wall == NO)
-			src.x = texture.texture->width - src.x;
+			src.x = texture.texture->width - src.x - 1;
 		src.y = y * texture.texture->height / (end.y - start.y);
+		if (src.y > (int)texture.texture->height - 1)
+			src.y = (int)texture.texture->height - 1;
 		color = get_pixel_color(texture, src);
 		mlx_put_pixel(cub3d->img, start.x, start.y + y, color);
 		y++;

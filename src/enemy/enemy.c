@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2023/12/27 14:04:09 by slampine         ###   ########.fr       */
+/*   Updated: 2023/12/28 10:41:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,11 @@ int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 {
 	dvector_t		vRayUnitStepSize;
 	dvector_t		vRayLength1D;
-	dvector_t		vRayDir;
 	vector_t		vMapCheck;
 	vector_t		vStep;
 	ray_t			*ray;
 	double			max_dist;
 
-	vRayDir.x = cos(to_radians(enemy[i].dir_player));
-	vRayDir.y = sin(to_radians(enemy[i].dir_player));
 	max_dist = sqrt(pow(player.pos.x - enemy[i].pos.x, 2) + pow(player.pos.y - enemy[i].pos.y, 2));
 	vMapCheck.x = (int)enemy[i].pos.x;
 	vMapCheck.y = (int)enemy[i].pos.y;

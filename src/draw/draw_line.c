@@ -124,19 +124,28 @@ void draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end, int co
 void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray)
 {
 	dvector_t		stop;
-	unsigned char	color;
-	int				i;
+	uint32_t	color;
+	int				src_i;
+	double roomH = 3;
 
 	stop.x = fmod(ray.end.x, 1.0);
 	stop.y = fmod(ray.end.y, 1.0);
-	(void)end;
-	i = 0;
-	color = *cub3d->level->texture[0].texture->pixels;
-	while (start.y < end.y)
+	color = *cub3d->level->texture[0].texture->pixels;   
+	int y_count = round(end.y)-round(start.y);          
+	int y=0;
+	int src_x, src_y;
+	int dst_x, dst_y;
+	while (y <= y_count) 
 	{
-		color = cub3d->level->texture[0].texture->pixels[i];
-		mlx_put_pixel(cub3d->img, start.x, start.y, color);
-		start.y++;
-		i += 4;
+		dst_x = round(start.x);
+		dst_y = round(start.y) + y;
+		src_x = round(stop.x * cub3d->level->texture[0].texture->width);
+		src_y = round(y * roomH * cub3d->level->texture[0].texture->height / (end.y-start.y));
+		src_y = src_y % cub3d->level->texture[0].texture->height;
+		src_i = src_y * cub3d->level->texture[0].texture->width * 4 + src_x * 4;
+
+		color = cub3d->level->texture[0].texture->pixels[src_i];
+		mlx_put_pixel(cub3d->img, dst_x, dst_y, color);
+		y++;
 	}
 }

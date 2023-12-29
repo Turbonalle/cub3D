@@ -1,6 +1,17 @@
 
 #include "../incl/cub3d.h"
 
+void	set_thrown_srhoom(distraction_t *distractions, int i, ray_t *ray)
+{
+	distractions[i].pos.x = ray->end.x;
+	distractions[i].pos.y = ray->end.y;
+	distractions[i].collected = FALSE;
+	distractions[i].visible = FALSE;
+	distractions[i].pos_screen.x = -WIDTH;
+	distractions[i].pos_screen.y = -HEIGHT;
+	distractions[i].dist_to_player = 100;
+}
+
 void	cause_distraction(cub3d_t *cub3d)
 {
 	ray_t	*ray;
@@ -22,13 +33,7 @@ void	cause_distraction(cub3d_t *cub3d)
 		cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
 	cub3d->player.thrown = TRUE;
 	printf("caused distraction at pos %f,%f\n",ray->end.x,ray->end.y);
-	cub3d->level->distractions[cub3d->level->num_distractions].pos.x = ray->end.x;
-	cub3d->level->distractions[cub3d->level->num_distractions].pos.y = ray->end.y;
-	cub3d->level->distractions[cub3d->level->num_distractions].collected = FALSE;
-	cub3d->level->distractions[cub3d->level->num_distractions].visible = FALSE;
-	cub3d->level->distractions[cub3d->level->num_distractions].pos_screen.x = -WIDTH;
-	cub3d->level->distractions[cub3d->level->num_distractions].pos_screen.y = -HEIGHT;
-	cub3d->level->distractions[cub3d->level->num_distractions].dist_to_player = 100;
+	set_thrown_srhoom(cub3d->level->distractions, cub3d->level->num_distractions, ray);
 	cub3d->level->distractions[cub3d->level->num_distractions].img_distraction = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(cub3d->mlx, cub3d->level->distractions[cub3d->level->num_distractions].img_distraction, 0, 0);
 	free(ray);

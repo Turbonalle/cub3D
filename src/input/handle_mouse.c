@@ -10,6 +10,7 @@ void	mouse_start_menu(cub3d_t *cub3d)
 		if (!load_level(cub3d, cub3d->level))
 			return ;
 		disable_start_menu(&cub3d->start_menu);
+		cub3d->settings.e_behaviour = 1;
 		cub3d->state = STATE_GAME;
 		handle_cursor(cub3d);
 		start_timer(cub3d);
@@ -36,6 +37,7 @@ void	mouse_level_menu(cub3d_t *cub3d)
 				return ;
 			cub3d->speedrun = TRUE;
 			cub3d->state = STATE_GAME;
+			cub3d->settings.e_behaviour = 0;
 			disable_level_menu(&cub3d->level_menu);
 			handle_cursor(cub3d);
 			start_timer(cub3d);

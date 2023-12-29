@@ -64,7 +64,10 @@ int	check_if_player_is_seen(cub3d_t *cub3d, int i)
 	else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i)
 		&& (dist_between_d_vectors(cub3d->player.pos,
 				cub3d->enemy[i].pos) > at_target))
+	{
+		cub3d->enemy[i].is_hunting = TRUE;
 		return (1);
+	}
 	else
 		return (0);
 }

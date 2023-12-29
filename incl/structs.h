@@ -203,7 +203,10 @@ typedef struct ray_s
 
 //---- TRIANGLE ----------------------------------------------------------------
 
-# define MAX_TRIANGLE_HEIGHT 150
+# define ENEMY_CURSOR_COLOR RED_LIGHT
+# define ENEMY_CURSOR_MAX_HEIGHT 50
+# define ENEMY_CURSOR_MIN_HEIGHT 10
+# define ENEMY_CURSOR_MARGIN 60
 
 typedef struct triangle_s
 {

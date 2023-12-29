@@ -114,10 +114,13 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 
 void	draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end, int color)
 {
-	while (start.y <= end.y)
+	int	y;
+
+	y = (int)start.y;
+	while (y <= end.y)
 	{
-		mlx_put_pixel(img, start.x, start.y, color);
-		start.y++;
+		mlx_put_pixel(img, start.x, y, color);
+		y++;
 	}
 }
 
@@ -197,7 +200,7 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 		if (src.y > (int)texture.texture->height - 1)
 			src.y = (int)texture.texture->height - 1;
 		color = get_pixel_color(texture, src);
-		mlx_put_pixel(cub3d->img, start.x, start.y + y, color);
+		mlx_put_pixel(cub3d->img, start.x, (int)start.y + y, color);
 		y++;
 	}
 }

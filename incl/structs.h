@@ -201,6 +201,22 @@ typedef struct ray_s
 	int			wall;
 }				ray_t;
 
+//---- TRIANGLE ----------------------------------------------------------------
+
+# define ENEMY_CURSOR_COLOR RED_LIGHT
+# define ENEMY_CURSOR_MAX_HEIGHT 50
+# define ENEMY_CURSOR_MIN_HEIGHT 10
+# define ENEMY_CURSOR_MARGIN 60
+
+typedef struct triangle_s
+{
+	int			height;
+	int			base;
+	dvector_t	a;
+	dvector_t	b;
+	dvector_t	c;
+}				triangle_t;
+
 //---- RECTANGLE ---------------------------------------------------------------
 
 typedef struct rectangle_s

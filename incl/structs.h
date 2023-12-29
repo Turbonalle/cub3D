@@ -210,6 +210,8 @@ typedef struct ray_s
 
 typedef struct triangle_s
 {
+	int			height;
+	int			base;
 	dvector_t	a;
 	dvector_t	b;
 	dvector_t	c;

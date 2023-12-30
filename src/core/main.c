@@ -21,7 +21,7 @@ char	*create_path(int i)
 	level_i = ft_itoa(i);
 	if (!level_i)
 		return (NULL);
-	path = ft_strjoin("assets/levels/level", level_i);
+	path = ft_strjoin(LEVEL_PREFIX, level_i);
 	if (!path)
 		return (free(level_i), NULL);
 	full_path = ft_strjoin(path, ".cub");
@@ -66,7 +66,7 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 	record_t	*ptr;
 	record_t	*next;
 
-	fd = open("assets/records.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	fd = open(RECORD_FILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 		return (!err("Failed to open records file"));
 	i = 0;
@@ -78,7 +78,6 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 			if (ptr->time > 0)
 			{
 				time = ft_itoa(ptr->time);
-				// printf("Time = %d\n", ptr->time);
 				write(fd, time, ft_strlen(time));
 				write(fd, " ", 1);
 				write(fd, ptr->name, ft_strlen(ptr->name));

@@ -54,6 +54,9 @@
 # define MINIMAP_COLOR_KEY_4 BLUE
 # define MINIMAP_TRANSPARENCY 20
 
+# define RECORD_FILE "./assets/records.txt"
+# define LEVEL_PREFIX "./assets/levels/level"
+
 # define TEXTURE_MUSHROOM "./assets/textures/mushrooms/1.png"
 # define TEXTURE_HEART_FULL "./assets/textures/heart/full.png"
 # define TEXTURE_HEART_HALF "./assets/textures/heart/half.png"

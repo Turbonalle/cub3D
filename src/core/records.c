@@ -196,7 +196,7 @@ int	read_records(cub3d_t *cub3d, level_t *levels)
 
 	//TODO: remove levels parameter
 	(void)levels;
-	fd = open("assets/records.txt", O_RDONLY);
+	fd = open(RECORD_FILE, O_RDONLY);
 	if (fd < 0)
 		return (err("Failed to open records file"));
 	i = 0;

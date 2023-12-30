@@ -49,7 +49,7 @@ void	set_record_texts(cub3d_t *cub3d, leaderboard_t *board)
 	int	i;
 
 	i = 0;
-	while (++i < cub3d->n_levels)
+	while (++i <= cub3d->n_levels)
 	{
 		draw_names(cub3d->mlx, &cub3d->levels[i].records, board, i);
 		draw_times(cub3d->mlx, &cub3d->levels[i].records, board, i);

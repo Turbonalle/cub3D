@@ -65,8 +65,8 @@ int	distraction(cub3d_t *cub3d, int i)
 {
 	dvector_t	distraction;
 	double		dir_to_distraction;
-	double		angle_min;
-	double		angle_max;
+	// double		angle_min;
+	// double		angle_max;
 	double		at_target;
 
 	if (cub3d->level->distraction_amount <= 0)
@@ -75,8 +75,8 @@ int	distraction(cub3d_t *cub3d, int i)
 	dir_to_distraction = within_360(atan2(distraction.y
 				- cub3d->enemy[i].pos.y, distraction.x
 				- cub3d->enemy[i].pos.x) * 180 / M_PI);
-	angle_min = within_360(cub3d->enemy[i].angle * 180 / M_PI - 30);
-	angle_max = within_360(cub3d->enemy[i].angle * 180 / M_PI + 30);
+	// angle_min = within_360(cub3d->enemy[i].angle * 180 / M_PI - 30);
+	// angle_max = within_360(cub3d->enemy[i].angle * 180 / M_PI + 30);
 	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_speed) * 2;
 	if (check_angles(cub3d, i, dir_to_distraction))
 		return (0);

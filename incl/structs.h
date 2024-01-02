@@ -485,6 +485,9 @@ typedef struct name_menu_s
 	mlx_image_t	*text_win_message;
 	mlx_image_t	*text_enter_name;
 	mlx_image_t	*text_title;
+	png_t		timer;
+	char		time_str[9];
+	mlx_image_t	*text_time;
 	rectangle_t	rect_title;
 	rectangle_t	rect_input;
 	int			current;
@@ -506,15 +509,7 @@ typedef struct name_menu_s
 # define GAMEOVER_EXIT_HOVER_PNG "./assets/textures/menu/exit_hover.png"
 # define GAMEOVER_RESTART_PNG "./assets/textures/menu/try_again_normal.png"
 # define GAMEOVER_RESTART_HOVER_PNG "./assets/textures/menu/try_again_hover.png"
-
-// typedef struct gameover_menu_s
-// {
-// 	mlx_image_t	*img;
-// 	mlx_image_t	*text_gameover;
-// 	int			background_color;
-// 	button_t	button_restart;
-// 	button_t	button_exit;
-// }				gameover_menu_t;
+# define TIMER_PNG "./assets/textures/menu/timer.png"
 
 typedef struct gameover_menu_s
 {
@@ -527,6 +522,9 @@ typedef struct gameover_menu_s
 	png_t		restart_hover;
 	png_t		arrow_back;
 	png_t		arrow_restart;
+	png_t		timer;
+	char		time_str[9];
+	mlx_image_t	*text_time;
 }				gameover_menu_t;
 
 //---- SETTINGS ----------------------------------------------------------------
@@ -613,6 +611,7 @@ typedef struct level_s
 	int				num_distractions;
 	dvector_t		distraction;
 	double			distraction_amount;
+	dvector_t		*enemy_pos;
 	record_t		*records;
 	mlx_image_t		*heart_img;
 	mlx_image_t		*heart_half_img;

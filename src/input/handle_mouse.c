@@ -106,7 +106,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		{
 			if (hover_image(cub3d, cub3d->gameover_menu.back.img))
 			{
-				disable_gameover_menu(&cub3d->gameover_menu);
+				disable_gameover_menu(cub3d->mlx, &cub3d->gameover_menu);
 				enable_start_menu(&cub3d->start_menu);
 				cub3d->state = STATE_START;
 			}
@@ -118,7 +118,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 				// 	cub3d->speedrun = TRUE;
 				if (!load_level(cub3d, cub3d->level))
 					return ;
-				disable_gameover_menu(&cub3d->gameover_menu);
+				disable_gameover_menu(cub3d->mlx, &cub3d->gameover_menu);
 				cub3d->state = STATE_GAME;
 				handle_cursor(cub3d);
 				start_timer(cub3d);

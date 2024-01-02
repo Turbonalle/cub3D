@@ -4,6 +4,7 @@ static void load_png(gameover_menu_t *menu)
 {
 	menu->title_win.texture = mlx_load_png(GAMEOVER_WIN_PNG);
 	menu->title_gameover.texture = mlx_load_png(GAMEOVER_GAMEOVER_PNG);
+	menu->timer.texture = mlx_load_png(TIMER_PNG);
 	menu->back.texture = mlx_load_png(GAMEOVER_EXIT_PNG);
 	menu->back_hover.texture = mlx_load_png(GAMEOVER_EXIT_HOVER_PNG);
 	menu->restart.texture = mlx_load_png(GAMEOVER_RESTART_PNG);
@@ -22,6 +23,9 @@ static int init_images(mlx_t *mlx, gameover_menu_t *menu)
 		return (err("Failed to create image"));
 	menu->title_gameover.img = mlx_texture_to_image(mlx, menu->title_gameover.texture);
 	if (!menu->title_gameover.img)
+		return (err("Failed to create image"));
+	menu->timer.img = mlx_texture_to_image(mlx, menu->timer.texture);
+	if (!menu->timer.img)
 		return (err("Failed to create image"));
 	menu->back.img = mlx_texture_to_image(mlx, menu->back.texture);
 	if (!menu->back.img)
@@ -59,6 +63,8 @@ static void set_positions(gameover_menu_t *menu)
 	menu->title_win.pos.y = menu->img->height * 0.3;
 	menu->title_gameover.pos.x = menu->img->width * 0.5 - menu->title_gameover.img->width * 0.5;
 	menu->title_gameover.pos.y = menu->img->height * 0.3;
+	menu->timer.pos.x = menu->img->width * 0.5 - menu->timer.img->width * 0.5;
+	menu->timer.pos.y = menu->img->height * 0.53 - menu->timer.img->height * 0.5;
 	menu->back.pos.x = back_x;
 	menu->back.pos.y = button_y;
 	menu->back_hover.pos.x = back_x;
@@ -80,6 +86,8 @@ static int put_images_to_window(mlx_t *mlx, gameover_menu_t *menu)
 	if (mlx_image_to_window(mlx, menu->title_win.img, menu->title_win.pos.x, menu->title_win.pos.y) < 0)
 		return (err("Failed to put image to window"));
 	if (mlx_image_to_window(mlx, menu->title_gameover.img, menu->title_gameover.pos.x, menu->title_gameover.pos.y) < 0)
+		return (err("Failed to put image to window"));
+	if (mlx_image_to_window(mlx, menu->timer.img, menu->timer.pos.x, menu->timer.pos.y) < 0)
 		return (err("Failed to put image to window"));
 	if (mlx_image_to_window(mlx, menu->back.img, menu->back.pos.x, menu->back.pos.y) < 0)
 		return (err("Failed to put image to window"));
@@ -106,6 +114,6 @@ int	init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
 	draw_menu_border(menu->img);
 	if (!put_images_to_window(cub3d->mlx, menu))
 		return (FAIL);
-	disable_gameover_menu(menu);
+	disable_gameover_menu(cub3d->mlx, menu);
 	return (SUCCESS);
 }

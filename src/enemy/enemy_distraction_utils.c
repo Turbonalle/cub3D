@@ -17,69 +17,70 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	return (ray);
 }
 
-static int	wall_or_door_found(cub3d_t *cub3d, vector_t vMapCheck)
+dvector_t	init_ray_step_size(double dir)
 {
-	if (vMapCheck.x >= 0
-		&& vMapCheck.x < cub3d->level->map_columns
-		&& vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->level->map_rows
-		&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL)
-		return (1);
-	if (vMapCheck.x >= 0 && vMapCheck.x
-		< cub3d->level->map_columns && vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->level->map_rows
-		&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'))
-	{
-		if (dist_between(vMapCheck, cub3d->player.pos) > 3)
-			return (1);
-		if (check_if_door_open(cub3d, vMapCheck.x, vMapCheck.y))
-			return (0);
-		else
-			return (1);
-	}
-	return (0);
-}
+	dvector_t		v_ray_dir;
+	dvector_t		v_ray_step_size;
 
-dvector_t init_ray_step_size(double dir)
-{
-	dvector_t		vRayDir;
-	dvector_t		vRayUnitStepSize;
-
-	vRayDir.x = cos(to_radians(dir));
-	vRayDir.y = sin(to_radians(dir));
-	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y / vRayDir.x));
-	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x / vRayDir.y));
-	return (vRayUnitStepSize);
+	v_ray_dir.x = cos(to_radians(dir));
+	v_ray_dir.y = sin(to_radians(dir));
+	v_ray_step_size.x = sqrt(1 + (v_ray_dir.y / v_ray_dir.x) * (v_ray_dir.y / v_ray_dir.x));
+	v_ray_step_size.y = sqrt(1 + (v_ray_dir.x / v_ray_dir.y) * (v_ray_dir.x / v_ray_dir.y));
+	return (v_ray_step_size);
 }
 
 int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_to, int i)
 {
-	dvector_t		vRayUnitStepSize;
-	dvector_t		vRayLength1D;
-	vector_t		vMapCheck;
+	dvector_t		v_ray_step_size;
+	dvector_t		v_ray_1d_length;
+	vector_t		v_map_check;
 	ray_t			*ray;
 	double			max_dist;
 
 	max_dist = dist_between_d_vectors(distraction, cub3d->enemy[i].pos);
-	vMapCheck.x = (int)cub3d->enemy[i].pos.x;
-	vMapCheck.y = (int)cub3d->enemy[i].pos.y;
-	vRayUnitStepSize = init_ray_step_size(dir_to);
-	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos, dir_to, vMapCheck, vRayUnitStepSize);
+	v_map_check.x = (int)cub3d->enemy[i].pos.x;
+	v_map_check.y = (int)cub3d->enemy[i].pos.y;
+	v_ray_step_size = init_ray_step_size(dir_to);
+	v_ray_1d_length = init_ray_1D_length(cub3d->enemy[i].pos, dir_to, v_map_check, v_ray_step_size);
 	ray = init_ray(cub3d->enemy, i);
 	if (!ray)
 		return (0);
 	ray->angle = dir_to;
 	while (ray->length < max_dist)
 	{
-		if (wall_or_door_found(cub3d, vMapCheck))
+		if (wall_or_door_found(cub3d, v_map_check))
 			return (free(ray), 0);
-		adjust(&vMapCheck, ray, init_v_step(dir_to), &vRayLength1D);
-		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
+		adjust(&v_map_check, ray, init_v_step(dir_to), &v_ray_1d_length);
+		adjust_no_flag(&v_ray_1d_length, v_ray_step_size);
 	}
 	cub3d->enemy[i].angle = to_radians(ray->angle);
 	cub3d->enemy[i].target = cub3d->level->distraction;
 	return (free(ray), 1);
+}
+
+int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, double max_dist)
+{
+	dvector_t		v_ray_step_size;
+	dvector_t		v_ray_1d_length;
+	vector_t		v_map_check;
+	vector_t		v_step;
+	ray_t			*ray;
+
+	v_map_check.x = (int)cub3d->player.pos.x;
+	v_map_check.y = (int)cub3d->player.pos.y;
+	v_ray_step_size = init_step_size(to_radians(dir_to_enemy));
+	v_step = init_v_step(dir_to_enemy);
+	v_ray_1d_length = init_ray_1D_length(cub3d->player.pos, dir_to_enemy, v_map_check, v_ray_step_size);
+	ray = init_ray_dir(dir_to_enemy);
+	if (!ray)
+		return (0);
+	while (ray->length < max_dist)
+	{
+		if (wall_or_door_found(cub3d, v_map_check))
+			return (free(ray), 0);
+		adjust(&v_map_check, ray, v_step, &v_ray_1d_length);
+		adjust_no_flag(&v_ray_1d_length, v_ray_step_size);
+	}
+	free(ray);
+	return (1);
 }

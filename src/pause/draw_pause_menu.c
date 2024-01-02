@@ -42,7 +42,7 @@ void draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	menu->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width, cub3d->mlx->height);
 	if (!menu->img)
 		err("Failed to create pause menu image");
-		
+
 	draw_pause_menu_background(cub3d, menu);
 	draw_rectangle(menu->img, &menu->rect_title);
 	draw_checkbox(cub3d, &menu->box_fps[0]);
@@ -53,9 +53,7 @@ void draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	draw_checkbox(cub3d, &menu->box_fisheye[1]);
 	draw_checkbox(cub3d, &menu->box_mouse[0]);
 	draw_checkbox(cub3d, &menu->box_mouse[1]);
-	
 	mlx_image_to_window(cub3d->mlx, cub3d->pause_menu.img, 0, 0);
-	
 	add_title_text(cub3d, menu);
 	add_category_text(cub3d, menu);
 	add_checkbox_text(cub3d, menu);

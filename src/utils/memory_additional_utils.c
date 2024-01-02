@@ -61,7 +61,6 @@ void	free_level(cub3d_t *cub3d)
 	int	i;
 
 	i = 0;
-	printf("FREEING LEVEL\n");
 	while (i < NUM_DOORS_MAX)
 	{
 		free_key_groups(cub3d, i);

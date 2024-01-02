@@ -22,11 +22,6 @@ static int	init_images(mlx_t *mlx, start_menu_t *menu)
 	menu->title.img = mlx_texture_to_image(mlx, menu->title.texture);
 	if (!menu->title.img)
 		return (err("Failed to create start menu title image"));
-	mlx_put_pixel(menu->title.img, 0, 0, 0xFF0000FF);
-	mlx_put_pixel(menu->title.img, 1, 0, 0xFF0000FF);
-	mlx_put_pixel(menu->title.img, 0, 1, 0xFF0000FF);
-	mlx_put_pixel(menu->title.img, 1, 1, 0xFF0000FF);
-	printf("created start menu title image\n");
 	menu->exit.img = mlx_texture_to_image(mlx, menu->exit.texture);
 	if (!menu->exit.img)
 		return (err("Failed to create start menu exit image"));

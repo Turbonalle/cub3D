@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/02 11:58:42 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/02 12:50:05 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ dvector_t	shorten_vector(dvector_t pos, dvector_t target)
 
 static void	update_end(cub3d_t *cub3d, ray_t *ray, int i)
 {
-	dvector_t		vRayDir;
+	dvector_t		v_ray_dir;
 
-	vRayDir.x = cos((cub3d->enemy[i].angle));
-	vRayDir.y = sin((cub3d->enemy[i].angle));
-	ray->end.x = cub3d->enemy[i].pos.x + vRayDir.x * ray->length;
-	ray->end.y = cub3d->enemy[i].pos.y + vRayDir.y * ray->length;
+	v_ray_dir.x = cos((cub3d->enemy[i].angle));
+	v_ray_dir.y = sin((cub3d->enemy[i].angle));
+	ray->end.x = cub3d->enemy[i].pos.x + v_ray_dir.x * ray->length;
+	ray->end.y = cub3d->enemy[i].pos.y + v_ray_dir.y * ray->length;
 }
 
 static void	update_and_free(cub3d_t *cub3d, ray_t *ray, int i)
@@ -63,26 +63,26 @@ static void	update_and_free(cub3d_t *cub3d, ray_t *ray, int i)
 
 int	enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i, double max_dist)
 {
-	dvector_t		vRayUnitStepSize;
-	dvector_t		vRayLength1D;
-	vector_t		vMapCheck;
-	vector_t		vStep;
+	dvector_t		v_ray_step_size;
+	dvector_t		v_ray_1d_length;
+	vector_t		v_map_check;
+	vector_t		v_step;
 	ray_t			*ray;
 
-	vMapCheck.x = (int)enemy[i].pos.x;
-	vMapCheck.y = (int)enemy[i].pos.y;
-	vRayUnitStepSize = init_step_size(enemy[i].angle);
-	vStep = init_v_step(enemy[i].angle * 180 / M_PI);
-	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos,
-			enemy[i].angle * 180 / M_PI, vMapCheck, vRayUnitStepSize);
+	v_map_check.x = (int)enemy[i].pos.x;
+	v_map_check.y = (int)enemy[i].pos.y;
+	v_ray_step_size = init_step_size(enemy[i].angle);
+	v_step = init_v_step(enemy[i].angle * 180 / M_PI);
+	v_ray_1d_length = init_ray_1D_length(cub3d->enemy[i].pos,
+			enemy[i].angle * 180 / M_PI, v_map_check, v_ray_step_size);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);
 	while (ray->length < max_dist)
 	{
-		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
-		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
-		if (wall_or_door_found(cub3d, vMapCheck) && ray->length < max_dist)
+		adjust(&v_map_check, ray, v_step, &v_ray_1d_length);
+		adjust_no_flag(&v_ray_1d_length, v_ray_step_size);
+		if (wall_or_door_found(cub3d, v_map_check) && ray->length < max_dist)
 			return (update_and_free(cub3d, ray, i), 0);
 	}
 	free(ray);

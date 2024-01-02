@@ -80,26 +80,26 @@ void	enemy_vision(cub3d_t *cub3d)
 
 int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 {
-	dvector_t		vRayUnitStepSize;
-	dvector_t		vRayLength1D;
-	vector_t		vMapCheck;
-	vector_t		vStep;
+	dvector_t		v_ray_step_size;
+	dvector_t		v_ray_1d_length;
+	vector_t		v_map_check;
+	vector_t		v_step;
 	ray_t			*ray;
 
-	vMapCheck.x = (int)enemy[i].pos.x;
-	vMapCheck.y = (int)enemy[i].pos.y;
-	vRayUnitStepSize = init_step_size(to_radians(enemy[i].dir_player));
-	vStep = init_v_step(enemy[i].dir_player);
-	vRayLength1D = init_ray_1D_length(cub3d->enemy[i].pos, enemy[i].dir_player, vMapCheck, vRayUnitStepSize);
+	v_map_check.x = (int)enemy[i].pos.x;
+	v_map_check.y = (int)enemy[i].pos.y;
+	v_ray_step_size = init_step_size(to_radians(enemy[i].dir_player));
+	v_step = init_v_step(enemy[i].dir_player);
+	v_ray_1d_length = init_ray_1D_length(cub3d->enemy[i].pos, enemy[i].dir_player, v_map_check, v_ray_step_size);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);
 	while (not_at_end(ray, player, enemy, i))
 	{
-		if (wall_or_door_found(cub3d, vMapCheck))
+		if (wall_or_door_found(cub3d, v_map_check))
 			return (free(ray), 0);
-		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
-		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
+		adjust(&v_map_check, ray, v_step, &v_ray_1d_length);
+		adjust_no_flag(&v_ray_1d_length, v_ray_step_size);
 	}
 	enemy[i].angle = to_radians(ray->angle);
 	enemy[i].target = cub3d->player.pos;

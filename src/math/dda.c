@@ -14,25 +14,25 @@ int all_keys_found(cub3d_t *cub3d, int i)
 	return (1);
 }
 
-static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t vMapCheck, int dist)
+static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dist)
 {
-	if	(vMapCheck.x >= 0
-			&& vMapCheck.x < cub3d->level->map_columns
-			&& vMapCheck.y >= 0
-			&& vMapCheck.y < cub3d->level->map_rows
-			&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL
-			|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'G'))
+	if	(v_map_check.x >= 0
+			&& v_map_check.x < cub3d->level->map_columns
+			&& v_map_check.y >= 0
+			&& v_map_check.y < cub3d->level->map_rows
+			&& (cub3d->level->map[v_map_check.y][v_map_check.x] == WALL
+			|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'G'))
 		return (1);
-	if (vMapCheck.x >= 0 && vMapCheck.x < cub3d->level->map_columns && vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->level->map_rows
-		&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'))
+	if (v_map_check.x >= 0 && v_map_check.x < cub3d->level->map_columns && v_map_check.y >= 0
+		&& v_map_check.y < cub3d->level->map_rows
+		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == 'A'
+		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'B'
+		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'C'
+		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'))
 	{
 		if (dist > 3)
 			return (1);
-		if (check_if_door_open(cub3d, vMapCheck.x, vMapCheck.y))
+		if (check_if_door_open(cub3d, v_map_check.x, v_map_check.y))
 			return (0);
 		else
 			return (1);
@@ -42,11 +42,11 @@ static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t vMapCheck, int dist)
 
  //-----------------------------------------------------------------------------
 
-static void update_end(cub3d_t *cub3d, dvector_t *vRayDir, dvector_t end, double *dist, int *end_found)
+static void update_end(cub3d_t *cub3d, dvector_t *v_ray_dir, dvector_t end, double *dist, int *end_found)
 {
 	(void)end;
-	end.x = cub3d->minimap.player_pos.x + (*vRayDir).x * *dist * cub3d->minimap.tile_size;
-	end.y = cub3d->minimap.player_pos.y + (*vRayDir).y * *dist * cub3d->minimap.tile_size;
+	end.x = cub3d->minimap.player_pos.x + (*v_ray_dir).x * *dist * cub3d->minimap.tile_size;
+	end.y = cub3d->minimap.player_pos.y + (*v_ray_dir).y * *dist * cub3d->minimap.tile_size;
 	*end_found = TRUE;
 }
 
@@ -55,47 +55,47 @@ static void update_end(cub3d_t *cub3d, dvector_t *vRayDir, dvector_t end, double
 int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end)
 {
 	dvector_t vRayStartingCell;
-	dvector_t vRayUnitStepSize;
-	dvector_t vRayLength1D;
-	dvector_t vRayDir;
-	vector_t vMapCheck;
-	vector_t vStep;
+	dvector_t v_ray_step_size;
+	dvector_t v_ray_1d_length;
+	dvector_t v_ray_dir;
+	vector_t v_map_check;
+	vector_t v_step;
 	int end_found = FALSE;
 
-	vRayDir.x = cos(radians);
-	vRayDir.y = sin(radians);
+	v_ray_dir.x = cos(radians);
+	v_ray_dir.y = sin(radians);
 
 	vRayStartingCell.x = player.pos.x;
 	vRayStartingCell.y = player.pos.y;
-	vRayUnitStepSize = init_step_size(radians);
+	v_ray_step_size = init_step_size(radians);
 
-	vMapCheck.x = (int)vRayStartingCell.x;
-	vMapCheck.y = (int)vRayStartingCell.y;
+	v_map_check.x = (int)vRayStartingCell.x;
+	v_map_check.y = (int)vRayStartingCell.y;
 
-	vStep = init_v_step(radians * 180 / M_PI);
-	vRayLength1D = init_ray_1D_length(vRayStartingCell, radians * 180 / M_PI, vMapCheck, vRayUnitStepSize);
+	v_step = init_v_step(radians * 180 / M_PI);
+	v_ray_1d_length = init_ray_1D_length(vRayStartingCell, radians * 180 / M_PI, v_map_check, v_ray_step_size);
 
 	double dist = 0;
 	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
 	int wall_flag = 0;
 	while (!end_found && dist < max_dist)
 	{
-		if (vRayLength1D.x < vRayLength1D.y)
+		if (v_ray_1d_length.x < v_ray_1d_length.y)
 		{
-			vMapCheck.x += vStep.x;
-			dist = vRayLength1D.x;
-			vRayLength1D.x += vRayUnitStepSize.x;
+			v_map_check.x += v_step.x;
+			dist = v_ray_1d_length.x;
+			v_ray_1d_length.x += v_ray_step_size.x;
 			wall_flag = 1;
 		}
 		else
 		{
-			vMapCheck.y += vStep.y;
-			dist = vRayLength1D.y;
-			vRayLength1D.y += vRayUnitStepSize.y;
+			v_map_check.y += v_step.y;
+			dist = v_ray_1d_length.y;
+			v_ray_1d_length.y += v_ray_step_size.y;
 			wall_flag = 0;
 		}
-		if (wall_or_door_found_dist(cub3d, vMapCheck, dist))
-			update_end(cub3d, &vRayDir, end, &dist, &end_found);
+		if (wall_or_door_found_dist(cub3d, v_map_check, dist))
+			update_end(cub3d, &v_ray_dir, end, &dist, &end_found);
 	}
 	if (wall_flag == 1 )
 		return (WE);
@@ -109,14 +109,14 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 
 dvector_t init_step_size(double angle)
 {
-	dvector_t	vRayUnitStepSize;
-	dvector_t	vRayDir;
+	dvector_t	v_ray_step_size;
+	dvector_t	v_ray_dir;
 
-	vRayDir.x = cos(angle);
-	vRayDir.y = sin(angle);
-	vRayUnitStepSize.x = sqrt(1 + (vRayDir.y / vRayDir.x) * (vRayDir.y
-				/ vRayDir.x));
-	vRayUnitStepSize.y = sqrt(1 + (vRayDir.x / vRayDir.y) * (vRayDir.x
-				/ vRayDir.y));
-	return (vRayUnitStepSize);
+	v_ray_dir.x = cos(angle);
+	v_ray_dir.y = sin(angle);
+	v_ray_step_size.x = sqrt(1 + (v_ray_dir.y / v_ray_dir.x) * (v_ray_dir.y
+				/ v_ray_dir.x));
+	v_ray_step_size.y = sqrt(1 + (v_ray_dir.x / v_ray_dir.y) * (v_ray_dir.x
+				/ v_ray_dir.y));
+	return (v_ray_step_size);
 }

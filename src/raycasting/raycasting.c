@@ -3,68 +3,68 @@
 
 static void	update_end(cub3d_t *cub3d, double dir, ray_t *ray)
 {
-	dvector_t	vRayDir;
+	dvector_t	v_ray_dir;
 
-	vRayDir.x = cos(dir);
-	vRayDir.y = sin(dir);
-	ray->end.x = cub3d->player.pos.x + vRayDir.x * ray->length;
-	ray->end.y = cub3d->player.pos.y + vRayDir.y * ray->length;
+	v_ray_dir.x = cos(dir);
+	v_ray_dir.y = sin(dir);
+	ray->end.x = cub3d->player.pos.x + v_ray_dir.x * ray->length;
+	ray->end.y = cub3d->player.pos.y + v_ray_dir.y * ray->length;
 }
 
-void	adjust(vector_t *vMapCheck, ray_t *ray, vector_t vStep, dvector_t *vRayLength1D)
+void	adjust(vector_t *v_map_check, ray_t *ray, vector_t v_step, dvector_t *v_ray_1d_length)
 {
-	if (vRayLength1D->x < vRayLength1D->y)
+	if (v_ray_1d_length->x < v_ray_1d_length->y)
 	{
-		vMapCheck->x += vStep.x;
-		ray->length = vRayLength1D->x;
+		v_map_check->x += v_step.x;
+		ray->length = v_ray_1d_length->x;
 	}
 	else
 	{
-		vMapCheck->y += vStep.y;
-		ray->length = vRayLength1D->y;
+		v_map_check->y += v_step.y;
+		ray->length = v_ray_1d_length->y;
 	}
 }
 
-void	adjust_wall_flag(dvector_t *vRayLength1D, dvector_t vRayUnitStepSize, int *wall_flag)
+void	adjust_wall_flag(dvector_t *v_ray_1d_length, dvector_t v_ray_step_size, int *wall_flag)
 {
-	if (vRayLength1D->x < vRayLength1D->y)
+	if (v_ray_1d_length->x < v_ray_1d_length->y)
 	{
-		vRayLength1D->x += vRayUnitStepSize.x;
+		v_ray_1d_length->x += v_ray_step_size.x;
 		*wall_flag = X;
 	}
 	else
 	{
-		vRayLength1D->y += vRayUnitStepSize.y;
+		v_ray_1d_length->y += v_ray_step_size.y;
 		*wall_flag = Y;
 	}
 }
 
-void	adjust_no_flag(dvector_t *vRayLength1D, dvector_t vRayUnitStepSize)
+void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t v_ray_step_size)
 {
-	if (vRayLength1D->x < vRayLength1D->y)
-		vRayLength1D->x += vRayUnitStepSize.x;
+	if (v_ray_1d_length->x < v_ray_1d_length->y)
+		v_ray_1d_length->x += v_ray_step_size.x;
 	else
-		vRayLength1D->y += vRayUnitStepSize.y;
+		v_ray_1d_length->y += v_ray_step_size.y;
 }
 
 ray_t *cast_ray(cub3d_t *cub3d, ray_t *ray)
 {
-	dvector_t	vRayUnitStepSize;
-	dvector_t	vRayLength1D;
-	vector_t	vMapCheck;
-	vector_t	vStep;
+	dvector_t	v_ray_step_size;
+	dvector_t	v_ray_1d_length;
+	vector_t	v_map_check;
+	vector_t	v_step;
 
-	vRayUnitStepSize = init_step_size(cub3d->player.angle);
-	vMapCheck.x = (int)cub3d->player.pos.x;
-	vMapCheck.y = (int)cub3d->player.pos.y;
-	vStep = init_v_step(ray->angle * 180 / M_PI);
-	vRayLength1D = init_ray_1D_length(cub3d->player.pos,
-			cub3d->player.angle * 180 / M_PI, vMapCheck, vRayUnitStepSize);
+	v_ray_step_size = init_step_size(cub3d->player.angle);
+	v_map_check.x = (int)cub3d->player.pos.x;
+	v_map_check.y = (int)cub3d->player.pos.y;
+	v_step = init_v_step(ray->angle * 180 / M_PI);
+	v_ray_1d_length = init_ray_1D_length(cub3d->player.pos,
+			cub3d->player.angle * 180 / M_PI, v_map_check, v_ray_step_size);
 	while (ray->length < DISTRACTION_THROW_DISTANCE)
 	{
-		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
-		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
-		if (obstacle_found(cub3d, vMapCheck, ray, cub3d->player.angle))
+		adjust(&v_map_check, ray, v_step, &v_ray_1d_length);
+		adjust_no_flag(&v_ray_1d_length, v_ray_step_size);
+		if (obstacle_found(cub3d, v_map_check, ray, cub3d->player.angle))
 			break ;
 	}
 	update_end(cub3d, cub3d->player.angle, ray);

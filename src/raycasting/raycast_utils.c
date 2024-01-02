@@ -1,22 +1,22 @@
 
 #include "../incl/cub3d.h"
 
-dvector_t init_ray_1D_length(dvector_t start_pos, double dir, vector_t vMapCheck, dvector_t vRayUnitStepSize)
+dvector_t init_ray_1D_length(dvector_t start_pos, double dir, vector_t v_map_check, dvector_t v_ray_step_size)
 {
-	dvector_t		vRayLength1D;
-	dvector_t		vRayDir;
+	dvector_t		v_ray_1d_length;
+	dvector_t		v_ray_dir;
 
-	vRayDir.x = cos(to_radians(dir));
-	vRayDir.y = sin(to_radians(dir));
-	if (vRayDir.x < 0)
-		vRayLength1D.x = (start_pos.x - vMapCheck.x) * vRayUnitStepSize.x;
+	v_ray_dir.x = cos(to_radians(dir));
+	v_ray_dir.y = sin(to_radians(dir));
+	if (v_ray_dir.x < 0)
+		v_ray_1d_length.x = (start_pos.x - v_map_check.x) * v_ray_step_size.x;
 	else
-		vRayLength1D.x = (vMapCheck.x + 1.0 - start_pos.x) * vRayUnitStepSize.x;
-	if (vRayDir.y < 0)
-		vRayLength1D.y = (start_pos.y - vMapCheck.y) * vRayUnitStepSize.y;
+		v_ray_1d_length.x = (v_map_check.x + 1.0 - start_pos.x) * v_ray_step_size.x;
+	if (v_ray_dir.y < 0)
+		v_ray_1d_length.y = (start_pos.y - v_map_check.y) * v_ray_step_size.y;
 	else
-		vRayLength1D.y = (vMapCheck.y + 1.0 - start_pos.y) * vRayUnitStepSize.y;
-	return (vRayLength1D);
+		v_ray_1d_length.y = (v_map_check.y + 1.0 - start_pos.y) * v_ray_step_size.y;
+	return (v_ray_1d_length);
 }
 
 void	raycasting(cub3d_t *cub3d)
@@ -71,22 +71,22 @@ void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 
 int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
 {
-	dvector_t	vRayUnitStepSize;
-	dvector_t	vRayLength1D;
-	vector_t	vMapCheck;
-	vector_t	vStep;
+	dvector_t	v_ray_step_size;
+	dvector_t	v_ray_1d_length;
+	vector_t	v_map_check;
+	vector_t	v_step;
 	int			wall_flag;
 
-	vRayUnitStepSize = init_step_size(ray->angle);
-	vMapCheck.x = (int)player->pos.x;
-	vMapCheck.y = (int)player->pos.y;
-	vStep = init_v_step(ray->angle * 180 / M_PI);
-	vRayLength1D = init_ray_1D_length(cub3d->player.pos, ray->angle * 180 / M_PI, vMapCheck, vRayUnitStepSize);
+	v_ray_step_size = init_step_size(ray->angle);
+	v_map_check.x = (int)player->pos.x;
+	v_map_check.y = (int)player->pos.y;
+	v_step = init_v_step(ray->angle * 180 / M_PI);
+	v_ray_1d_length = init_ray_1D_length(cub3d->player.pos, ray->angle * 180 / M_PI, v_map_check, v_ray_step_size);
 	while (ray->length < max_dist)
 	{
-		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
-		adjust_wall_flag(&vRayLength1D, vRayUnitStepSize, &wall_flag);
-		if (obstacle_found(cub3d, vMapCheck, ray, ray->angle))
+		adjust(&v_map_check, ray, v_step, &v_ray_1d_length);
+		adjust_wall_flag(&v_ray_1d_length, v_ray_step_size, &wall_flag);
+		if (obstacle_found(cub3d, v_map_check, ray, ray->angle))
 			break ;
 	}
 	if (ray->target == WALL)

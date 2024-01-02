@@ -2,9 +2,9 @@
 
 //------------------------------------------------------------------------------
 
-void update_settings(cub3d_t *cub3d, pause_menu_t *menu)
+void	update_settings(cub3d_t *cub3d, pause_menu_t *menu)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)
@@ -29,9 +29,9 @@ void update_settings(cub3d_t *cub3d, pause_menu_t *menu)
 	}
 }
 
-void update_fps_boxes(pause_menu_t *menu, int n)
+void	update_fps_boxes(pause_menu_t *menu, int n)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)
@@ -43,9 +43,9 @@ void update_fps_boxes(pause_menu_t *menu, int n)
 	}
 }
 
-void update_fisheye_boxes(pause_menu_t *menu, int n)
+void	update_fisheye_boxes(pause_menu_t *menu, int n)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 2)
@@ -57,9 +57,9 @@ void update_fisheye_boxes(pause_menu_t *menu, int n)
 	}
 }
 
-void update_mouse_boxes(pause_menu_t *menu, int n)
+void	update_mouse_boxes(pause_menu_t *menu, int n)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 2)
@@ -71,9 +71,9 @@ void update_mouse_boxes(pause_menu_t *menu, int n)
 	}
 }
 
-void update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
+void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)
@@ -92,27 +92,21 @@ void update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
 		{
 			if (menu->box_fisheye[i].state == FALSE)
 				update_fisheye_boxes(menu, i);
-			break ;
 		}
-	}
-	i = -1;
-	while (++i < 2)
-	{
 		if (hover_box(cub3d, &menu->box_mouse[i]))
 		{
 			if (menu->box_mouse[i].state == FALSE)
 				update_mouse_boxes(menu, i);
-			break ;
 		}
 	}
 	update_settings(cub3d, menu);
 	// print_settings(cub3d);
 }
 
-void update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	// Here we update the settings if the user has changed them
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)

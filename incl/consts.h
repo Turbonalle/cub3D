@@ -24,6 +24,7 @@
 
 # define MOVEMENT_SPEED 6
 # define ROTATION_SPEED 2
+# define MOUSE_SENSITIVITY 0.004
 
 # define ENEMY_SPEED 0.03
 # define ENEMY_ROT_SPEED 1

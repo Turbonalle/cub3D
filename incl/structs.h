@@ -613,6 +613,7 @@ typedef struct level_s
 	int				num_distractions;
 	dvector_t		distraction;
 	double			distraction_amount;
+	dvector_t		*enemy_pos;
 	record_t		*records;
 	mlx_image_t		*heart_img;
 	mlx_image_t		*heart_half_img;

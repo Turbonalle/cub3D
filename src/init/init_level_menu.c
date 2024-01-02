@@ -103,7 +103,7 @@ static void	draw_border_image(minilevel_t *minilevel)
 static void load_png(level_menu_t *menu)
 {
 	const char	*number_png[LEVELS] = NUMBER_PNGS;		// Allowed or not?
-	int	i;
+	int			i;
 
 	menu->title.texture = mlx_load_png(LEVEL_TITLE_PNG);
 	menu->back.texture = mlx_load_png(BACK_PNG);
@@ -178,12 +178,10 @@ static void	set_positions(level_menu_t *menu)
 		gap = MINILEVEL_BORDER_THICKNESS;
 	margin_x = (menu->img->width - (columns * size + (columns - 1) * gap)) / 2;
 	number_square_size = size * 0.15;
-
 	menu->back.pos.x = margin_x;
 	menu->back.pos.y = menu->img->height * 0.12;
 	menu->leaderboard.pos.x = menu->img->width - margin_x - menu->leaderboard.img->width;
 	menu->leaderboard.pos.y = menu->img->height * 0.12;
-	
 	i = -1;
 	while (++i < LEVELS)
 	{

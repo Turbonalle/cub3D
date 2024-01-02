@@ -10,7 +10,8 @@ static int	init_dist(cub3d_t *cub3d, int i, int j, int distr_index)
 	cub3d->level->distractions[distr_index].pos_screen.y = -HEIGHT;
 	cub3d->level->distractions[distr_index].dist_to_player = 100;
 	cub3d->level->distractions[distr_index].img_distraction = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-	//TODO: handle errors
+	if (!cub3d->level->distractions[distr_index].img_distraction)
+		return (-1);
 	mlx_image_to_window(cub3d->mlx, cub3d->level->distractions[distr_index].img_distraction, 0, 0);
 	return (distr_index + 1);
 }
@@ -36,6 +37,8 @@ int	init_distractions(cub3d_t *cub3d)
 			if (cub3d->level->map[i][j] == 'm')
 			{
 				distr_index = init_dist(cub3d, i, j, distr_index);
+				if (distr_index == -1)
+					return (FAIL);
 			}
 			j++;
 		}

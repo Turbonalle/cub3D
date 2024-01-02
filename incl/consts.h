@@ -1,6 +1,8 @@
 #ifndef CONSTS_H
 # define CONSTS_H
 
+#define NUM_PIXELS 2000
+
 # define FAIL 0
 # define SUCCESS 1
 # define FALSE 0

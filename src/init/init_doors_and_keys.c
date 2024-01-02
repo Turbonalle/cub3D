@@ -161,7 +161,9 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 			temp->pos_screen.y = -HEIGHT;
 			temp->visible = FALSE;
 			temp->dist_to_player = 100;
+			
 			temp->img_curr_frame = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+			printf("created %d key img_curr_frame image, pointer: %p\n", count, temp->img_curr_frame);
 			mlx_image_to_window(cub3d->mlx, temp->img_curr_frame, 0, 0);
 			// TODO: handle errors
 			temp = temp->next;
@@ -182,9 +184,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 				) < 0))
 				err("Failed to create key count image");
 			active_key_groups++;
-
 			init_key_frames(&cub3d->level->key_groups[i]);
-			
 		}
 		i++;
 	}

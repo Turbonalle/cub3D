@@ -62,7 +62,7 @@ int		check_map_validity(char **map);
 //---- DRAWING -----------------------------------------------------------------
 
 void	draw_world(cub3d_t *cub3d);
-void	draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
+void	draw_vertical_line(cub3d_t *cub3d, mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);
 void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);

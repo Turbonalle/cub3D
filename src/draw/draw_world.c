@@ -82,9 +82,9 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
-			draw_vertical_line(cub3d->img, start, end, BLUE);
+			draw_vertical_line(cub3d, cub3d->img, start, end, BLUE);
 		}
 		else if (cub3d->rays[index].wall == SO)
 		{
@@ -98,9 +98,9 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
-			draw_vertical_line(cub3d->img, start, end, GREEN);
+			draw_vertical_line(cub3d, cub3d->img, start, end, GREEN);
 		}
 		else if (cub3d->rays[index].wall == NO)
 		{
@@ -114,45 +114,46 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
-			draw_vertical_line(cub3d->img, start, end, RED_LIGHT);
+			draw_vertical_line(cub3d, cub3d->img, start, end, RED_LIGHT);
 		}
 		else if (cub3d->rays[index].wall == 'B')
 		{
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
-			draw_vertical_line(cub3d->img, start, end, GREEN);
+			draw_vertical_line(cub3d, cub3d->img, start, end, GREEN);
 		}
 		else if (cub3d->rays[index].wall == 'C')
 		{
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
-			draw_vertical_line(cub3d->img, start, end, YELLOW_PALE);
+			draw_vertical_line(cub3d, cub3d->img, start, end, YELLOW_PALE);
 		}
 		else if (cub3d->rays[index].wall == 'D')
 		{
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
-			draw_vertical_line(cub3d->img, start, end, TURQUOISE);
+			draw_vertical_line(cub3d, cub3d->img, start, end, TURQUOISE);
 		}
 		else if (cub3d->rays[index].wall == 'G')
 		{
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
-			draw_vertical_line(cub3d->img, start, end, WHITE);
+			draw_vertical_line(cub3d, cub3d->img, start, end, WHITE);
 		}
 	}
+	
 }

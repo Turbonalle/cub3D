@@ -89,12 +89,11 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 	end.y = end_d.y;
 	if (start.x < 0 || start.x >= (int)img->width || end.y < 0 || end.y >= (int)img->height)
 	{
-		// printf("draw_line FAIL!\n");
-		// printf("start.x: %d\n", start.x);
-		// printf("start.y: %d\n", start.y);
-		// printf("end.x: %d\n", end.x);
-		// printf("end.y: %d\n", end.y);
-		return;
+		printf("draw_line FAIL!\n");
+		printf("start.x: %d\n", start.x);
+		printf("start.y: %d\n", start.y);
+		printf("end.x: %d\n", end.x);
+		printf("end.y: %d\n", end.y);
 	}
 	if (abs(end.y - start.y) < abs(end.x - start.x))
 	{
@@ -112,15 +111,39 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 	}
 }
 
-void	draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end, int color)
+void	draw_vertical_line(cub3d_t *cub3d, mlx_image_t *img, dvector_t start, dvector_t end, int color)
 {
 	int	y;
+
+	int			before[NUM_PIXELS];
+	int i;
+	
+	i = 0;
+	while (i < NUM_PIXELS)
+	{
+		before[i] = cub3d->start_menu.title.img->pixels[i];
+		i++;
+	}
 
 	y = (int)start.y;
 	while (y <= end.y)
 	{
+		if (start.x < 0 || start.x >= (int)img->width || y < 0 || y >= (int)img->height)
+		{
+			printf("draw_vertical_line FAIL!\n");
+			printf("start.x: %d\n", (int)start.x);
+			printf("y: %d\n", y);
+		}
 		mlx_put_pixel(img, start.x, y, color);
 		y++;
+	}
+
+	i = 0;
+	while (i < NUM_PIXELS)
+	{
+		if (before[i] != cub3d->start_menu.title.img->pixels[i])
+			printf("draw_vertical_line: pixels[%d] changed from %d to %d!\n", i, before[i], cub3d->start_menu.title.img->pixels[i]);
+		i++;
 	}
 }
 
@@ -145,6 +168,13 @@ static uint32_t	get_pixel_color(texture_t texture, vector_t src)
 	int			src_i;
 
 	src_i = src.y * texture.texture->width * 4 + src.x * 4;
+	if (src_i < 0 || src_i >= (int)texture.texture->width * (int)texture.texture->height * 4)
+	{
+		printf("get_pixel_color OUT OF BOUNDS\n");
+		printf("src_i: %d\n", src_i);
+		printf("src.x: %d\n", src.x);
+		printf("src.y: %d\n", src.y);
+	}
 	color = texture.texture->pixels[src_i];
 	color = color << 8;
 	color += texture.texture->pixels[src_i + 1];
@@ -163,9 +193,19 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ra
 	double		wall_height;
 	double		src_start;
 
+	int			before[NUM_PIXELS];
+	int i;
+	
+	i = 0;
+	while (i < NUM_PIXELS)
+	{
+		before[i] = cub3d->start_menu.title.img->pixels[i];
+		i++;
+	}
+
 	texture = find_texture(cub3d, ray);
 	y = 0;
-	while (y <= (int)cub3d->img->height)
+	while (y < (int)cub3d->img->height)
 	{
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
 		if (ray.wall == NO)
@@ -175,8 +215,22 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ra
 		src.y = src_start + (y * texture.texture->height / wall_height);
 		if (src.y > (int)texture.texture->height - 1)
 			src.y = (int)texture.texture->height - 1;
-		mlx_put_pixel(cub3d->img, start.x, y, get_pixel_color(texture, src));
+		if (start.x < 0 || start.x >= WIDTH || y < 0 || y >= HEIGHT)
+		{
+			printf("draw_textured_line_close OUT OF BOUNDS\n");
+			printf("start.x: %d\n", (int)start.x);
+			printf("y: %d\n", y);
+		}
+		mlx_put_pixel(cub3d->img, (int)start.x, y, get_pixel_color(texture, src));
 		y++;
+	}
+
+	i = 0;
+	while (i < NUM_PIXELS)
+	{
+		if (before[i] != cub3d->start_menu.title.img->pixels[i])
+			printf("draw_textured_line_close: pixels[%d] changed from %d to %d!\n", i, before[i], cub3d->start_menu.title.img->pixels[i]);
+		i++;
 	}
 }
 
@@ -186,21 +240,44 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 	uint32_t	color;
 	vector_t	src;
 	int			y;
-	int			y_count;
+
+	int			before[NUM_PIXELS];
+	int i;
+	
+	i = 0;
+	while (i < NUM_PIXELS)
+	{
+		before[i] = cub3d->start_menu.title.img->pixels[i];
+		i++;
+	}
 
 	texture = find_texture(cub3d, ray);
-	y_count = round(end.y) - round(start.y);
-	y = 0;
-	while (y <= y_count)
+	y = round(start.y);
+	while (y < end.y)
 	{
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
 		if (ray.wall == NO)
 			src.x = texture.texture->width - src.x - 1;
-		src.y = y * texture.texture->height / (end.y - start.y);
+		src.y = (y - round(start.y)) * texture.texture->height / (end.y - start.y);
 		if (src.y > (int)texture.texture->height - 1)
 			src.y = (int)texture.texture->height - 1;
 		color = get_pixel_color(texture, src);
-		mlx_put_pixel(cub3d->img, start.x, (int)start.y + y, color);
+			//printf("color: %d\n", color);
+		if (round(start.x) < 0 || round(start.x) >= WIDTH || y < 0 || y >= HEIGHT)
+		{
+			printf("draw_textured_line_close OUT OF BOUNDS\n");
+			printf("x: %f\n", round(start.x));
+			printf("y: %d\n", y);
+		}
+		mlx_put_pixel(cub3d->img, round(start.x), y, color);
 		y++;
+	}
+
+	i = 0;
+	while (i < NUM_PIXELS)
+	{
+		if (before[i] != cub3d->start_menu.title.img->pixels[i])
+			printf("draw_textured_line: pixels[%d] changed from %d to %d!\n", i, before[i], cub3d->start_menu.title.img->pixels[i]);
+		i++;
 	}
 }

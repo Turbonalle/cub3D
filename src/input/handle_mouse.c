@@ -95,7 +95,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		}
 		else if (cub3d->state == STATE_LEADERBOARD)
 		{
-			if (hover_button(cub3d, &cub3d->leaderboard.button_back))
+			if (hover_image(cub3d, cub3d->leaderboard.back.img))
 			{
 				disable_leaderboard(cub3d, &cub3d->leaderboard);
 				enable_level_menu(&cub3d->level_menu);

@@ -2,8 +2,8 @@
 
 static void	delete_textures_additional(cub3d_t *cub3d)
 {
-	free(cub3d->leaderboard.rect_level);
-	free(cub3d->leaderboard.text_level);
+	// free(cub3d->leaderboard.rect_level);
+	// free(cub3d->leaderboard.text_level);
 	mlx_delete_texture(cub3d->start_menu.title.texture);
 	mlx_delete_texture(cub3d->start_menu.exit.texture);
 	mlx_delete_texture(cub3d->start_menu.start.texture);

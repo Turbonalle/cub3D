@@ -407,21 +407,32 @@ typedef struct level_menu_s
 
 //---- LEADERBOARD -------------------------------------------------------------
 
+# define LEADERBOARD_TITLE_PNG "./assets/textures/menu/leaderboard_title.png"
 # define N_ENTRIES 3
+
+// typedef struct leaderboard_s
+// {
+// 	mlx_image_t	*img;
+// 	int			background_color;
+// 	int			n_entries;
+// 	rectangle_t	rect_title;
+// 	mlx_image_t	*text_title;
+// 	mlx_image_t	*text_back;
+// 	button_t	button_back;
+// 	rectangle_t	*rect_level;
+// 	mlx_image_t	**text_level;
+// }				leaderboard_t;
 
 typedef struct leaderboard_s
 {
 	mlx_image_t	*img;
-	int			background_color;
+	png_t		title;
+	png_t		back;
+	png_t		back_hover;
 	int			n_entries;
-	rectangle_t	rect_title;
-	mlx_image_t	*text_title;
-	mlx_image_t	*text_back;
-	button_t	button_back;
-	rectangle_t	*rect_level;
-	mlx_image_t	**text_level;
+	rectangle_t	rect_level[LEVELS];
+	mlx_image_t	*text_level[LEVELS];
 }				leaderboard_t;
-
 
 typedef struct settings_menu_s
 {

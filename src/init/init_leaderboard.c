@@ -56,77 +56,95 @@ void	set_record_texts(cub3d_t *cub3d, leaderboard_t *board)
 	}
 }
 
+static void	load_png(leaderboard_t *board)
+{
+	board->title.texture = mlx_load_png(LEADERBOARD_TITLE_PNG);
+	board->back.texture = mlx_load_png(BACK_PNG);
+	board->back_hover.texture = mlx_load_png(BACK_HOVER_PNG);
+}
+
+static int	init_images(mlx_t *mlx, leaderboard_t *board)
+{
+	board->img = mlx_new_image(mlx, mlx->width, mlx->height);
+	if (!board->img)
+		return (err("Failed to create leaderboard image"));
+	board->title.img = mlx_texture_to_image(mlx, board->title.texture);
+	if (!board->title.img)
+		return (err("Failed to create leaderboard title image"));
+	board->back.img = mlx_texture_to_image(mlx, board->back.texture);
+	if (!board->back.img)
+		return (err("Failed to create leaderboard back image"));
+	board->back_hover.img = mlx_texture_to_image(mlx, board->back_hover.texture);
+	if (!board->back_hover.img)
+		return (err("Failed to create leaderboard back hover image"));
+	return (SUCCESS);
+}
+
+static void	set_positions(mlx_t *mlx, leaderboard_t *board)
+{
+	int i;
+	int size;
+	int gap;
+	int rows;
+	int columns;
+	int margin_x;
+
+	board->title.pos.x = (board->img->width - board->title.img->width) / 2;
+	board->title.pos.y = board->img->height * 0.12;
+	size = min(mlx->width * 0.15, mlx->height * 0.25);
+	rows = 2;
+	if (LEVELS % rows == 0)
+		columns = LEVELS / rows;
+	else
+		columns = LEVELS / rows + 1;
+	gap = min(board->img->width * 0.05, board->img->height * 0.05);
+	if (gap < MINILEVEL_BORDER_THICKNESS)
+		gap = MINILEVEL_BORDER_THICKNESS;
+	margin_x = (board->img->width - (columns * size + (columns - 1) * gap)) / 2;
+	board->back.pos.x = margin_x;
+	board->back.pos.y = board->img->height * 0.12;
+	board->back_hover.pos.x = margin_x;
+	board->back_hover.pos.y = board->img->height * 0.12;
+
+	i = -1;
+	while (++i < LEVELS)
+	{
+		board->rect_level[i].color = LEADERBOARD_LEVEL_BACKGROUND_COLOR;
+		board->rect_level[i].width = size;
+		board->rect_level[i].height = size;
+		board->rect_level[i].pos.x = margin_x + (i % columns) * (size + gap);
+		board->rect_level[i].pos.y = board->img->height * 0.32 + (i / columns) * (size + gap);
+	}
+}
+
+static int put_images_to_window(mlx_t *mlx, leaderboard_t *board)
+{
+	if (mlx_image_to_window(mlx, board->img, 0, 0) < 0)
+		return (err("Failed to put leaderboard image to window"));
+	if (mlx_image_to_window(mlx, board->title.img, board->title.pos.x, board->title.pos.y) < 0)
+		return (err("Failed to put leaderboard title image to window"));
+	if (mlx_image_to_window(mlx, board->back.img, board->back.pos.x, board->back.pos.y) < 0)
+		return (err("Failed to put leaderboard back image to window"));
+	if (mlx_image_to_window(mlx, board->back_hover.img, board->back_hover.pos.x, board->back_hover.pos.y) < 0)
+		return (err("Failed to put leaderboard back hover image to window"));
+	return (SUCCESS);
+}
+
 int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 {
 	int	i;
 
-	// allocate memory
-	board->rect_level = malloc(sizeof(rectangle_t) * cub3d->n_levels);
-	if (!board->rect_level)
-		return (err("Failed to allocate memory for leaderboard rectangles"));
-	board->text_level = malloc(sizeof(mlx_image_t *) * cub3d->n_levels);
-	if (!board->text_level)
-		err("Failed to allocate memory for leaderboard text");
-
-	// set other variables
-	board->background_color = BLACK;
-
-	// set title
-	board->rect_title.width = cub3d->mlx->width * 0.4;
-	board->rect_title.height = cub3d->mlx->height * 0.15;
-	board->rect_title.pos.x = (cub3d->mlx->width - board->rect_title.width) / 2;
-	board->rect_title.pos.y = cub3d->mlx->height * 0.05;
-	board->rect_title.color = GREEN;
-
-	int rows = 2;
-	int columns = (cub3d->n_levels % 2 == 0) ? cub3d->n_levels / rows : (cub3d->n_levels + 1) / rows;
-	int title_space = board->rect_title.pos.y + board->rect_title.height + cub3d->mlx->height * 0.02;
-	
-	int size = cub3d->level_menu.minilevels[0].img->width;
-	int gap = min(cub3d->mlx->width * 0.05, cub3d->mlx->height * 0.05);
-	if (gap < MINILEVEL_BORDER_THICKNESS)
-		gap = MINILEVEL_BORDER_THICKNESS;
-	int width_margin = (cub3d->mlx->width - (columns * size + (columns - 1) * gap)) / 2;
-	int height_margin = size * 0.32;
-
-	// set rectangles
-	i = -1;
-	while (++i < cub3d->n_levels)
-	{
-		board->rect_level[i].width = size;
-		board->rect_level[i].height = size;
-		board->rect_level[i].pos.x = width_margin + (i % columns) * (size + gap);
-		if (i < cub3d->n_levels / rows)
-			board->rect_level[i].pos.y = title_space + height_margin;
-		else
-			board->rect_level[i].pos.y = title_space + height_margin + size + gap;
-		board->rect_level[i].color = LEADERBOARD_LEVEL_BACKGROUND_COLOR;
-	}
-
-	// set back button
-	board->button_back.width = cub3d->mlx->height * 0.15;
-	board->button_back.height = cub3d->mlx->height * 0.15;
-	board->button_back.pos.x = cub3d->mlx->width * 0.1;
-	board->button_back.pos.y = cub3d->mlx->height * 0.05;
-	board->button_back.background_color = BUTTON_COLOR;
-	board->button_back.border_color = BUTTON_BORDER_COLOR;
-	board->button_back.border_width = BUTTON_BORDER_THICKNESS;
-
-	board->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width, cub3d->mlx->height);
-	if (!board->img)
-		err("Failed to create leaderboard image");
+	load_png(board);
+	if (!init_images(cub3d->mlx, board))
+		return (FAIL);
+	set_positions(cub3d->mlx, board);
 	draw_menu_background(board->img, MENU_BACKGROUND_COLOR);
-	draw_rectangle(board->img, &board->rect_title);
-	draw_button(board->img, &board->button_back);
-
+	draw_menu_border(board->img);
 	i = -1;
 	while (++i < cub3d->n_levels)
 		draw_rectangle(board->img, &board->rect_level[i]);
-
-	mlx_image_to_window(cub3d->mlx, board->img, 0, 0);
-	board->text_title = mlx_put_string(cub3d->mlx, "Leaderboard", board->rect_title.pos.x + board->rect_title.width * 0.5, board->rect_title.pos.y + board->rect_title.height * 0.5);
-	center(board->text_title);
-	
+	if (!put_images_to_window(cub3d->mlx, board))
+		return (FAIL);
 	set_record_texts(cub3d, board);
 	disable_leaderboard(cub3d, board);
 	return (SUCCESS);

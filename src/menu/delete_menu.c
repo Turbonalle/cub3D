@@ -36,8 +36,9 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 
 	i = 0;
 	mlx_delete_image(cub3d->mlx, board->img);
-	mlx_delete_image(cub3d->mlx, board->text_title);
-	mlx_delete_image(cub3d->mlx, board->text_back);
+	mlx_delete_image(cub3d->mlx, board->title.img);
+	mlx_delete_image(cub3d->mlx, board->back.img);
+	mlx_delete_image(cub3d->mlx, board->back_hover.img);
 	while (++i < cub3d->n_levels + 1)
 	{
 		ptr = cub3d->levels[i].records;

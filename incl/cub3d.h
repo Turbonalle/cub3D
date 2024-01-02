@@ -93,7 +93,7 @@ int		init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 
 // init_gameover_menu.c
-void	init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
+int		init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 
 int		init_textures(cub3d_t *cub3d);
 int		init_doors_and_keys(cub3d_t *cub3d);
@@ -138,7 +138,7 @@ void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 // gameover menu
 void	disable_gameover_menu(gameover_menu_t *menu);
-void	enable_gameover_menu(gameover_menu_t *menu);
+void	enable_gameover_menu(gameover_menu_t *menu, int win);
 void	update_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 
 //---- PAUSE MENU --------------------------------------------------------------

@@ -5,6 +5,8 @@
 # define SUCCESS 1
 # define FALSE 0
 # define TRUE 1
+# define WIN 1
+# define LOSE 0
 
 # define WIDTH 1280
 # define HEIGHT 720

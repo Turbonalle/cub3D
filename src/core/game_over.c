@@ -37,15 +37,10 @@ void	level_finished(cub3d_t *cub3d)
 		enable_name_menu(&cub3d->name_menu);
 		cub3d->state = STATE_ENTERNAME;
 	}
-	else if (cub3d->speedrun)
-	{
-		enable_level_menu(&cub3d->level_menu);
-		cub3d->state = STATE_LEVEL;
-	}
 	else
 	{
-		enable_start_menu(&cub3d->start_menu);
-		cub3d->state = STATE_START;
+		enable_gameover_menu(&cub3d->gameover_menu, WIN);
+		cub3d->state = STATE_GAMEOVER;
 	}
 	handle_cursor(cub3d);
 	cub3d->speedrun = FALSE;
@@ -57,7 +52,7 @@ void	game_over(cub3d_t *cub3d)
 		cub3d->level->distractions[cub3d->level->num_distractions]
 			.img_distraction->instances[0].enabled = FALSE;
 	clean_level_data(cub3d);
-	enable_gameover_menu(&cub3d->gameover_menu);
+	enable_gameover_menu(&cub3d->gameover_menu, LOSE);
 	cub3d->state = STATE_GAMEOVER;
 	handle_cursor(cub3d);
 }

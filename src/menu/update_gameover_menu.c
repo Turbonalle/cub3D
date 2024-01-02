@@ -2,14 +2,28 @@
 
 void	update_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
 {
-	if (hover_button(cub3d, &menu->button_exit))
-		menu->button_exit.background_color = BUTTON_HOVER_COLOR;
+	if (hover_image(cub3d, menu->back.img))
+	{
+		menu->back.img->instances[0].enabled = FALSE;
+		menu->back_hover.img->instances[0].enabled = TRUE;
+		menu->arrow_back.img->instances[0].enabled = TRUE;
+	}
 	else
-		menu->button_exit.background_color = BUTTON_COLOR;
-	if (hover_button(cub3d, &menu->button_restart))
-		menu->button_restart.background_color = BUTTON_HOVER_COLOR;
+	{
+		menu->back.img->instances[0].enabled = TRUE;
+		menu->back_hover.img->instances[0].enabled = FALSE;
+		menu->arrow_back.img->instances[0].enabled = FALSE;
+	}
+	if (hover_image(cub3d, menu->restart.img))
+	{
+		menu->restart.img->instances[0].enabled = FALSE;
+		menu->restart_hover.img->instances[0].enabled = TRUE;
+		menu->arrow_restart.img->instances[0].enabled = TRUE;
+	}
 	else
-		menu->button_restart.background_color = BUTTON_COLOR;
-	draw_button(menu->img, &menu->button_exit);
-	draw_button(menu->img, &menu->button_restart);
+	{
+		menu->restart.img->instances[0].enabled = TRUE;
+		menu->restart_hover.img->instances[0].enabled = FALSE;
+		menu->arrow_restart.img->instances[0].enabled = FALSE;
+	}
 }

@@ -9,9 +9,9 @@ static void	load_png(start_menu_t *menu)
 	menu->start_hover.texture = mlx_load_png(START_START_HOVER_PNG);
 	menu->level.texture = mlx_load_png(START_LEVEL_PNG);
 	menu->level_hover.texture = mlx_load_png(START_LEVEL_HOVER_PNG);
-	menu->arrow_exit.texture = mlx_load_png(START_ARROW_PNG);
-	menu->arrow_start.texture = mlx_load_png(START_ARROW_PNG);
-	menu->arrow_level.texture = mlx_load_png(START_ARROW_PNG);
+	menu->arrow_exit.texture = mlx_load_png(ARROW_PNG);
+	menu->arrow_start.texture = mlx_load_png(ARROW_PNG);
+	menu->arrow_level.texture = mlx_load_png(ARROW_PNG);
 }
 
 static int	init_images(mlx_t *mlx, start_menu_t *menu)

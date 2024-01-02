@@ -328,6 +328,7 @@ typedef struct pause_menu_s
 # define MENU_BORDER_THICKNESS 30
 # define BACK_PNG "./assets/textures/menu/back_normal.png"
 # define BACK_HOVER_PNG "./assets/textures/menu/back_hover.png"
+# define ARROW_PNG "./assets/textures/menu/arrow_pick.png"
 
 # define START_TITLE_PNG "./assets/textures/logox2.png"
 # define START_START_PNG "./assets/textures/menu/start_normal.png"
@@ -336,7 +337,6 @@ typedef struct pause_menu_s
 # define START_LEVEL_HOVER_PNG "./assets/textures/menu/levels_hover.png"
 # define START_EXIT_PNG "./assets/textures/menu/exit_normal.png"
 # define START_EXIT_HOVER_PNG "./assets/textures/menu/exit_hover.png"
-# define START_ARROW_PNG "./assets/textures/menu/arrow_pick.png"
 
 typedef struct png_s
 {
@@ -409,19 +409,6 @@ typedef struct level_menu_s
 
 # define LEADERBOARD_TITLE_PNG "./assets/textures/menu/leaderboard_title.png"
 # define N_ENTRIES 3
-
-// typedef struct leaderboard_s
-// {
-// 	mlx_image_t	*img;
-// 	int			background_color;
-// 	int			n_entries;
-// 	rectangle_t	rect_title;
-// 	mlx_image_t	*text_title;
-// 	mlx_image_t	*text_back;
-// 	button_t	button_back;
-// 	rectangle_t	*rect_level;
-// 	mlx_image_t	**text_level;
-// }				leaderboard_t;
 
 typedef struct leaderboard_s
 {
@@ -513,13 +500,33 @@ typedef struct name_menu_s
 
 //---- GAMEOVER MENU -----------------------------------------------------------
 
+# define GAMEOVER_GAMEOVER_PNG "./assets/textures/menu/game_over.png"
+# define GAMEOVER_WIN_PNG "./assets/textures/menu/you_won.png"
+# define GAMEOVER_EXIT_PNG "./assets/textures/menu/exit_normal.png"
+# define GAMEOVER_EXIT_HOVER_PNG "./assets/textures/menu/exit_hover.png"
+# define GAMEOVER_RESTART_PNG "./assets/textures/menu/try_again_normal.png"
+# define GAMEOVER_RESTART_HOVER_PNG "./assets/textures/menu/try_again_hover.png"
+
+// typedef struct gameover_menu_s
+// {
+// 	mlx_image_t	*img;
+// 	mlx_image_t	*text_gameover;
+// 	int			background_color;
+// 	button_t	button_restart;
+// 	button_t	button_exit;
+// }				gameover_menu_t;
+
 typedef struct gameover_menu_s
 {
 	mlx_image_t	*img;
-	mlx_image_t	*text_gameover;
-	int			background_color;
-	button_t	button_restart;
-	button_t	button_exit;
+	png_t		title_win;
+	png_t		title_gameover;
+	png_t		back;	
+	png_t		back_hover;
+	png_t		restart;
+	png_t		restart_hover;
+	png_t		arrow_back;
+	png_t		arrow_restart;
 }				gameover_menu_t;
 
 //---- SETTINGS ----------------------------------------------------------------

@@ -26,9 +26,8 @@ void	handle_movement(cub3d_t *cub3d, double at_target, int target, int i)
 		if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2)
 				+ pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
 		{
-			cub3d->enemy[i].freeze_start = cub3d->run_time;
 			printf("You were caught at time %f\n",cub3d->run_time);
-			player_is_hit(cub3d);
+			player_is_hit(cub3d, i);
 		}
 	}
 	if (target == 1)

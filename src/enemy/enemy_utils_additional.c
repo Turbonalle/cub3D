@@ -1,12 +1,34 @@
 
 #include "../incl/cub3d.h"
 
+int	check_collisions(cub3d_t *cub3d, int i)
+{
+	int			j;
+	dvector_t	new_pos;
+
+	j = -1;
+	new_pos.x = cub3d->enemy[i].pos.x + cos(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
+	new_pos.y = cub3d->enemy[i].pos.y + sin(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
+
+	while (j++ < cub3d->num_enemies)
+	{
+		if (i == j)
+			continue ;
+		if (dist_between_d_vectors(new_pos, cub3d->level->enemy_pos[j]) < 2 * ENEMY_RADIUS)
+			return (1);
+	}
+	return (0);
+}
+
 void	enemy_advance(cub3d_t *cub3d, int i)
 {
+	if(check_collisions(cub3d, i) == 1)
+		return ;
 	cub3d->enemy[i].pos.x += cos(cub3d->enemy[i].angle)
 		* ENEMY_SPEED * (1 + cub3d->settings.e_speed);
 	cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle)
 		* ENEMY_SPEED * (1 + cub3d->settings.e_speed);
+	cub3d->level->enemy_pos[i] = cub3d->enemy[i].pos;
 }
 
 char	*create_file_path(int i, char *path)

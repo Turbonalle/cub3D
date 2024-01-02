@@ -42,9 +42,9 @@ void	collect_key(cub3d_t *cub3d, double y, double x)
 	activate_halo(&cub3d->halo, GREEN);
 }
 
-void collect_shroom(cub3d_t *cub3d, double y, double x)
+void	collect_shroom(cub3d_t *cub3d, double y, double x)
 {
-	int i;
+	int	i;
 
 	if (cub3d->level->map[(int)y][(int)x] == 'm')
 	{

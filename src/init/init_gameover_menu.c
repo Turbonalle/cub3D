@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-static void init_exit_button(cub3d_t *cub3d, button_t *button)
+static void	init_exit_button(cub3d_t *cub3d, button_t *button)
 {
 	button->width = cub3d->img->width * 0.2;
 	button->height = button->width * 0.3;
@@ -12,7 +12,7 @@ static void init_exit_button(cub3d_t *cub3d, button_t *button)
 	button->state = FALSE;
 }
 
-static void init_restart_button(cub3d_t *cub3d, button_t *button)
+static void	init_restart_button(cub3d_t *cub3d, button_t *button)
 {
 	button->width = cub3d->img->width * 0.2;
 	button->height = button->width * 0.3;
@@ -24,7 +24,7 @@ static void init_restart_button(cub3d_t *cub3d, button_t *button)
 	button->state = FALSE;
 }
 
-static void init_images(cub3d_t *cub3d, gameover_menu_t *menu)
+static void	init_images(cub3d_t *cub3d, gameover_menu_t *menu)
 {
 	vector_t	title_pos;
 

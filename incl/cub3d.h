@@ -242,7 +242,7 @@ void	draw_halo(mlx_image_t *img, halo_t *halo);
 // collision.c
 void	collision_checker(cub3d_t *cub3d);
 void	item_collected_checker(cub3d_t *cub3d);
-void	player_is_hit(cub3d_t *cub3d);
+void	player_is_hit(cub3d_t *cub3d, int i);
 void	draw_health(cub3d_t *cub3d);
 
 // player_movement.c

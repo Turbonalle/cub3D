@@ -2,7 +2,7 @@
 
 void	draw_times(mlx_t *mlx, record_t **records, leaderboard_t *board, int level)
 {
-	record_t 	*ptr;
+	record_t	*ptr;
 	vector_t	pos;
 	int			i;
 	int			margin_x;
@@ -24,11 +24,11 @@ void	draw_times(mlx_t *mlx, record_t **records, leaderboard_t *board, int level)
 
 void	draw_names(mlx_t *mlx, record_t **records, leaderboard_t *board, int level)
 {
-	record_t 	*ptr;
+	record_t	*ptr;
 	vector_t	pos;
 	int			i;
 	int			margin_x;
-	int 		margin_y;
+	int			margin_y;
 
 	ptr = *records;
 

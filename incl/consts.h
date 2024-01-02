@@ -30,6 +30,7 @@
 # define ENEMY_ROT_SPEED 1
 # define ENEMY_FREEZE	2.0
 # define ENEMY_EATING_SPEED 0.1
+# define ENEMY_RADIUS 0.5
 
 # define INVULNERABILITY_TIME 2
 

@@ -1,11 +1,8 @@
 obj
 cub3D
-_Study/obj
-_Study/cub3D
-_Study2/obj
-_Study2/cub3D
 .DS_store
 .vscode
 *.o
 *.a
 lib/MLX42/build
+./assets/records.txt

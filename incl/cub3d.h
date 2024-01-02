@@ -126,8 +126,8 @@ void	enable_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 
 // name menu
-void	disable_name_menu(name_menu_t *menu);
-void	enable_name_menu(name_menu_t *menu);
+void	disable_name_menu(mlx_t *mlx, name_menu_t *menu);
+void	enable_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 // start menu
@@ -137,8 +137,8 @@ void	enable_start_menu(start_menu_t *menu);
 void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 
 // gameover menu
-void	disable_gameover_menu(gameover_menu_t *menu);
-void	enable_gameover_menu(gameover_menu_t *menu, int win);
+void	disable_gameover_menu(mlx_t *mlx, gameover_menu_t *menu);
+void	enable_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu, int win);
 void	update_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 
 //---- PAUSE MENU --------------------------------------------------------------
@@ -210,6 +210,7 @@ void	adjust_hearts(cub3d_t *cub3d);
 int		init_hearts(cub3d_t *cub3d);
 
 // records.c
+void	create_time_string(char *time_str, int time);
 int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
 int		read_records(cub3d_t *cub3d, level_t *levels);
 

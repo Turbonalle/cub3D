@@ -87,6 +87,12 @@ int new_pos_is_goal(cub3d_t *cub3d)
 	return (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == 'G');
 }
 
+int	corner_collision(cub3d_t *cub3d)
+{
+	return (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.pos.x] == WALL
+		&& cub3d->level->map[(int)cub3d->player.pos.y][(int)cub3d->player.new_pos.x] == WALL);
+}
+
 void collision_checker(cub3d_t *cub3d)
 {
 	dvector_t	delta;
@@ -116,6 +122,10 @@ void collision_checker(cub3d_t *cub3d)
 		if (cub3d->player.thrown)
 			cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
 		level_finished(cub3d);
+	}
+	else if (corner_collision(cub3d))
+	{
+		cub3d->player.new_pos = cub3d->player.pos;
 	}
 	else
 	{

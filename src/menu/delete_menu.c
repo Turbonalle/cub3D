@@ -3,6 +3,7 @@
 void	delete_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 {
 	mlx_delete_image(cub3d->mlx, menu->img);
+	printf("deleting start menu title image. pointer: %p\n", menu->title.img);
 	mlx_delete_image(cub3d->mlx, menu->title.img);
 	mlx_delete_image(cub3d->mlx, menu->start.img);
 	mlx_delete_image(cub3d->mlx, menu->level.img);

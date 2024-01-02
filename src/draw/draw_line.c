@@ -89,12 +89,11 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 	end.y = end_d.y;
 	if (start.x < 0 || start.x >= (int)img->width || end.y < 0 || end.y >= (int)img->height)
 	{
-		// printf("draw_line FAIL!\n");
-		// printf("start.x: %d\n", start.x);
-		// printf("start.y: %d\n", start.y);
-		// printf("end.x: %d\n", end.x);
-		// printf("end.y: %d\n", end.y);
-		return;
+		printf("draw_line FAIL!\n");
+		printf("start.x: %d\n", start.x);
+		printf("start.y: %d\n", start.y);
+		printf("end.x: %d\n", end.x);
+		printf("end.y: %d\n", end.y);
 	}
 	if (abs(end.y - start.y) < abs(end.x - start.x))
 	{
@@ -165,7 +164,7 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ra
 
 	texture = find_texture(cub3d, ray);
 	y = 0;
-	while (y <= (int)cub3d->img->height)
+	while (y < (int)cub3d->img->height)
 	{
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
 		if (ray.wall == NO)
@@ -175,7 +174,7 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ra
 		src.y = src_start + (y * texture.texture->height / wall_height);
 		if (src.y > (int)texture.texture->height - 1)
 			src.y = (int)texture.texture->height - 1;
-		mlx_put_pixel(cub3d->img, start.x, y, get_pixel_color(texture, src));
+		mlx_put_pixel(cub3d->img, (int)start.x, y, get_pixel_color(texture, src));
 		y++;
 	}
 }
@@ -186,21 +185,21 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 	uint32_t	color;
 	vector_t	src;
 	int			y;
-	int			y_count;
 
 	texture = find_texture(cub3d, ray);
-	y_count = round(end.y) - round(start.y);
-	y = 0;
-	while (y <= y_count)
+	y = round(start.y);
+	while (y < end.y)
 	{
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
 		if (ray.wall == NO)
 			src.x = texture.texture->width - src.x - 1;
-		src.y = y * texture.texture->height / (end.y - start.y);
+		// TODO: fix src.y calculations to remove random odd pixels from walls
+		src.y = (y - round(start.y)) * texture.texture->height / round(end.y - start.y);
 		if (src.y > (int)texture.texture->height - 1)
 			src.y = (int)texture.texture->height - 1;
 		color = get_pixel_color(texture, src);
-		mlx_put_pixel(cub3d->img, start.x, (int)start.y + y, color);
+			//printf("color: %d\n", color);
+		mlx_put_pixel(cub3d->img, round(start.x), y, color);
 		y++;
 	}
 }

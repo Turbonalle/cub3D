@@ -82,7 +82,7 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
 			draw_vertical_line(cub3d->img, start, end, BLUE);
 		}
@@ -98,7 +98,7 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
 			draw_vertical_line(cub3d->img, start, end, GREEN);
 		}
@@ -114,7 +114,7 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
 			draw_vertical_line(cub3d->img, start, end, RED_LIGHT);
 		}
@@ -123,7 +123,7 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
 			draw_vertical_line(cub3d->img, start, end, GREEN);
 		}
@@ -132,7 +132,7 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
 			draw_vertical_line(cub3d->img, start, end, YELLOW_PALE);
 		}
@@ -141,7 +141,7 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
 			draw_vertical_line(cub3d->img, start, end, TURQUOISE);
 		}
@@ -150,9 +150,10 @@ void draw_world(cub3d_t *cub3d)
 			if (close)
 			{
 				start.y = 0;
-				end.y = cub3d->img->height;
+				end.y = cub3d->img->height - 1;
 			}
 			draw_vertical_line(cub3d->img, start, end, WHITE);
 		}
 	}
+	
 }

@@ -41,6 +41,7 @@ void	free_key_groups(cub3d_t *cub3d, int i)
 		tmp = cub3d->level->key_groups[i].keys;
 		while (tmp)
 		{
+			printf("deleting key img_curr_frame image. pointer: %p\n", tmp->img_curr_frame);
 			mlx_delete_image(cub3d->mlx, tmp->img_curr_frame);
 			//tmp->img_curr_frame->instances[0].enabled = FALSE;
 			tmp = tmp->next;

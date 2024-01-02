@@ -91,8 +91,11 @@ static int	put_images_to_window(mlx_t *mlx, start_menu_t *menu)
 {
 	if (mlx_image_to_window(mlx, menu->img, 0, 0) < 0)
 		return (err("Failed to put start menu image to window"));
+	printf("menu image z: %d\n", menu->img->instances[0].z);
 	if (mlx_image_to_window(mlx, menu->title.img, menu->title.pos.x, menu->title.pos.y) < 0)
 		return (err("Failed to put start menu title image to window"));
+	printf("put start menu title image to window\n");
+	printf("title image z: %d\n", menu->title.img->instances[0].z);
 	if (mlx_image_to_window(mlx, menu->exit.img, menu->exit.pos.x, menu->exit.pos.y) < 0)
 		return (err("Failed to put start menu exit image to window"));
 	if (mlx_image_to_window(mlx, menu->start.img, menu->start.pos.x, menu->start.pos.y) < 0)

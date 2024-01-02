@@ -191,6 +191,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
 		return (!err("Failed to create image"));
+	printf("Created main image\n");
 	cub3d->rays = NULL;
 	if (!init_rays(cub3d))
 		return (!err("Failed to malloc rays"));

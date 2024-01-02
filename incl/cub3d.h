@@ -341,11 +341,15 @@ void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 //---- ENEMIES -------------------------------------------------------------------
 
 int		init_enemy(cub3d_t *cub3d);
+ray_t	*init_ray_dir(double dir_to_enemy);
 int		enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i);
 void	enemy_advance(cub3d_t *cub3d, int i);
 void	enemy_vision(cub3d_t *cub3d);
 void	draw_enemies(cub3d_t *cub3d);
 int		distraction(cub3d_t *cub3d, int i);
+int		enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i, double max_dist);
+
+int		ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, double max_dist);
 int		enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_to, int i);
 void	cause_distraction(cub3d_t *cub3d);
 int		check_if_door_open(cub3d_t *cub3d, int xcoord, int ycoord);
@@ -360,7 +364,10 @@ void 	draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
 void	eat(cub3d_t *cub3d, int i);
 void	spin(cub3d_t *cub3d, int i, double at_target);
 int		not_at_end(ray_t *ray, player_t player, t_enemy *enemy, int i);
-int		enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i, double max_dist);
+
+int		wall_or_door_found(cub3d_t *cub3d, vector_t vMapCheck);
+void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key);
+void	see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 
 // extra.c

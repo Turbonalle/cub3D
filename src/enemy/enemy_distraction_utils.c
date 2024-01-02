@@ -17,33 +17,7 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	return (ray);
 }
 
-static int	wall_or_door_found(cub3d_t *cub3d, vector_t vMapCheck)
-{
-	if (vMapCheck.x >= 0
-		&& vMapCheck.x < cub3d->level->map_columns
-		&& vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->level->map_rows
-		&& cub3d->level->map[vMapCheck.y][vMapCheck.x] == WALL)
-		return (1);
-	if (vMapCheck.x >= 0 && vMapCheck.x
-		< cub3d->level->map_columns && vMapCheck.y >= 0
-		&& vMapCheck.y < cub3d->level->map_rows
-		&& (cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'A'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'B'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'C'
-		|| cub3d->level->map[vMapCheck.y][vMapCheck.x] == 'D'))
-	{
-		if (dist_between(vMapCheck, cub3d->player.pos) > 3)
-			return (1);
-		if (check_if_door_open(cub3d, vMapCheck.x, vMapCheck.y))
-			return (0);
-		else
-			return (1);
-	}
-	return (0);
-}
-
-dvector_t init_ray_step_size(double dir)
+dvector_t	init_ray_step_size(double dir)
 {
 	dvector_t		vRayDir;
 	dvector_t		vRayUnitStepSize;
@@ -82,4 +56,31 @@ int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_t
 	cub3d->enemy[i].angle = to_radians(ray->angle);
 	cub3d->enemy[i].target = cub3d->level->distraction;
 	return (free(ray), 1);
+}
+
+int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, double max_dist)
+{
+	dvector_t		vRayUnitStepSize;
+	dvector_t		vRayLength1D;
+	vector_t		vMapCheck;
+	vector_t		vStep;
+	ray_t			*ray;
+
+	vMapCheck.x = (int)cub3d->player.pos.x;
+	vMapCheck.y = (int)cub3d->player.pos.y;
+	vRayUnitStepSize = init_step_size(to_radians(dir_to_enemy));
+	vStep = init_v_step(dir_to_enemy);
+	vRayLength1D = init_ray_1D_length(cub3d->player.pos, dir_to_enemy, vMapCheck, vRayUnitStepSize);
+	ray = init_ray_dir(dir_to_enemy);
+	if (!ray)
+		return (0);
+	while (ray->length < max_dist)
+	{
+		if (wall_or_door_found(cub3d, vMapCheck))
+			return (free(ray), 0);
+		adjust(&vMapCheck, ray, vStep, &vRayLength1D);
+		adjust_no_flag(&vRayLength1D, vRayUnitStepSize);
+	}
+	free(ray);
+	return (1);
 }

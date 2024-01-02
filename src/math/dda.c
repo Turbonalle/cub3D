@@ -14,7 +14,7 @@ int all_keys_found(cub3d_t *cub3d, int i)
 	return (1);
 }
 
-static int	wall_or_door_found(cub3d_t *cub3d, vector_t vMapCheck, int dist)
+static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t vMapCheck, int dist)
 {
 	if	(vMapCheck.x >= 0
 			&& vMapCheck.x < cub3d->level->map_columns
@@ -94,7 +94,7 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 			vRayLength1D.y += vRayUnitStepSize.y;
 			wall_flag = 0;
 		}
-		if (wall_or_door_found(cub3d, vMapCheck, dist))
+		if (wall_or_door_found_dist(cub3d, vMapCheck, dist))
 			update_end(cub3d, &vRayDir, end, &dist, &end_found);
 	}
 	if (wall_flag == 1 )

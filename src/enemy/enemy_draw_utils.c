@@ -63,8 +63,7 @@ static void	draw_key(cub3d_t *cub3d, double dir_to, key_node_t *key)
 		i++;
 	}
 
-	key->dist_to_player = sqrt(pow(key->pos.x - cub3d->player.pos.x, 2)
-			+ pow(key->pos.y - cub3d->player.pos.y, 2));
+	key->dist_to_player = dist_between_d_vectors(key->pos, cub3d->player.pos);
 	key->pos_screen.x = i;
 	key->pos_screen.y = cub3d->img->height / 2
 		+ (cub3d->img->height / 2) / key->dist_to_player * 2;
@@ -78,8 +77,7 @@ void	see_key(cub3d_t *cub3d, double dir_to, key_node_t *key)
 
 	angle_min = within_360(cub3d->player.angle * 180 / M_PI - cub3d->fov / 2);
 	angle_max = within_360(cub3d->player.angle * 180 / M_PI + cub3d->fov / 2);
-	max_dist = sqrt(pow(cub3d->player.pos.x - key->pos.x, 2)
-			+ pow(cub3d->player.pos.y - key->pos.y, 2));
+	max_dist = dist_between_d_vectors(key->pos, cub3d->player.pos);
 	key->visible = FALSE;
 	if (angle_max < angle_min)
 	{

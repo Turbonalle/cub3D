@@ -94,5 +94,6 @@ void	free_level(cub3d_t *cub3d)
 		}
 		free(cub3d->level->distractions);
 	}
+	disable_shroom(cub3d);
 	disable_hearts(cub3d);
 }

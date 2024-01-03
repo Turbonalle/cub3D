@@ -39,7 +39,7 @@ static void	see_enemy(cub3d_t *cub3d, int i)
 
 	angle_min = within_360(cub3d->player.angle * 180 / M_PI - cub3d->fov / 2);
 	angle_max = within_360(cub3d->player.angle * 180 / M_PI + cub3d->fov / 2);
-	max_dist = sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2));
+	max_dist = dist_between_d_vectors(cub3d->player.pos, cub3d->enemy[i].pos);
 	dir_to_enemy = within_360((atan2(cub3d->enemy[i].pos.y - cub3d->player.pos.y, cub3d->enemy[i].pos.x - cub3d->player.pos.x) * 180 / M_PI));
 	cub3d->enemy[i].visible = FALSE;
 	if (angle_max < angle_min)	// check if 0 radians is within the fov

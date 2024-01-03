@@ -64,10 +64,29 @@ void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 		mlx_delete_image(cub3d->mlx, menu->letters_img[i]);
 }
 
+void	delete_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+{
+	mlx_delete_image(cub3d->mlx, menu->bg);
+	mlx_delete_image(cub3d->mlx, menu->menu);
+	mlx_delete_image(cub3d->mlx, menu->text_title);
+	mlx_delete_image(cub3d->mlx, menu->text_fps);
+	mlx_delete_image(cub3d->mlx, menu->text_fisheye);
+	mlx_delete_image(cub3d->mlx, menu->text_mouse);
+	mlx_delete_image(cub3d->mlx, menu->box_fps[0].text);
+	mlx_delete_image(cub3d->mlx, menu->box_fps[1].text);
+	mlx_delete_image(cub3d->mlx, menu->box_fps[2].text);
+	mlx_delete_image(cub3d->mlx, menu->box_fps[3].text);
+	mlx_delete_image(cub3d->mlx, menu->box_fisheye[0].text);
+	mlx_delete_image(cub3d->mlx, menu->box_fisheye[1].text);
+	mlx_delete_image(cub3d->mlx, menu->box_mouse[0].text);
+	mlx_delete_image(cub3d->mlx, menu->box_mouse[1].text);
+}
+
 void	delete_menus(cub3d_t *cub3d)
 {
 	delete_start_menu(cub3d, &cub3d->start_menu);
 	delete_level_menu(cub3d, &cub3d->level_menu);
 	delete_leaderboard(cub3d, &cub3d->leaderboard);
 	delete_name_menu(cub3d, &cub3d->name_menu);
+	delete_pause_menu(cub3d, &cub3d->pause_menu);
 }

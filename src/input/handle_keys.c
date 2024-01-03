@@ -106,6 +106,7 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 		{
 			cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
 		}
+		disable_shroom(cub3d);
 		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 		mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
 		free_level(cub3d);

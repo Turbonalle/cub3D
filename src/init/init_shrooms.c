@@ -1,35 +1,43 @@
 #include "../incl/cub3d.h"
 
-static void	load_png(cub3d_t *cub3d)
+static int	load_png(cub3d_t *cub3d)
 {
 	cub3d->shroom->shroom.texture = mlx_load_png(TEXTURE_MUSHROOM);
+	if (!cub3d->shroom->shroom.texture)
+		return (0);
+	return (1);
 }
 
 static int	init_images(cub3d_t *cub3d)
 {
 	cub3d->shroom->shroom.img = mlx_texture_to_image(cub3d->mlx, cub3d->shroom->shroom.texture);
+	if (!cub3d->shroom->shroom.img)
+		return (0);
 	return (1);
 }
 
-static int	set_position(cub3d_t *cub3d)
+static void	set_position(cub3d_t *cub3d)
 {
 	cub3d->shroom->shroom.pos.x = cub3d->mlx->width * 0.9;
 	cub3d->shroom->shroom.pos.y = cub3d->mlx->height * 0.95;
-	return (1);
 }
 
 static int	put_image_to_window(cub3d_t *cub3d)
 {
-	mlx_image_to_window(cub3d->mlx, cub3d->shroom->shroom.img, cub3d->shroom->shroom.pos.x, cub3d->shroom->shroom.pos.y);
+	if (mlx_image_to_window(cub3d->mlx, cub3d->shroom->shroom.img, cub3d->shroom->shroom.pos.x, cub3d->shroom->shroom.pos.y) == -1)
+		return (0);
 	return (1);
 }
 
 int	init_shroom(cub3d_t *cub3d)
 {
-	load_png(cub3d);
-	init_images(cub3d);
+	if (!load_png(cub3d))
+		return (0);
+	if (!init_images(cub3d))
+		return (0);
 	set_position(cub3d);
-	put_image_to_window(cub3d);
+	if (!put_image_to_window(cub3d))
+		return (0);
 	disable_shroom(cub3d);
 	return (1);
 }

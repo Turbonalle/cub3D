@@ -25,6 +25,14 @@ void	clean_level_data(cub3d_t *cub3d)
 	mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
 	disable_shroom(cub3d);
 	free_level(cub3d);
+	cub3d->keys.w = FALSE;
+	cub3d->keys.a = FALSE;
+	cub3d->keys.s = FALSE;
+	cub3d->keys.d = FALSE;
+	cub3d->keys.left = FALSE;
+	cub3d->keys.right = FALSE;
+	cub3d->keys.up = FALSE;
+	cub3d->keys.down = FALSE;
 }
 
 void	level_finished(cub3d_t *cub3d)

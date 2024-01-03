@@ -84,15 +84,15 @@ int	new_pos_is_wall_collision(cub3d_t *cub3d)
 		|| is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x) == TRUE);
 }
 
-int new_pos_is_goal(cub3d_t *cub3d)
+int pos_is_goal(cub3d_t *cub3d)
 {
-	return (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == 'G');
+	return (cub3d->level->map[(int)cub3d->player.pos.y][(int)cub3d->player.pos.x] == 'G');
 }
 
 int	corner_collision(cub3d_t *cub3d)
 {
-	return (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.pos.x] == WALL
-		&& cub3d->level->map[(int)cub3d->player.pos.y][(int)cub3d->player.new_pos.x] == WALL);
+	return ((cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.pos.x] == WALL || is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.pos.x))
+		&& (cub3d->level->map[(int)cub3d->player.pos.y][(int)cub3d->player.new_pos.x] == WALL || is_locked_door(cub3d, (int)cub3d->player.pos.y, (int)cub3d->player.new_pos.x)));
 }
 
 void collision_checker(cub3d_t *cub3d)
@@ -108,22 +108,14 @@ void collision_checker(cub3d_t *cub3d)
 		wall = find_end_point(cub3d, cub3d->player, cub3d->player.movement_angle, cub3d->player.new_pos);
 		if (wall == WE || wall == EA)
 		{
-			cub3d->player.new_pos.y = cub3d->player.pos.y + delta.y;
 			if (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.pos.x))
 				cub3d->player.pos.y = cub3d->player.new_pos.y;
 		}
 		else if (wall == NO || wall == SO)
 		{
-			cub3d->player.new_pos.x = cub3d->player.pos.x + delta.x;
 			if (cub3d->level->map[(int)cub3d->player.pos.y][(int)cub3d->player.new_pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.pos.y, (int)cub3d->player.new_pos.x))
 				cub3d->player.pos.x = cub3d->player.new_pos.x;
 		}
-	}
-	else if (new_pos_is_goal(cub3d))
-	{
-		if (cub3d->player.thrown)
-			cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
-		level_finished(cub3d);
 	}
 	else if (corner_collision(cub3d))
 	{
@@ -132,5 +124,11 @@ void collision_checker(cub3d_t *cub3d)
 	else
 	{
 		cub3d->player.pos = cub3d->player.new_pos;
+	}
+	if (pos_is_goal(cub3d))
+	{
+		if (cub3d->player.thrown)
+			cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
+		level_finished(cub3d);
 	}
 }

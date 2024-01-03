@@ -597,12 +597,14 @@ void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_n
 				}
 			}
 			else
+			{
 				while (enemies[i])
 				{
 					enemies[i]->img_curr_frame->instances->z = z;
 					i++;
 					z++;
 				}
+			}
 		}
 		else if (keys[j])
 		{
@@ -624,6 +626,7 @@ void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_n
 				while (keys[j])
 				{
 					keys[j]->img_curr_frame->instances->z = z;
+					z++;
 					j++;
 				}
 			}
@@ -642,9 +645,9 @@ void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_n
 
 void	draw_animated_keys(cub3d_t *cub3d)
 {
-	int 		i;
-	key_node_t	**ordered_keys;
-	t_enemy		**ordered_enemies;
+	int				i;
+	key_node_t		**ordered_keys;
+	t_enemy			**ordered_enemies;
 	distraction_t	**ordered_distractions;
 
 	cub3d->curr_frame_index_idle = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_IDLE;

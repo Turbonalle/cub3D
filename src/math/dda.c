@@ -21,7 +21,7 @@ static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dis
 			&& v_map_check.y >= 0
 			&& v_map_check.y < cub3d->level->map_rows
 			&& (cub3d->level->map[v_map_check.y][v_map_check.x] == WALL
-			|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'G'))
+			))
 		return (1);
 	if (v_map_check.x >= 0 && v_map_check.x < cub3d->level->map_columns && v_map_check.y >= 0
 		&& v_map_check.y < cub3d->level->map_rows
@@ -54,7 +54,6 @@ static void update_end(cub3d_t *cub3d, dvector_t *v_ray_dir, dvector_t end, doub
 
 int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end)
 {
-	dvector_t vRayStartingCell;
 	dvector_t v_ray_step_size;
 	dvector_t v_ray_1d_length;
 	dvector_t v_ray_dir;
@@ -65,15 +64,13 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 	v_ray_dir.x = cos(radians);
 	v_ray_dir.y = sin(radians);
 
-	vRayStartingCell.x = player.pos.x;
-	vRayStartingCell.y = player.pos.y;
 	v_ray_step_size = init_step_size(radians);
 
-	v_map_check.x = (int)vRayStartingCell.x;
-	v_map_check.y = (int)vRayStartingCell.y;
+	v_map_check.x = (int)player.pos.x;
+	v_map_check.y = (int)player.pos.y;
 
 	v_step = init_v_step(radians * 180 / M_PI);
-	v_ray_1d_length = init_ray_1D_length(vRayStartingCell, radians * 180 / M_PI, v_map_check, v_ray_step_size);
+	v_ray_1d_length = init_ray_1D_length(player.pos, radians * 180 / M_PI, v_map_check, v_ray_step_size);
 
 	double dist = 0;
 	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
@@ -97,9 +94,9 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 		if (wall_or_door_found_dist(cub3d, v_map_check, dist))
 			update_end(cub3d, &v_ray_dir, end, &dist, &end_found);
 	}
-	if (wall_flag == 1 )
+	if (wall_flag == 1 && end.x > player.pos.x)
 		return (WE);
-	else if (wall_flag == 1 && end.x < player.pos.x)
+	else if (wall_flag == 1)
 		return (EA);
 	else if (wall_flag == 0 && player.pos.y < end.y)
 		return (NO);

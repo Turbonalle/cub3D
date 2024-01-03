@@ -120,13 +120,24 @@ void	submit_name(cub3d_t *cub3d, name_menu_t *menu)
 
 void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 {
+	if (hover_image(cub3d, menu->back.img))
+	{
+		menu->back.img->instances[0].enabled = FALSE;
+		menu->back_hover.img->instances[0].enabled = TRUE;
+	}
+	else
+	{
+		menu->back.img->instances[0].enabled = TRUE;
+		menu->back_hover.img->instances[0].enabled = FALSE;
+	}
 	if (menu->changed == TRUE)
 	{
 		if (cub3d->keys.escape)
 		{
 			disable_name_menu(cub3d->mlx, menu);
-			enable_leaderboard(cub3d, &cub3d->leaderboard);
-			cub3d->state = STATE_LEADERBOARD;
+			enable_level_menu(&cub3d->level_menu);
+			cub3d->state = STATE_LEVEL;
+			cub3d->speedrun = FALSE;
 			menu->changed = FALSE;
 			return ;
 		}

@@ -22,9 +22,7 @@ void	handle_movement(cub3d_t *cub3d, double at_target, int target, int i)
 	if (target == 0)
 	{
 		enemy_advance(cub3d, i);
-		cub3d->enemy[i].is_walking = 1;
-		if (sqrt(pow(cub3d->player.pos.x - cub3d->enemy[i].pos.x, 2)
-				+ pow(cub3d->player.pos.y - cub3d->enemy[i].pos.y, 2)) < 1)
+		if (dist_between_d_vectors(cub3d->player.pos, cub3d->enemy[i].pos) < 1)
 		{
 			printf("You were caught at time %f\n",cub3d->run_time);
 			player_is_hit(cub3d, i);
@@ -33,8 +31,7 @@ void	handle_movement(cub3d_t *cub3d, double at_target, int target, int i)
 	if (target == 1)
 	{
 		enemy_advance(cub3d, i);
-		cub3d->enemy[i].is_walking = 1;
-		if (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
+		if (dist_between_d_vectors(cub3d->enemy[i].pos, cub3d->enemy[i].target) < at_target)
 		{
 			cub3d->enemy[i].is_walking = 0;
 			if (cub3d->level->distraction_amount > 0 && cub3d->enemy[i].target.x == cub3d->level->distraction.x && cub3d->enemy[i].target.y == cub3d->level->distraction.y)

@@ -204,6 +204,8 @@ int	init_cub3d(cub3d_t *cub3d)
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
 	if (!init_hearts(cub3d))
 		return (err("Failed to init hearts"));
+	if (!init_shroom(cub3d))
+		return (err("Failed to init shroom counter"));
 	init_halo(cub3d);
 	init_timer(cub3d);
 	cub3d->distraction_texture = mlx_load_png(TEXTURE_MUSHROOM);

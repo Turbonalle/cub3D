@@ -29,8 +29,6 @@ static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
 				cub3d->enemy[enemy_i].pos.y = i + 0.5;
 				init_enemy_dir(cub3d->enemy, enemy_i, cub3d->level->map[i][j]);
 				cub3d->level->map[i][j] = '0';
-				cub3d->level->enemy_pos[enemy_i].x = j + 0.5;
-				cub3d->level->enemy_pos[enemy_i].y = i + 0.5;
 				return (SUCCESS);
 			}
 		}
@@ -92,9 +90,6 @@ int	init_enemy(cub3d_t *cub3d)
 	cub3d->enemy = malloc(sizeof(t_enemy) * cub3d->num_enemies);
 	if (!cub3d->enemy)
 		return (0);
-	cub3d->level->enemy_pos = malloc(sizeof(dvector_t) * cub3d->num_enemies);
-	if (!cub3d->level->enemy_pos)
-		return (free(cub3d->enemy), 0);
 	cub3d->curr_frame_index_idle = 0;
 	cub3d->prev_frame_index_idle = 0;
 	while (i < cub3d->num_enemies)

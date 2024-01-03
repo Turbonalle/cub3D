@@ -99,6 +99,7 @@ int		init_textures(cub3d_t *cub3d);
 int		init_doors_and_keys(cub3d_t *cub3d);
 int		init_enemy_frames(cub3d_t *cub3d);
 
+int		init_shroom(cub3d_t *cub3d);
 //---- MENUS -------------------------------------------------------------------
 
 // delete_menu.c
@@ -230,7 +231,6 @@ void	continue_timer(cub3d_t *cub3d);
 void	draw_timer(cub3d_t *cub3d);
 void	print_timer(cub3d_t *cub3d);
 
-
 //---- HALO --------------------------------------------------------------------
 
 void	init_halo(cub3d_t *cub3d);
@@ -338,6 +338,11 @@ int		err(char *error_message);
 void	draw_square(mlx_image_t *img, vector_t coord, int size, int color);
 void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
 void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
+
+
+void	draw_shroom_count(cub3d_t *cub3d);
+void	disable_shroom(cub3d_t *cub3d);
+void	enable_shroom(cub3d_t *cub3d);
 
 //---- ENEMIES -------------------------------------------------------------------
 

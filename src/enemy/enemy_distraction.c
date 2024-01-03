@@ -36,6 +36,7 @@ void	cause_distraction(cub3d_t *cub3d)
 	set_thrown_srhoom(cub3d->level->distractions, cub3d->level->num_distractions, ray);
 	cub3d->level->distractions[cub3d->level->num_distractions].img_distraction = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(cub3d->mlx, cub3d->level->distractions[cub3d->level->num_distractions].img_distraction, 0, 0);
+	draw_shroom_count(cub3d);
 	free(ray);
 }
 

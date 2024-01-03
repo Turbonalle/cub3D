@@ -32,13 +32,13 @@ void	spin(cub3d_t *cub3d, int i, double at_target)
 		cub3d->enemy[i].angle = to_radians(rand() % 360);
 		max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
 		enemy_movement_ray(cub3d, cub3d->enemy, i, max_dist);
-		while (sqrt(pow(cub3d->enemy[i].target.x - cub3d->enemy[i].pos.x, 2) + pow(cub3d->enemy[i].target.y - cub3d->enemy[i].pos.y, 2)) < at_target)
+		while (dist_between_d_vectors(cub3d->enemy[i].pos, cub3d->enemy[i].target) < at_target)
 		{
 			cub3d->enemy[i].angle = to_radians(rand() % 360);
 			enemy_movement_ray(cub3d, cub3d->enemy, i, max_dist);
 		}
-		enemy_advance(cub3d, i);
 		cub3d->enemy[i].is_walking = 1;
+		enemy_advance(cub3d, i);
 		cub3d->enemy[i].is_spinning = 0;
 	}
 

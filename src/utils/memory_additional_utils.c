@@ -94,6 +94,5 @@ void	free_level(cub3d_t *cub3d)
 		}
 		free(cub3d->level->distractions);
 	}
-	free(cub3d->level->enemy_pos);
 	disable_hearts(cub3d);
 }

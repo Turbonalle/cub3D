@@ -28,6 +28,7 @@ void	clean_level_data(cub3d_t *cub3d)
 
 void	level_finished(cub3d_t *cub3d)
 {
+	disable_shroom(cub3d);
 	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
 	clean_level_data(cub3d);
 	printf("Level finished, all freed\n");
@@ -51,6 +52,7 @@ void	game_over(cub3d_t *cub3d)
 	if (cub3d->player.thrown)
 		cub3d->level->distractions[cub3d->level->num_distractions]
 			.img_distraction->instances[0].enabled = FALSE;
+	disable_shroom(cub3d);
 	clean_level_data(cub3d);
 	enable_gameover_menu(cub3d, &cub3d->gameover_menu, LOSE);
 	cub3d->state = STATE_GAMEOVER;

@@ -611,7 +611,6 @@ typedef struct level_s
 	int				num_distractions;
 	dvector_t		distraction;
 	double			distraction_amount;
-	dvector_t		*enemy_pos;
 	record_t		*records;
 	mlx_image_t		*heart_img;
 	mlx_image_t		*heart_half_img;
@@ -640,6 +639,16 @@ typedef struct heart_s
 	png_t		full;
 	png_t		empty;
 }				heart_t;
+
+
+//---- SHROOM ------------------------------------------------------------------
+
+typedef struct shroom_s
+{
+	png_t		shroom;
+	mlx_image_t	*text;
+}			shroom_t;
+
 
 //---- CUB3D -------------------------------------------------------------------
 
@@ -702,6 +711,7 @@ typedef struct cub3d_s
 	int				prev_frame_index_idle;
 	int				speedrun;
 	bool			active;
+	shroom_t		*shroom;
 }					cub3d_t;
 
 #endif

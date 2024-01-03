@@ -83,7 +83,10 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		else if (cub3d->state == STATE_PAUSE)
 		{
 			if (hover_any_box(cub3d, &cub3d->pause_menu))
+			{
 				update_pause_settings(cub3d, &cub3d->pause_menu);
+				print_settings(cub3d);	
+			}
 		}
 		else if (cub3d->state == STATE_START)
 		{

@@ -4,9 +4,11 @@
 
 void init_checkbox_info(pause_menu_t *menu, box_t *box, int pos_x, int pos_y)
 {
-	box->pos.x = pos_x;
-	box->pos.y = pos_y;
-	box->size = menu->rect_title.width * 0.08;
+	box->pos.x = pos_x - menu->menu_pos.x;
+	box->pos.y = pos_y - menu->menu_pos.y;
+	// box->pos.x = pos_x;
+	// box->pos.y = pos_y;
+	box->size = menu->menu->width * 0.08;
 	box->border_width = fmax(box->size * 0.02, 2);
 	box->border_color = BOX_BORDER_COLOR;
 }
@@ -23,47 +25,6 @@ void init_checkboxes(pause_menu_t *menu)
 	init_checkbox_info(menu, &menu->box_fisheye[1], menu->pos_col_box_2, menu->pos_row_2);
 	init_checkbox_info(menu, &menu->box_mouse[0], menu->pos_col_box_1, menu->pos_row_3);
 	init_checkbox_info(menu, &menu->box_mouse[1], menu->pos_col_box_2, menu->pos_row_3);
-}
-
-//------------------------------------------------------------------------------
-
-void set_pause_menu_size(cub3d_t *cub3d, pause_menu_t *menu)
-{
-	float	menu_rect_width_percentage;
-	float	menu_rect_height_percentage;
-
-	menu_rect_width_percentage = 0.5;
-	menu_rect_height_percentage = 0.9;
-	menu->rect_title.width = cub3d->img->width * menu_rect_width_percentage;
-	menu->rect_title.height = cub3d->img->height * menu_rect_height_percentage;
-	menu->pos_x_rect_title = cub3d->img->width * ((1 - menu_rect_width_percentage) / 2);
-	menu->pos_y_rect_title = cub3d->img->height * ((1 - menu_rect_height_percentage) / 2);
-}
-
-//------------------------------------------------------------------------------
-
-void set_checkbox_positions(pause_menu_t *menu)
-{
-	menu->pos_col_text = menu->pos_x_rect_title + menu->rect_title.width * 0.05;
-	menu->pos_col_box_1 = menu->pos_x_rect_title + menu->rect_title.width * 0.2;
-	menu->pos_col_box_2 = menu->pos_x_rect_title + menu->rect_title.width * 0.35;
-	menu->pos_col_box_3 = menu->pos_x_rect_title + menu->rect_title.width * 0.5;
-	menu->pos_col_box_4 = menu->pos_x_rect_title + menu->rect_title.width * 0.65;
-	menu->pos_col_box_5 = menu->pos_x_rect_title + menu->rect_title.width * 0.8;
-	menu->pos_row_1 = menu->rect_title.height * 0.4;
-	menu->pos_row_2 = menu->rect_title.height * 0.6;
-	menu->pos_row_3 = menu->rect_title.height * 0.8;
-}
-
-void set_pause_title(pause_menu_t *menu)
-{
-	menu->rect_title.pos.x = menu->pos_x_rect_title;
-	menu->rect_title.pos.y = menu->pos_y_rect_title;
-	// menu->rect_title.color = PAUSE_MENU_SETTINGS_RECT_COLOR;
-	// menu->rect_title.color = 0x1B1129FF;	// dark purple
-	// menu->rect_title.color = 0x151F33FF;	// dark blue
-	menu->rect_title.color = 0x0E1421FF;	// darker blue
-
 }
 
 //------------------------------------------------------------------------------
@@ -96,19 +57,83 @@ void	init_checkbox_states(pause_menu_t *menu)
 
 //------------------------------------------------------------------------------
 
-void init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+static void load_png(pause_menu_t *menu)
 {
-	cub3d->pause_menu.background_color = set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY);
-	set_pause_menu_size(cub3d, menu);
-	set_checkbox_positions(menu);
-	set_pause_title(menu);
+	menu->title.texture = mlx_load_png(PAUSE_PNG);
+}
+
+static int init_images(mlx_t *mlx, pause_menu_t *menu)
+{
+	menu->bg = mlx_new_image(mlx, mlx->width, mlx->height);
+	if (!menu->bg)
+		return (err("Failed to create image"));
+	menu->menu = mlx_new_image(mlx, mlx->width * 0.5, mlx->height * 0.9);
+	if (!menu->menu)
+		return (err("Failed to create image"));
+	menu->title.img = mlx_texture_to_image(mlx, menu->title.texture);
+	if (!menu->title.img)
+		return (err("Failed to create image"));
+	return (SUCCESS);
+}
+
+static void set_positions(pause_menu_t *menu)
+{
+	// set menu pos (inner rectangle)
+	menu->menu_pos.x = (menu->bg->width - menu->menu->width) / 2;
+	menu->menu_pos.y = (menu->bg->height - menu->menu->height) / 2;
+	
+	// set title pos
+	menu->title.pos.x = menu->menu_pos.x + (menu->menu->width - menu->title.img->width) / 2;
+	menu->title.pos.y = menu->menu_pos.y + menu->menu->height * 0.15;
+
+	// set checkbox pos
+	menu->pos_col_text = menu->menu_pos.x + menu->menu->width * 0.1;
+	menu->pos_col_box_1 = menu->menu_pos.x + menu->menu->width * 0.25;
+	menu->pos_col_box_2 = menu->menu_pos.x + menu->menu->width * 0.35;
+	menu->pos_col_box_3 = menu->menu_pos.x + menu->menu->width * 0.45;
+	menu->pos_col_box_4 = menu->menu_pos.x + menu->menu->width * 0.55;
+	menu->pos_col_box_5 = menu->menu_pos.x + menu->menu->width * 0.65;
+	menu->pos_row_1 = menu->menu->height * 0.4;
+	menu->pos_row_2 = menu->menu->height * 0.55;
+	menu->pos_row_3 = menu->menu->height * 0.7;
+}
+
+static int put_images_to_window(mlx_t *mlx, pause_menu_t *menu)
+{
+	if (mlx_image_to_window(mlx, menu->bg, 0, 0) < 0)
+		return (err("Failed to put image to window"));
+	if (mlx_image_to_window(mlx, menu->menu, menu->menu_pos.x, menu->menu_pos.y) < 0)
+		return (err("Failed to put image to window"));
+	if (mlx_image_to_window(mlx, menu->title.img, menu->title.pos.x, menu->title.pos.y) < 0)
+		return (err("Failed to put image to window"));
+	return (SUCCESS);
+}
+
+int init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+{
+	printf("init_pause_menu\n");
+	load_png(menu);
+	if (!init_images(cub3d->mlx, menu))
+		return (FAIL);
+	set_positions(menu);
 	init_checkboxes(menu);
 	set_checkbox_values(menu);
 	init_checkbox_states(menu);
 	cub3d->settings.e_speed = 1;
-	cub3d->settings.e_behaviour = 1;
 	update_settings(cub3d, menu);
 
-	print_settings(cub3d);	// REMOVE LATER
+	draw_menu_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY));
+	draw_menu_background(menu->menu, MENU_BACKGROUND_COLOR);
+	draw_menu_border(menu->menu);
+
+	if (!put_images_to_window(cub3d->mlx, menu))
+		return (FAIL);
+	add_category_text(cub3d, menu);
+	add_checkbox_text(cub3d, menu);
+
+	printf("disabling pause menu\n");
+	disable_pause_menu(cub3d->mlx, menu);
+	printf("init_pause_menu end\n");
+	return (SUCCESS);
 }
 

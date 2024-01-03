@@ -40,11 +40,11 @@ void	draw_checkbox(cub3d_t *cub3d, box_t *box)
 		while (++column < box->pos.x + box->size)
 		{
 			if (row < box->pos.y + box->border_width || row > box->pos.y + box->size - box->border_width)
-				mlx_put_pixel(cub3d->pause_menu.img, column, row, box->border_color);
+				mlx_put_pixel(cub3d->pause_menu.menu, column, row, box->border_color);
 			else if (column < box->pos.x + box->border_width || column > box->pos.x + box->size - box->border_width)
-				mlx_put_pixel(cub3d->pause_menu.img, column, row, box->border_color);
+				mlx_put_pixel(cub3d->pause_menu.menu, column, row, box->border_color);
 			else
-				mlx_put_pixel(cub3d->pause_menu.img, column, row, box->background_color);
+				mlx_put_pixel(cub3d->pause_menu.menu, column, row, box->background_color);
 		}
 	}
 }
@@ -65,11 +65,11 @@ void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box)
 		while (++column < box->pos.x + box->size)
 		{
 			if (row < box->pos.y + box->border_width || row > box->pos.y + box->size - box->border_width)
-				mlx_put_pixel(cub3d->pause_menu.img, column, row, box->border_color);
+				mlx_put_pixel(cub3d->pause_menu.menu, column, row, box->border_color);
 			else if (column < box->pos.x + box->border_width || column > box->pos.x + box->size - box->border_width)
-				mlx_put_pixel(cub3d->pause_menu.img, column, row, box->border_color);
+				mlx_put_pixel(cub3d->pause_menu.menu, column, row, box->border_color);
 			else
-				mlx_put_pixel(cub3d->pause_menu.img, column, row, box->background_color);
+				mlx_put_pixel(cub3d->pause_menu.menu, column, row, box->background_color);
 		}
 	}
 }

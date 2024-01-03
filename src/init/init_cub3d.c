@@ -199,7 +199,6 @@ int	init_cub3d(cub3d_t *cub3d)
 	set_init_stats(cub3d);
 	init_start_menu(cub3d, &cub3d->start_menu);
 	init_level_menu(cub3d, &cub3d->level_menu);
-	init_pause_menu(cub3d, &cub3d->pause_menu);
 	init_name_menu(cub3d, &cub3d->name_menu);
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
 	if (!init_hearts(cub3d))
@@ -211,6 +210,7 @@ int	init_cub3d(cub3d_t *cub3d)
 		return (err("Failed to load mushroom texture"));
 	else
 		printf("Loaded mushroom texture\n");
+	init_pause_menu(cub3d, &cub3d->pause_menu);
 	i = -1;
 	while (++i < LEVELS + 1)
 		cub3d->levels[i].records = NULL;

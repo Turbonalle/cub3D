@@ -43,10 +43,10 @@ int	hover_box(cub3d_t *cub3d, box_t *box)
 	int	mouse_y;
 
 	mlx_get_mouse_pos(cub3d->mlx, &mouse_x, &mouse_y);
-	return (mouse_x >= box->pos.x
-		&& mouse_x <= box->pos.x + box->size
-		&& mouse_y >= box->pos.y
-		&& mouse_y <= box->pos.y + box->size);
+	return (mouse_x - cub3d->pause_menu.menu_pos.x >= box->pos.x
+		&& mouse_x - cub3d->pause_menu.menu_pos.x <= box->pos.x + box->size
+		&& mouse_y - cub3d->pause_menu.menu_pos.y >= box->pos.y
+		&& mouse_y - cub3d->pause_menu.menu_pos.y <= box->pos.y + box->size);
 }
 
 int	hover_any_box(cub3d_t *cub3d, pause_menu_t *menu)

@@ -84,7 +84,7 @@ int		init_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 int		init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 // init_pause_menu.c
-void	init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+int		init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 // init_start_menu.c
 int		init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
@@ -143,8 +143,6 @@ void	update_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 
 //---- PAUSE MENU --------------------------------------------------------------
 
-void	delete_pause_menu(cub3d_t *cub3d);
-
 // pause_text.c
 void	add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
@@ -154,7 +152,9 @@ void	add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
-void	draw_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+
+void	disable_pause_menu(mlx_t *mlx, pause_menu_t *menu);
+int	enable_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 // center.c
 void	center(mlx_image_t *img);

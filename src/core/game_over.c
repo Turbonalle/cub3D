@@ -43,7 +43,7 @@ void	level_finished(cub3d_t *cub3d)
 		cub3d->state = STATE_GAMEOVER;
 	}
 	handle_cursor(cub3d);
-	cub3d->speedrun = FALSE;
+	// cub3d->speedrun = FALSE;
 }
 
 void	game_over(cub3d_t *cub3d)

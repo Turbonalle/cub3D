@@ -8,6 +8,9 @@ void	disable_name_menu(mlx_t *mlx, name_menu_t *menu)
 	mlx_delete_image(mlx, menu->text_time);
 	menu->img->instances[0].enabled = FALSE;
 	menu->text_win_message->instances[0].enabled = FALSE;
+	menu->back.img->instances[0].enabled = FALSE;
+	menu->back_hover.img->instances[0].enabled = FALSE;
+	menu->timer.img->instances[0].enabled = FALSE;
 	while (menu->current > 0)
 	{
 		menu->current--;
@@ -38,4 +41,7 @@ void	enable_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 	reset_name_menu(menu);
 	menu->img->instances[0].enabled = TRUE;
 	menu->text_win_message->instances[0].enabled = TRUE;
+	menu->back.img->instances[0].enabled = TRUE;
+	menu->back_hover.img->instances[0].enabled = FALSE;
+	menu->timer.img->instances[0].enabled = TRUE;
 }

@@ -81,7 +81,7 @@ int		init_cub3d(cub3d_t *cub3d);
 int		init_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 
 // init_name_menu.c
-void	init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
+int		init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 // init_pause_menu.c
 void	init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);

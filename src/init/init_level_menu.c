@@ -155,14 +155,13 @@ static int	init_images(mlx_t *mlx, level_menu_t *menu)
 	return (SUCCESS);
 }
 
-static void	set_positions(level_menu_t *menu)
+static void	set_positions(level_menu_t *menu, vector_t *back_button_pos)
 {
 	int	i;
 	int	size;
 	int	gap;
 	int	rows;
 	int	columns;
-	int	margin_x;
 	int	number_square_size;
 
 	menu->title.pos.x = (menu->img->width - menu->title.img->width) / 2;
@@ -176,17 +175,18 @@ static void	set_positions(level_menu_t *menu)
 	gap = min(menu->img->width * 0.05, menu->img->height * 0.05);
 	if (gap < MINILEVEL_BORDER_THICKNESS)
 		gap = MINILEVEL_BORDER_THICKNESS;
-	margin_x = (menu->img->width - (columns * size + (columns - 1) * gap)) / 2;
+	back_button_pos->x = (menu->img->width - (columns * size + (columns - 1) * gap)) / 2;
+	back_button_pos->y = menu->img->height * 0.12;
 	number_square_size = size * 0.15;
-	menu->back.pos.x = margin_x;
-	menu->back.pos.y = menu->img->height * 0.12;
-	menu->leaderboard.pos.x = menu->img->width - margin_x - menu->leaderboard.img->width;
+	menu->back.pos.x = back_button_pos->x;
+	menu->back.pos.y = back_button_pos->y;
+	menu->leaderboard.pos.x = menu->img->width - back_button_pos->x - menu->leaderboard.img->width;
 	menu->leaderboard.pos.y = menu->img->height * 0.12;
 	i = -1;
 	while (++i < LEVELS)
 	{
 		menu->minilevels[i].size = size;
-		menu->minilevels[i].pos.x = margin_x + (i % columns) * (size + gap);
+		menu->minilevels[i].pos.x = back_button_pos->x + (i % columns) * (size + gap);
 		menu->minilevels[i].pos.y = menu->img->height * 0.32 + (i / columns) * (size + gap);
 		menu->minilevels[i].number.pos.x = menu->minilevels[i].pos.x + number_square_size / 2 - menu->minilevels[i].number.img->width / 2;
 		menu->minilevels[i].number.pos.y = menu->minilevels[i].pos.y + number_square_size / 2 - menu->minilevels[i].number.img->height / 2;
@@ -229,7 +229,7 @@ int	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	load_png(menu);
 	if (!init_images(cub3d->mlx, menu))
 		return (FAIL);
-	set_positions(menu);
+	set_positions(menu, &cub3d->back_button_pos);
 	draw_menu_background(menu->img, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->img);
 	i = -1;

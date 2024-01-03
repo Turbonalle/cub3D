@@ -435,6 +435,7 @@ typedef struct settings_menu_s
 # define MAX_NAME_LENGTH 12
 # define ALPHABET "abcdefghijklmnopqrstuvwxyz "
 # define ALPHABET_LENGTH 26
+# define NAME_BOX_GAP 5
 
 enum letters
 {
@@ -485,6 +486,8 @@ typedef struct name_menu_s
 	mlx_image_t	*text_win_message;
 	mlx_image_t	*text_enter_name;
 	mlx_image_t	*text_title;
+	png_t		back;
+	png_t		back_hover;
 	png_t		timer;
 	char		time_str[9];
 	mlx_image_t	*text_time;
@@ -498,7 +501,6 @@ typedef struct name_menu_s
 	char		name[MAX_NAME_LENGTH + 1];
 	int			letter_index[MAX_NAME_LENGTH];
 	int			changed;
-	int			background_color;
 }				name_menu_t;
 
 //---- GAMEOVER MENU -----------------------------------------------------------
@@ -696,6 +698,7 @@ typedef struct cub3d_s
 	pause_menu_t	pause_menu;
 	name_menu_t		name_menu;
 	gameover_menu_t	gameover_menu;
+	vector_t		back_button_pos;
 	settings_t		settings;
 	gametimer_t		timer;
 	int				n_levels;

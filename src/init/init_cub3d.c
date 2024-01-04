@@ -167,7 +167,6 @@ void	init_timer(cub3d_t *cub3d)
 static void	set_init_stats(cub3d_t *cub3d)
 {
 	cub3d->state = STATE_START;
-	cub3d->active = 1;
 	cub3d->mouse_set_pos.x = 0;
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
@@ -222,6 +221,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	while (++i < LEVELS + 1)
 		cub3d->levels[i].records = NULL;
 	cub3d->start_timestamp = mlx_get_time();
+	cub3d->prev_frame_update_timestamp = 0;
 	cub3d->player.num_completed = 0;
 	return (SUCCESS);
 }

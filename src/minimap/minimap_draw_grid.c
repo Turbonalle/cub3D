@@ -31,7 +31,7 @@ void	draw_correct_square(cub3d_t *cub3d, int row, int column)
 	{
 		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_floor);
 	}
-	else if (cub3d->level->map[row][column] == '1')
+	else if (cub3d->level->map[row][column] == '1' || cub3d->level->map[row][column] == 'h')
 	{
 		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_wall);
 	}

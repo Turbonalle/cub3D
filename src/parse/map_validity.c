@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:19 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:09:20 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/04 11:43:15 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	surrounded_by_walls(char **map)
 		column = -1;
 		while (map[row][++column])
 		{
-			if (map[row][column] == '0')
+			if (ft_strchr(MAP_ALL_BUT_WALL, map[row][column]))
 			{
 				if (row == 0 || !map[row + 1])
 					return (FALSE);

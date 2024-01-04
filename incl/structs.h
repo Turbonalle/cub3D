@@ -8,14 +8,6 @@ typedef struct map_node_s map_node_t;
 typedef struct key_node_s key_node_t;
 typedef struct door_pos_s door_pos_t;
 
-//---- TEXTURE -----------------------------------------------------------------
-
-typedef struct texture_s
-{
-	char	*path;
-	mlx_texture_t	*texture;
-}			texture_t;
-
 //---- VECTORS -----------------------------------------------------------------
 
 typedef struct vector_s
@@ -29,6 +21,25 @@ typedef struct dvector_t
 	double	x;
 	double	y;
 }			dvector_t;
+
+//---- TEXTURE -----------------------------------------------------------------
+
+typedef struct texture_s
+{
+	char	*path;
+	mlx_texture_t	*texture;
+}			texture_t;
+
+//---- PNG ---------------------------------------------------------------------
+
+typedef struct png_s
+{
+	mlx_image_t		*img;
+	mlx_texture_t	*texture;
+	vector_t		pos;
+	int				width;
+	int				height;
+}					png_t;
 
 //---- PLAYER ------------------------------------------------------------------
 # define DISTRACTION_THROW_DISTANCE 5
@@ -289,18 +300,18 @@ typedef struct button_s
 # define PAUSE_MENU_BACKGROUND_COLOR BLACK
 # define PAUSE_MENU_TRANSPARENCY 1
 # define PAUSE_MENU_SETTINGS_RECT_COLOR 0x2F1E45FF
+# define PAUSE_PNG "./assets/textures/menu/pause.png"
 
 typedef struct pause_menu_s
 {
-	mlx_image_t	*img;
-	int			background_color;
+	mlx_image_t	*bg;
+	mlx_image_t	*menu;
+	vector_t	menu_pos;
+	png_t		title;
 	mlx_image_t	*text_title;
 	mlx_image_t	*text_fps;
 	mlx_image_t	*text_fisheye;
 	mlx_image_t	*text_mouse;
-	rectangle_t	rect_title;
-	int			pos_x_rect_title;
-	int			pos_y_rect_title;
 	int			pos_col_text;
 	int			pos_col_box_1;
 	int			pos_col_box_2;
@@ -316,7 +327,7 @@ typedef struct pause_menu_s
 	box_t		box_fps[4];
 	box_t		box_fisheye[2];
 	box_t		box_mouse[2];
-}				pause_menu_t;
+}			pause_menu_t;
 
 //---- START MENU --------------------------------------------------------------
 
@@ -337,15 +348,6 @@ typedef struct pause_menu_s
 # define START_LEVEL_HOVER_PNG "./assets/textures/menu/levels_hover.png"
 # define START_EXIT_PNG "./assets/textures/menu/exit_normal.png"
 # define START_EXIT_HOVER_PNG "./assets/textures/menu/exit_hover.png"
-
-typedef struct png_s
-{
-	mlx_image_t		*img;
-	mlx_texture_t	*texture;
-	vector_t		pos;
-	int				width;
-	int				height;
-}					png_t;
 
 typedef struct start_menu_s
 {

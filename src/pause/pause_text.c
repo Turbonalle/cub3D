@@ -1,11 +1,5 @@
 #include "cub3d.h"
 
-void add_title_text(cub3d_t *cub3d, pause_menu_t *menu)
-{
-	menu->text_title = mlx_put_string(cub3d->mlx, "Pause", menu->rect_title.pos.x + menu->rect_title.width * 0.5, menu->rect_title.pos.y + menu->rect_title.height * 0.1);
-	center(menu->text_title);
-}
-
 void add_category_text(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	menu->text_fps = mlx_put_string(cub3d->mlx, "FPS:", menu->pos_col_text, menu->pos_row_1);

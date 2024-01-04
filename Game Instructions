@@ -11,8 +11,10 @@ A - strafe left
 D - strafe right
 LEFT ARROW - rotate left
 RIGHT ARROW - rotate right
+UP ARROW - decrease FOV (in fisheye mode)
+DOWN ARROW - increase FOV (in fisheye mode)
 SPACE - throw mushroom
 P - open/close pause menu
 ESC - exit game
 
-For the brave/foolish adventurer: the rage of the slimes increases for each successful escape. Are you up for the challenge?
+For the brave/foolish adventurer: the rage of the slimes increases with each successful escape. Are you up for the challenge?

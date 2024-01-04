@@ -53,7 +53,7 @@ void	draw_preview_map(minilevel_t *minilevel, level_t *level)
 		{
 			coord.x = minilevel->preview_pos.x + column * minilevel->preview_square_size;
 			coord.y = minilevel->preview_pos.y + row * minilevel->preview_square_size;
-			if (level->backup[row][column] == '1')
+			if (level->backup[row][column] == '1' || level->backup[row][column] == 'h')
 			{
 				draw_square(minilevel->img,
 					coord,

@@ -83,9 +83,9 @@ void	draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color)
   }
 }
 
-void	draw_triangle(cub3d_t *cub3d, triangle_t triangle, int color)
+void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color)
 {
-	draw_line(cub3d->img, triangle.a, triangle.b, color);
-	draw_line(cub3d->img, triangle.b, triangle.c, color);
-	draw_line(cub3d->img, triangle.c, triangle.a, color);
+	draw_line(img, triangle.a, triangle.b, color);
+	draw_line(img, triangle.b, triangle.c, color);
+	draw_line(img, triangle.c, triangle.a, color);
 }

@@ -46,9 +46,12 @@ void	collect_shroom(cub3d_t *cub3d, double y, double x)
 {
 	int	i;
 
-	if (cub3d->level->map[(int)y][(int)x] == 'm')
+	if (cub3d->level->map[(int)y][(int)x] == 'm' || cub3d->level->map[(int)y][(int)x] == 'r')
 	{
-		cub3d->level->map[(int)y][(int)x] = '0';
+		if (cub3d->level->map[(int)y][(int)x] == 'm')
+			cub3d->level->map[(int)y][(int)x] = '0';
+		else
+			cub3d->level->map[(int)y][(int)x] = 'h';
 		cub3d->player.mushroom_count++;
 		draw_shroom_count(cub3d);
 		enable_shroom(cub3d);

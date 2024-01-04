@@ -98,10 +98,10 @@ static void set_positions(name_menu_t *menu, vector_t back_button_pos)
 	menu->timer.pos.y = menu->img->height * 0.4 - menu->timer.img->height * 0.5;
 
 	// set name input
-	menu->rect_input.width = menu->img->width * 0.8;
+	menu->rect_input.width = menu->img->width * 0.6;
 	menu->rect_input.height = (menu->rect_input.width - (NAME_BOX_GAP * (MAX_NAME_LENGTH - 1))) / MAX_NAME_LENGTH;
 	menu->rect_input.pos.x = (menu->img->width - menu->rect_input.width) / 2;
-	menu->rect_input.pos.y = menu->img->height * 0.52;
+	menu->rect_input.pos.y = menu->img->height * 0.6;
 	menu->rect_input.color = WHITE;
 
 	set_letter_fields(menu);

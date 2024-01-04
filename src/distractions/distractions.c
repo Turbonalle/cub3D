@@ -35,7 +35,7 @@ int	init_distractions(cub3d_t *cub3d)
 		j = 0;
 		while (cub3d->level->map[i][j])
 		{
-			if (cub3d->level->map[i][j] == 'm')
+			if (cub3d->level->map[i][j] == 'm' || cub3d->level->map[i][j] == 'r')
 			{
 				distr_index = init_dist(cub3d, i, j, distr_index);
 				if (distr_index == -1)

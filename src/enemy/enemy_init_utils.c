@@ -2,13 +2,13 @@
 
 static void	init_enemy_dir(t_enemy *enemy, int i, char spec)
 {
-	if (spec == 'e')
+	if (spec == 'e' || spec == 'l')
 		enemy[i].angle = to_radians(0);
-	if (spec == 's')
+	if (spec == 's' || spec == 'k')
 		enemy[i].angle = to_radians(90);
-	if (spec == 'w')
+	if (spec == 'w' || spec == 'j')
 		enemy[i].angle = to_radians(180);
-	if (spec == 'n')
+	if (spec == 'n' || spec == 'i')
 		enemy[i].angle = to_radians(270);
 }
 
@@ -28,7 +28,10 @@ static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
 				cub3d->enemy[enemy_i].pos.x = j + 0.5;
 				cub3d->enemy[enemy_i].pos.y = i + 0.5;
 				init_enemy_dir(cub3d->enemy, enemy_i, cub3d->level->map[i][j]);
-				cub3d->level->map[i][j] = '0';
+				if (ft_strchr("ijkl", cub3d->level->map[i][j]))
+					cub3d->level->map[i][j] = 'h';
+				else
+					cub3d->level->map[i][j] = '0';
 				return (SUCCESS);
 			}
 		}

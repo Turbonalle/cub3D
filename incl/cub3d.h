@@ -172,7 +172,7 @@ int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 //---- DRAW --------------------------------------------------------------------
 
 void	draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color);
-void	draw_triangle(cub3d_t *cub3d, triangle_t triangle, int color);
+void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color);
 void	draw_rectangle(mlx_image_t *img, rectangle_t *rect);
 void	draw_checkbox(cub3d_t *cub3d, box_t *box);
 void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
@@ -245,6 +245,7 @@ void	collision_checker(cub3d_t *cub3d);
 void	item_collected_checker(cub3d_t *cub3d);
 void	player_is_hit(cub3d_t *cub3d, int i);
 void	draw_health(cub3d_t *cub3d);
+int		is_locked_door(cub3d_t *cub3d, int y, int x);
 
 // player_movement.c
 void	player_movement(cub3d_t *cub3d);

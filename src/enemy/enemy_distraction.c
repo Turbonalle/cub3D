@@ -1,11 +1,12 @@
 
 #include "../incl/cub3d.h"
 
-void	set_thrown_srhoom(distraction_t *distractions, int i, ray_t *ray)
+void	set_thrown_shroom(distraction_t *distractions, int i, ray_t *ray)
 {
 	distractions[i].pos.x = ray->end.x;
 	distractions[i].pos.y = ray->end.y;
 	distractions[i].collected = FALSE;
+	distractions[i].thrown = TRUE;
 	distractions[i].visible = FALSE;
 	distractions[i].pos_screen.x = -WIDTH;
 	distractions[i].pos_screen.y = -HEIGHT;
@@ -33,7 +34,7 @@ void	cause_distraction(cub3d_t *cub3d)
 		cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
 	cub3d->player.thrown = TRUE;
 	printf("caused distraction at pos %f,%f\n",ray->end.x,ray->end.y);
-	set_thrown_srhoom(cub3d->level->distractions, cub3d->level->num_distractions, ray);
+	set_thrown_shroom(cub3d->level->distractions, cub3d->level->num_distractions, ray);
 	cub3d->level->distractions[cub3d->level->num_distractions].img_distraction = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(cub3d->mlx, cub3d->level->distractions[cub3d->level->num_distractions].img_distraction, 0, 0);
 	draw_shroom_count(cub3d);

@@ -17,11 +17,9 @@ void scale_curr_frame(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *src, doubl
 		{
 			while (col_res < src->width * factor)
 			{
-				// TODO: handle out of limits pixels
 				if (col_res < key->img_curr_frame->width)
 				{
 					row_src = (uint32_t)round(row_res / factor);
-					// make sure that source pixel is not out of limits
 					if (row_src >= src->height)
 						row_src--;
 					col_src = (uint32_t)round(col_res / factor);
@@ -34,16 +32,13 @@ void scale_curr_frame(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *src, doubl
 							4);
 				}
 				col_res++;
-				// Maybe optimise and skip column completely?
 			}
 		}
 		row_res++;
 	}
-	//printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
 	key->img_curr_frame->instances[0].x = key->pos_screen.x - src->width * factor * 0.5;
 	key->img_curr_frame->instances[0].y = key->pos_screen.y - src->height * factor * 1.5;
-	
-	//printf("instance pos: x: %d, y: %d\n", res->instances[0].x, res->instances[0].y);
+
 }
 
 void scale_distraction(cub3d_t *cub3d, distraction_t *distraction, mlx_texture_t *src, double factor)
@@ -57,7 +52,6 @@ void scale_distraction(cub3d_t *cub3d, distraction_t *distraction, mlx_texture_t
 	distraction->img_distraction->instances[0].enabled = TRUE;
 	ft_memset(distraction->img_distraction->pixels, 0, distraction->img_distraction->width * distraction->img_distraction->height * 4);
 	row_res = 0;
-	// printf("src width: %d, src height: %d\n", src->width, src->height);
 	while (row_res < src->height * factor)
 	{
 		col_res = 0;
@@ -65,11 +59,9 @@ void scale_distraction(cub3d_t *cub3d, distraction_t *distraction, mlx_texture_t
 		{
 			while (col_res < src->width * factor)
 			{
-				// TODO: handle out of limits pixels
 				if (col_res < distraction->img_distraction->width)
 				{
 					row_src = (uint32_t)round(row_res / factor);
-					// make sure that source pixel is not out of limits
 					if (row_src >= src->height)
 						row_src--;
 					col_src = (uint32_t)round(col_res / factor);
@@ -82,14 +74,12 @@ void scale_distraction(cub3d_t *cub3d, distraction_t *distraction, mlx_texture_t
 							4);
 				}
 				col_res++;
-				// Maybe optimise and skip column completely?
 			}
 		}
 		row_res++;
 	}
 	distraction->img_distraction->instances[0].x = distraction->pos_screen.x - src->width * factor * 0.5;
 	distraction->img_distraction->instances[0].y = distraction->pos_screen.y - src->height * factor * 1.5;
-	// printf("distraction pos_screen: x: %d, y: %d\n", distraction->pos_screen.x, distraction->pos_screen.y);
 }
 
 void scale_curr_enemy_frame(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, double factor)
@@ -110,11 +100,9 @@ void scale_curr_enemy_frame(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, 
 		{
 			while (col_res < src->width * factor)
 			{
-				// TODO: handle out of limits pixels
 				if (col_res < enemy->img_curr_frame->width)
 				{
 					row_src = (uint32_t)round(row_res / factor);
-					// make sure that source pixel is not out of limits
 					if (row_src >= src->height)
 						row_src--;
 					col_src = (uint32_t)round(col_res / factor);
@@ -128,13 +116,10 @@ void scale_curr_enemy_frame(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, 
 					
 				}
 				col_res++;
-				// Maybe optimise and skip column completely?
 			}
 		}
 		row_res++;
 	}
-	//printf("pos_screen: x: %d, y: %d\n", pos_screen.x, pos_screen.y);
-	// printf("drew enemy at a distance: %f\n", enemy->dist_to_player);
 	enemy->img_curr_frame->instances[0].x = enemy->pos_screen.x - src->width * factor * 0.5;
 	enemy->img_curr_frame->instances[0].y = enemy->pos_screen.y - src->height * factor;
 	
@@ -228,13 +213,18 @@ void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
 
 void draw_distraction_frame(cub3d_t *cub3d, distraction_t *distraction)
 {
-	double scale_factor;
+	double 			scale_factor;
+	mlx_texture_t	*texture;
 
 	scale_factor = calculate_scale_factor(distraction->dist_to_player, DISTRACTION_NORMAL_SCALE_DISTANCE);
+	if (distraction->thrown == TRUE)
+		texture = cub3d->distraction_thrown_texture;
+	else
+		texture = cub3d->distraction_texture;
 	scale_distraction(
 		cub3d,
 		distraction,
-		cub3d->distraction_texture,
+		texture,
 		scale_factor
 	);
 }
@@ -643,7 +633,7 @@ void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_n
 	}
 }
 
-void	draw_animated_keys(cub3d_t *cub3d)
+void	draw_game_entities(cub3d_t *cub3d)
 {
 	int				i;
 	key_node_t		**ordered_keys;

@@ -587,6 +587,7 @@ typedef struct distraction_s
 {
 	bool		collected;
 	bool		visible;
+	bool		thrown;
 	dvector_t	pos;
 	vector_t	pos_screen;
 	double		dist_to_player;
@@ -711,6 +712,7 @@ typedef struct cub3d_s
 	mlx_texture_t	*frames_idle[NUM_FRAMES_ENEMY_IDLE];
 	mlx_texture_t	*frames_walking[NUM_FRAMES_ENEMY_WALKING];
 	mlx_texture_t	*distraction_texture;
+	mlx_texture_t	*distraction_thrown_texture;
 	int				curr_frame_index_walking;
 	int				prev_frame_index_walking;
 	int				curr_frame_index_idle;

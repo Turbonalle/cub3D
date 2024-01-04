@@ -56,7 +56,7 @@ void	handle_state_game(cub3d_t *cub3d)
 		enemy_vision(cub3d);
 		draw_enemies(cub3d);
 		draw_timer(cub3d);
-		draw_animated_keys(cub3d);
+		draw_game_entities(cub3d);
 		handle_halo(&cub3d->halo);
 	}
 	if (cub3d->player.health <= 0)

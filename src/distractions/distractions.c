@@ -5,6 +5,7 @@ static int	init_dist(cub3d_t *cub3d, int i, int j, int distr_index)
 	cub3d->level->distractions[distr_index].pos.x = j + 0.5;
 	cub3d->level->distractions[distr_index].pos.y = i + 0.5;
 	cub3d->level->distractions[distr_index].collected = FALSE;
+	cub3d->level->distractions[distr_index].thrown = FALSE;
 	cub3d->level->distractions[distr_index].visible = FALSE;
 	cub3d->level->distractions[distr_index].pos_screen.x = -WIDTH;
 	cub3d->level->distractions[distr_index].pos_screen.y = -HEIGHT;

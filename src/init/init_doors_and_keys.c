@@ -185,7 +185,7 @@ int create_images(cub3d_t *cub3d, int i, int active_key_groups)
 			) < 0))
 		return (err("Failed to create key count image"));
 	init_key_frames(&cub3d->level->key_groups[i]);
-	return (1);
+	return (SUCCESS);
 }
 
 int	set_indexes(cub3d_t *cub3d, int i)
@@ -224,21 +224,20 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	int	active_key_groups;
 
 	create_groups(cub3d);
-	if (set_indexes(cub3d, 0) == 0)
-		return (0);
-	if (load_textures(cub3d) == 0)
-		return (0);
+	if (set_indexes(cub3d, 0) == FAIL)
+		return (FAIL);
+	if (load_textures(cub3d) == FAIL)
+		return (FAIL);
 	i = 0;
 	active_key_groups = 0;
 	while (i < NUM_DOORS_MAX)
 	{
 		count = count_keys(cub3d, i);
 		if (count == -1)
-			return (0);
+			return (FAIL);
 		cub3d->level->key_groups[i].num_keys_total = count;
-		// Create key image if needed
-		if (count)
-			create_images(cub3d, i, active_key_groups++);
+		if (count && (create_images(cub3d, i, active_key_groups++) == FAIL))
+			return (FAIL);
 		i++;
 	}
 	draw_key_counts(cub3d);

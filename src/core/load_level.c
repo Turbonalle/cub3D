@@ -90,8 +90,10 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	set_initial_direction(cub3d);
 	if (!init_minimap(cub3d))
 		return (free_info(level->map), free(cub3d->enemy), 0);
-	init_doors_and_keys(cub3d);
-	init_textures(cub3d);
+	if (!init_doors_and_keys(cub3d))
+		return (free_info(level->map), free(cub3d->enemy), 0);
+	if (!init_textures(cub3d))
+		return (free_info(level->map), free(cub3d->enemy), 0);
 	set_z_of_all_images(cub3d);
 	enable_hearts(cub3d);
 	return (1);

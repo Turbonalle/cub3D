@@ -57,6 +57,7 @@ typedef struct player_s
 	int			mushroom_count;
 	int			is_walking;
 	int			is_strafing;
+	int			num_completed;
 }				player_t;
 
 enum enemy_state

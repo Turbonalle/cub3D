@@ -10,7 +10,9 @@ void	mouse_start_menu(cub3d_t *cub3d)
 		if (!load_level(cub3d, cub3d->level))
 			return ;
 		disable_start_menu(&cub3d->start_menu);
-		cub3d->settings.e_behaviour = 1;
+		cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
+		cub3d->settings.e_speed = cub3d->player.num_completed / 3;
+		printf("Level started, e_speed is %i, e_beh is %i\n",cub3d->settings.e_speed, cub3d->settings.e_behaviour);
 		cub3d->state = STATE_GAME;
 		handle_cursor(cub3d);
 		start_timer(cub3d);
@@ -25,7 +27,7 @@ void	mouse_start_menu(cub3d_t *cub3d)
 
 void	mouse_level_menu(cub3d_t *cub3d)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < cub3d->n_levels)
@@ -37,7 +39,8 @@ void	mouse_level_menu(cub3d_t *cub3d)
 				return ;
 			cub3d->speedrun = TRUE;
 			cub3d->state = STATE_GAME;
-			cub3d->settings.e_behaviour = 0;
+			cub3d->settings.e_behaviour = STATIONARY;
+			cub3d->settings.e_speed = 1;
 			disable_level_menu(&cub3d->level_menu);
 			handle_cursor(cub3d);
 			start_timer(cub3d);
@@ -63,7 +66,6 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 
 	cub3d = param;
     (void)modifier;
-
 	if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 	{
 		cub3d->keys.mouse_left = TRUE;
@@ -85,7 +87,7 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 			if (hover_any_box(cub3d, &cub3d->pause_menu))
 			{
 				update_pause_settings(cub3d, &cub3d->pause_menu);
-				print_settings(cub3d);	
+				print_settings(cub3d);
 			}
 		}
 		else if (cub3d->state == STATE_START)
@@ -119,6 +121,9 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 				if (!load_level(cub3d, cub3d->level))
 					return ;
 				disable_gameover_menu(cub3d->mlx, &cub3d->gameover_menu);
+				cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
+				cub3d->settings.e_speed = cub3d->player.num_completed / 3;
+				printf("Level started, e_speed is %i, e_beh is %i\n",cub3d->settings.e_speed, cub3d->settings.e_behaviour);
 				cub3d->state = STATE_GAME;
 				handle_cursor(cub3d);
 				start_timer(cub3d);
@@ -144,9 +149,9 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		cub3d->keys.mouse_right = FALSE;
 }
 
-void hook_mouse_scroll(double xdelta, double ydelta, void *param)
+void	hook_mouse_scroll(double xdelta, double ydelta, void *param)
 {
-	cub3d_t *cub3d;
+	cub3d_t	*cub3d;
 
 	(void)xdelta;
 	cub3d = param;

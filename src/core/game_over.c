@@ -48,6 +48,7 @@ void	level_finished(cub3d_t *cub3d)
 	}
 	else
 	{
+		cub3d->player.num_completed++;
 		enable_gameover_menu(cub3d, &cub3d->gameover_menu, WIN);
 		cub3d->state = STATE_GAMEOVER;
 	}

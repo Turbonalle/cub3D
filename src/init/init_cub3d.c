@@ -217,5 +217,6 @@ int	init_cub3d(cub3d_t *cub3d)
 	while (++i < LEVELS + 1)
 		cub3d->levels[i].records = NULL;
 	cub3d->start_timestamp = mlx_get_time();
+	cub3d->player.num_completed = 0;
 	return (SUCCESS);
 }

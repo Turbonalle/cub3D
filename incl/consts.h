@@ -97,9 +97,10 @@
 # define X 0
 # define Y 1
 
-# define STAIONARY 0
+# define STATIONARY 0
 # define NORMAL 1
 # define WANDERING 2
+
 enum elements
 {
 	NO,

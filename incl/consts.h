@@ -11,11 +11,11 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd nesw Gm h"
+# define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd neswijkl Gm hr"
 # define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswGmh"
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
-# define ENEMIES "nesw"
+# define ENEMIES "neswijkl"
 
 # define NORTH 'N'
 # define SOUTH 'S'
@@ -33,7 +33,7 @@
 # define ENEMY_ROT_SPEED 1
 # define ENEMY_FREEZE	2.0
 # define ENEMY_EATING_SPEED 0.1
-# define ENEMY_RADIUS 0.3
+# define ENEMY_RADIUS 0.40
 
 # define INVULNERABILITY_TIME 2
 

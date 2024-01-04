@@ -717,6 +717,7 @@ typedef struct cub3d_s
 	int				prev_frame_index_walking;
 	int				curr_frame_index_idle;
 	int				prev_frame_index_idle;
+	int				prev_frame_update_timestamp;
 	int				speedrun;
 	bool			active;
 	shroom_t		*shroom;

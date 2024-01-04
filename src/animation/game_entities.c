@@ -639,8 +639,83 @@ void	draw_game_entities(cub3d_t *cub3d)
 	key_node_t		**ordered_keys;
 	t_enemy			**ordered_enemies;
 	distraction_t	**ordered_distractions;
+	bool			animation_frame_change;
+	bool			fps_frame_change;
 
+	animation_frame_change = FALSE;
+	fps_frame_change = FALSE;
+
+	// check if animation frame needs to change
 	cub3d->curr_frame_index_idle = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_IDLE;
+	if (cub3d->prev_frame_index_idle != cub3d->curr_frame_index_idle)
+	{
+		animation_frame_change = TRUE;
+		// update current frame for all game entities
+		cub3d->curr_frame_index_walking = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_WALKING;
+		i = 0;
+		while (i < NUM_DOORS_MAX)
+		{
+			if (cub3d->level->door_groups[i].num_keys_left > 0)
+				cub3d->level->key_groups[i].curr_frame_index = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_KEY;
+			i++;
+		}
+	}
+		
+	// check if we need to redraw accoring to fps
+	if (cub3d->run_time - cub3d->prev_frame_update_timestamp >= cub3d->frame_time)
+	{
+		fps_frame_change = TRUE;
+		cub3d->prev_frame_update_timestamp = cub3d->run_time;
+	}
+
+	if (animation_frame_change || fps_frame_change)
+	{
+		ordered_keys = create_array_of_keys_ordered_by_dist(cub3d);
+		ordered_enemies = create_array_of_enemies_ordered_by_dist(cub3d);
+		ordered_distractions = create_array_of_distractions_ordered_by_dist(cub3d);
+		assign_z_depth_ordered_by_distance(cub3d, ordered_enemies, ordered_keys, ordered_distractions);
+		i = 0;
+		while (ordered_enemies[i])
+		{
+			draw_enemy_frame(cub3d, ordered_enemies[i]);
+			i++;
+		}
+		i = 0;
+		while (ordered_distractions[i])
+		{
+			draw_distraction_frame(cub3d, ordered_distractions[i]);
+			i++;
+		}
+		i = 0;
+		while (i < NUM_DOORS_MAX)
+		{
+			if (cub3d->level->door_groups[i].num_keys_left > 0)
+				draw_keys(cub3d, i, cub3d->level->key_groups[i].curr_frame_index);
+			i++;
+		}
+		free(ordered_enemies);
+		free(ordered_keys);
+		free(ordered_distractions);
+	}
+
+	// update previous frames in the end
+	if (animation_frame_change)
+	{
+		cub3d->prev_frame_index_idle = cub3d->curr_frame_index_idle;
+		cub3d->prev_frame_index_walking = cub3d->curr_frame_index_walking;
+		i = 0;
+		while (i < NUM_DOORS_MAX)
+		{
+			if (cub3d->level->door_groups[i].num_keys_left > 0)
+				cub3d->level->key_groups[i].prev_frame_index
+					= cub3d->level->key_groups[i].curr_frame_index;
+			i++;
+		}
+	}
+	
+
+
+	/* cub3d->curr_frame_index_idle = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_IDLE;
 	if (cub3d->prev_frame_index_idle != cub3d->curr_frame_index_idle)
 	{
 		cub3d->curr_frame_index_walking = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_WALKING;
@@ -681,5 +756,5 @@ void	draw_game_entities(cub3d_t *cub3d)
 			}
 			i++;
 		}
-	}
+	} */
 }

@@ -119,7 +119,6 @@ int init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	init_checkboxes(menu);
 	set_checkbox_values(menu);
 	init_checkbox_states(menu);
-	cub3d->settings.e_speed = 1;
 	update_settings(cub3d, menu);
 
 	draw_menu_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY));

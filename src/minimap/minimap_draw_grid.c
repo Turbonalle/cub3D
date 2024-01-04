@@ -22,7 +22,10 @@ void	draw_correct_square(cub3d_t *cub3d, int row, int column)
 	coord.y = row * cub3d->minimap.tile_size;
 	if (index > -1)
 	{
-		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, get_door_key_color(cub3d, index));
+		if (cub3d->speedrun == 0)
+			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, get_door_key_color(cub3d, index));
+		else
+			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_door);
 	}
 	else if (cub3d->level->map[row][column] == '0' || get_key_index(cub3d->level->map[row][column]) > -1 || cub3d->level->map[row][column] == 'm')
 	{

@@ -147,6 +147,7 @@ void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 			disable_name_menu(cub3d->mlx, menu);
 			enable_leaderboard(cub3d, &cub3d->leaderboard);
 			cub3d->state = STATE_LEADERBOARD;
+			cub3d->speedrun = FALSE;
 			menu->changed = FALSE;
 			return ;
 		}

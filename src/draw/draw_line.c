@@ -171,7 +171,7 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ra
 			src.x = texture.texture->width - src.x - 1;
 		wall_height = end.y - start.y;
 		src_start = (wall_height - cub3d->img->height) / 2 * (texture.texture->height / wall_height);
-		src.y = round(src_start + (y * texture.texture->height / wall_height));
+		src.y = (int)(src_start + (y * texture.texture->height / wall_height));
 		if (src.y > (int)texture.texture->height - 1)
 			src.y = (int)texture.texture->height - 1;
 		mlx_put_pixel(cub3d->img, (int)start.x, y, get_pixel_color(texture, src));
@@ -193,13 +193,12 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
 		if (ray.wall == NO)
 			src.x = texture.texture->width - src.x - 1;
-		// TODO: fix src.y calculations to remove random odd pixels from walls
-		src.y = round((y - (start.y)) * texture.texture->height / (end.y - start.y));
+		src.y = (int)((y - start.y) * texture.texture->height / (end.y - start.y));
 		if (src.y > (int)texture.texture->height - 1)
 			src.y = (int)texture.texture->height - 1;
 		color = get_pixel_color(texture, src);
 			//printf("color: %d\n", color);
-		mlx_put_pixel(cub3d->img, round(start.x), y, color);
+		mlx_put_pixel(cub3d->img, (int)start.x, y, color);
 		y++;
 	}
 }

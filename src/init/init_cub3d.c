@@ -160,7 +160,7 @@ void	count_distractions(cub3d_t *cub3d)
 
 void	init_timer(cub3d_t *cub3d)
 {
-	cub3d->timer.pos.x = cub3d->img->width * 0.95;
+	cub3d->timer.pos.x = cub3d->img->width * 0.96;
 	cub3d->timer.pos.y = cub3d->img->height * 0.05;
 }
 

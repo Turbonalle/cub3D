@@ -172,8 +172,8 @@ int	count_keys(cub3d_t *cub3d, int i)
 
 int create_images(cub3d_t *cub3d, int i, int active_key_groups)
 {
-	cub3d->level->key_groups[i].key_icon_coords.x = cub3d->mlx->width * 0.05;
-	cub3d->level->key_groups[i].key_icon_coords.y = cub3d->mlx->height * 0.9
+	cub3d->level->key_groups[i].key_icon_coords.x = cub3d->mlx->width * 0.035;
+	cub3d->level->key_groups[i].key_icon_coords.y = cub3d->mlx->height * 0.907
 		- cub3d->mlx->height * 0.05 * active_key_groups;
 	cub3d->level->key_groups[i].img_key_icon = mlx_texture_to_image(cub3d->mlx,
 			cub3d->level->key_groups[i].texture_key_icon);

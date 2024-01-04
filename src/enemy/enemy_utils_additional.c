@@ -4,9 +4,12 @@
 int	check_collisions(cub3d_t *cub3d, int i)
 {
 	int			j;
+	vector_t	minus;
+	vector_t	plus;
 	dvector_t	new_pos;
 
 	j = -1;
+	cub3d->enemy[i].is_walking = 0;
 	new_pos.x = cub3d->enemy[i].pos.x + cos(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
 	new_pos.y = cub3d->enemy[i].pos.y + sin(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
 
@@ -14,12 +17,77 @@ int	check_collisions(cub3d_t *cub3d, int i)
 	{
 		if (i == j)
 			continue ;
-		if (dist_between_d_vectors(new_pos, cub3d->enemy[j].pos) < 2 * ENEMY_RADIUS)
-		{
-			cub3d->enemy[i].is_walking = 0;
+		if (dist_between_d_vectors(new_pos, cub3d->enemy[j].pos) < 1.3 * ENEMY_RADIUS)
 			return (1);
+	}
+	minus.x = 0;
+	minus.y = 0;
+	plus.x = 0;
+	plus.y = 0;
+	if (!(cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+	|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+	{
+		printf("time %f NO WALL at %i,%i(x-, y-)\n", cub3d->run_time,(int)new_pos.y, (int)(new_pos.x - ENEMY_RADIUS));
+		minus.x++;
+		minus.y++;
+	}
+	if (!(cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+	|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+	{
+		printf("time %f NO WALL at %i,%i(x+, y+)\n", cub3d->run_time,(int)new_pos.y, (int)(new_pos.x + ENEMY_RADIUS));
+		plus.x++;
+		plus.y++;
+	}
+	if (!(cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+	|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+	{
+		printf("time %f NO WALL at %i,%i(x+, y-)\n", cub3d->run_time,(int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x));
+		plus.x++;
+		minus.y++;
+	}
+	if (!(cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+	|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+	{
+		printf("time %f NO WALL at %i,%i(x-, y+)\n", cub3d->run_time,(int)(new_pos.y + ENEMY_RADIUS), (int)((new_pos.x + ENEMY_RADIUS)));
+		minus.x++;
+		plus.y++;
+	}
+	printf("%i,%i and %i,%i\n",minus.x,minus.y,plus.x,plus.y);
+	printf("at pos %f,%f\n",fmod(new_pos.x, 1),fmod(new_pos.y, 1));
+	if (fmod(new_pos.x, 1) < 0.5)
+	{
+		if (minus.x == 2)
+		{
+			cub3d->enemy[i].is_walking = 1;
+			cub3d->enemy[i].pos.y = new_pos.y;
 		}
 	}
+	else
+	{
+		if (plus.x == 2)
+		{
+			cub3d->enemy[i].is_walking = 1;
+			cub3d->enemy[i].pos.y = new_pos.y;
+		}
+	}
+	if (fmod(new_pos.y, 1) < 0.5)
+	{
+		if (minus.y == 2)
+		{
+			cub3d->enemy[i].is_walking = 1;
+			cub3d->enemy[i].pos.x = new_pos.x;
+		}
+	}
+	else
+	{
+		if (plus.y == 2)
+		{
+			cub3d->enemy[i].is_walking = 1;
+			cub3d->enemy[i].pos.x = new_pos.x;
+		}
+	}
+	if (plus.x < 2 || plus.y < 2 || minus.x < 2 || minus.y < 2)
+		return (1);
 	return (0);
 }
 
@@ -28,10 +96,6 @@ void	enemy_advance(cub3d_t *cub3d, int i)
 	if (check_collisions(cub3d, i) == 1)
 		return ;
 	cub3d->enemy[i].is_walking = 1;
-	cub3d->enemy[i].pos.x += cos(cub3d->enemy[i].angle)
-		* ENEMY_SPEED * (1 + cub3d->settings.e_speed);
-	cub3d->enemy[i].pos.y += sin(cub3d->enemy[i].angle)
-		* ENEMY_SPEED * (1 + cub3d->settings.e_speed);
 }
 
 char	*create_file_path(int i, char *path)

@@ -245,6 +245,7 @@ void	collision_checker(cub3d_t *cub3d);
 void	item_collected_checker(cub3d_t *cub3d);
 void	player_is_hit(cub3d_t *cub3d, int i);
 void	draw_health(cub3d_t *cub3d);
+int		is_locked_door(cub3d_t *cub3d, int y, int x);
 
 // player_movement.c
 void	player_movement(cub3d_t *cub3d);

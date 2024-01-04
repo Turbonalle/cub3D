@@ -172,7 +172,7 @@ int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 //---- DRAW --------------------------------------------------------------------
 
 void	draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color);
-void	draw_triangle(cub3d_t *cub3d, triangle_t triangle, int color);
+void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color);
 void	draw_rectangle(mlx_image_t *img, rectangle_t *rect);
 void	draw_checkbox(cub3d_t *cub3d, box_t *box);
 void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
@@ -336,8 +336,8 @@ int		err(char *error_message);
 
 // drawing_utils.c
 void	draw_square(mlx_image_t *img, vector_t coord, int size, int color);
-void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
-void draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
+void	mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
+void	draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
 
 
 void	draw_shroom_count(cub3d_t *cub3d);

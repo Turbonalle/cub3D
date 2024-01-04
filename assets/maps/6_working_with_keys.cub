@@ -1,5 +1,5 @@
-NO ./assets/textures/surfaces/sludge_black.png
-SO ./assets/textures/surfaces/sludge_green.png
+NO ./assets/textures/surfaces/concrete.png
+SO ./assets/textures/surfaces/bricks_dark.png
 EA ./assets/textures/surfaces/sludge_black.png
 WE ./assets/textures/surfaces/sludge_black.png
 

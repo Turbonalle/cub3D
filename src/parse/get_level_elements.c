@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_elements.c                                     :+:      :+:    :+:   */
+/*   get_level_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:08 by slampine          #+#    #+#             */
-/*   Updated: 2023/11/20 09:09:10 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/05 13:20:36 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	find_element(level_t *level, char *line)
 	return (FAIL);
 }
 
-void remove_newline(char *line)
+void	remove_newline(char *line)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (line[++i])
@@ -70,10 +70,10 @@ void remove_newline(char *line)
 	}
 }
 
-int get_elements(level_t *level, int fd)
+int	get_elements(level_t *level, int fd)
 {
-	char *line;
-	int i;
+	char	*line;
+	int		i;
 
 	i = 0;
 	while (i < 6)

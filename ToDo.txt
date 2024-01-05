@@ -2,8 +2,7 @@
 
 TODO:
 
-- Fix update_minimap()
-- Add intro
+- Add actual intro png
 
 -----------------------------------------------------------------------------
 

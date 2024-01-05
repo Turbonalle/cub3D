@@ -98,6 +98,16 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 				update_pause_settings(cub3d, &cub3d->pause_menu);
 				print_settings(cub3d);
 			}
+			if (hover_rectangle(cub3d, &cub3d->pause_menu.sensitivity_slider.marker))
+			{
+				cub3d->pause_menu.sensitivity_slider.marker_state = TRUE;
+				cub3d->mouse_set_pos.x = cub3d->mouse.x;
+				cub3d->mouse_set_pos.y = cub3d->mouse.y;
+				cub3d->pause_menu.sensitivity_slider.orig_marker_pos.x = cub3d->pause_menu.sensitivity_slider.marker.pos.x;
+				cub3d->pause_menu.sensitivity_slider.orig_marker_pos.y = cub3d->pause_menu.sensitivity_slider.marker.pos.y;
+			}
+			else
+				cub3d->pause_menu.sensitivity_slider.marker_state = FALSE;
 		}
 		else if (cub3d->state == STATE_START)
 		{

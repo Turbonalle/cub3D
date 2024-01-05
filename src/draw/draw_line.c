@@ -131,9 +131,9 @@ static texture_t	find_texture(cub3d_t *cub3d, ray_t ray)
 		texture = cub3d->level->texture[0];
 	if (ray.wall == SO)
 		texture = cub3d->level->texture[1];
-	if (ray.wall == EA)
-		texture = cub3d->level->texture[2];
 	if (ray.wall == WE)
+		texture = cub3d->level->texture[2];
+	if (ray.wall == EA)
 		texture = cub3d->level->texture[3];
 	return (texture);
 }
@@ -164,11 +164,13 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ra
 
 	texture = find_texture(cub3d, ray);
 	y = 0;
+	src.x = fmod(ray.end.y, 1.0) * texture.texture->width;
+	if (ray.wall == NO || ray.wall == SO)
+		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
+	if (ray.wall == NO || ray.wall == WE)
+		src.x = texture.texture->width - src.x - 1;
 	while (y < (int)cub3d->img->height)
 	{
-		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
-		if (ray.wall == NO)
-			src.x = texture.texture->width - src.x - 1;
 		wall_height = end.y - start.y;
 		src_start = (wall_height - cub3d->img->height) / 2 * (texture.texture->height / wall_height);
 		src.y = round(src_start + (y * texture.texture->height / wall_height) - 0.4999);
@@ -190,18 +192,26 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 
 	texture = find_texture(cub3d, ray);
 	y = round(start.y);
+	src.x = fmod(ray.end.y, 1.0) * texture.texture->width;
+	if (ray.wall == NO || ray.wall == SO)
+		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
+	if (ray.wall == NO || ray.wall == EA)
+		src.x = texture.texture->width - src.x - 1;
 	//printf("start.x: %f, start.y: %f, end.x: %f, end.y: %f\n", start.x, start.y, end.x, end.y);
 	while (y < end.y)
 	{
-		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
-		if (ray.wall == NO)
-			src.x = texture.texture->width - src.x - 1;
 		src.y = round((y - start.y) * texture.texture->height / (end.y - start.y) - 0.4999);
 		if (src.y > (int)texture.texture->height - 1)
 			src.y = (int)texture.texture->height - 1;
 		if (src.y < 0)
 			src.y = 0;
 		color = get_pixel_color(texture, src);
+		if ((int)start.x == 500 /*&& (int)start.x < 800*/)
+		{
+			printf("Ray ends at %f\n",fmod(ray.end.x, 1));
+			printf("dest are %i,%i\n",(int)start.x, y);
+			printf("Src are %i,%i\n",src.x,src.y);
+		}
 		mlx_put_pixel(cub3d->img, (int)start.x, y, color);
 		y++;
 	}

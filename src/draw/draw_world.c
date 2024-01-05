@@ -80,11 +80,15 @@ void draw_world(cub3d_t *cub3d)
 		if (cub3d->rays[index].wall == EA)
 		{
 			if (close)
-			{
-				start.y = 0;
-				end.y = cub3d->img->height - 1;
-			}
-			draw_vertical_line(cub3d->img, start, end, BLUE);
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
+			// if (close)
+			// {
+			// 	start.y = 0;
+			// 	end.y = cub3d->img->height - 1;
+			// }
+			// draw_vertical_line(cub3d->img, start, end, BLUE);
 		}
 		else if (cub3d->rays[index].wall == SO)
 		{
@@ -96,11 +100,15 @@ void draw_world(cub3d_t *cub3d)
 		else if (cub3d->rays[index].wall == WE)
 		{
 			if (close)
-			{
-				start.y = 0;
-				end.y = cub3d->img->height - 1;
-			}
-			draw_vertical_line(cub3d->img, start, end, GREEN);
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
+			// if (close)
+			// {
+			// 	start.y = 0;
+			// 	end.y = cub3d->img->height - 1;
+			// }
+			// draw_vertical_line(cub3d->img, start, end, GREEN);
 		}
 		else if (cub3d->rays[index].wall == NO)
 		{

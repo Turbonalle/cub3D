@@ -47,6 +47,18 @@ void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t v_ray_step_size)
 		v_ray_1d_length->y += v_ray_step_size.y;
 }
 
+static dvector_t	shorten_vector(dvector_t pos, dvector_t target)
+{
+	dvector_t	len_target;
+	dvector_t	result;
+
+	len_target.x = target.x - pos.x;
+	len_target.y = target.y - pos.y;
+	result.x = pos.x + (0.95 * len_target.x);
+	result.y = pos.y + (0.95 * len_target.y);
+	return (result);
+}
+
 ray_t *cast_ray(cub3d_t *cub3d, ray_t *ray)
 {
 	dvector_t	v_ray_step_size;
@@ -68,5 +80,6 @@ ray_t *cast_ray(cub3d_t *cub3d, ray_t *ray)
 			break ;
 	}
 	update_end(cub3d, cub3d->player.angle, ray);
+	ray->end = shorten_vector(cub3d->player.pos, ray->end);
 	return (ray);
 }

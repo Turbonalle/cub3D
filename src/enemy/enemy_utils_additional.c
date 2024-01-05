@@ -10,7 +10,6 @@ int	check_collisions(cub3d_t *cub3d, int i)
 	cub3d->enemy[i].is_walking = 0;
 	new_pos.x = cub3d->enemy[i].pos.x + cos(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
 	new_pos.y = cub3d->enemy[i].pos.y + sin(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
-
 	while (j++ < cub3d->num_enemies)
 	{
 		if (i == j)

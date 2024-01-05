@@ -201,6 +201,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	init_level_menu(cub3d, &cub3d->level_menu);
 	init_name_menu(cub3d, &cub3d->name_menu);
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
+	init_intro(cub3d);
 	if (!init_hearts(cub3d))
 		return (err("Failed to init hearts"));
 	if (!init_shroom(cub3d))

@@ -6,16 +6,25 @@ void	mouse_start_menu(cub3d_t *cub3d)
 		mlx_close_window(cub3d->mlx);
 	else if (hover_image(cub3d, cub3d->start_menu.start.img))
 	{
-		cub3d->level = &cub3d->levels[0];
-		if (!load_level(cub3d, cub3d->level))
-			return ;
-		disable_start_menu(&cub3d->start_menu);
-		cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
-		cub3d->settings.e_speed = cub3d->player.num_completed / 3;
-		printf("Level started, e_speed is %i, e_beh is %i\n",cub3d->settings.e_speed, cub3d->settings.e_behaviour);
-		cub3d->state = STATE_GAME;
-		handle_cursor(cub3d);
-		start_timer(cub3d);
+		if (cub3d->intro_watched == FALSE)
+		{
+			disable_start_menu(&cub3d->start_menu);
+			enable_intro(cub3d);
+			cub3d->state = STATE_INTRO;
+		}
+		else
+		{
+			cub3d->level = &cub3d->levels[0];
+			if (!load_level(cub3d, cub3d->level))
+				return ;
+			disable_start_menu(&cub3d->start_menu);
+			cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
+			cub3d->settings.e_speed = cub3d->player.num_completed / 3;
+			printf("Level started, e_speed is %i, e_beh is %i\n",cub3d->settings.e_speed, cub3d->settings.e_behaviour);
+			cub3d->state = STATE_GAME;
+			handle_cursor(cub3d);
+			start_timer(cub3d);
+		}
 	}
 	else if (hover_image(cub3d, cub3d->start_menu.level.img))
 	{
@@ -138,6 +147,22 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 				cub3d->state = STATE_LEVEL;
 				cub3d->name_menu.changed = FALSE;
 				cub3d->speedrun = FALSE;
+			}
+		}
+		else if (cub3d->state == STATE_INTRO)
+		{
+			if (hover_image(cub3d, cub3d->intro.img))
+			{
+				cub3d->level = &cub3d->levels[0];
+				if (!load_level(cub3d, cub3d->level))
+					return ;
+				disable_intro(cub3d);
+				cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
+				cub3d->settings.e_speed = cub3d->player.num_completed / 3;
+				cub3d->intro_watched = TRUE;
+				cub3d->state = STATE_GAME;
+				handle_cursor(cub3d);
+				start_timer(cub3d);
 			}
 		}
 	}

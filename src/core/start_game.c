@@ -76,10 +76,6 @@ void	update(void *param)
 		update_level_menu(cub3d, &cub3d->level_menu);
 	else if (cub3d->state == STATE_LEADERBOARD)
 		update_leaderboard(cub3d, &cub3d->leaderboard);
-	else if (cub3d->state == STATE_SETTINGS)
-	{
-		// update_settings_menu(cub3d, &cub3d->settings_menu);
-	}
 	else if (cub3d->state == STATE_PAUSE)
 	{
 		update_pause_menu(cub3d, &cub3d->pause_menu);

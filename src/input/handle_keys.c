@@ -169,16 +169,6 @@ void	handle_leaderboard_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	}
 }
 
-void	handle_settings_input(mlx_key_data_t keydata, cub3d_t *cub3d)
-{
-	if (keydata.key == MLX_KEY_ESCAPE)
-	{
-		// delete_settings_menu(cub3d, &cub3d->settings_menu);
-		// enable_start_menu(&cub3d->start_menu);
-		cub3d->state = STATE_START;
-	}
-}
-
 void	handle_gameover_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
@@ -203,8 +193,6 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		handle_level_input(keydata, cub3d);
 	else if (cub3d->state == STATE_LEADERBOARD)
 		handle_leaderboard_input(keydata, cub3d);
-	else if (cub3d->state == STATE_SETTINGS)
-		handle_settings_input(keydata, cub3d);
 	else if (cub3d->state == STATE_GAMEOVER)
 		handle_gameover_input(keydata, cub3d);
 }

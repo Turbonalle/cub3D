@@ -2,43 +2,22 @@
 
 TODO:
 
-- Create wall textures
-- Create sprites
 - Fix update_minimap()
+- Add intro
 
 -----------------------------------------------------------------------------
 
 OPTIONAL:
 
 - Create floor and ceiling textures
-- Add enemies
-	Currently:
-		multiple enemies, who move, chase to last known spot, when there rotate if can not see player
-- Add doors
-	Currently:
-		primitive version, open when player is near enough, seen on minimap
-		Enemies can no longer see through doors
-- Add mirrors
-
-- Enemy difficulty:
-	- stationary
-	- rotating
-	- fixed path
-	- random path
-		stationary, rotating and random path enemies done, set via settings.e_difficulty
-		Currently all enemies in map have same setting
-- Minimap settings:
-	- show only FOV
-	- show whole map
-	- show also enemies
-	- show also enemy FOV
-- Other settings?
+- Add mouse sensitivity slider
 
 -----------------------------------------------------------------------------
 
 BUGS:
 
 - If pressing esc while another key is pressed in-game -> segfault
+- If W/A/S/D stay pressed when finishing and making new record, next letter will always be the W/A/S/D that's being pressed
 
 -----------------------------------------------------------------------------
 

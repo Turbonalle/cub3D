@@ -183,12 +183,21 @@ int get_map(level_t *level, int fd)
 int read_cub_file(level_t *level, char *map_path)
 {
 	int	fd;
-	int		i;
+	int	i;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (close(fd), err("Failed to open map file"));
-	get_elements(level, fd);
+	if (!get_elements(level, fd))
+	{
+		i = 0;
+		while (i < 4)
+		{
+			free(level->texture[i].path);
+			i++;
+		}
+		return (0);
+	}
 	if (!all_elements_found(level->element_found))
 		return (close(fd), err("Missing element(s) in map file"));
 	if (!get_map(level, fd))

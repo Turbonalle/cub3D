@@ -260,7 +260,7 @@ int		get_door_index(char symbol);
 int		get_key_index(char symbol);
 
 //key_counts.c
-void	draw_key_counts(cub3d_t *cub3d);
+int		draw_key_counts(cub3d_t *cub3d);
 
 // game_entities.c
 void	draw_game_entities(cub3d_t *cub3d);

@@ -2,7 +2,7 @@
 
 static int	load_png(cub3d_t *cub3d)
 {
-	cub3d->shroom->shroom.texture = mlx_load_png(TEXTURE_MUSHROOM);
+	cub3d->shroom->shroom.texture = mlx_load_png(TEXTURE_MUSHROOM_COUNTER);
 	if (!cub3d->shroom->shroom.texture)
 		return (0);
 	return (1);
@@ -18,8 +18,8 @@ static int	init_images(cub3d_t *cub3d)
 
 static void	set_position(cub3d_t *cub3d)
 {
-	cub3d->shroom->shroom.pos.x = cub3d->mlx->width * 0.9;
-	cub3d->shroom->shroom.pos.y = cub3d->mlx->height * 0.95;
+	cub3d->shroom->shroom.pos.x = cub3d->mlx->width * 0.95 - cub3d->shroom->shroom.img->width;
+	cub3d->shroom->shroom.pos.y = cub3d->mlx->height * 0.95 - cub3d->shroom->shroom.img->height;
 }
 
 static int	put_image_to_window(cub3d_t *cub3d)

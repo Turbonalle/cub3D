@@ -55,7 +55,7 @@ void	collect_shroom(cub3d_t *cub3d, double y, double x)
 		cub3d->player.mushroom_count++;
 		draw_shroom_count(cub3d);
 		enable_shroom(cub3d);
-		activate_halo(&cub3d->halo, BLUE);
+		activate_halo(&cub3d->halo, TURQUOISE);
 		i = 0;
 		while (i < cub3d->level->num_distractions)
 		{

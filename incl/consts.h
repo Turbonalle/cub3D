@@ -62,7 +62,9 @@
 # define RECORD_FILE "./assets/records.txt"
 # define LEVEL_PREFIX "./assets/levels/level"
 
-# define TEXTURE_MUSHROOM "./assets/textures/mushrooms/1.png"
+# define TEXTURE_MUSHROOM "./assets/textures/mushrooms/2.png"
+# define TEXTURE_MUSHROOM_THROWN "./assets/textures/mushrooms/1.png"
+# define TEXTURE_MUSHROOM_COUNTER "./assets/textures/mushrooms/2x2.png"
 # define TEXTURE_HEART_FULL "./assets/textures/heart/full.png"
 # define TEXTURE_HEART_HALF "./assets/textures/heart/half.png"
 # define TEXTURE_HEART_EMPTY "./assets/textures/heart/empty.png"

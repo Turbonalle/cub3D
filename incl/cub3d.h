@@ -262,8 +262,8 @@ int		get_key_index(char symbol);
 //key_counts.c
 void	draw_key_counts(cub3d_t *cub3d);
 
-// keys_animation.c
-void	draw_animated_keys(cub3d_t *cub3d);
+// game_entities.c
+void	draw_game_entities(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------
 
@@ -309,8 +309,8 @@ ray_t	*cast_ray(cub3d_t *cub3d, ray_t *ray);
 void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag);
 int		obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir);
 vector_t	init_v_step(double dir);
-dvector_t 	init_step_size(double angle);
-dvector_t 	init_ray_1D_length(dvector_t start_pos, double dir, vector_t v_map_check, dvector_t v_ray_step_size);
+dvector_t	init_step_size(double angle);
+dvector_t	init_ray_1D_length(dvector_t start_pos, double dir, vector_t v_map_check, dvector_t v_ray_step_size);
 void	adjust(vector_t *v_map_check, ray_t *ray, vector_t v_step, dvector_t *v_ray_1d_length);
 void	adjust_wall_flag(dvector_t *v_ray_1d_length, dvector_t v_ray_step_size, int *wall_flag);
 void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t v_ray_step_size);
@@ -375,6 +375,7 @@ int		not_at_end(ray_t *ray, player_t player, t_enemy *enemy, int i);
 int		wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check);
 void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key);
 void	see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
+
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 
 // extra.c

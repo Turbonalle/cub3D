@@ -160,7 +160,7 @@ void	count_distractions(cub3d_t *cub3d)
 
 void	init_timer(cub3d_t *cub3d)
 {
-	cub3d->timer.pos.x = cub3d->img->width * 0.95;
+	cub3d->timer.pos.x = cub3d->img->width * 0.96;
 	cub3d->timer.pos.y = cub3d->img->height * 0.05;
 }
 
@@ -207,6 +207,11 @@ int	init_cub3d(cub3d_t *cub3d)
 		return (err("Failed to init shroom counter"));
 	init_halo(cub3d);
 	init_timer(cub3d);
+	cub3d->distraction_thrown_texture = mlx_load_png(TEXTURE_MUSHROOM_THROWN);
+	if (!cub3d->distraction_thrown_texture)
+		return (err("Failed to load mushroom thrown texture"));
+	else
+		printf("Loaded mushroom thrown texture\n");
 	cub3d->distraction_texture = mlx_load_png(TEXTURE_MUSHROOM);
 	if (!cub3d->distraction_texture)
 		return (err("Failed to load mushroom texture"));

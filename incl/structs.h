@@ -658,12 +658,14 @@ typedef struct shroom_s
 
 //---- CUB3D -------------------------------------------------------------------
 
+# define INTRO_PNG "./assets/textures/menu/intro.png"
+
 enum state
 {
 	STATE_START,
 	STATE_LEVEL,
 	STATE_LEADERBOARD,
-	STATE_SETTINGS,
+	STATE_INTRO,
 	STATE_GAME,
 	STATE_PAUSE,
 	STATE_ENTERNAME,
@@ -704,6 +706,8 @@ typedef struct cub3d_s
 	gameover_menu_t	gameover_menu;
 	vector_t		back_button_pos;
 	settings_t		settings;
+	png_t			intro;
+	int				intro_watched;
 	gametimer_t		timer;
 	int				n_levels;
 	level_t			*levels;

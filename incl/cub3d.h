@@ -77,23 +77,14 @@ int		count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
 int		init_rays(cub3d_t *cub3d);
 int		init_cub3d(cub3d_t *cub3d);
 
-// init_level_menu.c
+// init menus
 int		init_level_menu(cub3d_t *cub3d, level_menu_t *menu);
-
-// init_name_menu.c
 int		init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
-
-// init_pause_menu.c
 int		init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
-
-// init_start_menu.c
 int		init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
-
-// init_leaderboard.c
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
-
-// init_gameover_menu.c
 int		init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
+int		init_intro(cub3d_t *cub3d);
 
 int		init_textures(cub3d_t *cub3d);
 int		init_doors_and_keys(cub3d_t *cub3d);
@@ -141,6 +132,10 @@ void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 void	disable_gameover_menu(mlx_t *mlx, gameover_menu_t *menu);
 void	enable_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu, int win);
 void	update_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
+
+// intro menu
+void	disable_intro(cub3d_t *cub3d);
+void	enable_intro(cub3d_t *cub3d);
 
 //---- PAUSE MENU --------------------------------------------------------------
 

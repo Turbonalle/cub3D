@@ -67,6 +67,8 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);
 void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);
 
+void	draw_slider(mlx_image_t *img, slider_t *slider);
+
 //---- INIT --------------------------------------------------------------------
 
 // draw_menu_border.c
@@ -182,7 +184,7 @@ double	within_two_pi(double radians);
 double	to_radians(double degrees);
 double	dist_between(vector_t a, dvector_t b);
 double	dist_between_d_vectors(dvector_t a, dvector_t b);
-double	lerp(double y0, double y1, double x0, double x1, double x);
+double	lerp(double to_start, double to_end, double from_start, double from_end, double value);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);

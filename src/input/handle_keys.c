@@ -179,6 +179,23 @@ void	handle_gameover_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	}
 }
 
+void	handle_intro_input(mlx_key_data_t keydata, cub3d_t *cub3d)
+{
+	if (keydata.key == MLX_KEY_ESCAPE || keydata.key == MLX_KEY_ENTER)
+	{
+		cub3d->level = &cub3d->levels[0];
+		if (!load_level(cub3d, cub3d->level))
+			return ;
+		disable_intro(cub3d);
+		cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
+		cub3d->settings.e_speed = cub3d->player.num_completed / 3;
+		cub3d->intro_watched = TRUE;
+		cub3d->state = STATE_GAME;
+		handle_cursor(cub3d);
+		start_timer(cub3d);
+	}
+}
+
 void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
 	if (cub3d->state == STATE_GAME)
@@ -195,6 +212,8 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 		handle_leaderboard_input(keydata, cub3d);
 	else if (cub3d->state == STATE_GAMEOVER)
 		handle_gameover_input(keydata, cub3d);
+	else if (cub3d->state == STATE_INTRO)
+		handle_intro_input(keydata, cub3d);
 }
 
 void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)

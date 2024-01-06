@@ -273,6 +273,14 @@ void	get_input(mlx_key_data_t keydata, void *param);
 // handle_mouse.c
 void	hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);
 void	hook_mouse_scroll(double xdelta, double ydelta, void *param);
+void	mouse_game(cub3d_t *cub3d);
+void	mouse_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void	mouse_start_menu(cub3d_t *cub3d);
+void	mouse_level_menu(cub3d_t *cub3d);
+void	mouse_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+void	mouse_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
+void	mouse_entername_menu(cub3d_t *cub3d, name_menu_t *menu);
+void	mouse_intro(cub3d_t *cub3d);
 
 //---- MINIMAP -----------------------------------------------------------------
 

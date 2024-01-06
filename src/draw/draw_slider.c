@@ -1,27 +1,5 @@
 #include "../incl/cub3d.h"
 
-// void	move_slider_marker(cub3d_t *cub3d)		// Change to marker
-// {
-// 	vector_t	mouse_moved;
-
-// 	mouse_moved.x = cub3d->mouse.x - cub3d->mouse_set_pos.x;
-// 	mouse_moved.y = cub3d->mouse.y - cub3d->mouse_set_pos.y;
-// 	if (cub3d->orig_minimap_pos.x + mouse_moved.x < 0)
-// 		cub3d->minimap.img->instances[0].x = 0;
-// 	else if (cub3d->orig_minimap_pos.x + mouse_moved.x + cub3d->minimap.width > (int)cub3d->img->width)
-// 		cub3d->minimap.img->instances[0].x = cub3d->img->width - cub3d->minimap.width;
-// 	else
-// 		cub3d->minimap.img->instances[0].x = cub3d->orig_minimap_pos.x + mouse_moved.x;
-// 	if (cub3d->orig_minimap_pos.y + mouse_moved.y < 0)
-// 		cub3d->minimap.img->instances[0].y = 0;
-// 	else if (cub3d->orig_minimap_pos.y + mouse_moved.y + cub3d->minimap.height > (int)cub3d->img->height)
-// 		cub3d->minimap.img->instances[0].y = cub3d->img->height - cub3d->minimap.height;
-// 	else
-// 		cub3d->minimap.img->instances[0].y = cub3d->orig_minimap_pos.y + mouse_moved.y;
-// 	cub3d->minimap.pos.x = cub3d->minimap.img->instances[0].x;
-// 	cub3d->minimap.pos.y = cub3d->minimap.img->instances[0].y;
-// }
-
 void	round_slider_edges(mlx_image_t *img, slider_t *slider, int end_length)
 {
 	draw_circle(img,

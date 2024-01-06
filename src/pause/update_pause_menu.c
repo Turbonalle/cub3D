@@ -132,4 +132,5 @@ void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 		else
 			draw_checkbox(cub3d, &menu->box_mouse[i]);
 	}
+	draw_slider(menu->menu, &menu->sensitivity_slider);
 }

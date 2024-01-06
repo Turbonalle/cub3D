@@ -206,12 +206,12 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 		if (src.y < 0)
 			src.y = 0;
 		color = get_pixel_color(texture, src);
-		if ((int)start.x == 500 /*&& (int)start.x < 800*/)
-		{
-			printf("Ray ends at %f\n",fmod(ray.end.x, 1));
-			printf("dest are %i,%i\n",(int)start.x, y);
-			printf("Src are %i,%i\n",src.x,src.y);
-		}
+		// if ((int)start.x == 500 /*&& (int)start.x < 800*/)
+		// {
+		// 	printf("Ray ends at %f\n",fmod(ray.end.x, 1));
+		// 	printf("dest are %i,%i\n",(int)start.x, y);
+		// 	printf("Src are %i,%i\n",src.x,src.y);
+		// }
 		mlx_put_pixel(cub3d->img, (int)start.x, y, color);
 		y++;
 	}

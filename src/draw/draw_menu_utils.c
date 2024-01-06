@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-void	draw_menu_background(mlx_image_t *img, int color)
+void	draw_background(mlx_image_t *img, int color)
 {
 	unsigned int	row;
 	unsigned int	column;

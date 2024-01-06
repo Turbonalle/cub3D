@@ -16,18 +16,31 @@ void	mouse_game(cub3d_t *cub3d)
 
 void	mouse_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 {
+	vector_t	mouse;
+
+	mlx_get_mouse_pos(cub3d->mlx, &mouse.x, &mouse.y);
+	printf("mouse.x: %d, mouse.y: %d\n", mouse.x, mouse.y);
+	printf("slider.pos.x: %d, slider.pos.y: %d\n", menu->sensitivity_slider.marker.pos.x, menu->sensitivity_slider.marker.pos.y);
 	if (hover_any_box(cub3d, menu))
 	{
+		printf("clicked on box\n");
 		update_pause_settings(cub3d, menu);
 		print_settings(cub3d);
 	}
 	if (hover_rectangle(cub3d, &menu->sensitivity_slider.marker))
 	{
+
+		printf("clicked on sensitivity slider\n");
 		menu->sensitivity_slider.marker_state = TRUE;
-		cub3d->mouse_set_pos.x = cub3d->mouse.x;
-		cub3d->mouse_set_pos.y = cub3d->mouse.y;
-		menu->sensitivity_slider.orig_marker_pos.x = menu->sensitivity_slider.marker.pos.x;
-		menu->sensitivity_slider.orig_marker_pos.y = menu->sensitivity_slider.marker.pos.y;
+		// cub3d->mouse_set_pos.x = cub3d->mouse.x;
+		// cub3d->mouse_set_pos.y = cub3d->mouse.y;
+		// menu->sensitivity_slider.orig_marker_pos.x = menu->sensitivity_slider.marker.pos.x;
+		// menu->sensitivity_slider.orig_marker_pos.y = menu->sensitivity_slider.marker.pos.y;
+		menu->sensitivity_slider.marker.pos.x = mouse.x - menu->sensitivity_slider.marker.width / 2;
+		if (menu->sensitivity_slider.marker.pos.x < menu->sensitivity_slider.marker_min_pos)
+			menu->sensitivity_slider.marker.pos.x = menu->sensitivity_slider.marker_min_pos;
+		else if (menu->sensitivity_slider.marker.pos.x > menu->sensitivity_slider.marker_max_pos)
+			menu->sensitivity_slider.marker.pos.x = menu->sensitivity_slider.marker_max_pos;
 	}
 	else
 		menu->sensitivity_slider.marker_state = FALSE;

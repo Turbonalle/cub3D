@@ -110,7 +110,7 @@ int	init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
 	if (!init_images(cub3d->mlx, menu))
 		return (FAIL);
 	set_positions(menu);
-	draw_menu_background(menu->img, MENU_BACKGROUND_COLOR);
+	draw_background(menu->img, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->img);
 	if (!put_images_to_window(cub3d->mlx, menu))
 		return (FAIL);

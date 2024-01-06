@@ -138,7 +138,7 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	if (!init_images(cub3d->mlx, board))
 		return (FAIL);
 	set_positions(cub3d->mlx, board);
-	draw_menu_background(board->img, MENU_BACKGROUND_COLOR);
+	draw_background(board->img, MENU_BACKGROUND_COLOR);
 	draw_menu_border(board->img);
 	i = -1;
 	while (++i < cub3d->n_levels)

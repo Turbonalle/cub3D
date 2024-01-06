@@ -73,7 +73,7 @@ void	draw_preview_map(minilevel_t *minilevel, level_t *level)
 
 static void	draw_minimap_preview(minilevel_t *minilevel, level_t *level)
 {
-	draw_menu_background(minilevel->img, MINILEVEL_BG_COLOR);
+	draw_background(minilevel->img, MINILEVEL_BG_COLOR);
 	set_preview_values(minilevel, level);
 	set_number_values(minilevel);
 	draw_preview_map(minilevel, level);
@@ -230,7 +230,7 @@ int	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	if (!init_images(cub3d->mlx, menu))
 		return (FAIL);
 	set_positions(menu, &cub3d->back_button_pos);
-	draw_menu_background(menu->img, MENU_BACKGROUND_COLOR);
+	draw_background(menu->img, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->img);
 	i = -1;
 	while (++i < LEVELS)

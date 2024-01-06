@@ -104,7 +104,7 @@ void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 // disable_menu.c
 
-void	draw_menu_background(mlx_image_t *img, int color);
+void	draw_background(mlx_image_t *img, int color);
 void	draw_button(mlx_image_t *img, button_t *button);
 
 // level menu

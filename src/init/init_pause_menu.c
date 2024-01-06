@@ -150,8 +150,8 @@ int init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	if (!put_images_to_window(cub3d->mlx, menu))
 		return (FAIL);
 
-	draw_menu_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY));
-	draw_menu_background(menu->menu, MENU_BACKGROUND_COLOR);
+	draw_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY));
+	draw_background(menu->menu, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->menu);
 	draw_slider(menu->menu, &menu->sensitivity_slider);
 

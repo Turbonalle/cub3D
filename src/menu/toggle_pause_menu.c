@@ -36,8 +36,8 @@ int	enable_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 		return (err("Failed to put image to window"));
 	if (mlx_image_to_window(cub3d->mlx, menu->title.img, menu->title.pos.x, menu->title.pos.y) < 0)
 		return (err("Failed to put image to window"));
-	draw_menu_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY));
-	draw_menu_background(menu->menu, MENU_BACKGROUND_COLOR);
+	draw_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY));
+	draw_background(menu->menu, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->menu);
 	draw_slider(menu->menu, &menu->sensitivity_slider);
 	add_category_text(cub3d, menu);

@@ -55,21 +55,32 @@ void	init_checkbox_states(pause_menu_t *menu)
 
 //------------------------------------------------------------------------------
 
-void	init_sensitivity_slider(pause_menu_t *menu)
+int	init_sensitivity_slider(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	// set slider
-	menu->sensitivity_slider.pos.x = menu->pos_col_box_1 - menu->menu_pos.x;
-	menu->sensitivity_slider.pos.y = menu->pos_row_4 - menu->menu_pos.y + menu->box_fps[0].size * 0.5 - SLIDER_LINE_WIDTH * 0.5;
+	// menu->sensitivity_slider.pos.x = menu->pos_col_box_1 - menu->menu_pos.x;
+	// menu->sensitivity_slider.pos.y = menu->pos_row_4 - menu->menu_pos.y + menu->box_fps[0].size * 0.5 - SLIDER_LINE_WIDTH * 0.5;
+	menu->sensitivity_slider.pos.x = menu->pos_col_box_1;
+	menu->sensitivity_slider.pos.y = menu->pos_row_4 + menu->box_fps[0].size * 0.5 - SLIDER_LINE_WIDTH * 0.5;
+
 	menu->sensitivity_slider.length = menu->pos_col_box_4 - menu->pos_col_box_1 + menu->box_fps[0].size;
 	menu->sensitivity_slider.value = MOUSE_SENSITIVITY;
 
 	// set slider marker
-	menu->sensitivity_slider.marker.width = SLIDER_MARKER_WIDTH;
-	menu->sensitivity_slider.marker.height = SLIDER_MARKER_HEIGHT;
-	menu->sensitivity_slider.marker.color = SLIDER_MARKER_COLOR;
-	menu->sensitivity_slider.marker_state = FALSE;
+	menu->sensitivity_slider.on_marker = FALSE;
 	menu->sensitivity_slider.marker_min_pos = menu->sensitivity_slider.pos.x + SLIDER_LINE_WIDTH;
 	menu->sensitivity_slider.marker_max_pos = menu->sensitivity_slider.pos.x + menu->sensitivity_slider.length - SLIDER_LINE_WIDTH;
+
+	// set slider marker img
+	menu->sensitivity_slider.marker = mlx_new_image(cub3d->mlx, SLIDER_MARKER_WIDTH, SLIDER_MARKER_HEIGHT);
+	if (!menu->sensitivity_slider.marker)
+		return (err("Failed to create image"));
+	menu->sensitivity_slider.marker_pos.x = get_marker_pos(cub3d);
+	menu->sensitivity_slider.marker_pos.y = menu->sensitivity_slider.pos.y + SLIDER_LINE_WIDTH / 2 - SLIDER_MARKER_HEIGHT / 2;
+	menu->sensitivity_slider.marker_pos.x += menu->sensitivity_slider.pos.x - menu->menu_pos.x;
+	if (mlx_image_to_window(cub3d->mlx, menu->sensitivity_slider.marker, menu->sensitivity_slider.marker_pos.x, menu->sensitivity_slider.marker_pos.y) < 0)
+		return (err("Failed to put image to window"));
+	return (SUCCESS);
 }
 
 //------------------------------------------------------------------------------
@@ -105,7 +116,6 @@ static void set_positions(pause_menu_t *menu)
 	// set menu pos (inner rectangle)
 	menu->menu_pos.x = (menu->bg->width - menu->menu->width) / 2;
 	menu->menu_pos.y = (menu->bg->height - menu->menu->height) / 2;
-	printf("menu pos = %d, %d\n", menu->menu_pos.x, menu->menu_pos.y);
 	
 	// set title pos
 	menu->title.pos.x = menu->menu_pos.x + (menu->menu->width - menu->title.img->width) / 2;
@@ -144,11 +154,12 @@ int init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	init_checkboxes(menu);
 	set_checkbox_values(menu);
 	init_checkbox_states(menu);
-	init_sensitivity_slider(menu);
-	update_settings(cub3d, menu);
 
 	if (!put_images_to_window(cub3d->mlx, menu))
 		return (FAIL);
+
+	init_sensitivity_slider(cub3d, menu);
+	update_settings(cub3d, menu);
 
 	draw_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY));
 	draw_background(menu->menu, MENU_BACKGROUND_COLOR);

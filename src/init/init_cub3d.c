@@ -197,9 +197,13 @@ int	init_cub3d(cub3d_t *cub3d)
 		return (!err("Failed to malloc rays"));
 	set_keys(&cub3d->keys);
 	set_init_stats(cub3d);
+	printf("init start menu\n");
 	init_start_menu(cub3d, &cub3d->start_menu);
+	printf("init level menu\n");
 	init_level_menu(cub3d, &cub3d->level_menu);
+	printf("init name menu\n");
 	init_name_menu(cub3d, &cub3d->name_menu);
+	printf("init gameover menu\n");
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
 	init_intro(cub3d);
 	if (!init_hearts(cub3d))

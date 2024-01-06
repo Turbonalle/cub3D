@@ -5,10 +5,10 @@ void	draw_rectangle(mlx_image_t *img, rectangle_t *rect)
 	int	row;
 	int	column;
 
-	row = rect->pos.y;
+	row = rect->pos.y - 1;
 	while (++row < rect->pos.y + rect->height)
 	{
-		column = rect->pos.x;
+		column = rect->pos.x - 1;
 		//printf("draw_rectangle: row: %d, column: %d\n", row, column);
 		while (++column < rect->pos.x + rect->width)
 		{

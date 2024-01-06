@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-void	fillBottomFlatTriangle(mlx_image_t *img, triangle_t *triangle, int color)
+void	fill_bottom_flat_triangle(mlx_image_t *img, triangle_t *triangle, int color)
 {
 
 	float invslope1 = (triangle->b.x - triangle->a.x) / (triangle->b.y - triangle->a.y);
@@ -17,7 +17,7 @@ void	fillBottomFlatTriangle(mlx_image_t *img, triangle_t *triangle, int color)
 	}
 }
 
-void	fillTopFlatTriangle(mlx_image_t *img, triangle_t *triangle, int color)
+void	fill_top_flat_triangle(mlx_image_t *img, triangle_t *triangle, int color)
 {
 	float invslope1 = (triangle->c.x - triangle->a.x) / (triangle->c.y - triangle->a.y);
 	float invslope2 = (triangle->c.x - triangle->b.x) / (triangle->c.y - triangle->b.y);
@@ -35,11 +35,11 @@ void	fillTopFlatTriangle(mlx_image_t *img, triangle_t *triangle, int color)
 
 void	swap(dvector_t *v1, dvector_t *v2)
 {
-  dvector_t tmp;
+	dvector_t tmp;
 
-  tmp = *v1;
-  *v1 = *v2;
-  *v2 = tmp;
+	tmp = *v1;
+	*v1 = *v2;
+	*v2 = tmp;
 }
 
 void	sort_vertices_ascending_by_y(triangle_t *triangle)
@@ -54,33 +54,29 @@ void	sort_vertices_ascending_by_y(triangle_t *triangle)
 
 void	draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color)
 {
-  sort_vertices_ascending_by_y(triangle);
+	sort_vertices_ascending_by_y(triangle);
 
-  if (triangle->b.y == triangle->c.y)
-  {
-	fillBottomFlatTriangle(img, triangle, color);
-  }
-  else if (triangle->a.y == triangle->b.y)
-  {
-    fillTopFlatTriangle(img, triangle, color);
-  }
-  else
-  {
-	dvector_t v4;
-	triangle_t top;
-	triangle_t bottom;
+	if (triangle->b.y == triangle->c.y)
+		fill_bottom_flat_triangle(img, triangle, color);
+	else if (triangle->a.y == triangle->b.y)
+    	fill_top_flat_triangle(img, triangle, color);
+	else
+	{
+		dvector_t v4;
+		triangle_t top;
+		triangle_t bottom;
 
-	v4.x = triangle->a.x + ((triangle->b.y - triangle->a.y) / (triangle->c.y - triangle->a.y)) * (triangle->c.x - triangle->a.x);
-	v4.y = triangle->b.y;
-	top.a = triangle->a;
-	top.b = triangle->b;
-	top.c = v4;
-	bottom.a = triangle->b;
-	bottom.b = v4;
-	bottom.c = triangle->c;
-    fillBottomFlatTriangle(img, &top, color);
-    fillTopFlatTriangle(img, &bottom, color);
-  }
+		v4.x = triangle->a.x + ((triangle->b.y - triangle->a.y) / (triangle->c.y - triangle->a.y)) * (triangle->c.x - triangle->a.x);
+		v4.y = triangle->b.y;
+		top.a = triangle->a;
+		top.b = triangle->b;
+		top.c = v4;
+		bottom.a = triangle->b;
+		bottom.b = v4;
+		bottom.c = triangle->c;
+    	fill_bottom_flat_triangle(img, &top, color);
+    	fill_top_flat_triangle(img, &bottom, color);
+	}
 }
 
 void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color)

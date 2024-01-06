@@ -141,6 +141,9 @@ void	enable_intro(cub3d_t *cub3d);
 
 //---- PAUSE MENU --------------------------------------------------------------
 
+int		get_marker_pos(cub3d_t *cub3d);
+double	get_sensitivity(cub3d_t *cub3d);
+
 // pause_text.c
 void	add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
@@ -152,7 +155,7 @@ void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 void	disable_pause_menu(mlx_t *mlx, pause_menu_t *menu);
-int	enable_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+int		enable_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 // center.c
 void	center(mlx_image_t *img);

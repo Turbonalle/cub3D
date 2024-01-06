@@ -252,11 +252,12 @@ typedef struct slider_s
 	int			max_value;
 	int			min_value;
 	double		value;
-	rectangle_t	marker;
-	int			marker_state;
 	int			marker_min_pos;
 	int			marker_max_pos;
-	vector_t	orig_marker_pos;
+	mlx_image_t	*marker;
+	vector_t	marker_pos;
+	int			marker_orig_pos;
+	int			on_marker;
 }				slider_t;
 
 //---- BOX ---------------------------------------------------------------------

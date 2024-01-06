@@ -34,7 +34,7 @@ void	player_rotation(cub3d_t *cub3d)
 	{
 		if (cub3d->mouse.x != cub3d->mouse_set_pos.x)
 		{
-			cub3d->player.angle += (cub3d->mouse.x - cub3d->mouse_set_pos.x) * MOUSE_SENSITIVITY;
+			cub3d->player.angle += (cub3d->mouse.x - cub3d->mouse_set_pos.x) * cub3d->settings.mouse_sensitivity;
 			if (cub3d->player.angle < 0)
 				cub3d->player.angle += (M_PI + M_PI);
 			else if (cub3d->player.angle >= (2 * M_PI))

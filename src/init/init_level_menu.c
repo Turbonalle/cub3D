@@ -34,9 +34,15 @@ void	set_number_values(minilevel_t *minilevel)
 	minilevel->number_rect.height = number_rect_size;
 	minilevel->number_rect.pos.x = 0;
 	minilevel->number_rect.pos.y = 0;
+	// minilevel->number_rect.pos.x = minilevel->pos.x;
+	// minilevel->number_rect.pos.y = minilevel->pos.y;
+	printf("numrect pos: %d, %d\n", minilevel->number_rect.pos.x, minilevel->number_rect.pos.y);
 	minilevel->number_rect.color = MINILEVEL_RECT_COLOR;
+
+	// These two seem to be set further down in the code
 	minilevel->number.pos.x = minilevel->pos.x + number_rect_size / 2 - minilevel->number.img->width / 2;
 	minilevel->number.pos.y = minilevel->pos.y + number_rect_size / 2 - minilevel->number.img->height / 2;
+	printf("num pos: %d, %d\n", minilevel->number.pos.x, minilevel->number.pos.y);
 }
 
 void	draw_preview_map(minilevel_t *minilevel, level_t *level)
@@ -73,11 +79,14 @@ void	draw_preview_map(minilevel_t *minilevel, level_t *level)
 
 static void	draw_minimap_preview(minilevel_t *minilevel, level_t *level)
 {
-	draw_menu_background(minilevel->img, MINILEVEL_BG_COLOR);
+	draw_background(minilevel->img, MINILEVEL_BG_COLOR);
 	set_preview_values(minilevel, level);
 	set_number_values(minilevel);
+	printf("drawing preview map\n");
 	draw_preview_map(minilevel, level);
+	printf("drawing number rectangle\n");
 	draw_rectangle(minilevel->img, &minilevel->number_rect);
+	printf("draw_minimap_preview: DONE!\n");
 }
 
 static void	draw_border_image(minilevel_t *minilevel)
@@ -188,8 +197,10 @@ static void	set_positions(level_menu_t *menu, vector_t *back_button_pos)
 		menu->minilevels[i].size = size;
 		menu->minilevels[i].pos.x = back_button_pos->x + (i % columns) * (size + gap);
 		menu->minilevels[i].pos.y = menu->img->height * 0.32 + (i / columns) * (size + gap);
+		printf("minilevel %d pos: %d, %d\n", i, menu->minilevels[i].pos.x, menu->minilevels[i].pos.y);
 		menu->minilevels[i].number.pos.x = menu->minilevels[i].pos.x + number_square_size / 2 - menu->minilevels[i].number.img->width / 2;
 		menu->minilevels[i].number.pos.y = menu->minilevels[i].pos.y + number_square_size / 2 - menu->minilevels[i].number.img->height / 2;
+		printf("minilevel %d num pos: %d, %d\n", i, menu->minilevels[i].number.pos.x, menu->minilevels[i].number.pos.y);
 	}
 }
 
@@ -230,16 +241,20 @@ int	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 	if (!init_images(cub3d->mlx, menu))
 		return (FAIL);
 	set_positions(menu, &cub3d->back_button_pos);
-	draw_menu_background(menu->img, MENU_BACKGROUND_COLOR);
+	draw_background(menu->img, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->img);
 	i = -1;
 	while (++i < LEVELS)
 	{
+		printf("drawing minimap preview %d\n", i);
 		draw_minimap_preview(&menu->minilevels[i], &cub3d->levels[i + 1]);
 		draw_border_image(&menu->minilevels[i]);
 	}
+	printf("putting images to window\n");
 	if (!put_images_to_window(cub3d->mlx, menu))
 		return (FAIL);
+	printf("disabling level menu\n");
 	disable_level_menu(menu);
+	printf("init level menu: done\n");
 	return (SUCCESS);
 }

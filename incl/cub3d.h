@@ -67,6 +67,8 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);
 void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);
 
+void	draw_slider(mlx_image_t *img, slider_t *slider);
+
 //---- INIT --------------------------------------------------------------------
 
 // draw_menu_border.c
@@ -77,23 +79,14 @@ int		count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
 int		init_rays(cub3d_t *cub3d);
 int		init_cub3d(cub3d_t *cub3d);
 
-// init_level_menu.c
+// init menus
 int		init_level_menu(cub3d_t *cub3d, level_menu_t *menu);
-
-// init_name_menu.c
 int		init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
-
-// init_pause_menu.c
 int		init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
-
-// init_start_menu.c
 int		init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
-
-// init_leaderboard.c
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
-
-// init_gameover_menu.c
 int		init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
+int		init_intro(cub3d_t *cub3d);
 
 int		init_textures(cub3d_t *cub3d);
 int		init_doors_and_keys(cub3d_t *cub3d);
@@ -111,7 +104,7 @@ void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 
 // disable_menu.c
 
-void	draw_menu_background(mlx_image_t *img, int color);
+void	draw_background(mlx_image_t *img, int color);
 void	draw_button(mlx_image_t *img, button_t *button);
 
 // level menu
@@ -142,7 +135,14 @@ void	disable_gameover_menu(mlx_t *mlx, gameover_menu_t *menu);
 void	enable_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu, int win);
 void	update_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 
+// intro menu
+void	disable_intro(cub3d_t *cub3d);
+void	enable_intro(cub3d_t *cub3d);
+
 //---- PAUSE MENU --------------------------------------------------------------
+
+int		get_marker_pos(cub3d_t *cub3d);
+double	get_sensitivity(cub3d_t *cub3d);
 
 // pause_text.c
 void	add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
@@ -155,7 +155,7 @@ void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 void	disable_pause_menu(mlx_t *mlx, pause_menu_t *menu);
-int	enable_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+int		enable_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 // center.c
 void	center(mlx_image_t *img);
@@ -187,7 +187,7 @@ double	within_two_pi(double radians);
 double	to_radians(double degrees);
 double	dist_between(vector_t a, dvector_t b);
 double	dist_between_d_vectors(dvector_t a, dvector_t b);
-double	lerp(double y0, double y1, double x0, double x1, double x);
+double	lerp(double to_start, double to_end, double from_start, double from_end, double value);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);
@@ -260,7 +260,7 @@ int		get_door_index(char symbol);
 int		get_key_index(char symbol);
 
 //key_counts.c
-void	draw_key_counts(cub3d_t *cub3d);
+int		draw_key_counts(cub3d_t *cub3d);
 
 // game_entities.c
 void	draw_game_entities(cub3d_t *cub3d);
@@ -276,6 +276,14 @@ void	get_input(mlx_key_data_t keydata, void *param);
 // handle_mouse.c
 void	hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);
 void	hook_mouse_scroll(double xdelta, double ydelta, void *param);
+void	mouse_game(cub3d_t *cub3d);
+void	mouse_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+void	mouse_start_menu(cub3d_t *cub3d);
+void	mouse_level_menu(cub3d_t *cub3d);
+void	mouse_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+void	mouse_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
+void	mouse_entername_menu(cub3d_t *cub3d, name_menu_t *menu);
+void	mouse_intro(cub3d_t *cub3d);
 
 //---- MINIMAP -----------------------------------------------------------------
 

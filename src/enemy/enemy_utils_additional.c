@@ -4,15 +4,12 @@
 int	check_collisions(cub3d_t *cub3d, int i)
 {
 	int			j;
-	vector_t	minus;
-	vector_t	plus;
 	dvector_t	new_pos;
 
 	j = -1;
 	cub3d->enemy[i].is_walking = 0;
 	new_pos.x = cub3d->enemy[i].pos.x + cos(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
 	new_pos.y = cub3d->enemy[i].pos.y + sin(cub3d->enemy[i].angle) * ENEMY_SPEED * (1 + cub3d->settings.e_speed);
-
 	while (j++ < cub3d->num_enemies)
 	{
 		if (i == j)
@@ -20,74 +17,163 @@ int	check_collisions(cub3d_t *cub3d, int i)
 		if (dist_between_d_vectors(new_pos, cub3d->enemy[j].pos) < 1.3 * ENEMY_RADIUS)
 			return (1);
 	}
-	minus.x = 0;
-	minus.y = 0;
-	plus.x = 0;
-	plus.y = 0;
-	if (!(cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
-	|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+	if (cub3d->enemy[i].angle > M_PI * 15 / 8 || cub3d->enemy[i].angle < M_PI * 1 / 8)
 	{
-		printf("time %f NO WALL at %i,%i(x-, y-)\n", cub3d->run_time,(int)new_pos.y, (int)(new_pos.x - ENEMY_RADIUS));
-		minus.x++;
-		minus.y++;
-	}
-	if (!(cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
-	|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
-	{
-		printf("time %f NO WALL at %i,%i(x+, y+)\n", cub3d->run_time,(int)new_pos.y, (int)(new_pos.x + ENEMY_RADIUS));
-		plus.x++;
-		plus.y++;
-	}
-	if (!(cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
-	|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
-	{
-		printf("time %f NO WALL at %i,%i(x+, y-)\n", cub3d->run_time,(int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x));
-		plus.x++;
-		minus.y++;
-	}
-	if (!(cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
-	|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
-	{
-		printf("time %f NO WALL at %i,%i(x-, y+)\n", cub3d->run_time,(int)(new_pos.y + ENEMY_RADIUS), (int)((new_pos.x + ENEMY_RADIUS)));
-		minus.x++;
-		plus.y++;
-	}
-	printf("%i,%i and %i,%i\n",minus.x,minus.y,plus.x,plus.y);
-	printf("at pos %f,%f\n",fmod(new_pos.x, 1),fmod(new_pos.y, 1));
-	if (fmod(new_pos.x, 1) < 0.5)
-	{
-		if (minus.x == 2)
+		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
-			cub3d->enemy[i].is_walking = 1;
+			cub3d->enemy[i].pos.x = new_pos.x;
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+		{
+			cub3d->enemy[i].pos.x = new_pos.x;
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+		{
+			cub3d->enemy[i].pos.x = new_pos.x;
+			return (0);
+		}
+	}
+	else if (cub3d->enemy[i].angle < M_PI * 3 / 8)
+	{
+		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+		{
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+		{
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
+		{
+			return (0);
+		}
+	}
+	else if (cub3d->enemy[i].angle < M_PI * 5 / 8)
+	{
+		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+		{
 			cub3d->enemy[i].pos.y = new_pos.y;
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
+		{
+			cub3d->enemy[i].pos.y = new_pos.y;
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+		{
+			cub3d->enemy[i].pos.y = new_pos.y;
+			return (0);
+		}
+	}
+	else if (cub3d->enemy[i].angle < M_PI * 7 / 8)
+	{
+		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
+		{
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+		{
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+		{
+			return (0);
+		}
+	}
+	else if (cub3d->enemy[i].angle < M_PI * 9 / 8)
+	{
+		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+		{
+			cub3d->enemy[i].pos.x = new_pos.x;
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+		{
+			cub3d->enemy[i].pos.x = new_pos.x;
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+		{
+			cub3d->enemy[i].pos.x = new_pos.x;
+			return (0);
+		}
+	}
+	else if (cub3d->enemy[i].angle < M_PI * 11 / 8)
+	{
+		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+		{
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+		{
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
+		{
+			return (0);
+		}
+	}
+	else if (cub3d->enemy[i].angle < M_PI * 13 / 8)
+	{
+		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
+		{
+			cub3d->enemy[i].pos.y = new_pos.y;
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
+		{
+			cub3d->enemy[i].pos.y = new_pos.y;
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+		{
+			cub3d->enemy[i].pos.y = new_pos.y;
+			return (0);
 		}
 	}
 	else
 	{
-		if (plus.x == 2)
+		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
 		{
-			cub3d->enemy[i].is_walking = 1;
-			cub3d->enemy[i].pos.y = new_pos.y;
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+		{
+			return (0);
+		}
+		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
+			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
+		{
+			return (0);
 		}
 	}
-	if (fmod(new_pos.y, 1) < 0.5)
-	{
-		if (minus.y == 2)
-		{
-			cub3d->enemy[i].is_walking = 1;
-			cub3d->enemy[i].pos.x = new_pos.x;
-		}
-	}
-	else
-	{
-		if (plus.y == 2)
-		{
-			cub3d->enemy[i].is_walking = 1;
-			cub3d->enemy[i].pos.x = new_pos.x;
-		}
-	}
-	if (plus.x < 2 || plus.y < 2 || minus.x < 2 || minus.y < 2)
-		return (1);
+	cub3d->enemy[i].pos = new_pos;
 	return (0);
 }
 

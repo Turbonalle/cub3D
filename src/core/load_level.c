@@ -27,6 +27,7 @@ int	set_z_for_key_groups(cub3d_t *cub3d, int starting_z)
 			cub3d->level->key_groups[i]
 				.img_key_icon->instances[0].z = starting_z;
 			starting_z++;
+			// if malloc fails at draw_key_count this will segfault
 			cub3d->level->key_groups[i]
 				.img_text_key_count->instances[0].z = starting_z;
 			starting_z++;
@@ -86,14 +87,40 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	init_player_and_enemies(cub3d, level);
 	count_distractions(cub3d);
 	if (!init_distractions(cub3d))
-		return (0);
+		return (free_level(cub3d), 0);
 	set_initial_direction(cub3d);
 	if (!init_minimap(cub3d))
-		return (free_info(level->map), free(cub3d->enemy), 0);
+		return (free_level(cub3d), 0);
 	if (!init_doors_and_keys(cub3d))
-		return (free_info(level->map), free(cub3d->enemy), 0);
+	{
+		if (cub3d->level->num_distractions)
+		{
+			i = 0;
+			while (i < cub3d->level->num_distractions)
+			{
+				printf("deleted distraction image %d\n", i);
+				mlx_delete_image(cub3d->mlx, cub3d->level->distractions[i].img_distraction);
+				i++;
+			}
+			free(cub3d->level->distractions);
+		}
+		if (cub3d->num_enemies)
+		{
+			free(cub3d->enemy);
+		}
+		i = 0;
+		while (i < NUM_DOORS_MAX)
+		{
+			free_keys(cub3d->level->key_groups[i].keys);
+			free_doors(cub3d->level->door_groups[i].door_positions);
+			i++;
+		}
+		free_info(level->map);
+		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+		return (0);
+	}
 	if (!init_textures(cub3d))
-		return (free_info(level->map), free(cub3d->enemy), 0);
+		return (free_level(cub3d), 0);
 	set_z_of_all_images(cub3d);
 	enable_hearts(cub3d);
 	return (1);

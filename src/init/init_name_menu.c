@@ -145,7 +145,7 @@ int	init_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 		return (err("Failed to init name menu images"));
 	set_positions(menu, cub3d->back_button_pos);
 	init_values(menu);
-	draw_menu_background(menu->img, MENU_BACKGROUND_COLOR);
+	draw_background(menu->img, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->img);
 	draw_rectangle(menu->img, &menu->rect_title);
 	i = -1;

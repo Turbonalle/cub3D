@@ -8,6 +8,8 @@ void add_category_text(cub3d_t *cub3d, pause_menu_t *menu)
 	menu->text_fisheye->instances[0].y = menu->pos_row_2 + menu->box_fps[0].size * 0.5 - menu->text_fisheye->height * 0.5;
 	menu->text_mouse = mlx_put_string(cub3d->mlx, "Mouse:", menu->pos_col_text, menu->pos_row_3);
 	menu->text_mouse->instances[0].y = menu->pos_row_3 + menu->box_fps[0].size * 0.5 - menu->text_mouse->height * 0.5;
+	menu->text_mouse_sensitivity = mlx_put_string(cub3d->mlx, "Sensitivity:", menu->pos_col_text, menu->pos_row_4);
+	menu->text_mouse_sensitivity->instances[0].y = menu->pos_row_4 + menu->box_fps[0].size * 0.5 - menu->text_mouse_sensitivity->height * 0.5;
 }
 
 void add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu)

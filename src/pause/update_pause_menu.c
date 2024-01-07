@@ -1,7 +1,5 @@
 #include "cub3d.h"
 
-//------------------------------------------------------------------------------
-
 void	update_settings(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	int	i;
@@ -21,12 +19,10 @@ void	update_settings(cub3d_t *cub3d, pause_menu_t *menu)
 		if (menu->box_fisheye[i].state == TRUE)
 			cub3d->settings.fisheye = menu->box_fisheye[i].value;
 		if (menu->box_mouse[i].state == TRUE)
-		{
 			cub3d->settings.mouse = menu->box_mouse[i].value;
-			// cub3d->mouse_set_pos.x = cub3d->mouse.x;
-			// printf("Mouse active! mouse_set_pos.x: %d\n", cub3d->mouse_set_pos.x);
-		}
 	}
+	cub3d->settings.mouse_sensitivity = get_sensitivity(cub3d);
+	printf("mouse sensitivity: %f\n", cub3d->settings.mouse_sensitivity);
 }
 
 void	update_fps_boxes(pause_menu_t *menu, int n)
@@ -103,6 +99,19 @@ void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
 	// print_settings(cub3d);
 }
 
+void	move_slider_marker(cub3d_t *cub3d, slider_t *slider)
+{
+	int	mouse_moved;
+
+	mouse_moved = cub3d->mouse.x - slider->marker_orig_pos;
+	if (slider->marker_orig_pos + mouse_moved < slider->marker_min_pos)
+		slider->marker->instances[0].x = slider->marker_min_pos - SLIDER_MARKER_WIDTH / 2;
+	else if (slider->marker_orig_pos + mouse_moved > slider->marker_max_pos)
+		slider->marker->instances[0].x = slider->marker_max_pos - SLIDER_MARKER_WIDTH / 2;
+	else
+		slider->marker->instances[0].x = slider->marker_orig_pos + mouse_moved - SLIDER_MARKER_WIDTH / 2;
+}
+
 void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	// Here we update the settings if the user has changed them
@@ -131,5 +140,11 @@ void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 			draw_hovered_checkbox(cub3d, &menu->box_mouse[i]);
 		else
 			draw_checkbox(cub3d, &menu->box_mouse[i]);
+	}
+	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
+	if (cub3d->keys.mouse_left && menu->sensitivity_slider.on_marker == TRUE)
+	{
+		move_slider_marker(cub3d, &menu->sensitivity_slider);
+		update_settings(cub3d, menu);
 	}
 }

@@ -243,14 +243,21 @@ typedef struct rectangle_s
 
 typedef struct slider_s
 {
-	mlx_image_t	*img;
 	vector_t	pos;
 	int			width;
 	int			height;
+	int			length;
 	int			color;
 	int			background_color;
-	int			value;
 	int			max_value;
+	int			min_value;
+	double		value;
+	int			marker_min_pos;
+	int			marker_max_pos;
+	mlx_image_t	*marker;
+	vector_t	marker_pos;
+	int			marker_orig_pos;
+	int			on_marker;
 }				slider_t;
 
 //---- BOX ---------------------------------------------------------------------
@@ -302,6 +309,13 @@ typedef struct button_s
 # define PAUSE_MENU_TRANSPARENCY 1
 # define PAUSE_MENU_SETTINGS_RECT_COLOR 0x2F1E45FF
 # define PAUSE_PNG "./assets/textures/menu/pause.png"
+# define SLIDER_LINE_COLOR WHITE
+# define SLIDER_LINE_WIDTH 8
+# define SLIDER_MARKER_COLOR RED_LIGHT
+# define SLIDER_MARKER_BORDER_COLOR BLACK
+# define SLIDER_MARKER_BORDER_THICKNESS 2
+# define SLIDER_MARKER_WIDTH 30
+# define SLIDER_MARKER_HEIGHT 40
 
 typedef struct pause_menu_s
 {
@@ -313,6 +327,7 @@ typedef struct pause_menu_s
 	mlx_image_t	*text_fps;
 	mlx_image_t	*text_fisheye;
 	mlx_image_t	*text_mouse;
+	mlx_image_t	*text_mouse_sensitivity;
 	int			pos_col_text;
 	int			pos_col_box_1;
 	int			pos_col_box_2;
@@ -322,12 +337,17 @@ typedef struct pause_menu_s
 	int			pos_text_row_1;
 	int			pos_text_row_2;
 	int			pos_text_row_3;
+	int			pos_text_row_4;
 	int			pos_row_1;
 	int			pos_row_2;
 	int			pos_row_3;
+	int			pos_row_4;
 	box_t		box_fps[4];
 	box_t		box_fisheye[2];
 	box_t		box_mouse[2];
+	slider_t	sensitivity_slider;
+	mlx_image_t	*text_max;
+	mlx_image_t	*text_min;
 }			pause_menu_t;
 
 //---- START MENU --------------------------------------------------------------
@@ -550,6 +570,7 @@ typedef struct settings_s
 	int		fps;
 	int		fisheye;
 	int		mouse;
+	double	mouse_sensitivity;
 }			settings_t;
 
 //---- TIMER -------------------------------------------------------------------
@@ -658,12 +679,14 @@ typedef struct shroom_s
 
 //---- CUB3D -------------------------------------------------------------------
 
+# define INTRO_PNG "./assets/textures/menu/intro.png"
+
 enum state
 {
 	STATE_START,
 	STATE_LEVEL,
 	STATE_LEADERBOARD,
-	STATE_SETTINGS,
+	STATE_INTRO,
 	STATE_GAME,
 	STATE_PAUSE,
 	STATE_ENTERNAME,
@@ -704,6 +727,8 @@ typedef struct cub3d_s
 	gameover_menu_t	gameover_menu;
 	vector_t		back_button_pos;
 	settings_t		settings;
+	png_t			intro;
+	int				intro_watched;
 	gametimer_t		timer;
 	int				n_levels;
 	level_t			*levels;

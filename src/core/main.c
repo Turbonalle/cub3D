@@ -130,8 +130,10 @@ int	main(int ac, char **av)
 		return (free(cub3d.levels), 1);
 	if (!read_all_levels(&cub3d))
 		return (1);
+	printf("init_cub3d\n");
 	if (!init_cub3d(&cub3d))
 		return (1);
+	printf("init_records\n");
 	if (!read_records(&cub3d, cub3d.levels))
 		return (!err("Failed to read records"));
 	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))

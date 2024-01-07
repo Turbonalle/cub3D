@@ -21,7 +21,8 @@ int	init_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 		return (FAIL);
 	cub3d->level->door_groups[key_group_index].num_keys_left++;
 	cub3d->level->key_groups[key_group_index].num_keys_total++;
-	draw_key_counts(cub3d);
+	if (!draw_key_counts(cub3d))
+		return (FAIL);
 	return (SUCCESS);
 }
 
@@ -240,6 +241,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 			return (FAIL);
 		i++;
 	}
-	draw_key_counts(cub3d);
+	if (!draw_key_counts(cub3d))
+		return (FAIL);
 	return (SUCCESS);
 }

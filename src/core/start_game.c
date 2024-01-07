@@ -1,7 +1,7 @@
 
 #include "../incl/cub3d.h"
 
-void	draw_background(cub3d_t *cub3d)
+void	draw_game_background(cub3d_t *cub3d)
 {
 	unsigned int	row;
 	unsigned int	column;
@@ -49,7 +49,7 @@ void	handle_state_game(cub3d_t *cub3d)
 	player_movement(cub3d);
 	if (cub3d->state == STATE_GAME)
 	{
-		draw_background(cub3d);
+		draw_game_background(cub3d);
 		raycasting(cub3d);
 		draw_world(cub3d);
 		minimap(cub3d);
@@ -76,10 +76,6 @@ void	update(void *param)
 		update_level_menu(cub3d, &cub3d->level_menu);
 	else if (cub3d->state == STATE_LEADERBOARD)
 		update_leaderboard(cub3d, &cub3d->leaderboard);
-	else if (cub3d->state == STATE_SETTINGS)
-	{
-		// update_settings_menu(cub3d, &cub3d->settings_menu);
-	}
 	else if (cub3d->state == STATE_PAUSE)
 	{
 		update_pause_menu(cub3d, &cub3d->pause_menu);

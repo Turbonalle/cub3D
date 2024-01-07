@@ -13,7 +13,7 @@ void	draw_door_open(cub3d_t *cub3d, int index)
 		cub3d->level->key_groups[index].key_icon_coords.y + cub3d->mlx->height * 0.01
 	);
 }
-void	draw_key_count(cub3d_t *cub3d, int index)
+int	draw_key_count(cub3d_t *cub3d, int index)
 {
 	char	*text_collected;
 	char	*text_collected_slash;
@@ -23,30 +23,32 @@ void	draw_key_count(cub3d_t *cub3d, int index)
 	
 	text_collected = ft_itoa(cub3d->level->key_groups[index].num_keys_total - cub3d->level->door_groups[index].num_keys_left);
 	if (!text_collected)
-		err("MALLOC fail in update_key_count");
+	{
+		return(err("MALLOC fail in update_key_count"));
+	}
 	text_total = ft_itoa(cub3d->level->key_groups[index].num_keys_total);
 	if (!text_total)
 	{
 		free(text_collected);
-		err("MALLOC fail in update_key_count");
+		return(err("MALLOC fail in update_key_count"));
 	}
 	text_collected_slash = ft_strjoin(text_collected, "/");
 	if (!text_collected_slash)
 	{
 		free(text_collected);
 		free(text_total);
-		err("MALLOC fail in update_key_count");
+		return(err("MALLOC fail in update_key_count"));
 	}
 	text = ft_strjoin(text_collected_slash, text_total);
 	free(text_collected);
 	free(text_collected_slash);
 	free(text_total);
 	if (!text)
-		err("MALLOC fail in update_key_count");
-	
+	{
+		return(err("MALLOC fail in update_key_count"));
+	}
 	if (cub3d->level->key_groups[index].img_text_key_count)
 		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_text_key_count);
-	
 	cub3d->level->key_groups[index].img_text_key_count = mlx_put_string(
 		cub3d->mlx,
 		text,
@@ -54,9 +56,10 @@ void	draw_key_count(cub3d_t *cub3d, int index)
 		cub3d->level->key_groups[index].key_icon_coords.y + cub3d->mlx->height * 0.01
 	);
 	free(text);
+	return (1);
 }
 
-void draw_key_counts(cub3d_t *cub3d)
+int draw_key_counts(cub3d_t *cub3d)
 {
 	int	index;
 
@@ -66,10 +69,14 @@ void draw_key_counts(cub3d_t *cub3d)
 		if (cub3d->level->key_groups[index].keys)
 		{
 			if (cub3d->level->door_groups[index].num_keys_left == 0)
-				draw_door_open(cub3d, index);
+					draw_door_open(cub3d, index);
 			else
-				draw_key_count(cub3d, index);
+			{
+				if (!draw_key_count(cub3d, index))
+					return (0);
+			}
 		}
 		index++;
 	}
+	return (1);
 }

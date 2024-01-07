@@ -140,6 +140,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (!init_enemy_frames(&cub3d))
 		return (1);
+	// Should we load/init the main level here and not start the same if there's an error?
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
 	if (cub3d.state == STATE_GAME)

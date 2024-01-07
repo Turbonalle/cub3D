@@ -118,5 +118,6 @@ void player_movement(cub3d_t *cub3d)
 		player_strafing(cub3d);
 	else
 		player_both(cub3d);
+	// TODO: add error handling? or not needed?
 	collision_checker(cub3d);
 }

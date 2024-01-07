@@ -87,6 +87,7 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	init_player_and_enemies(cub3d, level);
 	count_distractions(cub3d);
 	if (!init_distractions(cub3d))
+	// We probably should remove free_level from this function because we're freeing things that haven't been allocated yet
 		return (free_level(cub3d), 0);
 	set_initial_direction(cub3d);
 	if (!init_minimap(cub3d))
@@ -119,9 +120,13 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 		return (0);
 	}
+	printf("before init textures\n");
 	if (!init_textures(cub3d))
 		return (free_level(cub3d), 0);
+	printf("after init textures\n");
 	set_z_of_all_images(cub3d);
+	printf("after set_z_of_all_images\n");
 	enable_hearts(cub3d);
+	printf("after enable_hearts\n");
 	return (1);
 }

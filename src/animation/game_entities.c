@@ -631,7 +631,7 @@ void	draw_game_entities(cub3d_t *cub3d)
 		}
 	}
 		
-	// check if we need to redraw accoring to fps
+	// check if we need to redraw according to fps
 	if (cub3d->run_time - cub3d->prev_frame_update_timestamp >= cub3d->frame_time)
 	{
 		fps_frame_change = TRUE;

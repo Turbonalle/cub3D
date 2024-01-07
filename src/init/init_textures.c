@@ -13,7 +13,7 @@ void	free_textures_before_failed(texture_t *textures, int failed_index)
 		printf("Freed texture %d\n", i);
 		i++;
 	}
-	free(textures[failed_index].path);
+	//free(textures[failed_index].path);
 }
 
 int	init_textures(cub3d_t *cub3d)

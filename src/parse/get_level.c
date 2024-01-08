@@ -168,17 +168,35 @@ int create_rectangular_map(level_t *level)
 int get_map(level_t *level, int fd)
 {
 	if (!get_preliminary_map(level, fd))
-		return (FAIL);
+		return (free_list(level->map_list), FAIL);
 	if (!create_rectangular_map(level))
 		return (FAIL);
 	if (!get_starting_point(level))
-		return (FAIL);
-	if (!check_map_validity(level->map))
 		return (FAIL);
 	return (SUCCESS);
 }
 
 //------------------------------------------------------------------------------
+
+void	zero_map(char **map)
+{
+	int	row;
+	int	column;
+
+	row = -1;
+	while (map[++row])
+	{
+		column = -1;
+		while (map[row][++column])
+		{
+			if (map[row][column] != '1' && map[row][column] != ' ')
+			{
+				printf("is %c\n",map[row][column]);
+				map[row][column] = '0';
+			}
+		}
+	}
+}
 
 int read_cub_file(level_t *level, char *map_path)
 {
@@ -215,6 +233,23 @@ int read_cub_file(level_t *level, char *map_path)
 	while (level->map[fd])
 	{
 		level->backup[fd] = ft_strdup(level->map[fd]);
+		free(level->map[fd]);
+		fd++;
+	}
+	free(level->map);
+	level->map = ft_calloc(sizeof(char *), (fd + 1));
+	fd = 0;
+	while (level->backup[fd])
+	{
+		level->map[fd] = ft_strdup(level->backup[fd]);
+		fd++;
+	}
+	zero_map(level->map);
+	if (!check_map_validity(level->map))
+		return (FAIL);
+	fd = 0;
+	while (level->map[fd])
+	{
 		free(level->map[fd]);
 		fd++;
 	}

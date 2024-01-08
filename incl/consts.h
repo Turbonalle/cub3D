@@ -12,7 +12,7 @@
 # define HEIGHT 720
 
 # define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd neswijkl Gm hr"
-# define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswGmh"
+# define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswijklGmh"
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
 # define ENEMIES "neswijkl"

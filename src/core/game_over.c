@@ -58,6 +58,7 @@ void	level_finished(cub3d_t *cub3d)
 
 void	game_over(cub3d_t *cub3d)
 {
+	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
 	if (cub3d->player.thrown)
 		cub3d->level->distractions[cub3d->level->num_distractions]
 			.img_distraction->instances[0].enabled = FALSE;

@@ -63,6 +63,7 @@ int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
 	cub3d->level->distraction_amount = 0;
 	cub3d->player.health = HEARTS;
 	cub3d->player.thrown = FALSE;
+	cub3d->player.is_dirty_cheater = 0;
 	count_enemies(cub3d);
 	if (!init_enemy(cub3d))
 		return (0);

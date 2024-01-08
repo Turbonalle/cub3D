@@ -130,6 +130,14 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 		else
 			printf("You have no mushroom to throw\n");
 	}
+	else if (keydata.key == MLX_KEY_G)
+		{
+
+			if (cub3d->player.is_dirty_cheater < 2)
+			cub3d->player.is_dirty_cheater++;
+			else if (cub3d->player.is_dirty_cheater == 2)
+			cub3d->player.is_dirty_cheater--;
+		}
 }
 
 void	handle_pause_input(mlx_key_data_t keydata, cub3d_t *cub3d)

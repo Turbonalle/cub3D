@@ -75,25 +75,27 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	int	i = 0;
 
 	level->map = ft_calloc(sizeof(char *), level->nodes + 1);
+	if (!level->map)
+		return (FAIL);
 	while (level->backup[i])
 	{
 		level->map[i] = ft_strdup(level->backup[i]);
 		if (!level->map[i])
-			return (free_info(level->map), 0);
+			return (free_info(level->map), FAIL);
 		i++;
 	}
 	if (!init_player_and_enemies(cub3d, level))
 	{
 		free_info(level->map);
-		return (0);
+		return (FAIL);
 	}
 	count_distractions(cub3d);
 	if (!init_distractions(cub3d))
 	// We probably should remove free_level calls from this function because we're freeing things that haven't been allocated yet
-		return (free_info(level->map), 0);
+		return (free_info(level->map), FAIL);
 	set_initial_direction(cub3d);
 	if (!init_minimap(cub3d))
-		return (free_distractions(cub3d), free_info(level->map), 0);
+		return (free_distractions(cub3d), free_info(level->map), FAIL);
 	if (!init_doors_and_keys(cub3d))
 	{
 		// TODO: make sure error handling and freeing inside init_doors_and_keys is good
@@ -105,11 +107,11 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	}
 	printf("LOAD before init textures\n");
 	if (!init_textures(cub3d))
-		return (free_level_without_textures(cub3d), 0);
+		return (free_level_without_textures(cub3d), FAIL);
 	printf("LOAD after init textures\n");
 	set_z_of_all_images(cub3d);
 	//printf("after set_z_of_all_images\n");
 	enable_hearts(cub3d);
 	printf("LOAD after enable_hearts\n");
-	return (1);
+	return (SUCCESS);
 }

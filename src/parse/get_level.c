@@ -196,28 +196,14 @@ int read_cub_file(level_t *level, char *map_path)
 		i++;
 	}
 	if (!get_elements(level, fd))
-	{
-		i = 0;
-		while (i < 4)
-		{
-			if (level->texture[i].path)
-				free(level->texture[i].path);
-			if (level->texture[i].texture)
-				mlx_delete_texture(level->texture[i].texture);
-			i++;
-		}
-		return (0);
-	}
+		return (free_delete_textures(level), FAIL);
+	// return (free_delete_textures(level), close(fd), FAIL);
 	if (!all_elements_found(level->element_found))
 		return (close(fd), err("Missing element(s) in map file"));
 	if (!get_map(level, fd))
 	{
-		i = 0;
-		while (i < 4)
-		{
-			free(level->texture[i].path);
-			i++;
-		}
+		free_delete_textures(level);
+		free_list(level->map_list);
 		return (close(fd), free_info(level->map), FAIL);
 	}
 	close(fd);

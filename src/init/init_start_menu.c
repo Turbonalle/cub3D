@@ -1,17 +1,60 @@
 #include "../incl/cub3d.h"
 
-static void	load_png(start_menu_t *menu)
+static int	free_prev(start_menu_t *menu, int i)
+{
+	mlx_delete_texture(menu->title.texture);
+	if (i > 0)
+		mlx_delete_texture(menu->exit.texture);
+	if (i > 1)
+		mlx_delete_texture(menu->exit_hover.texture);
+	if (i > 2)
+		mlx_delete_texture(menu->start.texture);
+	if (i > 3)
+		mlx_delete_texture(menu->start_hover.texture);
+	if (i > 4)
+		mlx_delete_texture(menu->level.texture);
+	if (i > 5)
+		mlx_delete_texture(menu->level_hover.texture);
+	if (i > 6)
+		mlx_delete_texture(menu->arrow_exit.texture);
+	if (i > 7)
+		mlx_delete_texture(menu->arrow_start.texture);
+	return (0);
+}
+
+static int	load_png(start_menu_t *menu)
 {
 	menu->title.texture = mlx_load_png(START_TITLE_PNG);
+	if (!menu->title.texture)
+		return (0);
 	menu->exit.texture = mlx_load_png(START_EXIT_PNG);
+	if (!menu->exit.texture)
+		return (free_prev(menu, 0));
 	menu->exit_hover.texture = mlx_load_png(START_EXIT_HOVER_PNG);
+	if (!menu->exit_hover.texture)
+		return (free_prev(menu, 1));
 	menu->start.texture = mlx_load_png(START_START_PNG);
+	if (!menu->start.texture)
+		return (free_prev(menu, 2));
 	menu->start_hover.texture = mlx_load_png(START_START_HOVER_PNG);
+	if (!menu->start_hover.texture)
+		return (free_prev(menu, 3));
 	menu->level.texture = mlx_load_png(START_LEVEL_PNG);
+	if (!menu->level.texture)
+		return (free_prev(menu, 4));
 	menu->level_hover.texture = mlx_load_png(START_LEVEL_HOVER_PNG);
+	if (!menu->level_hover.texture)
+		return (free_prev(menu, 5));
 	menu->arrow_exit.texture = mlx_load_png(ARROW_PNG);
+	if (!menu->arrow_exit.texture)
+		return (free_prev(menu, 6));
 	menu->arrow_start.texture = mlx_load_png(ARROW_PNG);
+	if (!menu->arrow_start.texture)
+		return (free_prev(menu, 7));
 	menu->arrow_level.texture = mlx_load_png(ARROW_PNG);
+	if (!menu->arrow_level.texture)
+		return (free_prev(menu, 8));
+	return (1);
 }
 
 static int	init_images(mlx_t *mlx, start_menu_t *menu)

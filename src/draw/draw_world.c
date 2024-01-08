@@ -151,5 +151,4 @@ void draw_world(cub3d_t *cub3d)
 			draw_vertical_line(cub3d->img, start, end, WHITE);
 		}
 	}
-	
 }

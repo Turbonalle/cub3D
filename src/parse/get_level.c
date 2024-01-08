@@ -191,7 +191,6 @@ void	zero_map(char **map)
 		{
 			if (map[row][column] != '1' && map[row][column] != ' ')
 			{
-				printf("is %c\n",map[row][column]);
 				map[row][column] = '0';
 			}
 		}

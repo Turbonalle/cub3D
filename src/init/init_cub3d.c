@@ -186,14 +186,26 @@ int	init_cub3d(cub3d_t *cub3d)
 
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", FALSE);
 	if (!cub3d->mlx)
-		return (!err("Failed to initialize mlx"));
+		return (err("Failed to initialize mlx"));
 	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
-		return (!err("Failed to create image"));
+		return (err("Failed to create image"));
 	printf("Created main image\n");
 	cub3d->rays = NULL;
 	if (!init_rays(cub3d))
-		return (!err("Failed to malloc rays"));
+	{
+		i = 0;
+		while (i < LEVELS + 1)
+		{
+			free_list(cub3d->levels[i].map_list);
+			free_backup(cub3d->levels[i]);
+			i++;
+		}
+		mlx_delete_image(cub3d->mlx, cub3d->img);
+		mlx_terminate(cub3d->mlx);
+		free(cub3d->levels);
+		return (err("Failed to malloc rays"));
+	}
 	set_keys(&cub3d->keys);
 	set_init_stats(cub3d);
 	printf("init start menu\n");
@@ -204,7 +216,8 @@ int	init_cub3d(cub3d_t *cub3d)
 	init_name_menu(cub3d, &cub3d->name_menu);
 	printf("init gameover menu\n");
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
-	init_intro(cub3d);
+	if (!init_intro(cub3d))
+		return (err("Failed to init intro"));
 	if (!init_hearts(cub3d))
 		return (err("Failed to init hearts"));
 	if (!init_shroom(cub3d))

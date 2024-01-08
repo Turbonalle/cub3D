@@ -11,6 +11,23 @@ int	check_if_door_open(cub3d_t *cub3d, int xcoord, int ycoord)
 	return (0);
 }
 
+static double	dist_to_door(vector_t v_map_check, dvector_t pos)
+{
+	dvector_t	help;
+	double		dist;
+
+	if (v_map_check.x == 1)
+		help.x = v_map_check.x - 0.5;
+	else
+		help.x = v_map_check.x + 0.5;
+	if (v_map_check.y == 1)
+		help.y = v_map_check.y - 0.5;
+	else
+		help.y = v_map_check.y + 0.5;
+	dist = dist_between_d_vectors(help, pos);
+	return (dist);
+}
+
 int	wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check)
 {
 	if (v_map_check.x >= 0
@@ -27,7 +44,7 @@ int	wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check)
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'C'
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'))
 	{
-		if (dist_between(v_map_check, cub3d->player.pos) > 4)
+		if (dist_to_door(v_map_check, cub3d->player.pos) > 5)
 			return (1);
 		if (check_if_door_open(cub3d, v_map_check.x, v_map_check.y))
 			return (0);

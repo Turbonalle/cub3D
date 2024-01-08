@@ -85,8 +85,8 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 
 	start.x = start_d.x;
 	start.y = start_d.y;
-	end.x = end_d.x;
-	end.y = end_d.y;
+	end.x = round(end_d.x);
+	end.y = round(end_d.y);
 	if (start.x < 0 || start.x >= (int)img->width || end.y < 0 || end.y >= (int)img->height)
 	{
 		printf("draw_line FAIL!\n");
@@ -95,6 +95,10 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color)
 		printf("end.x: %d\n", end.x);
 		printf("end.y: %d\n", end.y);
 	}
+	if (start.x < end.x)
+		end.x -= 1;
+	if (start.y < end.y)
+		end.y -= 1;
 	if (abs(end.y - start.y) < abs(end.x - start.x))
 	{
 		if (start.x > end.x)

@@ -245,7 +245,13 @@ int read_cub_file(level_t *level, char *map_path)
 	}
 	zero_map(level->map);
 	if (!check_map_validity(level->map))
+	{
+		free_delete_textures(level);
+		free_list(level->map_list);
+		free_info(level->map);
+		free_info(level->backup);
 		return (FAIL);
+	}
 	fd = 0;
 	while (level->map[fd])
 	{

@@ -168,7 +168,7 @@ int create_rectangular_map(level_t *level)
 int get_map(level_t *level, int fd)
 {
 	if (!get_preliminary_map(level, fd))
-		return (free_list(level->map_list), FAIL);
+		return (FAIL);
 	if (!create_rectangular_map(level))
 		return (FAIL);
 	if (!get_starting_point(level))

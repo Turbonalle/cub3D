@@ -59,3 +59,18 @@ void	free_doors(door_pos_t *head)
 		head = temp;
 	}
 }
+
+void	free_delete_textures(level_t *level)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (level->texture[i].path)
+			free(level->texture[i].path);
+		if (level->texture[i].texture)
+			mlx_delete_texture(level->texture[i].texture);
+		i++;
+	}
+}

@@ -102,6 +102,15 @@ int	init_enemy(cub3d_t *cub3d)
 		cub3d->enemy[i].dist_to_player = 100;
 		cub3d->enemy[i].img_curr_frame
 			= mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+		if (!cub3d->enemy[i].img_curr_frame)
+		{
+			while (i)
+			{
+				mlx_delete_image(cub3d->mlx, cub3d->enemy[--i].img_curr_frame);
+			}
+			free(cub3d->enemy);
+			return (0);
+		}
 		mlx_image_to_window(cub3d->mlx, cub3d->enemy[i].img_curr_frame, 0, 0);
 		i++;
 	}

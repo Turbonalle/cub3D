@@ -79,12 +79,14 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	{
 		level->map[i] = ft_strdup(level->backup[i]);
 		if (!level->map[i])
-		{
 			return (free_info(level->map), 0);
-		}
 		i++;
 	}
-	init_player_and_enemies(cub3d, level);
+	if (!init_player_and_enemies(cub3d, level))
+	{
+		free_info(level->map);
+		return (0);
+	}
 	count_distractions(cub3d);
 	if (!init_distractions(cub3d))
 	// We probably should remove free_level calls from this function because we're freeing things that haven't been allocated yet

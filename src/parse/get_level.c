@@ -173,12 +173,30 @@ int get_map(level_t *level, int fd)
 		return (FAIL);
 	if (!get_starting_point(level))
 		return (FAIL);
-	if (!check_map_validity(level->map))
-		return (FAIL);
 	return (SUCCESS);
 }
 
 //------------------------------------------------------------------------------
+
+void	zero_map(char **map)
+{
+	int	row;
+	int	column;
+
+	row = -1;
+	while (map[++row])
+	{
+		column = -1;
+		while (map[row][++column])
+		{
+			if (map[row][column] != '1' && map[row][column] != ' ')
+			{
+				printf("is %c\n",map[row][column]);
+				map[row][column] = '0';
+			}
+		}
+	}
+}
 
 int read_cub_file(level_t *level, char *map_path)
 {
@@ -188,26 +206,21 @@ int read_cub_file(level_t *level, char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (close(fd), err("Failed to open map file"));
-	if (!get_elements(level, fd))
+	i = 0;
+	while (i < 4)
 	{
-		i = 0;
-		while (i < 4)
-		{
-			free(level->texture[i].path);
-			i++;
-		}
-		return (0);
+		level->texture[i].path = NULL;
+		level->texture[i].texture = NULL;
+		i++;
 	}
+	if (!get_elements(level, fd))
+		return (free_delete_textures(level), FAIL);
 	if (!all_elements_found(level->element_found))
 		return (close(fd), err("Missing element(s) in map file"));
 	if (!get_map(level, fd))
 	{
-		i = 0;
-		while (i < 4)
-		{
-			free(level->texture[i].path);
-			i++;
-		}
+		free_delete_textures(level);
+		free_list(level->map_list);
 		return (close(fd), free_info(level->map), FAIL);
 	}
 	close(fd);
@@ -219,6 +232,29 @@ int read_cub_file(level_t *level, char *map_path)
 	while (level->map[fd])
 	{
 		level->backup[fd] = ft_strdup(level->map[fd]);
+		free(level->map[fd]);
+		fd++;
+	}
+	free(level->map);
+	level->map = ft_calloc(sizeof(char *), (fd + 1));
+	fd = 0;
+	while (level->backup[fd])
+	{
+		level->map[fd] = ft_strdup(level->backup[fd]);
+		fd++;
+	}
+	zero_map(level->map);
+	if (!check_map_validity(level->map))
+	{
+		free_delete_textures(level);
+		free_list(level->map_list);
+		free_info(level->map);
+		free_info(level->backup);
+		return (FAIL);
+	}
+	fd = 0;
+	while (level->map[fd])
+	{
 		free(level->map[fd]);
 		fd++;
 	}

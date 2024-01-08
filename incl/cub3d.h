@@ -346,6 +346,7 @@ void	free_enemies(cub3d_t *cub3d);
 void	free_minimap(cub3d_t *cub3d);
 void	free_distractions(cub3d_t *cub3d);
 void	disable_items(cub3d_t *cub3d);
+void	free_delete_textures(level_t *level);
 
 // error_utils.c
 int		err(char *error_message);

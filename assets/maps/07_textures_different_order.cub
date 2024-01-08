@@ -1,7 +1,7 @@
-WE ../textures/west_texture
-EA ../textures/east_texture
-SO ../textures/south_texture
-NO ../textures/north_texture
+WE ./assets/textures/surfaces/wood.png
+EA ./assets/textures/surfaces/wood.png
+SO ./assets/textures/surfaces/bricks_dark.png
+NO ./assets/textures/surfaces/gradient_dark_gray.png
 
 F 20,20,20
 C 100,100,250

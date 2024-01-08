@@ -12,7 +12,15 @@ static int	init_dist(cub3d_t *cub3d, int i, int j, int distr_index)
 	cub3d->level->distractions[distr_index].dist_to_player = 100;
 	cub3d->level->distractions[distr_index].img_distraction = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->level->distractions[distr_index].img_distraction)
+	{
+		i = 0;
+		while (i < distr_index)
+		{
+			mlx_delete_image(cub3d->mlx, cub3d->level->distractions[i].img_distraction);
+			i++;
+		}
 		return (-1);
+	}
 	mlx_image_to_window(cub3d->mlx, cub3d->level->distractions[distr_index].img_distraction, 0, 0);
 	return (distr_index + 1);
 }
@@ -39,7 +47,7 @@ int	init_distractions(cub3d_t *cub3d)
 			{
 				distr_index = init_dist(cub3d, i, j, distr_index);
 				if (distr_index == -1)
-					return (FAIL);
+					return (free(cub3d->level->distractions), FAIL);
 			}
 			j++;
 		}

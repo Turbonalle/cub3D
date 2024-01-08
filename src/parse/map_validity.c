@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:19 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/04 11:43:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/08 13:34:55 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void flood(char **map, int row, int column, int elements)
 
 //------------------------------------------------------------------------------
 
-int all_walls_changed(char **map, int elements)
+int	all_walls_changed(char **map, int elements)
 {
-	int row;
-	int column;
+	int	row;
+	int	column;
 
 	row = -1;
 	while (map[++row])
@@ -80,7 +80,7 @@ int	surrounded_by_walls(char **map)
 			if (ft_strchr(MAP_ALL_BUT_WALL, map[row][column]))
 			{
 				if (row == 0 || !map[row + 1])
-					return (FALSE);
+					return (printf("row, col is %i,%i\n",row, column),FALSE);
 				if (column == 0 || map[row][column + 1] == '\0')
 					return (FALSE);
 				if (next_to_empty(map, row, column))

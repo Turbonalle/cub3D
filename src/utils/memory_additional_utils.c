@@ -14,6 +14,7 @@ void	free_backup(level_t level)
 	while (i < 4)
 	{
 		free(level.texture[i].path);
+		mlx_delete_texture(level.texture[i].texture);
 		i++;
 	}
 	free(level.backup);

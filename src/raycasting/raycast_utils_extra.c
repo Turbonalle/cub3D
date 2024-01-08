@@ -49,6 +49,7 @@ static int	door_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray)
 	return (0);
 }
 
+
 int	obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir)
 {
 	if (wall_found(cub3d, v_map_check))

@@ -79,19 +79,43 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	{
 		level->map[i] = ft_strdup(level->backup[i]);
 		if (!level->map[i])
-		{
 			return (free_info(level->map), 0);
-		}
 		i++;
 	}
-	init_player_and_enemies(cub3d, level);
+	if (!init_player_and_enemies(cub3d, level))
+	{
+		free_info(level->map);
+		return (0);
+	}
 	count_distractions(cub3d);
 	if (!init_distractions(cub3d))
-	// We probably should remove free_level from this function because we're freeing things that haven't been allocated yet
-		return (free_level(cub3d), 0);
+	{
+		if (cub3d->num_enemies)
+			free(cub3d->enemy);
+		free_info(level->map);
+		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+		return (0);
+	}
 	set_initial_direction(cub3d);
 	if (!init_minimap(cub3d))
-		return (free_level(cub3d), 0);
+	{
+		if (cub3d->level->num_distractions)
+		{
+			i = 0;
+			while (i < cub3d->level->num_distractions)
+			{
+				printf("deleted distraction image %d\n", i);
+				mlx_delete_image(cub3d->mlx, cub3d->level->distractions[i].img_distraction);
+				i++;
+			}
+			free(cub3d->level->distractions);
+		}
+		if (cub3d->num_enemies)
+			free(cub3d->enemy);
+		free_info(level->map);
+		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+		return (0);
+	}
 	if (!init_doors_and_keys(cub3d))
 	{
 		if (cub3d->level->num_distractions)
@@ -106,9 +130,7 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 			free(cub3d->level->distractions);
 		}
 		if (cub3d->num_enemies)
-		{
 			free(cub3d->enemy);
-		}
 		i = 0;
 		while (i < NUM_DOORS_MAX)
 		{
@@ -121,8 +143,6 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 		return (0);
 	}
 	printf("before init textures\n");
-	if (!init_textures(cub3d))
-		return (free_level(cub3d), 0);
 	printf("after init textures\n");
 	set_z_of_all_images(cub3d);
 	printf("after set_z_of_all_images\n");

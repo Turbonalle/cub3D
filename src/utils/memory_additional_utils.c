@@ -14,6 +14,7 @@ void	free_backup(level_t level)
 	while (i < 4)
 	{
 		free(level.texture[i].path);
+		mlx_delete_texture(level.texture[i].texture);
 		i++;
 	}
 	free(level.backup);
@@ -67,12 +68,6 @@ void	free_level(cub3d_t *cub3d)
 		i++;
 	}
 	i = 0;
-	while (i < 4)
-	{
-		if(cub3d->level->texture[i].texture)
-			mlx_delete_texture(cub3d->level->texture[i].texture);
-		i++;
-	}
 	free_info(cub3d->level->map);
 	cub3d->halo.img->instances[0].enabled = FALSE;
 	if (cub3d->num_enemies)

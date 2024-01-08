@@ -49,6 +49,20 @@ static int	door_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray)
 	return (0);
 }
 
+static void	reveal_hidden(cub3d_t *cub3d, vector_t v_map_check)
+{
+	if (v_map_check.x >= 0 && v_map_check.x
+		< cub3d->level->map_columns && v_map_check.y >= 0
+		&& v_map_check.y < cub3d->level->map_rows
+		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == 'h'))
+		cub3d->level->map[v_map_check.y][v_map_check.x] = '0';
+	if (v_map_check.x >= 0 && v_map_check.x
+		< cub3d->level->map_columns && v_map_check.y >= 0
+		&& v_map_check.y < cub3d->level->map_rows
+		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == 'r'))
+		cub3d->level->map[v_map_check.y][v_map_check.x] = 'm';
+}
+
 int	obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir)
 {
 	if (wall_found(cub3d, v_map_check))
@@ -69,5 +83,6 @@ int	obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir)
 		update_end(cub3d, dir, ray);
 		return (1);
 	}
+	reveal_hidden(cub3d, v_map_check);
 	return (0);
 }

@@ -188,12 +188,22 @@ int read_cub_file(level_t *level, char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (close(fd), err("Failed to open map file"));
+	i = 0;
+	while (i < 4)
+	{
+		level->texture[i].path = NULL;
+		level->texture[i].texture = NULL;
+		i++;
+	}
 	if (!get_elements(level, fd))
 	{
 		i = 0;
 		while (i < 4)
 		{
-			free(level->texture[i].path);
+			if (level->texture[i].path)
+				free(level->texture[i].path);
+			if (level->texture[i].texture)
+				mlx_delete_texture(level->texture[i].texture);
 			i++;
 		}
 		return (0);

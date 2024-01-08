@@ -65,13 +65,16 @@ void	free_delete_textures(level_t *level)
 {
 	int	i;
 
+	printf("DELETING TEXTURES and paths free_delete_textures\n");
 	i = 0;
 	while (i < 4)
 	{
 		if (level->texture[i].path)
 			free(level->texture[i].path);
+		level->texture[i].path = NULL;
 		if (level->texture[i].texture)
 			mlx_delete_texture(level->texture[i].texture);
+		level->texture[i].texture = NULL;
 		i++;
 	}
 }

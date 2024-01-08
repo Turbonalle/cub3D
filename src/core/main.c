@@ -7,7 +7,11 @@ void	free_already_allocated(cub3d_t *cub3d, int i)
 		free_list(cub3d->levels[i].map_list);
 		i--;
 		if (i >= 0)
+		{
+			printf("freeing BACKUP for level %d on malloc fail\n", i);
 			free_backup(cub3d->levels[i]);
+		}
+			
 	}
 	free(cub3d->levels);
 }
@@ -48,6 +52,8 @@ int	read_all_levels(cub3d_t *cub3d)
 		if (fd < 0)
 			return (free(full_path), free_already_allocated(cub3d, i),
 				err("Failed to open level file"));
+		printf("Reading level %d\n", i);
+		printf("READING %dth CUB FILE\n", i);
 		if (!read_cub_file(&cub3d->levels[i], full_path))
 			return (free(full_path), free_already_allocated(cub3d, i),
 				err("Failed to read level file"));
@@ -148,6 +154,7 @@ int	main(int ac, char **av)
 	cub3d.level = &cub3d.levels[0];
 	if (!read_cub_file(cub3d.level, av[1]))
 		return (free(cub3d.levels), 1);
+	printf("READ MAIN CUB FILE\n");
 	if (!read_all_levels(&cub3d))
 		return (1);
 	printf("init_cub3d\n");

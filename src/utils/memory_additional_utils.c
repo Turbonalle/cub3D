@@ -4,6 +4,7 @@ void	free_backup(level_t level)
 {
 	int	i;
 
+	printf("DELETING TEXTURES for backup in free_backup\n");
 	i = 0;
 	while (level.backup[i])
 	{
@@ -11,17 +12,19 @@ void	free_backup(level_t level)
 		level.backup[i] = NULL;
 		i++;
 	}
+	free(level.backup);
+	level.backup = NULL;
 	i = 0;
 	while (i < 4)
 	{
-		free(level.texture[i].path);
+		if (level.texture[i].path)
+			free(level.texture[i].path);
 		level.texture[i].path = NULL;
-		mlx_delete_texture(level.texture[i].texture);
+		if(level.texture[i].texture)
+			mlx_delete_texture(level.texture[i].texture);
 		level.texture[i].texture = NULL;
 		i++;
 	}
-	free(level.backup);
-	level.backup = NULL;
 }
 
 void	delete_heart(cub3d_t *cub3d)
@@ -94,11 +97,15 @@ void	free_level_textures(cub3d_t *cub3d)
 {
 	int	i;
 
+	printf("DELETING TEXTURES and paths free_level_textures\n");
 	i = 0;
 	while (i < 4)
 	{
+		if(cub3d->level->texture[i].path)
+			free(cub3d->level->texture[i].path);
 		if(cub3d->level->texture[i].texture)
 			mlx_delete_texture(cub3d->level->texture[i].texture);
+		cub3d->level->texture[i].path = NULL;
 		cub3d->level->texture[i].texture = NULL;
 		i++;
 	}
@@ -153,22 +160,26 @@ void	disable_items(cub3d_t *cub3d)
 void	free_minimap(cub3d_t *cub3d)
 {
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+	cub3d->minimap.img = NULL;
 }
 
 void	free_level(cub3d_t *cub3d)
 {
+	printf("CALLING FREE LEVEL\n");
 	free_keys_and_doors(cub3d);
-	//free_level_textures(cub3d);
+	free_level_textures(cub3d);
 	free_info(cub3d->level->map);
 	free_enemies(cub3d);
 	free_distractions(cub3d);
 	free_minimap(cub3d);
 	disable_items(cub3d);
+	printf("freeing level DONE\n");
 }
 
 void	free_level_without_textures(cub3d_t *cub3d)
 {
-	printf("freeing level without textures START\n");
+	printf("CALLING FREE LEVEL\n");
+	//printf("freeing level without textures START\n");
 	free_keys_and_doors(cub3d);
 	//printf("freed keys and doors\n");
 	free_info(cub3d->level->map);
@@ -180,5 +191,6 @@ void	free_level_without_textures(cub3d_t *cub3d)
 	free_minimap(cub3d);
 	//printf("freed minimap\n");
 	disable_items(cub3d);
-	printf("freeing level without textures DONE\n");
+	//printf("freeing level without textures DONE\n");
+	printf("freeing level DONE\n");
 }

@@ -20,6 +20,7 @@ int add_map_line(map_node_t **first_node, char *line)
 	map_node_t *current_map_node;
 
 	new_map_node = malloc(sizeof(map_node_t));
+	//printf("new_map_node pointer %p\n", new_map_node);
 	if (!new_map_node)
 		return (FAIL);
 	new_map_node->line = line;
@@ -128,6 +129,7 @@ int create_rectangular_map(level_t *level)
 	int			j;
 
 	level->map = malloc(sizeof(char *) * (level->nodes + 1));
+	//printf("level->map pointer in create_rectangular_map %p\n", level->map);
 	if (!level->map)
 		return (err("Failed to allocate memory for map"));
 	longest_length = 0;
@@ -146,6 +148,7 @@ int create_rectangular_map(level_t *level)
 	while (current_map_node)
 	{
 		level->map[i] = malloc(sizeof(char) * (longest_length + 1));
+		//printf("level->map[%d] pointer %p\n", i, level->map[i]);
 		if (!level->map[i])
 			return (err("Failed to allocate memory for map"));
 		j = 0;
@@ -191,7 +194,7 @@ void	zero_map(char **map)
 		{
 			if (map[row][column] != '1' && map[row][column] != ' ')
 			{
-				printf("is %c\n",map[row][column]);
+				//printf("is %c\n",map[row][column]);
 				map[row][column] = '0';
 			}
 		}
@@ -228,6 +231,7 @@ int read_cub_file(level_t *level, char *map_path)
 	while (level->map[fd])
 		fd++;
 	level->backup = ft_calloc(sizeof(char *), (fd + 1));
+	printf("backup pointer %p\n", level->backup);
 	fd = 0;
 	while (level->map[fd])
 	{
@@ -237,6 +241,7 @@ int read_cub_file(level_t *level, char *map_path)
 	}
 	free(level->map);
 	level->map = ft_calloc(sizeof(char *), (fd + 1));
+	printf("map pointer %p\n", level->map);
 	fd = 0;
 	while (level->backup[fd])
 	{

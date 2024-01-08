@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_level_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:08 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/05 13:20:36 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:12:50 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	find_element(level_t *level, char *line)
 
 	info = ft_split(line, ' ');
 	if (!info || !info[0] || !info[1])
-		return (FAIL);
+		return (free_info(info), FAIL);
 	if (ft_strcmp(info[0], "NO") == 0)
 		return (get_element(level, NO, info));
 	else if (ft_strcmp(info[0], "SO") == 0)
@@ -55,7 +55,7 @@ int	find_element(level_t *level, char *line)
 		return (get_element(level, F, info));
 	else if (ft_strcmp(info[0], "C") == 0)
 		return (get_element(level, C, info));
-	return (FAIL);
+	return (free_info(info), FAIL);
 }
 
 void	remove_newline(char *line)
@@ -92,7 +92,7 @@ int	get_elements(level_t *level, int fd)
 		if (!find_element(level, line))
 		{
 			free(line);
-			return (FAIL);
+			return (err("Invalid/missing element"));
 		}
 		free(line);
 	}

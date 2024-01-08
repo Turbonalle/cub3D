@@ -338,7 +338,14 @@ void	free_record(record_t *record);
 void	free_doors(door_pos_t *head);
 void	free_keys(key_node_t *head);
 void	free_level(cub3d_t *cub3d);
+void	free_level_without_textures(cub3d_t *cub3d);
 void	free_backup(level_t level);
+void	free_keys_and_doors(cub3d_t *cub3d);
+void	free_level_textures(cub3d_t *cub3d);
+void	free_enemies(cub3d_t *cub3d);
+void	free_minimap(cub3d_t *cub3d);
+void	free_distractions(cub3d_t *cub3d);
+void	disable_items(cub3d_t *cub3d);
 void	free_delete_textures(level_t *level);
 
 // error_utils.c

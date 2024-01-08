@@ -181,11 +181,18 @@ void	handle_gameover_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 
 void	handle_intro_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
-	if (keydata.key == MLX_KEY_ESCAPE || keydata.key == MLX_KEY_ENTER)
+	if (keydata.key == MLX_KEY_ENTER)
 	{
 		cub3d->level = &cub3d->levels[0];
 		if (!load_level(cub3d, cub3d->level))
+		{
+			printf("handle_intro_input: Failed to load level\n");
+			// TODO: add error message here, letting user know level failed to load
+			disable_intro(cub3d);
+			enable_start_menu(&cub3d->start_menu);
+			cub3d->state = STATE_START;
 			return ;
+		}
 		disable_intro(cub3d);
 		cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
 		cub3d->settings.e_speed = cub3d->player.num_completed / 3;
@@ -193,6 +200,12 @@ void	handle_intro_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->state = STATE_GAME;
 		handle_cursor(cub3d);
 		start_timer(cub3d);
+	}
+	else if (keydata.key == MLX_KEY_ESCAPE)
+	{
+		disable_intro(cub3d);
+		enable_start_menu(&cub3d->start_menu);
+		cub3d->state = STATE_START;
 	}
 }
 

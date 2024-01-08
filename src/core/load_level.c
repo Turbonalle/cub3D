@@ -89,64 +89,27 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	}
 	count_distractions(cub3d);
 	if (!init_distractions(cub3d))
-	{
-		if (cub3d->num_enemies)
-			free(cub3d->enemy);
-		free_info(level->map);
-		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
-		return (0);
-	}
+	// We probably should remove free_level calls from this function because we're freeing things that haven't been allocated yet
+		return (free_info(level->map), 0);
 	set_initial_direction(cub3d);
 	if (!init_minimap(cub3d))
-	{
-		if (cub3d->level->num_distractions)
-		{
-			i = 0;
-			while (i < cub3d->level->num_distractions)
-			{
-				printf("deleted distraction image %d\n", i);
-				mlx_delete_image(cub3d->mlx, cub3d->level->distractions[i].img_distraction);
-				i++;
-			}
-			free(cub3d->level->distractions);
-		}
-		if (cub3d->num_enemies)
-			free(cub3d->enemy);
-		free_info(level->map);
-		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
-		return (0);
-	}
+		return (free_distractions(cub3d), free_info(level->map), 0);
 	if (!init_doors_and_keys(cub3d))
 	{
-		if (cub3d->level->num_distractions)
-		{
-			i = 0;
-			while (i < cub3d->level->num_distractions)
-			{
-				printf("deleted distraction image %d\n", i);
-				mlx_delete_image(cub3d->mlx, cub3d->level->distractions[i].img_distraction);
-				i++;
-			}
-			free(cub3d->level->distractions);
-		}
-		if (cub3d->num_enemies)
-			free(cub3d->enemy);
-		i = 0;
-		while (i < NUM_DOORS_MAX)
-		{
-			free_keys(cub3d->level->key_groups[i].keys);
-			free_doors(cub3d->level->door_groups[i].door_positions);
-			i++;
-		}
+		// TODO: make sure error handling and freeing inside init_doors_and_keys is good
 		free_info(level->map);
-		mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+		free_enemies(cub3d);
+		free_distractions(cub3d);
+		free_minimap(cub3d);
 		return (0);
 	}
-	printf("before init textures\n");
-	printf("after init textures\n");
+	printf("LOAD before init textures\n");
+	if (!init_textures(cub3d))
+		return (free_level_without_textures(cub3d), 0);
+	printf("LOAD after init textures\n");
 	set_z_of_all_images(cub3d);
-	printf("after set_z_of_all_images\n");
+	//printf("after set_z_of_all_images\n");
 	enable_hearts(cub3d);
-	printf("after enable_hearts\n");
+	printf("LOAD after enable_hearts\n");
 	return (1);
 }

@@ -4,7 +4,7 @@ int	add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 {
 	key_node_t	*new_key;
 
-	new_key = malloc(sizeof(key_node_t));
+	new_key = ft_calloc(1, sizeof(key_node_t));
 	if (!new_key)
 		return (FAIL);
 	new_key->pos.x = j + 0.5;
@@ -30,7 +30,7 @@ int	add_door_pos(cub3d_t *cub3d, int i, int j, int door_group_index)
 {
 	door_pos_t	*new_pos;
 
-	new_pos = malloc(sizeof(door_pos_t));
+	new_pos = ft_calloc(1, sizeof(door_pos_t));
 	if (!new_pos)
 		return (FAIL);
 	new_pos->pos.x = j;
@@ -82,7 +82,7 @@ int	init_key_frames(key_group_t *key_group)
 	char	*file_name;
 	char	*file_name_extension;
 
-	key_group->textures_frames = malloc(sizeof(mlx_texture_t *) * NUM_FRAMES_KEY);
+	key_group->textures_frames = ft_calloc(NUM_FRAMES_KEY, sizeof(mlx_texture_t *));
 	if (!key_group->textures_frames)
 		return (0);
 	i = 0;
@@ -104,7 +104,7 @@ int	init_key_frames(key_group_t *key_group)
 	return (1);
 }
 
-void	create_groups(cub3d_t *cub3d)
+void	init_values(cub3d_t *cub3d)
 {
 	int	i;
 
@@ -162,9 +162,8 @@ int	count_keys(cub3d_t *cub3d, int i)
 		temp->visible = FALSE;
 		temp->dist_to_player = 100;
 		temp->img_curr_frame = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-		if (!temp->img_curr_frame)
+		if (!temp->img_curr_frame || (mlx_image_to_window(cub3d->mlx, temp->img_curr_frame, 0, 0) < 0))
 			return (-1);
-		mlx_image_to_window(cub3d->mlx, temp->img_curr_frame, 0, 0);
 		temp = temp->next;
 		count++;
 	}
@@ -224,7 +223,7 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 	int	count;
 	int	active_key_groups;
 
-	create_groups(cub3d);
+	init_values(cub3d);
 	if (set_indexes(cub3d, 0) == FAIL)
 		return (FAIL);
 	if (load_textures(cub3d) == FAIL)

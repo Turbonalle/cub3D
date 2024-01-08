@@ -37,7 +37,14 @@ void	mouse_intro(cub3d_t *cub3d)
 	{
 		cub3d->level = &cub3d->levels[0];
 		if (!load_level(cub3d, cub3d->level))
+		{
+			printf("handle_intro_input: Failed to load level\n");
+			// TODO: add error message here, letting user know level failed to load. Or maybe just don't even allow this to happen by loading level before starting game, not sure
+			disable_intro(cub3d);
+			enable_start_menu(&cub3d->start_menu);
+			cub3d->state = STATE_START;
 			return ;
+		}
 		disable_intro(cub3d);
 		cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
 		cub3d->settings.e_speed = cub3d->player.num_completed / 3;

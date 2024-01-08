@@ -215,7 +215,6 @@ int read_cub_file(level_t *level, char *map_path)
 	}
 	if (!get_elements(level, fd))
 		return (free_delete_textures(level), FAIL);
-	// return (free_delete_textures(level), close(fd), FAIL);
 	if (!all_elements_found(level->element_found))
 		return (close(fd), err("Missing element(s) in map file"));
 	if (!get_map(level, fd))

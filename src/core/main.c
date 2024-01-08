@@ -95,23 +95,43 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 	return (SUCCESS);
 }
 
+// int	check_ext(char *str)
+// {
+// 	int		len;
+// 	int		i;
+// 	char	*ext;
+
+// 	i = 0;
+// 	len = ft_strlen(str) - 1;
+// 	ext = "buc.";
+// 	while (ext[i])
+// 	{
+// 		if (str[len] != ext[i])
+// 			return (0);
+// 		len--;
+// 		i++;
+// 	}
+// 	return (1);
+// }
+
 int	check_ext(char *str)
 {
-	int		len;
-	int		i;
+	char	*last_slash;
 	char	*ext;
 
-	i = 0;
-	len = ft_strlen(str) - 1;
-	ext = "buc.";
-	while (ext[i])
+	last_slash = ft_strchr(str, '/');
+	if (!last_slash)
+		ext = ft_strchr(str, '.');
+	else
 	{
-		if (str[len] != ext[i])
-			return (0);
-		len--;
-		i++;
+		last_slash = ft_strrchr(str, '/');
+		ext = ft_strchr(last_slash, '.');
 	}
-	return (1);
+	if (!ext)
+		return (FAIL);
+	if (ft_strcmp(ext, ".cub") != 0)
+		return (FAIL);
+	return (SUCCESS);
 }
 
 int	main(int ac, char **av)

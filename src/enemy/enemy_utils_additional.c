@@ -241,6 +241,7 @@ int	check_if_player_is_seen(cub3d_t *cub3d, int i)
 				cub3d->enemy[i].pos) > at_target))
 	{
 		cub3d->enemy[i].is_hunting = TRUE;
+		printf("SAW player at time %f\n",cub3d->run_time);
 		return (1);
 	}
 	else

@@ -58,7 +58,6 @@ void	free_doors(door_pos_t *head)
 		free(head);
 		head = temp;
 	}
-	
 }
 
 void	free_delete_textures(level_t *level)

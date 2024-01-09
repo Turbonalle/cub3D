@@ -13,7 +13,6 @@ void	free_textures_before_failed(texture_t *textures, int failed_index)
 		printf("Freed texture %d\n", i);
 		i++;
 	}
-	//free(textures[failed_index].path);
 }
 
 int	init_door_textures(cub3d_t *cub3d)
@@ -43,6 +42,12 @@ int	init_door_textures(cub3d_t *cub3d)
 	if (!cub3d->door[3].texture)
 	{
 		free_textures_before_failed(cub3d->door, 3);
+		return (err("Failed to load texture"));
+	}
+	cub3d->door[4].texture = mlx_load_png(TEXTURE_DOOR_OPEN);
+	if (!cub3d->door[4].texture)
+	{
+		free_textures_before_failed(cub3d->door, 4);
 		return (err("Failed to load texture"));
 	}
 	return (SUCCESS);

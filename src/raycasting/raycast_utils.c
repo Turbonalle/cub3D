@@ -1,24 +1,6 @@
 
 #include "../incl/cub3d.h"
 
-dvector_t init_ray_1D_length(dvector_t start_pos, double dir, vector_t v_map_check, dvector_t v_ray_step_size)
-{
-	dvector_t		v_ray_1d_length;
-	dvector_t		v_ray_dir;
-
-	v_ray_dir.x = cos(to_radians(dir));
-	v_ray_dir.y = sin(to_radians(dir));
-	if (v_ray_dir.x < 0)
-		v_ray_1d_length.x = (start_pos.x - v_map_check.x) * v_ray_step_size.x;
-	else
-		v_ray_1d_length.x = (v_map_check.x + 1.0 - start_pos.x) * v_ray_step_size.x;
-	if (v_ray_dir.y < 0)
-		v_ray_1d_length.y = (start_pos.y - v_map_check.y) * v_ray_step_size.y;
-	else
-		v_ray_1d_length.y = (v_map_check.y + 1.0 - start_pos.y) * v_ray_step_size.y;
-	return (v_ray_1d_length);
-}
-
 void	raycasting(cub3d_t *cub3d)
 {
 	double			fov_start;
@@ -37,24 +19,6 @@ void	raycasting(cub3d_t *cub3d)
 		raycast(cub3d, &cub3d->player, &cub3d->rays[i], max_dist);
 		i++;
 	}
-}
-
-vector_t	init_v_step(double dir)
-{
-	vector_t	v_step;
-	dvector_t	v_ray_dir;
-
-	v_ray_dir.x = cos(to_radians(dir));
-	v_ray_dir.y = sin(to_radians(dir));
-	if (v_ray_dir.x < 0)
-		v_step.x = -1;
-	else
-		v_step.x = 1;
-	if (v_ray_dir.y < 0)
-		v_step.y = -1;
-	else
-		v_step.y = 1;
-	return (v_step);
 }
 
 void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
@@ -79,6 +43,7 @@ void	set_door_direction(ray_t *ray, player_t *player, int wall_flag)
 		ray->door_dir = NO;
 	else
 		ray->door_dir = SO;
+	ray->wall = ray->target;
 }
 
 static void	reveal_hidden(cub3d_t *cub3d, vector_t v_map_check)
@@ -93,26 +58,31 @@ static void	reveal_hidden(cub3d_t *cub3d, vector_t v_map_check)
 		&& v_map_check.y < cub3d->level->map_rows
 		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == 'r'))
 		cub3d->level->map[v_map_check.y][v_map_check.x] = 'm';
+	if (v_map_check.x >= 0 && v_map_check.x
+		< cub3d->level->map_columns && v_map_check.y >= 0
+		&& v_map_check.y < cub3d->level->map_rows
+		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == 'o'))
+		cub3d->level->map[v_map_check.y][v_map_check.x] = '1';
 }
 
 int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
 {
-	dvector_t	v_ray_step_size;
-	dvector_t	v_ray_1d_length;
+	dvector_t	d_step;
+	dvector_t	ray_len;
 	vector_t	v_map_check;
 	vector_t	v_step;
 	int			wall_flag;
 
-	v_ray_step_size = init_step_size(ray->angle);
+	d_step = init_step_size(ray->angle);
 	v_map_check.x = (int)player->pos.x;
 	v_map_check.y = (int)player->pos.y;
 	reveal_hidden(cub3d, v_map_check);
 	v_step = init_v_step(ray->angle * 180 / M_PI);
-	v_ray_1d_length = init_ray_1D_length(cub3d->player.pos, ray->angle * 180 / M_PI, v_map_check, v_ray_step_size);
+	ray_len = init_ray_1D_length(cub3d->player.pos, ray->angle * 180 / M_PI, v_map_check, d_step);
 	while (ray->length < max_dist)
 	{
-		adjust(&v_map_check, ray, v_step, &v_ray_1d_length);
-		adjust_wall_flag(&v_ray_1d_length, v_ray_step_size, &wall_flag);
+		adjust(&v_map_check, ray, v_step, &ray_len);
+		adjust_wall_flag(&ray_len, d_step, &wall_flag);
 		reveal_hidden(cub3d, v_map_check);
 		if (obstacle_found(cub3d, v_map_check, ray, ray->angle))
 			break ;
@@ -120,9 +90,6 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
 	if (ray->target == WALL)
 		set_wall_direction(ray, player, wall_flag);
 	else
-	{
 		set_door_direction(ray, player, wall_flag);
-		ray->wall = ray->target;
-	}
 	return (SUCCESS);
 }

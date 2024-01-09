@@ -33,43 +33,31 @@ static double	fisheye_correction(cub3d_t *cub3d, int index)
 
 void draw_world(cub3d_t *cub3d)
 {
-	int		index;
-	bool	close;
-	double	min_dist;
-	double	max_dist;
-	double	height;
-	double	roomH;
-	double	screenH;
-	double	fovArc;
-	dvector_t start;
-	dvector_t end;
+	int			index;
+	bool		close;
+	double		height;
+	dvector_t	start;
+	dvector_t	end;
 
-	min_dist = 0;
-	max_dist = 100;
 	index = -1;
-	roomH = 3;
 
 	while (++index < (int)cub3d->img->width)
 	{
 		close = 0;
-		if (cub3d->rays[index].length < min_dist)
+		if (cub3d->rays[index].length < 0)
 			height = cub3d->img->height;
-		else if (cub3d->rays[index].length > max_dist)
+		else if (cub3d->rays[index].length > 100)
 			height = 0;
 		else
 		{
+			if (cub3d->settings.fisheye)
 			{
-				if (cub3d->settings.fisheye)
-				{
-					fovArc = M_PI * 2 * cub3d->rays[index].length * cub3d->fov / 360.0;
-					screenH = 1.0 / fovArc * cub3d->img->width * roomH;
-				}
-				else
-					screenH = fisheye_correction(cub3d, index);
-				height = screenH;
-				if (height > cub3d->img->height)
-					close = 1;
+				height = 1.0 / (M_PI * 2 * cub3d->rays[index].length * cub3d->fov / 360.0) * cub3d->img->width;
 			}
+			else
+				height = fisheye_correction(cub3d, index);
+			if (height > cub3d->img->height)
+				close = 1;
 		}
 		start.x = index;
 		start.y = (cub3d->img->height - height) / 2;
@@ -127,6 +115,13 @@ void draw_world(cub3d_t *cub3d)
 				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 		else if (cub3d->rays[index].wall == 'D')
+		{
+			if (close)
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
+		}
+		else if (cub3d->rays[index].wall == 'O')
 		{
 			if (close)
 				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);

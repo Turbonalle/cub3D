@@ -33,24 +33,6 @@ static double	dist_to_door(dvector_t pos, ray_t *ray)
 	return (dist);
 }
 
-static int	wall_found(cub3d_t *cub3d, vector_t v_map_check)
-{
-	return (v_map_check.x >= 0
-		&& v_map_check.x < cub3d->level->map_columns
-		&& v_map_check.y >= 0
-		&& v_map_check.y < cub3d->level->map_rows
-		&& cub3d->level->map[v_map_check.y][v_map_check.x] == WALL);
-}
-
-static int	goal_found(cub3d_t *cub3d, vector_t v_map_check)
-{
-	return (v_map_check.x >= 0
-		&& v_map_check.x < cub3d->level->map_columns
-		&& v_map_check.y >= 0
-		&& v_map_check.y < cub3d->level->map_rows
-		&& cub3d->level->map[v_map_check.y][v_map_check.x] == 'G');
-}
-
 static int	door_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray)
 {
 	double	dist;
@@ -64,7 +46,7 @@ static int	door_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray)
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'))
 	{
 		dist = dist_to_door(cub3d->player.pos, ray);
-		if (dist > 4.0)
+		if (dist > 2)
 			return (1);
 		if (check_if_door_open(cub3d, v_map_check.x, v_map_check.y))
 			return (0);
@@ -92,6 +74,8 @@ int	obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir)
 	if (door_found(cub3d, v_map_check, ray))
 	{
 		ray->target = cub3d->level->map[v_map_check.y][v_map_check.x];
+		if (check_if_door_open(cub3d, v_map_check.x, v_map_check.y))
+			ray->target = 'O';
 		update_end(cub3d, dir, ray);
 		return (1);
 	}

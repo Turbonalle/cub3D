@@ -24,6 +24,7 @@ void	cause_distraction(cub3d_t *cub3d)
 	ray->length = 0;
 	ray->target = 0;
 	ray->wall = 0;
+	ray->door_dir = 0;
 	ray->end.x = 0;
 	ray->end.y = 0;
 	cast_ray(cub3d, ray);

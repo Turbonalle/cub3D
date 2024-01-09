@@ -107,8 +107,8 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 		return (0);
 	}
 	printf("LOAD before init textures\n");
-	if (!init_textures(cub3d))
-		return (free_level_without_textures(cub3d), FAIL);
+	// if (!init_textures(cub3d))
+	// 	return (free_level_without_textures(cub3d), FAIL);
 	printf("LOAD after init textures\n");
 	set_z_of_all_images(cub3d);
 	//printf("after set_z_of_all_images\n");

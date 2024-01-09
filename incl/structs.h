@@ -212,6 +212,7 @@ typedef struct ray_s
 	double		length;
 	char		target;
 	int			wall;
+	int			door_dir;
 }				ray_t;
 
 //---- TRIANGLE ----------------------------------------------------------------
@@ -745,6 +746,7 @@ typedef struct cub3d_s
 	int				prev_frame_index_idle;
 	double			prev_frame_update_timestamp;
 	int				speedrun;
+	texture_t		door[4];
 	shroom_t		*shroom;
 }					cub3d_t;
 

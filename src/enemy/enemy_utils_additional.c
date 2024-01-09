@@ -23,19 +23,19 @@ int	check_collisions(cub3d_t *cub3d, int i)
 			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.x = new_pos.x;
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.x = new_pos.x;
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.x = new_pos.x;
-			return (0);
+			return (1);
 		}
 	}
 	else if (cub3d->enemy[i].angle < M_PI * 3 / 8)
@@ -43,17 +43,17 @@ int	check_collisions(cub3d_t *cub3d, int i)
 		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 	}
 	else if (cub3d->enemy[i].angle < M_PI * 5 / 8)
@@ -62,19 +62,19 @@ int	check_collisions(cub3d_t *cub3d, int i)
 			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.y = new_pos.y;
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
 		{
 			cub3d->enemy[i].pos.y = new_pos.y;
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.y = new_pos.y;
-			return (0);
+			return (1);
 		}
 	}
 	else if (cub3d->enemy[i].angle < M_PI * 7 / 8)
@@ -82,17 +82,17 @@ int	check_collisions(cub3d_t *cub3d, int i)
 		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y + ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 	}
 	else if (cub3d->enemy[i].angle < M_PI * 9 / 8)
@@ -101,19 +101,19 @@ int	check_collisions(cub3d_t *cub3d, int i)
 			|| is_locked_door(cub3d, (int)(new_pos.y + ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.x = new_pos.x;
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.x = new_pos.x;
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.x = new_pos.x;
-			return (0);
+			return (1);
 		}
 	}
 	else if (cub3d->enemy[i].angle < M_PI * 11 / 8)
@@ -121,17 +121,17 @@ int	check_collisions(cub3d_t *cub3d, int i)
 		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x - ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 	}
 	else if (cub3d->enemy[i].angle < M_PI * 13 / 8)
@@ -140,19 +140,19 @@ int	check_collisions(cub3d_t *cub3d, int i)
 			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x - ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.y = new_pos.y;
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
 		{
 			cub3d->enemy[i].pos.y = new_pos.y;
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
 			cub3d->enemy[i].pos.y = new_pos.y;
-			return (0);
+			return (1);
 		}
 	}
 	else
@@ -160,17 +160,17 @@ int	check_collisions(cub3d_t *cub3d, int i)
 		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y - ENEMY_RADIUS)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 		if ((cub3d->level->map[(int)(new_pos.y)][(int)(new_pos.x + ENEMY_RADIUS)] == WALL
 			|| is_locked_door(cub3d, (int)(new_pos.y), (int)(new_pos.x + ENEMY_RADIUS)) == TRUE))
 		{
-			return (0);
+			return (1);
 		}
 	}
 	cub3d->enemy[i].pos = new_pos;
@@ -180,7 +180,12 @@ int	check_collisions(cub3d_t *cub3d, int i)
 void	enemy_advance(cub3d_t *cub3d, int i)
 {
 	if (check_collisions(cub3d, i) == 1)
+	{
+		cub3d->enemy[i].angle = within_two_pi(atan2(cub3d->enemy[i].target.y
+				- cub3d->enemy[i].pos.y, cub3d->enemy[i].target.x
+				- cub3d->enemy[i].pos.x));
 		return ;
+	}
 	cub3d->enemy[i].is_walking = 1;
 }
 

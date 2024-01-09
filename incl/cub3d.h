@@ -88,7 +88,7 @@ int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 int		init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 int		init_intro(cub3d_t *cub3d);
 
-int		init_textures(cub3d_t *cub3d);
+int		init_door_textures(cub3d_t *cub3d);
 int		init_doors_and_keys(cub3d_t *cub3d);
 int		init_enemy_frames(cub3d_t *cub3d);
 

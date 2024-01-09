@@ -75,6 +75,11 @@
 # define TEXTURE_KEY_3 "./assets/textures/keys_static/yellow.png"
 # define TEXTURE_KEY_4 "./assets/textures/keys_static/blue.png"
 
+# define TEXTURE_DOOR_A "./assets/textures/surfaces/sludge_green.png"
+# define TEXTURE_DOOR_B "./assets/textures/surfaces/sludge_green.png"
+# define TEXTURE_DOOR_C "./assets/textures/surfaces/sludge_green.png"
+# define TEXTURE_DOOR_D "./assets/textures/surfaces/sludge_green.png"
+
 # define ANIMATION_INTERVAL_MS 66.6667
 
 # define FRAME_PATH_KEY_1 "./assets/textures/red/"

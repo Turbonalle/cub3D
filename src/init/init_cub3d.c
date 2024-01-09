@@ -114,6 +114,7 @@ int	init_rays(cub3d_t *cub3d)
 		cub3d->rays[i].length = 0;
 		cub3d->rays[i].target = 0;
 		cub3d->rays[i].wall = 0;
+		cub3d->rays[i].door_dir = 0;
 	}
 	return (SUCCESS);
 }
@@ -234,6 +235,10 @@ int	init_cub3d(cub3d_t *cub3d)
 		return (err("Failed to load mushroom texture"));
 	else
 		printf("Loaded mushroom texture\n");
+	if (!init_door_textures(cub3d))
+	{
+		return (err("Failed to load door textures"));
+	}
 	init_pause_menu(cub3d, &cub3d->pause_menu);
 	i = -1;
 	while (++i < LEVELS + 1)

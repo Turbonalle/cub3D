@@ -69,6 +69,18 @@ void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 		ray->wall = SO;
 }
 
+void	set_door_direction(ray_t *ray, player_t *player, int wall_flag)
+{
+	if (wall_flag == X && player->pos.x < ray->end.x)
+		ray->door_dir = WE;
+	else if (wall_flag == X && ray->end.x < player->pos.x)
+		ray->door_dir = EA;
+	else if (wall_flag == Y && player->pos.y < ray->end.y)
+		ray->door_dir = NO;
+	else
+		ray->door_dir = SO;
+}
+
 static void	reveal_hidden(cub3d_t *cub3d, vector_t v_map_check)
 {
 	if (v_map_check.x >= 0 && v_map_check.x
@@ -108,6 +120,9 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
 	if (ray->target == WALL)
 		set_wall_direction(ray, player, wall_flag);
 	else
+	{
+		set_door_direction(ray, player, wall_flag);
 		ray->wall = ray->target;
+	}
 	return (SUCCESS);
 }

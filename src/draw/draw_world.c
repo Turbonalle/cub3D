@@ -108,38 +108,30 @@ void draw_world(cub3d_t *cub3d)
 		else if (cub3d->rays[index].wall == 'A')
 		{
 			if (close)
-			{
-				start.y = 0;
-				end.y = cub3d->img->height - 1;
-			}
-			draw_vertical_line(cub3d->img, start, end, RED_LIGHT);
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 		else if (cub3d->rays[index].wall == 'B')
 		{
 			if (close)
-			{
-				start.y = 0;
-				end.y = cub3d->img->height - 1;
-			}
-			draw_vertical_line(cub3d->img, start, end, GREEN);
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 		else if (cub3d->rays[index].wall == 'C')
 		{
 			if (close)
-			{
-				start.y = 0;
-				end.y = cub3d->img->height - 1;
-			}
-			draw_vertical_line(cub3d->img, start, end, YELLOW_PALE);
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 		else if (cub3d->rays[index].wall == 'D')
 		{
 			if (close)
-			{
-				start.y = 0;
-				end.y = cub3d->img->height - 1;
-			}
-			draw_vertical_line(cub3d->img, start, end, TURQUOISE);
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 		else if (cub3d->rays[index].wall == 'G')
 		{

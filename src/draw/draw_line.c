@@ -139,6 +139,14 @@ static texture_t	find_texture(cub3d_t *cub3d, ray_t ray)
 		texture = cub3d->level->texture[2];
 	if (ray.wall == EA)
 		texture = cub3d->level->texture[3];
+	if (ray.wall == 'A')
+		texture = cub3d->door[0];
+	if (ray.wall == 'B')
+		texture = cub3d->door[1];
+	if (ray.wall == 'C')
+		texture = cub3d->door[2];
+	if (ray.wall == 'D')
+		texture = cub3d->door[3];
 	return (texture);
 }
 
@@ -169,9 +177,9 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ra
 	texture = find_texture(cub3d, ray);
 	y = 0;
 	src.x = fmod(ray.end.y, 1.0) * texture.texture->width;
-	if (ray.wall == NO || ray.wall == SO)
+	if (ray.wall == NO || ray.wall == SO || (ft_strchr("ABCD", ray.wall) && (ray.door_dir == NO || ray.door_dir == SO)))
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
-	if (ray.wall == NO || ray.wall == WE)
+	if (ray.wall == NO || ray.wall == EA || (ft_strchr("ABCD", ray.wall) && (ray.door_dir == NO || ray.door_dir == EA)))
 		src.x = texture.texture->width - src.x - 1;
 	while (y < (int)cub3d->img->height)
 	{
@@ -197,9 +205,9 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 	texture = find_texture(cub3d, ray);
 	y = round(start.y);
 	src.x = fmod(ray.end.y, 1.0) * texture.texture->width;
-	if (ray.wall == NO || ray.wall == SO)
+	if (ray.wall == NO || ray.wall == SO || (ft_strchr("ABCD", ray.wall) && (ray.door_dir == NO || ray.door_dir == SO)))
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
-	if (ray.wall == NO || ray.wall == EA)
+	if (ray.wall == NO || ray.wall == EA || (ft_strchr("ABCD", ray.wall) && (ray.door_dir == NO || ray.door_dir == EA)))
 		src.x = texture.texture->width - src.x - 1;
 	//printf("start.x: %f, start.y: %f, end.x: %f, end.y: %f\n", start.x, start.y, end.x, end.y);
 	while (y < end.y)

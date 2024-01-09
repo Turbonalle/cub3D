@@ -695,8 +695,12 @@ enum state
 	STATE_GAMEOVER
 };
 
+# define FLOOR_PNG "./assets/textures/surfaces/sludge_black.png"
+
 typedef struct cub3d_s
 {
+	int				printed;
+	texture_t		floor;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	double			start_timestamp;

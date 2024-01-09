@@ -17,6 +17,8 @@ int		init_minimap(cub3d_t *cub3d);
 
 //---- COLOR -------------------------------------------------------------------
 
+uint32_t	get_pixel_color(texture_t texture, vector_t src);
+
 // mix_color.c
 int		get_color_mix(int color1, int color2);
 

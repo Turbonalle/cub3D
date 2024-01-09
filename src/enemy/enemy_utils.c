@@ -1,7 +1,7 @@
 
 #include "../incl/cub3d.h"
 
-int	check_if_door_open(cub3d_t *cub3d, int xcoord, int ycoord)
+int	check_if_door_unlocked(cub3d_t *cub3d, int xcoord, int ycoord)
 {
 	char	index;
 
@@ -46,7 +46,7 @@ int	wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check)
 	{
 		if (dist_to_door(v_map_check, cub3d->player.pos) > 5)
 			return (1);
-		if (check_if_door_open(cub3d, v_map_check.x, v_map_check.y))
+		if (check_if_door_unlocked(cub3d, v_map_check.x, v_map_check.y))
 			return (0);
 		else
 			return (1);

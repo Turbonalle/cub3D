@@ -377,7 +377,7 @@ int		enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i, double max_dist);
 int		ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, double max_dist);
 int		enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_to, int i);
 void	cause_distraction(cub3d_t *cub3d);
-int		check_if_door_open(cub3d_t *cub3d, int xcoord, int ycoord);
+int		check_if_door_unlocked(cub3d_t *cub3d, int xcoord, int ycoord);
 char	*create_file_path(int i, char *path);
 int		check_if_player_is_seen(cub3d_t *cub3d, int i);
 void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance);

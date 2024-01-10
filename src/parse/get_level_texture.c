@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_level_texture.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:17 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/08 10:02:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:34:23 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	get_texture(level_t *level, int element, char **info)
 		return (err("Failed to allocate memory"));
 	level->texture[element].texture = mlx_load_png(level->texture[element].path);
 	if (!level->texture[element].texture)
-		return (0);
+		return (err("Failed to load texture"));
 	return (SUCCESS);
 }

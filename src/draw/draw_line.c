@@ -152,7 +152,7 @@ static texture_t	find_texture(cub3d_t *cub3d, ray_t ray)
 	return (texture);
 }
 
-static uint32_t	get_pixel_color(texture_t texture, vector_t src)
+uint32_t	get_pixel_color(texture_t texture, vector_t src)
 {
 	uint32_t	color;
 	int			src_i;

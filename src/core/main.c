@@ -134,6 +134,14 @@ int	check_ext(char *str)
 	return (SUCCESS);
 }
 
+int	init_floor(cub3d_t *cub3d)
+{
+	cub3d->floor.path = FLOOR_PNG;
+	cub3d->floor.texture = mlx_load_png(FLOOR3_PNG);
+	cub3d->printed = TRUE;	// DEBUG
+	return (SUCCESS);
+}
+
 int	main(int ac, char **av)
 {
 	cub3d_t	cub3d;
@@ -161,6 +169,8 @@ int	main(int ac, char **av)
 	if (!init_enemy_frames(&cub3d))
 		return (1);
 	// Should we load/init the main level here and not start the same if there's an error?
+	if (!init_floor(&cub3d))
+		return (!err("Failed to init floor"));
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
 	if (cub3d.state == STATE_GAME)

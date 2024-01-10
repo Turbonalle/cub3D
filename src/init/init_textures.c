@@ -33,13 +33,14 @@ int	init_textures(cub3d_t *cub3d)
 	while(i < 4)
 	{
 		printf("Loading texture %d, path: %s\n", i, cub3d->level->texture[i].path);
-		if (!cub3d->level->texture[i].texture)
+		cub3d->level->texture[i].texture = mlx_load_png(cub3d->level->texture[i].path);
+		/* if (!cub3d->level->texture[i].texture)
 		{
 			cub3d->level->texture[i].texture = mlx_load_png(cub3d->level->texture[i].path);
 			printf("Texture[%d] pointer init_textures: %p\n", i, cub3d->level->texture[i].texture);
 		}
 		else
-			printf("Texture [%d] was already there\n", i);
+			printf("Texture [%d] was already there\n", i); */
 		if (!cub3d->level->texture[i].texture)
 		{
 			printf("Failed to load texture %d\n", i);
@@ -51,3 +52,5 @@ int	init_textures(cub3d_t *cub3d)
 	}
 	return (SUCCESS);
 }
+
+

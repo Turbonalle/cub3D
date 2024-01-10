@@ -101,11 +101,13 @@ void	free_level_textures(cub3d_t *cub3d)
 	i = 0;
 	while (i < 4)
 	{
-		if(cub3d->level->texture[i].path)
+		// check here
+		/* if(cub3d->level->texture[i].path)
 			free(cub3d->level->texture[i].path);
+		cub3d->level->texture[i].path = NULL; */
 		if(cub3d->level->texture[i].texture)
 			mlx_delete_texture(cub3d->level->texture[i].texture);
-		cub3d->level->texture[i].path = NULL;
+		
 		cub3d->level->texture[i].texture = NULL;
 		i++;
 	}

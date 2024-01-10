@@ -1,10 +1,10 @@
-NO ../textures/north_texture
-C 100,100,250
-WE ../textures/west_texture
-
-EA ../textures/east_texture
+WE ./assets/textures/surfaces/bricks_dark.png
 F 20,20,20
-SO ../textures/south_texture
+EA ./assets/textures/surfaces/bricks_dark.png
+
+C 100,100,250
+NO ./assets/textures/surfaces/bricks_dark.png
+SO ./assets/textures/surfaces/bricks_dark.png
 
 111111111111111111        11111111111111111111111
 110000000000000001        100a0b0c0d0010000000001

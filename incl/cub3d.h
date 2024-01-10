@@ -93,6 +93,12 @@ int		init_doors_and_keys(cub3d_t *cub3d);
 int		init_enemy_frames(cub3d_t *cub3d);
 
 int		init_shroom(cub3d_t *cub3d);
+
+int		free_prev_start_menu(start_menu_t *menu, int i);
+int		free_prev_level_menu(level_menu_t *menu, int i, int j);
+int		free_prev_gameover_menu(gameover_menu_t *menu, int i);
+int		free_prev_name_menu(name_menu_t *menu, int i);
+void	free_textures_before_failed(texture_t *textures, int failed_index);
 //---- MENUS -------------------------------------------------------------------
 
 // delete_menu.c
@@ -233,7 +239,7 @@ void	print_timer(cub3d_t *cub3d);
 
 //---- HALO --------------------------------------------------------------------
 
-void	init_halo(cub3d_t *cub3d);
+int		init_halo(cub3d_t *cub3d);
 void	handle_halo(halo_t *halo);
 void	activate_halo(halo_t *halo, int color);
 void	draw_halo(mlx_image_t *img, halo_t *halo);
@@ -349,6 +355,7 @@ void	free_minimap(cub3d_t *cub3d);
 void	free_distractions(cub3d_t *cub3d);
 void	disable_items(cub3d_t *cub3d);
 void	free_delete_textures(level_t *level);
+int		free_on_fail(cub3d_t *cub3d);
 
 // error_utils.c
 int		err(char *error_message);

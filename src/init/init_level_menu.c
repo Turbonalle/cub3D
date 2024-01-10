@@ -112,19 +112,60 @@ static void	draw_border_image(minilevel_t *minilevel)
 	}
 }
 
-static void load_png(level_menu_t *menu)
+int	free_prev_level_menu(level_menu_t *menu, int i, int j)
+{
+	while (i > 0)
+	{
+		mlx_delete_texture(menu->minilevels[--i].number.texture);
+	}
+	mlx_delete_texture(menu->title.texture);
+	if (j > 0)
+		mlx_delete_texture(menu->back.texture);
+	if (j > 1)
+		mlx_delete_texture(menu->back_hover.texture);
+	if (j > 2)
+		mlx_delete_texture(menu->leaderboard.texture);
+	if (j > 3)
+		mlx_delete_texture(menu->leaderboard_hover.texture);
+	return (FAIL);
+}
+
+static int load_png(level_menu_t *menu)
 {
 	const char	*number_png[LEVELS] = NUMBER_PNGS;		// Allowed or not?
 	int			i;
 
 	menu->title.texture = mlx_load_png(LEVEL_TITLE_PNG);
+	if (!menu->title.texture)
+		return (0);
 	menu->back.texture = mlx_load_png(BACK_PNG);
+	if (!menu->back.texture)
+	{
+		return (free_prev_level_menu(menu, 0, 0));
+	}
 	menu->back_hover.texture = mlx_load_png(BACK_HOVER_PNG);
+	if (!menu->back.texture)
+	{
+		return (free_prev_level_menu(menu, 0, 1));
+	}
 	menu->leaderboard.texture = mlx_load_png(LEADERBOARD_PNG);
+	if (!menu->back.texture)
+	{
+		return (free_prev_level_menu(menu, 0, 2));
+	}
 	menu->leaderboard_hover.texture = mlx_load_png(LEADERBOARD_HOVER_PNG);
+	if (!menu->back.texture)
+	{
+		return (free_prev_level_menu(menu, 0, 3));
+	}
 	i = -1;
 	while (++i < LEVELS)
+	{
 		menu->minilevels[i].number.texture = mlx_load_png(number_png[i]);
+		if (!menu->minilevels[i].number.texture)
+			return (free_prev_level_menu(menu, i, 4));
+	}
+	return (1);
 }
 
 static int	init_images(mlx_t *mlx, level_menu_t *menu)
@@ -240,9 +281,12 @@ int	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 {
 	int	i;
 
-	load_png(menu);
-	if (!init_images(cub3d->mlx, menu))
+	if (!load_png(menu))
 		return (FAIL);
+	if (!init_images(cub3d->mlx, menu))
+	{
+		return (free_prev_level_menu(menu, LEVELS, 4));
+	}
 	set_positions(menu, &cub3d->back_button_pos);
 	draw_background(menu->img, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->img);

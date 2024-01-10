@@ -1,16 +1,73 @@
 #include "../incl/cub3d.h"
 
-static void load_png(gameover_menu_t *menu)
+int	free_prev_gameover_menu(gameover_menu_t *menu, int i)
+{
+	mlx_delete_texture(menu->title_win.texture);
+	if (i > 0)
+		mlx_delete_texture(menu->title_gameover.texture);
+	if (i > 1)
+		mlx_delete_texture(menu->timer.texture);
+	if (i > 2)
+		mlx_delete_texture(menu->back.texture);
+	if (i > 3)
+		mlx_delete_texture(menu->back_hover.texture);
+	if (i > 4)
+		mlx_delete_texture(menu->restart.texture);
+	if (i > 5)
+		mlx_delete_texture(menu->restart_hover.texture);
+	if (i > 6)
+		mlx_delete_texture(menu->arrow_back.texture);
+	if (i > 7)
+		mlx_delete_texture(menu->arrow_restart.texture);
+	return (0);
+}
+
+static int	load_png(gameover_menu_t *menu)
 {
 	menu->title_win.texture = mlx_load_png(GAMEOVER_WIN_PNG);
+	if (!menu->title_win.texture)
+		return (0);
 	menu->title_gameover.texture = mlx_load_png(GAMEOVER_GAMEOVER_PNG);
+	if (!menu->title_gameover.texture)
+	{
+		return(free_prev_gameover_menu(menu, 0));
+	}
 	menu->timer.texture = mlx_load_png(TIMER_PNG);
+	if (!menu->timer.texture)
+	{
+		return(free_prev_gameover_menu(menu, 1));
+	}
 	menu->back.texture = mlx_load_png(GAMEOVER_EXIT_PNG);
+	if (!menu->back.texture)
+	{
+		return(free_prev_gameover_menu(menu, 2));
+	}
 	menu->back_hover.texture = mlx_load_png(GAMEOVER_EXIT_HOVER_PNG);
+	if (!menu->back_hover.texture)
+	{
+		return(free_prev_gameover_menu(menu, 3));
+	}
 	menu->restart.texture = mlx_load_png(GAMEOVER_RESTART_PNG);
+	if (!menu->restart.texture)
+	{
+		return(free_prev_gameover_menu(menu, 4));
+	}
 	menu->restart_hover.texture = mlx_load_png(GAMEOVER_RESTART_HOVER_PNG);
+	if (!menu->restart_hover.texture)
+	{
+		return(free_prev_gameover_menu(menu, 5));
+	}
 	menu->arrow_back.texture = mlx_load_png(ARROW_PNG);
+	if (!menu->arrow_back.texture)
+	{
+		return(free_prev_gameover_menu(menu, 6));
+	}
 	menu->arrow_restart.texture = mlx_load_png(ARROW_PNG);
+	if (!menu->arrow_restart.texture)
+	{
+		return(free_prev_gameover_menu(menu, 7));
+	}
+	return (1);
 }
 
 static int init_images(mlx_t *mlx, gameover_menu_t *menu)
@@ -106,7 +163,8 @@ static int put_images_to_window(mlx_t *mlx, gameover_menu_t *menu)
 
 int	init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
 {
-	load_png(menu);
+	if (!load_png(menu))
+		return (0);
 	if (!init_images(cub3d->mlx, menu))
 		return (FAIL);
 	set_positions(menu);

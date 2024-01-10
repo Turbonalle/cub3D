@@ -59,7 +59,7 @@ int	draw_key_count(cub3d_t *cub3d, int index)
 	return (1);
 }
 
-int draw_key_counts(cub3d_t *cub3d)
+int	draw_key_counts(cub3d_t *cub3d)
 {
 	int	index;
 
@@ -69,7 +69,7 @@ int draw_key_counts(cub3d_t *cub3d)
 		if (cub3d->level->key_groups[index].keys)
 		{
 			if (cub3d->level->door_groups[index].num_keys_left == 0)
-					draw_door_open(cub3d, index);
+				draw_door_open(cub3d, index);
 			else
 			{
 				if (!draw_key_count(cub3d, index))

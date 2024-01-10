@@ -11,8 +11,8 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define MAP_ALL_ELEMENTS "NSWE 01 ABCDO abcd neswijkl Gm hro"
-# define MAP_ALL_BUT_WALL "NSWE0ABCDOabcdneswijklGmhro"
+# define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd neswijkl Gm hro"
+# define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswijklGmhro"
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
 # define ENEMIES "neswijkl"
@@ -75,9 +75,9 @@
 # define TEXTURE_KEY_3 "./assets/textures/keys_static/yellow.png"
 # define TEXTURE_KEY_4 "./assets/textures/keys_static/blue.png"
 
-# define TEXTURE_DOOR_A "./assets/textures/surfaces/sludge_green.png"
-# define TEXTURE_DOOR_B "./assets/textures/surfaces/sludge_green.png"
-# define TEXTURE_DOOR_C "./assets/textures/surfaces/sludge_green.png"
+# define TEXTURE_DOOR_A "./assets/textures/surfaces/wood.png"
+# define TEXTURE_DOOR_B "./assets/textures/surfaces/sludge_black.png"
+# define TEXTURE_DOOR_C "./assets/textures/surfaces/bricks_dark.png"
 # define TEXTURE_DOOR_D "./assets/textures/surfaces/sludge_green.png"
 # define TEXTURE_DOOR_OPEN "./assets/textures/surfaces/concrete.png"
 

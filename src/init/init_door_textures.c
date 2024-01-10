@@ -2,13 +2,13 @@
 
 void	free_textures_before_failed(texture_t *textures, int failed_index)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < failed_index)
 	{
 		printf("Freeing texture %d\n", i);
-		free(textures[i].path);
+		// free(textures[i].path);
 		mlx_delete_texture(textures[i].texture);
 		printf("Freed texture %d\n", i);
 		i++;

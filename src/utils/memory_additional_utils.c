@@ -40,6 +40,22 @@ void	delete_heart(cub3d_t *cub3d)
 	cub3d->level->heart_empty_img = NULL;
 }
 
+int	free_on_fail(cub3d_t *cub3d)
+{
+	int	i;
+
+	i = 0;
+	while (i < NUM_DOORS_MAX)
+	{
+		free_doors(cub3d->level->door_groups[i].door_positions);
+		if (cub3d->level->key_groups[i].texture_key_icon)
+			mlx_delete_texture(cub3d->level->key_groups[i].texture_key_icon);
+		free_keys(cub3d->level->key_groups[i].keys);
+		i++;
+	}
+	return (0);
+}
+
 void	free_key_and_door_groups(cub3d_t *cub3d, int i)
 {
 	int			j;
@@ -47,7 +63,8 @@ void	free_key_and_door_groups(cub3d_t *cub3d, int i)
 
 	free_doors(cub3d->level->door_groups[i].door_positions);
 	cub3d->level->door_groups[i].door_positions = NULL;
-	mlx_delete_texture(cub3d->level->key_groups[i].texture_key_icon);
+	if (cub3d->level->key_groups[i].texture_key_icon)
+		mlx_delete_texture(cub3d->level->key_groups[i].texture_key_icon);
 	cub3d->level->key_groups[i].texture_key_icon = NULL;
 	if (cub3d->level->key_groups[i].num_keys_total)
 	{

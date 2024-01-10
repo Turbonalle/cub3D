@@ -698,6 +698,7 @@ enum state
 # define FLOOR_PNG "./assets/textures/surfaces/black_sludge.png"
 # define FLOOR1_PNG "./assets/textures/surfaces/floor_test.png"		// DEBUG
 # define FLOOR2_PNG "./assets/textures/surfaces/floor_test2.png"	// DEBUG
+# define FLOOR3_PNG "./assets/textures/surfaces/floor_test3.png"	// DEBUG
 
 typedef struct cub3d_s
 {

@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:08 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/08 14:12:50 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/10 13:36:45 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	find_element(level_t *level, char *line)
 
 	info = ft_split(line, ' ');
 	if (!info || !info[0] || !info[1])
-		return (free_info(info), FAIL);
+		return (free_info(info), err("Invalid element"));
 	if (ft_strcmp(info[0], "NO") == 0)
 		return (get_element(level, NO, info));
 	else if (ft_strcmp(info[0], "SO") == 0)
@@ -55,7 +55,7 @@ int	find_element(level_t *level, char *line)
 		return (get_element(level, F, info));
 	else if (ft_strcmp(info[0], "C") == 0)
 		return (get_element(level, C, info));
-	return (free_info(info), FAIL);
+	return (free_info(info), err("Invalid element"));
 }
 
 void	remove_newline(char *line)
@@ -90,10 +90,7 @@ int	get_elements(level_t *level, int fd)
 		}
 		remove_newline(line);
 		if (!find_element(level, line))
-		{
-			free(line);
-			return (err("Invalid/missing element"));
-		}
+			return (free(line), FAIL);
 		free(line);
 	}
 	return (SUCCESS);

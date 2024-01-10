@@ -9,15 +9,12 @@ TODO:
 OPTIONAL:
 
 - Create floor and ceiling textures
-- Add mouse sensitivity slider
 
 -----------------------------------------------------------------------------
 
 BUGS:
 
-- If pressing esc while another key is pressed in-game -> segfault
-- If W/A/S/D stay pressed when finishing and making new record, next letter will always be the W/A/S/D that's being pressed
-- Enemy won't stop after starting a hunt. Will walk through edge of map -> segfault
+- Closing window in-game segfaults
 - faulty map 19,20,21,25 give two errors
 
 -----------------------------------------------------------------------------

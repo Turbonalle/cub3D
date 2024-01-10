@@ -695,7 +695,9 @@ enum state
 	STATE_GAMEOVER
 };
 
-# define FLOOR_PNG "./assets/textures/surfaces/sludge_black.png"
+# define FLOOR_PNG "./assets/textures/surfaces/black_sludge.png"
+# define FLOOR1_PNG "./assets/textures/surfaces/floor_test.png"		// DEBUG
+# define FLOOR2_PNG "./assets/textures/surfaces/floor_test2.png"	// DEBUG
 
 typedef struct cub3d_s
 {

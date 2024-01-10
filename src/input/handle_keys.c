@@ -239,6 +239,7 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 
 void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
 {
+	cub3d->printed = FALSE;		// DEBUG
 	if (keydata.key == MLX_KEY_Q)
 		cub3d->keys.q = FALSE;
 	else if (keydata.key == MLX_KEY_W)

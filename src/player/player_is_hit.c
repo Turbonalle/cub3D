@@ -18,7 +18,7 @@ void	draw_health(cub3d_t *cub3d)
 
 void	player_is_hit(cub3d_t *cub3d, int i)
 {
-	if (player_is_invulnerable(cub3d))
+	if (player_is_invulnerable(cub3d) || cub3d->player.is_dirty_cheater == 1)
 	{
 		printf("Player is invulnerable!\n");
 		return ;

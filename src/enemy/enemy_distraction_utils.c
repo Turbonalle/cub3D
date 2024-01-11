@@ -12,6 +12,7 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	ray->length = 0;
 	ray->target = 0;
 	ray->wall = 0;
+	ray->door_dir = 0;
 	ray->end.x = 0;
 	ray->end.y = 0;
 	return (ray);

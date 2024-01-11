@@ -30,9 +30,9 @@ static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dis
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'C'
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'))
 	{
-		if (dist > 3)
+		if (dist > 1)
 			return (1);
-		if (check_if_door_open(cub3d, v_map_check.x, v_map_check.y))
+		if (check_if_door_unlocked(cub3d, v_map_check.x, v_map_check.y))
 			return (0);
 		else
 			return (1);

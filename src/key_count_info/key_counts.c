@@ -24,20 +24,20 @@ int	draw_key_count(cub3d_t *cub3d, int index)
 	text_collected = ft_itoa(cub3d->level->key_groups[index].num_keys_total - cub3d->level->door_groups[index].num_keys_left);
 	if (!text_collected)
 	{
-		return(err("MALLOC fail in update_key_count"));
+		return (err("MALLOC fail in update_key_count"));
 	}
 	text_total = ft_itoa(cub3d->level->key_groups[index].num_keys_total);
 	if (!text_total)
 	{
 		free(text_collected);
-		return(err("MALLOC fail in update_key_count"));
+		return (err("MALLOC fail in update_key_count"));
 	}
 	text_collected_slash = ft_strjoin(text_collected, "/");
 	if (!text_collected_slash)
 	{
 		free(text_collected);
 		free(text_total);
-		return(err("MALLOC fail in update_key_count"));
+		return (err("MALLOC fail in update_key_count"));
 	}
 	text = ft_strjoin(text_collected_slash, text_total);
 	free(text_collected);
@@ -45,7 +45,7 @@ int	draw_key_count(cub3d_t *cub3d, int index)
 	free(text_total);
 	if (!text)
 	{
-		return(err("MALLOC fail in update_key_count"));
+		return (err("MALLOC fail in update_key_count"));
 	}
 	if (cub3d->level->key_groups[index].img_text_key_count)
 		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_text_key_count);
@@ -59,7 +59,7 @@ int	draw_key_count(cub3d_t *cub3d, int index)
 	return (1);
 }
 
-int draw_key_counts(cub3d_t *cub3d)
+int	draw_key_counts(cub3d_t *cub3d)
 {
 	int	index;
 
@@ -69,7 +69,7 @@ int draw_key_counts(cub3d_t *cub3d)
 		if (cub3d->level->key_groups[index].keys)
 		{
 			if (cub3d->level->door_groups[index].num_keys_left == 0)
-					draw_door_open(cub3d, index);
+				draw_door_open(cub3d, index);
 			else
 			{
 				if (!draw_key_count(cub3d, index))

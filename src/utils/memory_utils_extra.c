@@ -50,10 +50,10 @@ static void	delete_textures(cub3d_t *cub3d)
 	}
 	i = 0;
 	while (i < NUM_FRAMES_ENEMY_WALKING)
-	{
 		mlx_delete_texture(cub3d->frames_walking[i++]);
-	}
-	printf("deleted enemy frames\n");
+	i = 0;
+	while (i < 5)
+		mlx_delete_texture(cub3d->door[i++].texture);
 }
 
 void	free_cub3d(cub3d_t *cub3d)

@@ -17,6 +17,8 @@ int		init_minimap(cub3d_t *cub3d);
 
 //---- COLOR -------------------------------------------------------------------
 
+uint32_t	get_pixel_color(texture_t texture, vector_t src);
+
 // mix_color.c
 int		get_color_mix(int color1, int color2);
 
@@ -88,11 +90,18 @@ int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 int		init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 int		init_intro(cub3d_t *cub3d);
 
-int		init_textures(cub3d_t *cub3d);
+int		init_door_textures(cub3d_t *cub3d);
 int		init_doors_and_keys(cub3d_t *cub3d);
 int		init_enemy_frames(cub3d_t *cub3d);
 
 int		init_shroom(cub3d_t *cub3d);
+
+int		free_prev_start_menu(start_menu_t *menu, int i);
+int		free_prev_level_menu(level_menu_t *menu, int i, int j);
+int		free_prev_gameover_menu(gameover_menu_t *menu, int i);
+int		free_prev_name_menu(name_menu_t *menu, int i);
+void	free_textures_before_failed(texture_t *textures, int failed_index);
+int	free_half_done(cub3d_t *cub3d);
 //---- MENUS -------------------------------------------------------------------
 
 // delete_menu.c
@@ -213,7 +222,7 @@ int		init_hearts(cub3d_t *cub3d);
 // records.c
 void	create_time_string(char *time_str, int time);
 int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
-int		read_records(cub3d_t *cub3d, level_t *levels);
+int		read_records(cub3d_t *cub3d);
 
 // load_level.c
 int		load_level(cub3d_t *cub3d, level_t *level);
@@ -233,7 +242,7 @@ void	print_timer(cub3d_t *cub3d);
 
 //---- HALO --------------------------------------------------------------------
 
-void	init_halo(cub3d_t *cub3d);
+int		init_halo(cub3d_t *cub3d);
 void	handle_halo(halo_t *halo);
 void	activate_halo(halo_t *halo, int color);
 void	draw_halo(mlx_image_t *img, halo_t *halo);
@@ -315,6 +324,8 @@ void	raycasting(cub3d_t *cub3d);
 int		raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist);
 ray_t	*cast_ray(cub3d_t *cub3d, ray_t *ray);
 void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag);
+int		wall_found(cub3d_t *cub3d, vector_t v_map_check);
+int		goal_found(cub3d_t *cub3d, vector_t v_map_check);
 int		obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir);
 vector_t	init_v_step(double dir);
 dvector_t	init_step_size(double angle);
@@ -347,6 +358,7 @@ void	free_minimap(cub3d_t *cub3d);
 void	free_distractions(cub3d_t *cub3d);
 void	disable_items(cub3d_t *cub3d);
 void	free_delete_textures(level_t *level);
+int		free_on_fail(cub3d_t *cub3d);
 
 // error_utils.c
 int		err(char *error_message);
@@ -375,7 +387,7 @@ int		enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i, double max_dist);
 int		ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, double max_dist);
 int		enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_to, int i);
 void	cause_distraction(cub3d_t *cub3d);
-int		check_if_door_open(cub3d_t *cub3d, int xcoord, int ycoord);
+int		check_if_door_unlocked(cub3d_t *cub3d, int xcoord, int ycoord);
 char	*create_file_path(int i, char *path);
 int		check_if_player_is_seen(cub3d_t *cub3d, int i);
 void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance);

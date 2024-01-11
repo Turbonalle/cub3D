@@ -58,6 +58,7 @@ typedef struct player_s
 	int			is_walking;
 	int			is_strafing;
 	int			num_completed;
+	int		is_dirty_cheater;
 }				player_t;
 
 enum enemy_state
@@ -211,6 +212,7 @@ typedef struct ray_s
 	double		length;
 	char		target;
 	int			wall;
+	int			door_dir;
 }				ray_t;
 
 //---- TRIANGLE ----------------------------------------------------------------
@@ -693,8 +695,15 @@ enum state
 	STATE_GAMEOVER
 };
 
+# define FLOOR_PNG "./assets/textures/surfaces/black_sludge.png"
+# define FLOOR1_PNG "./assets/textures/surfaces/floor_test.png"		// DEBUG
+# define FLOOR2_PNG "./assets/textures/surfaces/floor_test2.png"	// DEBUG
+# define FLOOR3_PNG "./assets/textures/surfaces/floor_test3.png"	// DEBUG
+
 typedef struct cub3d_s
 {
+	int				printed;
+	texture_t		floor;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	double			start_timestamp;
@@ -744,6 +753,7 @@ typedef struct cub3d_s
 	int				prev_frame_index_idle;
 	double			prev_frame_update_timestamp;
 	int				speedrun;
+	texture_t		door[5];
 	shroom_t		*shroom;
 }					cub3d_t;
 

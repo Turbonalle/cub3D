@@ -90,15 +90,34 @@ int	init_key_frames(key_group_t *key_group)
 	{
 		file_name = ft_itoa(i + 1);
 		if (!file_name)
+		{
+			free(key_group->textures_frames);
 			return (0);
+		}
 		file_name_extension = ft_strjoin(file_name, ".png");
 		if (!file_name_extension)
-			return (free(file_name), 0);
+		{
+			free(key_group->textures_frames);
+			free(file_name);
+			return (0);
+		}
 		file_path = ft_strjoin(key_group->texture_dir, file_name_extension);
 		if (!file_path)
-			return (free(file_name), free(file_name_extension), 0);
+		{
+			free(key_group->textures_frames);
+			free(file_name);
+			free(file_name_extension);
+			return (0);
+		}
 		key_group->textures_frames[i] = mlx_load_png(file_path);
 		free_three_strs(file_name, file_name_extension, file_path);
+		if (!key_group->textures_frames[i])
+		{
+			while (i >= 0)
+				mlx_delete_texture(key_group->textures_frames[i--]);
+			free(key_group->textures_frames);
+			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -184,7 +203,10 @@ int create_images(cub3d_t *cub3d, int i, int active_key_groups)
 				cub3d->level->key_groups[i].key_icon_coords.y
 			) < 0))
 		return (err("Failed to create key count image"));
-	init_key_frames(&cub3d->level->key_groups[i]);
+	if (!init_key_frames(&cub3d->level->key_groups[i]))
+	{
+		return (FAIL);
+	}
 	return (SUCCESS);
 }
 
@@ -225,22 +247,39 @@ int	init_doors_and_keys(cub3d_t *cub3d)
 
 	init_values(cub3d);
 	if (set_indexes(cub3d, 0) == FAIL)
+	{
+		i = 0;
+		while (i < NUM_DOORS_MAX)
+		{
+			free_doors(cub3d->level->door_groups[i].door_positions);
+			free_keys(cub3d->level->key_groups[i].keys);
+			i++;
+		}
 		return (FAIL);
+	}
 	if (load_textures(cub3d) == FAIL)
-		return (FAIL);
+	{
+		return (free_on_fail(cub3d));
+	}
 	i = 0;
 	active_key_groups = 0;
 	while (i < NUM_DOORS_MAX)
 	{
 		count = count_keys(cub3d, i);
 		if (count == -1)
-			return (FAIL);
+		{
+			return (free_on_fail(cub3d));
+		}
 		cub3d->level->key_groups[i].num_keys_total = count;
 		if (count && (create_images(cub3d, i, active_key_groups++) == FAIL))
-			return (FAIL);
+		{
+			return (free_on_fail(cub3d));
+		}
 		i++;
 	}
 	if (!draw_key_counts(cub3d))
-		return (FAIL);
+	{
+		return (free_on_fail(cub3d));
+	}
 	return (SUCCESS);
 }

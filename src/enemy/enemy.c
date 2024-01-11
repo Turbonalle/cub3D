@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/02 12:50:05 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/11 11:28:53 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	ray->length = 0;
 	ray->target = 0;
 	ray->wall = 0;
+	ray->door_dir = 0;
 	ray->end.x = 0;
 	ray->end.y = 0;
 	return (ray);

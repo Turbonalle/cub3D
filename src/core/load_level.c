@@ -55,6 +55,7 @@ void	set_z_of_all_images(cub3d_t *cub3d)
 	z++;
 	//printf("LAST z: %d\n", z);
 }
+
 int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
 {
 	cub3d->player.pos.x = level->starting_pos.x + 0.5;
@@ -63,6 +64,7 @@ int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
 	cub3d->level->distraction_amount = 0;
 	cub3d->player.health = HEARTS;
 	cub3d->player.thrown = FALSE;
+	cub3d->player.is_dirty_cheater = 0;
 	count_enemies(cub3d);
 	if (!init_enemy(cub3d))
 		return (0);
@@ -91,24 +93,27 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 	}
 	count_distractions(cub3d);
 	if (!init_distractions(cub3d))
-	// We probably should remove free_level calls from this function because we're freeing things that haven't been allocated yet
-		return (free_info(level->map), FAIL);
+	{
+		free_enemies(cub3d);
+		free_info(level->map);
+		return (FAIL);
+	}
 	set_initial_direction(cub3d);
 	if (!init_minimap(cub3d))
-		return (free_distractions(cub3d), free_info(level->map), FAIL);
+	{
+		free_distractions(cub3d);
+		free_enemies(cub3d);
+		free_info(level->map);
+		return (FAIL);
+	}
 	if (!init_doors_and_keys(cub3d))
 	{
-		// TODO: make sure error handling and freeing inside init_doors_and_keys is good
 		free_info(level->map);
 		free_enemies(cub3d);
 		free_distractions(cub3d);
 		free_minimap(cub3d);
-		return (0);
+		return (err("Failed to init doors or keys"));
 	}
-	printf("LOAD before init textures\n");
-	if (!init_textures(cub3d))
-		return (free_level_without_textures(cub3d), FAIL);
-	printf("LOAD after init textures\n");
 	set_z_of_all_images(cub3d);
 	//printf("after set_z_of_all_images\n");
 	enable_hearts(cub3d);

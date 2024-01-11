@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:17 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/08 19:04:25 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/11 11:36:44 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	get_texture(level_t *level, int element, char **info)
 	level->texture[element].texture = mlx_load_png(level->texture[element].path);
 	printf("Texture[%d] pointer get_texture: %p\n", element, level->texture[element].texture);
 	if (!level->texture[element].texture)
-		return (FAIL);
+		return (err("Failed to load texture"));
 	return (SUCCESS);
 }

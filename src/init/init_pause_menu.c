@@ -85,9 +85,12 @@ int	init_sensitivity_slider(cub3d_t *cub3d, pause_menu_t *menu)
 
 //------------------------------------------------------------------------------
 
-static void load_png(pause_menu_t *menu)
+static int load_png(pause_menu_t *menu)
 {
 	menu->title.texture = mlx_load_png(PAUSE_PNG);
+	if (!menu->title.texture)
+		return (0);
+	return (1);
 }
 
 static int init_images(mlx_t *mlx, pause_menu_t *menu)
@@ -147,28 +150,34 @@ static int put_images_to_window(mlx_t *mlx, pause_menu_t *menu)
 
 int init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 {
-	load_png(menu);
+	if (!load_png(menu))
+		return (0);
 	if (!init_images(cub3d->mlx, menu))
+	{
+		mlx_delete_texture(menu->title.texture);
 		return (FAIL);
+	}
 	set_positions(menu);
 	init_checkboxes(menu);
 	set_checkbox_values(menu);
 	init_checkbox_states(menu);
-
 	if (!put_images_to_window(cub3d->mlx, menu))
+	{
+		mlx_delete_texture(menu->title.texture);
 		return (FAIL);
-
-	init_sensitivity_slider(cub3d, menu);
+	}
+	if (!init_sensitivity_slider(cub3d, menu))
+	{
+		mlx_delete_texture(menu->title.texture);
+		return (FAIL);
+	}
 	update_settings(cub3d, menu);
-
 	draw_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY));
 	draw_background(menu->menu, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->menu);
 	draw_slider(menu->menu, &menu->sensitivity_slider);
-
 	add_category_text(cub3d, menu);
 	add_checkbox_text(cub3d, menu);
-
 	disable_pause_menu(cub3d->mlx, menu);
 	return (SUCCESS);
 }

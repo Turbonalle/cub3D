@@ -20,7 +20,7 @@ void	draw_square(mlx_image_t *img, vector_t coord, int size, int color)
 	}
 }
 
-void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color) 
+void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color)
 {
 	while (x1 <= x2)
 	{
@@ -29,30 +29,33 @@ void mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color
 	}
 }
 
-void draw_circle(mlx_image_t *img, int col, int row, int radius, int color) 
+void draw_circle(mlx_image_t *img, int col, int row, int radius, int color)
 {
-    vector_t	center;
+	vector_t	center;
 	int			x;
-    int			y;
-    int			decision;
+	int			y;
+	int			decision;
 
-    center.x = col + radius;
-    center.y = row + radius;
-    x = radius;
-    y = 0;
-    decision = 1 - radius;
-    
-    while (x >= y) {
-        mlx_draw_horizontal_line(img, center.x - x, center.x + x, center.y + y, color);
-        mlx_draw_horizontal_line(img, center.x - x, center.x + x, center.y - y, color);
-        mlx_draw_horizontal_line(img, center.x - y, center.x + y, center.y + x, color);
-        mlx_draw_horizontal_line(img, center.x - y, center.x + y, center.y - x, color);
-        y++;
-        if (decision <= 0) {
-            decision += 2 * y + 1;
-        } else {
-            x--;
-            decision += 2 * (y - x) + 1;
-        }
-    }
+	center.x = col + radius;
+	center.y = row + radius;
+	x = radius;
+	y = 0;
+	decision = 1 - radius;
+	while (x >= y)
+	{
+		mlx_draw_horizontal_line(img, center.x - x, center.x + x, center.y + y, color);
+		mlx_draw_horizontal_line(img, center.x - x, center.x + x, center.y - y, color);
+		mlx_draw_horizontal_line(img, center.x - y, center.x + y, center.y + x, color);
+		mlx_draw_horizontal_line(img, center.x - y, center.x + y, center.y - x, color);
+		y++;
+		if (decision <= 0)
+		{
+			decision += 2 * y + 1;
+		}
+		else
+		{
+			x--;
+			decision += 2 * (y - x) + 1;
+		}
+	}
 }

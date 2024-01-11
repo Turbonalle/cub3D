@@ -28,7 +28,6 @@ void	update_img_size(cub3d_t *cub3d)
 	{
 		mlx_delete_image(cub3d->mlx, cub3d->img);
 		cub3d->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width, cub3d->mlx->height);
-		update_minimap(cub3d);
 		mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0);
 		if (!init_rays(cub3d))
 		{

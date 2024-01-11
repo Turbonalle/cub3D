@@ -56,11 +56,25 @@ void	set_record_texts(cub3d_t *cub3d, leaderboard_t *board)
 	}
 }
 
-static void	load_png(leaderboard_t *board)
+static int	load_png(leaderboard_t *board)
 {
 	board->title.texture = mlx_load_png(LEADERBOARD_TITLE_PNG);
+	if (!board->title.texture)
+		return (0);
 	board->back.texture = mlx_load_png(BACK_PNG);
+	if (!board->back.texture)
+	{
+		mlx_delete_texture(board->title.texture);
+		return (0);
+	}
 	board->back_hover.texture = mlx_load_png(BACK_HOVER_PNG);
+	if (!board->back_hover.texture)
+	{
+		mlx_delete_texture(board->title.texture);
+		mlx_delete_texture(board->back.texture);
+		return (0);
+	}
+	return (1);
 }
 
 static int	init_images(mlx_t *mlx, leaderboard_t *board)
@@ -134,9 +148,15 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 {
 	int	i;
 
-	load_png(board);
-	if (!init_images(cub3d->mlx, board))
+	if (!load_png(board))
 		return (FAIL);
+	if (!init_images(cub3d->mlx, board))
+	{
+		mlx_delete_texture(board->title.texture);
+		mlx_delete_texture(board->back.texture);
+		mlx_delete_texture(board->back_hover.texture);
+		return (FAIL);
+	}
 	set_positions(cub3d->mlx, board);
 	draw_background(board->img, MENU_BACKGROUND_COLOR);
 	draw_menu_border(board->img);
@@ -144,7 +164,12 @@ int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	while (++i < cub3d->n_levels)
 		draw_rectangle(board->img, &board->rect_level[i]);
 	if (!put_images_to_window(cub3d->mlx, board))
+	{
+		mlx_delete_texture(board->title.texture);
+		mlx_delete_texture(board->back.texture);
+		mlx_delete_texture(board->back_hover.texture);
 		return (FAIL);
+	}
 	set_record_texts(cub3d, board);
 	disable_leaderboard(cub3d, board);
 	return (SUCCESS);

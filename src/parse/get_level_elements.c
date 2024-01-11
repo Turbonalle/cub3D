@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_level_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:08 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/10 13:36:45 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/11 15:43:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int all_elements_found(int *element_found)
+int	all_elements_found(int *element_found)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 6)
@@ -25,7 +25,7 @@ int all_elements_found(int *element_found)
 	return (SUCCESS);
 }
 
-int get_element(level_t *level, int element, char **info)
+int	get_element(level_t *level, int element, char **info)
 {
 	if (level->element_found[element])
 		return (free_info(info), err("Duplicate element found"));

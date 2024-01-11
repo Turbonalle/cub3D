@@ -100,8 +100,6 @@ int	init_rays(cub3d_t *cub3d)
 {
 	int	i;
 
-	if (cub3d->rays)
-		free(cub3d->rays);
 	cub3d->rays = malloc(sizeof(ray_t) * WIDTH);
 	if (!cub3d->rays)
 		return (FAIL);

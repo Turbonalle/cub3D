@@ -138,6 +138,10 @@ int	init_floor(cub3d_t *cub3d)
 {
 	cub3d->floor.path = FLOOR_PNG;
 	cub3d->floor.texture = mlx_load_png(FLOOR3_PNG);
+	if (!cub3d->floor.texture)
+	{
+		return (0);
+	}
 	cub3d->printed = TRUE;	// DEBUG
 	return (SUCCESS);
 }
@@ -145,6 +149,7 @@ int	init_floor(cub3d_t *cub3d)
 int	main(int ac, char **av)
 {
 	cub3d_t	cub3d;
+	int		i;
 
 	if (ac != 2)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
@@ -162,15 +167,32 @@ int	main(int ac, char **av)
 	if (!init_cub3d(&cub3d))
 		return (1);
 	printf("init_records\n");
-	if (!read_records(&cub3d, cub3d.levels))
+	if (!read_records(&cub3d))
 		return (!err("Failed to read records"));
 	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))
-		return (1);
+		return (!free_half_done(&cub3d));
 	if (!init_enemy_frames(&cub3d))
-		return (1);
+	{
+		mlx_delete_texture(cub3d.leaderboard.title.texture);
+		mlx_delete_texture(cub3d.leaderboard.back.texture);
+		mlx_delete_texture(cub3d.leaderboard.back_hover.texture);
+		return (!free_half_done(&cub3d));
+	}
 	// Should we load/init the main level here and not start the same if there's an error?
 	if (!init_floor(&cub3d))
+	{
+		mlx_delete_texture(cub3d.leaderboard.title.texture);
+		mlx_delete_texture(cub3d.leaderboard.back.texture);
+		mlx_delete_texture(cub3d.leaderboard.back_hover.texture);
+		free_half_done(&cub3d);
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_IDLE)
+			mlx_delete_texture(cub3d.frames_idle[i++]);
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_WALKING)
+			mlx_delete_texture(cub3d.frames_walking[i++]);
 		return (!err("Failed to init floor"));
+	}
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
 	if (cub3d.state == STATE_GAME)

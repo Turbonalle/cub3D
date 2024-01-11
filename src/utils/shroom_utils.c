@@ -13,6 +13,8 @@ void	draw_shroom_count(cub3d_t *cub3d)
 		return ;
 	}
 	text = ft_itoa(cub3d->player.mushroom_count);
+	if (!text)
+		return ;
 	if (cub3d->shroom->text)
 		mlx_delete_image(cub3d->mlx, cub3d->shroom->text);
 	cub3d->shroom->text = mlx_put_string(cub3d->mlx, text,

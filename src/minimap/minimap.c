@@ -23,15 +23,7 @@ void	move_minimap(cub3d_t *cub3d)
 	cub3d->minimap.pos.y = cub3d->minimap.img->instances[0].y;
 }
 
-void	update_minimap(cub3d_t *cub3d)
-{
-	(void)cub3d;
-	// compare img size with previous img size
-	// calculate previous minimap position in relation to the previous img size
-	// update minimap position in relation to the new img size
-	// calculate previous minimap position in relation to the previous img size
-	// update minimap position in relation to the new img size
-}
+
 
 void update_minimap_fov(cub3d_t *cub3d)
 {

@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-void	update_letter(mlx_t *mlx, name_menu_t *menu, int *key, int i)
+int	update_letter(mlx_t *mlx, name_menu_t *menu, int *key, int i)
 {
 	*key = FALSE;
 	menu->name[menu->current] = i + 'a';
@@ -10,100 +10,22 @@ void	update_letter(mlx_t *mlx, name_menu_t *menu, int *key, int i)
 	if (menu->current < MAX_NAME_LENGTH)
 		menu->current++;
 	print_letter_indexes(menu, 0);
+	return (1);
 }
 
 void	get_letter(cub3d_t *cub3d, name_menu_t *menu)
 {
-	if (cub3d->keys.a)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.a, a);
-	else if (cub3d->keys.b)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.b, b);
-	else if (cub3d->keys.c)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.c, c);
-	else if (cub3d->keys.d)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.d, d);
-	else if (cub3d->keys.e)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.e, e);
-	else if (cub3d->keys.f)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.f, f);
-	else if (cub3d->keys.g)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.g, g);
-	else if (cub3d->keys.h)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.h, h);
-	else if (cub3d->keys.i)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.i, i);
-	else if (cub3d->keys.j)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.j, j);
-	else if (cub3d->keys.k)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.k, k);
-	else if (cub3d->keys.l)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.l, l);
-	else if (cub3d->keys.m)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.m, m);
-	else if (cub3d->keys.n)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.n, n);
-	else if (cub3d->keys.o)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.o, o);
-	else if (cub3d->keys.p)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.p, p);
-	else if (cub3d->keys.q)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.q, q);
-	else if (cub3d->keys.r)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.r, r);
-	else if (cub3d->keys.s)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.s, s);
-	else if (cub3d->keys.t)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.t, t);
-	else if (cub3d->keys.u)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.u, u);
-	else if (cub3d->keys.v)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.v, v);
-	else if (cub3d->keys.w)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.w, w);
-	else if (cub3d->keys.x)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.x, x);
-	else if (cub3d->keys.y)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.y, y);
-	else if (cub3d->keys.z)
-		update_letter(cub3d->mlx, menu, &cub3d->keys.z, z);
-}
-
-void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu)
-{
-	int	letter;
-	int	index;
-	
-	if (cub3d->keys.backspace)
-	{
-		if (menu->current > 0)
-		{
-			menu->current--;
-			letter = menu->name[menu->current] - 'a';
-			index = menu->letter_index[menu->current];
-			menu->name[menu->current] = '\0';
-			menu->letters_img[letter]->instances[index].enabled = FALSE;
-			print_letter_indexes(menu, 1);
-		}
-	}
+	if (get_letter_first_third(cub3d, menu))
+		return ;
+	else if (get_letter_second_third(cub3d, menu))
+		return ;
+	else
+		get_letter_last_third(cub3d, menu);
 }
 
 int	name_is_empty(name_menu_t *menu)
 {
 	return (menu->name[0] == '\0');
-}
-
-void	remove_record_image_pointers(cub3d_t *cub3d)
-{
-	record_t	*ptr;
-
-	ptr = cub3d->level->records;
-	while (ptr)
-	{
-		mlx_delete_image(cub3d->mlx, ptr->text_name);
-		mlx_delete_image(cub3d->mlx, ptr->text_time);
-		ptr = ptr->next;
-	}
-
 }
 
 void	submit_name(cub3d_t *cub3d, name_menu_t *menu)

@@ -75,11 +75,11 @@
 # define TEXTURE_KEY_3 "./assets/textures/keys_static/yellow.png"
 # define TEXTURE_KEY_4 "./assets/textures/keys_static/blue.png"
 
-# define TEXTURE_DOOR_A "./assets/textures/surfaces/wood.png"
-# define TEXTURE_DOOR_B "./assets/textures/surfaces/sludge_black.png"
-# define TEXTURE_DOOR_C "./assets/textures/surfaces/bricks_dark.png"
-# define TEXTURE_DOOR_D "./assets/textures/surfaces/sludge_green.png"
-# define TEXTURE_DOOR_OPEN "./assets/textures/surfaces/concrete.png"
+# define TEXTURE_DOOR_A "./assets/textures/surfaces/door_red.png"
+# define TEXTURE_DOOR_B "./assets/textures/surfaces/door_green.png"
+# define TEXTURE_DOOR_C "./assets/textures/surfaces/door_yellow.png"
+# define TEXTURE_DOOR_D "./assets/textures/surfaces/door_blue.png"
+# define TEXTURE_DOOR_OPEN "./assets/textures/surfaces/door_unlocked.png"
 
 # define ANIMATION_INTERVAL_MS 66.6667
 

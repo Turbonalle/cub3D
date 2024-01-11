@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:42:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 15:55:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:15:42 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,53 +102,24 @@ int	get_map(level_t *level, int fd)
 	return (SUCCESS);
 }
 
-int read_cub_file(level_t *level, char *map_path)
+int	read_cub_file(level_t *level, char *map_path)
 {
 	int	fd;
 
-	fd = open(map_path, O_RDONLY);
-	if (fd < 0)
-		return (close(fd), err("Failed to open map file"));
-	level->nodes = null_textures(level);
-	if (!get_elements(level, fd))
-		return (free_delete_textures(level), FAIL);
-	if (!all_elements_found(level->element_found))
-		return (close(fd), err("Missing element(s) in map file"));
-	if (!get_map(level, fd))
-	{
-		free_delete_textures(level);
-		free_list(level->map_list);
-		return (close(fd), free_info(level->map), FAIL);
-	}
-	close(fd);
+	read_map(level, map_path);
 	fd = 0;
 	while (level->map[fd])
 		fd++;
 	level->backup = ft_calloc(sizeof(char *), (fd + 1));
-	fd = 0;
-	while (level->map[fd])
-	{
-		level->backup[fd] = ft_strdup(level->map[fd]);
-		free(level->map[fd]);
-		fd++;
-	}
-	free(level->map);
+	if (!copy_array(level->map, level->backup))
+		return (free_map_helper(level, 0));
+	free_info(level->map);
 	level->map = ft_calloc(sizeof(char *), (fd + 1));
-	fd = 0;
-	while (level->backup[fd])
-	{
-		level->map[fd] = ft_strdup(level->backup[fd]);
-		fd++;
-	}
+	if (!copy_array(level->backup, level->map))
+		return (free_map_helper(level, 1));
 	zero_map(level->map);
 	if (!check_map_validity(level->map))
-	{
-		free_delete_textures(level);
-		free_list(level->map_list);
-		free_info(level->map);
-		free_info(level->backup);
-		return (FAIL);
-	}
+		return (free_map_helper(level, 2));
 	fd = 0;
 	while (level->map[fd])
 	{

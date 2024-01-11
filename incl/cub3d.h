@@ -54,8 +54,12 @@ int		get_elements(level_t *level, int fd);
 // int		read_cub_file(cub3d_t *cub3d, char *map_path);
 int		read_cub_file(level_t *level, char *map_path);
 int		create_rectangular_map(level_t *level);
+int		get_map(level_t *level, int fd);
 int		add_map_line(map_node_t **first_node, char *line);
 int		null_textures(level_t *level);
+int		read_map(level_t *level, char *map_path);
+int		copy_array(char **src, char **dst);
+int		free_map_helper(level_t *level, int i);
 
 // get_texture.c
 // int		get_texture(cub3d_t *cub3d, int element, char **info);
@@ -136,6 +140,12 @@ void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	disable_name_menu(mlx_t *mlx, name_menu_t *menu);
 void	enable_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
+int		update_letter(mlx_t *mlx, name_menu_t *menu, int *key, int i);
+int		get_letter_first_third(cub3d_t *cub3d, name_menu_t *menu);
+int		get_letter_second_third(cub3d_t *cub3d, name_menu_t *menu);
+int		get_letter_last_third(cub3d_t *cub3d, name_menu_t *menu);
+void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu);
+void	remove_record_image_pointers(cub3d_t *cub3d);
 
 // start menu
 void	disable_start_menu(start_menu_t *menu);

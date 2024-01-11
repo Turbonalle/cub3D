@@ -3,6 +3,7 @@
 TODO:
 
 - Add  "You won" and "Top 3" to name menu
+- Check if enemies get more difficult even when you die
 
 -----------------------------------------------------------------------------
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   toggle_name_menu.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:37:29 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:48:55 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/11 19:54:13 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	disable_name_menu(mlx_t *mlx, name_menu_t *menu)
 
 	mlx_delete_image(mlx, menu->text_time);
 	menu->img->instances[0].enabled = FALSE;
-	menu->text_win_message->instances[0].enabled = FALSE;
+	menu->title_win.img->instances[0].enabled = FALSE;
+	menu->title_top3.img->instances[0].enabled = FALSE;
 	menu->back.img->instances[0].enabled = FALSE;
 	menu->back_hover.img->instances[0].enabled = FALSE;
 	menu->timer.img->instances[0].enabled = FALSE;
@@ -52,7 +53,8 @@ void	enable_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 	center_horizontally(menu->text_time);
 	reset_name_menu(menu);
 	menu->img->instances[0].enabled = TRUE;
-	menu->text_win_message->instances[0].enabled = TRUE;
+	menu->title_win.img->instances[0].enabled = TRUE;
+	menu->title_top3.img->instances[0].enabled = TRUE;
 	menu->back.img->instances[0].enabled = TRUE;
 	menu->back_hover.img->instances[0].enabled = FALSE;
 	menu->timer.img->instances[0].enabled = TRUE;

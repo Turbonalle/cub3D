@@ -41,7 +41,8 @@ void	level_finished(cub3d_t *cub3d)
 	clean_level_data(cub3d);
 	printf("Level finished, all freed\n");
 	if (cub3d->level != &cub3d->levels[0]
-		&& is_top_score(cub3d->level, cub3d->time_finished) && !cub3d->player.is_dirty_cheater)
+		&& is_top_score(cub3d->level, cub3d->time_finished)
+		&& !cub3d->player.is_dirty_cheater)
 	{
 		enable_name_menu(cub3d, &cub3d->name_menu);
 		cub3d->state = STATE_ENTERNAME;
@@ -53,7 +54,6 @@ void	level_finished(cub3d_t *cub3d)
 		cub3d->state = STATE_GAMEOVER;
 	}
 	handle_cursor(cub3d);
-	// cub3d->speedrun = FALSE;
 }
 
 void	game_over(cub3d_t *cub3d)

@@ -15,7 +15,6 @@ OPTIONAL:
 BUGS:
 
 - Closing window in-game segfaults
-- faulty map 19,20,21,25 give two errors
 
 -----------------------------------------------------------------------------
 

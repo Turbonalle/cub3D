@@ -457,6 +457,7 @@ typedef struct settings_menu_s
 
 //---- NAME MENU ---------------------------------------------------------------
 
+# define TOP3_PNG "./assets/textures/menu/top3.png"
 # define MAX_NAME_LENGTH 12
 # define ALPHABET "abcdefghijklmnopqrstuvwxyz "
 # define ALPHABET_LENGTH 26
@@ -508,7 +509,8 @@ typedef struct letter_box_s
 typedef struct name_menu_s
 {
 	mlx_image_t	*img;
-	mlx_image_t	*text_win_message;
+	png_t		title_win;
+	png_t		title_top3;
 	mlx_image_t	*text_enter_name;
 	mlx_image_t	*text_title;
 	png_t		back;

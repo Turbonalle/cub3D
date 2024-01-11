@@ -1,33 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   delete_menu.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 17:38:44 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 19:51:32 by jbagger          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
-
-void	delete_start_menu(cub3d_t *cub3d, start_menu_t *menu)
-{
-	mlx_delete_image(cub3d->mlx, menu->img);
-	printf("deleting start menu title image. pointer: %p\n", menu->title.img);
-	mlx_delete_image(cub3d->mlx, menu->title.img);
-	mlx_delete_image(cub3d->mlx, menu->start.img);
-	mlx_delete_image(cub3d->mlx, menu->level.img);
-	mlx_delete_image(cub3d->mlx, menu->exit.img);
-}
-
-void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu)
-{
-	int	i;
-
-	mlx_delete_image(cub3d->mlx, menu->img);
-	mlx_delete_image(cub3d->mlx, menu->title.img);
-	mlx_delete_image(cub3d->mlx, menu->back.img);
-	mlx_delete_image(cub3d->mlx, menu->back_hover.img);
-	mlx_delete_image(cub3d->mlx, menu->leaderboard.img);
-	mlx_delete_image(cub3d->mlx, menu->leaderboard_hover.img);
-	i = -1;
-	while (++i < LEVELS)
-	{
-		mlx_delete_image(cub3d->mlx, menu->minilevels[i].img);
-		mlx_delete_image(cub3d->mlx, menu->minilevels[i].number.img);
-		mlx_delete_image(cub3d->mlx, menu->minilevels[i].border);
-	}
-}
 
 void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 {
@@ -58,7 +41,11 @@ void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 	int	i;
 
 	mlx_delete_image(cub3d->mlx, menu->img);
-	mlx_delete_image(cub3d->mlx, menu->text_win_message);
+	mlx_delete_image(cub3d->mlx, menu->title_win.img);
+	mlx_delete_image(cub3d->mlx, menu->title_top3.img);
+	mlx_delete_image(cub3d->mlx, menu->timer.img);
+	mlx_delete_image(cub3d->mlx, menu->back.img);
+	mlx_delete_image(cub3d->mlx, menu->back_hover.img);
 	i = -1;
 	while (++i < ALPHABET_LENGTH)
 		mlx_delete_image(cub3d->mlx, menu->letters_img[i]);

@@ -90,6 +90,8 @@
 # define NUM_FRAMES_KEY 24
 # define KEY_NORMAL_SCALE_DISTANCE 13
 
+# define FRAME_PATH_STARS "./assets/textures/stars/"
+# define NUM_FRAMES_STARS 4
 # define FRAME_PATH_ENEMY_IDLE "./assets/textures/green_idle/"
 # define FRAME_PATH_ENEMY_IDLE_RIGHT "./assets/textures/green_idle_right/"
 # define FRAME_PATH_ENEMY_IDLE_RIGHT_45 "./assets/textures/green_idle_right45/"

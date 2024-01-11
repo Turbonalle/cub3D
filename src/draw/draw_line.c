@@ -130,6 +130,7 @@ void	draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end, int co
 static texture_t	find_texture(cub3d_t *cub3d, ray_t ray)
 {
 	texture_t	texture;
+	int			frame_index;
 
 	if (ray.wall == NO)
 		texture = cub3d->level->texture[0];
@@ -149,6 +150,11 @@ static texture_t	find_texture(cub3d_t *cub3d, ray_t ray)
 		texture = cub3d->door[3];
 	if (ray.wall == 'O')
 		texture = cub3d->door[4];
+	if (ray.wall == 'G')
+	{
+		frame_index = (int)(cub3d->run_time / ANIMATION_INTERVAL_MS * 500) % NUM_FRAMES_STARS;
+		texture = cub3d->stars[frame_index];
+	}
 	return (texture);
 }
 
@@ -179,9 +185,9 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ra
 	texture = find_texture(cub3d, ray);
 	y = 0;
 	src.x = fmod(ray.end.y, 1.0) * texture.texture->width;
-	if (ray.wall == NO || ray.wall == SO || (ft_strchr("ABCDO", ray.wall) && (ray.door_dir == NO || ray.door_dir == SO)))
+	if (ray.wall == NO || ray.wall == SO || (ft_strchr("ABCDOG", ray.wall) && (ray.door_dir == NO || ray.door_dir == SO)))
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
-	if (ray.wall == NO || ray.wall == EA || (ft_strchr("ABCDO", ray.wall) && (ray.door_dir == NO || ray.door_dir == EA)))
+	if (ray.wall == NO || ray.wall == EA || (ft_strchr("ABCDOG", ray.wall) && (ray.door_dir == NO || ray.door_dir == EA)))
 		src.x = texture.texture->width - src.x - 1;
 	while (y < (int)cub3d->img->height)
 	{
@@ -207,9 +213,9 @@ void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ra
 	texture = find_texture(cub3d, ray);
 	y = round(start.y);
 	src.x = fmod(ray.end.y, 1.0) * texture.texture->width;
-	if (ray.wall == NO || ray.wall == SO || (ft_strchr("ABCDO", ray.wall) && (ray.door_dir == NO || ray.door_dir == SO)))
+	if (ray.wall == NO || ray.wall == SO || (ft_strchr("ABCDOG", ray.wall) && (ray.door_dir == NO || ray.door_dir == SO)))
 		src.x = fmod(ray.end.x, 1.0) * texture.texture->width;
-	if (ray.wall == NO || ray.wall == EA || (ft_strchr("ABCDO", ray.wall) && (ray.door_dir == NO || ray.door_dir == EA)))
+	if (ray.wall == NO || ray.wall == EA || (ft_strchr("ABCDOG", ray.wall) && (ray.door_dir == NO || ray.door_dir == EA)))
 		src.x = texture.texture->width - src.x - 1;
 	//printf("start.x: %f, start.y: %f, end.x: %f, end.y: %f\n", start.x, start.y, end.x, end.y);
 	while (y < end.y)

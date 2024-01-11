@@ -258,11 +258,9 @@ void draw_world(cub3d_t *cub3d)
 		else if (cub3d->rays[index].wall == 'G')
 		{
 			if (close)
-			{
-				start.y = 0;
-				end.y = cub3d->img->height - 1;
-			}
-			draw_vertical_line(cub3d->img, start, end, WHITE);
+				draw_textured_line_close(cub3d, start, end, cub3d->rays[index]);
+			else
+				draw_textured_line(cub3d, start, end, cub3d->rays[index]);
 		}
 	}
 }

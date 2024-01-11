@@ -478,6 +478,35 @@ int	init_cub3d(cub3d_t *cub3d)
 		mlx_delete_texture(cub3d->distraction_texture);
 		return (err("Failed to load door textures"));
 	}
+	if (!init_stars_textures(cub3d))
+	{
+		i = 0;
+		while (i < LEVELS + 1)
+		{
+			free_list(cub3d->levels[i].map_list);
+			free_backup(cub3d->levels[i]);
+			i++;
+		}
+		free(cub3d->levels);
+		free(cub3d->rays);
+		free_prev_start_menu(&cub3d->start_menu, 9);
+		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
+		free_prev_name_menu(&cub3d->name_menu, 2);
+		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
+		mlx_delete_texture(cub3d->intro.texture);
+		i = -1;
+		while (++i < HEARTS)
+		{
+			mlx_delete_texture(cub3d->hearts[i].full.texture);
+			mlx_delete_texture(cub3d->hearts[i].empty.texture);
+		}
+		mlx_delete_texture(cub3d->shroom->shroom.texture);
+		mlx_delete_image(cub3d->mlx, cub3d->img);
+		mlx_delete_texture(cub3d->distraction_thrown_texture);
+		mlx_delete_texture(cub3d->distraction_texture);
+		free_textures_before_failed(cub3d->door, 5);
+		return (err("Failed to load door textures"));
+	}
 	if (!init_pause_menu(cub3d, &cub3d->pause_menu))
 	{
 		i = 0;
@@ -505,6 +534,7 @@ int	init_cub3d(cub3d_t *cub3d)
 		mlx_delete_texture(cub3d->distraction_thrown_texture);
 		mlx_delete_texture(cub3d->distraction_texture);
 		free_textures_before_failed(cub3d->door, 5);
+		free_textures_before_failed(cub3d->stars, NUM_FRAMES_STARS);
 		return (err("Failed to init pause menu"));
 	}
 	i = -1;

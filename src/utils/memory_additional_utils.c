@@ -1,28 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memory_additional_utils.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 13:46:09 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 13:46:12 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
-
-void	free_backup(level_t level)
-{
-	int	i;
-
-	i = 0;
-	while (level.backup[i])
-	{
-		free(level.backup[i]);
-		level.backup[i] = NULL;
-		i++;
-	}
-	i = 0;
-	while (i < 4)
-	{
-		free(level.texture[i].path);
-		level.texture[i].path = NULL;
-		mlx_delete_texture(level.texture[i].texture);
-		level.texture[i].texture = NULL;
-		i++;
-	}
-	free(level.backup);
-	level.backup = NULL;
-}
 
 void	delete_heart(cub3d_t *cub3d)
 {
@@ -56,9 +44,29 @@ int	free_on_fail(cub3d_t *cub3d)
 	return (0);
 }
 
-void	free_key_and_door_groups(cub3d_t *cub3d, int i)
+void	free_key_helper(cub3d_t *cub3d, int i)
 {
 	int			j;
+
+	mlx_delete_image(cub3d->mlx,
+		cub3d->level->key_groups[i].img_text_key_count);
+	cub3d->level->key_groups[i].img_text_key_count = NULL;
+	mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_key_icon);
+	cub3d->level->key_groups[i].img_key_icon = NULL;
+	free_keys(cub3d->level->key_groups[i].keys);
+	cub3d->level->key_groups[i].keys = NULL;
+	j = 0;
+	while (j < NUM_FRAMES_KEY)
+	{
+		mlx_delete_texture(cub3d->level->key_groups[i].textures_frames[j]);
+		cub3d->level->key_groups[i].textures_frames[j] = NULL;
+		j++;
+	}
+	free(cub3d->level->key_groups[i].textures_frames);
+}
+
+void	free_key_and_door_groups(cub3d_t *cub3d, int i)
+{
 	key_node_t	*tmp;
 
 	free_doors(cub3d->level->door_groups[i].door_positions);
@@ -71,26 +79,10 @@ void	free_key_and_door_groups(cub3d_t *cub3d, int i)
 		tmp = cub3d->level->key_groups[i].keys;
 		while (tmp)
 		{
-			//printf("deleting key img_curr_frame image. pointer: %p\n", tmp->img_curr_frame);
-			// TODO: change this to delete image
-			//mlx_delete_image(cub3d->mlx, tmp->img_curr_frame);
 			tmp->img_curr_frame->instances[0].enabled = FALSE;
 			tmp = tmp->next;
 		}
-		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_text_key_count);
-		cub3d->level->key_groups[i].img_text_key_count = NULL;
-		mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[i].img_key_icon);
-		cub3d->level->key_groups[i].img_key_icon = NULL;
-		free_keys(cub3d->level->key_groups[i].keys);
-		cub3d->level->key_groups[i].keys = NULL;
-		j = 0;
-		while (j < NUM_FRAMES_KEY)
-		{
-			mlx_delete_texture(cub3d->level->key_groups[i].textures_frames[j]);
-			cub3d->level->key_groups[i].textures_frames[j] = NULL;
-			j++;
-		}
-		free(cub3d->level->key_groups[i].textures_frames);
+		free_key_helper(cub3d, i);
 		cub3d->level->key_groups[i].textures_frames = NULL;
 	}
 }
@@ -105,97 +97,4 @@ void	free_keys_and_doors(cub3d_t *cub3d)
 		free_key_and_door_groups(cub3d, i);
 		i++;
 	}
-}
-
-void	free_level_textures(cub3d_t *cub3d)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if(cub3d->level->texture[i].texture)
-			mlx_delete_texture(cub3d->level->texture[i].texture);
-		cub3d->level->texture[i].texture = NULL;
-		i++;
-	}
-}
-
-void	free_enemies(cub3d_t *cub3d)
-{
-	int	i;
-
-	if (cub3d->num_enemies)
-	{
-		i = 0;
-		while (i < cub3d->num_enemies)
-		{
-			mlx_delete_image(cub3d->mlx, cub3d->enemy[i].img_curr_frame);
-			//cub3d->enemy[i++].img_curr_frame->instances[0].enabled = FALSE;
-			cub3d->enemy[i].img_curr_frame = NULL;
-			i++;
-		}
-		free(cub3d->enemy);
-		cub3d->enemy = NULL;
-		cub3d->num_enemies = 0;
-	}
-}
-
-void	free_distractions(cub3d_t *cub3d)
-{
-	int	i;
-
-	if (cub3d->level->num_distractions)
-	{
-		i = 0;
-		while (i < cub3d->level->num_distractions)
-		{
-			mlx_delete_image(cub3d->mlx, cub3d->level->distractions[i].img_distraction);
-			cub3d->level->distractions[i].img_distraction = NULL;
-			i++;
-		}
-		free(cub3d->level->distractions);
-		cub3d->level->distractions = NULL;
-	}
-}
-
-void	disable_items(cub3d_t *cub3d)
-{
-	cub3d->halo.img->instances[0].enabled = FALSE;
-	disable_shroom(cub3d);
-	disable_hearts(cub3d);
-}
-
-
-void	free_minimap(cub3d_t *cub3d)
-{
-	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
-}
-
-void	free_level(cub3d_t *cub3d)
-{
-	free_keys_and_doors(cub3d);
-	//free_level_textures(cub3d);
-	free_info(cub3d->level->map);
-	free_enemies(cub3d);
-	free_distractions(cub3d);
-	free_minimap(cub3d);
-	disable_items(cub3d);
-}
-
-void	free_level_without_textures(cub3d_t *cub3d)
-{
-	printf("freeing level without textures START\n");
-	free_keys_and_doors(cub3d);
-	//printf("freed keys and doors\n");
-	free_info(cub3d->level->map);
-	//printf("freed info\n");
-	free_enemies(cub3d);
-	//printf("freed enemies\n");
-	free_distractions(cub3d);
-	//printf("freed distractions\n");
-	free_minimap(cub3d);
-	//printf("freed minimap\n");
-	disable_items(cub3d);
-	printf("freeing level without textures DONE\n");
 }

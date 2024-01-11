@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memory_utils_extra.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 13:29:59 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 13:30:01 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 static void	delete_textures_additional(cub3d_t *cub3d)
 {
-	// free(cub3d->leaderboard.rect_level);
-	// free(cub3d->leaderboard.text_level);
 	mlx_delete_texture(cub3d->start_menu.title.texture);
 	mlx_delete_texture(cub3d->start_menu.exit.texture);
 	mlx_delete_texture(cub3d->start_menu.start.texture);
@@ -69,15 +79,21 @@ void	free_cub3d(cub3d_t *cub3d)
 		free_backup(cub3d->levels[i]);
 		i++;
 	}
-	//ft_putstr_fd("Freed all levels\n", 1);
-	
 	delete_textures(cub3d);
-	//ft_putstr_fd("Deleted textures\n", 1);
-	//TODO: figure out why commented lines segfault occasionally
-	//delete_hearts(cub3d);
-	//ft_putstr_fd("Deleted hearts\n", 1);
-	//mlx_delete_image(cub3d->mlx, cub3d->halo.img);
-	//ft_putstr_fd("Deleted halo\n", 1);
 	free(cub3d->levels);
-	//ft_putstr_fd("Freed levels\n", 1);
+}
+
+void	free_delete_textures(level_t *level)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (level->texture[i].path)
+			free(level->texture[i].path);
+		if (level->texture[i].texture)
+			mlx_delete_texture(level->texture[i].texture);
+		i++;
+	}
 }

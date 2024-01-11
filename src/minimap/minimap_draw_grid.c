@@ -43,22 +43,23 @@ void	draw_correct_square(cub3d_t *cub3d, int row, int column)
 
 void	draw_extras(cub3d_t *cub3d, int row, int column)
 {
-	int	index;
-
+	int			index;
+	vector_t	pos;
+	
 	index = get_key_index(cub3d->level->map[row][column]);
+	pos.x = column * cub3d->minimap.tile_size;
+	pos.y = row * cub3d->minimap.tile_size;
 	if (index > -1)
 	{
 		draw_circle(cub3d->minimap.img,
-			column * cub3d->minimap.tile_size,
-			row * cub3d->minimap.tile_size,
+			pos,
 			cub3d->minimap.tile_size / 2,
 			get_door_key_color(cub3d, index));
 	}
 	if (cub3d->level->map[row][column] == 'm')
 	{
 		draw_circle(cub3d->minimap.img,
-			column * cub3d->minimap.tile_size,
-			row * cub3d->minimap.tile_size,
+			pos,
 			cub3d->minimap.tile_size / 2,
 			MINIMAP_COLOR_SHROOM);
 	}

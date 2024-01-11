@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_menu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:38:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:47:48 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/11 19:51:32 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 	int	i;
 
 	mlx_delete_image(cub3d->mlx, menu->img);
-	mlx_delete_image(cub3d->mlx, menu->text_win_message);
+	mlx_delete_image(cub3d->mlx, menu->title_win.img);
+	mlx_delete_image(cub3d->mlx, menu->title_top3.img);
+	mlx_delete_image(cub3d->mlx, menu->timer.img);
+	mlx_delete_image(cub3d->mlx, menu->back.img);
+	mlx_delete_image(cub3d->mlx, menu->back_hover.img);
 	i = -1;
 	while (++i < ALPHABET_LENGTH)
 		mlx_delete_image(cub3d->mlx, menu->letters_img[i]);

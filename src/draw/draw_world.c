@@ -167,8 +167,8 @@ void draw_world(cub3d_t *cub3d)
 
 	index = -1;
 
-	// draw_floor(cub3d);
-	// draw_horizon(cub3d);
+	draw_floor(cub3d);
+	draw_horizon(cub3d);
 
 	while (++index < (int)cub3d->img->width)
 	{

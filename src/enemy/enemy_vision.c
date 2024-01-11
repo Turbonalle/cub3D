@@ -56,14 +56,14 @@ void	enemy_vision(cub3d_t *cub3d)
 		cub3d->enemy[i].is_hunting = FALSE;
 		if (cub3d->run_time > cub3d->enemy[i].freeze_start + ENEMY_FREEZE)
 		{
-			if (check_if_player_is_seen(cub3d, i))
+			if (cub3d->enemy[i].is_eating)
+				eat(cub3d, i);
+			else if (check_if_player_is_seen(cub3d, i))
 				handle_movement(cub3d, at_target, 0, i);
 			else if (distraction(cub3d, i))
 				handle_movement(cub3d, at_target, 1, i);
 			else if (cub3d->enemy[i].is_walking)
 				handle_movement(cub3d, at_target, 1, i);
-			else if (cub3d->enemy[i].is_eating)
-				eat(cub3d, i);
 			else
 				spin(cub3d, i, at_target);
 		}

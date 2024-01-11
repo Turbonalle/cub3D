@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_is_hit.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 14:41:13 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 14:41:15 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 static int	player_is_invulnerable(cub3d_t *cub3d)
 {
-	return (mlx_get_time() - cub3d->player.hit_timestamp < INVULNERABILITY_TIME);
+	return (mlx_get_time() - cub3d->player.hit_timestamp
+		< INVULNERABILITY_TIME);
 }
 
 void	draw_health(cub3d_t *cub3d)

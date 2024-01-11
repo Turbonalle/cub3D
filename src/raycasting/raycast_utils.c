@@ -65,7 +65,7 @@ static void	reveal_hidden(cub3d_t *cub3d, vector_t v_map_check)
 		cub3d->level->map[v_map_check.y][v_map_check.x] = '1';
 }
 
-int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
+void	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
 {
 	dvector_t	d_step;
 	dvector_t	ray_len;
@@ -78,7 +78,8 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
 	v_map_check.y = (int)player->pos.y;
 	reveal_hidden(cub3d, v_map_check);
 	v_step = init_v_step(ray->angle * 180 / M_PI);
-	ray_len = init_ray_1D_length(cub3d->player.pos, ray->angle * 180 / M_PI, v_map_check, d_step);
+	ray_len = init_ray_1D_length(cub3d->player.pos,
+			ray->angle * 180 / M_PI, v_map_check, d_step);
 	while (ray->length < max_dist)
 	{
 		adjust(&v_map_check, ray, v_step, &ray_len);
@@ -91,5 +92,4 @@ int	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
 		set_wall_direction(ray, player, wall_flag);
 	else
 		set_door_direction(ray, player, wall_flag);
-	return (SUCCESS);
 }

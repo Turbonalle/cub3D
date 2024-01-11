@@ -11,9 +11,9 @@ static void	update_end(cub3d_t *cub3d, double dir, ray_t *ray)
 	ray->end.y = cub3d->player.pos.y + v_ray_dir.y * ray->length;
 }
 
-static double	dist_to_door(player_t player , vector_t door)
+static double	dist_to_door(player_t player, vector_t door)
 {
-	double dist;
+	double		dist;
 	dvector_t	door_middle;
 
 	door_middle.x = door.x + 0.5;

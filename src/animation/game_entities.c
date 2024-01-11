@@ -243,7 +243,8 @@ void draw_distraction_frame(cub3d_t *cub3d, distraction_t *distraction)
 		texture = cub3d->distraction_thrown_texture;
 	else
 		texture = cub3d->distraction_texture;
-	scale_distraction(
+	scale_distraction
+	(
 		cub3d,
 		distraction,
 		texture,

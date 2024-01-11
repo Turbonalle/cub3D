@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_pause_menu.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 14:46:23 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 15:07:42 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	update_settings(cub3d_t *cub3d, pause_menu_t *menu)
@@ -78,73 +90,20 @@ void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
 		{
 			if (menu->box_fps[i].state == FALSE)
 				update_fps_boxes(menu, i);
-			break ;
 		}
-	}
-	i = -1;
-	while (++i < 2)
-	{
-		if (hover_box(cub3d, &menu->box_fisheye[i]))
+		if (i < 2)
 		{
-			if (menu->box_fisheye[i].state == FALSE)
-				update_fisheye_boxes(menu, i);
-		}
-		if (hover_box(cub3d, &menu->box_mouse[i]))
-		{
-			if (menu->box_mouse[i].state == FALSE)
-				update_mouse_boxes(menu, i);
+			if (hover_box(cub3d, &menu->box_fisheye[i]))
+			{
+				if (menu->box_fisheye[i].state == FALSE)
+					update_fisheye_boxes(menu, i);
+			}
+			if (hover_box(cub3d, &menu->box_mouse[i]))
+			{
+				if (menu->box_mouse[i].state == FALSE)
+					update_mouse_boxes(menu, i);
+			}
 		}
 	}
 	update_settings(cub3d, menu);
-	// print_settings(cub3d);
-}
-
-void	move_slider_marker(cub3d_t *cub3d, slider_t *slider)
-{
-	int	mouse_moved;
-
-	mouse_moved = cub3d->mouse.x - slider->marker_orig_pos;
-	if (slider->marker_orig_pos + mouse_moved < slider->marker_min_pos)
-		slider->marker->instances[0].x = slider->marker_min_pos - SLIDER_MARKER_WIDTH / 2;
-	else if (slider->marker_orig_pos + mouse_moved > slider->marker_max_pos)
-		slider->marker->instances[0].x = slider->marker_max_pos - SLIDER_MARKER_WIDTH / 2;
-	else
-		slider->marker->instances[0].x = slider->marker_orig_pos + mouse_moved - SLIDER_MARKER_WIDTH / 2;
-}
-
-void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
-{
-	// Here we update the settings if the user has changed them
-	int	i;
-
-	i = -1;
-	while (++i < 4)
-	{
-		if (hover_box(cub3d, &menu->box_fps[i]))
-			draw_hovered_checkbox(cub3d, &menu->box_fps[i]);
-		else
-			draw_checkbox(cub3d, &menu->box_fps[i]);
-	}
-	i = -1;
-	while (++i < 2)
-	{
-		if (hover_box(cub3d, &menu->box_fisheye[i]))
-			draw_hovered_checkbox(cub3d, &menu->box_fisheye[i]);
-		else
-			draw_checkbox(cub3d, &menu->box_fisheye[i]);
-	}
-	i = -1;
-	while (++i < 2)
-	{
-		if (hover_box(cub3d, &menu->box_mouse[i]))
-			draw_hovered_checkbox(cub3d, &menu->box_mouse[i]);
-		else
-			draw_checkbox(cub3d, &menu->box_mouse[i]);
-	}
-	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
-	if (cub3d->keys.mouse_left && menu->sensitivity_slider.on_marker == TRUE)
-	{
-		move_slider_marker(cub3d, &menu->sensitivity_slider);
-		update_settings(cub3d, menu);
-	}
 }

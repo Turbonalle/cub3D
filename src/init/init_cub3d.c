@@ -25,6 +25,11 @@ int	init_minimap(cub3d_t *cub3d)
 		return(err("Failed to create minimap image"));
 	cub3d->minimap.pos.x = 0;
 	cub3d->minimap.pos.y = 0;
+	cub3d->orig_minimap_pos.x = 0;
+	cub3d->orig_minimap_pos.y = 0;
+	cub3d->mouse_set_pos.x = 0;
+	cub3d->mouse_set_pos.y = 0;
+	cub3d->on_minimap = FALSE;
 	cub3d->minimap.transparency = MINIMAP_TRANSPARENCY;
 	cub3d->minimap.color_player = set_transparency(MINIMAP_COLOR_PLAYER, cub3d->minimap.transparency);
 	cub3d->minimap.color_playerdir = set_transparency(MINIMAP_COLOR_PLAYERDIR, cub3d->minimap.transparency);

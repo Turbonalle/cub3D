@@ -53,6 +53,13 @@ int		get_elements(level_t *level, int fd);
 // get_map.c
 // int		read_cub_file(cub3d_t *cub3d, char *map_path);
 int		read_cub_file(level_t *level, char *map_path);
+int		create_rectangular_map(level_t *level);
+int		get_map(level_t *level, int fd);
+int		add_map_line(map_node_t **first_node, char *line);
+int		null_textures(level_t *level);
+int		read_map(level_t *level, char *map_path);
+int		copy_array(char **src, char **dst);
+int		free_map_helper(level_t *level, int i);
 
 // get_texture.c
 // int		get_texture(cub3d_t *cub3d, int element, char **info);
@@ -60,6 +67,7 @@ int		get_texture(level_t *level, int element, char **info);
 
 // flooding_algorithm.c
 int		check_map_validity(char **map);
+void	zero_map(char **map);
 
 //---- DRAWING -----------------------------------------------------------------
 
@@ -101,7 +109,7 @@ int		free_prev_level_menu(level_menu_t *menu, int i, int j);
 int		free_prev_gameover_menu(gameover_menu_t *menu, int i);
 int		free_prev_name_menu(name_menu_t *menu, int i);
 void	free_textures_before_failed(texture_t *textures, int failed_index);
-int	free_half_done(cub3d_t *cub3d);
+int		free_half_done(cub3d_t *cub3d);
 //---- MENUS -------------------------------------------------------------------
 
 // delete_menu.c
@@ -132,6 +140,12 @@ void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 void	disable_name_menu(mlx_t *mlx, name_menu_t *menu);
 void	enable_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu);
+int		update_letter(mlx_t *mlx, name_menu_t *menu, int *key, int i);
+int		get_letter_first_third(cub3d_t *cub3d, name_menu_t *menu);
+int		get_letter_second_third(cub3d_t *cub3d, name_menu_t *menu);
+int		get_letter_last_third(cub3d_t *cub3d, name_menu_t *menu);
+void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu);
+void	remove_record_image_pointers(cub3d_t *cub3d);
 
 // start menu
 void	disable_start_menu(start_menu_t *menu);
@@ -258,6 +272,9 @@ int		is_locked_door(cub3d_t *cub3d, int y, int x);
 
 // player_movement.c
 void	player_movement(cub3d_t *cub3d);
+int		is_walking(cub3d_t *cub3d);
+int		is_strafing(cub3d_t *cub3d);
+void	player_rotation(cub3d_t *cub3d);
 
 // fov.c
 void	increase_fov(cub3d_t *cub3d);
@@ -321,7 +338,7 @@ void	zoom_out_minimap(cub3d_t *cub3d);
 
 // raycasting.c
 void	raycasting(cub3d_t *cub3d);
-int		raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist);
+void	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist);
 ray_t	*cast_ray(cub3d_t *cub3d, ray_t *ray);
 void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag);
 int		wall_found(cub3d_t *cub3d, vector_t v_map_check);
@@ -329,10 +346,10 @@ int		goal_found(cub3d_t *cub3d, vector_t v_map_check);
 int		obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir);
 vector_t	init_v_step(double dir);
 dvector_t	init_step_size(double angle);
-dvector_t	init_ray_1D_length(dvector_t start_pos, double dir, vector_t v_map_check, dvector_t v_ray_step_size);
+dvector_t	init_ray_1D_length(dvector_t start_pos, double dir, vector_t check, dvector_t step_size);
 void	adjust(vector_t *v_map_check, ray_t *ray, vector_t v_step, dvector_t *v_ray_1d_length);
-void	adjust_wall_flag(dvector_t *v_ray_1d_length, dvector_t v_ray_step_size, int *wall_flag);
-void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t v_ray_step_size);
+void	adjust_wall_flag(dvector_t *v_ray_1d_length, dvector_t step_size, int *wall_flag);
+void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t step_size);
 
 //---- UTILS -------------------------------------------------------------------
 
@@ -365,9 +382,8 @@ int		err(char *error_message);
 
 // drawing_utils.c
 void	draw_square(mlx_image_t *img, vector_t coord, int size, int color);
-void	mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
-void	draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
-
+void	draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
+void	draw_circle(mlx_image_t *img, vector_t pos, int radius, int color);
 
 void	draw_shroom_count(cub3d_t *cub3d);
 void	disable_shroom(cub3d_t *cub3d);

@@ -56,6 +56,7 @@ int	init_enemy_texture_from_path(mlx_texture_t **frame, int i, char *path)
 		free(file_path);
 		return (FAIL);
 	}
+	free(file_path);
 	return (SUCCESS);
 }
 

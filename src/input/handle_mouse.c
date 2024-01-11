@@ -32,7 +32,10 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		left_mouse_button_press(cub3d);
 	}
     else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)
+	{
+		cub3d->on_minimap = FALSE;
 		cub3d->keys.mouse_left = FALSE;
+	}
     else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
 		cub3d->keys.mouse_right = TRUE;
     else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_RELEASE)
@@ -45,8 +48,11 @@ void	hook_mouse_scroll(double xdelta, double ydelta, void *param)
 
 	(void)xdelta;
 	cub3d = param;
-	if (ydelta > 0 && hover_minimap(cub3d))
-		zoom_in_minimap(cub3d);
-	else if (ydelta < 0 && hover_minimap(cub3d))
-		zoom_out_minimap(cub3d);
+	if (cub3d->state == STATE_GAME && cub3d->settings.mouse == FALSE)
+	{
+		if (ydelta > 0 && hover_minimap(cub3d))
+			zoom_in_minimap(cub3d);
+		else if (ydelta < 0 && hover_minimap(cub3d))
+			zoom_out_minimap(cub3d);
+	}
 }

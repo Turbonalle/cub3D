@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memory_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 13:29:56 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 13:46:41 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 void	free_info(char **info)
@@ -57,20 +69,5 @@ void	free_doors(door_pos_t *head)
 		temp = head->next;
 		free(head);
 		head = temp;
-	}
-}
-
-void	free_delete_textures(level_t *level)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (level->texture[i].path)
-			free(level->texture[i].path);
-		if (level->texture[i].texture)
-			mlx_delete_texture(level->texture[i].texture);
-		i++;
 	}
 }

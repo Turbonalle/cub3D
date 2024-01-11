@@ -101,7 +101,7 @@ int		free_prev_level_menu(level_menu_t *menu, int i, int j);
 int		free_prev_gameover_menu(gameover_menu_t *menu, int i);
 int		free_prev_name_menu(name_menu_t *menu, int i);
 void	free_textures_before_failed(texture_t *textures, int failed_index);
-int	free_half_done(cub3d_t *cub3d);
+int		free_half_done(cub3d_t *cub3d);
 //---- MENUS -------------------------------------------------------------------
 
 // delete_menu.c
@@ -258,6 +258,9 @@ int		is_locked_door(cub3d_t *cub3d, int y, int x);
 
 // player_movement.c
 void	player_movement(cub3d_t *cub3d);
+int		is_walking(cub3d_t *cub3d);
+int		is_strafing(cub3d_t *cub3d);
+void	player_rotation(cub3d_t *cub3d);
 
 // fov.c
 void	increase_fov(cub3d_t *cub3d);
@@ -321,7 +324,7 @@ void	zoom_out_minimap(cub3d_t *cub3d);
 
 // raycasting.c
 void	raycasting(cub3d_t *cub3d);
-int		raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist);
+void	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist);
 ray_t	*cast_ray(cub3d_t *cub3d, ray_t *ray);
 void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag);
 int		wall_found(cub3d_t *cub3d, vector_t v_map_check);
@@ -329,10 +332,10 @@ int		goal_found(cub3d_t *cub3d, vector_t v_map_check);
 int		obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir);
 vector_t	init_v_step(double dir);
 dvector_t	init_step_size(double angle);
-dvector_t	init_ray_1D_length(dvector_t start_pos, double dir, vector_t v_map_check, dvector_t v_ray_step_size);
+dvector_t	init_ray_1D_length(dvector_t start_pos, double dir, vector_t check, dvector_t step_size);
 void	adjust(vector_t *v_map_check, ray_t *ray, vector_t v_step, dvector_t *v_ray_1d_length);
-void	adjust_wall_flag(dvector_t *v_ray_1d_length, dvector_t v_ray_step_size, int *wall_flag);
-void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t v_ray_step_size);
+void	adjust_wall_flag(dvector_t *v_ray_1d_length, dvector_t step_size, int *wall_flag);
+void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t step_size);
 
 //---- UTILS -------------------------------------------------------------------
 
@@ -365,9 +368,8 @@ int		err(char *error_message);
 
 // drawing_utils.c
 void	draw_square(mlx_image_t *img, vector_t coord, int size, int color);
-void	mlx_draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
-void	draw_circle(mlx_image_t *img, int col, int row, int radius, int color);
-
+void	draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
+void	draw_circle(mlx_image_t *img, vector_t pos, int radius, int color);
 
 void	draw_shroom_count(cub3d_t *cub3d);
 void	disable_shroom(cub3d_t *cub3d);

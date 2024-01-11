@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:57 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/05 15:26:29 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/11 14:25:16 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int min(int a, int b)
+int	min(int a, int b)
 {
 	if (a < b)
 		return (a);
@@ -30,9 +30,9 @@ double	within_360(double degree)
 
 double	within_two_pi(double radians)
 {
-	if (radians < 0)
+	while (radians < 0)
 		radians += 2 * M_PI;
-	else if (radians >= 2 * M_PI)
+	while (radians >= 2 * M_PI)
 		radians -= 2 * M_PI;
 	return (radians);
 }

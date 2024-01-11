@@ -1,9 +1,10 @@
 
 #include "../incl/cub3d.h"
 
-int all_keys_found(cub3d_t *cub3d, int i)
+int	all_keys_found(cub3d_t *cub3d, int i)
 {
-	key_node_t *temp;
+	key_node_t	*temp;
+
 	temp = cub3d->level->key_groups[i].keys;
 	while (temp != NULL)
 	{
@@ -16,14 +17,15 @@ int all_keys_found(cub3d_t *cub3d, int i)
 
 static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dist)
 {
-	if	(v_map_check.x >= 0
-			&& v_map_check.x < cub3d->level->map_columns
-			&& v_map_check.y >= 0
-			&& v_map_check.y < cub3d->level->map_rows
-			&& (cub3d->level->map[v_map_check.y][v_map_check.x] == WALL
-			))
+	if (v_map_check.x >= 0
+		&& v_map_check.x < cub3d->level->map_columns
+		&& v_map_check.y >= 0
+		&& v_map_check.y < cub3d->level->map_rows
+		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == WALL
+	))
 		return (1);
-	if (v_map_check.x >= 0 && v_map_check.x < cub3d->level->map_columns && v_map_check.y >= 0
+	if (v_map_check.x >= 0 && v_map_check.x < cub3d->level->map_columns
+		&& v_map_check.y >= 0
 		&& v_map_check.y < cub3d->level->map_rows
 		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == 'A'
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'B'
@@ -40,42 +42,27 @@ static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dis
 	return (0);
 }
 
- //-----------------------------------------------------------------------------
-
-static void update_end(cub3d_t *cub3d, dvector_t *v_ray_dir, dvector_t end, double *dist, int *end_found)
-{
-	(void)end;
-	end.x = cub3d->minimap.player_pos.x + (*v_ray_dir).x * *dist * cub3d->minimap.tile_size;
-	end.y = cub3d->minimap.player_pos.y + (*v_ray_dir).y * *dist * cub3d->minimap.tile_size;
-	*end_found = TRUE;
-}
-
 //------------------------------------------------------------------------------
 
-int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end)
+int	find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end)
 {
-	dvector_t v_ray_step_size;
-	dvector_t v_ray_1d_length;
-	dvector_t v_ray_dir;
-	vector_t v_map_check;
-	vector_t v_step;
-	int end_found = FALSE;
-
-	v_ray_dir.x = cos(radians);
-	v_ray_dir.y = sin(radians);
+	dvector_t	v_ray_step_size;
+	dvector_t	v_ray_1d_length;
+	vector_t	v_map_check;
+	vector_t	v_step;
+	double		dist;
+	double		max_dist;
+	int			wall_flag;
 
 	v_ray_step_size = init_step_size(radians);
-
 	v_map_check.x = (int)player.pos.x;
 	v_map_check.y = (int)player.pos.y;
-
 	v_step = init_v_step(radians * 180 / M_PI);
 	v_ray_1d_length = init_ray_1D_length(player.pos, radians * 180 / M_PI, v_map_check, v_ray_step_size);
-
-	double dist = 0;
-	double max_dist = sqrt(cub3d->img->width * cub3d->img->width + cub3d->img->height * cub3d->img->height);
-	int wall_flag = 0;
-	while (!end_found && dist < max_dist)
+	dist = 0;
+	max_dist = sqrt(pow(cub3d->img->width, 2) + pow(cub3d->img->height, 2));
+	wall_flag = 0;
+	while (dist < max_dist)
 	{
 		if (v_ray_1d_length.x < v_ray_1d_length.y)
 		{
@@ -92,7 +79,7 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 			wall_flag = 0;
 		}
 		if (wall_or_door_found_dist(cub3d, v_map_check, dist))
-			update_end(cub3d, &v_ray_dir, end, &dist, &end_found);
+			break ;
 	}
 	if (wall_flag == 1 && end.x > player.pos.x)
 		return (WE);
@@ -104,7 +91,7 @@ int find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t en
 		return (SO);
 }
 
-dvector_t init_step_size(double angle)
+dvector_t	init_step_size(double angle)
 {
 	dvector_t	v_ray_step_size;
 	dvector_t	v_ray_dir;

@@ -26,6 +26,7 @@ static void	delete_textures_additional(cub3d_t *cub3d)
 static void	delete_textures(cub3d_t *cub3d)
 {
 	int	i;
+	int	j;
 
 	delete_textures_additional(cub3d);
 	printf("deleted additional textures\n");
@@ -43,14 +44,17 @@ static void	delete_textures(cub3d_t *cub3d)
 		mlx_delete_texture(cub3d->hearts[i++].empty.texture);
 	}
 	printf("deleted hearts\n");
-	i = 0;
-	while (i < NUM_FRAMES_ENEMY_IDLE)
+	j = 0;
+	while (j < NUM_ENEMY_DIRECTIONS)
 	{
-		mlx_delete_texture(cub3d->frames_idle[i++]);
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_IDLE)
+			mlx_delete_texture(cub3d->frames_idle[j][i++]);
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_WALKING)
+			mlx_delete_texture(cub3d->frames_walking[j][i++]);
+		j++;
 	}
-	i = 0;
-	while (i < NUM_FRAMES_ENEMY_WALKING)
-		mlx_delete_texture(cub3d->frames_walking[i++]);
 	i = 0;
 	while (i < 5)
 		mlx_delete_texture(cub3d->door[i++].texture);

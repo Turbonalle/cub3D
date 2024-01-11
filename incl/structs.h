@@ -700,6 +700,18 @@ enum state
 # define FLOOR2_PNG "./assets/textures/surfaces/floor_test2.png"	// DEBUG
 # define FLOOR3_PNG "./assets/textures/surfaces/floor_test3.png"	// DEBUG
 
+#define NUM_ENEMY_DIRECTIONS 6
+
+enum enemy_direction
+{
+	AWAY,
+	RIGHT,
+	RIGHT_45,
+	STRAIGHT,
+	LEFT_45,
+	LEFT
+};
+
 typedef struct cub3d_s
 {
 	int				printed;
@@ -743,8 +755,10 @@ typedef struct cub3d_s
 	level_t			*levels;
 	level_t			*level;
 	t_enemy			*enemy;
-	mlx_texture_t	*frames_idle[NUM_FRAMES_ENEMY_IDLE];
-	mlx_texture_t	*frames_walking[NUM_FRAMES_ENEMY_WALKING];
+	char			*frames_idle_paths[NUM_ENEMY_DIRECTIONS];
+	char			*frames_walking_paths[NUM_ENEMY_DIRECTIONS];
+	mlx_texture_t	*frames_idle[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_IDLE];
+	mlx_texture_t	*frames_walking[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_WALKING];
 	mlx_texture_t	*distraction_texture;
 	mlx_texture_t	*distraction_thrown_texture;
 	int				curr_frame_index_walking;

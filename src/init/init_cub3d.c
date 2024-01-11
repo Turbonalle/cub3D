@@ -334,6 +334,7 @@ int	init_cub3d(cub3d_t *cub3d)
 		mlx_delete_texture(cub3d->intro.texture);
 		mlx_delete_image(cub3d->mlx, cub3d->img);
 		return (err("Failed to init hearts"));
+	}
 	printf("after init hearts\n");
 	if (!init_shroom(cub3d))
 	{

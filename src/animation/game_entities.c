@@ -159,45 +159,69 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 	}
 }
 
-void	draw_enemies_frames(cub3d_t *cub3d, int index)
-{
-	double scale_factor;
-	mlx_texture_t *frame;
+// This function should calculate the angle between enemy's direction and the player.
+// If the angle is less than 45 degrees, return macro STRAIGHT
+// If the angle is between 45 and 135 degrees, return macro RIGHT_45
 
-	if (cub3d->enemy[index].visible == TRUE)
+int	get_enemy_dir(t_enemy *enemy)
+{
+	double	enemy_relative_dir;
+	
+	enemy_relative_dir = within_360((180 / M_PI * enemy->angle) - enemy->dir_player);
+	if (enemy->state == IDLE)
 	{
-		cub3d->enemy[index].img_curr_frame->instances[0].enabled = TRUE;
-		scale_factor = calculate_scale_factor(cub3d->enemy[index].dist_to_player, ENEMY_NORMAL_SCALE_DISTANCE);
-		if (cub3d->enemy[index].state == IDLE)
-			frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
-		else if (cub3d->enemy[index].state == WALKING)
-			frame = cub3d->frames_walking[cub3d->curr_frame_index_walking];
+		if (enemy_relative_dir < 67.5)
+		{
+			return (STRAIGHT);
+			printf("enemy dir is %f degrees\n",enemy_relative_dir);
+			printf("moving directly towards the player, both eyes visible\n");
+		}
+		else if (enemy_relative_dir < 90)
+		{
+			return (LEFT);
+			printf("enemy dir is %f degrees\n",enemy_relative_dir);
+			printf("moving directly left relative to player, only left eye visible\n");
+		}
+		else if (enemy_relative_dir < 112.5)
+		{
+			return (AWAY);
+			printf("enemy dir is %f degrees\n",enemy_relative_dir);
+			printf("moving away from player, no eyes visible\n");
+		}
+		else if (enemy_relative_dir < 270)
+		{
+			return (AWAY);
+			printf("enemy dir is %f degrees\n",enemy_relative_dir);
+			printf("moving away from player, no eyes visible\n");
+		}
+		else if (enemy_relative_dir < 292.5)
+		{
+			return (RIGHT);
+			printf("enemy dir is %f degrees\n",enemy_relative_dir);
+			printf("moving directly right relative to player, only right eye visible\n");
+		}
 		else
-			frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
-		scale_curr_enemy_frame(
-				cub3d,
-				&cub3d->enemy[index],
-				frame,
-				scale_factor);
+		{
+			return (STRAIGHT);
+			printf("enemy dir is %f degrees\n",enemy_relative_dir);
+			printf("moving directly towards the player, both eyes visible\n");
+		}
 	}
-	else
-	{
-		cub3d->enemy[index].img_curr_frame->instances[0].enabled = FALSE;
-	}
+	return (AWAY);
 }
 
 void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
 {
-	double scale_factor;
-	mlx_texture_t *frame;
+	double			scale_factor;
+	mlx_texture_t	*frame;
+	int				enemy_dir;
 
 	scale_factor = calculate_scale_factor(enemy->dist_to_player, ENEMY_NORMAL_SCALE_DISTANCE);
+	enemy_dir = get_enemy_dir(enemy);
 	if (enemy->state == IDLE)
-		frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
-	else if (enemy->state == WALKING)
-		frame = cub3d->frames_walking[cub3d->curr_frame_index_walking];
+		frame = cub3d->frames_idle[enemy_dir][cub3d->curr_frame_index_idle];
 	else
-		frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
+		frame = cub3d->frames_walking[enemy_dir][cub3d->curr_frame_index_walking];
 	scale_curr_enemy_frame(
 		cub3d,
 		enemy,

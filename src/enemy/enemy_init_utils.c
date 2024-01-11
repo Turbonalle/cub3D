@@ -39,58 +39,72 @@ static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
 	return (FAIL);
 }
 
-int	init_enemy_frames(cub3d_t *cub3d)
+int	init_enemy_texture_from_path(mlx_texture_t **frame, int i, char *path)
 {
-	int		i;
 	char	*file_path;
+	
+	file_path = create_file_path(i, path);
+	printf("init_enemy_texture_from_path, path: %s\n", file_path);
+	if (!file_path)
+		return (FAIL);
+	*frame = mlx_load_png(path);
+	if (!*frame)
+	{
+		free(file_path);
+		return (FAIL);
+	}
+	return (SUCCESS);
+}
+
+int	init_frame_group(mlx_texture_t **frames_array, char *path)
+{
+	int	i;
 
 	i = 0;
+	printf("init_frame_group\n");
 	while (i < NUM_FRAMES_ENEMY_IDLE)
 	{
-		file_path = create_file_path(i, FRAME_PATH_ENEMY_IDLE);
-		if (!file_path)
+		printf("init_frame_group i: %d\n", i);
+		if (init_enemy_texture_from_path(&frames_array[i], i, path) == FAIL)
 		{
 			while (i)
-				mlx_delete_texture(cub3d->frames_idle[--i]);
-			return (0);
-		}
-		cub3d->frames_idle[i] = mlx_load_png(file_path);
-		free(file_path);
-		if (!cub3d->frames_idle[i])
-		{
-			while (i)
-				mlx_delete_texture(cub3d->frames_idle[--i]);
-			return (0);
+				mlx_delete_texture(frames_array[--i]);
+			return (FAIL);
 		}
 		i++;
 	}
-	i = 0;
-	while (i < NUM_FRAMES_ENEMY_WALKING)
+	return (SUCCESS);
+}
+
+int	init_enemy_frames(cub3d_t *cub3d)
+{
+	int		dir_index;
+	int		i;
+
+	char	*idle_file_paths[] = {FRAME_PATH_ENEMY_IDLE, FRAME_PATH_ENEMY_IDLE_RIGHT, FRAME_PATH_ENEMY_IDLE_RIGHT_45, FRAME_PATH_ENEMY_IDLE_STRAIGHT, FRAME_PATH_ENEMY_IDLE_LEFT_45, FRAME_PATH_ENEMY_IDLE_LEFT};
+	char	*walking_file_paths[] = {FRAME_PATH_ENEMY_WALKING, FRAME_PATH_ENEMY_WALKING_RIGHT, FRAME_PATH_ENEMY_WALKING_RIGHT_45, FRAME_PATH_ENEMY_WALKING_STRAIGHT, FRAME_PATH_ENEMY_WALKING_LEFT_45, FRAME_PATH_ENEMY_WALKING_LEFT};
+
+	printf("init_enemy_frames\n");
+	dir_index = 0;
+	while (dir_index < NUM_ENEMY_DIRECTIONS)
 	{
-		file_path = create_file_path(i, FRAME_PATH_ENEMY_WALKING);
-		if (!file_path)
+		printf("init_enemy_frames dir_index: %d\n", dir_index);
+		if (!init_frame_group(cub3d->frames_idle[dir_index], idle_file_paths[dir_index]))
 		{
-			while (i)
-				mlx_delete_texture(cub3d->frames_walking[--i]);
+			// TODO: handle errors
+			return (err("Failed to init enemy frames"));
+		}
+		if (!init_frame_group(cub3d->frames_walking[dir_index], walking_file_paths[dir_index]))
+		{
 			i = 0;
 			while (i < NUM_FRAMES_ENEMY_IDLE)
-				mlx_delete_texture(cub3d->frames_idle[i++]);
-			return (0);
+				mlx_delete_texture(cub3d->frames_idle[dir_index][i++]);
+			// TODO: handle errors
+			return (err("Failed to init enemy frames"));
 		}
-			cub3d->frames_walking[i] = mlx_load_png(file_path);
-		free(file_path);
-		if (!cub3d->frames_walking[i])
-		{
-			while (i)
-				mlx_delete_texture(cub3d->frames_walking[--i]);
-			i = 0;
-			while (i < NUM_FRAMES_ENEMY_IDLE)
-				mlx_delete_texture(cub3d->frames_idle[i++]);
-			return (0);
-		}
-		i++;
+		dir_index++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 static void	set_enemy_stats(cub3d_t *cub3d, int i)

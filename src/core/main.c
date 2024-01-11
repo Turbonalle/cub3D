@@ -156,6 +156,7 @@ int	main(int ac, char **av)
 {
 	cub3d_t	cub3d;
 	int		i;
+	int		j;
 
 	if (ac != 2)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
@@ -178,6 +179,7 @@ int	main(int ac, char **av)
 		return (!err("Failed to read records"));
 	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))
 		return (!free_half_done(&cub3d));
+	
 	if (!init_enemy_frames(&cub3d))
 	{
 		mlx_delete_texture(cub3d.leaderboard.title.texture);
@@ -192,12 +194,18 @@ int	main(int ac, char **av)
 		mlx_delete_texture(cub3d.leaderboard.back.texture);
 		mlx_delete_texture(cub3d.leaderboard.back_hover.texture);
 		free_half_done(&cub3d);
-		i = 0;
-		while (i < NUM_FRAMES_ENEMY_IDLE)
-			mlx_delete_texture(cub3d.frames_idle[i++]);
-		i = 0;
-		while (i < NUM_FRAMES_ENEMY_WALKING)
-			mlx_delete_texture(cub3d.frames_walking[i++]);
+		j = 0;
+		while (j < NUM_ENEMY_DIRECTIONS)
+		{
+			// TODO: make separate functions and reuse in init_enemy_frames
+			i = 0;
+			while (i < NUM_FRAMES_ENEMY_IDLE)
+				mlx_delete_texture(cub3d.frames_idle[j][i++]);
+			i = 0;
+			while (i < NUM_FRAMES_ENEMY_WALKING)
+				mlx_delete_texture(cub3d.frames_walking[j][i++]);
+			j++;
+		}
 		return (!err("Failed to init floor"));
 	}
 	start_game(&cub3d);

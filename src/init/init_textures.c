@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-void	free_textures_before_failed(texture_t *textures, int failed_index)
+void	free_textures_before_failed_old(texture_t *textures, int failed_index)
 {
 	int i;
 
@@ -52,5 +52,3 @@ int	init_textures(cub3d_t *cub3d)
 	}
 	return (SUCCESS);
 }
-
-

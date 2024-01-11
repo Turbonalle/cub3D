@@ -767,6 +767,7 @@ typedef struct cub3d_s
 	int				prev_frame_index_idle;
 	double			prev_frame_update_timestamp;
 	int				speedrun;
+	texture_t		stars[NUM_FRAMES_STARS];
 	texture_t		door[5];
 	shroom_t		*shroom;
 }					cub3d_t;

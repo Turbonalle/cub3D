@@ -142,6 +142,7 @@ int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 int		init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 int		init_intro(cub3d_t *cub3d);
 
+int		init_stars_textures(cub3d_t *cub3d);
 int		init_door_textures(cub3d_t *cub3d);
 int		init_doors_and_keys(cub3d_t *cub3d);
 int		init_enemy_frames(cub3d_t *cub3d);
@@ -422,6 +423,9 @@ int		not_at_end(ray_t *ray, player_t player, t_enemy *enemy, int i);
 int		wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check);
 void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key);
 void	see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
+
+// texture general TODO
+char	*create_file_path(int i, char *path);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

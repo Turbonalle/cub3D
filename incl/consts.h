@@ -75,11 +75,11 @@
 # define TEXTURE_KEY_3 "./assets/textures/keys_static/yellow.png"
 # define TEXTURE_KEY_4 "./assets/textures/keys_static/blue.png"
 
-# define TEXTURE_DOOR_A "./assets/textures/surfaces/door_red.png"
-# define TEXTURE_DOOR_B "./assets/textures/surfaces/door_green.png"
-# define TEXTURE_DOOR_C "./assets/textures/surfaces/door_yellow.png"
-# define TEXTURE_DOOR_D "./assets/textures/surfaces/door_blue.png"
-# define TEXTURE_DOOR_OPEN "./assets/textures/surfaces/door_unlocked.png"
+# define TEXTURE_DOOR_A "./assets/textures/doors/door_red.png"
+# define TEXTURE_DOOR_B "./assets/textures/doors/door_green.png"
+# define TEXTURE_DOOR_C "./assets/textures/doors/door_yellow.png"
+# define TEXTURE_DOOR_D "./assets/textures/doors/door_blue.png"
+# define TEXTURE_DOOR_OPEN "./assets/textures/doors/door_unlocked.png"
 
 # define ANIMATION_INTERVAL_MS 66.6667
 
@@ -90,6 +90,8 @@
 # define NUM_FRAMES_KEY 24
 # define KEY_NORMAL_SCALE_DISTANCE 13
 
+# define FRAME_PATH_STARS "./assets/textures/stars_pink/"
+# define NUM_FRAMES_STARS 4
 # define FRAME_PATH_ENEMY_IDLE "./assets/textures/green_idle/"
 # define FRAME_PATH_ENEMY_IDLE_RIGHT "./assets/textures/green_idle_right/"
 # define FRAME_PATH_ENEMY_IDLE_RIGHT_45 "./assets/textures/green_idle_right45/"

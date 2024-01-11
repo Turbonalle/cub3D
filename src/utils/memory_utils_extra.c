@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:32:34 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/11 19:18:27 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ static void	delete_textures(cub3d_t *cub3d)
 	i = 0;
 	while (i < 5)
 		mlx_delete_texture(cub3d->door[i++].texture);
+	i = 0;
+	while (i < NUM_FRAMES_STARS)
+	{
+		free(cub3d->stars[i].path);
+		mlx_delete_texture(cub3d->stars[i++].texture);
+	}
 }
 
 void	free_cub3d(cub3d_t *cub3d)

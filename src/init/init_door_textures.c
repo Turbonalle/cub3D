@@ -15,6 +15,36 @@ void	free_textures_before_failed(texture_t *textures, int failed_index)
 	}
 }
 
+int	init_stars_textures(cub3d_t *cub3d)
+{
+	int	i;
+
+	i = 0;
+	while (i < NUM_FRAMES_STARS)
+	{
+		cub3d->stars[i].texture = NULL;
+		i++;
+	}
+	i = 0;
+	while (i < NUM_FRAMES_STARS)
+	{
+		cub3d->stars[i].path = create_file_path(i, FRAME_PATH_STARS);
+		if (!cub3d->stars[i].path)
+		{
+			free_textures_before_failed(cub3d->stars, i);
+			return (err("Failed to malloc file path"));
+		}
+		cub3d->stars[i].texture = mlx_load_png(cub3d->stars[i].path);
+		if (!cub3d->stars[i].texture)
+		{
+			free_textures_before_failed(cub3d->stars, i);
+			return (err("Failed to load texture"));
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
+
 int	init_door_textures(cub3d_t *cub3d)
 {
 	int	i;

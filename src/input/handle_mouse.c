@@ -45,8 +45,11 @@ void	hook_mouse_scroll(double xdelta, double ydelta, void *param)
 
 	(void)xdelta;
 	cub3d = param;
-	if (ydelta > 0 && hover_minimap(cub3d))
-		zoom_in_minimap(cub3d);
-	else if (ydelta < 0 && hover_minimap(cub3d))
-		zoom_out_minimap(cub3d);
+	if (cub3d->state == STATE_GAME && cub3d->settings.mouse == FALSE)
+	{
+		if (ydelta > 0 && hover_minimap(cub3d))
+			zoom_in_minimap(cub3d);
+		else if (ydelta < 0 && hover_minimap(cub3d))
+			zoom_out_minimap(cub3d);
+	}
 }

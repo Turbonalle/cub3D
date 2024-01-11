@@ -42,13 +42,16 @@ static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
 int	init_enemy_texture_from_path(mlx_texture_t **frame, int i, char *path)
 {
 	char	*file_path;
+	//mlx_texture_t *tmp;
 	
 	file_path = create_file_path(i, path);
 	printf("init_enemy_texture_from_path, path: %s\n", file_path);
 	if (!file_path)
 		return (FAIL);
-	*frame = mlx_load_png(path);
-	if (!*frame)
+	//printf("init_enemy_texture_from_path, frame before %p\n", *frame);
+	*frame = mlx_load_png(file_path);
+	//printf("init_enemy_texture_from_path, frame: %p\n", *frame);
+	if (!(*frame))
 	{
 		free(file_path);
 		return (FAIL);

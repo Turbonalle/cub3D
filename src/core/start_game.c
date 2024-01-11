@@ -40,6 +40,7 @@ void	update_img_size(cub3d_t *cub3d)
 
 void	handle_state_game(cub3d_t *cub3d)
 {
+	//printf("handle_state_game\n");
 	handle_fps(cub3d);
 	update_img_size(cub3d);
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
@@ -48,15 +49,21 @@ void	handle_state_game(cub3d_t *cub3d)
 	player_movement(cub3d);
 	if (cub3d->state == STATE_GAME)
 	{
+		//printf("STATE_GAME\n");
 		draw_game_background(cub3d);
 		raycasting(cub3d);
 		draw_world(cub3d);
 		minimap(cub3d);
 		enemy_vision(cub3d);
+		//printf("before draw_enemies\n");
 		draw_enemies(cub3d);
+		//printf("after draw_enemies\n");
 		draw_timer(cub3d);
+		//printf("before draw_game_entities\n");
 		draw_game_entities(cub3d);
+		//printf("after draw_game_entities\n");
 		handle_halo(&cub3d->halo);
+		//printf("after handle_halo\n");
 	}
 	if (cub3d->player.health <= 0)
 		game_over(cub3d);

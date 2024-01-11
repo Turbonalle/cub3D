@@ -25,21 +25,37 @@ void	activate_halo(halo_t *halo, int color)
 
 static int	halo_is_active(halo_t *halo)
 {
+	//printf("halo_is_active\n");
+	/* printf("halo->timestamp: %f\n", halo->timestamp);
+	printf("mlx_get_time(): %f\n", mlx_get_time());
+	printf("time_delta: %f\n", mlx_get_time() - halo->timestamp);
+	printf("HALO_TIME: %d\n", HALO_TIME); */
 	return (mlx_get_time() - halo->timestamp < HALO_TIME);
 }
 
 void	handle_halo(halo_t *halo)
 {
+	//printf("halo pointer: %p\n", halo);
 	if (halo->active)
 	{
+		//printf("halo->active\n");
 		if (halo_is_active(halo))
 		{
+			//printf("before drawing halo\n");
 			draw_halo(halo->img, halo);
+			//printf("after drawing halo\n");
 		}
 		else
 		{
+			///printf("before enabling halo\n");
+			//printf("halo->img: %p\n", halo->img);
+			//printf("halo->img->instances: %p\n", halo->img->instances);
+			//printf("halo->img->instances[0].enabled: %d\n", halo->img->instances[0].enabled);
 			halo->img->instances[0].enabled = FALSE;
+			//printf("after enabling halo\n");
 			halo->active = FALSE;
+			//printf("after setting halo to inactive\n");
 		}
 	}
+	//printf("handle_halo end\n");
 }

@@ -49,7 +49,11 @@ void	mouse_level_menu(cub3d_t *cub3d)
 		{
 			cub3d->level = &cub3d->levels[i + 1];
 			if (!load_level(cub3d, &cub3d->levels[i + 1]))
+			{
+				printf("Failed to load level %i\n", i + 1);
 				return ;
+			}
+				
 			cub3d->speedrun = TRUE;
 			cub3d->state = STATE_GAME;
 			cub3d->settings.e_behaviour = STATIONARY;
@@ -87,7 +91,10 @@ void	mouse_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
 	if (hover_image(cub3d, menu->restart.img))
 	{
 		if (!load_level(cub3d, cub3d->level))
+		{
+			printf("Failed to load level\n");
 			return ;
+		}
 		disable_gameover_menu(cub3d->mlx, menu);
 		cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
 		cub3d->settings.e_speed = cub3d->player.num_completed / 3;

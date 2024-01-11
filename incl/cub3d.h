@@ -272,7 +272,7 @@ int		get_key_index(char symbol);
 int		draw_key_counts(cub3d_t *cub3d);
 
 // game_entities.c
-void	draw_game_entities(cub3d_t *cub3d);
+int	draw_game_entities(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------
 

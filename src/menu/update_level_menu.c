@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_level_menu.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 17:19:36 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 17:21:03 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu)
+static void	check_hover_back(cub3d_t *cub3d, level_menu_t *menu)
 {
-	int	i;
-
 	if (hover_image(cub3d, menu->back.img))
 	{
 		menu->back_hover.img->instances[0].enabled = TRUE;
@@ -14,6 +24,13 @@ void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu)
 		menu->back_hover.img->instances[0].enabled = FALSE;
 		menu->back.img->instances[0].enabled = TRUE;
 	}
+}
+
+void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu)
+{
+	int	i;
+
+	check_hover_back(cub3d, menu);
 	if (hover_image(cub3d, menu->leaderboard.img))
 	{
 		menu->leaderboard_hover.img->instances[0].enabled = TRUE;

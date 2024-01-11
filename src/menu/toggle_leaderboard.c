@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   toggle_leaderboard.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 17:37:36 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 17:49:09 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -5,6 +16,7 @@ void	disable_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 {
 	record_t	*ptr;
 	int			i;
+	int			entry;
 
 	board->img->instances[0].enabled = FALSE;
 	board->title.img->instances[0].enabled = FALSE;
@@ -13,8 +25,8 @@ void	disable_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	i = 0;
 	while (++i < cub3d->n_levels + 1)
 	{
+		entry = -1;
 		ptr = cub3d->levels[i].records;
-		int entry = -1;
 		while (++entry < board->n_entries && ptr)
 		{
 			ptr->text_time->instances[0].enabled = FALSE;
@@ -28,6 +40,7 @@ void	enable_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 {
 	record_t	*ptr;
 	int			i;
+	int			entry;
 
 	board->img->instances[0].enabled = TRUE;
 	board->title.img->instances[0].enabled = TRUE;
@@ -37,7 +50,7 @@ void	enable_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	while (++i < cub3d->n_levels + 1)
 	{
 		ptr = cub3d->levels[i].records;
-		int entry = -1;
+		entry = -1;
 		while (++entry < board->n_entries && ptr)
 		{
 			ptr->text_time->instances[0].enabled = TRUE;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   toggle_name_menu.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 17:37:29 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 17:48:55 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 void	disable_name_menu(mlx_t *mlx, name_menu_t *menu)
@@ -23,7 +35,7 @@ void	disable_name_menu(mlx_t *mlx, name_menu_t *menu)
 
 void	reset_name_menu(name_menu_t *menu)
 {
-	int i;
+	int	i;
 
 	menu->current = 0;
 	i = -1;
@@ -35,8 +47,8 @@ void	enable_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 {
 	create_time_string(menu->time_str, cub3d->time_finished);
 	menu->text_time = mlx_put_string(cub3d->mlx, menu->time_str,
-		menu->timer.pos.x + menu->timer.img->width * 0.5,
-		menu->timer.pos.y + menu->timer.img->height + 10);
+			menu->timer.pos.x + menu->timer.img->width * 0.5,
+			menu->timer.pos.y + menu->timer.img->height + 10);
 	center_horizontally(menu->text_time);
 	reset_name_menu(menu);
 	menu->img->instances[0].enabled = TRUE;

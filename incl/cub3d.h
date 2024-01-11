@@ -38,27 +38,69 @@ int		set_a(int rgba, int a);
 // transparency.c
 int		set_transparency(int color, int transparency);
 
-//---- PARSING -----------------------------------------------------------------
 
-// get_color.c
-// int		get_color(cub3d_t *cub3d, int element, char **info);
+//---- CORE --------------------------------------------------------------------
+
+// cursor.c
+void	handle_cursor(cub3d_t *cub3d);
+
+// game_over.c
+void	level_finished(cub3d_t *cub3d);
+void	game_over(cub3d_t *cub3d);
+
+// hearts.c
+int		load_heart_png(cub3d_t *cub3d);
+int		init_full_hearts(cub3d_t *cub3d);
+int		init_empty_hearts(cub3d_t *cub3d);
+int		set_heart_positions(cub3d_t *cub3d);
+int		put_hearts_to_window(cub3d_t *cub3d);
+int		init_hearts(cub3d_t *cub3d);
+void	delete_full_heart_texture(cub3d_t *cub3d, int i);
+void	delete_empty_heart_texture(cub3d_t *cub3d, int i);
+void	delete_full_heart_image(cub3d_t *cub3d, int i);
+void	delete_empty_heart_image(cub3d_t *cub3d, int i);
+void	delete_hearts(cub3d_t *cub3d);
+void	disable_hearts(cub3d_t *cub3d);
+void	enable_hearts(cub3d_t *cub3d);
+void	adjust_hearts(cub3d_t *cub3d);
+
+// records.c
+void	create_time_string(char *time_str, int time);
+int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
+int		read_records(cub3d_t *cub3d);
+
+// load_level.c
+int		load_level(cub3d_t *cub3d, level_t *level);
+
+// start_game.c
+void	start_game(cub3d_t *cub3d);
+
+// time.c
+double	elapsed_time(cub3d_t *cub3d);
+void	handle_fps(cub3d_t *cub3d);
+void	set_fps(double *frame_time, int fps);
+void	start_timer(cub3d_t *cub3d);
+void	pause_timer(cub3d_t *cub3d);
+void	continue_timer(cub3d_t *cub3d);
+void	draw_timer(cub3d_t *cub3d);
+void	print_timer(cub3d_t *cub3d);
+
+// halo
+int		init_halo(cub3d_t *cub3d);
+void	activate_halo(halo_t *halo, int color);
+void	handle_halo(halo_t *halo);
+void	draw_halo(mlx_image_t *img, halo_t *halo);
+double	get_time_fade(halo_t *halo);
+
+
+//---- PARSE -------------------------------------------------------------------
+
 int		get_color(level_t *level, int element, char **info);
-
-// get_elements.c
 int		all_elements_found(int *element_found);
 void	remove_newline(char *line);
-// int		get_elements(cub3d_t *cub3d, int fd);
 int		get_elements(level_t *level, int fd);
-
-// get_map.c
-// int		read_cub_file(cub3d_t *cub3d, char *map_path);
 int		read_cub_file(level_t *level, char *map_path);
-
-// get_texture.c
-// int		get_texture(cub3d_t *cub3d, int element, char **info);
 int		get_texture(level_t *level, int element, char **info);
-
-// flooding_algorithm.c
 int		check_map_validity(char **map);
 
 //---- DRAWING -----------------------------------------------------------------
@@ -68,7 +110,6 @@ void	draw_vertical_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, in
 void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d, int color);
 void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);
 void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end, ray_t ray);
-
 void	draw_slider(mlx_image_t *img, slider_t *slider);
 
 //---- INIT --------------------------------------------------------------------
@@ -102,7 +143,8 @@ int		free_prev_gameover_menu(gameover_menu_t *menu, int i);
 int		free_prev_name_menu(name_menu_t *menu, int i);
 void	free_textures_before_failed(texture_t *textures, int failed_index);
 int		free_half_done(cub3d_t *cub3d);
-//---- MENUS -------------------------------------------------------------------
+
+//---- MENU --------------------------------------------------------------------
 
 // delete_menu.c
 void	delete_menus(cub3d_t *cub3d);
@@ -201,51 +243,6 @@ double	lerp(double to_start, double to_end, double from_start, double from_end, 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);
 int		all_keys_found(cub3d_t *cub3d, int i);
-
-
-//---- CORE --------------------------------------------------------------------
-
-// cursor.c
-void	handle_cursor(cub3d_t *cub3d);
-
-// game_over.c
-void	level_finished(cub3d_t *cub3d);
-void	game_over(cub3d_t *cub3d);
-
-// hearts.c
-void	delete_hearts(cub3d_t *cub3d);
-void	disable_hearts(cub3d_t *cub3d);
-void	enable_hearts(cub3d_t *cub3d);
-void	adjust_hearts(cub3d_t *cub3d);
-int		init_hearts(cub3d_t *cub3d);
-
-// records.c
-void	create_time_string(char *time_str, int time);
-int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
-int		read_records(cub3d_t *cub3d);
-
-// load_level.c
-int		load_level(cub3d_t *cub3d, level_t *level);
-
-// start_game.c
-void	start_game(cub3d_t *cub3d);
-
-// time.c
-double	elapsed_time(cub3d_t *cub3d);
-void	handle_fps(cub3d_t *cub3d);
-void	set_fps(double *frame_time, int fps);
-void	start_timer(cub3d_t *cub3d);
-void	pause_timer(cub3d_t *cub3d);
-void	continue_timer(cub3d_t *cub3d);
-void	draw_timer(cub3d_t *cub3d);
-void	print_timer(cub3d_t *cub3d);
-
-//---- HALO --------------------------------------------------------------------
-
-int		init_halo(cub3d_t *cub3d);
-void	handle_halo(halo_t *halo);
-void	activate_halo(halo_t *halo, int color);
-void	draw_halo(mlx_image_t *img, halo_t *halo);
 
 //---- PLAYER ------------------------------------------------------------------
 

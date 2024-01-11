@@ -2,19 +2,21 @@
 
 TODO:
 
-- Add actual intro png
+- Add  "You won" and "Top 3" to name menu
 
 -----------------------------------------------------------------------------
 
 OPTIONAL:
 
 - Create floor and ceiling textures
+- Add floor toggle
+- Add poisonous mushrooms
 
 -----------------------------------------------------------------------------
 
 BUGS:
 
-- Closing window in-game segfaults
+
 
 -----------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-static int	load_png(cub3d_t *cub3d)
+int	load_heart_png(cub3d_t *cub3d)
 {
 	int	i;
 
@@ -10,33 +10,25 @@ static int	load_png(cub3d_t *cub3d)
 		cub3d->hearts[i].full.texture = mlx_load_png(HEART_FULL_PNG);
 		if (!cub3d->hearts[i].full.texture)
 		{
-			i--;
-			while (i >= 0)
-			{
-				mlx_delete_texture(cub3d->hearts[i].full.texture);
-				mlx_delete_texture(cub3d->hearts[i].empty.texture);
-				i--;
-			}
-			return (0);
+			delete_full_heart_texture(cub3d, i);
+			return (FAIL);
 		}
+	}
+	i = -1;
+	while (++i < HEARTS)
+	{
 		cub3d->hearts[i].empty.texture = mlx_load_png(HEART_EMPTY_PNG);
 		if (!cub3d->hearts[i].empty.texture)
 		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			i--;
-			while (i >= 0)
-			{
-				mlx_delete_texture(cub3d->hearts[i].full.texture);
-				mlx_delete_texture(cub3d->hearts[i].empty.texture);
-				i--;
-			}
-			return (0);
+			delete_full_heart_texture(cub3d, HEARTS);
+			delete_empty_heart_texture(cub3d, i);
+			return (FAIL);
 		}
 	}
-	return (1);
+	return (SUCCESS);
 }
 
-static int	init_images(cub3d_t *cub3d)
+int	init_full_hearts(cub3d_t *cub3d)
 {
 	int	i;
 
@@ -46,16 +38,38 @@ static int	init_images(cub3d_t *cub3d)
 		cub3d->hearts[i].full.img
 			= mlx_texture_to_image(cub3d->mlx, cub3d->hearts[i].full.texture);
 		if (!cub3d->hearts[i].full.img)
-			return (err("Failed to create heart image"));
-		cub3d->hearts[i].empty.img
-			= mlx_texture_to_image(cub3d->mlx, cub3d->hearts[i].empty.texture);
-		if (!cub3d->hearts[i].empty.img)
-			return (err("Failed to create heart image"));
+		{
+			delete_full_heart_texture(cub3d, HEARTS);
+			delete_empty_heart_texture(cub3d, HEARTS);
+			delete_full_heart_image(cub3d, i);
+			return (FAIL);
+		}
 	}
 	return (SUCCESS);
 }
 
-static int	set_positions(cub3d_t *cub3d)
+int	init_empty_hearts(cub3d_t *cub3d)
+{
+	int	i;
+
+	i = -1;
+	while (++i < HEARTS)
+	{
+		cub3d->hearts[i].empty.img
+			= mlx_texture_to_image(cub3d->mlx, cub3d->hearts[i].empty.texture);
+		if (!cub3d->hearts[i].empty.img)
+		{
+			delete_full_heart_texture(cub3d, HEARTS);
+			delete_empty_heart_texture(cub3d, HEARTS);
+			delete_full_heart_image(cub3d, HEARTS);
+			delete_empty_heart_image(cub3d, i);
+			return (FAIL);
+		}
+	}
+	return (SUCCESS);
+}
+
+int	set_heart_positions(cub3d_t *cub3d)
 {
 	int				i;
 	int				margin;
@@ -80,7 +94,7 @@ static int	set_positions(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-static int	put_images_to_window(cub3d_t *cub3d)
+int	put_hearts_to_window(cub3d_t *cub3d)
 {
 	int	i;
 
@@ -94,43 +108,5 @@ static int	put_images_to_window(cub3d_t *cub3d)
 				cub3d->hearts[i].empty.pos.x, cub3d->hearts[i].empty.pos.y) < 0)
 			return (err("Failed to create heart image"));
 	}
-	return (SUCCESS);
-}
-
-int	init_hearts(cub3d_t *cub3d)
-{
-	int	i;
-
-	i = -1;
-	if (!load_png(cub3d))
-		return (0);
-	if (!init_images(cub3d))
-	{
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		return (0);
-	}
-	if (!set_positions(cub3d))
-	{
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		return (0);
-	}
-	if (!put_images_to_window(cub3d))
-	{
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		return (0);
-	}
-	disable_hearts(cub3d);
 	return (SUCCESS);
 }

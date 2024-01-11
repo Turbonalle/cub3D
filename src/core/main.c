@@ -7,7 +7,11 @@ void	free_already_allocated(cub3d_t *cub3d, int i)
 		free_list(cub3d->levels[i].map_list);
 		i--;
 		if (i >= 0)
+		{
+			printf("freeing BACKUP for level %d on malloc fail\n", i);
 			free_backup(cub3d->levels[i]);
+		}
+			
 	}
 	free(cub3d->levels);
 }
@@ -48,6 +52,8 @@ int	read_all_levels(cub3d_t *cub3d)
 		if (fd < 0)
 			return (free(full_path), free_already_allocated(cub3d, i),
 				err("Failed to open level file"));
+		printf("Reading level %d\n", i);
+		printf("READING %dth CUB FILE\n", i);
 		if (!read_cub_file(&cub3d->levels[i], full_path))
 			return (free(full_path), free_already_allocated(cub3d, i),
 				err("Failed to read level file"));
@@ -150,6 +156,7 @@ int	main(int ac, char **av)
 {
 	cub3d_t	cub3d;
 	int		i;
+	int		j;
 
 	if (ac != 2)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
@@ -161,6 +168,7 @@ int	main(int ac, char **av)
 	cub3d.level = &cub3d.levels[0];
 	if (!read_cub_file(cub3d.level, av[1]))
 		return (free(cub3d.levels), 1);
+	printf("READ MAIN CUB FILE\n");
 	if (!read_all_levels(&cub3d))
 		return (1);
 	printf("init_cub3d\n");
@@ -171,6 +179,7 @@ int	main(int ac, char **av)
 		return (!err("Failed to read records"));
 	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))
 		return (!free_half_done(&cub3d));
+	
 	if (!init_enemy_frames(&cub3d))
 	{
 		mlx_delete_texture(cub3d.leaderboard.title.texture);
@@ -185,12 +194,18 @@ int	main(int ac, char **av)
 		mlx_delete_texture(cub3d.leaderboard.back.texture);
 		mlx_delete_texture(cub3d.leaderboard.back_hover.texture);
 		free_half_done(&cub3d);
-		i = 0;
-		while (i < NUM_FRAMES_ENEMY_IDLE)
-			mlx_delete_texture(cub3d.frames_idle[i++]);
-		i = 0;
-		while (i < NUM_FRAMES_ENEMY_WALKING)
-			mlx_delete_texture(cub3d.frames_walking[i++]);
+		j = 0;
+		while (j < NUM_ENEMY_DIRECTIONS)
+		{
+			// TODO: make separate functions and reuse in init_enemy_frames
+			i = 0;
+			while (i < NUM_FRAMES_ENEMY_IDLE)
+				mlx_delete_texture(cub3d.frames_idle[j][i++]);
+			i = 0;
+			while (i < NUM_FRAMES_ENEMY_WALKING)
+				mlx_delete_texture(cub3d.frames_walking[j][i++]);
+			j++;
+		}
 		return (!err("Failed to init floor"));
 	}
 	start_game(&cub3d);

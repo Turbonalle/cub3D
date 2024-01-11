@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_utils_extra.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 13:30:01 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:32:34 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,35 @@ static void	delete_textures_additional(cub3d_t *cub3d)
 static void	delete_textures(cub3d_t *cub3d)
 {
 	int	i;
+	int	j;
 
 	delete_textures_additional(cub3d);
+	printf("deleted additional textures\n");
 	i = 0;
 	while (i < LEVELS)
 	{
+		printf("deleting minilevel %d, texture pointer: %p\n", i, cub3d->level_menu.minilevels[i].number.texture);
 		mlx_delete_texture(cub3d->level_menu.minilevels[i++].number.texture);
 	}
+	printf("deleted minilevels\n");
 	i = 0;
 	while (i < HEARTS)
 	{
 		mlx_delete_texture(cub3d->hearts[i].full.texture);
 		mlx_delete_texture(cub3d->hearts[i++].empty.texture);
 	}
-	i = 0;
-	while (i < NUM_FRAMES_ENEMY_IDLE)
+	printf("deleted hearts\n");
+	j = 0;
+	while (j < NUM_ENEMY_DIRECTIONS)
 	{
-		mlx_delete_texture(cub3d->frames_idle[i++]);
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_IDLE)
+			mlx_delete_texture(cub3d->frames_idle[j][i++]);
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_WALKING)
+			mlx_delete_texture(cub3d->frames_walking[j][i++]);
+		j++;
 	}
-	i = 0;
-	while (i < NUM_FRAMES_ENEMY_WALKING)
-		mlx_delete_texture(cub3d->frames_walking[i++]);
 	i = 0;
 	while (i < 5)
 		mlx_delete_texture(cub3d->door[i++].texture);
@@ -76,7 +84,11 @@ void	free_cub3d(cub3d_t *cub3d)
 	i = 0;
 	while (i < LEVELS + 1)
 	{
+		printf("Freeing backup for level %d\n", i);
 		free_backup(cub3d->levels[i]);
+		//TODO: refactor to take a level rather than a pointer
+		
+		//free_delete_textures(&cub3d->levels[i]);
 		i++;
 	}
 	delete_textures(cub3d);

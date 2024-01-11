@@ -73,11 +73,15 @@ void	draw_halo(mlx_image_t *img, halo_t *halo)
 		column = -1;
 		while (++column < img->width)
 		{
+			//printf("draw_halo row: %d, column: %d\n", row, column);
 			distance_from_edge = get_distance_from_edge(img, row, column);
+			//printf("distance from edge: %d\n", distance_from_edge);
 			if (distance_from_edge < HALO_THICKNESS)
 			{
 				color = set_transparency(halo->color,
 						set_fade(time_fade, set_edge_fade(distance_from_edge)));
+				//printf("putting pixel at [%d, %d]\n", column, row);
+				//printf("img: %p, color: %d\n", img, color);
 				mlx_put_pixel(img, column, row, color);
 			}
 		}

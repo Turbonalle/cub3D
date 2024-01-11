@@ -32,7 +32,7 @@
 # define MOUSE_MIN_SENSITIVITY 0.001
 
 # define ENEMY_SPEED 0.03
-# define ENEMY_ROT_SPEED 1
+# define ENEMY_ROT_SPEED 10
 # define ENEMY_FREEZE	2.0
 # define ENEMY_EATING_SPEED 0.1
 # define ENEMY_RADIUS 0.40
@@ -91,7 +91,17 @@
 # define KEY_NORMAL_SCALE_DISTANCE 13
 
 # define FRAME_PATH_ENEMY_IDLE "./assets/textures/green_idle/"
+# define FRAME_PATH_ENEMY_IDLE_RIGHT "./assets/textures/green_idle_right/"
+# define FRAME_PATH_ENEMY_IDLE_RIGHT_45 "./assets/textures/green_idle_right45/"
+# define FRAME_PATH_ENEMY_IDLE_STRAIGHT "./assets/textures/green_idle_straight/"
+# define FRAME_PATH_ENEMY_IDLE_LEFT_45 "./assets/textures/green_idle_left45/"
+# define FRAME_PATH_ENEMY_IDLE_LEFT "./assets/textures/green_idle_left/"
 # define FRAME_PATH_ENEMY_WALKING "./assets/textures/red_walking/"
+# define FRAME_PATH_ENEMY_WALKING_RIGHT "./assets/textures/red_walking_right/"
+# define FRAME_PATH_ENEMY_WALKING_RIGHT_45 "./assets/textures/red_walking_right45/"
+# define FRAME_PATH_ENEMY_WALKING_STRAIGHT "./assets/textures/red_walking_straight/"
+# define FRAME_PATH_ENEMY_WALKING_LEFT_45 "./assets/textures/red_walking_left45/"
+# define FRAME_PATH_ENEMY_WALKING_LEFT "./assets/textures/red_walking_left/"
 # define NUM_FRAMES_ENEMY_IDLE 8
 # define NUM_FRAMES_ENEMY_WALKING 8
 # define ENEMY_NORMAL_SCALE_DISTANCE 20

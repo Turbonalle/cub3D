@@ -280,8 +280,12 @@ int	init_cub3d(cub3d_t *cub3d)
 		mlx_delete_image(cub3d->mlx, cub3d->img);
 		return (0);
 	}
-	printf("init gameover menu\n");
-	if (!init_gameover_menu(cub3d, &cub3d->gameover_menu))
+	//printf("init gameover menu\n");
+	init_gameover_menu(cub3d, &cub3d->gameover_menu);
+	//printf("after init gameover menu\n");
+	init_intro(cub3d);
+	//printf("after init intro\n");
+	/* if (!init_gameover_menu(cub3d, &cub3d->gameover_menu))
 	{
 		i = 0;
 		while (i < LEVELS + 1)
@@ -316,7 +320,7 @@ int	init_cub3d(cub3d_t *cub3d)
 		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
 		mlx_delete_image(cub3d->mlx, cub3d->img);
 		return (err("Failed to init intro"));
-	}
+	} */
 	if (!init_hearts(cub3d))
 	{
 		i = 0;
@@ -336,6 +340,7 @@ int	init_cub3d(cub3d_t *cub3d)
 		mlx_delete_image(cub3d->mlx, cub3d->img);
 		return (err("Failed to init hearts"));
 	}
+	printf("after init hearts\n");
 	if (!init_shroom(cub3d))
 	{
 		i = 0;
@@ -360,6 +365,7 @@ int	init_cub3d(cub3d_t *cub3d)
 		}
 		mlx_delete_image(cub3d->mlx, cub3d->img);
 		return (err("Failed to init shroom counter"));
+	//printf("after init shroom\n");
 	}
 	if (!init_halo(cub3d))
 	{
@@ -388,6 +394,7 @@ int	init_cub3d(cub3d_t *cub3d)
 		return (err("Failed to init halo"));
 	}
 	init_timer(cub3d);
+	//printf("after init_timer\n");
 	cub3d->distraction_thrown_texture = mlx_load_png(TEXTURE_MUSHROOM_THROWN);
 	if (!cub3d->distraction_thrown_texture)
 	{

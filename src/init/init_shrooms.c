@@ -2,6 +2,9 @@
 
 static int	load_png(cub3d_t *cub3d)
 {
+	printf("cub3d->shroom: %p\n", cub3d->shroom);
+	//printf("cub3d->shroom->shroom: %p\n", cub3d->shroom->shroom);
+	printf("cub3d->shroom->shroom.texture: %p\n", cub3d->shroom->shroom.texture);
 	cub3d->shroom->shroom.texture = mlx_load_png(TEXTURE_MUSHROOM_COUNTER);
 	if (!cub3d->shroom->shroom.texture)
 		return (0);
@@ -31,6 +34,7 @@ static int	put_image_to_window(cub3d_t *cub3d)
 
 int	init_shroom(cub3d_t *cub3d)
 {
+	cub3d->shroom = ft_calloc(1, sizeof(shroom_t));
 	if (!load_png(cub3d))
 		return (0);
 	if (!init_images(cub3d))

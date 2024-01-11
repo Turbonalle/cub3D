@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:07 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/05 13:11:19 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/11 15:43:04 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void set_color(level_t *level, int element, int color)
+void	set_color(level_t *level, int element, int color)
 {
 	if (element == F)
 		level->floor_color = color;
@@ -20,12 +20,12 @@ void set_color(level_t *level, int element, int color)
 		level->ceiling_color = color;
 }
 
-int get_color(level_t *level, int element, char **info)
+int	get_color(level_t *level, int element, char **info)
 {
-	int i;
-	int color_part;
-	int color;
-	char **rgb;
+	int		i;
+	int		color_part;
+	int		color;
+	char	**rgb;
 
 	rgb = ft_split(info[1], ',');
 	free_info(info);

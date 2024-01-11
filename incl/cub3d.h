@@ -53,6 +53,9 @@ int		get_elements(level_t *level, int fd);
 // get_map.c
 // int		read_cub_file(cub3d_t *cub3d, char *map_path);
 int		read_cub_file(level_t *level, char *map_path);
+int		create_rectangular_map(level_t *level);
+int		add_map_line(map_node_t **first_node, char *line);
+int		null_textures(level_t *level);
 
 // get_texture.c
 // int		get_texture(cub3d_t *cub3d, int element, char **info);
@@ -60,6 +63,7 @@ int		get_texture(level_t *level, int element, char **info);
 
 // flooding_algorithm.c
 int		check_map_validity(char **map);
+void	zero_map(char **map);
 
 //---- DRAWING -----------------------------------------------------------------
 

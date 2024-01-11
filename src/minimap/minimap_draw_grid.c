@@ -45,7 +45,7 @@ void	draw_extras(cub3d_t *cub3d, int row, int column)
 {
 	int			index;
 	vector_t	pos;
-	
+
 	index = get_key_index(cub3d->level->map[row][column]);
 	pos.x = column * cub3d->minimap.tile_size;
 	pos.y = row * cub3d->minimap.tile_size;

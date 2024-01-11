@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   toggle_intro.c                                     :+:      :+:    :+:   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 17:38:28 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:48:27 by slampine         ###   ########.fr       */
+/*   Created: 2024/01/11 17:50:49 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/11 17:51:21 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	disable_intro(cub3d_t *cub3d)
+double	dist_between_d_vectors(dvector_t a, dvector_t b)
 {
-	cub3d->intro.img[0].enabled = FALSE;
+	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }
 
-void	enable_intro(cub3d_t *cub3d)
+double	lerp(double to_start, double to_end, double from_start, double from_end, double value)
 {
-	cub3d->intro.img[0].enabled = TRUE;
+	return (to_start + (to_end - to_start) * ((value - from_start)
+			/ (from_end - from_start)));
 }

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:47:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 16:59:23 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:48:15 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,4 @@ void	remove_record_image_pointers(cub3d_t *cub3d)
 		mlx_delete_image(cub3d->mlx, ptr->text_time);
 		ptr = ptr->next;
 	}
-
 }

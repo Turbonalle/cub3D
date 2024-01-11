@@ -191,6 +191,8 @@ int		get_letter_second_third(cub3d_t *cub3d, name_menu_t *menu);
 int		get_letter_last_third(cub3d_t *cub3d, name_menu_t *menu);
 void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu);
 void	remove_record_image_pointers(cub3d_t *cub3d);
+void	submit_name(cub3d_t *cub3d, name_menu_t *menu);
+int		change_name(cub3d_t *cub3d, name_menu_t *menu);
 
 // start menu
 void	disable_start_menu(start_menu_t *menu);
@@ -213,7 +215,6 @@ int		get_marker_pos(cub3d_t *cub3d);
 double	get_sensitivity(cub3d_t *cub3d);
 
 // pause_text.c
-void	add_title_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
 
@@ -221,6 +222,8 @@ void	add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu);
 void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+int		pause_menu_helper(cub3d_t *cub3d, pause_menu_t *menu);
+void	draw_menu(cub3d_t *cub3d, pause_menu_t *menu);
 
 void	disable_pause_menu(mlx_t *mlx, pause_menu_t *menu);
 int		enable_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);

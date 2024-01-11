@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:57 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 14:25:16 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:50:59 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,3 @@ double	dist_between(vector_t a, dvector_t b)
 	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }
 
-double	dist_between_d_vectors(dvector_t a, dvector_t b)
-{
-	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
-}
-
-double	lerp(double to_start, double to_end, double from_start, double from_end, double value)
-{
-	return (to_start + (to_end - to_start) * ((value - from_start) / (from_end - from_start)));
-}

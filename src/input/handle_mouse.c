@@ -32,7 +32,10 @@ void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_ke
 		left_mouse_button_press(cub3d);
 	}
     else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)
+	{
+		cub3d->on_minimap = FALSE;
 		cub3d->keys.mouse_left = FALSE;
+	}
     else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
 		cub3d->keys.mouse_right = TRUE;
     else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_RELEASE)

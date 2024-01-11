@@ -41,7 +41,7 @@ void	update_img_size(cub3d_t *cub3d)
 void	handle_state_game(cub3d_t *cub3d)
 {
 	handle_fps(cub3d);
-	update_img_size(cub3d);
+	update_img_size(cub3d);	// unnecessary after disabling screen resizing?
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 	if (cub3d->keys.mouse_left && cub3d->on_minimap)
 		move_minimap(cub3d);

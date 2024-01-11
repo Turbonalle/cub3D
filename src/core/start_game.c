@@ -89,7 +89,7 @@ void	update(void *param)
 		update_gameover_menu(cub3d, &cub3d->gameover_menu);
 }
 
-void	start_game(cub3d_t *cub3d)
+void	 start_game(cub3d_t *cub3d)
 {
 	enable_start_menu(&cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);
@@ -98,5 +98,4 @@ void	start_game(cub3d_t *cub3d)
 	mlx_mouse_hook(cub3d->mlx, &hook_mouse_buttons, cub3d);
 	mlx_loop_hook(cub3d->mlx, &update, cub3d);
 	mlx_loop(cub3d->mlx);
-	mlx_terminate(cub3d->mlx);
 }

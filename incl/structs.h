@@ -58,7 +58,7 @@ typedef struct player_s
 	int			is_walking;
 	int			is_strafing;
 	int			num_completed;
-	int		is_dirty_cheater;
+	int			is_dirty_cheater;
 }				player_t;
 
 enum enemy_state

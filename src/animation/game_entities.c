@@ -159,46 +159,27 @@ void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 	}
 }
 
-void	draw_enemies_frames(cub3d_t *cub3d, int index)
-{
-	double scale_factor;
-	mlx_texture_t *frame;
-
-	if (cub3d->enemy[index].visible == TRUE)
-	{
-		cub3d->enemy[index].img_curr_frame->instances[0].enabled = TRUE;
-		scale_factor = calculate_scale_factor(cub3d->enemy[index].dist_to_player, ENEMY_NORMAL_SCALE_DISTANCE);
-		if (cub3d->enemy[index].state == IDLE)
-			frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
-		else if (cub3d->enemy[index].state == WALKING)
-			frame = cub3d->frames_walking[cub3d->curr_frame_index_walking];
-		else
-			frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
-		scale_curr_enemy_frame(
-				cub3d,
-				&cub3d->enemy[index],
-				frame,
-				scale_factor);
-	}
-	else
-	{
-		cub3d->enemy[index].img_curr_frame->instances[0].enabled = FALSE;
-	}
-}
 
 void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
 {
-	double scale_factor;
-	mlx_texture_t *frame;
+	double			scale_factor;
+	double			enemy_relative_dir;
+	mlx_texture_t	*frame;
 
 	scale_factor = calculate_scale_factor(enemy->dist_to_player, ENEMY_NORMAL_SCALE_DISTANCE);
+	enemy_relative_dir = within_360((180 / M_PI * cub3d->enemy->angle) - cub3d->enemy->dir_player);
 	if (enemy->state == IDLE)
+	{
 		frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
+	}
 	else if (enemy->state == WALKING)
+	{
 		frame = cub3d->frames_walking[cub3d->curr_frame_index_walking];
+	}
 	else
 		frame = cub3d->frames_idle[cub3d->curr_frame_index_idle];
-	scale_curr_enemy_frame(
+	scale_curr_enemy_frame
+	(
 		cub3d,
 		enemy,
 		frame,
@@ -216,7 +197,8 @@ void draw_distraction_frame(cub3d_t *cub3d, distraction_t *distraction)
 		texture = cub3d->distraction_thrown_texture;
 	else
 		texture = cub3d->distraction_texture;
-	scale_distraction(
+	scale_distraction
+	(
 		cub3d,
 		distraction,
 		texture,

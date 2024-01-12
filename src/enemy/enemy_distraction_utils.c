@@ -25,8 +25,10 @@ dvector_t	init_ray_step_size(double dir)
 
 	v_ray_dir.x = cos(to_radians(dir));
 	v_ray_dir.y = sin(to_radians(dir));
-	v_ray_step_size.x = sqrt(1 + (v_ray_dir.y / v_ray_dir.x) * (v_ray_dir.y / v_ray_dir.x));
-	v_ray_step_size.y = sqrt(1 + (v_ray_dir.x / v_ray_dir.y) * (v_ray_dir.x / v_ray_dir.y));
+	v_ray_step_size.x = sqrt(1 + (v_ray_dir.y / v_ray_dir.x)
+			* (v_ray_dir.y / v_ray_dir.x));
+	v_ray_step_size.y = sqrt(1 + (v_ray_dir.x / v_ray_dir.y)
+			* (v_ray_dir.x / v_ray_dir.y));
 	return (v_ray_step_size);
 }
 

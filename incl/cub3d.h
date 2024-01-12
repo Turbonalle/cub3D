@@ -414,7 +414,7 @@ void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance);
 
 int		init_distractions(cub3d_t *cub3d);
 void	count_distractions(cub3d_t *cub3d);
-void 	draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
+void	draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
 
 void	eat(cub3d_t *cub3d, int i);
 void	spin(cub3d_t *cub3d, int i, double at_target);
@@ -423,6 +423,18 @@ int		not_at_end(ray_t *ray, player_t player, t_enemy *enemy, int i);
 int		wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check);
 void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key);
 void	see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
+
+dvector_t	set_new_pos(cub3d_t *cub3d, int i);
+int		check_each_other(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_first_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_second_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_third_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_fourth_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_fifth_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_sixth_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_seventh_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_eighth_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_pos(cub3d_t *cub3d, int pos_y, int pos_x);
 
 // texture general TODO
 char	*create_file_path(int i, char *path);

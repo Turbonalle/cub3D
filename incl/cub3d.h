@@ -68,6 +68,10 @@ void	adjust_hearts(cub3d_t *cub3d);
 void	create_time_string(char *time_str, int time);
 int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
 int		read_records(cub3d_t *cub3d);
+int		get_record_time(char *line, int *time);
+int		get_record_name(char *line, char **name);
+int		count_records(record_t *records);
+record_t	*new_record(int time, char *name);
 
 // load_level.c
 int		load_level(cub3d_t *cub3d, level_t *level);

@@ -27,7 +27,7 @@ void	nullify_enemy_frames(cub3d_t *cub3d)
 	{
 		cub3d->frames_idle_paths[i] = NULL;
 		cub3d->frames_walking_paths[i] = NULL;
-		nullify_idle_frames(&cub3d->frames_idle[i]);
-		nullify_walking_frames(&cub3d->frames_walking[i]);
+		nullify_idle_frames(cub3d->frames_idle[i]);
+		nullify_walking_frames(cub3d->frames_walking[i]);
 	}
 }

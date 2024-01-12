@@ -15,7 +15,6 @@ static void	nullify_minilevels(minilevel_t *minilevels)
 
 void	nullify_level_menu(level_menu_t *menu)
 {
-	int	i;
 
 	menu->img = NULL;
 	nullify_png(&menu->title);

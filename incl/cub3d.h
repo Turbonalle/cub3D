@@ -397,7 +397,6 @@ int		err(char *error_message);
 
 // drawing_utils.c
 void	draw_square(mlx_image_t *img, vector_t coord, int size, int color);
-void	draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
 void	draw_circle(mlx_image_t *img, vector_t pos, int radius, int color);
 
 void	draw_shroom_count(cub3d_t *cub3d);

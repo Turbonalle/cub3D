@@ -184,6 +184,20 @@ static void	set_init_stats(cub3d_t *cub3d)
 	cub3d->player.hit_timestamp = 0;
 }
 
+static void	free_levels(cub3d_t *cub3d)
+{
+	int	i;
+
+	i = 0;
+	while (i < LEVELS + 1)
+	{
+		free_list(cub3d->levels[i].map_list);
+		free_backup(cub3d->levels[i]);
+		i++;
+	}
+	free(cub3d->levels);
+}
+
 int	init_cub3d(cub3d_t *cub3d)
 {
 	int	i;
@@ -191,43 +205,21 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", FALSE);
 	if (!cub3d->mlx)
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		return (err("Failed to initialize mlx"));
 	}
 	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		mlx_terminate(cub3d->mlx);
+		free_levels(cub3d);
 		return (err("Failed to create image"));
 	}
 	printf("Created main image\n");
 	cub3d->rays = NULL;
 	if (!init_rays(cub3d))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
+		free_levels(cub3d);
 		mlx_delete_image(cub3d->mlx, cub3d->img);
-		free(cub3d->levels);
 		return (err("Failed to malloc rays"));
 	}
 	set_keys(&cub3d->keys);
@@ -235,30 +227,16 @@ int	init_cub3d(cub3d_t *cub3d)
 	printf("init start menu\n");
 	if (!init_start_menu(cub3d, &cub3d->start_menu))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
+		free_levels(cub3d);
 		mlx_delete_image(cub3d->mlx, cub3d->img);
-		free(cub3d->levels);
 		free(cub3d->rays);
 		return (err("Failed to init start menu"));
 	}
 	printf("init level menu\n");
 	if (!init_level_menu(cub3d, &cub3d->level_menu))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
+		free_levels(cub3d);
 		mlx_delete_image(cub3d->mlx, cub3d->img);
-		free(cub3d->levels);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		return (err("Failed to init level menu"));
@@ -266,19 +244,12 @@ int	init_cub3d(cub3d_t *cub3d)
 	printf("init name menu\n");
 	if (!init_name_menu(cub3d, &cub3d->name_menu))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
+		mlx_delete_image(cub3d->mlx, cub3d->img);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		return (0);
+		return (err("Failed to init name menu"));
 	}
 	//printf("init gameover menu\n");
 	init_gameover_menu(cub3d, &cub3d->gameover_menu);
@@ -287,14 +258,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	//printf("after init intro\n");
 	/* if (!init_gameover_menu(cub3d, &cub3d->gameover_menu))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
@@ -305,14 +269,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	}
 	if (!init_intro(cub3d))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
@@ -323,14 +280,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	} */
 	if (!init_hearts(cub3d))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
@@ -343,14 +293,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	printf("after init hearts\n");
 	if (!init_shroom(cub3d))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
@@ -369,14 +312,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	}
 	if (!init_halo(cub3d))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
@@ -398,14 +334,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->distraction_thrown_texture = mlx_load_png(TEXTURE_MUSHROOM_THROWN);
 	if (!cub3d->distraction_thrown_texture)
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
@@ -425,14 +354,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	cub3d->distraction_texture = mlx_load_png(TEXTURE_MUSHROOM);
 	if (!cub3d->distraction_texture)
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
@@ -452,14 +374,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	}
 	if (!init_door_textures(cub3d))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
@@ -480,14 +395,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	}
 	if (!init_stars_textures(cub3d))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
@@ -509,14 +417,7 @@ int	init_cub3d(cub3d_t *cub3d)
 	}
 	if (!init_pause_menu(cub3d, &cub3d->pause_menu))
 	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
+		free_levels(cub3d);
 		free(cub3d->rays);
 		free_prev_start_menu(&cub3d->start_menu, 9);
 		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);

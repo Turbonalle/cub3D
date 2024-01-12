@@ -1,6 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse_menu.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/12 11:47:42 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/12 11:47:44 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-//------------------------------------------------------------------------------
+void	hover_start_menu(cub3d_t *cub3d)
+{
+	if (hover_image(cub3d, cub3d->start_menu.level.img))
+	{
+		cub3d->state = STATE_LEVEL;
+		disable_start_menu(&cub3d->start_menu);
+		enable_level_menu(&cub3d->level_menu);
+	}
+}
 
 void	mouse_start_menu(cub3d_t *cub3d)
 {
@@ -28,15 +48,26 @@ void	mouse_start_menu(cub3d_t *cub3d)
 			start_timer(cub3d);
 		}
 	}
-	else if (hover_image(cub3d, cub3d->start_menu.level.img))
-	{
-		cub3d->state = STATE_LEVEL;
-		disable_start_menu(&cub3d->start_menu);
-		enable_level_menu(&cub3d->level_menu);
-	}
+	hover_start_menu(cub3d);
 }
 
 //------------------------------------------------------------------------------
+
+void	hover_level_menu(cub3d_t *cub3d)
+{
+	if (hover_image(cub3d, cub3d->level_menu.back.img))
+	{
+		disable_level_menu(&cub3d->level_menu);
+		enable_start_menu(&cub3d->start_menu);
+		cub3d->state = STATE_START;
+	}
+	if (hover_image(cub3d, cub3d->level_menu.leaderboard.img))
+	{
+		disable_level_menu(&cub3d->level_menu);
+		enable_leaderboard(cub3d, &cub3d->leaderboard);
+		cub3d->state = STATE_LEADERBOARD;
+	}
+}
 
 void	mouse_level_menu(cub3d_t *cub3d)
 {
@@ -53,7 +84,6 @@ void	mouse_level_menu(cub3d_t *cub3d)
 				printf("Failed to load level %i\n", i + 1);
 				return ;
 			}
-				
 			cub3d->speedrun = TRUE;
 			cub3d->state = STATE_GAME;
 			cub3d->settings.e_behaviour = STATIONARY;
@@ -63,18 +93,7 @@ void	mouse_level_menu(cub3d_t *cub3d)
 			start_timer(cub3d);
 		}
 	}
-	if (hover_image(cub3d, cub3d->level_menu.back.img))
-	{
-		disable_level_menu(&cub3d->level_menu);
-		enable_start_menu(&cub3d->start_menu);
-		cub3d->state = STATE_START;
-	}
-	if (hover_image(cub3d, cub3d->level_menu.leaderboard.img))
-	{
-		disable_level_menu(&cub3d->level_menu);
-		enable_leaderboard(cub3d, &cub3d->leaderboard);
-		cub3d->state = STATE_LEADERBOARD;
-	}
+	hover_level_menu(cub3d);
 }
 
 //------------------------------------------------------------------------------
@@ -96,37 +115,14 @@ void	mouse_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
 			return ;
 		}
 		disable_gameover_menu(cub3d->mlx, menu);
-		cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
-		cub3d->settings.e_speed = cub3d->player.num_completed / 3;
-		printf("Level started, e_speed is %i, e_beh is %i\n",cub3d->settings.e_speed, cub3d->settings.e_behaviour);
+		if (cub3d->speedrun == FALSE)
+		{
+			cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
+			cub3d->settings.e_speed = cub3d->player.num_completed / 3;
+			printf("Level started, e_speed is %i, e_beh is %i\n",cub3d->settings.e_speed, cub3d->settings.e_behaviour);
+		}
 		cub3d->state = STATE_GAME;
 		handle_cursor(cub3d);
 		start_timer(cub3d);
-	}
-}
-
-//------------------------------------------------------------------------------
-
-void	mouse_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
-{
-	if (hover_image(cub3d, board->back.img))
-	{
-		disable_leaderboard(cub3d, board);
-		enable_level_menu(&cub3d->level_menu);
-		cub3d->state = STATE_LEVEL;
-	}
-}
-
-//------------------------------------------------------------------------------
-
-void	mouse_entername_menu(cub3d_t *cub3d, name_menu_t *menu)
-{
-	if (hover_image(cub3d, menu->back.img))
-	{
-		disable_name_menu(cub3d->mlx, menu);
-		enable_level_menu(&cub3d->level_menu);
-		cub3d->state = STATE_LEVEL;
-		cub3d->name_menu.changed = FALSE;
-		cub3d->speedrun = FALSE;
 	}
 }

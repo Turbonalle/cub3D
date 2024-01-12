@@ -302,6 +302,13 @@ void	handle_close_window(void *param);
 
 // handle_keys.c
 void	get_input(mlx_key_data_t keydata, void *param);
+void	handle_name_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_pause_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_start_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_level_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_leaderboard_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d);
 
 // handle_mouse.c
 void	hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);

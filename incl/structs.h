@@ -626,9 +626,6 @@ typedef struct level_s
 	map_node_t		*map_list;
 	int				nodes;
 	texture_t		texture[4];
-	texture_t		heart;
-	texture_t		heart_half;
-	texture_t		heart_empty;
 	int				floor_color;
 	int				ceiling_color;
 	int				element_found[6];
@@ -639,9 +636,6 @@ typedef struct level_s
 	dvector_t		distraction;
 	double			distraction_amount;
 	record_t		*records;
-	mlx_image_t		*heart_img;
-	mlx_image_t		*heart_half_img;
-	mlx_image_t		*heart_empty_img;
 }			level_t;
 
 //---- HALO --------------------------------------------------------------------

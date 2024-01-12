@@ -76,6 +76,9 @@ record_t	*new_record(int time, char *name);
 // load_level.c
 int		load_level(cub3d_t *cub3d, level_t *level);
 
+// close_game.c
+void	close_game(cub3d_t *cub3d);
+
 // start_game.c
 void	start_game(cub3d_t *cub3d);
 
@@ -275,7 +278,7 @@ int		all_keys_found(cub3d_t *cub3d, int i);
 void	collision_checker(cub3d_t *cub3d);
 void	item_collected_checker(cub3d_t *cub3d);
 void	player_is_hit(cub3d_t *cub3d, int i);
-void	draw_health(cub3d_t *cub3d);
+// void	draw_health(cub3d_t *cub3d);
 int		is_locked_door(cub3d_t *cub3d, int y, int x);
 
 // player_movement.c
@@ -464,6 +467,7 @@ void	nullify_level_menu(level_menu_t *menu);
 void	nullify_enemy_frames(cub3d_t *cub3d);
 void	nullify_gametimer(gametimer_t *timer);
 void	nullify_hearts(heart_t *hearts);
+void	nullify_level(level_t *level);
 void	nullify_png(png_t *png);
 void	nullify_texture(texture_t *texture);
 

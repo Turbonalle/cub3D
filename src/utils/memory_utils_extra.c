@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_utils_extra.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 10:59:10 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/12 13:56:10 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_is_hit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:41:13 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 12:20:02 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:45:02 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,6 @@ static int	player_is_invulnerable(cub3d_t *cub3d)
 {
 	return (mlx_get_time() - cub3d->player.hit_timestamp
 		< INVULNERABILITY_TIME);
-}
-
-void	draw_health(cub3d_t *cub3d)
-{
-	cub3d->level->heart_img->instances[0].enabled = FALSE;
-	cub3d->level->heart_half_img->instances[0].enabled = FALSE;
-	cub3d->level->heart_empty_img->instances[0].enabled = FALSE;
-	if (cub3d->player.health == 2)
-		cub3d->level->heart_half_img->instances[0].enabled = TRUE;
-	if (cub3d->player.health == 1)
-		cub3d->level->heart_empty_img->instances[0].enabled = TRUE;
 }
 
 void	player_is_hit(cub3d_t *cub3d, int i)

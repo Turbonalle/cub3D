@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   memory_additional_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:46:09 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:29:26 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:44:57 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/cub3d.h"
-
-void	delete_heart(cub3d_t *cub3d)
-{
-	mlx_delete_texture(cub3d->level->heart.texture);
-	mlx_delete_texture(cub3d->level->heart_half.texture);
-	mlx_delete_texture(cub3d->level->heart_empty.texture);
-	mlx_delete_image(cub3d->mlx, cub3d->level->heart_img);
-	mlx_delete_image(cub3d->mlx, cub3d->level->heart_half_img);
-	mlx_delete_image(cub3d->mlx, cub3d->level->heart_empty_img);
-	cub3d->level->heart.texture = NULL;
-	cub3d->level->heart_half.texture = NULL;
-	cub3d->level->heart_empty.texture = NULL;
-	cub3d->level->heart_img = NULL;
-	cub3d->level->heart_half_img = NULL;
-	cub3d->level->heart_empty_img = NULL;
-}
 
 int	free_on_fail(cub3d_t *cub3d)
 {

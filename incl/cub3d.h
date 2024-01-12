@@ -427,6 +427,23 @@ void	see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
 // texture general TODO
 char	*create_file_path(int i, char *path);
 
+//---- NULLIFY -----------------------------------------------------------------
+
+void	nullify_everything(cub3d_t *cub3d);
+void	nullify_cub3d(cub3d_t *cub3d);
+void	nullify_minimap(minimap_t *minimap);
+void	nullify_start_menu(start_menu_t *menu);
+void	nullify_gameover_menu(gameover_menu_t *menu);
+void	nullify_pause_menu(pause_menu_t *menu);
+void	nullify_name_menu(name_menu_t *menu);
+void	nullify_leaderboard(leaderboard_t *board);
+void	nullify_level_menu(level_menu_t *menu);
+void	nullify_enemy_frames(cub3d_t *cub3d);
+void	nullify_gametimer(gametimer_t *timer);
+void	nullify_hearts(heart_t *hearts);
+void	nullify_png(png_t *png);
+void	nullify_texture(texture_t *texture);
+
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 
 // extra.c

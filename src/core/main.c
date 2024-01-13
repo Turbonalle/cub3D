@@ -11,7 +11,6 @@ void	free_already_allocated(cub3d_t *cub3d, int i)
 			printf("freeing BACKUP for level %d on malloc fail\n", i);
 			free_backup(cub3d->levels[i]);
 		}
-			
 	}
 	free(cub3d->levels);
 }
@@ -101,25 +100,6 @@ int	write_records(cub3d_t *cub3d, level_t *levels)
 	return (SUCCESS);
 }
 
-// int	check_ext(char *str)
-// {
-// 	int		len;
-// 	int		i;
-// 	char	*ext;
-
-// 	i = 0;
-// 	len = ft_strlen(str) - 1;
-// 	ext = "buc.";
-// 	while (ext[i])
-// 	{
-// 		if (str[len] != ext[i])
-// 			return (0);
-// 		len--;
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
 int	check_ext(char *str)
 {
 	char	*last_slash;
@@ -179,7 +159,6 @@ int	main(int ac, char **av)
 		return (!err("Failed to read records"));
 	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))
 		return (!free_half_done(&cub3d));
-	
 	if (!init_enemy_frames(&cub3d))
 	{
 		mlx_delete_texture(cub3d.leaderboard.title.texture);

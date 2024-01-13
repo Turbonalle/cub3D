@@ -20,25 +20,25 @@ void	left_mouse_button_press(cub3d_t *cub3d)
 		mouse_intro(cub3d);
 }
 
-void hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param)
+void	hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param)
 {
-	cub3d_t *cub3d;
+	cub3d_t	*cub3d;
 
 	cub3d = param;
-    (void)modifier;
+	(void)modifier;
 	if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 	{
 		cub3d->keys.mouse_left = TRUE;
 		left_mouse_button_press(cub3d);
 	}
-    else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)
+	else if (key == MLX_MOUSE_BUTTON_LEFT && action == MLX_RELEASE)
 	{
 		cub3d->on_minimap = FALSE;
 		cub3d->keys.mouse_left = FALSE;
 	}
-    else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
+	else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
 		cub3d->keys.mouse_right = TRUE;
-    else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_RELEASE)
+	else if (key == MLX_MOUSE_BUTTON_RIGHT && action == MLX_RELEASE)
 		cub3d->keys.mouse_right = FALSE;
 }
 

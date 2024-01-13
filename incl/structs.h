@@ -348,8 +348,6 @@ typedef struct pause_menu_s
 	box_t		box_fisheye[2];
 	box_t		box_mouse[2];
 	slider_t	sensitivity_slider;
-	mlx_image_t	*text_max;
-	mlx_image_t	*text_min;
 }			pause_menu_t;
 
 //---- START MENU --------------------------------------------------------------
@@ -446,14 +444,14 @@ typedef struct leaderboard_s
 	mlx_image_t	*text_level[LEVELS];
 }				leaderboard_t;
 
-typedef struct settings_menu_s
-{
-	mlx_image_t	*img;
-	mlx_image_t	*text_settings;
-	mlx_image_t	*text_e_difficulty;
-	mlx_image_t	*text_minimap_view;
-	int			background_color;
-}				settings_menu_t;
+// typedef struct settings_menu_s
+// {
+// 	mlx_image_t	*img;
+// 	mlx_image_t	*text_settings;
+// 	mlx_image_t	*text_e_difficulty;
+// 	mlx_image_t	*text_minimap_view;
+// 	int			background_color;
+// }				settings_menu_t;
 
 //---- NAME MENU ---------------------------------------------------------------
 
@@ -511,8 +509,6 @@ typedef struct name_menu_s
 	mlx_image_t	*img;
 	png_t		title_win;
 	png_t		title_top3;
-	mlx_image_t	*text_enter_name;
-	mlx_image_t	*text_title;
 	png_t		back;
 	png_t		back_hover;
 	png_t		timer;
@@ -702,7 +698,8 @@ enum state
 # define FLOOR2_PNG "./assets/textures/surfaces/floor_test2.png"	// DEBUG
 # define FLOOR3_PNG "./assets/textures/surfaces/floor_test3.png"	// DEBUG
 
-#define NUM_ENEMY_DIRECTIONS 6
+# define NUM_ENEMY_DIRECTIONS 6
+# define NUM_DOOR_TEXTURES 5
 
 enum enemy_direction
 {
@@ -717,7 +714,6 @@ enum enemy_direction
 typedef struct cub3d_s
 {
 	int				printed;
-	texture_t		floor;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	double			start_timestamp;
@@ -744,7 +740,7 @@ typedef struct cub3d_s
 	start_menu_t	start_menu;
 	level_menu_t	level_menu;
 	leaderboard_t	leaderboard;
-	settings_menu_t	settings_menu;
+	// settings_menu_t	settings_menu;
 	pause_menu_t	pause_menu;
 	name_menu_t		name_menu;
 	gameover_menu_t	gameover_menu;
@@ -763,15 +759,16 @@ typedef struct cub3d_s
 	mlx_texture_t	*frames_walking[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_WALKING];
 	mlx_texture_t	*distraction_texture;
 	mlx_texture_t	*distraction_thrown_texture;
+	shroom_t		*shroom;
 	int				curr_frame_index_walking;
 	int				prev_frame_index_walking;
 	int				curr_frame_index_idle;
 	int				prev_frame_index_idle;
 	double			prev_frame_update_timestamp;
 	int				speedrun;
+	texture_t		floor;
 	texture_t		stars[NUM_FRAMES_STARS];
-	texture_t		door[5];
-	shroom_t		*shroom;
+	texture_t		door[NUM_DOOR_TEXTURES];
 }					cub3d_t;
 
 #endif

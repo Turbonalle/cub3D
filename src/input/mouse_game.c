@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse_game.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/12 11:32:01 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/12 11:47:56 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 void	mouse_game(cub3d_t *cub3d)
@@ -39,7 +51,6 @@ void	mouse_intro(cub3d_t *cub3d)
 		if (!load_level(cub3d, cub3d->level))
 		{
 			printf("handle_intro_input: Failed to load level\n");
-			// TODO: add error message here, letting user know level failed to load. Or maybe just don't even allow this to happen by loading level before starting game, not sure
 			disable_intro(cub3d);
 			enable_start_menu(&cub3d->start_menu);
 			cub3d->state = STATE_START;

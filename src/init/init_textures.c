@@ -2,7 +2,7 @@
 
 void	free_textures_before_failed_old(texture_t *textures, int failed_index)
 {
-	int i;
+	int	i;
 
 	printf("DELETE TEXTURES and paths free_textures_before_failed\n");
 	i = 0;
@@ -16,31 +16,23 @@ void	free_textures_before_failed_old(texture_t *textures, int failed_index)
 		printf("Freed texture %d\n", i);
 		i++;
 	}
-	//free(textures[failed_index].path);
 }
 
 int	init_textures(cub3d_t *cub3d)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < 4)
+	while (i < 4)
 	{
 		cub3d->level->texture[i].texture = NULL;
 		i++;
 	}
 	i = 0;
-	while(i < 4)
+	while (i < 4)
 	{
 		printf("Loading texture %d, path: %s\n", i, cub3d->level->texture[i].path);
 		cub3d->level->texture[i].texture = mlx_load_png(cub3d->level->texture[i].path);
-		/* if (!cub3d->level->texture[i].texture)
-		{
-			cub3d->level->texture[i].texture = mlx_load_png(cub3d->level->texture[i].path);
-			printf("Texture[%d] pointer init_textures: %p\n", i, cub3d->level->texture[i].texture);
-		}
-		else
-			printf("Texture [%d] was already there\n", i); */
 		if (!cub3d->level->texture[i].texture)
 		{
 			printf("Failed to load texture %d\n", i);

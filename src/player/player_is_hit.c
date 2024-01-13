@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:41:13 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 14:41:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:20:02 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw_health(cub3d_t *cub3d)
 
 void	player_is_hit(cub3d_t *cub3d, int i)
 {
-	if (player_is_invulnerable(cub3d) || cub3d->player.is_dirty_cheater == 1)
+	if (cub3d->player.is_dirty_cheater == 1 || player_is_invulnerable(cub3d))
 	{
 		printf("Player is invulnerable!\n");
 		return ;

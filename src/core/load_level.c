@@ -27,7 +27,6 @@ int	set_z_for_key_groups(cub3d_t *cub3d, int starting_z)
 			cub3d->level->key_groups[i]
 				.img_key_icon->instances[0].z = starting_z;
 			starting_z++;
-			// if malloc fails at draw_key_count this will segfault
 			cub3d->level->key_groups[i]
 				.img_text_key_count->instances[0].z = starting_z;
 			starting_z++;
@@ -73,9 +72,9 @@ int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
 
 int	load_level(cub3d_t *cub3d, level_t *level)
 {
-	//TODO: handle init errors
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	level->map = ft_calloc(sizeof(char *), level->nodes + 1);
 	if (!level->map)
 		return (FAIL);
@@ -119,7 +118,6 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 		return (err("Failed to init doors or keys"));
 	}
 	set_z_of_all_images(cub3d);
-	//printf("after set_z_of_all_images\n");
 	enable_hearts(cub3d);
 	printf("LOAD after enable_hearts\n");
 	return (SUCCESS);

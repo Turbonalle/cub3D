@@ -68,6 +68,10 @@ void	adjust_hearts(cub3d_t *cub3d);
 void	create_time_string(char *time_str, int time);
 int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
 int		read_records(cub3d_t *cub3d);
+int		get_record_time(char *line, int *time);
+int		get_record_name(char *line, char **name);
+int		count_records(record_t *records);
+record_t	*new_record(int time, char *name);
 
 // load_level.c
 int		load_level(cub3d_t *cub3d, level_t *level);
@@ -302,6 +306,13 @@ void	handle_close_window(void *param);
 
 // handle_keys.c
 void	get_input(mlx_key_data_t keydata, void *param);
+void	handle_name_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_pause_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_start_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_level_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_leaderboard_input(mlx_key_data_t keydata, cub3d_t *cub3d);
+void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d);
 
 // handle_mouse.c
 void	hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param);
@@ -414,7 +425,7 @@ void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance);
 
 int		init_distractions(cub3d_t *cub3d);
 void	count_distractions(cub3d_t *cub3d);
-void 	draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
+void	draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
 
 void	eat(cub3d_t *cub3d, int i);
 void	spin(cub3d_t *cub3d, int i, double at_target);
@@ -424,8 +435,37 @@ int		wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check);
 void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key);
 void	see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
 
+dvector_t	set_new_pos(cub3d_t *cub3d, int i);
+int		check_each_other(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_first_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_second_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_third_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_fourth_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_fifth_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_sixth_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_seventh_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
+int		check_eighth_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_pos(cub3d_t *cub3d, int pos_y, int pos_x);
+
 // texture general TODO
 char	*create_file_path(int i, char *path);
+
+//---- NULLIFY -----------------------------------------------------------------
+
+void	nullify_everything(cub3d_t *cub3d);
+void	nullify_cub3d(cub3d_t *cub3d);
+void	nullify_minimap(minimap_t *minimap);
+void	nullify_start_menu(start_menu_t *menu);
+void	nullify_gameover_menu(gameover_menu_t *menu);
+void	nullify_pause_menu(pause_menu_t *menu);
+void	nullify_name_menu(name_menu_t *menu);
+void	nullify_leaderboard(leaderboard_t *board);
+void	nullify_level_menu(level_menu_t *menu);
+void	nullify_enemy_frames(cub3d_t *cub3d);
+void	nullify_gametimer(gametimer_t *timer);
+void	nullify_hearts(heart_t *hearts);
+void	nullify_png(png_t *png);
+void	nullify_texture(texture_t *texture);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

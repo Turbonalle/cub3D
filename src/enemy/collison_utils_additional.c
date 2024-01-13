@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_close.c                                     :+:      :+:    :+:   */
+/*   collison_utils_additional.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:08:43 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 11:49:31 by slampine         ###   ########.fr       */
+/*   Created: 2024/01/12 10:39:24 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/12 10:39:25 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	handle_close_window(void *param)
+int	check_pos(cub3d_t *cub3d, int pos_y, int pos_x)
 {
-	mlx_t	*mlx;
-
-	mlx = param;
-	mlx_close_window(mlx);
+	if ((cub3d->level->map[pos_y][pos_x] == WALL
+		|| is_locked_door(cub3d, pos_y, pos_x) == TRUE))
+		return (1);
+	return (0);
 }

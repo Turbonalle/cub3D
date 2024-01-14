@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:17 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:28:25 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/14 20:16:38 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_texture(level_t *level, int element, char **info)
 	if (!level->texture[element].path)
 		return (err("Failed to allocate memory"));
 	level->texture[element].texture = mlx_load_png(level->texture[element].path);
-	printf("Texture[%d] pointer get_texture: %p\n", element, level->texture[element].texture);
+	//printf("Texture[%d] pointer get_texture: %p\n", element, level->texture[element].texture);
 	if (!level->texture[element].texture)
 		return (err("Failed to load texture"));
 	return (SUCCESS);

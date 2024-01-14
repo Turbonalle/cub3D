@@ -51,8 +51,6 @@ int	read_all_levels(cub3d_t *cub3d)
 		if (fd < 0)
 			return (free(full_path), free_already_allocated(cub3d, i),
 				err("Failed to open level file"));
-		printf("Reading level %d\n", i);
-		printf("READING %dth CUB FILE\n", i);
 		if (!read_cub_file(&cub3d->levels[i], full_path))
 			return (free(full_path), free_already_allocated(cub3d, i),
 				err("Failed to read level file"));

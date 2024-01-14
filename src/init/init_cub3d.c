@@ -149,6 +149,7 @@ void	count_distractions(cub3d_t *cub3d)
 
 	i = 0;
 	cub3d->level->num_distractions = 0;
+	//cub3d->level->num_poison = 0;
 	while (cub3d->level->map[i])
 	{
 		j = 0;
@@ -156,6 +157,8 @@ void	count_distractions(cub3d_t *cub3d)
 		{
 			if (cub3d->level->map[i][j] == 'm' || cub3d->level->map[i][j] == 'r')
 				cub3d->level->num_distractions++;
+			/* else if (cub3d->level->map[i][j] == 'p')
+				cub3d->level->num_poison++; */
 			j++;
 		}
 		i++;

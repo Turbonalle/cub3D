@@ -241,10 +241,10 @@ static void	set_positions(level_menu_t *menu, vector_t *back_button_pos)
 		menu->minilevels[i].size = size;
 		menu->minilevels[i].pos.x = back_button_pos->x + (i % columns) * (size + gap);
 		menu->minilevels[i].pos.y = menu->img->height * 0.32 + (i / columns) * (size + gap);
-		printf("minilevel %d pos: %d, %d\n", i, menu->minilevels[i].pos.x, menu->minilevels[i].pos.y);
+		//printf("minilevel %d pos: %d, %d\n", i, menu->minilevels[i].pos.x, menu->minilevels[i].pos.y);
 		menu->minilevels[i].number.pos.x = menu->minilevels[i].pos.x + number_square_size / 2 - menu->minilevels[i].number.img->width / 2;
 		menu->minilevels[i].number.pos.y = menu->minilevels[i].pos.y + number_square_size / 2 - menu->minilevels[i].number.img->height / 2;
-		printf("minilevel %d num pos: %d, %d\n", i, menu->minilevels[i].number.pos.x, menu->minilevels[i].number.pos.y);
+		//printf("minilevel %d num pos: %d, %d\n", i, menu->minilevels[i].number.pos.x, menu->minilevels[i].number.pos.y);
 	}
 }
 

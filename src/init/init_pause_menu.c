@@ -58,14 +58,11 @@ void	init_checkbox_states(pause_menu_t *menu)
 int	init_sensitivity_slider(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	// set slider
-	// menu->sensitivity_slider.pos.x = menu->pos_col_box_1 - menu->menu_pos.x;
-	// menu->sensitivity_slider.pos.y = menu->pos_row_4 - menu->menu_pos.y + menu->box_fps[0].size * 0.5 - SLIDER_LINE_WIDTH * 0.5;
 	menu->sensitivity_slider.pos.x = menu->pos_col_box_1;
 	menu->sensitivity_slider.pos.y = menu->pos_row_4 + menu->box_fps[0].size * 0.5 - SLIDER_LINE_WIDTH * 0.5;
 
 	menu->sensitivity_slider.length = menu->pos_col_box_4 - menu->pos_col_box_1 + menu->box_fps[0].size;
 	menu->sensitivity_slider.value = MOUSE_SENSITIVITY;
-	//printf("init_sensitivity_slider: menu->sensitivity_slider.value: %f\n", menu->sensitivity_slider.value);
 
 	// set slider marker
 	menu->sensitivity_slider.on_marker = FALSE;
@@ -74,22 +71,13 @@ int	init_sensitivity_slider(cub3d_t *cub3d, pause_menu_t *menu)
 
 	// set slider marker img
 	menu->sensitivity_slider.marker = mlx_new_image(cub3d->mlx, SLIDER_MARKER_WIDTH, SLIDER_MARKER_HEIGHT);
-	//printf("initialised marker\n");
 	if (!menu->sensitivity_slider.marker)
 		return (err("Failed to create image"));
 	menu->sensitivity_slider.marker_pos.x = get_marker_pos(cub3d);
-	//printf("marker pos x after get_marker_pos: %d\n", menu->sensitivity_slider.marker_pos.x);
 	menu->sensitivity_slider.marker_pos.y = menu->sensitivity_slider.pos.y + SLIDER_LINE_WIDTH / 2 - SLIDER_MARKER_HEIGHT / 2;
-	//printf("marker pos y after get_marker_pos: %d\n", menu->sensitivity_slider.marker_pos.y);
-	//printf("menu->sensitivity_slider.pos.x: %d\n", menu->sensitivity_slider.pos.x);
-	//printf("menu->menu_pos.x: %d\n", menu->menu_pos.x);
-	//printf("adding %d to pos.x\n", menu->sensitivity_slider.pos.x - menu->menu_pos.x);
 	//menu->sensitivity_slider.marker_pos.x += menu->sensitivity_slider.pos.x - menu->menu_pos.x;
-	//printf("marker pos x: %d\n", menu->sensitivity_slider.marker_pos.x);
-	//printf("marker pos y: %d\n", menu->sensitivity_slider.marker_pos.y);
 	if (mlx_image_to_window(cub3d->mlx, menu->sensitivity_slider.marker, menu->sensitivity_slider.marker_pos.x, menu->sensitivity_slider.marker_pos.y) < 0)
 		return (err("Failed to put image to window"));
-	//printf("put marker to window\n");
 	return (SUCCESS);
 }
 

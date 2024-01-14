@@ -12,7 +12,7 @@
 # define HEIGHT 720
 
 # define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd neswijkl Gm hro"
-# define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswijklGmhro"
+# define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswijklGmhrop" // TODO: check if p is done
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
 # define ENEMIES "neswijkl"

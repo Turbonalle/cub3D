@@ -613,6 +613,7 @@ typedef struct distraction_s
 	vector_t	pos_screen;
 	double		dist_to_player;
 	mlx_image_t	*img_distraction;
+	//int			poison;
 }			distraction_t;
 
 typedef struct level_s
@@ -638,6 +639,8 @@ typedef struct level_s
 	int				num_distractions;
 	dvector_t		distraction;
 	double			distraction_amount;
+	//distraction_t	*poisons;
+	//int				num_poison;
 	record_t		*records;
 	mlx_image_t		*heart_img;
 	mlx_image_t		*heart_half_img;

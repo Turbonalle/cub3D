@@ -696,10 +696,9 @@ int	draw_all_entities_in_order(cub3d_t *cub3d)
 
 int	draw_game_entities(cub3d_t *cub3d)
 {
-	int				i;
-	
-	bool			animation_frame_change;
-	bool			fps_frame_change;
+	int	i;
+	int	animation_frame_change;
+	int	fps_frame_change;
 
 	animation_frame_change = FALSE;
 	fps_frame_change = FALSE;

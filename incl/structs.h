@@ -49,7 +49,7 @@ typedef struct player_s
 	dvector_t	pos;
 	dvector_t	new_pos;
 	dvector_t	dir;
-	bool		thrown;
+	int		thrown;
 	double		angle;
 	double		movement_angle;
 	double		hit_timestamp;
@@ -606,9 +606,9 @@ typedef struct record_s
 
 typedef struct distraction_s
 {
-	bool		collected;
-	bool		visible;
-	bool		thrown;
+	int			collected;
+	int			visible;
+	int			thrown;
 	dvector_t	pos;
 	vector_t	pos_screen;
 	double		dist_to_player;

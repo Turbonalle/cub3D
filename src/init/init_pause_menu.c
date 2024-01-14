@@ -160,7 +160,6 @@ static int put_images_to_window(mlx_t *mlx, pause_menu_t *menu)
 
 void	init_settings(settings_t *settings)
 {
-	printf("INIT_SETTINGS\n");
 	settings->e_speed = 0;
 	settings->e_behaviour = 0;
 	settings->minimap_view = TRUE; // Is this even used?
@@ -168,12 +167,10 @@ void	init_settings(settings_t *settings)
 	settings->fisheye = FALSE;
 	settings->mouse = TRUE;
 	settings->mouse_sensitivity = MOUSE_SENSITIVITY;
-	printf("mouse sensitivity: %f\n", settings->mouse_sensitivity);
 }
 
 int init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 {
-	printf("INIT_PAUSE_MENU\n");
 	if (!load_png(menu))
 		return (0);
 	if (!init_images(cub3d->mlx, menu))
@@ -197,7 +194,6 @@ int init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 		return (FAIL);
 	}
 	update_settings(cub3d, menu);
-	//init_settings(&cub3d->settings);
 	draw_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR, PAUSE_MENU_TRANSPARENCY));
 	draw_background(menu->menu, MENU_BACKGROUND_COLOR);
 	draw_menu_border(menu->menu);

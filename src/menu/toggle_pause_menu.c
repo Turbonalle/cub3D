@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:49:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/14 19:53:06 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/14 20:01:34 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 
 int	get_marker_pos(cub3d_t *cub3d)
 {
-	printf("get_marker_pos\n");
-	printf("cub3d->pause_menu.sensitivity_slider.marker_min_pos %d\n", cub3d->pause_menu.sensitivity_slider.marker_min_pos);
-	printf("cub3d->pause_menu.sensitivity_slider.marker_max_pos %d\n", cub3d->pause_menu.sensitivity_slider.marker_max_pos);
-	printf("MOUSE_MIN_SENSITIVITY %f\n", MOUSE_MIN_SENSITIVITY);
-	printf("MOUSE_MAX_SENSITIVITY %f\n", MOUSE_MAX_SENSITIVITY);
-	printf("mouse sensitivity %f\n", cub3d->settings.mouse_sensitivity);
-	printf("lerp %f\n", lerp(cub3d->pause_menu.sensitivity_slider.marker_min_pos,
-			cub3d->pause_menu.sensitivity_slider.marker_max_pos,
-			MOUSE_MIN_SENSITIVITY,
-			MOUSE_MAX_SENSITIVITY,
-			cub3d->settings.mouse_sensitivity));
 	return (lerp(cub3d->pause_menu.sensitivity_slider.marker_min_pos,
 			cub3d->pause_menu.sensitivity_slider.marker_max_pos,
 			MOUSE_MIN_SENSITIVITY,
@@ -34,8 +23,6 @@ int	get_marker_pos(cub3d_t *cub3d)
 
 double	get_sensitivity(cub3d_t *cub3d)
 {
-	printf("get_sensitivity\n");
-	printf("cub3d->pause_menu.sensitivity_slider.marker->instances[0].x %d\n", cub3d->pause_menu.sensitivity_slider.marker->instances[0].x);
 	return (lerp(MOUSE_MIN_SENSITIVITY,
 			MOUSE_MAX_SENSITIVITY,
 			(double)cub3d->pause_menu.sensitivity_slider.marker_min_pos,

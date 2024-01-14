@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:46:23 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/14 19:45:25 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/14 20:02:51 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	update_settings(cub3d_t *cub3d, pause_menu_t *menu)
 		if (menu->box_mouse[i].state == TRUE)
 			cub3d->settings.mouse = menu->box_mouse[i].value;
 	}
-	printf("UPDATE mouse settings before update: %f\n", cub3d->settings.mouse_sensitivity);
 	cub3d->settings.mouse_sensitivity = get_sensitivity(cub3d);
-	printf("UPDATE mouse settings after update: %f\n", cub3d->settings.mouse_sensitivity);
 }
 
 void	update_fps_boxes(pause_menu_t *menu, int n)
@@ -83,8 +81,6 @@ void	update_mouse_boxes(pause_menu_t *menu, int n)
 void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	int	i;
-
-	printf("update_pause_settings\n");
 
 	i = -1;
 	while (++i < 4)

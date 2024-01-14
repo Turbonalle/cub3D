@@ -184,6 +184,8 @@ static void	set_init_stats(cub3d_t *cub3d)
 	cub3d->player.hit_timestamp = 0;
 }
 
+
+
 int	init_cub3d(cub3d_t *cub3d)
 {
 	int	i;

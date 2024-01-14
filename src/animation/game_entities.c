@@ -631,14 +631,74 @@ void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_n
 	}
 }
 
-int	draw_game_entities(cub3d_t *cub3d)
+int	draw_all_enemies(cub3d_t *cub3d, t_enemy **enemies)
 {
-	int				i;
+	int	i;
+
+	i = 0;
+	while (enemies[i])
+	{
+		draw_enemy_frame(cub3d, enemies[i]);
+		i++;
+	}
+	//TODO: return fails too
+	return(SUCCESS);
+}
+
+int draw_all_distractions(cub3d_t *cub3d, distraction_t **distractions)
+{
+	int	i;
+
+	i = 0;
+	while (distractions[i])
+	{
+		draw_distraction_frame(cub3d, distractions[i]);
+		i++;
+	}
+	//TODO: return fails too
+	return(SUCCESS);
+}
+
+int draw_all_keys(cub3d_t *cub3d)
+{
+	int	i;
+
+	i = 0;
+	while (i < NUM_DOORS_MAX)
+	{
+		if (cub3d->level->door_groups[i].num_keys_left > 0)
+			draw_keys(cub3d, i, cub3d->level->key_groups[i].curr_frame_index);
+		i++;
+	}
+	//TODO: return fails too
+	return(SUCCESS);
+}
+
+int	draw_all_entities_in_order(cub3d_t *cub3d)
+{
 	key_node_t		**ordered_keys;
 	t_enemy			**ordered_enemies;
 	distraction_t	**ordered_distractions;
-	bool			animation_frame_change;
-	bool			fps_frame_change;
+
+	ordered_keys = create_array_of_keys_ordered_by_dist(cub3d);
+	ordered_enemies = create_array_of_enemies_ordered_by_dist(cub3d);
+	ordered_distractions = create_array_of_distractions_ordered_by_dist(cub3d);
+	assign_z_depth_ordered_by_distance(cub3d, ordered_enemies, ordered_keys, ordered_distractions);
+	draw_all_enemies(cub3d, ordered_enemies);
+	draw_all_distractions(cub3d, ordered_distractions);
+	draw_all_keys(cub3d);
+	free(ordered_enemies);
+	free(ordered_keys);
+	free(ordered_distractions);
+	//TODO: return fails too
+	return(SUCCESS);
+}
+
+int	draw_game_entities(cub3d_t *cub3d)
+{
+	int	i;
+	int	animation_frame_change;
+	int	fps_frame_change;
 
 	animation_frame_change = FALSE;
 	fps_frame_change = FALSE;
@@ -670,32 +730,7 @@ int	draw_game_entities(cub3d_t *cub3d)
 	// draw everything if update is needed
 	if (animation_frame_change || fps_frame_change)
 	{
-		ordered_keys = create_array_of_keys_ordered_by_dist(cub3d);
-		ordered_enemies = create_array_of_enemies_ordered_by_dist(cub3d);
-		ordered_distractions = create_array_of_distractions_ordered_by_dist(cub3d);
-		assign_z_depth_ordered_by_distance(cub3d, ordered_enemies, ordered_keys, ordered_distractions);
-		i = 0;
-		while (ordered_enemies[i])
-		{
-			draw_enemy_frame(cub3d, ordered_enemies[i]);
-			i++;
-		}
-		i = 0;
-		while (ordered_distractions[i])
-		{
-			draw_distraction_frame(cub3d, ordered_distractions[i]);
-			i++;
-		}
-		i = 0;
-		while (i < NUM_DOORS_MAX)
-		{
-			if (cub3d->level->door_groups[i].num_keys_left > 0)
-				draw_keys(cub3d, i, cub3d->level->key_groups[i].curr_frame_index);
-			i++;
-		}
-		free(ordered_enemies);
-		free(ordered_keys);
-		free(ordered_distractions);
+		draw_all_entities_in_order(cub3d);
 	}
 
 	// update previous frames in the end

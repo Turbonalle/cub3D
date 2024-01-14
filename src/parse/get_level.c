@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:42:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:31:04 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/14 16:47:35 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int	read_cub_file(level_t *level, char *map_path)
 {
 	int	fd;
 
-	read_map(level, map_path);
+	if (!read_map(level, map_path))
+		return (FAIL);
 	fd = 0;
 	while (level->map[fd])
 		fd++;

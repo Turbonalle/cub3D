@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:26:24 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:47:56 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/14 19:23:17 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	pause_menu_helper(cub3d_t *cub3d, pause_menu_t *menu)
 		return (err("Failed to create image"));
 	menu->sensitivity_slider.marker = mlx_new_image(cub3d->mlx,
 			SLIDER_MARKER_WIDTH, SLIDER_MARKER_HEIGHT);
+	printf("put market to window in pause_menu_helper\n");
 	if (!menu->sensitivity_slider.marker)
 		return (err("Failed to create image"));
 	return (SUCCESS);

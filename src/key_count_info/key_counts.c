@@ -1,7 +1,5 @@
 #include "../incl/cub3d.h"
 
-// TODO: generic frames-to-image-array 
-
 void	draw_door_open(cub3d_t *cub3d, int index)
 {
 	mlx_delete_image(cub3d->mlx, cub3d->level->key_groups[index].img_text_key_count);
@@ -13,6 +11,7 @@ void	draw_door_open(cub3d_t *cub3d, int index)
 		cub3d->level->key_groups[index].key_icon_coords.y + cub3d->mlx->height * 0.01
 	);
 }
+
 int	draw_key_count(cub3d_t *cub3d, int index)
 {
 	char	*text_collected;

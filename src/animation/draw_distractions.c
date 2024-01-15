@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:28 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 21:28:15 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:35:19 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	scale_distraction(cub3d_t *cub3d, distraction_t *dist,
 {
 	uvector_t	src;
 	uvector_t	res;
-	int			ray_i;
+	int			ray;
 
 	dist->img_distraction->instances[0].enabled = TRUE;
 	empty_image(dist->img_distraction);
@@ -36,13 +36,13 @@ static void	scale_distraction(cub3d_t *cub3d, distraction_t *dist,
 		res.col = 0;
 		if (res.row < dist->img_distraction->height)
 		{
-			while (res.col < texture->width * factor)
+			while (res.col++ < texture->width * factor)
 			{
-				if (res.col++ < dist->img_distraction->width)
+				if (res.col < dist->img_distraction->width)
 				{
 					set_src_coordinates(&src, res, factor, texture);
-					ray_i = get_ray_i(dist->pos_screen.x, texture, factor, res);
-					if (column_visible(cub3d, dist->dist_to_player, ray_i))
+					ray = get_ray_i(dist->pos_screen.x, texture, factor, res);
+					if (column_visible(cub3d, dist->dist_to_player, ray))
 						copy_pixel(dist->img_distraction, res, texture, src);
 				}
 			}

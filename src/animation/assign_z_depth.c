@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:22 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 12:52:28 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:12:39 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	largest(double i, double j, double k)
 	return (0);
 }
 
-int	add_all_enemies(t_enemy **enemies, int index, int z)
+/* int	add_all_enemies(t_enemy **enemies, int index, int z)
 {
 	int	i;
 
@@ -51,9 +51,9 @@ int	add_all_enemies(t_enemy **enemies, int index, int z)
 		i++;
 	}
 	return (SUCCESS);
-}
+} */
 
-void assign_z_depth_by_distance_case_all_3_present(cub3d_t *cub3d,
+void assign_z_depth_by_distance_case_all_3_present(
 	t_enemy **enemies, key_node_t **keys, distraction_t **distractions,
 	int *i, int *j, int *k, int z)
 {
@@ -96,7 +96,7 @@ void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies,
 			{
 				if (distractions[k])
 				{
-					assign_z_depth_by_distance_case_all_3_present(cub3d,
+					assign_z_depth_by_distance_case_all_3_present(
 						enemies, keys, distractions, &i, &j, &k, z);
 				}
 				else

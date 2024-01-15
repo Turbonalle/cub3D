@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_keys.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/15 12:02:35 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/15 12:12:04 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-static void scale_key(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *src, double factor)
+static void	scale_key(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *src, double factor)
 {
 	uint32_t	row_src;
 	uint32_t	col_src;
@@ -42,8 +54,8 @@ static void scale_key(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *src, doubl
 
 static void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 {
-	key_node_t  *tmp;
-	double scale_factor;
+	key_node_t	*tmp;
+	double		scale_factor;
 
 	tmp = cub3d->level->key_groups[group_index].keys;
 	while (tmp)
@@ -51,11 +63,13 @@ static void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 		if (tmp->collected == FALSE && tmp->visible == TRUE)
 		{
 			tmp->img_curr_frame->instances[0].enabled = TRUE;
-			scale_factor = calculate_scale_factor(tmp->dist_to_player, KEY_NORMAL_SCALE_DISTANCE);
+			scale_factor = calculate_scale_factor(tmp->dist_to_player,
+					KEY_NORMAL_SCALE_DISTANCE);
 			scale_key(
 				cub3d,
 				tmp,
-				cub3d->level->key_groups[group_index].textures_frames[curr_frame_num],
+				cub3d->level->key_groups[group_index]
+				.textures_frames[curr_frame_num],
 				scale_factor);
 		}
 		else if (tmp->visible == FALSE || tmp->collected == TRUE)
@@ -66,7 +80,7 @@ static void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 	}
 }
 
-void    draw_all_keys(cub3d_t *cub3d)
+void	draw_all_keys(cub3d_t *cub3d)
 {
 	int	i;
 

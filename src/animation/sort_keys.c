@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_keys.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/15 12:02:53 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/15 12:03:58 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 static int	count_not_collected_visible_keys(key_node_t	*keys)
@@ -23,7 +35,8 @@ static int	count_all_not_collected_visible_keys(cub3d_t *cub3d)
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{
-		count += count_not_collected_visible_keys(cub3d->level->key_groups[i].keys);
+		count += count_not_collected_visible_keys(
+				cub3d->level->key_groups[i].keys);
 		i++;
 	}
 	return (count);
@@ -53,7 +66,7 @@ static void	sort_keys_by_dist_to_player(key_node_t **keys)
 	}
 }
 
-static void fill_keys_array(cub3d_t *cub3d, key_node_t **keys)
+static void	fill_keys_array(cub3d_t *cub3d, key_node_t **keys)
 {
 	int			i;
 	int			j;
@@ -84,8 +97,8 @@ key_node_t	**create_array_of_keys_ordered_by_dist(cub3d_t *cub3d)
 
 	count = count_all_not_collected_visible_keys(cub3d);
 	keys = malloc(sizeof(key_node_t *) * (count + 1));
-    if (!keys)
-        return(NULL);
+	if (!keys)
+		return (NULL);
 	keys[count] = NULL;
 	fill_keys_array(cub3d, keys);
 	sort_keys_by_dist_to_player(keys);

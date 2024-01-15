@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_distractions.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/15 12:02:46 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/15 12:08:50 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-static int count_visible_distractions(cub3d_t *cub3d)
+static int	count_visible_distractions(cub3d_t *cub3d)
 {
 	int	count;
 	int	i;
@@ -16,7 +28,8 @@ static int count_visible_distractions(cub3d_t *cub3d)
 	return (count);
 }
 
-static void	fill_visible_distractions_array(cub3d_t *cub3d, distraction_t **distractions)
+static void	fill_visible_distractions_array(cub3d_t *cub3d,
+	distraction_t **distractions)
 {
 	int	i;
 	int	j;
@@ -32,17 +45,18 @@ static void	fill_visible_distractions_array(cub3d_t *cub3d, distraction_t **dist
 		}
 		else
 		{
-			cub3d->level->distractions[i].img_distraction->instances[0].enabled = FALSE;
+			cub3d->level->distractions[i]
+				.img_distraction->instances[0].enabled = FALSE;
 		}
 		i++;
 	}
 }
 
-static void sort_distractions_by_dist_to_player(distraction_t **distractions)
+static void	sort_distractions_by_dist_to_player(distraction_t **distractions)
 {
-	int			    i;
-	int			    j;
-	distraction_t   *tmp;
+	int				i;
+	int				j;
+	distraction_t	*tmp;
 
 	i = 0;
 	while (distractions[i])
@@ -50,7 +64,8 @@ static void sort_distractions_by_dist_to_player(distraction_t **distractions)
 		j = i + 1;
 		while (distractions[j])
 		{
-			if (distractions[i]->dist_to_player < distractions[j]->dist_to_player)
+			if (distractions[i]->dist_to_player
+				< distractions[j]->dist_to_player)
 			{
 				tmp = distractions[i];
 				distractions[i] = distractions[j];
@@ -62,15 +77,15 @@ static void sort_distractions_by_dist_to_player(distraction_t **distractions)
 	}
 }
 
-distraction_t **create_array_of_distractions_ordered_by_dist(cub3d_t *cub3d)
+distraction_t	**create_array_of_distractions_ordered_by_dist(cub3d_t *cub3d)
 {
 	distraction_t	**distractions;
 	int				count;
 
 	count = count_visible_distractions(cub3d);
 	distractions = malloc(sizeof(distraction_t *) * (count + 1));
-    if (!distractions)
-        return (NULL);
+	if (!distractions)
+		return (NULL);
 	distractions[count] = NULL;
 	fill_visible_distractions_array(cub3d, distractions);
 	sort_distractions_by_dist_to_player(distractions);

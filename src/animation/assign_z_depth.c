@@ -6,282 +6,175 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:22 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 13:12:39 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:53:40 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	largest(double i, double j, double k)
+static int	largest(three_vector_t *indexes)
 {
-	if (i > j)
+	if (indexes->e > indexes->k)
 	{
-		if (i > k)
+		if (indexes->e > indexes->d)
 			return (1);
-		if (k > i)
+		if (indexes->d > indexes->e)
 			return (3);
 	}
-	if (i > k)
+	if (indexes->e > indexes->d)
 	{
-		if (j > i)
+		if (indexes->k > indexes->e)
 			return (2);
-		if (i > j)
+		if (indexes->e > indexes->k)
 			return (1);
 	}
-	if (j > k)
+	if (indexes->k > indexes->d)
 	{
-		if (i > j)
+		if (indexes->e > indexes->k)
 			return (1);
-		if (j > i)
+		if (indexes->k > indexes->e)
 			return (2);
 	}
 	return (0);
 }
 
-/* int	add_all_enemies(t_enemy **enemies, int index, int z)
+void	add_all_enemies(t_enemy **enemies, three_vector_t *indexes)
 {
-	int	i;
-
-	i = 0;
-	while (i < cub3d->num_enemies)
+	while (enemies[indexes->e])
 	{
-		if (add_enemy(cub3d, &cub3d->enemy[i]) == FAIL)
-			return (FAIL);
-		enemies[i] = &cub3d->enemy[i];
-		i++;
+		enemies[indexes->e]->img_curr_frame->instances[0].z = indexes->z;
+		indexes->e++;
+		indexes->z++;
 	}
-	return (SUCCESS);
-} */
+}
 
-void assign_z_depth_by_distance_case_all_3_present(
+void	add_all_distractions(distraction_t **distractions,
+	three_vector_t *indexes)
+{
+	while (distractions[indexes->d])
+	{
+		distractions[indexes->d]->img_distraction->instances[0].z = indexes->z;
+		indexes->d++;
+		indexes->z++;
+	}
+}
+
+void	add_all_keys(key_node_t **keys, three_vector_t *indexes)
+{
+	while (keys[indexes->k])
+	{
+		keys[indexes->k]->img_curr_frame->instances[0].z = indexes->z;
+		indexes->k++;
+		indexes->z++;
+	}
+}
+
+void	case_all_3(
 	t_enemy **enemies, key_node_t **keys, distraction_t **distractions,
-	int *i, int *j, int *k, int z)
+	three_vector_t *indexes)
 {
-	if (largest(enemies[*i]->dist_to_player, keys[*j]->dist_to_player, distractions[*k]->dist_to_player) == 1)
+	if (largest(enemies[indexes->i]->dist_to_player,
+			keys[indexes->j]->dist_to_player,
+			distractions[indexes->k]->dist_to_player) == 1)
 	{
-		enemies[*i]->img_curr_frame->instances->z = z;
-		(*i)++;
+		enemies[indexes->i]->img_curr_frame->instances[0].z = indexes->z;
+		indexes->i++;
 	}
-	else if (largest(enemies[*i]->dist_to_player, keys[*j]->dist_to_player, distractions[*k]->dist_to_player) == 2)
+	else if (largest(enemies[indexes->i]->dist_to_player,
+			keys[indexes->j]->dist_to_player,
+			distractions[indexes->k]->dist_to_player) == 2)
 	{
-		keys[*j]->img_curr_frame->instances->z = z;
-		(*j)++;
+		keys[indexes->j]->img_curr_frame->instances[0].z = indexes->z;
+		indexes->j++;
 	}
 	else
 	{
-		distractions[*k]->img_distraction->instances->z = z;
-		(*k)++;
+		distractions[indexes->k]->img_distraction->instances[0].z = indexes->z;
+		indexes->k++;
 	}
 }
 
-void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies,
-	key_node_t **keys, distraction_t **distractions)
+void	case_without_keys(t_enemy **enemies, distraction_t **distractions,
+	three_vector_t *indexes)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	z;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	// Start from z position of the main image
-	z = cub3d->img->instances[0].z;
-	while (enemies[i] || keys[j] || distractions[k])
+	if (enemies[indexes->i]->dist_to_player
+		> distractions[indexes->k]->dist_to_player)
 	{
-		z++;
-		if (enemies[i])
-		{
-			if (keys[j])
-			{
-				if (distractions[k])
-				{
-					assign_z_depth_by_distance_case_all_3_present(
-						enemies, keys, distractions, &i, &j, &k, z);
-				}
-				else
-				{
-					if (enemies[i]->dist_to_player > keys[j]->dist_to_player)
-					{
-						enemies[i]->img_curr_frame->instances->z = z;
-						i++;
-					}
-					else
-					{
-						keys[j]->img_curr_frame->instances->z = z;
-						j++;
-					}
-				}
-			}
-			else if (distractions[k])
-			{
-				if (enemies[i]->dist_to_player > distractions[k]->dist_to_player)
-				{
-					enemies[i]->img_curr_frame->instances->z = z;
-					i++;
-				}
-				else
-				{
-					distractions[k]->img_distraction->instances->z = z;
-					k++;
-				}
-			}
-			else
-			{
-				while (enemies[i])
-				{
-					enemies[i]->img_curr_frame->instances->z = z;
-					i++;
-					z++;
-				}
-			}
-		}
-		else if (keys[j])
-		{
-			if (distractions[k])
-			{
-				if (keys[j]->dist_to_player > distractions[k]->dist_to_player)
-				{
-					keys[j]->img_curr_frame->instances->z = z;
-					j++;
-				}
-				else
-				{
-					distractions[k]->img_distraction->instances->z = z;
-					k++;
-				}
-			}
-			else
-			{
-				while (keys[j])
-				{
-					keys[j]->img_curr_frame->instances->z = z;
-					z++;
-					j++;
-				}
-			}
-		}
-		else
-		{
-			while (distractions[k])
-			{
-				distractions[k]->img_distraction->instances->z = z;
-				k++;
-				z++;
-			}
-		}
+		enemies[indexes->i]->img_curr_frame->instances[0].z = indexes->z;
+		indexes->i++;
+	}
+	else
+	{
+		distractions[indexes->k]->img_distraction->instances[0].z = indexes->z;
+		indexes->k++;
 	}
 }
 
+void	case_without_distractions(t_enemy **enemies, key_node_t **keys,
+	three_vector_t *indexes)
+{
+	if (enemies[indexes->i]->dist_to_player > keys[indexes->j]->dist_to_player)
+	{
+		enemies[indexes->i]->img_curr_frame->instances[0].z = indexes->z;
+		indexes->i++;
+	}
+	else
+	{
+		keys[indexes->j]->img_curr_frame->instances[0].z = indexes->z;
+		indexes->j++;
+	}
+}
 
-/* void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies,
+void	case_without_enemies(key_node_t **keys,
+	distraction_t **distractions, three_vector_t *indexes)
+{
+	if (keys[indexes->j]->dist_to_player
+		> distractions[indexes->k]->dist_to_player)
+	{
+		keys[indexes->j]->img_curr_frame->instances[0].z = indexes->z;
+		indexes->j++;
+	}
+	else
+	{
+		distractions[indexes->k]->img_distraction->instances[0].z = indexes->z;
+		indexes->k++;
+	}
+}
+
+static void	init_indexes_and_z(cub3d_t *cub3d, three_vector_t *indexes)
+{
+	indexes->e = 0;
+	indexes->k = 0;
+	indexes->d = 0;
+	indexes->z = cub3d->img->instances[0].z;
+}
+
+void	assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies,
 	key_node_t **keys, distraction_t **distractions)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	z;
+	four_vector_t	indexes;
 
-	i = 0;
-	j = 0;
-	k = 0;
-	// Start from z position of the main image
-	z = cub3d->img->instances[0].z;
-	while (enemies[i] || keys[j] || distractions[k])
+	init_indexes_and_z(&indexes);
+	while (enemies[indexes.e] || keys[indexes.k] || distractions[indexes.d])
 	{
 		z++;
-		if (enemies[i])
-		{
-			if (keys[j])
-			{
-				if (distractions[k])
-				{
-					if (largest(enemies[i]->dist_to_player, keys[j]->dist_to_player, distractions[k]->dist_to_player) == 1)
-					{
-						enemies[i]->img_curr_frame->instances->z = z;
-						i++;
-					}
-					else if (largest(enemies[i]->dist_to_player, keys[j]->dist_to_player, distractions[k]->dist_to_player) == 2)
-					{
-						keys[j]->img_curr_frame->instances->z = z;
-						j++;
-					}
-					else
-					{
-						distractions[k]->img_distraction->instances->z = z;
-						k++;
-					}
-				}
+		if (enemies[indexes.e])
+			if (keys[indexes.k])
+				if (distractions[indexes.d])
+					case_all_3(
+						enemies, keys, distractions, &indexes);
 				else
-				{
-					if (enemies[i]->dist_to_player > keys[j]->dist_to_player)
-					{
-						enemies[i]->img_curr_frame->instances->z = z;
-						i++;
-					}
-					else
-					{
-						keys[j]->img_curr_frame->instances->z = z;
-						j++;
-					}
-				}
-			}
-			else if (distractions[k])
-			{
-				if (enemies[i]->dist_to_player > distractions[k]->dist_to_player)
-				{
-					enemies[i]->img_curr_frame->instances->z = z;
-					i++;
-				}
-				else
-				{
-					distractions[k]->img_distraction->instances->z = z;
-					k++;
-				}
-			}
+					case_without_distractions(enemies, keys, &indexes);
+			else if (distractions[indexes.d])
+				case_without_keys(enemies, distractions, &indexes);
 			else
-			{
-				while (enemies[i])
-				{
-					enemies[i]->img_curr_frame->instances->z = z;
-					i++;
-					z++;
-				}
-			}
-		}
-		else if (keys[j])
-		{
-			if (distractions[k])
-			{
-				if (keys[j]->dist_to_player > distractions[k]->dist_to_player)
-				{
-					keys[j]->img_curr_frame->instances->z = z;
-					j++;
-				}
-				else
-				{
-					distractions[k]->img_distraction->instances->z = z;
-					k++;
-				}
-			}
+				add_all_enemies(enemies, &indexes);
+		else if (keys[indexes.k])
+			if (distractions[indexes.d])
+				case_without_enemies(keys, distractions, &indexes);
 			else
-			{
-				while (keys[j])
-				{
-					keys[j]->img_curr_frame->instances->z = z;
-					z++;
-					j++;
-				}
-			}
-		}
+				add_all_keys(keys, &indexes);
 		else
-		{
-			while (distractions[k])
-			{
-				distractions[k]->img_distraction->instances->z = z;
-				k++;
-				z++;
-			}
-		}
+			add_all_distractions(distractions, &indexes);
 	}
-} */
+}

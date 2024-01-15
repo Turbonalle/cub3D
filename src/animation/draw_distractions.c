@@ -6,13 +6,14 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:28 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 12:17:20 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:29:56 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void scale_distraction(cub3d_t *cub3d, distraction_t *distraction, mlx_texture_t *src, double factor)
+static void	scale_distraction(cub3d_t *cub3d, distraction_t *distraction,
+	mlx_texture_t *src, double factor)
 {
 	uint32_t	row_src;
 	uint32_t	col_src;

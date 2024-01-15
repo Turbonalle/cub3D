@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:28 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 21:17:10 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:28:15 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,37 +21,34 @@ static void	position_distraction(distraction_t *distr, mlx_texture_t *texture,
 		= distr->pos_screen.y - texture->height * factor * 1.5;
 }
 
-static void	scale_distraction(cub3d_t *cub3d, distraction_t *distr,
+static void	scale_distraction(cub3d_t *cub3d, distraction_t *dist,
 	mlx_texture_t *texture, double factor)
 {
 	uvector_t	src;
 	uvector_t	res;
-	int			ray_index;
+	int			ray_i;
 
-	distr->img_distraction->instances[0].enabled = TRUE;
-	empty_image(distr->img_distraction);
+	dist->img_distraction->instances[0].enabled = TRUE;
+	empty_image(dist->img_distraction);
 	res.row = 0;
-	while (res.row < texture->height * factor)
+	while (res.row++ < texture->height * factor)
 	{
 		res.col = 0;
-		if (res.row < distr->img_distraction->height)
+		if (res.row < dist->img_distraction->height)
 		{
 			while (res.col < texture->width * factor)
 			{
-				if (res.col < distr->img_distraction->width)
+				if (res.col++ < dist->img_distraction->width)
 				{
 					set_src_coordinates(&src, res, factor, texture);
-					ray_index = get_ray_index(distr->pos_screen.x, texture,
-							factor, res);
-					if (column_visible(cub3d, distr->dist_to_player, ray_index))
-						copy_pixel(distr->img_distraction, res, texture, src);
+					ray_i = get_ray_i(dist->pos_screen.x, texture, factor, res);
+					if (column_visible(cub3d, dist->dist_to_player, ray_i))
+						copy_pixel(dist->img_distraction, res, texture, src);
 				}
-				res.col++;
 			}
 		}
-		res.row++;
 	}
-	position_distraction(distr, texture, factor);
+	position_distraction(dist, texture, factor);
 }
 
 static void	draw_distraction_frame(cub3d_t *cub3d, distraction_t *distr)

@@ -342,7 +342,7 @@ void    draw_all_keys(cub3d_t *cub3d);
 void	copy_pixel(mlx_image_t *img, uvector_t res, mlx_texture_t *texture,
 	uvector_t src);
 int		column_visible(cub3d_t *cub3d, double dist_to_player, int ray_index);
-int		get_ray_index(double x, mlx_texture_t *texture, double factor, uvector_t res);
+int		get_ray_i(double x, mlx_texture_t *texture, double factor, uvector_t res);
 void	set_src_coordinates(uvector_t *src, uvector_t res, double factor, mlx_texture_t *texture);
 void	empty_image(mlx_image_t *img);
 

@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:46:43 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 21:15:06 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:25:58 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	set_src_coordinates(uvector_t *src, uvector_t res, double factor,
 		src->col--;
 }
 
-int	get_ray_index(double pos_screen_x, mlx_texture_t *texture,
+int	get_ray_i(double pos_screen_x, mlx_texture_t *texture,
 	double factor, uvector_t res)
 {
 	return ((int)(pos_screen_x - texture->width * factor * 0.5 + res.col));

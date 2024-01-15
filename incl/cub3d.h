@@ -302,7 +302,7 @@ int		draw_key_counts(cub3d_t *cub3d);
 int	get_enemy_dir(t_enemy *enemy);
 double	calculate_scale_factor(double dist, double normal_dist);
 
-void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_node_t **keys, distraction_t **distractions);
+void assign_z_depth_ordered_by_distance(t_enemy **enemies, key_node_t **keys, distraction_t **distractions, int z);
 
 void    draw_all_distractions(cub3d_t *cub3d, distraction_t **distractions);
 

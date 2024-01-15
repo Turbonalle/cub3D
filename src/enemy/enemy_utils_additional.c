@@ -11,15 +11,15 @@ int	check_collisions(cub3d_t *cub3d, int i)
 		return (1);
 	if (check_first_eight(cub3d, i, new_pos))
 		return (1);
-	else if (check_second_eight(cub3d, new_pos))
+	else if (check_second_eight(cub3d, i, new_pos))
 		return (1);
 	else if (check_third_eight(cub3d, i, new_pos))
 		return (1);
-	else if (check_fourth_eight(cub3d, new_pos))
+	else if (check_fourth_eight(cub3d, i, new_pos))
 		return (1);
 	else if (check_fifth_eight(cub3d, i, new_pos))
 		return (1);
-	else if (check_sixth_eight(cub3d, new_pos))
+	else if (check_sixth_eight(cub3d, i, new_pos))
 		return (1);
 	else if (check_seventh_eight(cub3d, i, new_pos))
 		return (1);

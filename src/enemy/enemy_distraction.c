@@ -29,7 +29,7 @@ void	cause_distraction(cub3d_t *cub3d)
 	ray->end.y = 0;
 	cast_ray(cub3d, ray);
 	cub3d->level->distraction = ray->end;
-	cub3d->level->distraction_amount = 10;
+	cub3d->level->distraction_amount = ENEMY_FOOD_AMOUNT;
 	cub3d->player.mushroom_count--;
 	if (cub3d->player.thrown)
 		cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;

@@ -130,16 +130,32 @@ int	init_floor(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
+void	free_records(cub3d_t *cub3d)
+{
+	int			i;
+	record_t	*rec;
+
+	i = -1;
+	while (++i < LEVELS + 1)
+	{
+		while (cub3d->levels[i].records)
+		{
+			rec = cub3d->levels[i].records;
+			free_record(cub3d->levels[i].records);
+			cub3d->levels[i].records = rec->next;
+		}
+	}
+}
+
 int	main(int ac, char **av)
 {
 	cub3d_t	cub3d;
-	int		i;
-	int		j;
 
 	if (ac != 2)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
 	if (!check_ext(av[1]))
 		return (!err("Invalid extension"));
+	nullify_everything(&cub3d);
 	cub3d.levels = malloc(sizeof(level_t) * (LEVELS + 1));
 	if (!cub3d.levels)
 		return (!err("Failed to malloc levels"));
@@ -154,37 +170,13 @@ int	main(int ac, char **av)
 		return (1);
 	printf("init_records\n");
 	if (!read_records(&cub3d))
-		return (!err("Failed to read records"));
+		return (!free_all(&cub3d, 16));
 	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))
-		return (!free_half_done(&cub3d));
+		return (!free_all(&cub3d, 17));
 	if (!init_enemy_frames(&cub3d))
-	{
-		mlx_delete_texture(cub3d.leaderboard.title.texture);
-		mlx_delete_texture(cub3d.leaderboard.back.texture);
-		mlx_delete_texture(cub3d.leaderboard.back_hover.texture);
-		return (!free_half_done(&cub3d));
-	}
-	// Should we load/init the main level here and not start the same if there's an error?
+		return (!free_all(&cub3d, 18));
 	if (!init_floor(&cub3d))
-	{
-		mlx_delete_texture(cub3d.leaderboard.title.texture);
-		mlx_delete_texture(cub3d.leaderboard.back.texture);
-		mlx_delete_texture(cub3d.leaderboard.back_hover.texture);
-		free_half_done(&cub3d);
-		j = 0;
-		while (j < NUM_ENEMY_DIRECTIONS)
-		{
-			// TODO: make separate functions and reuse in init_enemy_frames
-			i = 0;
-			while (i < NUM_FRAMES_ENEMY_IDLE)
-				mlx_delete_texture(cub3d.frames_idle[j][i++]);
-			i = 0;
-			while (i < NUM_FRAMES_ENEMY_WALKING)
-				mlx_delete_texture(cub3d.frames_walking[j][i++]);
-			j++;
-		}
-		return (!err("Failed to init floor"));
-	}
+		return (!free_all(&cub3d, 19));
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
 	if (cub3d.state == STATE_GAME)

@@ -398,6 +398,9 @@ int		all_alpha(char *str);
 int		all_digits(char *str);
 
 // memory_utils.c
+int		free_all(cub3d_t *cub3d, int i);
+void	free_records(cub3d_t *cub3d);
+
 void	free_info(char **info);
 void	free_cub3d(cub3d_t *cub3d);
 void	free_list(map_node_t *node);
@@ -421,7 +424,6 @@ int		err(char *error_message);
 
 // drawing_utils.c
 void	draw_square(mlx_image_t *img, vector_t coord, int size, int color);
-void	draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color);
 void	draw_circle(mlx_image_t *img, vector_t pos, int radius, int color);
 
 void	draw_shroom_count(cub3d_t *cub3d);
@@ -462,11 +464,11 @@ void	see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
 dvector_t	set_new_pos(cub3d_t *cub3d, int i);
 int		check_each_other(cub3d_t *cub3d, int i, dvector_t new_pos);
 int		check_first_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
-int		check_second_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_second_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
 int		check_third_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
-int		check_fourth_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_fourth_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
 int		check_fifth_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
-int		check_sixth_eight(cub3d_t *cub3d, dvector_t new_pos);
+int		check_sixth_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
 int		check_seventh_eight(cub3d_t *cub3d, int i, dvector_t new_pos);
 int		check_eighth_eight(cub3d_t *cub3d, dvector_t new_pos);
 int		check_pos(cub3d_t *cub3d, int pos_y, int pos_x);

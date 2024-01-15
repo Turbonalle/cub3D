@@ -20,40 +20,48 @@ void	draw_square(mlx_image_t *img, vector_t coord, int size, int color)
 	}
 }
 
-void draw_horizontal_line(mlx_image_t *img, int x1, int x2, int y, int color)
+
+void	draw_lines(mlx_image_t *img, vector_t center, vector_t pos, int color)
 {
-	while (x1 <= x2)
+	int	start;
+
+	start = center.x - pos.x;
+	while (start <= center.x + pos.x)
 	{
-		mlx_put_pixel(img, x1, y, color);
-		x1++;
+		mlx_put_pixel(img, start, center.y + pos.y, color);
+		mlx_put_pixel(img, start, center.y - pos.y, color);
+		start++;
+	}
+	start = center.x - pos.y;
+	while (start <= center.x + pos.y)
+	{
+		mlx_put_pixel(img, start, center.y + pos.x, color);
+		mlx_put_pixel(img, start, center.y - pos.x, color);
+		start++;
 	}
 }
 
 void	draw_circle(mlx_image_t *img, vector_t pos, int radius, int color)
 {
 	vector_t	center;
-	int			x;
-	int			y;
+	vector_t	new_pos;
 	int			decision;
 
 	center.x = pos.x + radius;
 	center.y = pos.y + radius;
-	x = radius;
-	y = 0;
+	new_pos.x = radius;
+	new_pos.y = 0;
 	decision = 1 - radius;
-	while (x >= y)
+	while (new_pos.x >= new_pos.y)
 	{
-		draw_horizontal_line(img, center.x - x, center.x + x, center.y + y, color);
-		draw_horizontal_line(img, center.x - x, center.x + x, center.y - y, color);
-		draw_horizontal_line(img, center.x - y, center.x + y, center.y + x, color);
-		draw_horizontal_line(img, center.x - y, center.x + y, center.y - x, color);
-		y++;
+		draw_lines(img, center, new_pos, color);
+		new_pos.y++;
 		if (decision <= 0)
-			decision += 2 * y + 1;
+			decision += 2 * new_pos.y + 1;
 		else
 		{
-			x--;
-			decision += 2 * (y - x) + 1;
+			new_pos.x--;
+			decision += 2 * (new_pos.y - new_pos.x) + 1;
 		}
 	}
 }

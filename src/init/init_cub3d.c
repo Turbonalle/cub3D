@@ -187,7 +187,277 @@ static void	set_init_stats(cub3d_t *cub3d)
 	cub3d->player.hit_timestamp = 0;
 }
 
+static void	free_levels(cub3d_t *cub3d)
+{
+	int	i;
 
+	i = 0;
+	while (i < LEVELS + 1)
+	{
+		free_list(cub3d->levels[i].map_list);
+		free_backup(cub3d->levels[i]);
+		i++;
+	}
+	free(cub3d->levels);
+}
+
+void	free_start_menu(start_menu_t *menu)
+{
+	if (menu->title.texture)
+		mlx_delete_texture(menu->title.texture);
+	if (menu->exit.texture)
+		mlx_delete_texture(menu->exit.texture);
+	if (menu->start.texture)
+		mlx_delete_texture(menu->start.texture);
+	if (menu->level.texture)
+		mlx_delete_texture(menu->level.texture);
+	if (menu->exit_hover.texture)
+		mlx_delete_texture(menu->exit_hover.texture);
+	if (menu->start_hover.texture)
+		mlx_delete_texture(menu->start_hover.texture);
+	if (menu->level_hover.texture)
+		mlx_delete_texture(menu->level_hover.texture);
+	if (menu->arrow_exit.texture)
+		mlx_delete_texture(menu->arrow_exit.texture);
+	if (menu->arrow_start.texture)
+		mlx_delete_texture(menu->arrow_start.texture);
+	if (menu->arrow_level.texture)
+		mlx_delete_texture(menu->arrow_level.texture);
+}
+
+void	free_level_menu(level_menu_t *menu)
+{
+	int	i;
+
+	i = -1;
+	if (menu->title.texture)
+		mlx_delete_texture(menu->title.texture);
+	if (menu->back.texture)
+		mlx_delete_texture(menu->back.texture);
+	if (menu->leaderboard.texture)
+		mlx_delete_texture(menu->leaderboard.texture);
+	if (menu->back_hover.texture)
+		mlx_delete_texture(menu->back_hover.texture);
+	if (menu->leaderboard_hover.texture)
+		mlx_delete_texture(menu->leaderboard_hover.texture);
+	while (++i < LEVELS)
+	{
+		if (menu->minilevels[i].number.texture)
+			mlx_delete_texture(menu->minilevels[i].number.texture);
+	}
+}
+
+void	free_name_menu(name_menu_t *menu)
+{
+	if (menu->title_win.texture)
+		mlx_delete_texture(menu->title_win.texture);
+	if (menu->title_top3.texture)
+		mlx_delete_texture(menu->title_top3.texture);
+	if (menu->back.texture)
+		mlx_delete_texture(menu->back.texture);
+	if (menu->back_hover.texture)
+		mlx_delete_texture(menu->back_hover.texture);
+	if (menu->timer.texture)
+		mlx_delete_texture(menu->timer.texture);
+}
+
+void	free_gameover_menu(gameover_menu_t *menu)
+{
+	if (menu->title_win.texture)
+		mlx_delete_texture(menu->title_win.texture);
+	if (menu->title_gameover.texture)
+		mlx_delete_texture(menu->title_gameover.texture);
+	if (menu->back.texture)
+		mlx_delete_texture(menu->back.texture);
+	if (menu->back_hover.texture)
+		mlx_delete_texture(menu->back_hover.texture);
+	if (menu->restart.texture)
+		mlx_delete_texture(menu->restart.texture);
+	if (menu->restart_hover.texture)
+		mlx_delete_texture(menu->restart_hover.texture);
+	if (menu->arrow_back.texture)
+		mlx_delete_texture(menu->arrow_back.texture);
+	if (menu->arrow_restart.texture)
+		mlx_delete_texture(menu->arrow_restart.texture);
+	if (menu->timer.texture)
+		mlx_delete_texture(menu->timer.texture);
+}
+
+void	free_intro(cub3d_t *cub3d)
+{
+	if (cub3d->intro.texture)
+		mlx_delete_texture(cub3d->intro.texture);
+}
+
+void	free_hearts(cub3d_t *cub3d)
+{
+	int	i;
+
+	i = -1;
+	while (++i < HEARTS)
+	{
+		if (cub3d->hearts[i].full.texture)
+			mlx_delete_texture(cub3d->hearts[i].full.texture);
+		if (cub3d->hearts[i].empty.texture)
+			mlx_delete_texture(cub3d->hearts[i].empty.texture);
+	}
+}
+
+void	free_shroom(cub3d_t *cub3d)
+{
+	if (cub3d->shroom->shroom.texture)
+		mlx_delete_texture(cub3d->shroom->shroom.texture);
+	if (cub3d->shroom)
+		free(cub3d->shroom);
+	if (cub3d->distraction_texture)
+		mlx_delete_texture(cub3d->distraction_texture);
+	if (cub3d->distraction_thrown_texture)
+		mlx_delete_texture(cub3d->distraction_thrown_texture);
+}
+
+void	free_door_textures(cub3d_t *cub3d)
+{
+	int	i;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (cub3d->door[i].texture)
+			mlx_delete_texture(cub3d->door[i].texture);
+		i++;
+	}
+}
+
+void	free_star_textures(cub3d_t *cub3d)
+{
+	int	i;
+
+	i = 0;
+	while (i < NUM_FRAMES_STARS)
+	{
+		if (cub3d->stars[i].texture)
+			mlx_delete_texture(cub3d->stars[i].texture);
+		if (cub3d->stars[i].path)
+			free(cub3d->stars[i].path);
+		i++;
+	}
+}
+
+void	free_pause_menu(pause_menu_t *menu)
+{
+	if (menu->title.texture)
+		mlx_delete_texture(menu->title.texture);
+}
+
+void	free_leaderboard(leaderboard_t *board)
+{
+	if (board->title.texture)
+		mlx_delete_texture(board->title.texture);
+	if (board->back.texture)
+		mlx_delete_texture(board->back.texture);
+	if (board->back_hover.texture)
+		mlx_delete_texture(board->back_hover.texture);
+}
+
+void	free_enemy_frames(cub3d_t *cub3d)
+{
+	int	j;
+	int	i;
+
+	j = 0;
+	while (j < NUM_ENEMY_DIRECTIONS)
+	{
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_IDLE)
+		{
+			if (cub3d->frames_idle[j][i])
+				mlx_delete_texture(cub3d->frames_idle[j][i]);
+			i++;
+		}
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_WALKING)
+		{
+			if (cub3d->frames_walking[j][i])
+				mlx_delete_texture(cub3d->frames_walking[j][i]);
+				i++;
+		}
+		j++;
+	}
+}
+
+int	handle_message_extra(int i)
+{
+	if (i == 12)
+		return (err("Failed to load mushroom texture"));
+	if (i == 13)
+		return (err("Failed to load door textures"));
+	if (i == 14)
+		return (err("Failed to load goal textures"));
+	if (i == 15)
+		return (err("Failed to init pause menu"));
+	if (i == 16)
+		return (err("Failed to read records"));
+	if (i == 17)
+		return (err("Failed to init leaderboard"));
+	if (i == 18)
+		return (err("Failed to init enemy_frames"));
+	if (i == 19)
+		return (err("Failed to init floor"));
+	return (1);
+}
+
+int handle_message(int i)
+{
+	if (i == 0)
+		return (err("Failed to initialize mlx"));
+	if (i == 1)
+		return (err("Failed to create image"));
+	if (i == 2)
+		return (err("Failed to malloc rays"));
+	if (i == 3)
+		return (err("Failed to init start menu"));
+	if (i == 4)
+		return (err("Failed to init level menu"));
+	if (i == 5)
+		return (err("Failed to init name menu"));
+	if (i == 6)
+		return (err("Failed to init gameover menu"));
+	if (i == 7)
+		return (err("Failed to init intro"));
+	if (i == 8)
+		return (err("Failed to init hearts"));
+	if (i == 9)
+		return (err("Failed to init shroom counter"));
+	if (i == 10)
+		return (err("Failed to init halo"));
+	if (i == 11)
+		return (err("Failed to load mushroom thrown texture"));
+	return(handle_message_extra(i));
+}
+
+int	free_all(cub3d_t *cub3d, int i)
+{
+	//TODO: handle shrooms 
+	free_levels(cub3d);
+	if (cub3d->rays)
+		free(cub3d->rays);
+	free_start_menu(&cub3d->start_menu);
+	free_level_menu(&cub3d->level_menu);
+	free_name_menu(&cub3d->name_menu);
+	free_gameover_menu(&cub3d->gameover_menu);
+	free_intro(cub3d);
+	free_hearts(cub3d);
+	free_shroom(cub3d);
+	free_door_textures(cub3d);
+	free_star_textures(cub3d);
+	free_pause_menu(&cub3d->pause_menu);
+	free_leaderboard(&cub3d->leaderboard);
+	free_enemy_frames(cub3d);
+	if (cub3d->floor.texture)
+		mlx_delete_texture(cub3d->floor.texture);
+	free_records(cub3d);
+	return (handle_message(i));
+}
 
 int	init_cub3d(cub3d_t *cub3d)
 {
@@ -195,353 +465,48 @@ int	init_cub3d(cub3d_t *cub3d)
 
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", FALSE);
 	if (!cub3d->mlx)
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		return (err("Failed to initialize mlx"));
-	}
+		return (free_all(cub3d, 0));
 	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		mlx_terminate(cub3d->mlx);
-		return (err("Failed to create image"));
-	}
+		return (free_all(cub3d, 1));
 	printf("Created main image\n");
-	cub3d->rays = NULL;
 	if (!init_rays(cub3d))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		free(cub3d->levels);
-		return (err("Failed to malloc rays"));
-	}
+		return (free_all(cub3d, 2));
 	set_keys(&cub3d->keys);
 	set_init_stats(cub3d);
 	printf("init start menu\n");
 	if (!init_start_menu(cub3d, &cub3d->start_menu))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		free(cub3d->levels);
-		free(cub3d->rays);
-		return (err("Failed to init start menu"));
-	}
+		return (free_all(cub3d, 3));
 	printf("init level menu\n");
 	if (!init_level_menu(cub3d, &cub3d->level_menu))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		return (err("Failed to init level menu"));
-	}
+		return (free_all(cub3d, 4));
 	printf("init name menu\n");
 	if (!init_name_menu(cub3d, &cub3d->name_menu))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		return (0);
-	}
-	//printf("init gameover menu\n");
-	init_gameover_menu(cub3d, &cub3d->gameover_menu);
-	//printf("after init gameover menu\n");
-	init_intro(cub3d);
-	//printf("after init intro\n");
-	/* if (!init_gameover_menu(cub3d, &cub3d->gameover_menu))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		return (0);
-	}
+		return (free_all(cub3d, 5));
+	if (!init_gameover_menu(cub3d, &cub3d->gameover_menu))
+		return (free_all(cub3d, 6));
 	if (!init_intro(cub3d))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		return (err("Failed to init intro"));
-	} */
+		return (free_all(cub3d, 7));
 	if (!init_hearts(cub3d))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_texture(cub3d->intro.texture);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		return (err("Failed to init hearts"));
-	}
+		return (free_all(cub3d, 8));
 	printf("after init hearts\n");
 	if (!init_shroom(cub3d))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_texture(cub3d->intro.texture);
-		i = -1;
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		return (err("Failed to init shroom counter"));
-	//printf("after init shroom\n");
-	}
+		return (free_all(cub3d, 9));
 	if (!init_halo(cub3d))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_texture(cub3d->intro.texture);
-		i = -1;
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		mlx_delete_texture(cub3d->shroom->shroom.texture);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		return (err("Failed to init halo"));
-	}
+		return (free_all(cub3d, 10));
 	init_timer(cub3d);
-	//printf("after init_timer\n");
 	cub3d->distraction_thrown_texture = mlx_load_png(TEXTURE_MUSHROOM_THROWN);
 	if (!cub3d->distraction_thrown_texture)
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_texture(cub3d->intro.texture);
-		i = -1;
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		mlx_delete_texture(cub3d->shroom->shroom.texture);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		return (err("Failed to load mushroom thrown texture"));
-	}
+		return (free_all(cub3d, 11));
 	cub3d->distraction_texture = mlx_load_png(TEXTURE_MUSHROOM);
 	if (!cub3d->distraction_texture)
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_texture(cub3d->intro.texture);
-		i = -1;
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		mlx_delete_texture(cub3d->shroom->shroom.texture);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		mlx_delete_texture(cub3d->distraction_thrown_texture);
-		return (err("Failed to load mushroom texture"));
-	}
+		return (free_all(cub3d, 12));
 	if (!init_door_textures(cub3d))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_texture(cub3d->intro.texture);
-		i = -1;
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		mlx_delete_texture(cub3d->shroom->shroom.texture);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		mlx_delete_texture(cub3d->distraction_thrown_texture);
-		mlx_delete_texture(cub3d->distraction_texture);
-		return (err("Failed to load door textures"));
-	}
+		return (free_all(cub3d, 13));
 	if (!init_stars_textures(cub3d))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_texture(cub3d->intro.texture);
-		i = -1;
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		mlx_delete_texture(cub3d->shroom->shroom.texture);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		mlx_delete_texture(cub3d->distraction_thrown_texture);
-		mlx_delete_texture(cub3d->distraction_texture);
-		free_textures_before_failed(cub3d->door, 5);
-		return (err("Failed to load door textures"));
-	}
+		return (free_all(cub3d, 14));
 	if (!init_pause_menu(cub3d, &cub3d->pause_menu))
-	{
-		i = 0;
-		while (i < LEVELS + 1)
-		{
-			free_list(cub3d->levels[i].map_list);
-			free_backup(cub3d->levels[i]);
-			i++;
-		}
-		free(cub3d->levels);
-		free(cub3d->rays);
-		free_prev_start_menu(&cub3d->start_menu, 9);
-		free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-		free_prev_name_menu(&cub3d->name_menu, 2);
-		free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-		mlx_delete_texture(cub3d->intro.texture);
-		i = -1;
-		while (++i < HEARTS)
-		{
-			mlx_delete_texture(cub3d->hearts[i].full.texture);
-			mlx_delete_texture(cub3d->hearts[i].empty.texture);
-		}
-		mlx_delete_texture(cub3d->shroom->shroom.texture);
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		mlx_delete_texture(cub3d->distraction_thrown_texture);
-		mlx_delete_texture(cub3d->distraction_texture);
-		free_textures_before_failed(cub3d->door, 5);
-		free_textures_before_failed(cub3d->stars, NUM_FRAMES_STARS);
-		return (err("Failed to init pause menu"));
-	}
+		return (free_all(cub3d, 15));
 	i = -1;
 	while (++i < LEVELS + 1)
 		cub3d->levels[i].records = NULL;

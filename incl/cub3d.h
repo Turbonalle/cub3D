@@ -296,6 +296,30 @@ int		get_key_index(char symbol);
 //key_counts.c
 int		draw_key_counts(cub3d_t *cub3d);
 
+//---- ANIMATION ---------------------------------------------------------------
+
+// animation_utils.c
+int	get_enemy_dir(t_enemy *enemy);
+double	calculate_scale_factor(double dist, double normal_dist);
+
+void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_node_t **keys, distraction_t **distractions);
+
+void    draw_all_distractions(cub3d_t *cub3d, distraction_t **distractions);
+
+void	draw_all_enemies(cub3d_t *cub3d, t_enemy **enemies);
+
+void    draw_all_keys(cub3d_t *cub3d);
+
+int	animation_frames_changed(cub3d_t *cub3d);
+int	fps_frame_changed(cub3d_t *cub3d);
+void	update_prev_frames(cub3d_t *cub3d);
+
+distraction_t **create_array_of_distractions_ordered_by_dist(cub3d_t *cub3d);
+
+t_enemy **create_array_of_enemies_ordered_by_dist(cub3d_t *cub3d);
+
+key_node_t	**create_array_of_keys_ordered_by_dist(cub3d_t *cub3d);
+
 // game_entities.c
 int	draw_game_entities(cub3d_t *cub3d);
 

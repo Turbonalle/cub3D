@@ -159,7 +159,7 @@ void	draw_horizon(cub3d_t *cub3d)
 void draw_world(cub3d_t *cub3d)
 {
 	int			index;
-	bool		close;
+	int			close;
 	double		height;
 	dvector_t	start;
 	dvector_t	end;

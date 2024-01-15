@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_pause_menu.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:46:23 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 15:07:42 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/14 20:02:51 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	update_settings(cub3d_t *cub3d, pause_menu_t *menu)
 			cub3d->settings.mouse = menu->box_mouse[i].value;
 	}
 	cub3d->settings.mouse_sensitivity = get_sensitivity(cub3d);
-	printf("mouse sensitivity: %f\n", cub3d->settings.mouse_sensitivity);
 }
 
 void	update_fps_boxes(pause_menu_t *menu, int n)

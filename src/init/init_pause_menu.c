@@ -58,8 +58,6 @@ void	init_checkbox_states(pause_menu_t *menu)
 int	init_sensitivity_slider(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	// set slider
-	// menu->sensitivity_slider.pos.x = menu->pos_col_box_1 - menu->menu_pos.x;
-	// menu->sensitivity_slider.pos.y = menu->pos_row_4 - menu->menu_pos.y + menu->box_fps[0].size * 0.5 - SLIDER_LINE_WIDTH * 0.5;
 	menu->sensitivity_slider.pos.x = menu->pos_col_box_1;
 	menu->sensitivity_slider.pos.y = menu->pos_row_4 + menu->box_fps[0].size * 0.5 - SLIDER_LINE_WIDTH * 0.5;
 
@@ -77,7 +75,7 @@ int	init_sensitivity_slider(cub3d_t *cub3d, pause_menu_t *menu)
 		return (err("Failed to create image"));
 	menu->sensitivity_slider.marker_pos.x = get_marker_pos(cub3d);
 	menu->sensitivity_slider.marker_pos.y = menu->sensitivity_slider.pos.y + SLIDER_LINE_WIDTH / 2 - SLIDER_MARKER_HEIGHT / 2;
-	menu->sensitivity_slider.marker_pos.x += menu->sensitivity_slider.pos.x - menu->menu_pos.x;
+	//menu->sensitivity_slider.marker_pos.x += menu->sensitivity_slider.pos.x - menu->menu_pos.x;
 	if (mlx_image_to_window(cub3d->mlx, menu->sensitivity_slider.marker, menu->sensitivity_slider.marker_pos.x, menu->sensitivity_slider.marker_pos.y) < 0)
 		return (err("Failed to put image to window"));
 	return (SUCCESS);
@@ -148,6 +146,17 @@ static int put_images_to_window(mlx_t *mlx, pause_menu_t *menu)
 	return (SUCCESS);
 }
 
+void	init_settings(settings_t *settings)
+{
+	settings->e_speed = 0;
+	settings->e_behaviour = 0;
+	settings->minimap_view = TRUE; // Is this even used?
+	settings->fps = FPS_60;
+	settings->fisheye = FALSE;
+	settings->mouse = TRUE;
+	settings->mouse_sensitivity = MOUSE_SENSITIVITY;
+}
+
 int init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 {
 	if (!load_png(menu))
@@ -161,6 +170,7 @@ int init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	init_checkboxes(menu);
 	set_checkbox_values(menu);
 	init_checkbox_states(menu);
+	init_settings(&cub3d->settings);
 	if (!put_images_to_window(cub3d->mlx, menu))
 	{
 		mlx_delete_texture(menu->title.texture);

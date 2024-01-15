@@ -44,7 +44,7 @@ int	init_enemy_texture_from_path(mlx_texture_t **frame, int i, char *path)
 	char	*file_path;
 
 	file_path = create_file_path(i, path);
-	printf("init_enemy_texture_from_path, path: %s\n", file_path);
+	//printf("init_enemy_texture_from_path, path: %s\n", file_path);
 	if (!file_path)
 		return (FAIL);
 	*frame = mlx_load_png(file_path);
@@ -62,10 +62,10 @@ int	init_frame_group(mlx_texture_t **frames_array, char *path)
 	int	i;
 
 	i = 0;
-	printf("init_frame_group\n");
+	//printf("init_frame_group\n");
 	while (i < NUM_FRAMES_ENEMY_IDLE)
 	{
-		printf("init_frame_group i: %d\n", i);
+		//printf("init_frame_group i: %d\n", i);
 		if (init_enemy_texture_from_path(&frames_array[i], i, path) == FAIL)
 		{
 			while (i)
@@ -85,11 +85,11 @@ int	init_enemy_frames(cub3d_t *cub3d)
 	char	*idle_file_paths[] = {FRAME_PATH_ENEMY_IDLE, FRAME_PATH_ENEMY_IDLE_RIGHT, FRAME_PATH_ENEMY_IDLE_RIGHT_45, FRAME_PATH_ENEMY_IDLE_STRAIGHT, FRAME_PATH_ENEMY_IDLE_LEFT_45, FRAME_PATH_ENEMY_IDLE_LEFT};
 	char	*walking_file_paths[] = {FRAME_PATH_ENEMY_WALKING, FRAME_PATH_ENEMY_WALKING_RIGHT, FRAME_PATH_ENEMY_WALKING_RIGHT_45, FRAME_PATH_ENEMY_WALKING_STRAIGHT, FRAME_PATH_ENEMY_WALKING_LEFT_45, FRAME_PATH_ENEMY_WALKING_LEFT};
 
-	printf("init_enemy_frames\n");
+	//printf("init_enemy_frames\n");
 	dir_index = 0;
 	while (dir_index < NUM_ENEMY_DIRECTIONS)
 	{
-		printf("init_enemy_frames dir_index: %d\n", dir_index);
+		//printf("init_enemy_frames dir_index: %d\n", dir_index);
 		if (!init_frame_group(cub3d->frames_idle[dir_index], idle_file_paths[dir_index]))
 		{
 			// TODO: handle errors

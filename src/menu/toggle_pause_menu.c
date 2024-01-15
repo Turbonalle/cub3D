@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   toggle_pause_menu.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:49:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:49:02 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/14 20:01:34 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -49,7 +49,7 @@ typedef struct player_s
 	dvector_t	pos;
 	dvector_t	new_pos;
 	dvector_t	dir;
-	bool		thrown;
+	int		thrown;
 	double		angle;
 	double		movement_angle;
 	double		hit_timestamp;
@@ -606,13 +606,14 @@ typedef struct record_s
 
 typedef struct distraction_s
 {
-	bool		collected;
-	bool		visible;
-	bool		thrown;
+	int			collected;
+	int			visible;
+	int			thrown;
 	dvector_t	pos;
 	vector_t	pos_screen;
 	double		dist_to_player;
 	mlx_image_t	*img_distraction;
+	//int			poison;
 }			distraction_t;
 
 typedef struct level_s
@@ -638,6 +639,7 @@ typedef struct level_s
 	int				num_distractions;
 	dvector_t		distraction;
 	double			distraction_amount;
+	//int				num_poison;
 	record_t		*records;
 	mlx_image_t		*heart_img;
 	mlx_image_t		*heart_half_img;

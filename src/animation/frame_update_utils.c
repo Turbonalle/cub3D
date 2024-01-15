@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame_update_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:38 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 12:10:57 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:20:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

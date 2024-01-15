@@ -88,9 +88,6 @@ int	check_if_player_is_seen(cub3d_t *cub3d, int i)
 	double	at_target;
 
 	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_speed) * 2;
-	cub3d->enemy[i].dir_player = within_360(atan2(cub3d->player.pos.y
-				- cub3d->enemy[i].pos.y, cub3d->player.pos.x
-				- cub3d->enemy[i].pos.x) * 180 / M_PI);
 	if (check_angles(cub3d, i))
 		return (0);
 	else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i)

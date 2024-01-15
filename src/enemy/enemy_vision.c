@@ -53,6 +53,9 @@ void	enemy_vision(cub3d_t *cub3d)
 	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_speed) * 2;
 	while (i < cub3d->num_enemies)
 	{
+		cub3d->enemy[i].dir_player = within_360(atan2(cub3d->player.pos.y
+					- cub3d->enemy[i].pos.y, cub3d->player.pos.x
+					- cub3d->enemy[i].pos.x) * 180 / M_PI);
 		cub3d->enemy[i].is_hunting = FALSE;
 		if (cub3d->run_time > cub3d->enemy[i].freeze_start + ENEMY_FREEZE)
 		{

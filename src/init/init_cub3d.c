@@ -440,7 +440,6 @@ int handle_message(int i)
 
 int	free_all(cub3d_t *cub3d, int i)
 {
-	//TODO: handle shrooms 
 	free_records(cub3d);
 	printf("after free records\n");
 	free_levels(cub3d);
@@ -468,7 +467,6 @@ int	free_all(cub3d_t *cub3d, int i)
 	if (cub3d->floor.texture)
 		mlx_delete_texture(cub3d->floor.texture);
 	printf("after deleting floor texture\n");
-	
 	return (handle_message(i));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_enemies.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:31 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 12:14:00 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:21:27 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

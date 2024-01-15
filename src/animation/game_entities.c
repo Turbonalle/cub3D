@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_entities.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:42 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 12:09:36 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:16:39 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

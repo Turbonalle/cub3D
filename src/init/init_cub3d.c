@@ -379,7 +379,7 @@ void	free_enemy_frames(cub3d_t *cub3d)
 		{
 			if (cub3d->frames_walking[j][i])
 				mlx_delete_texture(cub3d->frames_walking[j][i]);
-				i++;
+			i++;
 		}
 		j++;
 	}

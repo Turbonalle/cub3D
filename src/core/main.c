@@ -140,6 +140,7 @@ int	main(int ac, char **av)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
 	if (!check_ext(av[1]))
 		return (!err("Invalid extension"));
+	nullify_everything(&cub3d);
 	cub3d.levels = malloc(sizeof(level_t) * (LEVELS + 1));
 	if (!cub3d.levels)
 		return (!err("Failed to malloc levels"));

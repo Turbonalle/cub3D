@@ -489,6 +489,7 @@ void	nullify_gametimer(gametimer_t *timer);
 void	nullify_hearts(heart_t *hearts);
 void	nullify_png(png_t *png);
 void	nullify_texture(texture_t *texture);
+void	nullify_shrooms(shroom_t *shroom);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

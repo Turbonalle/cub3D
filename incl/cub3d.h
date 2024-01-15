@@ -398,6 +398,8 @@ int		all_alpha(char *str);
 int		all_digits(char *str);
 
 // memory_utils.c
+void	free_all(cub3d_t *cub3d);
+
 void	free_info(char **info);
 void	free_cub3d(cub3d_t *cub3d);
 void	free_list(map_node_t *node);
@@ -489,7 +491,6 @@ void	nullify_gametimer(gametimer_t *timer);
 void	nullify_hearts(heart_t *hearts);
 void	nullify_png(png_t *png);
 void	nullify_texture(texture_t *texture);
-void	nullify_shrooms(shroom_t *shroom);
 
 //---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
 

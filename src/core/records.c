@@ -133,7 +133,7 @@ int	read_records(cub3d_t *cub3d)
 	fd = open(RECORD_FILE, O_RDONLY);
 	if (fd < 0)
 	{
-		free_half_done(cub3d);
+		free_all(cub3d);
 		return (err("Failed to open records file"));
 	}
 	i = 0;
@@ -142,7 +142,7 @@ int	read_records(cub3d_t *cub3d)
 	{
 		if (!set_records(cub3d, &cub3d->levels[i], &line, cub3d->leaderboard.n_entries, fd))
 		{
-			free_half_done(cub3d);
+			free_all(cub3d);
 			free(line);
 			return (err("Failed to set records"));
 		}

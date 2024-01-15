@@ -130,11 +130,26 @@ int	init_floor(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
+void	free_records(cub3d_t *cub3d)
+{
+	int			i;
+	record_t	*rec;
+
+	i = -1;
+	while (++i < LEVELS + 1)
+	{
+		while (cub3d->levels[i].records)
+		{
+			rec = cub3d->levels[i].records;
+			free_record(cub3d->levels[i].records);
+			cub3d->levels[i].records = rec->next;
+		}
+	}
+}
+
 int	main(int ac, char **av)
 {
 	cub3d_t	cub3d;
-	int		i;
-	int		j;
 
 	if (ac != 2)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
@@ -155,35 +170,27 @@ int	main(int ac, char **av)
 		return (1);
 	printf("init_records\n");
 	if (!read_records(&cub3d))
+	{
+		free_all(&cub3d);
+		free_records(&cub3d);
 		return (!err("Failed to read records"));
+	}
 	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))
-		return (!free_half_done(&cub3d));
+	{
+		free_all(&cub3d);
+		free_records(&cub3d);
+		return (!err("Failed to init leaderboard"));
+	}
 	if (!init_enemy_frames(&cub3d))
 	{
-		mlx_delete_texture(cub3d.leaderboard.title.texture);
-		mlx_delete_texture(cub3d.leaderboard.back.texture);
-		mlx_delete_texture(cub3d.leaderboard.back_hover.texture);
-		return (!free_half_done(&cub3d));
+		free_all(&cub3d);
+		free_records(&cub3d);
+		return (!err("Failed to init enemy_frames"));
 	}
-	// Should we load/init the main level here and not start the same if there's an error?
 	if (!init_floor(&cub3d))
 	{
-		mlx_delete_texture(cub3d.leaderboard.title.texture);
-		mlx_delete_texture(cub3d.leaderboard.back.texture);
-		mlx_delete_texture(cub3d.leaderboard.back_hover.texture);
-		free_half_done(&cub3d);
-		j = 0;
-		while (j < NUM_ENEMY_DIRECTIONS)
-		{
-			// TODO: make separate functions and reuse in init_enemy_frames
-			i = 0;
-			while (i < NUM_FRAMES_ENEMY_IDLE)
-				mlx_delete_texture(cub3d.frames_idle[j][i++]);
-			i = 0;
-			while (i < NUM_FRAMES_ENEMY_WALKING)
-				mlx_delete_texture(cub3d.frames_walking[j][i++]);
-			j++;
-		}
+		free_all(&cub3d);
+		free_records(&cub3d);
 		return (!err("Failed to init floor"));
 	}
 	start_game(&cub3d);

@@ -305,7 +305,6 @@ void	free_hearts(cub3d_t *cub3d)
 
 void	free_shroom(cub3d_t *cub3d)
 {
-	printf("HERE\n");
 	if (cub3d->shroom->shroom.texture)
 		mlx_delete_texture(cub3d->shroom->shroom.texture);
 	if (cub3d->shroom)
@@ -314,7 +313,6 @@ void	free_shroom(cub3d_t *cub3d)
 		mlx_delete_texture(cub3d->distraction_texture);
 	if (cub3d->distraction_thrown_texture)
 		mlx_delete_texture(cub3d->distraction_thrown_texture);
-	printf("HERE\n");
 }
 
 void	free_door_textures(cub3d_t *cub3d)
@@ -351,8 +349,45 @@ void	free_pause_menu(pause_menu_t *menu)
 		mlx_delete_texture(menu->title.texture);
 }
 
+void	free_leaderboard(leaderboard_t *board)
+{
+	if (board->title.texture)
+		mlx_delete_texture(board->title.texture);
+	if (board->back.texture)
+		mlx_delete_texture(board->back.texture);
+	if (board->back_hover.texture)
+		mlx_delete_texture(board->back_hover.texture);
+}
+
+void	free_enemy_frames(cub3d_t *cub3d)
+{
+	int	j;
+	int	i;
+
+	j = 0;
+	while (j < NUM_ENEMY_DIRECTIONS)
+	{
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_IDLE)
+		{
+			if (cub3d->frames_idle[j][i])
+				mlx_delete_texture(cub3d->frames_idle[j][i]);
+			i++;
+		}
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_WALKING)
+		{
+			if (cub3d->frames_walking[j][i])
+				mlx_delete_texture(cub3d->frames_walking[j][i]);
+				i++;
+		}
+		j++;
+	}
+}
+
 void	free_all(cub3d_t *cub3d)
 {
+	//TODO: handle shrooms 
 	free_levels(cub3d);
 	if (cub3d->rays)
 		free(cub3d->rays);
@@ -366,6 +401,10 @@ void	free_all(cub3d_t *cub3d)
 	free_door_textures(cub3d);
 	free_star_textures(cub3d);
 	free_pause_menu(&cub3d->pause_menu);
+	free_leaderboard(&cub3d->leaderboard);
+	free_enemy_frames(cub3d);
+	if (cub3d->floor.texture)
+		mlx_delete_texture(cub3d->floor.texture);
 }
 
 int	init_cub3d(cub3d_t *cub3d)

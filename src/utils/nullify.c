@@ -57,4 +57,5 @@ void	nullify_everything(cub3d_t *cub3d)
 	nullify_pause_menu(&cub3d->pause_menu);
 	nullify_gametimer(&cub3d->timer);
 	nullify_hearts(cub3d->hearts);
+	nullify_enemy_frames(cub3d);
 }

@@ -305,8 +305,11 @@ void	free_hearts(cub3d_t *cub3d)
 
 void	free_shroom(cub3d_t *cub3d)
 {
-	if (cub3d->shroom->shroom.texture)
+	if (cub3d->shroom && cub3d->shroom->shroom.texture)
+	{
+		printf("shroom needs freeing\n");
 		mlx_delete_texture(cub3d->shroom->shroom.texture);
+	}
 	if (cub3d->shroom)
 		free(cub3d->shroom);
 	if (cub3d->distraction_texture)
@@ -438,6 +441,8 @@ int handle_message(int i)
 int	free_all(cub3d_t *cub3d, int i)
 {
 	//TODO: handle shrooms 
+	free_records(cub3d);
+	printf("after free records\n");
 	free_levels(cub3d);
 	if (cub3d->rays)
 		free(cub3d->rays);
@@ -446,16 +451,24 @@ int	free_all(cub3d_t *cub3d, int i)
 	free_name_menu(&cub3d->name_menu);
 	free_gameover_menu(&cub3d->gameover_menu);
 	free_intro(cub3d);
+	printf("before free hearts\n");
 	free_hearts(cub3d);
+	printf("after free hearts\n");
 	free_shroom(cub3d);
+	printf("after free shroom\n");
 	free_door_textures(cub3d);
+	printf("after free doors\n");
 	free_star_textures(cub3d);
+	printf("after free stars\n");
 	free_pause_menu(&cub3d->pause_menu);
+	printf("after free pause menu\n");
 	free_leaderboard(&cub3d->leaderboard);
+	printf("after free leaderboard\n");
 	free_enemy_frames(cub3d);
 	if (cub3d->floor.texture)
 		mlx_delete_texture(cub3d->floor.texture);
-	free_records(cub3d);
+	printf("after deleting floor texture\n");
+	
 	return (handle_message(i));
 }
 
@@ -463,6 +476,9 @@ int	init_cub3d(cub3d_t *cub3d)
 {
 	int	i;
 
+	i = -1;
+	while (++i < LEVELS + 1)
+		cub3d->levels[i].records = NULL;
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", FALSE);
 	if (!cub3d->mlx)
 		return (free_all(cub3d, 0));
@@ -507,9 +523,6 @@ int	init_cub3d(cub3d_t *cub3d)
 		return (free_all(cub3d, 14));
 	if (!init_pause_menu(cub3d, &cub3d->pause_menu))
 		return (free_all(cub3d, 15));
-	i = -1;
-	while (++i < LEVELS + 1)
-		cub3d->levels[i].records = NULL;
 	cub3d->start_timestamp = mlx_get_time();
 	cub3d->prev_frame_update_timestamp = 0;
 	cub3d->player.num_completed = 0;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_distractions.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/15 12:02:28 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/15 12:17:20 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 static void scale_distraction(cub3d_t *cub3d, distraction_t *distraction, mlx_texture_t *src, double factor)
@@ -41,12 +53,13 @@ static void scale_distraction(cub3d_t *cub3d, distraction_t *distraction, mlx_te
 	distraction->img_distraction->instances[0].y = distraction->pos_screen.y - src->height * factor * 1.5;
 }
 
-static void draw_distraction_frame(cub3d_t *cub3d, distraction_t *distraction)
+static void	draw_distraction_frame(cub3d_t *cub3d, distraction_t *distraction)
 {
-	double 			scale_factor;
+	double			scale_factor;
 	mlx_texture_t	*texture;
 
-	scale_factor = calculate_scale_factor(distraction->dist_to_player, DISTRACTION_NORMAL_SCALE_DISTANCE);
+	scale_factor = calculate_scale_factor(distraction->dist_to_player,
+			DISTRACTION_NORMAL_SCALE_DISTANCE);
 	if (distraction->thrown == TRUE)
 		texture = cub3d->distraction_thrown_texture;
 	else
@@ -60,7 +73,7 @@ static void draw_distraction_frame(cub3d_t *cub3d, distraction_t *distraction)
 	);
 }
 
-void    draw_all_distractions(cub3d_t *cub3d, distraction_t **distractions)
+void	draw_all_distractions(cub3d_t *cub3d, distraction_t **distractions)
 {
 	int	i;
 

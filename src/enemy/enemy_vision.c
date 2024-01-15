@@ -25,7 +25,7 @@ void	handle_movement(cub3d_t *cub3d, double at_target, int target, int i)
 		enemy_advance(cub3d, i);
 		if (dist_between_d_vectors(cub3d->player.pos, cub3d->enemy[i].pos) < 1)
 		{
-			printf("You were caught at time %f\n",cub3d->run_time);
+			// printf("You were caught at time %f\n",cub3d->run_time);
 			player_is_hit(cub3d, i);
 		}
 	}

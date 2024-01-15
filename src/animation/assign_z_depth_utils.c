@@ -6,13 +6,13 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:25:41 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 17:34:48 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:00:05 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	largest(double i, double j, double k)
+int	largest(double i, double j, double k)
 {
 	if (i > j)
 	{
@@ -38,7 +38,7 @@ static int	largest(double i, double j, double k)
 	return (0);
 }
 
-static void	init_indexes_and_z(cub3d_t *cub3d, four_vector_t *indexes)
+void	init_indexes_and_z(cub3d_t *cub3d, four_vector_t *indexes)
 {
 	indexes->e = 0;
 	indexes->k = 0;

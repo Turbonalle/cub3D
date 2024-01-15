@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_level.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/15 23:20:00 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/15 23:21:51 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 int	count_all_keys(cub3d_t *cub3d)
@@ -48,11 +60,7 @@ void	set_z_of_all_images(cub3d_t *cub3d)
 	z += cub3d->level->num_distractions;
 	z += set_z_for_key_groups(cub3d, z);
 	cub3d->minimap.img->instances[0].z = z;
-	//cub3d->timer.img_time->instances[0].z = z;
-	//printf("timer z: %d\n", cub3d->timer.img_time->instances[0].z);
-	//TODO: think about menus
 	z++;
-	//printf("LAST z: %d\n", z);
 }
 
 int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
@@ -70,6 +78,7 @@ int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
 	return (1);
 }
 
+// TODO: refactor load_level, maybe with nullify?
 int	load_level(cub3d_t *cub3d, level_t *level)
 {
 	int	i;

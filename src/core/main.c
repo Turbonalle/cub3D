@@ -170,29 +170,13 @@ int	main(int ac, char **av)
 		return (1);
 	printf("init_records\n");
 	if (!read_records(&cub3d))
-	{
-		free_all(&cub3d);
-		free_records(&cub3d);
-		return (!err("Failed to read records"));
-	}
+		return (!free_all(&cub3d, 16));
 	if (!init_leaderboard(&cub3d, &cub3d.leaderboard))
-	{
-		free_all(&cub3d);
-		free_records(&cub3d);
-		return (!err("Failed to init leaderboard"));
-	}
+		return (!free_all(&cub3d, 17));
 	if (!init_enemy_frames(&cub3d))
-	{
-		free_all(&cub3d);
-		free_records(&cub3d);
-		return (!err("Failed to init enemy_frames"));
-	}
+		return (!free_all(&cub3d, 18));
 	if (!init_floor(&cub3d))
-	{
-		free_all(&cub3d);
-		free_records(&cub3d);
-		return (!err("Failed to init floor"));
-	}
+		return (!free_all(&cub3d, 19));
 	start_game(&cub3d);
 	write_records(&cub3d, cub3d.levels);
 	if (cub3d.state == STATE_GAME)

@@ -398,7 +398,8 @@ int		all_alpha(char *str);
 int		all_digits(char *str);
 
 // memory_utils.c
-void	free_all(cub3d_t *cub3d);
+int		free_all(cub3d_t *cub3d, int i);
+void	free_records(cub3d_t *cub3d);
 
 void	free_info(char **info);
 void	free_cub3d(cub3d_t *cub3d);

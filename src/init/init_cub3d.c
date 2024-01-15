@@ -385,7 +385,57 @@ void	free_enemy_frames(cub3d_t *cub3d)
 	}
 }
 
-void	free_all(cub3d_t *cub3d)
+int	handle_message_extra(int i)
+{
+	if (i == 12)
+		return (err("Failed to load mushroom texture"));
+	if (i == 13)
+		return (err("Failed to load door textures"));
+	if (i == 14)
+		return (err("Failed to load goal textures"));
+	if (i == 15)
+		return (err("Failed to init pause menu"));
+	if (i == 16)
+		return (err("Failed to read records"));
+	if (i == 17)
+		return (err("Failed to init leaderboard"));
+	if (i == 18)
+		return (err("Failed to init enemy_frames"));
+	if (i == 19)
+		return (err("Failed to init floor"));
+	return (1);
+}
+
+int handle_message(int i)
+{
+	if (i == 0)
+		return (err("Failed to initialize mlx"));
+	if (i == 1)
+		return (err("Failed to create image"));
+	if (i == 2)
+		return (err("Failed to malloc rays"));
+	if (i == 3)
+		return (err("Failed to init start menu"));
+	if (i == 4)
+		return (err("Failed to init level menu"));
+	if (i == 5)
+		return (err("Failed to init name menu"));
+	if (i == 6)
+		return (err("Failed to init gameover menu"));
+	if (i == 7)
+		return (err("Failed to init intro"));
+	if (i == 8)
+		return (err("Failed to init hearts"));
+	if (i == 9)
+		return (err("Failed to init shroom counter"));
+	if (i == 10)
+		return (err("Failed to init halo"));
+	if (i == 11)
+		return (err("Failed to load mushroom thrown texture"));
+	return(handle_message_extra(i));
+}
+
+int	free_all(cub3d_t *cub3d, int i)
 {
 	//TODO: handle shrooms 
 	free_levels(cub3d);
@@ -405,6 +455,8 @@ void	free_all(cub3d_t *cub3d)
 	free_enemy_frames(cub3d);
 	if (cub3d->floor.texture)
 		mlx_delete_texture(cub3d->floor.texture);
+	free_records(cub3d);
+	return (handle_message(i));
 }
 
 int	init_cub3d(cub3d_t *cub3d)
@@ -413,96 +465,48 @@ int	init_cub3d(cub3d_t *cub3d)
 
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", FALSE);
 	if (!cub3d->mlx)
-	{
-		free_all(cub3d);
-		return (err("Failed to initialize mlx"));
-	}
+		return (free_all(cub3d, 0));
 	cub3d->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->img || (mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0) < 0))
-	{
-		free_all(cub3d);
-		return (err("Failed to create image"));
-	}
+		return (free_all(cub3d, 1));
 	printf("Created main image\n");
 	if (!init_rays(cub3d))
-	{
-		free_all(cub3d);
-		return (err("Failed to malloc rays"));
-	}
+		return (free_all(cub3d, 2));
 	set_keys(&cub3d->keys);
 	set_init_stats(cub3d);
 	printf("init start menu\n");
 	if (!init_start_menu(cub3d, &cub3d->start_menu))
-	{
-		free_all(cub3d);
-		return (err("Failed to init start menu"));
-	}
+		return (free_all(cub3d, 3));
 	printf("init level menu\n");
 	if (!init_level_menu(cub3d, &cub3d->level_menu))
-	{
-		free_all(cub3d);
-		return (err("Failed to init level menu"));
-	}
+		return (free_all(cub3d, 4));
 	printf("init name menu\n");
 	if (!init_name_menu(cub3d, &cub3d->name_menu))
-	{
-		free_all(cub3d);
-		return (err("Failed to init name menu"));
-	}
+		return (free_all(cub3d, 5));
 	if (!init_gameover_menu(cub3d, &cub3d->gameover_menu))
-	{
-		free_all(cub3d);
-		return (err("Failed to init gameover menu"));
-	}
+		return (free_all(cub3d, 6));
 	if (!init_intro(cub3d))
-	{
-		free_all(cub3d);
-		return (err("Failed to init intro"));
-	}
+		return (free_all(cub3d, 7));
 	if (!init_hearts(cub3d))
-	{
-		free_all(cub3d);
-		return (err("Failed to init hearts"));
-	}
+		return (free_all(cub3d, 8));
 	printf("after init hearts\n");
 	if (!init_shroom(cub3d))
-	{
-		free_all(cub3d);
-		return (err("Failed to init shroom counter"));
-	}
+		return (free_all(cub3d, 9));
 	if (!init_halo(cub3d))
-	{
-		free_all(cub3d);
-		return (err("Failed to init halo"));
-	}
+		return (free_all(cub3d, 10));
 	init_timer(cub3d);
 	cub3d->distraction_thrown_texture = mlx_load_png(TEXTURE_MUSHROOM_THROWN);
 	if (!cub3d->distraction_thrown_texture)
-	{
-		free_all(cub3d);
-		return (err("Failed to load mushroom thrown texture"));
-	}
+		return (free_all(cub3d, 11));
 	cub3d->distraction_texture = mlx_load_png(TEXTURE_MUSHROOM);
 	if (!cub3d->distraction_texture)
-	{
-		free_all(cub3d);
-		return (err("Failed to load mushroom texture"));
-	}
+		return (free_all(cub3d, 12));
 	if (!init_door_textures(cub3d))
-	{
-		free_all(cub3d);
-		return (err("Failed to load door textures"));
-	}
+		return (free_all(cub3d, 13));
 	if (!init_stars_textures(cub3d))
-	{
-		free_all(cub3d);
-		return (err("Failed to load door textures"));
-	}
+		return (free_all(cub3d, 14));
 	if (!init_pause_menu(cub3d, &cub3d->pause_menu))
-	{
-		free_all(cub3d);
-		return (err("Failed to init pause menu"));
-	}
+		return (free_all(cub3d, 15));
 	i = -1;
 	while (++i < LEVELS + 1)
 		cub3d->levels[i].records = NULL;

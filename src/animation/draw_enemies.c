@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_enemies.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/15 12:02:31 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/15 12:14:00 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
-static void scale_enemy(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, double factor)
+static void	scale_enemy(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *src, double factor)
 {
 	uint32_t	row_src;
 	uint32_t	col_src;
@@ -47,18 +59,19 @@ static void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
 	mlx_texture_t	*frame;
 	int				enemy_dir;
 
-	scale_factor = calculate_scale_factor(enemy->dist_to_player, ENEMY_NORMAL_SCALE_DISTANCE);
+	scale_factor = calculate_scale_factor(enemy->dist_to_player,
+			ENEMY_NORMAL_SCALE_DISTANCE);
 	enemy_dir = get_enemy_dir(enemy);
 	if (enemy->state == IDLE)
 		frame = cub3d->frames_idle[enemy_dir][cub3d->curr_frame_index_idle];
 	else
-		frame = cub3d->frames_walking[enemy_dir][cub3d->curr_frame_index_walking];
+		frame
+			= cub3d->frames_walking[enemy_dir][cub3d->curr_frame_index_walking];
 	scale_enemy(
 		cub3d,
 		enemy,
 		frame,
-		scale_factor
-	);
+		scale_factor);
 }
 
 void	draw_all_enemies(cub3d_t *cub3d, t_enemy **enemies)

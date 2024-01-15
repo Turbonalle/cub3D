@@ -133,16 +133,20 @@ int	init_floor(cub3d_t *cub3d)
 void	free_records(cub3d_t *cub3d)
 {
 	int			i;
-	record_t	*rec;
+	record_t	*next_rec;
 
 	i = -1;
 	while (++i < LEVELS + 1)
 	{
+		printf("free_records i: %d\n", i);
+		printf("cub3d->levels: %p\n", cub3d->levels);
+		printf("cub3d->levels[i].records: %p\n", cub3d->levels[i].records);
 		while (cub3d->levels[i].records)
 		{
-			rec = cub3d->levels[i].records;
+			next_rec = cub3d->levels[i].records->next;
+			printf("freeing pointer: %p\n", cub3d->levels[i].records);
 			free_record(cub3d->levels[i].records);
-			cub3d->levels[i].records = rec->next;
+			cub3d->levels[i].records = next_rec;
 		}
 	}
 }

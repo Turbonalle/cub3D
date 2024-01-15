@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animation_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/15 12:01:46 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/15 12:02:13 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 double	calculate_scale_factor(double dist, double normal_dist)
@@ -13,8 +25,9 @@ double	calculate_scale_factor(double dist, double normal_dist)
 int	get_enemy_dir(t_enemy *enemy)
 {
 	double	enemy_relative_dir;
-	
-	enemy_relative_dir = within_360((180 / M_PI * enemy->angle) - enemy->dir_player);
+
+	enemy_relative_dir = within_360((180 / M_PI * enemy->angle)
+			- enemy->dir_player);
 	if (enemy_relative_dir < 30)
 		return (STRAIGHT);
 	else if (enemy_relative_dir < 65)

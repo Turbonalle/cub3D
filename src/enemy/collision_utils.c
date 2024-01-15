@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:39:20 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 10:39:22 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/15 09:46:52 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_first_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
 	return (0);
 }
 
-int	check_second_eight(cub3d_t *cub3d, dvector_t new_pos)
+int	check_second_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
 {
 	if (cub3d->enemy[i].angle < M_PI * 3 / 8)
 	{
@@ -100,7 +100,7 @@ int	check_third_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
 	return (0);
 }
 
-int	check_fourth_eight(cub3d_t *cub3d, dvector_t new_pos)
+int	check_fourth_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
 {
 	if (cub3d->enemy[i].angle < M_PI * 7 / 8)
 	{

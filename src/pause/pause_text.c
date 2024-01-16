@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:08:13 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 15:13:40 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:52:31 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,23 @@
 
 void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu)
 {
-	menu->text_fps = mlx_put_string(cub3d->mlx, "FPS:", menu->pos_col_text, menu->pos_row_1);
-	menu->text_fps->instances[0].y = menu->pos_row_1 + menu->box_fps[0].size * 0.5 - menu->text_fps->height * 0.5;
-	menu->text_fisheye = mlx_put_string(cub3d->mlx, "Fisheye:", menu->pos_col_text, menu->pos_row_2);
-	menu->text_fisheye->instances[0].y = menu->pos_row_2 + menu->box_fps[0].size * 0.5 - menu->text_fisheye->height * 0.5;
-	menu->text_mouse = mlx_put_string(cub3d->mlx, "Mouse:", menu->pos_col_text, menu->pos_row_3);
-	menu->text_mouse->instances[0].y = menu->pos_row_3 + menu->box_fps[0].size * 0.5 - menu->text_mouse->height * 0.5;
-	menu->text_mouse_sensitivity = mlx_put_string(cub3d->mlx, "Sensitivity:", menu->pos_col_text, menu->pos_row_4);
-	menu->text_mouse_sensitivity->instances[0].y = menu->pos_row_4 + menu->box_fps[0].size * 0.5 - menu->text_mouse_sensitivity->height * 0.5;
+	menu->text_fps = mlx_put_string(cub3d->mlx, "FPS:",
+			menu->pos_col_text, menu->pos_row_1);
+	menu->text_fps->instances[0].y = menu->pos_row_1
+		+ menu->box_fps[0].size * 0.5 - menu->text_fps->height * 0.5;
+	menu->text_fisheye = mlx_put_string(cub3d->mlx, "Fisheye:",
+			menu->pos_col_text, menu->pos_row_2);
+	menu->text_fisheye->instances[0].y = menu->pos_row_2
+		+ menu->box_fps[0].size * 0.5 - menu->text_fisheye->height * 0.5;
+	menu->text_mouse = mlx_put_string(cub3d->mlx, "Mouse:",
+			menu->pos_col_text, menu->pos_row_3);
+	menu->text_mouse->instances[0].y = menu->pos_row_3 + menu->box_fps[0].size
+		* 0.5 - menu->text_mouse->height * 0.5;
+	menu->text_mouse_sensitivity = mlx_put_string(cub3d->mlx, "Sensitivity:",
+			menu->pos_col_text, menu->pos_row_4);
+	menu->text_mouse_sensitivity->instances[0].y
+		= menu->pos_row_4 + menu->box_fps[0].size
+		* 0.5 - menu->text_mouse_sensitivity->height * 0.5;
 }
 
 void	add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu)

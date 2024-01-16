@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 13:47:07 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/16 14:02:34 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	collision_checker(cub3d_t *cub3d)
 	dvector_t	delta;
 	int			wall;
 
-	item_collected_checker(cub3d);
 	if (new_pos_is_wall_collision(cub3d)/*  || there_is_a_wall_between_pos_and_new_pos(cub3d) */)
 	{
 		delta.x = cub3d->player.new_pos.x - cub3d->player.pos.x;
@@ -123,6 +122,7 @@ void	collision_checker(cub3d_t *cub3d)
 	{
 		cub3d->player.pos = cub3d->player.new_pos;
 	}
+	item_collected_checker(cub3d);
 	if (pos_is_goal(cub3d))
 	{
 		if (cub3d->player.thrown)

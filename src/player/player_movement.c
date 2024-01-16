@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:00:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 12:44:21 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/16 13:54:14 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

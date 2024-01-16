@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:17:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 12:50:48 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/16 13:54:17 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void	handle_state_game(cub3d_t *cub3d)
 	update_img_size(cub3d); // unnecessary after disabling screen resizing?
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 	if (cub3d->keys.mouse_left && cub3d->on_minimap)
-		move_minimap(cub3d);
+	{
+		move_minimap_x(cub3d);
+		move_minimap_y(cub3d);
+	}
 	player_movement(cub3d);
 	if (cub3d->state == STATE_GAME)
 	{

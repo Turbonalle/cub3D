@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 13:42:54 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/16 13:53:50 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -15,7 +26,8 @@ int	all_keys_found(cub3d_t *cub3d, int i)
 	return (1);
 }
 
-static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dist)
+static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t v_map_check,
+	int dist)
 {
 	if (v_map_check.x >= 0
 		&& v_map_check.x < cub3d->level->map_columns
@@ -42,53 +54,68 @@ static int	wall_or_door_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dis
 	return (0);
 }
 
-//------------------------------------------------------------------------------
+int	wall_checker(int wall_flag, dvector_t end, dvector_t pos)
+{
+	if (wall_flag == 1 && end.x > pos.x)
+		return (WE);
+	else if (wall_flag == 1)
+		return (EA);
+	else if (wall_flag == 0 && pos.y < end.y)
+		return (NO);
+	else if (wall_flag == 0 && pos.y >= end.y)
+		return (SO);
+	else
+		return (5);
+}
 
-int	find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end)
+int get_wall_direction(int wall_flag, player_t player, dvector_t end)
+{
+    if (wall_flag == 1 && end.x > player.pos.x)
+        return WE;
+    else if (wall_flag == 1)
+        return EA;
+    else if (wall_flag == 0 && player.pos.y < end.y)
+        return NO;
+    else
+        return SO;
+}
+
+int	find_end_point(cub3d_t *cub3d, player_t player, double radians,
+	dvector_t end)
 {
 	dvector_t	v_ray_step_size;
 	dvector_t	v_ray_1d_length;
 	vector_t	v_map_check;
 	vector_t	v_step;
 	double		dist;
-	double		max_dist;
-	int			wall_flag;
 
 	v_ray_step_size = init_step_size(radians);
 	v_map_check.x = (int)player.pos.x;
 	v_map_check.y = (int)player.pos.y;
 	v_step = init_v_step(radians * 180 / M_PI);
-	v_ray_1d_length = init_ray_1D_length(player.pos, radians * 180 / M_PI, v_map_check, v_ray_step_size);
+	v_ray_1d_length = init_ray_1D_length(player.pos, radians * 180 / M_PI,
+			v_map_check, v_ray_step_size);
 	dist = 0;
-	max_dist = sqrt(pow(cub3d->img->width, 2) + pow(cub3d->img->height, 2));
-	wall_flag = 0;
-	while (dist < max_dist)
+	while (1)
 	{
 		if (v_ray_1d_length.x < v_ray_1d_length.y)
 		{
 			v_map_check.x += v_step.x;
 			dist = v_ray_1d_length.x;
 			v_ray_1d_length.x += v_ray_step_size.x;
-			wall_flag = 1;
+			if (obstacle_found_dist(cub3d, v_map_check, dist))
+				return (wall_checker(1, end, player.pos));
 		}
 		else
 		{
 			v_map_check.y += v_step.y;
 			dist = v_ray_1d_length.y;
 			v_ray_1d_length.y += v_ray_step_size.y;
-			wall_flag = 0;
+			if (obstacle_found_dist(cub3d, v_map_check, dist))
+				return (wall_checker(0, end, player.pos));
 		}
-		if (wall_or_door_found_dist(cub3d, v_map_check, dist))
-			break ;
 	}
-	if (wall_flag == 1 && end.x > player.pos.x)
-		return (WE);
-	else if (wall_flag == 1)
-		return (EA);
-	else if (wall_flag == 0 && player.pos.y < end.y)
-		return (NO);
-	else
-		return (SO);
+	return (get_wall_direction(wall_flag, player, end));
 }
 
 dvector_t	init_step_size(double angle)

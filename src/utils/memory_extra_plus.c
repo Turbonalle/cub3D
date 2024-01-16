@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:32:47 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 13:46:49 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:39:28 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	disable_items(cub3d_t *cub3d)
 void	free_minimap(cub3d_t *cub3d)
 {
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
+	cub3d->minimap.img = NULL;
 }
 
 void	free_level(cub3d_t *cub3d)

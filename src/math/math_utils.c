@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:49 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:51:21 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:53:45 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double	dist_between_d_vectors(dvector_t a, dvector_t b)
 	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }
 
-double	lerp(double to_start, double to_end, double from_start, double from_end, double value)
+double	lerp(dvector_t from, dvector_t to, double value)
 {
 	return (to_start + (to_end - to_start) * ((value - from_start)
 			/ (from_end - from_start)));

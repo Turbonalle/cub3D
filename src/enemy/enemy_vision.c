@@ -92,7 +92,7 @@ int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 	v_map_check.y = (int)enemy[i].pos.y;
 	v_ray_step_size = init_step_size(to_radians(enemy[i].dir_player));
 	v_step = init_v_step(enemy[i].dir_player);
-	v_ray_1d_length = init_ray_1D_length(cub3d->enemy[i].pos, enemy[i].dir_player, v_map_check, v_ray_step_size);
+	v_ray_1d_length = init_len(cub3d->enemy[i].pos, enemy[i].dir_player, v_map_check, v_ray_step_size);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);

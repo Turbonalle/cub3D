@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:57 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:50:59 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:49:15 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,3 @@ double	dist_between(vector_t a, dvector_t b)
 {
 	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }
-

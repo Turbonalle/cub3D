@@ -44,7 +44,7 @@ int	wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check)
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'C'
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'))
 	{
-		if (dist_to_door(v_map_check, cub3d->player.pos) > 5)
+		if (dist_to_door(v_map_check, cub3d->player.pos) > 2)
 			return (1);
 		if (check_if_door_unlocked(cub3d, v_map_check.x, v_map_check.y))
 			return (0);
@@ -68,7 +68,7 @@ static int	ray_to_distraction(cub3d_t *cub3d, double dir_to_distraction, int i)
 	v_map_check.y = (int)cub3d->player.pos.y;
 	v_ray_step_size = init_step_size(to_radians(dir_to_distraction));
 	v_step = init_v_step(dir_to_distraction);
-	v_ray_1d_length = init_ray_1D_length(cub3d->player.pos, dir_to_distraction, v_map_check, v_ray_step_size);
+	v_ray_1d_length = init_len(cub3d->player.pos, dir_to_distraction, v_map_check, v_ray_step_size);
 	ray = init_ray_dir(dir_to_distraction);
 	if (!ray)
 		return (0);

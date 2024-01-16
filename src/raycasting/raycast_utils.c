@@ -6,10 +6,9 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:00:01 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 09:00:03 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:49:35 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../incl/cub3d.h"
 
@@ -90,7 +89,7 @@ void	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
 	v_map_check.y = (int)player->pos.y;
 	reveal_hidden(cub3d, v_map_check);
 	v_step = init_v_step(ray->angle * 180 / M_PI);
-	ray_len = init_ray_1D_length(cub3d->player.pos,
+	ray_len = init_len(cub3d->player.pos,
 			ray->angle * 180 / M_PI, v_map_check, d_step);
 	while (ray->length < max_dist)
 	{

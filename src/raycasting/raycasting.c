@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:59:09 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 08:59:53 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:49:35 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ ray_t	*cast_ray(cub3d_t *cub3d, ray_t *ray)
 	c_pos.x = (int)cub3d->player.pos.x;
 	c_pos.y = (int)cub3d->player.pos.y;
 	v_step = init_v_step(ray->angle * 180 / M_PI);
-	ray_len = init_ray_1D_length(cub3d->player.pos,
+	ray_len = init_len(cub3d->player.pos,
 			cub3d->player.angle * 180 / M_PI, c_pos, d_step);
 	while (ray->length < DISTRACTION_THROW_DISTANCE)
 	{

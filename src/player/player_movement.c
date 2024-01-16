@@ -6,10 +6,9 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:00:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 09:00:11 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:50:30 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../incl/cub3d.h"
 
@@ -52,4 +51,3 @@ void	player_rotation(cub3d_t *cub3d)
 		}
 	}
 }
-

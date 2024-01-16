@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 11:03:58 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:45:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int new_pos_is_wall_collision(cub3d_t *cub3d)
 {
     int new_pos_x = (int)cub3d->player.new_pos.x;
     int new_pos_y = (int)cub3d->player.new_pos.y;
+
     int pos_x = (int)cub3d->player.pos.x;
     int pos_y = (int)cub3d->player.pos.y;
 
@@ -81,13 +82,13 @@ void	collision_checker(cub3d_t *cub3d)
 	dvector_t	delta;
 	int			wall;
 
-	item_collected_checker(cub3d);
 	if (new_pos_is_wall_collision(cub3d)/*  || there_is_a_wall_between_pos_and_new_pos(cub3d) */)
 	{
 		delta.x = cub3d->player.new_pos.x - cub3d->player.pos.x;
 		delta.y = cub3d->player.new_pos.y - cub3d->player.pos.y;
 		wall = find_end_point(cub3d, cub3d->player,
 				cub3d->player.movement_angle, cub3d->player.new_pos);
+			printf("WALL is %i\n",wall);
 		if (wall == WE || wall == EA)
 		{
 			if (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.pos.x))
@@ -107,6 +108,7 @@ void	collision_checker(cub3d_t *cub3d)
 	{
 		cub3d->player.pos = cub3d->player.new_pos;
 	}
+	item_collected_checker(cub3d);
 	if (pos_is_goal(cub3d))
 	{
 		if (cub3d->player.thrown)

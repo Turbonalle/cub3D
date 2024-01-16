@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:02 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 12:19:36 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:39:03 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	item_collected_checker(cub3d_t *cub3d)
 	double	new_y;
 	double	new_x;
 
-	new_y = cub3d->player.new_pos.y;
-	new_x = cub3d->player.new_pos.x;
+	new_y = cub3d->player.pos.y;
+	new_x = cub3d->player.pos.x;
 	collect_key(cub3d, new_y, new_x);
 	collect_shroom(cub3d, new_y, new_x);
 }

@@ -389,8 +389,8 @@ void	mouse_intro(cub3d_t *cub3d);
 //---- MINIMAP -----------------------------------------------------------------
 
 // minimap.c
-void	move_minimap(cub3d_t *cub3d);
-void	update_minimap(cub3d_t *cub3d);
+void	move_minimap_x(cub3d_t *cub3d);
+void	move_minimap_y(cub3d_t *cub3d);
 void	update_minimap_player_pos(cub3d_t *cub3d);
 void	minimap(cub3d_t *cub3d);
 
@@ -421,7 +421,7 @@ int		goal_found(cub3d_t *cub3d, vector_t v_map_check);
 int		obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir);
 vector_t	init_v_step(double dir);
 dvector_t	init_step_size(double angle);
-dvector_t	init_ray_1D_length(dvector_t start_pos, double dir, vector_t check, dvector_t step_size);
+dvector_t	init_len(dvector_t start_pos, double dir, vector_t check, dvector_t step_size);
 void	adjust(vector_t *v_map_check, ray_t *ray, vector_t v_step, dvector_t *v_ray_1d_length);
 void	adjust_wall_flag(dvector_t *v_ray_1d_length, dvector_t step_size, int *wall_flag);
 void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t step_size);

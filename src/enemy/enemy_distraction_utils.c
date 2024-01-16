@@ -44,7 +44,7 @@ int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_t
 	v_map_check.x = (int)cub3d->enemy[i].pos.x;
 	v_map_check.y = (int)cub3d->enemy[i].pos.y;
 	step = init_ray_step_size(dir_to);
-	v_ray_1d_length = init_ray_1D_length(cub3d->enemy[i].pos, dir_to, v_map_check, step);
+	v_ray_1d_length = init_len(cub3d->enemy[i].pos, dir_to, v_map_check, step);
 	ray = init_ray(cub3d->enemy, i);
 	if (!ray)
 		return (0);
@@ -73,7 +73,7 @@ int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, double max_dist)
 	v_map_check.y = (int)cub3d->player.pos.y;
 	v_ray_step_size = init_step_size(to_radians(dir_to_enemy));
 	v_step = init_v_step(dir_to_enemy);
-	v_ray_1d_length = init_ray_1D_length(cub3d->player.pos, dir_to_enemy, v_map_check, v_ray_step_size);
+	v_ray_1d_length = init_len(cub3d->player.pos, dir_to_enemy, v_map_check, v_ray_step_size);
 	ray = init_ray_dir(dir_to_enemy);
 	if (!ray)
 		return (0);

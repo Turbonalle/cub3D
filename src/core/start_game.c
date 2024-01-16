@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:17:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 13:54:17 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 23:14:29 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	handle_state_game(cub3d_t *cub3d)
 		draw_world(cub3d);
 		minimap(cub3d);
 		enemy_vision(cub3d);
-		draw_enemies(cub3d);
+		see_entities(cub3d);
 		draw_timer(cub3d);
 		draw_game_entities(cub3d);
 		handle_halo(&cub3d->halo);

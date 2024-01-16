@@ -504,7 +504,9 @@ ray_t	*init_ray_dir(double dir_to_enemy);
 int		enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i);
 void	enemy_advance(cub3d_t *cub3d, int i);
 void	enemy_vision(cub3d_t *cub3d);
-void	draw_enemies(cub3d_t *cub3d);
+void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index);
+void	see_enemy(cub3d_t *cub3d, int i);
+void	see_entities(cub3d_t *cub3d);
 int		distraction(cub3d_t *cub3d, int i);
 int		enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i, double max_dist);
 
@@ -528,8 +530,8 @@ void	spin(cub3d_t *cub3d, int i, double at_target);
 int		not_at_end(ray_t *ray, player_t player, t_enemy *enemy, int i);
 
 int		wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check);
-void	see_key(cub3d_t *cub3d, double dir_to_key, key_node_t *key);
-void	see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i);
+void	see_keys(cub3d_t *cub3d, int i);
+void	check_distraction(cub3d_t *cub3d, int i);
 
 dvector_t	set_new_pos(cub3d_t *cub3d, int i);
 int		check_each_other(cub3d_t *cub3d, int i, dvector_t new_pos);

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy_distraction_utils.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 23:44:53 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/16 23:45:27 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -32,7 +43,8 @@ dvector_t	init_ray_step_size(double dir)
 	return (v_ray_step_size);
 }
 
-int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction, double dir_to, int i)
+int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction,
+		double dir_to, int i)
 {
 	dvector_t		step;
 	dvector_t		v_ray_1d_length;
@@ -73,7 +85,8 @@ int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, double max_dist)
 	v_map_check.y = (int)cub3d->player.pos.y;
 	v_ray_step_size = init_step_size(to_radians(dir_to_enemy));
 	v_step = init_v_step(dir_to_enemy);
-	v_ray_1d_length = init_len(cub3d->player.pos, dir_to_enemy, v_map_check, v_ray_step_size);
+	v_ray_1d_length = init_len(cub3d->player.pos, dir_to_enemy, v_map_check,
+			v_ray_step_size);
 	ray = init_ray_dir(dir_to_enemy);
 	if (!ray)
 		return (0);

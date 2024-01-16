@@ -6,61 +6,13 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:45:43 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 16:46:40 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:23:19 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	cursor_right_side(cub3d_t *cub3d,
-	double cursor_angle,
-	dvector_t *position)
-{
-	double	theta;
-
-	theta = 180 - cursor_angle;
-	position->x = cub3d->img->width / 2 + tan(to_radians(theta))
-		* (cub3d->img->height / 2 - ENEMY_CURSOR_MARGIN);
-	position->y = cub3d->img->height - ENEMY_CURSOR_MARGIN;
-	if (position->x > cub3d->img->width - ENEMY_CURSOR_MARGIN)
-	{
-		theta = cursor_angle - 90;
-		position->x = cub3d->img->width - ENEMY_CURSOR_MARGIN;
-		position->y = cub3d->img->height / 2 + tan(to_radians(theta))
-			* (cub3d->img->width / 2 - ENEMY_CURSOR_MARGIN);
-	}
-}
-
-void	cursor_left_side(cub3d_t *cub3d,
-	double cursor_angle,
-	dvector_t *position)
-{
-	double	theta;
-
-	theta = cursor_angle - 180;
-	position->x = cub3d->img->width / 2 - tan(to_radians(theta))
-		* (cub3d->img->height / 2 - ENEMY_CURSOR_MARGIN);
-	position->y = cub3d->img->height - ENEMY_CURSOR_MARGIN;
-	if (position->x < ENEMY_CURSOR_MARGIN)
-	{
-		theta = 270 - cursor_angle;
-		position->x = ENEMY_CURSOR_MARGIN;
-		position->y = cub3d->img->height / 2 + tan(to_radians(theta))
-			* (cub3d->img->width / 2 - ENEMY_CURSOR_MARGIN);
-	}
-}
-
-void	set_enemy_cursor_position(cub3d_t *cub3d,
-	double cursor_angle,
-	dvector_t *position)
-{
-	if (cursor_angle <= 180)
-		cursor_right_side(cub3d, cursor_angle, position);
-	else
-		cursor_left_side(cub3d, cursor_angle, position);
-}
-
-void	set_cursor_corners(triangle_t *triangle,
+static void	set_cursor_corners(triangle_t *triangle,
 	dvector_t rotating_point,
 	double angle_from_player_direction)
 {
@@ -78,7 +30,8 @@ void	set_cursor_corners(triangle_t *triangle,
 			* sin(to_radians(within_360(angle_from_player_direction + 90))));
 }
 
-static double	get_angle_from_player_direction(cub3d_t *cub3d, double angle_from_player)
+static double	get_angle_from_player_direction(cub3d_t *cub3d,
+	double angle_from_player)
 {
 	double	res;
 	range_t	angle_range_from;
@@ -110,7 +63,7 @@ void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance)
 	dvector_t	rotating_point;
 	triangle_t	triangle;
 	double		angle_from_player_direction;
-	
+
 	if (distance <= 0)
 		return ;
 	angle_from_player_direction = get_angle_from_player_direction(cub3d,

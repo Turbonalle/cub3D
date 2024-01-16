@@ -247,7 +247,7 @@ int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 //---- DRAW --------------------------------------------------------------------
 
 void	draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color);
-void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color);
+// void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color);
 void	draw_rectangle(mlx_image_t *img, rectangle_t *rect);
 void	draw_checkbox(cub3d_t *cub3d, box_t *box);
 void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
@@ -265,7 +265,7 @@ double	dist_between_d_vectors(dvector_t a, dvector_t b);
 double	lerp(double to_start, double to_end, double from_start, double from_end, double value);
 
 // dda.c
-int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);
+int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t end);
 int		all_keys_found(cub3d_t *cub3d, int i);
 
 //---- PLAYER ------------------------------------------------------------------

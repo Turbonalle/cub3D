@@ -73,6 +73,9 @@ int		get_record_name(char *line, char **name);
 int		count_records(record_t *records);
 record_t	*new_record(int time, char *name);
 
+// set_z_of_all_images.c
+void	set_z_of_all_images(cub3d_t *cub3d);
+
 // load_level.c
 int		load_level(cub3d_t *cub3d, level_t *level);
 

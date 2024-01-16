@@ -3,29 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   collision_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:00 by slampine          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/16 13:45:50 by slampine         ###   ########.fr       */
+=======
+/*   Updated: 2024/01/16 13:02:54 by jbagger          ###   ########.fr       */
+>>>>>>> 0a2cb65bc92e7657410096349fd6bf6d9662cf2b
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-/* int	new_pos_is_wall_collision(cub3d_t *cub3d)
-{
-	//TODO: FIX PLAYER RUNNNING THORUGH WALLS
-	return (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL
-		|| is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x) == TRUE);
-} */
-
-int new_pos_is_wall_collision(cub3d_t *cub3d)
+int wall_on_path(cub3d_t *cub3d)
 {
     int new_pos_x = (int)cub3d->player.new_pos.x;
     int new_pos_y = (int)cub3d->player.new_pos.y;
 
     int pos_x = (int)cub3d->player.pos.x;
     int pos_y = (int)cub3d->player.pos.y;
+
 
     // Check new_pos
     if (cub3d->level->map[new_pos_y][new_pos_x] == WALL ||
@@ -62,6 +60,18 @@ int new_pos_is_wall_collision(cub3d_t *cub3d)
     }
 
     return 0;
+}
+
+int	new_pos_is_wall_collision(cub3d_t *cub3d)
+{
+	//TODO: FIX PLAYER RUNNNING THORUGH WALLS
+	if (dist_between_d_vectors(cub3d->player.pos, cub3d->player.new_pos) >= 1)
+	{
+		printf("dist between pos and new pos: %f\n", dist_between_d_vectors(cub3d->player.pos, cub3d->player.new_pos));
+		return (wall_on_path(cub3d));
+	}
+	return (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL
+		|| is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.new_pos.x) == TRUE);
 }
 
 int	pos_is_goal(cub3d_t *cub3d)

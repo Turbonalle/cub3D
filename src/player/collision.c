@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:02 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 12:39:03 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:54:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	collect_shroom(cub3d_t *cub3d, double y, double x)
 				&& cub3d->level->distractions[i].pos.y == (int)y + 0.5)
 			{
 				cub3d->level->distractions[i].collected = TRUE;
-				cub3d->level->distractions[i].img_distraction->instances[0].enabled = FALSE;
+				cub3d->level->distractions[i].img_distraction->instances[0]
+					.enabled = FALSE;
 				cub3d->level->distractions[i].visible = FALSE;
 			}
 			i++;

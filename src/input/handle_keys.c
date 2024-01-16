@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:17:04 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 18:17:08 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:50:21 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	handle_intro_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->level = &cub3d->levels[0];
 		if (!load_level(cub3d, cub3d->level))
 		{
-			// TODO: add error message here that level failed to load
 			disable_intro(cub3d);
 			enable_start_menu(&cub3d->start_menu);
 			cub3d->state = STATE_START;

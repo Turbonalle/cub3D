@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:03 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 17:32:09 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:36:31 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ vector_t	get_new_pos(cub3d_t *cub3d, unsigned int new_height,
 	return (new_pos);
 }
 
-static void	zoom_in_minimap(cub3d_t *cub3d)
+void	zoom_in_minimap(cub3d_t *cub3d)
 {
 	int				new_size_percentage;
 	unsigned int	new_width;
@@ -69,7 +69,7 @@ static void	zoom_in_minimap(cub3d_t *cub3d)
 		err("Failed to create minimap image");
 }
 
-int	get_new_percentage_zoom_out(int current_size_percentage)
+static int	get_new_percentage_zoom_out(int current_size_percentage)
 {
 	int	new_size_percentage;
 

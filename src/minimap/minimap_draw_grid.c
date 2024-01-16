@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:31:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 16:51:05 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:36:08 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_correct_square(cub3d_t *cub3d, int row, int column)
 	{
 		if (cub3d->speedrun == 0)
 			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
-				et_door_key_color(cub3d, index));
+				get_door_key_color(cub3d, index));
 		else
 			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
 				cub3d->minimap.color_door);

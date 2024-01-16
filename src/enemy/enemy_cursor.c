@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:45:43 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 20:23:19 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:18:13 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,30 @@ static double	get_angle_from_player_direction(cub3d_t *cub3d,
 	double angle_from_player)
 {
 	double	res;
-	range_t	angle_range_from;
 	range_t	angle_range_to;
+	range_t	angle_range_from;
 
 	res = within_360(angle_from_player - cub3d->player.angle * 180 / M_PI);
-	angle_range_from.start = 90;
-	angle_range_from.end = 270;
-	angle_range_to.start = cub3d->fov / 2;
-	angle_range_to.end = 360 - cub3d->fov / 2;
-	res = lerp(angle_range_from, angle_range_to, res);
+	angle_range_to.start = 90;
+	angle_range_to.end = 270;
+	angle_range_from.start = cub3d->fov / 2;
+	angle_range_from.end = 360 - cub3d->fov / 2;
+	res = lerp(angle_range_to, angle_range_from, res);
 	return (res);
 }
 
-static double	get_triangle_height(double triangle_height)
+static int	get_triangle_height(double triangle_height)
 {
-	range_t	height_from;
 	range_t	height_to;
+	range_t	height_from;
+	int		res;
 
-	height_from.start = ENEMY_CURSOR_MIN_HEIGHT;
-	height_from.end = ENEMY_CURSOR_MAX_HEIGHT;
-	height_to.start = 0;
+	height_to.start = ENEMY_CURSOR_MIN_HEIGHT;
 	height_to.end = ENEMY_CURSOR_MAX_HEIGHT;
-	return (lerp(height_from, height_to, triangle_height));
+	height_from.start = 0;
+	height_from.end = ENEMY_CURSOR_MAX_HEIGHT;
+	res = lerp(height_to, height_from, triangle_height);
+	return (res);
 }
 
 void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance)
@@ -72,8 +74,6 @@ void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance)
 		&rotating_point);
 	angle_from_player_direction = within_360(angle_from_player_direction - 90);
 	triangle.height = ENEMY_CURSOR_MAX_HEIGHT / distance;
-	if (triangle.height > ENEMY_CURSOR_MAX_HEIGHT)
-		triangle.height = ENEMY_CURSOR_MAX_HEIGHT;
 	triangle.height = get_triangle_height(triangle.height);
 	triangle.base = triangle.height * 3;
 	set_cursor_corners(&triangle, rotating_point, angle_from_player_direction);

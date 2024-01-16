@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 13:56:46 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:02:34 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,61 @@
 
 int wall_on_path(cub3d_t *cub3d)
 {
-    int new_pos_x = (int)cub3d->player.new_pos.x;
-    int new_pos_y = (int)cub3d->player.new_pos.y;
-
-    int pos_x = (int)cub3d->player.pos.x;
-    int pos_y = (int)cub3d->player.pos.y;
+    double new_pos_x = cub3d->player.new_pos.x;
+    double new_pos_y = cub3d->player.new_pos.y;
+    double pos_x = cub3d->player.pos.x;
+    double pos_y = cub3d->player.pos.y;
 
 
     // Check new_pos
-    if (cub3d->level->map[new_pos_y][new_pos_x] == WALL ||
-        is_locked_door(cub3d, new_pos_y, new_pos_x) == TRUE)
+    if (cub3d->level->map[(int)new_pos_y][(int)new_pos_x] == WALL ||
+        is_locked_door(cub3d, (int)new_pos_y, (int)new_pos_x) == TRUE)
     {
         return 1;
     }
 
     // Check halfway between pos and new_pos
-    int halfway_x = (pos_x + new_pos_x) / 2;
-    int halfway_y = (pos_y + new_pos_y) / 2;
-    if (cub3d->level->map[halfway_y][halfway_x] == WALL ||
-        is_locked_door(cub3d, halfway_y, halfway_x) == TRUE)
+    double halfway_x = (pos_x + new_pos_x) / 2;
+    double halfway_y = (pos_y + new_pos_y) / 2;
+    if (cub3d->level->map[(int)halfway_y][(int)halfway_x] == WALL ||
+        is_locked_door(cub3d, (int)halfway_y, (int)halfway_x) == TRUE)
     {
         return 1;
     }
 
     // Check 25% position
-    int quarter_x = pos_x + (new_pos_x - pos_x) * 0.25;
-    int quarter_y = pos_y + (new_pos_y - pos_y) * 0.25;
-    if (cub3d->level->map[quarter_y][quarter_x] == WALL ||
-        is_locked_door(cub3d, quarter_y, quarter_x) == TRUE)
+    double quarter_x = pos_x + (new_pos_x - pos_x) * 0.25;
+    double quarter_y = pos_y + (new_pos_y - pos_y) * 0.25;
+    if (cub3d->level->map[(int)quarter_y][(int)quarter_x] == WALL ||
+        is_locked_door(cub3d, (int)quarter_y, (int)quarter_x) == TRUE)
     {
         return 1;
     }
 
     // Check 75% position
-    int three_quarters_x = pos_x + (new_pos_x - pos_x) * 0.75;
-    int three_quarters_y = pos_y + (new_pos_y - pos_y) * 0.75;
-    if (cub3d->level->map[three_quarters_y][three_quarters_x] == WALL ||
-        is_locked_door(cub3d, three_quarters_y, three_quarters_x) == TRUE)
+    double three_quarters_x = pos_x + (new_pos_x - pos_x) * 0.75;
+    double three_quarters_y = pos_y + (new_pos_y - pos_y) * 0.75;
+    if (cub3d->level->map[(int)three_quarters_y][(int)three_quarters_x] == WALL ||
+        is_locked_door(cub3d, (int)three_quarters_y, (int)three_quarters_x) == TRUE)
     {
         return 1;
     }
 
+	printf("new_pos_x: %f\n", new_pos_x);
+	printf("new_pos_y: %f\n", new_pos_y);
+	printf("halfway_x: %f\n", halfway_x);
+	printf("halfway_y: %f\n", halfway_y);
+	printf("quarter_x: %f\n", quarter_x);
+	printf("quarter_y: %f\n", quarter_y);
+	printf("three_quarters_x: %f\n", three_quarters_x);
+	printf("three_quarters_y: %f\n", three_quarters_y);
     return 0;
 }
 
 int	new_pos_is_wall_collision(cub3d_t *cub3d)
 {
-	//TODO: FIX PLAYER RUNNNING THORUGH WALLS
 	if (dist_between_d_vectors(cub3d->player.pos, cub3d->player.new_pos) >= 1)
 	{
-		printf("dist between pos and new pos: %f\n", dist_between_d_vectors(cub3d->player.pos, cub3d->player.new_pos));
 		return (wall_on_path(cub3d));
 	}
 	return (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.new_pos.x] == WALL
@@ -94,7 +99,10 @@ void	collision_checker(cub3d_t *cub3d)
 		delta.y = cub3d->player.new_pos.y - cub3d->player.pos.y;
 		wall = find_end_point(cub3d, cub3d->player,
 				cub3d->player.movement_angle, cub3d->player.new_pos);
-			printf("WALL is %i\n",wall);
+		if (dist_between_d_vectors(cub3d->player.pos, cub3d->player.new_pos) >= 1)
+		{
+			
+		}
 		if (wall == WE || wall == EA)
 		{
 			if (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.pos.x))

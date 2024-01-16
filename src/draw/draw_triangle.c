@@ -8,13 +8,22 @@ void	fill_bottom_flat_triangle(mlx_image_t *img, triangle_t *triangle, int color
 
 	float curx1 = triangle->a.x;
 	float curx2 = triangle->a.x;
-
-	for (int scanlineY = triangle->a.y; scanlineY <= triangle->b.y; scanlineY++)
+	int scanlineY = triangle->a.y;
+	
+	while (scanlineY <= triangle->b.y && scanlineY < (int)img->height)
 	{
 		draw_line(img, (dvector_t){curx1, scanlineY}, (dvector_t){curx2, scanlineY}, color);
 		curx1 += invslope1;
 		curx2 += invslope2;
+		scanlineY++;
 	}
+
+	// for (scanlineY; scanlineY <= triangle->b.y; scanlineY++)
+	// {
+	// 	draw_line(img, (dvector_t){curx1, scanlineY}, (dvector_t){curx2, scanlineY}, color);
+	// 	curx1 += invslope1;
+	// 	curx2 += invslope2;
+	// }
 }
 
 void	fill_top_flat_triangle(mlx_image_t *img, triangle_t *triangle, int color)
@@ -24,13 +33,26 @@ void	fill_top_flat_triangle(mlx_image_t *img, triangle_t *triangle, int color)
 
 	float curx1 = triangle->c.x;
 	float curx2 = triangle->c.x;
+	int scanlineY = triangle->c.y;
+	/* if (scanlineY >= (int)img->height)
+		scanlineY = (int)img->height - 1; */
 
-	for (int scanlineY = triangle->c.y; scanlineY > triangle->a.y; scanlineY--)
+	while (scanlineY > triangle->a.y)
 	{
-		draw_line(img, (dvector_t){curx1, scanlineY}, (dvector_t){curx2, scanlineY}, color);
+		if (scanlineY < (int)img->height)
+			draw_line(img, (dvector_t){curx1, scanlineY}, (dvector_t){curx2, scanlineY}, color);
 		curx1 -= invslope1;
 		curx2 -= invslope2;
+		scanlineY--;
+	
 	}
+
+	// for (int scanlineY = triangle->c.y; scanlineY > triangle->a.y; scanlineY--)
+	// {
+	// 	draw_line(img, (dvector_t){curx1, scanlineY}, (dvector_t){curx2, scanlineY}, color);
+	// 	curx1 -= invslope1;
+	// 	curx2 -= invslope2;
+	// }
 }
 
 void	swap(dvector_t *v1, dvector_t *v2)
@@ -79,9 +101,9 @@ void	draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color)
 	}
 }
 
-void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color)
-{
-	draw_line(img, triangle.a, triangle.b, color);
-	draw_line(img, triangle.b, triangle.c, color);
-	draw_line(img, triangle.c, triangle.a, color);
-}
+// void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color)
+// {
+// 	draw_line(img, triangle.a, triangle.b, color);
+// 	draw_line(img, triangle.b, triangle.c, color);
+// 	draw_line(img, triangle.c, triangle.a, color);
+// }

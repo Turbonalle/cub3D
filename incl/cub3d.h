@@ -73,6 +73,9 @@ int		get_record_name(char *line, char **name);
 int		count_records(record_t *records);
 record_t	*new_record(int time, char *name);
 
+// set_z_of_all_images.c
+void	set_z_of_all_images(cub3d_t *cub3d);
+
 // load_level.c
 int		load_level(cub3d_t *cub3d, level_t *level);
 
@@ -313,6 +316,12 @@ void	decrease_fov(cub3d_t *cub3d);
 int		get_door_index(char symbol);
 int		get_key_index(char symbol);
 
+//---- KEY COUNTS --------------------------------------------------------------
+
+//key_count_string_utils.c
+void	nullify_strings(char **text1, char **text2, char **text3);
+void	free_non_null_strings(char *text1, char *text2, char *text3);
+
 //key_counts.c
 int		draw_key_counts(cub3d_t *cub3d);
 
@@ -505,6 +514,9 @@ void	cause_distraction(cub3d_t *cub3d);
 int		check_if_door_unlocked(cub3d_t *cub3d, int xcoord, int ycoord);
 char	*create_file_path(int i, char *path);
 int		check_if_player_is_seen(cub3d_t *cub3d, int i);
+
+void	set_enemy_cursor_position(cub3d_t *cub3d, double cursor_angle,
+	dvector_t *position);
 void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance);
 
 int		init_distractions(cub3d_t *cub3d);

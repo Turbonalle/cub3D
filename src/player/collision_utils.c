@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:00 by slampine          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/16 13:45:50 by slampine         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/16 13:02:54 by jbagger          ###   ########.fr       */
->>>>>>> 0a2cb65bc92e7657410096349fd6bf6d9662cf2b
+/*   Updated: 2024/01/16 13:56:46 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

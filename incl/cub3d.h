@@ -432,6 +432,7 @@ void	enable_shroom(cub3d_t *cub3d);
 //---- ENEMIES -------------------------------------------------------------------
 
 int		init_enemy(cub3d_t *cub3d);
+void	set_enemy_stats(cub3d_t *cub3d, int i);
 ray_t	*init_ray_dir(double dir_to_enemy);
 int		enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i);
 void	enemy_advance(cub3d_t *cub3d, int i);

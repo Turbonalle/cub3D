@@ -23,9 +23,9 @@ void	handle_movement(cub3d_t *cub3d, double at_target, int target, int i)
 	if (target == 0)
 	{
 		enemy_advance(cub3d, i);
-		if (dist_between_d_vectors(cub3d->player.pos, cub3d->enemy[i].pos) < 1)
+		if (dist_between_d_vectors(cub3d->player.pos, cub3d->enemy[i].pos) < ENEMY_CATCH_DISTANCE)
 		{
-			printf("You were caught at time %f\n",cub3d->run_time);
+			// printf("You were caught at time %f\n",cub3d->run_time);
 			player_is_hit(cub3d, i);
 		}
 	}
@@ -53,6 +53,9 @@ void	enemy_vision(cub3d_t *cub3d)
 	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_speed) * 2;
 	while (i < cub3d->num_enemies)
 	{
+		cub3d->enemy[i].dir_player = within_360(atan2(cub3d->player.pos.y
+					- cub3d->enemy[i].pos.y, cub3d->player.pos.x
+					- cub3d->enemy[i].pos.x) * 180 / M_PI);
 		cub3d->enemy[i].is_hunting = FALSE;
 		if (cub3d->run_time > cub3d->enemy[i].freeze_start + ENEMY_FREEZE)
 		{
@@ -67,7 +70,9 @@ void	enemy_vision(cub3d_t *cub3d)
 			else
 				spin(cub3d, i, at_target);
 		}
-		if (cub3d->enemy[i].is_walking)
+		if (cub3d->enemy[i].is_hunting)
+			cub3d->enemy[i].state = HUNTING;
+		else if (cub3d->enemy[i].is_walking)
 			cub3d->enemy[i].state = WALKING;
 		else
 			cub3d->enemy[i].state = IDLE;
@@ -87,7 +92,7 @@ int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
 	v_map_check.y = (int)enemy[i].pos.y;
 	v_ray_step_size = init_step_size(to_radians(enemy[i].dir_player));
 	v_step = init_v_step(enemy[i].dir_player);
-	v_ray_1d_length = init_ray_1D_length(cub3d->enemy[i].pos, enemy[i].dir_player, v_map_check, v_ray_step_size);
+	v_ray_1d_length = init_len(cub3d->enemy[i].pos, enemy[i].dir_player, v_map_check, v_ray_step_size);
 	ray = init_ray(enemy, i);
 	if (!ray)
 		return (0);

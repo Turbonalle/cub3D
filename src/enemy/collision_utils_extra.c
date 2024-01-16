@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:44:27 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/15 09:48:22 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 09:56:08 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 dvector_t	set_new_pos(cub3d_t *cub3d, int i)
 {
 	dvector_t	new_pos;
+	double		step;
 
 	new_pos.x = cub3d->enemy[i].pos.x + cos(cub3d->enemy[i].angle)
 		* ENEMY_SPEED * (1 + cub3d->settings.e_speed);
 	new_pos.y = cub3d->enemy[i].pos.y + sin(cub3d->enemy[i].angle)
 		* ENEMY_SPEED * (1 + cub3d->settings.e_speed);
+	step = dist_between_d_vectors(cub3d->enemy[i].pos, new_pos);
+	if (step > ENEMY_CATCH_DISTANCE)
+		new_pos = cub3d->enemy[i].target;
 	return (new_pos);
 }
 

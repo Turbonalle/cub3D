@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   nullify_level_menu.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 08:58:01 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/16 08:58:37 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 static void	nullify_minilevels(minilevel_t *minilevels)
@@ -15,7 +27,6 @@ static void	nullify_minilevels(minilevel_t *minilevels)
 
 void	nullify_level_menu(level_menu_t *menu)
 {
-
 	menu->img = NULL;
 	nullify_png(&menu->title);
 	nullify_png(&menu->back);

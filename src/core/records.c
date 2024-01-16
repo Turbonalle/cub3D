@@ -20,7 +20,7 @@ void	delete_last_record(cub3d_t *cub3d, mlx_t *mlx, record_t **records)
 	free_record(ptr);
 }
 
-int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_entries)
+int	add_record(cub3d_t *cub3d, record_t **records, int time, char *name)
 {
 	record_t	*new;
 	record_t	*temp;
@@ -47,12 +47,12 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_e
 
 	temp = *records;
 	i = 1;
-	while (temp->next && temp->next->time < time && i < n_entries)
+	while (temp->next && temp->next->time < time && i < cub3d->leaderboard.n_entries)
 	{
 		temp = temp->next;
 		i++;
 	}
-	if (i > n_entries)		// if new record is worse than the last record
+	if (i > cub3d->leaderboard.n_entries)		// if new record is worse than the last record
 	{
 		free_record(new);
 	}
@@ -64,7 +64,7 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_e
 	else					// if new record is better than the last record
 		temp->next = new;
 	i = count_records(*records);
-	while (i > n_entries)
+	while (i > cub3d->leaderboard.n_entries)
 	{
 		delete_last_record(cub3d, cub3d->mlx, records);
 		i = count_records(*records);
@@ -72,7 +72,7 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char* name, int n_e
 	return (SUCCESS);
 }
 
-int	set_records(cub3d_t *cub3d, level_t *level, char **line, int n_entries, int fd)
+int	set_records(cub3d_t *cub3d, level_t *level, char **line, int fd)
 {
 	char	*name;
 	int		time;
@@ -83,44 +83,11 @@ int	set_records(cub3d_t *cub3d, level_t *level, char **line, int n_entries, int 
 			return (err("Failed to get time string"));
 		if (!get_record_name(*line, &name))
 			return (err("Failed to get name string"));
-		add_record(cub3d, &level->records, time, name, n_entries);
+		add_record(cub3d, &level->records, time, name);
 		free(*line);
 		*line = get_next_line(fd);
 	}
 	return (SUCCESS);
-}
-
-int	free_half_done(cub3d_t *cub3d)
-{
-	int	i;
-
-	i = 0;
-	while (i < LEVELS + 1)
-	{
-		free_list(cub3d->levels[i].map_list);
-		free_backup(cub3d->levels[i]);
-		i++;
-	}
-	free(cub3d->levels);
-	free(cub3d->rays);
-	free_prev_start_menu(&cub3d->start_menu, 9);
-	free_prev_level_menu(&cub3d->level_menu, LEVELS, 4);
-	free_prev_name_menu(&cub3d->name_menu, 2);
-	free_prev_gameover_menu(&cub3d->gameover_menu, 8);
-	mlx_delete_texture(cub3d->intro.texture);
-	i = -1;
-	while (++i < HEARTS)
-	{
-		mlx_delete_texture(cub3d->hearts[i].full.texture);
-		mlx_delete_texture(cub3d->hearts[i].empty.texture);
-	}
-	mlx_delete_texture(cub3d->shroom->shroom.texture);
-	mlx_delete_image(cub3d->mlx, cub3d->img);
-	mlx_delete_texture(cub3d->distraction_thrown_texture);
-	mlx_delete_texture(cub3d->distraction_texture);
-	free_textures_before_failed(cub3d->door, 5);
-	mlx_delete_texture(cub3d->pause_menu.title.texture);
-	return (0);
 }
 
 int	read_records(cub3d_t *cub3d)
@@ -140,7 +107,7 @@ int	read_records(cub3d_t *cub3d)
 	line = get_next_line(fd);
 	while (line && ++i < cub3d->n_levels + 1)
 	{
-		if (!set_records(cub3d, &cub3d->levels[i], &line, cub3d->leaderboard.n_entries, fd))
+		if (!set_records(cub3d, &cub3d->levels[i], &line, fd))
 		{
 			free_all(cub3d, -1);
 			free(line);

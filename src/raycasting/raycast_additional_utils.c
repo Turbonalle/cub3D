@@ -1,7 +1,7 @@
 
 #include "../incl/cub3d.h"
 
-dvector_t	init_ray_1D_length(dvector_t start_pos, double dir, vector_t check, dvector_t step_size)
+dvector_t	init_len(dvector_t start_pos, double dir, vector_t check, dvector_t step_size)
 {
 	dvector_t		v_ray_1d_length;
 	dvector_t		v_ray_dir;

@@ -24,6 +24,20 @@ int	free_prev_start_menu(start_menu_t *menu, int i)
 	return (0);
 }
 
+static int	load_png_rest(start_menu_t *menu)
+{
+	menu->arrow_exit.texture = mlx_load_png(ARROW_PNG);
+	if (!menu->arrow_exit.texture)
+		return (free_prev_start_menu(menu, 6));
+	menu->arrow_start.texture = mlx_load_png(ARROW_PNG);
+	if (!menu->arrow_start.texture)
+		return (free_prev_start_menu(menu, 7));
+	menu->arrow_level.texture = mlx_load_png(ARROW_PNG);
+	if (!menu->arrow_level.texture)
+		return (free_prev_start_menu(menu, 8));
+	return (1);
+}
+
 static int	load_png(start_menu_t *menu)
 {
 	menu->title.texture = mlx_load_png(START_TITLE_PNG);
@@ -47,15 +61,7 @@ static int	load_png(start_menu_t *menu)
 	menu->level_hover.texture = mlx_load_png(START_LEVEL_HOVER_PNG);
 	if (!menu->level_hover.texture)
 		return (free_prev_start_menu(menu, 5));
-	menu->arrow_exit.texture = mlx_load_png(ARROW_PNG);
-	if (!menu->arrow_exit.texture)
-		return (free_prev_start_menu(menu, 6));
-	menu->arrow_start.texture = mlx_load_png(ARROW_PNG);
-	if (!menu->arrow_start.texture)
-		return (free_prev_start_menu(menu, 7));
-	menu->arrow_level.texture = mlx_load_png(ARROW_PNG);
-	if (!menu->arrow_level.texture)
-		return (free_prev_start_menu(menu, 8));
+	load_png_rest(menu);
 	return (1);
 }
 

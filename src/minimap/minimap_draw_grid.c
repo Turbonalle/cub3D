@@ -27,11 +27,11 @@ void	draw_correct_square(cub3d_t *cub3d, int row, int column)
 		else
 			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_door);
 	}
-	else if (cub3d->level->map[row][column] == '0' || get_key_index(cub3d->level->map[row][column]) > -1 || cub3d->level->map[row][column] == 'm' || cub3d->level->map[row][column] == 'o')
+	else if (ft_strchr("0mo", cub3d->level->map[row][column]) || get_key_index(cub3d->level->map[row][column]) > -1)
 	{
 		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_floor);
 	}
-	else if (cub3d->level->map[row][column] == '1' || cub3d->level->map[row][column] == 'h' || cub3d->level->map[row][column] == 'r')
+	else if (ft_strchr("1hr", cub3d->level->map[row][column]))
 	{
 		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_wall);
 	}

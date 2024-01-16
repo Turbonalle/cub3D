@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_enemies.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:31 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 21:37:17 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:03:07 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
 	scale_factor = calculate_scale_factor(enemy->dist_to_player,
 			ENEMY_NORMAL_SCALE_DISTANCE);
 	enemy_dir = get_enemy_dir(enemy);
+	// if (enemy->state == HUNTING)
+	// 	frame = cub3d->frames_hunt[enemy_dir][cub3d->curr_frame_index_hunt];
 	if (enemy->state == IDLE)
 		frame = cub3d->frames_idle[enemy_dir][cub3d->curr_frame_index_idle];
 	else

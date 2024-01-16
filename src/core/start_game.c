@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:17:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 11:03:41 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:50:48 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_game_background(cub3d_t *cub3d, level_t *level)
+void	draw_game_background(cub3d_t *cub3d)
 {
 	unsigned int	row;
 	unsigned int	column;

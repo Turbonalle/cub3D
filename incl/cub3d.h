@@ -313,6 +313,12 @@ void	decrease_fov(cub3d_t *cub3d);
 int		get_door_index(char symbol);
 int		get_key_index(char symbol);
 
+//---- KEY COUNTS --------------------------------------------------------------
+
+//key_count_string_utils.c
+void	nullify_strings(char **text1, char **text2, char **text3);
+void	free_non_null_strings(char *text1, char *text2, char *text3);
+
 //key_counts.c
 int		draw_key_counts(cub3d_t *cub3d);
 

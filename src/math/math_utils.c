@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:49 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 21:16:13 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:24:11 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,3 @@ double	lerp(range_t to, range_t from, double value)
 	return (to.start + (to.end - to.start) * ((value - from.start)
 			/ (from.end - from.start)));
 }
-
-/* double	old_lerp(double to_start, double to_end, double from_start,
-	double from_end, double value)
-{
-	return (to_start + (to_end - to_start) * ((value - from_start)
-			/ (from_end - from_start)));
-} */

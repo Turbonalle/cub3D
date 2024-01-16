@@ -262,7 +262,7 @@ double	within_two_pi(double radians);
 double	to_radians(double degrees);
 double	dist_between(vector_t a, dvector_t b);
 double	dist_between_d_vectors(dvector_t a, dvector_t b);
-double	lerp(double to_start, double to_end, double from_start, double from_end, double value);
+double	lerp(range_t from, range_t to, double value);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);

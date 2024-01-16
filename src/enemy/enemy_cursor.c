@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_cursor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:45:43 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 10:45:45 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:46:40 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,50 @@ void	set_cursor_corners(triangle_t *triangle,
 			* sin(to_radians(within_360(angle_from_player_direction + 90))));
 }
 
+static double	get_angle_from_player_direction(cub3d_t *cub3d, double angle_from_player)
+{
+	double	res;
+	range_t	angle_range_from;
+	range_t	angle_range_to;
+
+	res = within_360(angle_from_player - cub3d->player.angle * 180 / M_PI);
+	angle_range_from.start = 90;
+	angle_range_from.end = 270;
+	angle_range_to.start = cub3d->fov / 2;
+	angle_range_to.end = 360 - cub3d->fov / 2;
+	res = lerp(angle_range_from, angle_range_to, res);
+	return (res);
+}
+
+static double	get_triangle_height(double triangle_height)
+{
+	range_t	height_from;
+	range_t	height_to;
+
+	height_from.start = ENEMY_CURSOR_MIN_HEIGHT;
+	height_from.end = ENEMY_CURSOR_MAX_HEIGHT;
+	height_to.start = 0;
+	height_to.end = ENEMY_CURSOR_MAX_HEIGHT;
+	return (lerp(height_from, height_to, triangle_height));
+}
+
 void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance)
 {
 	dvector_t	rotating_point;
 	triangle_t	triangle;
 	double		angle_from_player_direction;
-
+	
 	if (distance <= 0)
 		return ;
-	angle_from_player_direction = within_360(angle_from_player
-			- cub3d->player.angle * 180 / M_PI);
-	angle_from_player_direction = lerp(90, 270, cub3d->fov / 2,
-			360 - cub3d->fov / 2, angle_from_player_direction);
+	angle_from_player_direction = get_angle_from_player_direction(cub3d,
+			angle_from_player);
 	set_enemy_cursor_position(cub3d, angle_from_player_direction,
 		&rotating_point);
 	angle_from_player_direction = within_360(angle_from_player_direction - 90);
 	triangle.height = ENEMY_CURSOR_MAX_HEIGHT / distance;
 	if (triangle.height > ENEMY_CURSOR_MAX_HEIGHT)
 		triangle.height = ENEMY_CURSOR_MAX_HEIGHT;
-	triangle.height = lerp(ENEMY_CURSOR_MIN_HEIGHT, ENEMY_CURSOR_MAX_HEIGHT, 0,
-			ENEMY_CURSOR_MAX_HEIGHT, triangle.height);
+	triangle.height = get_triangle_height(triangle.height);
 	triangle.base = triangle.height * 3;
 	set_cursor_corners(&triangle, rotating_point, angle_from_player_direction);
 	draw_filled_triangle(cub3d->img, &triangle, ENEMY_CURSOR_COLOR);

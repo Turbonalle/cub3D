@@ -140,8 +140,21 @@ int		init_cub3d(cub3d_t *cub3d);
 // init menus
 int		init_level_menu(cub3d_t *cub3d, level_menu_t *menu);
 int		init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
+void	init_name_values(name_menu_t *menu);
+void	draw_letter_box(mlx_image_t *img, letter_box_t *box);
+void	init_letter_images(cub3d_t *cub3d, name_menu_t *menu);
+void	set_letter_fields(name_menu_t *menu);
 int		init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
+int		load_png_pause_menu(pause_menu_t *menu);
+int		init_images_pause_menu(mlx_t *mlx, pause_menu_t *menu);
+int		init_sensitivity_slider(cub3d_t *cub3d, pause_menu_t *menu);
+void	init_checkboxes(pause_menu_t *menu);
+void	init_checkbox_states(pause_menu_t *menu);
+void	set_checkbox_values(pause_menu_t *menu);
+void	init_settings(settings_t *settings);
 int		init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
+int		load_png_start_menu(start_menu_t *menu);
+int		init_images_start_menu(mlx_t *mlx, start_menu_t *menu);
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
 int		init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
 int		init_intro(cub3d_t *cub3d);
@@ -149,7 +162,15 @@ int		init_intro(cub3d_t *cub3d);
 int		init_stars_textures(cub3d_t *cub3d);
 int		init_door_textures(cub3d_t *cub3d);
 int		init_doors_and_keys(cub3d_t *cub3d);
+void	init_door_values(cub3d_t *cub3d);
+int		init_door(cub3d_t *cub3d, int i, int j, int door_group_index);
+int		load_door_textures(cub3d_t *cub3d);
 int		init_enemy_frames(cub3d_t *cub3d);
+int		set_indexes(cub3d_t *cub3d, int i);
+
+int		count_keys(cub3d_t *cub3d, int i);
+int		init_key(cub3d_t *cub3d, int i, int j, int key_group_index);
+int		free_doors_and_keys(cub3d_t *cub3d);
 
 int		init_shroom(cub3d_t *cub3d);
 
@@ -262,7 +283,7 @@ double	within_two_pi(double radians);
 double	to_radians(double degrees);
 double	dist_between(vector_t a, dvector_t b);
 double	dist_between_d_vectors(dvector_t a, dvector_t b);
-double	lerp(double to_start, double to_end, double from_start, double from_end, double value);
+double	lerp(range_t from, range_t to, double value);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);

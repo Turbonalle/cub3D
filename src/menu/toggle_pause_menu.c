@@ -6,7 +6,7 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:49:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/14 20:01:34 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:35:58 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,29 @@
 
 int	get_marker_pos(cub3d_t *cub3d)
 {
-	return (lerp(cub3d->pause_menu.sensitivity_slider.marker_min_pos,
-			cub3d->pause_menu.sensitivity_slider.marker_max_pos,
-			MOUSE_MIN_SENSITIVITY,
-			MOUSE_MAX_SENSITIVITY,
+	range_t	marker_range;
+	range_t	sensitivity_range;
+
+	marker_range.start = cub3d->pause_menu.sensitivity_slider.marker_min_pos;
+	marker_range.end = cub3d->pause_menu.sensitivity_slider.marker_max_pos;
+	sensitivity_range.start = MOUSE_MIN_SENSITIVITY;
+	sensitivity_range.end = MOUSE_MAX_SENSITIVITY;
+	return (lerp(marker_range, sensitivity_range,
 			cub3d->settings.mouse_sensitivity) - SLIDER_MARKER_WIDTH / 2);
 }
 
 double	get_sensitivity(cub3d_t *cub3d)
 {
-	return (lerp(MOUSE_MIN_SENSITIVITY,
-			MOUSE_MAX_SENSITIVITY,
-			(double)cub3d->pause_menu.sensitivity_slider.marker_min_pos,
-			(double)cub3d->pause_menu.sensitivity_slider.marker_max_pos,
+	range_t	marker_range;
+	range_t	sensitivity_range;
+
+	sensitivity_range.start = MOUSE_MIN_SENSITIVITY;
+	sensitivity_range.end = MOUSE_MAX_SENSITIVITY;
+	marker_range.start
+		= (double)cub3d->pause_menu.sensitivity_slider.marker_min_pos;
+	marker_range.end
+		= (double)cub3d->pause_menu.sensitivity_slider.marker_max_pos;
+	return (lerp(sensitivity_range, marker_range,
 			(double)cub3d->pause_menu.sensitivity_slider.marker->instances[0].x
 			+ SLIDER_MARKER_WIDTH / 2));
 }

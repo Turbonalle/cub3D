@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_hearts.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:19 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 11:05:20 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:01:31 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

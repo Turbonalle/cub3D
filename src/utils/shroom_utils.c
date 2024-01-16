@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:45:52 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/15 11:23:54 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:57:39 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,3 @@ void	enable_shroom(cub3d_t *cub3d)
 {
 	cub3d->shroom->shroom.img->instances[0].enabled = TRUE;
 }
-

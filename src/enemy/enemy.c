@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 11:28:53 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:49:35 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i, double max_dist)
 	v_map_check.y = (int)enemy[i].pos.y;
 	v_ray_step_size = init_step_size(enemy[i].angle);
 	v_step = init_v_step(enemy[i].angle * 180 / M_PI);
-	v_ray_1d_length = init_ray_1D_length(cub3d->enemy[i].pos,
+	v_ray_1d_length = init_len(cub3d->enemy[i].pos,
 			enemy[i].angle * 180 / M_PI, v_map_check, v_ray_step_size);
 	ray = init_ray(enemy, i);
 	if (!ray)

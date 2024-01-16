@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:22:28 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:22:30 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:44:15 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	submit_name(cub3d_t *cub3d, name_menu_t *menu)
 	if (name_is_empty(menu))
 	{
 		add_record(cub3d, &cub3d->level->records, cub3d->time_finished,
-			ft_strdup("Anonymous"), cub3d->leaderboard.n_entries);
+			ft_strdup("Anonymous"));
 	}
 	else
 	{
 		add_record(cub3d, &cub3d->level->records, cub3d->time_finished,
-			ft_strdup(menu->name), cub3d->leaderboard.n_entries);
+			ft_strdup(menu->name));
 	}
 	i = get_current_level(cub3d);
 	draw_names(cub3d->mlx, &cub3d->level->records, &cub3d->leaderboard, i);

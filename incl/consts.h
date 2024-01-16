@@ -36,6 +36,7 @@
 # define ENEMY_FREEZE	2.0
 # define ENEMY_EATING_SPEED 0.1
 # define ENEMY_RADIUS 0.40
+# define ENEMY_CATCH_DISTANCE 1
 
 # define ENEMY_FOOD_AMOUNT 10
 
@@ -106,8 +107,15 @@
 # define FRAME_PATH_ENEMY_WALKING_STRAIGHT "./assets/textures/red_walking_straight/"
 # define FRAME_PATH_ENEMY_WALKING_LEFT_45 "./assets/textures/red_walking_left45/"
 # define FRAME_PATH_ENEMY_WALKING_LEFT "./assets/textures/red_walking_left/"
+# define FRAME_PATH_ENEMY_HUNTING "./assets/textures/red_hunting/"
+# define FRAME_PATH_ENEMY_HUNTING_RIGHT "./assets/textures/red_hunting_right/"
+# define FRAME_PATH_ENEMY_HUNTING_RIGHT_45 "./assets/textures/red_hunting_right45/"
+# define FRAME_PATH_ENEMY_HUNTING_STRAIGHT "./assets/textures/red_hunting_straight/"
+# define FRAME_PATH_ENEMY_HUNTING_LEFT_45 "./assets/textures/red_hunting_left45/"
+# define FRAME_PATH_ENEMY_HUNTING_LEFT "./assets/textures/red_hunting_left/"
 # define NUM_FRAMES_ENEMY_IDLE 8
 # define NUM_FRAMES_ENEMY_WALKING 8
+# define NUM_FRAMES_ENEMY_HUNTING 8
 # define ENEMY_NORMAL_SCALE_DISTANCE 20
 
 # define DISTRACTION_NORMAL_SCALE_DISTANCE 13

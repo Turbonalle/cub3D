@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_textures.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 13:18:24 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/16 13:18:31 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 void	free_textures_before_failed_old(texture_t *textures, int failed_index)
@@ -31,8 +43,8 @@ int	init_textures(cub3d_t *cub3d)
 	i = 0;
 	while (i < 4)
 	{
-		printf("Loading texture %d, path: %s\n", i, cub3d->level->texture[i].path);
-		cub3d->level->texture[i].texture = mlx_load_png(cub3d->level->texture[i].path);
+		cub3d->level->texture[i].texture
+			= mlx_load_png(cub3d->level->texture[i].path);
 		if (!cub3d->level->texture[i].texture)
 		{
 			printf("Failed to load texture %d\n", i);

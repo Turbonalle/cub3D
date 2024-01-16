@@ -66,7 +66,7 @@ void	adjust_hearts(cub3d_t *cub3d);
 
 // records.c
 void	create_time_string(char *time_str, int time);
-int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
+int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name);
 int		read_records(cub3d_t *cub3d);
 int		get_record_time(char *line, int *time);
 int		get_record_name(char *line, char **name);
@@ -158,7 +158,6 @@ int		free_prev_level_menu(level_menu_t *menu, int i, int j);
 int		free_prev_gameover_menu(gameover_menu_t *menu, int i);
 int		free_prev_name_menu(name_menu_t *menu, int i);
 void	free_textures_before_failed(texture_t *textures, int failed_index);
-int		free_half_done(cub3d_t *cub3d);
 
 //---- MENU --------------------------------------------------------------------
 
@@ -390,8 +389,8 @@ void	mouse_intro(cub3d_t *cub3d);
 //---- MINIMAP -----------------------------------------------------------------
 
 // minimap.c
-void	move_minimap(cub3d_t *cub3d);
-void	update_minimap(cub3d_t *cub3d);
+void	move_minimap_x(cub3d_t *cub3d);
+void	move_minimap_y(cub3d_t *cub3d);
 void	update_minimap_player_pos(cub3d_t *cub3d);
 void	minimap(cub3d_t *cub3d);
 
@@ -422,7 +421,7 @@ int		goal_found(cub3d_t *cub3d, vector_t v_map_check);
 int		obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir);
 vector_t	init_v_step(double dir);
 dvector_t	init_step_size(double angle);
-dvector_t	init_ray_1D_length(dvector_t start_pos, double dir, vector_t check, dvector_t step_size);
+dvector_t	init_len(dvector_t start_pos, double dir, vector_t check, dvector_t step_size);
 void	adjust(vector_t *v_map_check, ray_t *ray, vector_t v_step, dvector_t *v_ray_1d_length);
 void	adjust_wall_flag(dvector_t *v_ray_1d_length, dvector_t step_size, int *wall_flag);
 void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t step_size);
@@ -470,6 +469,7 @@ void	enable_shroom(cub3d_t *cub3d);
 //---- ENEMIES -------------------------------------------------------------------
 
 int		init_enemy(cub3d_t *cub3d);
+void	set_enemy_stats(cub3d_t *cub3d, int i);
 ray_t	*init_ray_dir(double dir_to_enemy);
 int		enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i);
 void	enemy_advance(cub3d_t *cub3d, int i);

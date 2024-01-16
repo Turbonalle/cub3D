@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast_utils_extra.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 09:00:05 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/16 12:48:14 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -44,7 +55,6 @@ static int	door_found(cub3d_t *cub3d, vector_t v_map_check)
 	}
 	return (0);
 }
-
 
 int	obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir)
 {

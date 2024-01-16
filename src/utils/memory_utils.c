@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:29:56 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:38:27 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ void	free_info(char **info)
 	if (info)
 	{
 		while (info[++i])
+		{
 			free(info[i]);
+			info[i] = NULL;
+		}
 		free(info);
+		info = NULL;
 	}
 }
 

@@ -297,30 +297,67 @@ int		draw_key_counts(cub3d_t *cub3d);
 
 //---- ANIMATION ---------------------------------------------------------------
 
+// draw_game_entities.c
+int	draw_game_entities(cub3d_t *cub3d);
+
 // animation_utils.c
 int	get_enemy_dir(t_enemy *enemy);
 double	calculate_scale_factor(double dist, double normal_dist);
 
-void assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies, key_node_t **keys, distraction_t **distractions);
+// assign_z_add_all.c
+void	add_all_enemies(t_enemy **enemies, four_vector_t *indexes);
+void	add_all_keys(key_node_t **keys, four_vector_t *indexes);
+void	add_all_distractions(distraction_t **distractions,
+		four_vector_t *indexes);
 
+// assign_z_depth_cases.c
+void	case_all_3(t_enemy **enemies, key_node_t **keys,
+		distraction_t **distractions, four_vector_t *indexes);
+void	case_without_keys(t_enemy **enemies, distraction_t **distractions,
+		four_vector_t *indexes);
+void	case_without_distractions(t_enemy **enemies, key_node_t **keys,
+		four_vector_t *indexes);
+void	case_without_enemies(key_node_t **keys, distraction_t **distractions,
+		four_vector_t *indexes);
+
+// assign_z_depth_utils.c
+int		largest(double i, double j, double k);
+void	init_indexes_and_z(cub3d_t *cub3d, four_vector_t *indexes);
+
+// assign_z_depth.c
+void	assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies,
+		key_node_t **keys, distraction_t **distractions);
+
+// draw_distractions.c
 void    draw_all_distractions(cub3d_t *cub3d, distraction_t **distractions);
 
+// draw_enemies.c
 void	draw_all_enemies(cub3d_t *cub3d, t_enemy **enemies);
 
+// draw_keys.c
 void    draw_all_keys(cub3d_t *cub3d);
 
+// draw_utils.c
+void	copy_pixel(mlx_image_t *img, uvector_t res, mlx_texture_t *texture,
+	uvector_t src);
+int		column_visible(cub3d_t *cub3d, double dist_to_player, int ray_index);
+int		get_ray_i(double x, mlx_texture_t *texture, double factor, uvector_t res);
+void	set_src_coordinates(uvector_t *src, uvector_t res, double factor, mlx_texture_t *texture);
+void	empty_image(mlx_image_t *img);
+
+// frame_update_utils.c
 int	animation_frames_changed(cub3d_t *cub3d);
 int	fps_frame_changed(cub3d_t *cub3d);
 void	update_prev_frames(cub3d_t *cub3d);
 
+// sort_distrations.c
 distraction_t **create_array_of_distractions_ordered_by_dist(cub3d_t *cub3d);
 
+// sort_enemies.c
 t_enemy **create_array_of_enemies_ordered_by_dist(cub3d_t *cub3d);
 
+// sort_keys.c
 key_node_t	**create_array_of_keys_ordered_by_dist(cub3d_t *cub3d);
-
-// game_entities.c
-int	draw_game_entities(cub3d_t *cub3d);
 
 //---- INPUT -------------------------------------------------------------------
 

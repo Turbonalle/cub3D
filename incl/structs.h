@@ -22,13 +22,27 @@ typedef struct dvector_t
 	double	y;
 }			dvector_t;
 
+typedef struct uvector_s
+{
+	uint32_t	col;
+	uint32_t	row;
+}				uvector_t;
+
+typedef struct four_vector_s
+{
+	int	e;
+	int	k;
+	int	d;
+	int	z;
+}		four_vector_t;
+
 //---- TEXTURE -----------------------------------------------------------------
 
 typedef struct texture_s
 {
-	char	*path;
+	char			*path;
 	mlx_texture_t	*texture;
-}			texture_t;
+}					texture_t;
 
 //---- PNG ---------------------------------------------------------------------
 

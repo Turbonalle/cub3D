@@ -1,27 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mix_color.c                                        :+:      :+:    :+:   */
+/*   assign_z_depth_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 23:15:48 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 23:15:52 by vvagapov         ###   ########.fr       */
+/*   Created: 2024/01/15 17:25:41 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/15 21:00:05 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	get_color_mix(int color1, int color2)
+int	largest(double i, double j, double k)
 {
-	int	r;
-	int	g;
-	int	b;
-	int	a;
+	if (i > j)
+	{
+		if (i > k)
+			return (1);
+		if (k > i)
+			return (3);
+	}
+	if (i > k)
+	{
+		if (j > i)
+			return (2);
+		if (i > j)
+			return (1);
+	}
+	if (j > k)
+	{
+		if (i > j)
+			return (1);
+		if (j > i)
+			return (2);
+	}
+	return (0);
+}
 
-	r = ((color1 >> 16 & 0xFF) + (color2 >> 16 & 0xFF)) * 0.5;
-	g = ((color1 >> 8 & 0xFF) + (color2 >> 8 & 0xFF)) * 0.5;
-	b = ((color1 & 0xFF) + (color2 & 0xFF)) * 0.5;
-	a = ((color1 >> 24 & 0xFF) + (color2 >> 24 & 0xFF)) * 0.5;
-	return (set_rgba(r, g, b, a));
+void	init_indexes_and_z(cub3d_t *cub3d, four_vector_t *indexes)
+{
+	indexes->e = 0;
+	indexes->k = 0;
+	indexes->d = 0;
+	indexes->z = cub3d->img->instances[0].z;
 }

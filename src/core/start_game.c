@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_game.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/15 23:17:12 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/16 11:03:41 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -13,21 +24,23 @@ void	draw_game_background(cub3d_t *cub3d, level_t *level)
 		while (++column < cub3d->img->width)
 		{
 			if (row < cub3d->img->height / 2)
-				mlx_put_pixel(cub3d->img, column, row, level->ceiling_color);
+				mlx_put_pixel(cub3d->img, column, row,
+					cub3d->level->ceiling_color);
 			else
-				mlx_put_pixel(cub3d->img, column, row, level->floor_color);
+				mlx_put_pixel(cub3d->img, column, row,
+					cub3d->level->floor_color);
 		}
 	}
 }
 
-//------------------------------------------------------------------------------
-
 void	update_img_size(cub3d_t *cub3d)
 {
-	if ((int)cub3d->img->width != cub3d->mlx->width || (int)cub3d->img->height != cub3d->mlx->height)
+	if ((int)cub3d->img->width != cub3d->mlx->width
+		|| (int)cub3d->img->height != cub3d->mlx->height)
 	{
 		mlx_delete_image(cub3d->mlx, cub3d->img);
-		cub3d->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width, cub3d->mlx->height);
+		cub3d->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width,
+				cub3d->mlx->height);
 		mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0);
 		if (!init_rays(cub3d))
 		{
@@ -36,34 +49,26 @@ void	update_img_size(cub3d_t *cub3d)
 		}
 	}
 }
-//------------------------------------------------------------------------------
 
 void	handle_state_game(cub3d_t *cub3d)
 {
-	//printf("handle_state_game\n");
 	handle_fps(cub3d);
-	update_img_size(cub3d);	// unnecessary after disabling screen resizing?
+	update_img_size(cub3d); // unnecessary after disabling screen resizing?
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 	if (cub3d->keys.mouse_left && cub3d->on_minimap)
 		move_minimap(cub3d);
 	player_movement(cub3d);
 	if (cub3d->state == STATE_GAME)
 	{
-		//printf("STATE_GAME\n");
-		draw_game_background(cub3d, cub3d->level);
+		draw_game_background(cub3d);
 		raycasting(cub3d);
 		draw_world(cub3d);
 		minimap(cub3d);
 		enemy_vision(cub3d);
-		//printf("before draw_enemies\n");
 		draw_enemies(cub3d);
-		//printf("after draw_enemies\n");
 		draw_timer(cub3d);
-		//printf("before draw_game_entities\n");
 		draw_game_entities(cub3d);
-		//printf("after draw_game_entities\n");
 		handle_halo(&cub3d->halo);
-		//printf("after handle_halo\n");
 	}
 	if (cub3d->player.health <= 0)
 		game_over(cub3d);
@@ -74,7 +79,6 @@ void	update(void *param)
 	cub3d_t	*cub3d;
 
 	cub3d = param;
-
 	// TODO: add crash handling if (cub3d->state == STATE_CRASH)
 	if (cub3d->state == STATE_START)
 		update_start_menu(cub3d, &cub3d->start_menu);

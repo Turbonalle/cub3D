@@ -6,50 +6,47 @@
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:35 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 12:12:04 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:42:39 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	scale_key(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *src, double factor)
+static void	position_key(key_node_t *key, mlx_texture_t *texture, double factor)
 {
-	uint32_t	row_src;
-	uint32_t	col_src;
-	uint32_t	row_res;
-	uint32_t	col_res;
-	int			ray_index;
+	key->img_curr_frame->instances[0].x
+		= key->pos_screen.x - texture->width * factor * 0.5;
+	key->img_curr_frame->instances[0].y
+		= key->pos_screen.y - texture->height * factor * 1.5;
+}
 
-	ft_memset(key->img_curr_frame->pixels, 0, key->img_curr_frame->width * key->img_curr_frame->height * 4);
-	row_res = 0;
-	while (row_res < src->height * factor)
+static void	scale_key(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *texture,
+	double factor)
+{
+	uvector_t	src;
+	uvector_t	res;
+	int			ray;
+
+	empty_image(key->img_curr_frame);
+	res.row = 0;
+	while (res.row++ < texture->height * factor)
 	{
-		col_res = 0;
-		if (row_res < key->img_curr_frame->height)
+		res.col = 0;
+		if (res.row < key->img_curr_frame->height)
 		{
-			while (col_res < src->width * factor)
+			while (res.col++ < texture->width * factor)
 			{
-				if (col_res < key->img_curr_frame->width)
+				if (res.col < key->img_curr_frame->width)
 				{
-					row_src = (uint32_t)round(row_res / factor);
-					if (row_src >= src->height)
-						row_src--;
-					col_src = (uint32_t)round(col_res / factor);
-					if (col_src >= src->width)
-						col_src--;
-					ray_index = (int)(key->pos_screen.x - src->width * factor * 0.5 + col_res);
-					if (ray_index >= 0 && ray_index < WIDTH && cub3d->rays[(int)(key->pos_screen.x - src->width * factor * 0.5 + col_res)].length > key->dist_to_player)
-						ft_memcpy(key->img_curr_frame->pixels + row_res * key->img_curr_frame->width * 4 + col_res * 4,
-							src->pixels + row_src * src->width * 4 + col_src * 4,
-							4);
+					set_src_coordinates(&src, res, factor, texture);
+					ray = get_ray_i(key->pos_screen.x, texture, factor, res);
+					if (column_visible(cub3d, key->dist_to_player, ray))
+						copy_pixel(key->img_curr_frame, res, texture, src);
 				}
-				col_res++;
 			}
 		}
-		row_res++;
 	}
-	key->img_curr_frame->instances[0].x = key->pos_screen.x - src->width * factor * 0.5;
-	key->img_curr_frame->instances[0].y = key->pos_screen.y - src->height * factor * 1.5;
+	position_key(key, texture, factor);
 }
 
 static void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap_draw_grid.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 14:31:12 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/16 17:36:08 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 int	get_door_key_color(cub3d_t *cub3d, int index)
@@ -23,22 +35,22 @@ void	draw_correct_square(cub3d_t *cub3d, int row, int column)
 	if (index > -1)
 	{
 		if (cub3d->speedrun == 0)
-			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, get_door_key_color(cub3d, index));
+			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
+				get_door_key_color(cub3d, index));
 		else
-			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_door);
+			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
+				cub3d->minimap.color_door);
 	}
-	else if (ft_strchr("0mo", cub3d->level->map[row][column]) || get_key_index(cub3d->level->map[row][column]) > -1)
-	{
-		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_floor);
-	}
+	else if (ft_strchr("0mo", cub3d->level->map[row][column])
+			|| get_key_index(cub3d->level->map[row][column]) > -1)
+		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
+			cub3d->minimap.color_floor);
 	else if (ft_strchr("1hr", cub3d->level->map[row][column]))
-	{
-		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_wall);
-	}
+		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
+			cub3d->minimap.color_wall);
 	else
-	{
-		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size, cub3d->minimap.color_empty);
-	}
+		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
+			cub3d->minimap.color_empty);
 }
 
 void	draw_extras(cub3d_t *cub3d, int row, int column)

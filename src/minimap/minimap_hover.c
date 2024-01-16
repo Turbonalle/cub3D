@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_level_texture.c                                :+:      :+:    :+:   */
+/*   minimap_hover.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 09:09:17 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 14:12:31 by vvagapov         ###   ########.fr       */
+/*   Created: 2024/01/16 17:31:58 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/16 17:32:24 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	get_texture(level_t *level, int element, char **info)
+int	hover_minimap(cub3d_t *cub3d)
 {
-	level->texture[element].path = ft_strdup(info[1]);
-	free_info(info);
-	if (!level->texture[element].path)
-		return (err("Failed to allocate memory"));
-	level->texture[element].texture
-		= mlx_load_png(level->texture[element].path);
-	if (!level->texture[element].texture)
-		return (err("Failed to load texture"));
-	return (SUCCESS);
+	int	mouse_x;
+	int	mouse_y;
+
+	mlx_get_mouse_pos(cub3d->mlx, &mouse_x, &mouse_y);
+	return (mouse_x >= cub3d->minimap.pos.x
+		&& mouse_x <= cub3d->minimap.pos.x + cub3d->minimap.width
+		&& mouse_y >= cub3d->minimap.pos.y
+		&& mouse_y <= cub3d->minimap.pos.y + cub3d->minimap.height);
 }

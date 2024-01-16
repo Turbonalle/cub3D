@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   collision_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:00 by slampine          #+#    #+#             */
 /*   Updated: 2024/01/16 21:10:46 by jbagger          ###   ########.fr       */

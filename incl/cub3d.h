@@ -66,7 +66,7 @@ void	adjust_hearts(cub3d_t *cub3d);
 
 // records.c
 void	create_time_string(char *time_str, int time);
-int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name, int n_entries);
+int		add_record(cub3d_t *cub3d, record_t **records, int time, char *name);
 int		read_records(cub3d_t *cub3d);
 int		get_record_time(char *line, int *time);
 int		get_record_name(char *line, char **name);
@@ -158,7 +158,6 @@ int		free_prev_level_menu(level_menu_t *menu, int i, int j);
 int		free_prev_gameover_menu(gameover_menu_t *menu, int i);
 int		free_prev_name_menu(name_menu_t *menu, int i);
 void	free_textures_before_failed(texture_t *textures, int failed_index);
-int		free_half_done(cub3d_t *cub3d);
 
 //---- MENU --------------------------------------------------------------------
 

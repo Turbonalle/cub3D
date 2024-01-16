@@ -1,7 +1,7 @@
 
 #include "../incl/cub3d.h"
 
-void	draw_game_background(cub3d_t *cub3d)
+void	draw_game_background(cub3d_t *cub3d, level_t *level)
 {
 	unsigned int	row;
 	unsigned int	column;
@@ -13,9 +13,9 @@ void	draw_game_background(cub3d_t *cub3d)
 		while (++column < cub3d->img->width)
 		{
 			if (row < cub3d->img->height / 2)
-				mlx_put_pixel(cub3d->img, column, row, cub3d->level->ceiling_color);
+				mlx_put_pixel(cub3d->img, column, row, level->ceiling_color);
 			else
-				mlx_put_pixel(cub3d->img, column, row, cub3d->level->floor_color);
+				mlx_put_pixel(cub3d->img, column, row, level->floor_color);
 		}
 	}
 }
@@ -50,7 +50,7 @@ void	handle_state_game(cub3d_t *cub3d)
 	if (cub3d->state == STATE_GAME)
 	{
 		//printf("STATE_GAME\n");
-		draw_game_background(cub3d);
+		draw_game_background(cub3d, cub3d->level);
 		raycasting(cub3d);
 		draw_world(cub3d);
 		minimap(cub3d);
@@ -96,7 +96,7 @@ void	update(void *param)
 		update_gameover_menu(cub3d, &cub3d->gameover_menu);
 }
 
-void	 start_game(cub3d_t *cub3d)
+void	start_game(cub3d_t *cub3d)
 {
 	enable_start_menu(&cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);

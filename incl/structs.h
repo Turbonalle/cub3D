@@ -65,7 +65,7 @@ enum enemy_state
 {
 	IDLE,
 	WALKING,
-	DYING
+	HUNTING
 };
 
 typedef struct s_enemy
@@ -757,11 +757,15 @@ typedef struct cub3d_s
 	t_enemy			*enemy;
 	char			*frames_idle_paths[NUM_ENEMY_DIRECTIONS];
 	char			*frames_walking_paths[NUM_ENEMY_DIRECTIONS];
+	// char			*frames_hunt_paths[NUM_ENEMY_DIRECTIONS];
 	mlx_texture_t	*frames_idle[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_IDLE];
 	mlx_texture_t	*frames_walking[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_WALKING];
+	// mlx_texture_t	*frames_hunting[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_HUNTING];
 	mlx_texture_t	*distraction_texture;
 	mlx_texture_t	*distraction_thrown_texture;
 	shroom_t		*shroom;
+	// int				curr_frame_index_hunting;
+	// int				prev_frame_index_hunting;
 	int				curr_frame_index_walking;
 	int				prev_frame_index_walking;
 	int				curr_frame_index_idle;

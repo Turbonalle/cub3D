@@ -23,7 +23,7 @@ void	handle_movement(cub3d_t *cub3d, double at_target, int target, int i)
 	if (target == 0)
 	{
 		enemy_advance(cub3d, i);
-		if (dist_between_d_vectors(cub3d->player.pos, cub3d->enemy[i].pos) < 1)
+		if (dist_between_d_vectors(cub3d->player.pos, cub3d->enemy[i].pos) < ENEMY_CATCH_DISTANCE)
 		{
 			// printf("You were caught at time %f\n",cub3d->run_time);
 			player_is_hit(cub3d, i);
@@ -70,7 +70,9 @@ void	enemy_vision(cub3d_t *cub3d)
 			else
 				spin(cub3d, i, at_target);
 		}
-		if (cub3d->enemy[i].is_walking)
+		if (cub3d->enemy[i].is_hunting)
+			cub3d->enemy[i].state = HUNTING;
+		else if (cub3d->enemy[i].is_walking)
 			cub3d->enemy[i].state = WALKING;
 		else
 			cub3d->enemy[i].state = IDLE;

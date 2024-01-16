@@ -70,6 +70,26 @@ int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
 	return (1);
 }
 
+int	free_half_done(cub3d_t *cub3d, level_t *level, int i)
+{
+	free_info(level->map);
+	if (i > 0)
+		free_enemies(cub3d);
+	if (i > 1)
+		free_distractions(cub3d);
+	if (i > 2)
+		free_minimap(cub3d);
+	if (i == 0)
+		return (err("Failed to init player and enemies"));
+	if (i == 1)
+		return (err("Failed to init distractions"));
+	if (i == 2)
+		return (err("Failed to init minimap"));
+	if (i == 3)
+		return (err("Failed to init doors or keys"));
+	return (0);
+}
+
 int	load_level(cub3d_t *cub3d, level_t *level)
 {
 	int	i;
@@ -86,37 +106,15 @@ int	load_level(cub3d_t *cub3d, level_t *level)
 		i++;
 	}
 	if (!init_player_and_enemies(cub3d, level))
-	{
-		printf("Failed to init player and enemies\n");
-		free_info(level->map);
-		return (FAIL);
-	}
+		return (free_half_done(cub3d, level, 0));
 	count_distractions(cub3d);
 	if (!init_distractions(cub3d))
-	{
-		printf("Failed to init distractions\n");
-		free_enemies(cub3d);
-		free_info(level->map);
-		return (FAIL);
-	}
+		return (free_half_done(cub3d, level, 1));
 	set_initial_direction(cub3d);
 	if (!init_minimap(cub3d))
-	{
-		printf("Failed to init minimap\n");
-		free_distractions(cub3d);
-		free_enemies(cub3d);
-		free_info(level->map);
-		return (FAIL);
-	}
+		return (free_half_done(cub3d, level, 2));
 	if (!init_doors_and_keys(cub3d))
-	{
-		printf("Failed to init doors or keys\n");
-		free_info(level->map);
-		free_enemies(cub3d);
-		free_distractions(cub3d);
-		free_minimap(cub3d);
-		return (err("Failed to init doors or keys"));
-	}
+		return (free_half_done(cub3d, level, 3));
 	set_z_of_all_images(cub3d);
 	enable_hearts(cub3d);
 	printf("LOAD after enable_hearts\n");

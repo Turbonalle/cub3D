@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:31 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 14:21:27 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:11:22 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
 	scale_factor = calculate_scale_factor(enemy->dist_to_player,
 			ENEMY_NORMAL_SCALE_DISTANCE);
 	enemy_dir = get_enemy_dir(enemy);
+	// if (enemy->state == HUNTING)
+	// 	frame = cub3d->frames_hunt[enemy_dir][cub3d->curr_frame_index_hunt];
 	if (enemy->state == IDLE)
 		frame = cub3d->frames_idle[enemy_dir][cub3d->curr_frame_index_idle];
 	else

@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast_additional_utils.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 20:05:22 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/16 20:05:32 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-dvector_t	init_len(dvector_t start_pos, double dir, vector_t check, dvector_t step_size)
+dvector_t	init_len(dvector_t start_pos, double dir, vector_t check,
+	dvector_t step_size)
 {
 	dvector_t		v_ray_1d_length;
 	dvector_t		v_ray_dir;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_input_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 18:08:16 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/16 18:18:09 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 static int	check_movement_keys(mlx_key_data_t keydata, cub3d_t *cub3d)
@@ -53,9 +65,8 @@ static int	check_escape(mlx_key_data_t keydata, cub3d_t *cub3d)
 	{
 		printf("Back to start menu\n");
 		if (cub3d->player.thrown)
-		{
-			cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
-		}
+			cub3d->level->distractions[cub3d->level->num_distractions]
+				.img_distraction->instances[0].enabled = FALSE;
 		mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
 		free_level(cub3d);
 		if (cub3d->speedrun)

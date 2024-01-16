@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_mouse.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/16 18:10:57 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/16 18:11:34 by vvagapov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 void	left_mouse_button_press(cub3d_t *cub3d)
 {
-	if (cub3d->state == STATE_GAME && cub3d->settings.mouse == FALSE) // added check if settings.mouse is off, to prevent player from moving minimap (and let program use mouse_set_pos for player rotation with mouse)
+	if (cub3d->state == STATE_GAME && cub3d->settings.mouse == FALSE)
 		mouse_game(cub3d);
 	else if (cub3d->state == STATE_PAUSE)
 		mouse_pause_menu(cub3d, &cub3d->pause_menu);
@@ -20,7 +32,8 @@ void	left_mouse_button_press(cub3d_t *cub3d)
 		mouse_intro(cub3d);
 }
 
-void	hook_mouse_buttons(enum mouse_key key, enum action action, enum modifier_key modifier, void *param)
+void	hook_mouse_buttons(enum mouse_key key, enum action action,
+	enum modifier_key modifier, void *param)
 {
 	cub3d_t	*cub3d;
 

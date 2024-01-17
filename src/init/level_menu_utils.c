@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:01:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 10:24:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:40:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static void	draw_right_square(int spec, minilevel_t *minilevel, vector_t coord)
 			PREVIEW_FLOOR_COLOR);
 	}
 }
-
 
 void	draw_preview_map(minilevel_t *minilevel, level_t *level, char **backup)
 {

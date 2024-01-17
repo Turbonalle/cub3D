@@ -586,7 +586,6 @@ typedef struct settings_s
 {
 	int		e_speed;
 	int		e_behaviour;
-	int		minimap_view;
 	int		fps;
 	int		fisheye;
 	int		mouse;

@@ -6,12 +6,11 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:16:12 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 18:34:52 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:52:35 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
-
 
 static void	set_rest_positions(gameover_menu_t *menu)
 {

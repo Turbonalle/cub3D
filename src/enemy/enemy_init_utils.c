@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy_init_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 12:59:50 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/17 13:00:12 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 int	init_enemy_texture_from_path(mlx_texture_t **frame, int i, char *path)
@@ -22,10 +34,8 @@ int	init_frame_group(mlx_texture_t **frames_array, char *path)
 	int	i;
 
 	i = 0;
-	//printf("init_frame_group\n");
 	while (i < NUM_FRAMES_ENEMY_IDLE)
 	{
-		//printf("init_frame_group i: %d\n", i);
 		if (init_enemy_texture_from_path(&frames_array[i], i, path) == FAIL)
 		{
 			while (i)

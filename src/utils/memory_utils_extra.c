@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 18:46:11 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:08:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	free_cub3d(cub3d_t *cub3d)
 	}
 	delete_textures(cub3d);
 	free(cub3d->levels);
+	mlx_terminate(cub3d->mlx);
 }
 
 void	free_delete_textures(level_t *level)

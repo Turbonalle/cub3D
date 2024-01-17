@@ -41,6 +41,8 @@ int		set_transparency(int color, int transparency);
 
 //---- CORE --------------------------------------------------------------------
 
+int		read_all_levels(cub3d_t *cub3d);
+
 // cursor.c
 void	handle_cursor(cub3d_t *cub3d);
 
@@ -72,6 +74,7 @@ int		get_record_time(char *line, int *time);
 int		get_record_name(char *line, char **name);
 int		count_records(record_t *records);
 record_t	*new_record(int time, char *name);
+int		write_records(cub3d_t *cub3d, level_t *levels);
 
 // set_z_of_all_images.c
 void	set_z_of_all_images(cub3d_t *cub3d);
@@ -90,7 +93,8 @@ void	start_timer(cub3d_t *cub3d);
 void	pause_timer(cub3d_t *cub3d);
 void	continue_timer(cub3d_t *cub3d);
 void	draw_timer(cub3d_t *cub3d);
-void	print_timer(cub3d_t *cub3d);
+void	update_timer(cub3d_t *cub3d);
+void	free_three_strs(char *s1, char *s2, char *s3);
 
 // halo
 int		init_halo(cub3d_t *cub3d);
@@ -399,6 +403,7 @@ void    draw_all_distractions(cub3d_t *cub3d, distraction_t **distractions);
 
 // draw_enemies.c
 void	draw_all_enemies(cub3d_t *cub3d, t_enemy **enemies);
+void	see_enemy(cub3d_t *cub3d, int i);
 
 // draw_keys.c
 void    draw_all_keys(cub3d_t *cub3d);
@@ -581,6 +586,7 @@ int		check_pos(cub3d_t *cub3d, int pos_y, int pos_x);
 
 // texture general TODO
 char	*create_file_path(int i, char *path);
+int		find_index(cub3d_t *cub3d);
 
 //---- NULLIFY -----------------------------------------------------------------
 

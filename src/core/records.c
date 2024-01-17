@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   records.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 14:00:47 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/17 15:28:01 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 void	delete_last_record(cub3d_t *cub3d, mlx_t *mlx, record_t **records)
@@ -20,6 +32,34 @@ void	delete_last_record(cub3d_t *cub3d, mlx_t *mlx, record_t **records)
 	free_record(ptr);
 }
 
+int	record_is_top(record_t **records, record_t *new, int time)
+{
+	if (!*records)
+	{
+		*records = new;
+		return (SUCCESS);
+	}
+	if (time < (*records)->time)
+	{
+		new->next = *records;
+		*records = new;
+		return (SUCCESS);
+	}
+	return (FAIL);
+}
+
+void	delete_extra_records(cub3d_t *cub3d, record_t **records)
+{
+	int			i;
+
+	i = count_records(*records);
+	while (i > cub3d->leaderboard.n_entries)
+	{
+		delete_last_record(cub3d, cub3d->mlx, records);
+		i = count_records(*records);
+	}
+}
+
 int	add_record(cub3d_t *cub3d, record_t **records, int time, char *name)
 {
 	record_t	*new;
@@ -29,46 +69,23 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char *name)
 	new = new_record(time, name);
 	if (!new)
 		return (err("Failed to malloc new record"));
-	
-	// if no records yet
-	if (!*records)
-	{
-		*records = new;
+	if (record_is_top(records, new, time))
 		return (SUCCESS);
-	}
-
-	// if new record is better than the first record
-	if (time < (*records)->time)
-	{
-		new->next = *records;
-		*records = new;
-		return (SUCCESS);
-	}
-
 	temp = *records;
-	i = 1;
-	while (temp->next && temp->next->time < time && i < cub3d->leaderboard.n_entries)
-	{
+	i = 0;
+	while (temp->next && temp->next->time < time
+		&& ++i < cub3d->leaderboard.n_entries)
 		temp = temp->next;
-		i++;
-	}
-	if (i > cub3d->leaderboard.n_entries)		// if new record is worse than the last record
-	{
+	if (i > cub3d->leaderboard.n_entries)
 		free_record(new);
-	}
-	if (temp->next) 	// if new record is better than a record in the middle
+	if (temp->next)
 	{
 		new->next = temp->next;
 		temp->next = new;
 	}
-	else					// if new record is better than the last record
+	else
 		temp->next = new;
-	i = count_records(*records);
-	while (i > cub3d->leaderboard.n_entries)
-	{
-		delete_last_record(cub3d, cub3d->mlx, records);
-		i = count_records(*records);
-	}
+	delete_extra_records(cub3d, records);
 	return (SUCCESS);
 }
 
@@ -96,22 +113,17 @@ int	read_records(cub3d_t *cub3d)
 	int		fd;
 	int		i;
 
-	//TODO: remove levels parameter
 	fd = open(RECORD_FILE, O_RDONLY);
 	if (fd < 0)
-	{
-		free_all(cub3d, -1);
-		return (err("Failed to open records file"));
-	}
+		return (!free_all(cub3d, -1));
 	i = 0;
 	line = get_next_line(fd);
 	while (line && ++i < cub3d->n_levels + 1)
 	{
 		if (!set_records(cub3d, &cub3d->levels[i], &line, fd))
 		{
-			free_all(cub3d, -1);
 			free(line);
-			return (err("Failed to set records"));
+			return (!free_all(cub3d, -1));
 		}
 		if (line && *line == '\n')
 		{

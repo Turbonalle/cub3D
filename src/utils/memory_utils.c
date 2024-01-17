@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 18:48:39 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:22:29 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	free_list(map_node_t *head)
 	while (head)
 	{
 		temp = head->next;
-		free(head->line);
+		if (head->line)
+			free(head->line);
+		head->line = NULL;
 		free(head);
 		head = temp;
 	}

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:33:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 13:46:32 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:56:10 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	free_backup(level_t level)
 	int	i;
 
 	i = 0;
+	//TODO: Check for double free
 	while (level.backup[i])
 	{
 		free(level.backup[i]);
@@ -26,9 +27,11 @@ void	free_backup(level_t level)
 	i = 0;
 	while (i < 4)
 	{
-		free(level.texture[i].path);
+		if (level.texture[i].path)
+			free(level.texture[i].path);
 		level.texture[i].path = NULL;
-		mlx_delete_texture(level.texture[i].texture);
+		if (level.texture[i].texture)
+			mlx_delete_texture(level.texture[i].texture);
 		level.texture[i].texture = NULL;
 		i++;
 	}

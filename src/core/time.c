@@ -1,5 +1,16 @@
-#include "../incl/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 13:32:11 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/17 13:59:09 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../incl/cub3d.h"
 
 double	paused_time(cub3d_t *cub3d)
 {
@@ -14,70 +25,25 @@ void	pause_timer(cub3d_t *cub3d)
 void	continue_timer(cub3d_t *cub3d)
 {
 	cub3d->start_timestamp += paused_time(cub3d);
-	cub3d->frame_start_timestamp = cub3d->start_timestamp;	// Needed or not?
+	cub3d->frame_start_timestamp = cub3d->start_timestamp;
 }
 
-void	update_timer(cub3d_t *cub3d)
+void	free_three_strs(char *s1, char *s2, char *s3)
 {
-	int minutes;
-	int seconds;
-	int hundredths;
-	char *minutes_str;
-	char *seconds_str;
-	char *hundredths_str;
-	char	*temp;
-
-	cub3d->run_time = elapsed_time(cub3d);
-	minutes = (int)cub3d->run_time / 60;
-	seconds = (int)cub3d->run_time % 60;
-	hundredths = (int)(cub3d->run_time * 100) % 100;
-	if (minutes < 10)
-	{
-		temp = ft_itoa(minutes);
-		minutes_str = ft_strjoin("0", temp);
-		free(temp);
-	}
-	else
-		minutes_str = ft_itoa(minutes);
-	if (seconds < 10)
-	{
-		temp = ft_itoa(seconds);
-		seconds_str = ft_strjoin("0", temp);
-		free(temp);
-	}
-	else
-		seconds_str = ft_itoa(seconds);
-	if (hundredths < 10)
-	{
-		temp = ft_itoa(hundredths);
-		hundredths_str = ft_strjoin("0", temp);
-		free(temp);
-	}
-	else
-		hundredths_str = ft_itoa(hundredths);
-	// TODO: malloc error handling
-	temp = ft_strjoin(minutes_str, ":");
-	cub3d->timer.text_time = ft_strjoin(temp, seconds_str);
-	free(temp);
-	temp = ft_strjoin(cub3d->timer.text_time, ".");
-	free(cub3d->timer.text_time);
-	cub3d->timer.text_time = ft_strjoin(temp, hundredths_str);
-	free(temp);
-	free(minutes_str);
-	free(seconds_str);
-	free(hundredths_str);
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	if (s3)
+		free(s3);
 }
 
 void	draw_timer(cub3d_t *cub3d)
 {
 	update_timer(cub3d);
 	mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
-	cub3d->timer.img_time = mlx_put_string(cub3d->mlx, cub3d->timer.text_time, cub3d->timer.pos.x, cub3d->timer.pos.y);
+	cub3d->timer.img_time = mlx_put_string(cub3d->mlx, cub3d->timer.text_time,
+			cub3d->timer.pos.x, cub3d->timer.pos.y);
 	cub3d->timer.img_time->instances[0].x -= cub3d->timer.img_time->width;
 	free(cub3d->timer.text_time);
-}
-
-void	print_timer(cub3d_t *cub3d)
-{
-	printf("Time passed: %f\n", elapsed_time(cub3d));
 }

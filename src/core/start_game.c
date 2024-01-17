@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:17:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 13:54:17 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:57:35 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,9 @@ void	draw_game_background(cub3d_t *cub3d)
 	}
 }
 
-void	update_img_size(cub3d_t *cub3d)
-{
-	if ((int)cub3d->img->width != cub3d->mlx->width
-		|| (int)cub3d->img->height != cub3d->mlx->height)
-	{
-		mlx_delete_image(cub3d->mlx, cub3d->img);
-		cub3d->img = mlx_new_image(cub3d->mlx, cub3d->mlx->width,
-				cub3d->mlx->height);
-		mlx_image_to_window(cub3d->mlx, cub3d->img, 0, 0);
-		if (!init_rays(cub3d))
-		{
-			err("Failed to malloc rays");
-			mlx_close_window(cub3d->mlx);
-		}
-	}
-}
-
 void	handle_state_game(cub3d_t *cub3d)
 {
 	handle_fps(cub3d);
-	update_img_size(cub3d); // unnecessary after disabling screen resizing?
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 	if (cub3d->keys.mouse_left && cub3d->on_minimap)
 	{
@@ -82,7 +64,6 @@ void	update(void *param)
 	cub3d_t	*cub3d;
 
 	cub3d = param;
-	// TODO: add crash handling if (cub3d->state == STATE_CRASH)
 	if (cub3d->state == STATE_START)
 		update_start_menu(cub3d, &cub3d->start_menu);
 	else if (cub3d->state == STATE_LEVEL)

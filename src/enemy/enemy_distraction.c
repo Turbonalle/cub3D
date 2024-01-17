@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy_distraction.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 13:18:38 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/17 13:18:41 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -11,6 +22,21 @@ void	set_thrown_shroom(distraction_t *distractions, int i, ray_t *ray)
 	distractions[i].pos_screen.x = -WIDTH;
 	distractions[i].pos_screen.y = -HEIGHT;
 	distractions[i].dist_to_player = 100;
+}
+
+void	cause_distraction_rest(cub3d_t *cub3d, distraction_t *distractions,
+	int num_distractions, ray_t *ray)
+{
+	if (cub3d->player.thrown)
+		distractions[num_distractions].img_distraction->instances[0].enabled
+			= FALSE;
+	cub3d->player.thrown = TRUE;
+	set_thrown_shroom(distractions, num_distractions, ray);
+	distractions[num_distractions].img_distraction
+		= mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(cub3d->mlx, distractions[num_distractions]
+		.img_distraction, 0, 0);
+	draw_shroom_count(cub3d);
 }
 
 void	cause_distraction(cub3d_t *cub3d)
@@ -31,14 +57,8 @@ void	cause_distraction(cub3d_t *cub3d)
 	cub3d->level->distraction = ray->end;
 	cub3d->level->distraction_amount = ENEMY_FOOD_AMOUNT;
 	cub3d->player.mushroom_count--;
-	if (cub3d->player.thrown)
-		cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
-	cub3d->player.thrown = TRUE;
-	printf("caused distraction at pos %f,%f\n",ray->end.x,ray->end.y);
-	set_thrown_shroom(cub3d->level->distractions, cub3d->level->num_distractions, ray);
-	cub3d->level->distractions[cub3d->level->num_distractions].img_distraction = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(cub3d->mlx, cub3d->level->distractions[cub3d->level->num_distractions].img_distraction, 0, 0);
-	draw_shroom_count(cub3d);
+	cause_distraction_rest(cub3d, cub3d->level->distractions,
+		cub3d->level->num_distractions, ray);
 	free(ray);
 }
 

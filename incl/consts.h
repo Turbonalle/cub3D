@@ -134,24 +134,25 @@
 # define NORMAL 1
 # define WANDERING 2
 
-enum elements
-{
-	F,
-	C,
-	NO,
-	SO,
-	WE,
-	EA
-};
-
 // enum elements
 // {
+// 	F,
+// 	C,
 // 	NO,
 // 	SO,
 // 	WE,
-// 	EA,
-// 	F,
-// 	C
+// 	EA
 // };
+
+enum elements
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C,
+	NO_WALL
+};
 
 #endif

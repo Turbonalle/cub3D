@@ -480,8 +480,8 @@ void	draw_fov(cub3d_t *cub3d);
 
 // minimap_zoom.c
 int		hover_minimap(cub3d_t *cub3d);
-void	zoom_in_minimap(cub3d_t *cub3d);
-void	zoom_out_minimap(cub3d_t *cub3d);
+int		zoom_in_minimap(cub3d_t *cub3d);
+int		zoom_out_minimap(cub3d_t *cub3d);
 
 //---- RAYCASTING --------------------------------------------------------------
 

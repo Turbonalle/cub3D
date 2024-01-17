@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mouse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:10:57 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/17 10:59:07 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:33:06 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,15 @@ void	hook_mouse_scroll(double xdelta, double ydelta, void *param)
 	if (cub3d->state == STATE_GAME && cub3d->settings.mouse == FALSE)
 	{
 		if (ydelta > 0 && hover_minimap(cub3d))
-			zoom_in_minimap(cub3d);
+		{
+			if (!zoom_in_minimap(cub3d))
+				mlx_close_window(cub3d->mlx);
+			
+		}
 		else if (ydelta < 0 && hover_minimap(cub3d))
-			zoom_out_minimap(cub3d);
+		{
+			if (!zoom_out_minimap(cub3d))
+				mlx_close_window(cub3d->mlx);
+		}
 	}
 }

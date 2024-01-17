@@ -17,6 +17,8 @@ OPTIONAL:
 
 BUGS:
 
+- Sensitivity marker segfault
+- Zooming minimap out segfault
 
 
 -----------------------------------------------------------------------------

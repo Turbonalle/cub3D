@@ -508,6 +508,7 @@ int		all_alpha(char *str);
 int		all_digits(char *str);
 
 // memory_utils.c
+void	free_enemy_frames(cub3d_t *cub3d);
 int		free_all(cub3d_t *cub3d, int i);
 void	free_records(cub3d_t *cub3d);
 
@@ -544,6 +545,8 @@ void	enable_shroom(cub3d_t *cub3d);
 
 int		init_enemy(cub3d_t *cub3d);
 void	set_enemy_stats(cub3d_t *cub3d, int i);
+void	init_file_paths(char **idle_file_paths, char **walking_file_paths,
+	char **hunting_file_paths);
 ray_t	*init_ray_dir(double dir_to_enemy);
 int		enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i);
 void	enemy_advance(cub3d_t *cub3d, int i);

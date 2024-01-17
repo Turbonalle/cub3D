@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_init_additional.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:00:22 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 13:00:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 00:14:21 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,27 @@ void	set_enemy_stats(cub3d_t *cub3d, int i)
 	cub3d->enemy[i].visible = FALSE;
 	cub3d->enemy[i].dist_to_player = 100;
 	enemy_starting_point(cub3d, i);
+}
+
+void	init_file_paths(char **idle_file_paths, char **walking_file_paths,
+	char **hunting_file_paths)
+{
+	idle_file_paths[0] = FRAME_PATH_ENEMY_IDLE;
+	idle_file_paths[1] = FRAME_PATH_ENEMY_IDLE_RIGHT;
+	idle_file_paths[2] = FRAME_PATH_ENEMY_IDLE_RIGHT_45;
+	idle_file_paths[3] = FRAME_PATH_ENEMY_IDLE_STRAIGHT;
+	idle_file_paths[4] = FRAME_PATH_ENEMY_IDLE_LEFT_45;
+	idle_file_paths[5] = FRAME_PATH_ENEMY_IDLE_LEFT;
+	walking_file_paths[0] = FRAME_PATH_ENEMY_WALKING;
+	walking_file_paths[1] = FRAME_PATH_ENEMY_WALKING_RIGHT;
+	walking_file_paths[2] = FRAME_PATH_ENEMY_WALKING_RIGHT_45;
+	walking_file_paths[3] = FRAME_PATH_ENEMY_WALKING_STRAIGHT;
+	walking_file_paths[4] = FRAME_PATH_ENEMY_WALKING_LEFT_45;
+	walking_file_paths[5] = FRAME_PATH_ENEMY_WALKING_LEFT;
+	hunting_file_paths[0] = FRAME_PATH_ENEMY_HUNTING;
+	hunting_file_paths[1] = FRAME_PATH_ENEMY_HUNTING_RIGHT;
+	hunting_file_paths[2] = FRAME_PATH_ENEMY_HUNTING_RIGHT_45;
+	hunting_file_paths[3] = FRAME_PATH_ENEMY_HUNTING_STRAIGHT;
+	hunting_file_paths[4] = FRAME_PATH_ENEMY_HUNTING_LEFT_45;
+	hunting_file_paths[5] = FRAME_PATH_ENEMY_HUNTING_LEFT;
 }

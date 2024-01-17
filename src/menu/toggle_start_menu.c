@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   toggle_start_menu.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:22:18 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:22:19 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:56:43 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	disable_start_menu(start_menu_t *menu)
 
 void	enable_start_menu(start_menu_t *menu)
 {
-	printf("[Enable start menu]\n");
 	menu->img->instances[0].enabled = TRUE;
 	menu->title.img->instances[0].enabled = TRUE;
 	menu->exit.img->instances[0].enabled = TRUE;
@@ -41,5 +40,4 @@ void	enable_start_menu(start_menu_t *menu)
 	menu->arrow_exit.img->instances[0].enabled = FALSE;
 	menu->arrow_start.img->instances[0].enabled = FALSE;
 	menu->arrow_level.img->instances[0].enabled = FALSE;
-	printf("[Enable start menu] : DONE!\n");
 }

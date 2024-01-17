@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_init_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:59:50 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 13:00:12 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 00:13:51 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	init_enemy_texture_from_path(mlx_texture_t **frame, int i, char *path)
+static int	init_enemy_texture_from_path(mlx_texture_t **frame, int i,
+	char *path)
 {
 	char	*file_path;
 
@@ -29,7 +30,7 @@ int	init_enemy_texture_from_path(mlx_texture_t **frame, int i, char *path)
 	return (SUCCESS);
 }
 
-int	init_frame_group(mlx_texture_t **frames_array, char *path)
+static int	init_frame_group(mlx_texture_t **frames_array, char *path)
 {
 	int	i;
 
@@ -50,43 +51,38 @@ int	init_frame_group(mlx_texture_t **frames_array, char *path)
 int	init_enemy_frames(cub3d_t *cub3d)
 {
 	int		dir_index;
-	int		i;
+	char	*idle_file_paths[6];
+	char	*walking_file_paths[6];
+	char	*hunting_file_paths[6];
 
-	char	*idle_file_paths[] = {FRAME_PATH_ENEMY_IDLE, FRAME_PATH_ENEMY_IDLE_RIGHT, FRAME_PATH_ENEMY_IDLE_RIGHT_45, FRAME_PATH_ENEMY_IDLE_STRAIGHT, FRAME_PATH_ENEMY_IDLE_LEFT_45, FRAME_PATH_ENEMY_IDLE_LEFT};
-	char	*walking_file_paths[] = {FRAME_PATH_ENEMY_WALKING, FRAME_PATH_ENEMY_WALKING_RIGHT, FRAME_PATH_ENEMY_WALKING_RIGHT_45, FRAME_PATH_ENEMY_WALKING_STRAIGHT, FRAME_PATH_ENEMY_WALKING_LEFT_45, FRAME_PATH_ENEMY_WALKING_LEFT};
-	// char	*hunting_file_paths[] = {FRAME_PATH_ENEMY_HUNTING, FRAME_PATH_ENEMY_HUNTING_LEFT, FRAME_PATH_ENEMY_HUNTING_LEFT_45, FRAME_PATH_ENEMY_HUNTING_RIGHT, FRAME_PATH_ENEMY_HUNTING_RIGHT_45, FRAME_PATH_ENEMY_HUNTING_STRAIGHT};
-	//printf("init_enemy_frames\n");
+	init_file_paths(idle_file_paths, walking_file_paths, hunting_file_paths);
 	dir_index = 0;
 	while (dir_index < NUM_ENEMY_DIRECTIONS)
 	{
-		//printf("init_enemy_frames dir_index: %d\n", dir_index);
-		if (!init_frame_group(cub3d->frames_idle[dir_index], idle_file_paths[dir_index]))
-		{
-			// TODO: handle errors
+		if (!init_frame_group(cub3d->frames_idle[dir_index],
+				idle_file_paths[dir_index]))
 			return (err("Failed to init enemy frames"));
-		}
-		if (!init_frame_group(cub3d->frames_walking[dir_index], walking_file_paths[dir_index]))
-		{
-			i = 0;
-			while (i < NUM_FRAMES_ENEMY_IDLE)
-				mlx_delete_texture(cub3d->frames_idle[dir_index][i++]);
-			// TODO: handle errors
-			return (err("Failed to init enemy frames"));
-		}
-		// if (!init_frame_group(cub3d->frames_hunting[dir_index], hunting_file_paths[dir_index]))
-		// {
-		// 	i = 0;
-		// 	while (i < NUM_FRAMES_ENEMY_IDLE)
-		// 	{
-		// 		mlx_delete_texture(cub3d->frames_walking[dir_index][i]);
-		// 		mlx_delete_texture(cub3d->frames_idle[dir_index][i]);
-		// 		i++;
-		// 	}
-		// 	return (err("Failed to init enemy frames"));
-		// }
+		if (!init_frame_group(cub3d->frames_walking[dir_index],
+				walking_file_paths[dir_index]))
+			return (free_enemy_frames(cub3d),
+				err("Failed to init enemy frames"));
+		if (!init_frame_group(cub3d->frames_hunting[dir_index],
+				hunting_file_paths[dir_index]))
+			return (free_enemy_frames(cub3d),
+				err("Failed to init enemy frames"));
 		dir_index++;
 	}
 	return (SUCCESS);
+}
+
+static void	init_frame_indexes(cub3d_t *cub3d)
+{
+	cub3d->curr_frame_index_idle = 0;
+	cub3d->prev_frame_index_idle = 0;
+	cub3d->curr_frame_index_walking = 0;
+	cub3d->prev_frame_index_walking = 0;
+	cub3d->curr_frame_index_hunting = 0;
+	cub3d->prev_frame_index_hunting = 0;
 }
 
 int	init_enemy(cub3d_t *cub3d)
@@ -99,8 +95,7 @@ int	init_enemy(cub3d_t *cub3d)
 	cub3d->enemy = malloc(sizeof(t_enemy) * cub3d->num_enemies);
 	if (!cub3d->enemy)
 		return (0);
-	cub3d->curr_frame_index_idle = 0;
-	cub3d->prev_frame_index_idle = 0;
+	init_frame_indexes(cub3d);
 	while (++i < cub3d->num_enemies)
 	{
 		set_enemy_stats(cub3d, i);

@@ -815,9 +815,6 @@ typedef struct cub3d_s
 	level_t			*levels;
 	level_t			*level;
 	t_enemy			*enemy;
-	char			*frames_idle_paths[NUM_ENEMY_DIRECTIONS];
-	char			*frames_walking_paths[NUM_ENEMY_DIRECTIONS];
-	char			*frames_hunt_paths[NUM_ENEMY_DIRECTIONS];
 	mlx_texture_t	*frames_idle[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_IDLE];
 	mlx_texture_t	*frames_walking[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_WALKING];
 	mlx_texture_t	*frames_hunting[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_HUNTING];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_enemies.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:31 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 11:03:07 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 00:15:11 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ static void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
 	scale_factor = calculate_scale_factor(enemy->dist_to_player,
 			ENEMY_NORMAL_SCALE_DISTANCE);
 	enemy_dir = get_enemy_dir(enemy);
-	// if (enemy->state == HUNTING)
-	// 	frame = cub3d->frames_hunt[enemy_dir][cub3d->curr_frame_index_hunt];
-	if (enemy->state == IDLE)
-		frame = cub3d->frames_idle[enemy_dir][cub3d->curr_frame_index_idle];
-	else
+	if (enemy->state == HUNTING)
+		frame
+			= cub3d->frames_hunting[enemy_dir][cub3d->curr_frame_index_hunting];
+	else if (enemy->state == WALKING)
 		frame
 			= cub3d->frames_walking[enemy_dir][cub3d->curr_frame_index_walking];
+	else
+		frame = cub3d->frames_idle[enemy_dir][cub3d->curr_frame_index_idle];
 	scale_enemy(
 		cub3d,
 		enemy,

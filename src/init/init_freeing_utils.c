@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_freeing_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:53:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 14:23:40 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 23:54:37 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,29 @@
 
 void	free_enemy_frames(cub3d_t *cub3d)
 {
-	int	j;
 	int	i;
+	int	j;
 
-	j = 0;
-	while (j < NUM_ENEMY_DIRECTIONS)
+	i = 0;
+	while (i < NUM_ENEMY_DIRECTIONS)
 	{
-		i = 0;
-		while (i < NUM_FRAMES_ENEMY_IDLE)
-		{
-			if (cub3d->frames_idle[j][i])
-				mlx_delete_texture(cub3d->frames_idle[j][i]);
-			i++;
-		}
-		i = 0;
-		while (i < NUM_FRAMES_ENEMY_WALKING)
-		{
-			if (cub3d->frames_walking[j][i])
-				mlx_delete_texture(cub3d->frames_walking[j][i]);
-			i++;
-		}
-		j++;
+		j = 0;
+		while (j < NUM_FRAMES_ENEMY_IDLE)
+			if (cub3d->frames_idle[i][j])
+				mlx_delete_texture(cub3d->frames_idle[i][j++]);
+		j = 0;
+		while (j < NUM_FRAMES_ENEMY_WALKING)
+			if (cub3d->frames_walking[i][j])
+				mlx_delete_texture(cub3d->frames_walking[i][j++]);
+		j = 0;
+		while (j < NUM_FRAMES_ENEMY_HUNTING)
+			if (cub3d->frames_hunting[i][j])
+				mlx_delete_texture(cub3d->frames_hunting[i][j++]);
+		i++;
 	}
 }
 
-int	handle_message_extra(int i)
+static int	handle_message_extra(int i)
 {
 	if (i == 12)
 		return (err("Failed to load mushroom texture"));
@@ -59,7 +57,7 @@ int	handle_message_extra(int i)
 	return (1);
 }
 
-int	handle_message(int i)
+static int	handle_message(int i)
 {
 	if (i == 0)
 		return (err("Failed to initialize mlx"));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_utils_extra.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 15:08:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 00:10:50 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ static void	delete_enemy_frames(cub3d_t *cub3d)
 		i = 0;
 		while (i < NUM_FRAMES_ENEMY_WALKING)
 			mlx_delete_texture(cub3d->frames_walking[j][i++]);
+		i = 0;
+		while (i < NUM_FRAMES_ENEMY_HUNTING)
+			mlx_delete_texture(cub3d->frames_hunting[j][i++]);
 		j++;
 	}
 }
@@ -91,7 +94,6 @@ void	free_cub3d(cub3d_t *cub3d)
 	i = 0;
 	while (i < LEVELS + 1)
 	{
-		printf("Freeing backup for level %d\n", i);
 		free_backup(cub3d->levels[i]);
 		i++;
 	}

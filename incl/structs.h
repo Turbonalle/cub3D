@@ -712,6 +712,22 @@ typedef struct fisheye_t
 	double		window_aspect_ratio;
 }				fisheye_t;
 
+//---- FRUSTUM -----------------------------------------------------------------
+
+# define FRUSTUM_FAR 100
+# define FRUSTUM_NEAR 1.777771
+
+typedef struct frustum_s
+{
+	double		half_fov;
+	dvector_t	far_left;
+	dvector_t	far_right;
+	dvector_t	near_left;
+	dvector_t	near_right;
+	dvector_t	left;
+	dvector_t	right;
+}				frustum_t;
+
 //---- CUB3D -------------------------------------------------------------------
 
 # define INTRO_PNG "./assets/textures/menu/intro.png"
@@ -809,6 +825,7 @@ typedef struct cub3d_s
 	texture_t		stars[NUM_FRAMES_STARS];
 	texture_t		door[NUM_DOOR_TEXTURES];
 	fisheye_t		fisheye;
+	frustum_t		frustum;
 }					cub3d_t;
 
 #endif

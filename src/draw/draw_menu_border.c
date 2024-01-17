@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_menu_border.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 13:34:01 by jbagger           #+#    #+#             */
+/*   Updated: 2024/01/17 13:34:35 by jbagger          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 static void	draw_top_border(mlx_image_t *img)
@@ -14,9 +26,13 @@ static void	draw_top_border(mlx_image_t *img)
 			if (col > row && col < img->width - row - 1)
 				mlx_put_pixel(img, col, row, MENU_BORDER_TOP_COLOR);
 			else if (col == row)
-				mlx_put_pixel(img, col, row, get_color_mix(MENU_BORDER_TOP_COLOR, MENU_BORDER_LEFT_COLOR));
+				mlx_put_pixel(img, col, row,
+					get_color_mix(MENU_BORDER_TOP_COLOR,
+						MENU_BORDER_LEFT_COLOR));
 			else if (col == img->width - row - 1)
-				mlx_put_pixel(img, col, row, get_color_mix(MENU_BORDER_TOP_COLOR, MENU_BORDER_RIGHT_COLOR));
+				mlx_put_pixel(img, col, row,
+					get_color_mix(MENU_BORDER_TOP_COLOR,
+						MENU_BORDER_RIGHT_COLOR));
 		}
 	}
 }
@@ -32,18 +48,23 @@ static void	draw_bottom_border(mlx_image_t *img)
 		col = -1;
 		while (++col < img->width)
 		{
-			if (col > img->height - row - 1 && img->width - col > img->height - row)
+			if (col > img->height - row - 1
+				&& img->width - col > img->height - row)
 				mlx_put_pixel(img, col, row, MENU_BORDER_BOTTOM_COLOR);
 			else if (col == img->height - row - 1)
-				mlx_put_pixel(img, col, row, get_color_mix(MENU_BORDER_BOTTOM_COLOR, MENU_BORDER_LEFT_COLOR));
+				mlx_put_pixel(img, col, row,
+					get_color_mix(MENU_BORDER_BOTTOM_COLOR,
+						MENU_BORDER_LEFT_COLOR));
 			else if (img->width - col == img->height - row)
-				mlx_put_pixel(img, col, row, get_color_mix(MENU_BORDER_BOTTOM_COLOR, MENU_BORDER_RIGHT_COLOR));
+				mlx_put_pixel(img, col, row,
+					get_color_mix(MENU_BORDER_BOTTOM_COLOR,
+						MENU_BORDER_RIGHT_COLOR));
 		}
 		row++;
 	}
 }
 
-static void draw_left_border(mlx_image_t *img)
+static void	draw_left_border(mlx_image_t *img)
 {
 	unsigned int	row;
 	unsigned int	col;
@@ -57,14 +78,18 @@ static void draw_left_border(mlx_image_t *img)
 			if (row > col && row < img->height - col - 1)
 				mlx_put_pixel(img, col, row, MENU_BORDER_LEFT_COLOR);
 			else if (row == col)
-				mlx_put_pixel(img, col, row, get_color_mix(MENU_BORDER_LEFT_COLOR, MENU_BORDER_TOP_COLOR));
+				mlx_put_pixel(img, col, row,
+					get_color_mix(MENU_BORDER_LEFT_COLOR,
+						MENU_BORDER_TOP_COLOR));
 			else if (row == img->height - col - 1)
-				mlx_put_pixel(img, col, row, get_color_mix(MENU_BORDER_LEFT_COLOR, MENU_BORDER_BOTTOM_COLOR));
+				mlx_put_pixel(img, col, row,
+					get_color_mix(MENU_BORDER_LEFT_COLOR,
+						MENU_BORDER_BOTTOM_COLOR));
 		}
 	}
 }
 
-static void draw_right_border(mlx_image_t *img)
+static void	draw_right_border(mlx_image_t *img)
 {
 	unsigned int	row;
 	unsigned int	col;
@@ -75,12 +100,17 @@ static void draw_right_border(mlx_image_t *img)
 		row = -1;
 		while (++row < img->height)
 		{
-			if (row > img->width - col - 1 && img->width - col < img->height - row)
+			if (row > img->width - col - 1
+				&& img->width - col < img->height - row)
 				mlx_put_pixel(img, col, row, MENU_BORDER_RIGHT_COLOR);
 			else if (row == img->width - col - 1)
-				mlx_put_pixel(img, col, row, get_color_mix(MENU_BORDER_RIGHT_COLOR, MENU_BORDER_TOP_COLOR));
+				mlx_put_pixel(img, col, row,
+					get_color_mix(MENU_BORDER_RIGHT_COLOR,
+						MENU_BORDER_TOP_COLOR));
 			else if (img->width - col == img->height - row)
-				mlx_put_pixel(img, col, row, get_color_mix(MENU_BORDER_RIGHT_COLOR, MENU_BORDER_BOTTOM_COLOR));
+				mlx_put_pixel(img, col, row,
+					get_color_mix(MENU_BORDER_RIGHT_COLOR,
+						MENU_BORDER_BOTTOM_COLOR));
 		}
 		col++;
 	}

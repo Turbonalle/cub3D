@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:53:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:55:54 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:23:40 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ static void	free_levels(cub3d_t *cub3d)
 	while (i < LEVELS + 1)
 	{
 		free_list(cub3d->levels[i].map_list);
+		cub3d->levels[i].map_list = NULL;
 		free_backup(cub3d->levels[i]);
 		i++;
 	}

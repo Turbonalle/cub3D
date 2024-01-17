@@ -103,7 +103,5 @@ void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 			cub3d->player.is_dirty_cheater--;
 	}
 	else if (keydata.key == MLX_KEY_PERIOD)
-	{
-		cub3d->printed = FALSE;
-	}
+		cub3d->draw_floor = !cub3d->draw_floor;
 }

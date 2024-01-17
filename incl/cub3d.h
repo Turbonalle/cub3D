@@ -331,6 +331,8 @@ double	lerp(range_t from, range_t to, double value);
 
 // dda.c
 int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t end);
+int		obstacle_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dist);
+int		wall_checker(int wall_flag, dvector_t end, dvector_t pos);
 int		all_keys_found(cub3d_t *cub3d, int i);
 
 //---- PLAYER ------------------------------------------------------------------

@@ -728,6 +728,18 @@ typedef struct frustum_s
 	dvector_t	right;
 }				frustum_t;
 
+//---- RAYCAST -----------------------------------------------------------------
+
+typedef struct	raycast_s
+{
+	dvector_t	v_ray_step_size;
+	dvector_t	v_ray_1d_length;
+	vector_t	v_map_check;
+	vector_t	v_step;
+	double		dist;
+	double		delta;
+}				raycast_t;
+
 //---- CUB3D -------------------------------------------------------------------
 
 # define INTRO_PNG "./assets/textures/menu/intro.png"
@@ -826,6 +838,7 @@ typedef struct cub3d_s
 	texture_t		door[NUM_DOOR_TEXTURES];
 	fisheye_t		fisheye;
 	frustum_t		frustum;
+	raycast_t		raycast;
 }					cub3d_t;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 21:10:46 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/17 09:38:52 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	collision_checker(cub3d_t *cub3d)
 	delta.y = cub3d->player.new_pos.y - cub3d->player.pos.y;
 	wall = find_end_point(cub3d, &cub3d->player,
 			cub3d->player.movement_angle, cub3d->player.new_pos);
-	if (wall)
+	if (wall != NO_WALL)
 	{
 		printf("wall: %d\n", wall);
 		// wall = find_end_point(cub3d, &cub3d->player,

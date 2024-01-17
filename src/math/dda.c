@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:42:54 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 21:18:41 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/17 09:39:49 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ static int	obstacle_found_dist(cub3d_t *cub3d, vector_t v_map_check,
 
 int	wall_checker(int wall_flag, dvector_t end, dvector_t pos)
 {
-	if (wall_flag == 1 && end.x > pos.x)
-		return (WE);
-	else if (wall_flag == 1)
-		return (EA);
-	else if (wall_flag == 0 && pos.y < end.y)
+	if (wall_flag == 0 && pos.y < end.y)
 		return (NO);
 	else if (wall_flag == 0 && pos.y >= end.y)
 		return (SO);
+	else if (wall_flag == 1 && end.x > pos.x)
+		return (WE);
+	else if (wall_flag == 1)
+		return (EA);
 	else
-		return (0);
+		return (NO_WALL);
 }
 
 int	find_end_point(cub3d_t *cub3d, player_t *player, double radians,
@@ -88,7 +88,7 @@ int	find_end_point(cub3d_t *cub3d, player_t *player, double radians,
 	v_step = init_v_step(radians * 180 / M_PI);
 	v_ray_1d_length = init_len(player->pos, radians * 180 / M_PI, v_map_check, v_ray_step_size);
 
-	wall = 0;
+	wall = NO_WALL;
 	dist = 0;
 	while (dist < delta)
 	{

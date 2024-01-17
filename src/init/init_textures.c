@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:18:24 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 13:18:31 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 18:44:08 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	init_textures(cub3d_t *cub3d)
 			= mlx_load_png(cub3d->level->texture[i].path);
 		if (!cub3d->level->texture[i].texture)
 		{
-			printf("Failed to load texture %d\n", i);
 			free_textures_before_failed(cub3d->level->texture, i);
 			return (err("Failed to load texture"));
 		}

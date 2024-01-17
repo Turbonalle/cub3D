@@ -156,7 +156,10 @@ int		init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 int		load_png_start_menu(start_menu_t *menu);
 int		init_images_start_menu(mlx_t *mlx, start_menu_t *menu);
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+
 int		init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
+int		init_images_gameover(mlx_t *mlx, gameover_menu_t *menu);
+int		load_png_gameover(gameover_menu_t *menu);
 int		init_intro(cub3d_t *cub3d);
 
 int		init_stars_textures(cub3d_t *cub3d);

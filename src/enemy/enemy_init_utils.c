@@ -63,7 +63,7 @@ int	init_enemy_frames(cub3d_t *cub3d)
 			// TODO: handle errors
 			return (err("Failed to init enemy frames"));
 		}
-		// if (!init_frame_group(cub3d->frames_hunt_paths[dir_index], hunting_file_paths[dir_index]))
+		// if (!init_frame_group(cub3d->frames_hunting[dir_index], hunting_file_paths[dir_index]))
 		// {
 		// 	i = 0;
 		// 	while (i < NUM_FRAMES_ENEMY_IDLE)
@@ -72,6 +72,7 @@ int	init_enemy_frames(cub3d_t *cub3d)
 		// 		mlx_delete_texture(cub3d->frames_idle[dir_index][i]);
 		// 		i++;
 		// 	}
+		// 	return (err("Failed to init enemy frames"));
 		// }
 		dir_index++;
 	}

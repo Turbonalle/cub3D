@@ -735,7 +735,6 @@ enum enemy_direction
 
 typedef struct cub3d_s
 {
-	int				printed;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	double			start_timestamp;
@@ -792,6 +791,7 @@ typedef struct cub3d_s
 	int				prev_frame_index_idle;
 	double			prev_frame_update_timestamp;
 	int				speedrun;
+	int				draw_floor;
 	texture_t		floor;
 	texture_t		stars[NUM_FRAMES_STARS];
 	texture_t		door[NUM_DOOR_TEXTURES];

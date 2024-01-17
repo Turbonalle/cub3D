@@ -14,10 +14,9 @@
 
 void	free_already_allocated(cub3d_t *cub3d, int i)
 {
-	while (i >= 0)
+	while (i > 0)
 	{
-		free_list(cub3d->levels[i].map_list);
-		i--;
+		free_list(cub3d->levels[--i].map_list);
 		if (i >= 0)
 		{
 			printf("freeing BACKUP for level %d on malloc fail\n", i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_level_texture.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:17 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 14:12:31 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/17 09:13:03 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

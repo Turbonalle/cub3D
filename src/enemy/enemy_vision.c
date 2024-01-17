@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_vision.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:31:20 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 22:00:53 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/17 09:53:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	enemy_vision(cub3d_t *cub3d)
 		{
 			if (cub3d->enemy[i].is_eating)
 				eat(cub3d, i);
-			else if (check_if_player_is_seen(cub3d, i))
-				handle_movement(cub3d, at_target, 0, i);
 			else if (distraction(cub3d, i))
 				handle_movement(cub3d, at_target, 1, i);
+			else if (check_if_player_is_seen(cub3d, i))
+				handle_movement(cub3d, at_target, 0, i);
 			else if (cub3d->enemy[i].is_walking)
 				handle_movement(cub3d, at_target, 1, i);
 			else

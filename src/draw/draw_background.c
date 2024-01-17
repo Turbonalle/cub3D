@@ -11,10 +11,7 @@ void	draw_background(mlx_image_t *img, int color)
 		column = -1;
 		while (++column < img->width)
 		{
-			if (row < img->height / 2)
-				mlx_put_pixel(img, column, row, color);
-			else
-				mlx_put_pixel(img, column, row, color);
+			mlx_put_pixel(img, column, row, color);
 		}
 	}
 }

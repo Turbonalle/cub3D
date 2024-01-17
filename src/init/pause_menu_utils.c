@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:05:33 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 15:12:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:41:11 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	init_settings(settings_t *settings)
 {
 	settings->e_speed = 0;
 	settings->e_behaviour = 0;
-	settings->minimap_view = TRUE; // Is this even used?
 	settings->fps = FPS_60;
 	settings->fisheye = FALSE;
 	settings->mouse = TRUE;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_zoom.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:03 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 17:36:31 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:10:21 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	zoom_out_minimap(cub3d_t *cub3d)
 	new_size_percentage
 		= get_new_percentage_zoom_out(cub3d->minimap.size_percentage);
 	new_tile_size = count_minimap_tilesize(cub3d, new_size_percentage);
+	if (new_tile_size < 1)
+		new_tile_size = 1;
 	new_width = new_tile_size * cub3d->level->map_columns;
 	new_height = new_tile_size * cub3d->level->map_rows;
 	new_pos.x = cub3d->minimap.pos.x + (cub3d->minimap.width - new_width) / 2;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_draw_grid.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:31:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 17:36:08 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:10:35 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_door_key_color(cub3d_t *cub3d, int index)
 		return (cub3d->minimap.color_key_4);
 }
 
-void	draw_correct_square(cub3d_t *cub3d, int row, int column)
+static void	draw_correct_square(cub3d_t *cub3d, int row, int column)
 {
 	int			index;
 	vector_t	coord;

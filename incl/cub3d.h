@@ -139,14 +139,24 @@ void	draw_menu_border(mlx_image_t *img);
 int		count_minimap_tilesize(cub3d_t *cub3d, int size_percentage);
 int		init_rays(cub3d_t *cub3d);
 int		init_cub3d(cub3d_t *cub3d);
+void	set_keys(keypress_t *keys);
 
 // init menus
 int		init_level_menu(cub3d_t *cub3d, level_menu_t *menu);
+void	set_preview_values(minilevel_t *minilevel, level_t *level);
+void	set_number_values(minilevel_t *minilevel);
+void	draw_preview_map(minilevel_t *minilevel, level_t *level, char **backup);
+int		load_png_level(level_menu_t *menu);
+int		init_images_level(mlx_t *mlx, level_menu_t *menu);
+void	draw_minimap_preview(minilevel_t *minilevel, level_t *level);
+void	draw_border_image(minilevel_t *minilevel);
+
 int		init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 void	init_name_values(name_menu_t *menu);
 void	draw_letter_box(mlx_image_t *img, letter_box_t *box);
 void	init_letter_images(cub3d_t *cub3d, name_menu_t *menu);
 void	set_letter_fields(name_menu_t *menu);
+
 int		init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 int		load_png_pause_menu(pause_menu_t *menu);
 int		init_images_pause_menu(mlx_t *mlx, pause_menu_t *menu);
@@ -155,11 +165,23 @@ void	init_checkboxes(pause_menu_t *menu);
 void	init_checkbox_states(pause_menu_t *menu);
 void	set_checkbox_values(pause_menu_t *menu);
 void	init_settings(settings_t *settings);
+
 int		init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 int		load_png_start_menu(start_menu_t *menu);
 int		init_images_start_menu(mlx_t *mlx, start_menu_t *menu);
+
 int		init_leaderboard(cub3d_t *cub3d, leaderboard_t *board);
+void	draw_times(mlx_t *mlx, record_t **records,
+			leaderboard_t *board, int level);
+void	draw_names(mlx_t *mlx, record_t **records,
+			leaderboard_t *board, int level);
+void	set_record_texts(cub3d_t *cub3d, leaderboard_t *board);
+int		init_images_board(mlx_t *mlx, leaderboard_t *board);
+int		load_png_board(leaderboard_t *board);
+
 int		init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu);
+int		init_images_gameover(mlx_t *mlx, gameover_menu_t *menu);
+int		load_png_gameover(gameover_menu_t *menu);
 int		init_intro(cub3d_t *cub3d);
 
 int		init_stars_textures(cub3d_t *cub3d);
@@ -182,6 +204,17 @@ int		free_prev_level_menu(level_menu_t *menu, int i, int j);
 int		free_prev_gameover_menu(gameover_menu_t *menu, int i);
 int		free_prev_name_menu(name_menu_t *menu, int i);
 void	free_textures_before_failed(texture_t *textures, int failed_index);
+void	free_leaderboard(leaderboard_t *board);
+void	free_shroom(cub3d_t *cub3d);
+void	free_door_textures(cub3d_t *cub3d);
+void	free_star_textures(cub3d_t *cub3d);
+void	free_pause_menu(pause_menu_t *menu);
+void	free_level_menu(level_menu_t *menu);
+void	free_name_menu(name_menu_t *menu);
+void	free_gameover_menu(gameover_menu_t *menu);
+void	free_intro(cub3d_t *cub3d);
+void	free_hearts(cub3d_t *cub3d);
+void	free_start_menu(start_menu_t *menu);
 
 //---- MENU --------------------------------------------------------------------
 

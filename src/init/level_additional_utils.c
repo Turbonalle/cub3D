@@ -1,0 +1,110 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   level_additional_utils.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 10:26:53 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/17 10:33:03 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../incl/cub3d.h"
+
+static int	load_png_helper(level_menu_t *menu)
+{
+	const char	*number_png[LEVELS] = NUMBER_PNGS;
+	int			i;
+
+	i = -1;
+	while (++i < LEVELS)
+	{
+		menu->minilevels[i].number.texture = mlx_load_png(number_png[i]);
+		if (!menu->minilevels[i].number.texture)
+			return (free_prev_level_menu(menu, i, 4));
+	}
+	return (SUCCESS);
+}
+
+int	load_png_level(level_menu_t *menu)
+{
+	menu->title.texture = mlx_load_png(LEVEL_TITLE_PNG);
+	if (!menu->title.texture)
+		return (0);
+	menu->back.texture = mlx_load_png(BACK_PNG);
+	if (!menu->back.texture)
+		return (free_prev_level_menu(menu, 0, 0));
+	menu->back_hover.texture = mlx_load_png(BACK_HOVER_PNG);
+	if (!menu->back.texture)
+		return (free_prev_level_menu(menu, 0, 1));
+	menu->leaderboard.texture = mlx_load_png(LEADERBOARD_PNG);
+	if (!menu->back.texture)
+		return (free_prev_level_menu(menu, 0, 2));
+	menu->leaderboard_hover.texture = mlx_load_png(LEADERBOARD_HOVER_PNG);
+	if (!menu->back.texture)
+		return (free_prev_level_menu(menu, 0, 3));
+	return (load_png_helper(menu));
+}
+
+static int	images_helper(mlx_t *mlx, level_menu_t *menu)
+{
+	int	size;
+	int	i;
+
+	i = -1;
+	while (++i < LEVELS)
+	{
+		size = min(mlx->width * 0.15, mlx->height * 0.25);
+		menu->minilevels[i].img = mlx_new_image(mlx, size, size);
+		if (!menu->minilevels[i].img)
+			return (err("Failed to create level menu minilevel image"));
+		menu->minilevels[i].border = mlx_new_image(mlx, size
+				+ MINILEVEL_BORDER_THICKNESS * 2,
+				size + MINILEVEL_BORDER_THICKNESS * 2);
+		if (!menu->minilevels[i].border)
+			return (err("Failed to create level menu minilevel border image"));
+		menu->minilevels[i].number.img
+			= mlx_texture_to_image(mlx, menu->minilevels[i].number.texture);
+		if (!menu->minilevels[i].number.img)
+			return (err("Failed to create level menu minilevel number image"));
+	}
+	return (SUCCESS);
+}
+
+int	init_images_level(mlx_t *mlx, level_menu_t *menu)
+{
+	menu->img = mlx_new_image(mlx, mlx->width, mlx->height);
+	if (!menu->img)
+		return (err("Failed to create level menu image"));
+	menu->title.img = mlx_texture_to_image(mlx, menu->title.texture);
+	if (!menu->title.img)
+		return (err("Failed to create level menu title image"));
+	menu->back.img = mlx_texture_to_image(mlx, menu->back.texture);
+	if (!menu->back.img)
+		return (err("Failed to create level menu back image"));
+	menu->back_hover.img = mlx_texture_to_image(mlx, menu->back_hover.texture);
+	if (!menu->back_hover.img)
+		return (err("Failed to create level menu back hover image"));
+	menu->leaderboard.img
+		= mlx_texture_to_image(mlx, menu->leaderboard.texture);
+	if (!menu->leaderboard.img)
+		return (err("Failed to create level menu leaderboard image"));
+	menu->leaderboard_hover.img
+		= mlx_texture_to_image(mlx, menu->leaderboard_hover.texture);
+	if (!menu->leaderboard_hover.img)
+		return (err("Failed to create level menu leaderboard hover image"));
+	return (images_helper(mlx, menu));
+}
+
+void	draw_minimap_preview(minilevel_t *minilevel, level_t *level)
+{
+	draw_background(minilevel->img, MINILEVEL_BG_COLOR);
+	set_preview_values(minilevel, level);
+	set_number_values(minilevel);
+	printf("drawing preview map\n");
+	draw_preview_map(minilevel, level, level->backup);
+	printf("drawing number rectangle\n");
+	draw_rectangle(minilevel->img, &minilevel->number_rect);
+	printf("draw_minimap_preview: DONE!\n");
+}

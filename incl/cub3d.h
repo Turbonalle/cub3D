@@ -142,11 +142,19 @@ int		init_cub3d(cub3d_t *cub3d);
 
 // init menus
 int		init_level_menu(cub3d_t *cub3d, level_menu_t *menu);
+void	set_preview_values(minilevel_t *minilevel, level_t *level);
+void	set_number_values(minilevel_t *minilevel);
+void	draw_preview_map(minilevel_t *minilevel, level_t *level, char **backup);
+int		load_png_level(level_menu_t *menu);
+int		init_images_level(mlx_t *mlx, level_menu_t *menu);
+void	draw_minimap_preview(minilevel_t *minilevel, level_t *level);
+
 int		init_name_menu(cub3d_t *cub3d, name_menu_t *menu);
 void	init_name_values(name_menu_t *menu);
 void	draw_letter_box(mlx_image_t *img, letter_box_t *box);
 void	init_letter_images(cub3d_t *cub3d, name_menu_t *menu);
 void	set_letter_fields(name_menu_t *menu);
+
 int		init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu);
 int		load_png_pause_menu(pause_menu_t *menu);
 int		init_images_pause_menu(mlx_t *mlx, pause_menu_t *menu);
@@ -155,6 +163,7 @@ void	init_checkboxes(pause_menu_t *menu);
 void	init_checkbox_states(pause_menu_t *menu);
 void	set_checkbox_values(pause_menu_t *menu);
 void	init_settings(settings_t *settings);
+
 int		init_start_menu(cub3d_t *cub3d, start_menu_t *menu);
 int		load_png_start_menu(start_menu_t *menu);
 int		init_images_start_menu(mlx_t *mlx, start_menu_t *menu);

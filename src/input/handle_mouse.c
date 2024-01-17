@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mouse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:10:57 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 18:11:34 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:59:07 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -432,9 +432,9 @@ typedef struct minilevel_s
 	int			size;
 	mlx_image_t	*border;
 	vector_t	preview_pos;
-	int			preview_width;
-	int			preview_height;
-	int			preview_square_size;
+	int			width;
+	int			height;
+	int			square_size;
 }				minilevel_t;
 
 typedef struct level_menu_s

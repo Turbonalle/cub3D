@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_utils.c                                       :+:      :+:    :+:   */
+/*   key_count_string_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 17:50:49 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 21:24:11 by vvagapov         ###   ########.fr       */
+/*   Created: 2024/01/16 18:03:27 by vvagapov          #+#    #+#             */
+/*   Updated: 2024/01/16 18:06:33 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-double	dist_between_d_vectors(dvector_t a, dvector_t b)
+void	nullify_strings(char **text1, char **text2, char **text3)
 {
-	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
+	*text1 = NULL;
+	*text2 = NULL;
+	*text3 = NULL;
 }
 
-double	lerp(range_t to, range_t from, double value)
+void	free_non_null_strings(char *text1, char *text2, char *text3)
 {
-	return (to.start + (to.end - to.start) * ((value - from.start)
-			/ (from.end - from.start)));
+	if (text1)
+		free(text1);
+	if (text2)
+		free(text2);
+	if (text3)
+		free(text3);
 }

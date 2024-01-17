@@ -22,6 +22,12 @@ typedef struct dvector_t
 	double	y;
 }			dvector_t;
 
+typedef struct range_t
+{
+	double	start;
+	double	end;
+}			range_t;
+
 typedef struct uvector_s
 {
 	uint32_t	col;

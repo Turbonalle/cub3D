@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_menu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:47:42 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/15 11:56:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/16 18:10:48 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	mouse_start_menu(cub3d_t *cub3d)
 			disable_start_menu(&cub3d->start_menu);
 			cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
 			cub3d->settings.e_speed = cub3d->player.num_completed / 3;
-			printf("Level started, e_speed is %i, e_beh is %i\n",cub3d->settings.e_speed, cub3d->settings.e_behaviour);
 			cub3d->state = STATE_GAME;
 			handle_cursor(cub3d);
 			start_timer(cub3d);
@@ -81,7 +80,6 @@ void	mouse_level_menu(cub3d_t *cub3d)
 			cub3d->level = &cub3d->levels[i + 1];
 			if (!load_level(cub3d, &cub3d->levels[i + 1]))
 			{
-				printf("Failed to load level %i\n", i + 1);
 				return ;
 			}
 			cub3d->speedrun = TRUE;
@@ -111,7 +109,6 @@ void	mouse_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
 	{
 		if (!load_level(cub3d, cub3d->level))
 		{
-			printf("Failed to load level\n");
 			return ;
 		}
 		disable_gameover_menu(cub3d->mlx, menu);
@@ -119,7 +116,6 @@ void	mouse_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
 		{
 			cub3d->settings.e_behaviour = cub3d->player.num_completed % 3;
 			cub3d->settings.e_speed = cub3d->player.num_completed / 3;
-			printf("Level started, e_speed is %i, e_beh is %i\n",cub3d->settings.e_speed, cub3d->settings.e_behaviour);
 		}
 		cub3d->state = STATE_GAME;
 		handle_cursor(cub3d);

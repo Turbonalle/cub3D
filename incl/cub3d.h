@@ -73,6 +73,9 @@ int		get_record_name(char *line, char **name);
 int		count_records(record_t *records);
 record_t	*new_record(int time, char *name);
 
+// set_z_of_all_images.c
+void	set_z_of_all_images(cub3d_t *cub3d);
+
 // load_level.c
 int		load_level(cub3d_t *cub3d, level_t *level);
 
@@ -271,7 +274,7 @@ int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 //---- DRAW --------------------------------------------------------------------
 
 void	draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color);
-void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color);
+// void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color);
 void	draw_rectangle(mlx_image_t *img, rectangle_t *rect);
 void	draw_checkbox(cub3d_t *cub3d, box_t *box);
 void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
@@ -286,10 +289,10 @@ double	within_two_pi(double radians);
 double	to_radians(double degrees);
 double	dist_between(vector_t a, dvector_t b);
 double	dist_between_d_vectors(dvector_t a, dvector_t b);
-double	lerp(double to_start, double to_end, double from_start, double from_end, double value);
+double	lerp(range_t from, range_t to, double value);
 
 // dda.c
-int		find_end_point(cub3d_t *cub3d, player_t player, double radians, dvector_t end);
+int		find_end_point(cub3d_t *cub3d, player_t *player, double radians, dvector_t end);
 int		all_keys_found(cub3d_t *cub3d, int i);
 
 //---- PLAYER ------------------------------------------------------------------
@@ -315,6 +318,12 @@ void	decrease_fov(cub3d_t *cub3d);
 
 int		get_door_index(char symbol);
 int		get_key_index(char symbol);
+
+//---- KEY COUNTS --------------------------------------------------------------
+
+//key_count_string_utils.c
+void	nullify_strings(char **text1, char **text2, char **text3);
+void	free_non_null_strings(char *text1, char *text2, char *text3);
 
 //key_counts.c
 int		draw_key_counts(cub3d_t *cub3d);
@@ -508,6 +517,9 @@ void	cause_distraction(cub3d_t *cub3d);
 int		check_if_door_unlocked(cub3d_t *cub3d, int xcoord, int ycoord);
 char	*create_file_path(int i, char *path);
 int		check_if_player_is_seen(cub3d_t *cub3d, int i);
+
+void	set_enemy_cursor_position(cub3d_t *cub3d, double cursor_angle,
+	dvector_t *position);
 void	enemy_cursor(cub3d_t *cub3d, double angle_from_player, double distance);
 
 int		init_distractions(cub3d_t *cub3d);

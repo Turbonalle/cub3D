@@ -136,12 +136,22 @@
 
 enum elements
 {
+	F,
+	C,
 	NO,
 	SO,
 	WE,
-	EA,
-	F,
-	C
+	EA
 };
+
+// enum elements
+// {
+// 	NO,
+// 	SO,
+// 	WE,
+// 	EA,
+// 	F,
+// 	C
+// };
 
 #endif

@@ -41,14 +41,12 @@ static void	set_rest_positions(gameover_menu_t *menu)
 static void	set_positions(gameover_menu_t *menu)
 {
 	int	back_x;
-	int	restart_x;
 	int	button_y;
 	int	gap;
 
 	gap = menu->img->width * 0.07;
 	back_x = (menu->img->width - menu->back.img->width
 			- gap - menu->restart.img->width) / 2;
-	restart_x = back_x + menu->back.img->width + gap;
 	button_y = menu->img->height * 0.7;
 	menu->title_win.pos.x = menu->img->width * 0.5
 		- menu->title_win.img->width * 0.5;

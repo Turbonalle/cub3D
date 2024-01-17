@@ -42,7 +42,6 @@ static void	set_positions(level_menu_t *menu, vector_t *back_button_pos)
 {
 	int			size;
 	int			gap;
-	int			number_square_size;
 	vector_t	coord;
 
 	menu->title.pos.x = (menu->img->width - menu->title.img->width) / 2;
@@ -58,7 +57,6 @@ static void	set_positions(level_menu_t *menu, vector_t *back_button_pos)
 	back_button_pos->x = (menu->img->width
 			- (coord.x * size + (coord.x - 1) * gap)) / 2;
 	back_button_pos->y = menu->img->height * 0.12;
-	number_square_size = size * 0.15;
 	menu->back.pos.x = back_button_pos->x;
 	menu->back.pos.y = back_button_pos->y;
 	menu->leaderboard.pos.x = menu->img->width

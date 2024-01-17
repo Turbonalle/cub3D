@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:00:47 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 15:28:01 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:31:19 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,24 +86,6 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char *name)
 	else
 		temp->next = new;
 	delete_extra_records(cub3d, records);
-	return (SUCCESS);
-}
-
-int	set_records(cub3d_t *cub3d, level_t *level, char **line, int fd)
-{
-	char	*name;
-	int		time;
-
-	while (*line && **line != '\n')
-	{
-		if (!get_record_time(*line, &time))
-			return (err("Failed to get time string"));
-		if (!get_record_name(*line, &name))
-			return (err("Failed to get name string"));
-		add_record(cub3d, &level->records, time, name);
-		free(*line);
-		*line = get_next_line(fd);
-	}
 	return (SUCCESS);
 }
 

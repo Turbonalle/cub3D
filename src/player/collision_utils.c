@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 09:53:32 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/17 15:36:55 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,24 @@
 
 int	pos_is_goal(cub3d_t *cub3d)
 {
-	return (cub3d->level->map[(int)cub3d->player.pos.y][(int)cub3d->player.pos.x] == 'G');
+	return (cub3d->level->map[(int)cub3d->player.pos.y]
+		[(int)cub3d->player.pos.x] == 'G');
+}
+
+void	check_hori_wall(cub3d_t *cub3d)
+{
+	if (cub3d->level->map[(int)cub3d->player.pos.y]
+		[(int)cub3d->player.new_pos.x] != WALL && !is_locked_door(cub3d,
+			(int)cub3d->player.pos.y, (int)cub3d->player.new_pos.x))
+		cub3d->player.pos.x = cub3d->player.new_pos.x;
+}
+
+void	check_vert_wall(cub3d_t *cub3d)
+{
+	if (cub3d->level->map[(int)cub3d->player.new_pos.y]
+		[(int)cub3d->player.pos.x] != WALL && !is_locked_door(cub3d,
+			(int)cub3d->player.new_pos.y, (int)cub3d->player.pos.x))
+		cub3d->player.pos.y = cub3d->player.new_pos.y;
 }
 
 void	collision_checker(cub3d_t *cub3d)
@@ -29,15 +46,9 @@ void	collision_checker(cub3d_t *cub3d)
 	if (wall != NO_WALL)
 	{
 		if (wall == WE || wall == EA)
-		{
-			if (cub3d->level->map[(int)cub3d->player.new_pos.y][(int)cub3d->player.pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.new_pos.y, (int)cub3d->player.pos.x))
-				cub3d->player.pos.y = cub3d->player.new_pos.y;
-		}
+			check_vert_wall(cub3d);
 		else if (wall == NO || wall == SO)
-		{
-			if (cub3d->level->map[(int)cub3d->player.pos.y][(int)cub3d->player.new_pos.x] != WALL && !is_locked_door(cub3d, (int)cub3d->player.pos.y, (int)cub3d->player.new_pos.x))
-				cub3d->player.pos.x = cub3d->player.new_pos.x;
-		}
+			check_hori_wall(cub3d);
 	}
 	else
 		cub3d->player.pos = cub3d->player.new_pos;
@@ -45,7 +56,8 @@ void	collision_checker(cub3d_t *cub3d)
 	if (pos_is_goal(cub3d))
 	{
 		if (cub3d->player.thrown)
-			cub3d->level->distractions[cub3d->level->num_distractions].img_distraction->instances[0].enabled = FALSE;
+			cub3d->level->distractions[cub3d->level->num_distractions]
+				.img_distraction->instances[0].enabled = FALSE;
 		level_finished(cub3d);
 	}
 }

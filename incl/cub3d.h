@@ -270,12 +270,15 @@ int		hover_any_box(cub3d_t *cub3d, pause_menu_t *menu);
 
 //---- DRAW --------------------------------------------------------------------
 
-void	draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color);
-// void	draw_triangle(mlx_image_t *img, triangle_t triangle, int color);
-void	draw_rectangle(mlx_image_t *img, rectangle_t *rect);
-void	draw_checkbox(cub3d_t *cub3d, box_t *box);
-void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
-int		get_door_key_color(cub3d_t *cub3d, int index);
+texture_t	find_texture(cub3d_t *cub3d, ray_t ray);
+void		draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color);
+void		draw_rectangle(mlx_image_t *img, rectangle_t *rect);
+void		draw_checkbox(cub3d_t *cub3d, box_t *box);
+void		draw_hovered_checkbox(cub3d_t *cub3d, box_t *box);
+int			get_door_key_color(cub3d_t *cub3d, int index);
+void		draw_floor(cub3d_t *cub3d, frustum_t *frustum);
+void		bresenham(mlx_image_t *img, vector_t start, vector_t end, int color);
+
 
 //---- MATH --------------------------------------------------------------------
 

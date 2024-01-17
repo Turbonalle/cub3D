@@ -1,34 +1,55 @@
 
 #include "../incl/cub3d.h"
 
-static double	fisheye_correction(cub3d_t *cub3d, int index)
+// static double	fisheye_correction(cub3d_t *cub3d, int index)
+// {
+// 	double	perp_dist;
+// 	dvector_t nose_dir;
+// 	nose_dir.y = sin(cub3d->player.angle); 
+// 	nose_dir.x = cos(cub3d->player.angle); 
+// 	dvector_t orto_dir; // unit vector to the right of the player
+// 	orto_dir.x = nose_dir.y;
+// 	orto_dir.y = -nose_dir.x;
+// 	dvector_t ray;
+// 	ray.x = cub3d->rays[index].end.x - cub3d->player.pos.x;
+// 	ray.y = cub3d->rays[index].end.y - cub3d->player.pos.y;
+// 	// projection of ray on ortoDir = ortoDir´*ray * ortoDir 
+// 	double proj_len = orto_dir.x * ray.x + orto_dir.y * ray.y;
+// 	dvector_t ray_proj;
+// 	ray_proj.x = proj_len * orto_dir.x;
+// 	ray_proj.y = proj_len * orto_dir.y;
+// 	// now ray = ray_proj + ray_perp
+// 	dvector_t ray_perp;
+// 	ray_perp.x = ray.x-ray_proj.x;
+// 	ray_perp.y = ray.y-ray_proj.y;
+// 	perp_dist = sqrt(ray_perp.x * ray_perp.x + ray_perp.y * ray_perp.y);
+// 	// calculate the distance in world where the wall fills the screen vertically
+// 	double wall_height = 1;
+// 	double view_fill_dist = wall_height/2.0/sin(to_radians(FOV/2.0));
+// 	// playerDistance / view_fill_dist  =  image height / sceenH
+// 	double window_aspect_ratio = (double)cub3d->img->width/(double)cub3d->img->height;
+// 	return (cub3d->img->height * view_fill_dist / perp_dist * window_aspect_ratio);
+// }
+
+static double	fisheye_correction(cub3d_t *cub3d, fisheye_t *fisheye, int index)
 {
-	double	perp_dist;
-	dvector_t nose_dir;
-	nose_dir.y = sin(cub3d->player.angle); 
-	nose_dir.x = cos(cub3d->player.angle); 
-	dvector_t orto_dir; // unit vector to the right of the player
-	orto_dir.x = nose_dir.y;
-	orto_dir.y = -nose_dir.x;
-	dvector_t ray;
-	ray.x = cub3d->rays[index].end.x - cub3d->player.pos.x;
-	ray.y = cub3d->rays[index].end.y - cub3d->player.pos.y;
-	// projection of ray on ortoDir = ortoDir´*ray * ortoDir 
-	double proj_len = orto_dir.x * ray.x + orto_dir.y * ray.y;
-	dvector_t ray_proj;
-	ray_proj.x = proj_len * orto_dir.x;
-	ray_proj.y = proj_len * orto_dir.y;
-	// now ray = ray_proj + ray_perp
-	dvector_t ray_perp;
-	ray_perp.x = ray.x-ray_proj.x;
-	ray_perp.y = ray.y-ray_proj.y;
-	perp_dist = sqrt(ray_perp.x * ray_perp.x + ray_perp.y * ray_perp.y);
-	// calculate the distance in world where the wall fills the screen vertically
-	double wall_height = 1;
-	double view_fill_dist = wall_height/2.0/sin(to_radians(FOV/2.0));
-	// playerDistance / view_fill_dist  =  image height / sceenH
-	double window_aspect_ratio = (double)cub3d->img->width/(double)cub3d->img->height;
-	return (cub3d->img->height * view_fill_dist / perp_dist * window_aspect_ratio);
+	fisheye->orto_dir.x = sin(cub3d->player.angle);
+	fisheye->orto_dir.y = -cos(cub3d->player.angle);
+	fisheye->ray.x = cub3d->rays[index].end.x - cub3d->player.pos.x;
+	fisheye->ray.y = cub3d->rays[index].end.y - cub3d->player.pos.y;
+	fisheye->proj_len = fisheye->orto_dir.x * fisheye->ray.x
+		+ fisheye->orto_dir.y * fisheye->ray.y;
+	fisheye->ray_proj.x = fisheye->proj_len * fisheye->orto_dir.x;
+	fisheye->ray_proj.y = fisheye->proj_len * fisheye->orto_dir.y;
+	fisheye->ray_perp.x = fisheye->ray.x - fisheye->ray_proj.x;
+	fisheye->ray_perp.y = fisheye->ray.y - fisheye->ray_proj.y;
+	fisheye->perp_dist = sqrt(fisheye->ray_perp.x * fisheye->ray_perp.x 
+		+ fisheye->ray_perp.y * fisheye->ray_perp.y);
+	fisheye->view_fill_dist = WALL_HEIGHT / 2.0 / sin(to_radians(FOV / 2.0));
+	fisheye->window_aspect_ratio = (double)cub3d->img->width
+		/ (double)cub3d->img->height;
+	return (cub3d->img->height * fisheye->view_fill_dist
+		/ fisheye->perp_dist * fisheye->window_aspect_ratio);
 }
 
 //------------------------------------------------------------------------------
@@ -95,6 +116,7 @@ void	draw_floor(cub3d_t *cub3d)
 			sample.y = floor(d_sample.y);
 			sample.x = sample.x % cub3d->floor.texture->width;
 			sample.y = sample.y % cub3d->floor.texture->height;
+
 			color = get_pixel_color(cub3d->floor, sample);
 			mlx_put_pixel(cub3d->img, x, y + cub3d->img->height / 2, color);
 			mlx_put_pixel(cub3d->img, x, cub3d->img->height / 2 - y, color);
@@ -146,7 +168,7 @@ void draw_world(cub3d_t *cub3d)
 			if (cub3d->settings.fisheye)
 				height = 1.0 / (M_PI * 2 * cub3d->rays[index].length * cub3d->fov / 360.0) * cub3d->img->width;
 			else
-				height = fisheye_correction(cub3d, index);
+				height = fisheye_correction(cub3d, &cub3d->fisheye, index);
 			if (height > cub3d->img->height)
 				close = 1;
 		}

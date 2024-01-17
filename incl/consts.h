@@ -45,6 +45,8 @@
 # define HALO_THICKNESS 50
 # define HALO_TIME 2
 
+# define WALL_HEIGHT 1
+
 # define LEVELS 8
 
 # define MINIMAP_SIZE_PERCENTAGE 20

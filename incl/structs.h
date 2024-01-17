@@ -62,6 +62,7 @@ typedef struct png_s
 }					png_t;
 
 //---- PLAYER ------------------------------------------------------------------
+
 # define DISTRACTION_THROW_DISTANCE 5
 
 typedef struct player_s
@@ -698,6 +699,19 @@ typedef struct shroom_s
 	mlx_image_t	*text;
 }			shroom_t;
 
+//---- FISHEYE -----------------------------------------------------------------
+
+typedef struct fisheye_t
+{
+	double		perp_dist;
+	dvector_t	orto_dir;
+	dvector_t	ray;
+	double		proj_len;
+	dvector_t	ray_proj;
+	dvector_t	ray_perp;
+	double		view_fill_dist;
+	double		window_aspect_ratio;
+}				fisheye_t;
 
 //---- CUB3D -------------------------------------------------------------------
 
@@ -795,6 +809,7 @@ typedef struct cub3d_s
 	texture_t		floor;
 	texture_t		stars[NUM_FRAMES_STARS];
 	texture_t		door[NUM_DOOR_TEXTURES];
+	fisheye_t		fisheye;
 }					cub3d_t;
 
 #endif

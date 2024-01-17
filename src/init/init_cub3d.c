@@ -185,6 +185,7 @@ static void	set_init_stats(cub3d_t *cub3d)
 	cub3d->player.health = HEARTS;
 	cub3d->player.mushroom_count = 0;
 	cub3d->player.hit_timestamp = 0;
+	cub3d->draw_floor = FALSE;
 }
 
 static void	free_levels(cub3d_t *cub3d)

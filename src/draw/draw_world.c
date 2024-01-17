@@ -56,23 +56,6 @@ void	draw_floor(cub3d_t *cub3d)
 	near_left.y = cub3d->player.pos.y + frustum_near * sin(cub3d->player.angle - half_fov);
 	near_right.x = cub3d->player.pos.x + frustum_near * cos(cub3d->player.angle + half_fov);
 	near_right.y = cub3d->player.pos.y + frustum_near * sin(cub3d->player.angle + half_fov);
-	if (cub3d->printed == FALSE)
-	{
-		printf(TERMINAL_CYAN"------------------------------------\n"TERMINAL_RESET);
-		printf(TERMINAL_GREEN"PLAYER POS\n"TERMINAL_RESET);
-		printf("cub3d->player.pos.x: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, cub3d->player.pos.x);
-		printf("cub3d->player.pos.y: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, cub3d->player.pos.y);
-		printf("cub3d->player.angle: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, cub3d->player.angle);
-		printf(TERMINAL_GREEN"FRUSTUM\n"TERMINAL_RESET);
-		printf("far_left.x: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, far_left.x);
-		printf("far_left.y: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, far_left.y);
-		printf("far_right.x: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, far_right.x);
-		printf("far_right.y: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, far_right.y);
-		printf("near_left.x: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, near_left.x);
-		printf("near_left.y: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, near_left.y);
-		printf("near_right.x: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, near_right.x);
-		printf("near_right.y: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, near_right.y);
-	}
 
 	for (int y = 0; y < (int)cub3d->img->height / 2; y++)
 	{
@@ -96,16 +79,6 @@ void	draw_floor(cub3d_t *cub3d)
 			right.x = (far_right.x - near_right.x) / sample_height + near_right.x;
 			right.y = (far_right.y - near_right.y) / sample_height + near_right.y;
 		}
-		if (cub3d->printed == FALSE && y % 30 == 0)
-		{
-			printf(TERMINAL_PURPLE"VECTOR"TERMINAL_RESET" (y = "TERMINAL_PURPLE"%d"TERMINAL_RESET")\n", y);
-			printf("sample_height: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, sample_height);
-			printf("left: ["TERMINAL_GREEN"%.2f"TERMINAL_RESET"]["TERMINAL_GREEN"%.2f"TERMINAL_RESET"]\n", left.x, left.y);
-			printf("right: ["TERMINAL_GREEN"%.2f"TERMINAL_RESET"]["TERMINAL_GREEN"%.2f"TERMINAL_RESET"]\n"TERMINAL_RESET, right.x, right.y);
-			// printf("left.y: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, left.y);
-			// printf("right.x: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, right.x);
-			// printf("right.y: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, right.y);
-		}
 
 		for (int x = 0; x < (int)cub3d->img->width; x++)
 		{
@@ -122,23 +95,11 @@ void	draw_floor(cub3d_t *cub3d)
 			sample.y = floor(d_sample.y);
 			sample.x = sample.x % cub3d->floor.texture->width;
 			sample.y = sample.y % cub3d->floor.texture->height;
-
-			if (cub3d->printed == FALSE && x % 100 == 0)
-			{
-				printf(TERMINAL_PURPLE"VECTOR"TERMINAL_RESET" (x = "TERMINAL_PURPLE"%d"TERMINAL_RESET")\n", x);
-				printf("sample_height: "TERMINAL_GREEN"%f\n"TERMINAL_RESET, sample_height);
-				printf("sample.x: "TERMINAL_GREEN"%d\n"TERMINAL_RESET, sample.x);
-				printf("sample.y: "TERMINAL_GREEN"%d\n"TERMINAL_RESET, sample.y);
-				printf(TERMINAL_GREEN"SCREEN POS\n"TERMINAL_RESET);
-				printf("x: "TERMINAL_GREEN"%d\n"TERMINAL_RESET, x);
-				cub3d->printed = TRUE;
-			}
 			color = get_pixel_color(cub3d->floor, sample);
 			mlx_put_pixel(cub3d->img, x, y + cub3d->img->height / 2, color);
 			mlx_put_pixel(cub3d->img, x, cub3d->img->height / 2 - y, color);
 		}
 	}
-	cub3d->printed = TRUE;
 }
 
 //------------------------------------------------------------------------------
@@ -167,8 +128,11 @@ void draw_world(cub3d_t *cub3d)
 
 	index = -1;
 
-	draw_floor(cub3d);
-	draw_horizon(cub3d);
+	if (cub3d->draw_floor)
+	{
+		draw_floor(cub3d);
+		draw_horizon(cub3d);
+	}
 
 	while (++index < (int)cub3d->img->width)
 	{

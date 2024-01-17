@@ -1,0 +1,12 @@
+NO ./assets/textures/surfaces/sludge_black.png
+SO ./assets/textures/surfaces/sludge_green.png
+EA ./assets/textures/surfaces/sludge_black.png
+WE ./assets/textures/surfaces/sludge_black.png
+
+F 200,,,,,30,,,,30
+C 30,30,,,,,200
+
+11111
+1S001
+1G001
+11111

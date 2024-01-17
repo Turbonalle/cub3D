@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame_update_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:38 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 14:20:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 00:11:28 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	animation_frames_changed(cub3d_t *cub3d)
 	{
 		cub3d->curr_frame_index_walking = (int)(cub3d->run_time
 				/ ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_WALKING;
+		cub3d->curr_frame_index_hunting = (int)(cub3d->run_time
+				/ ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_HUNTING;
 		i = 0;
 		while (i < NUM_DOORS_MAX)
 		{
@@ -53,6 +55,7 @@ void	update_prev_frames(cub3d_t *cub3d)
 
 	cub3d->prev_frame_index_idle = cub3d->curr_frame_index_idle;
 	cub3d->prev_frame_index_walking = cub3d->curr_frame_index_walking;
+	cub3d->prev_frame_index_hunting = cub3d->curr_frame_index_hunting;
 	i = 0;
 	while (i < NUM_DOORS_MAX)
 	{

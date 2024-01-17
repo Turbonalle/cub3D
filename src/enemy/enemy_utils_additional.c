@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_utils_additional.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:59:38 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 12:59:41 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/17 23:58:54 by vvagapov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	check_if_player_is_seen(cub3d_t *cub3d, int i)
 				cub3d->enemy[i].pos) > at_target))
 	{
 		cub3d->enemy[i].is_hunting = TRUE;
+		printf("is_hunting is set to true\n");
 		return (1);
 	}
 	else

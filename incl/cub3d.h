@@ -396,6 +396,7 @@ void    draw_all_distractions(cub3d_t *cub3d, distraction_t **distractions);
 
 // draw_enemies.c
 void	draw_all_enemies(cub3d_t *cub3d, t_enemy **enemies);
+void	see_enemy(cub3d_t *cub3d, int i);
 
 // draw_keys.c
 void    draw_all_keys(cub3d_t *cub3d);
@@ -578,6 +579,7 @@ int		check_pos(cub3d_t *cub3d, int pos_y, int pos_x);
 
 // texture general TODO
 char	*create_file_path(int i, char *path);
+int		find_index(cub3d_t *cub3d);
 
 //---- NULLIFY -----------------------------------------------------------------
 

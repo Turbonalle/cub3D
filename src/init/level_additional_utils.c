@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:26:53 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:27:40 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 static int	load_png_helper(t_level_menu *menu)
 {
-	const char	*number_png[LEVELS] = NUMBER_PNGS;
+	const char	*number_png[LEVELS];
 	int			i;
 
+	number_png[0] = NUM_1_PNG;
+	number_png[1] = NUM_2_PNG;
+	number_png[2] = NUM_3_PNG;
+	number_png[3] = NUM_4_PNG;
+	number_png[4] = NUM_5_PNG;
+	number_png[5] = NUM_6_PNG;
+	number_png[6] = NUM_7_PNG;
+	number_png[7] = NUM_8_PNG;
 	i = -1;
 	while (++i < LEVELS)
 	{
@@ -102,9 +110,6 @@ void	draw_minimap_preview(t_minilevel *minilevel, t_level *level)
 	draw_background(minilevel->img, MINILEVEL_BG_COLOR);
 	set_preview_values(minilevel, level);
 	set_number_values(minilevel);
-	printf("drawing preview map\n");
 	draw_preview_map(minilevel, level, level->backup);
-	printf("drawing number rectangle\n");
 	draw_rectangle(minilevel->img, &minilevel->number_rect);
-	printf("draw_minimap_preview: DONE!\n");
 }

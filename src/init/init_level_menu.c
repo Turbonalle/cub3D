@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_level_menu.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:26:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:36 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:11:39 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,15 +125,11 @@ int	init_level_menu(t_cub3d *cub3d, t_level_menu *menu)
 	i = -1;
 	while (++i < LEVELS)
 	{
-		printf("drawing minimap preview %d\n", i);
 		draw_minimap_preview(&menu->minilevels[i], &cub3d->levels[i + 1]);
 		draw_border_image(&menu->minilevels[i]);
 	}
-	printf("putting images to window\n");
 	if (!put_images_to_window(cub3d->mlx, menu))
 		return (FAIL);
-	printf("disabling level menu\n");
 	disable_level_menu(menu);
-	printf("init level menu: done\n");
 	return (SUCCESS);
 }

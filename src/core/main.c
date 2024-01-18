@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:46:36 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 11:20:45 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:27:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_ext(char *str)
 int	init_floor(t_cub3d *cub3d)
 {
 	cub3d->floor.path = FLOOR_PNG;
-	cub3d->floor.texture = mlx_load_png(FLOOR3_PNG);
+	cub3d->floor.texture = mlx_load_png(FLOOR_PNG);
 	if (!cub3d->floor.texture)
 		return (FAIL);
 	return (SUCCESS);
@@ -49,13 +49,9 @@ void	free_records(t_cub3d *cub3d)
 	i = -1;
 	while (++i < LEVELS + 1)
 	{
-		printf("free_records i: %d\n", i);
-		printf("cub3d->levels: %p\n", cub3d->levels);
-		printf("cub3d->levels[%i].records: %p\n", i, cub3d->levels[i].records);
 		while (cub3d->levels[i].records)
 		{
 			next_rec = cub3d->levels[i].records->next;
-			printf("freeing pointer: %p\n", cub3d->levels[i].records);
 			free_record(cub3d->levels[i].records);
 			cub3d->levels[i].records = next_rec;
 		}
@@ -100,7 +96,7 @@ int	main(int ac, char **av)
 	write_records(&cub3d, cub3d.levels);
 	if (cub3d.state == STATE_GAME)
 		free_level(&cub3d);
-	free_all(&cub3d, -1);
-	system("leaks cub3D");
+	free_cub3d(&cub3d);
+	system("leaks cub3D");	// DEBUG
 	return (0);
 }

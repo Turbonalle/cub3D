@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_door_textures.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:32:25 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:11:28 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	free_textures_before_failed(t_texture *textures, int failed_index)
 	i = 0;
 	while (i < failed_index)
 	{
-		printf("Freeing texture %d\n", i);
 		mlx_delete_texture(textures[i].texture);
-		printf("Freed texture %d\n", i);
 		i++;
 	}
 }

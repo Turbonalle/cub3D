@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_over.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:16:17 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:09:42 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	level_finished(t_cub3d *cub3d)
 {
 	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
 	clean_level_data(cub3d);
-	printf("Level finished, all freed\n");
 	if (cub3d->level != &cub3d->levels[0]
 		&& is_top_score(cub3d->level, cub3d->time_finished)
 		&& !cub3d->player.is_dirty_cheater)

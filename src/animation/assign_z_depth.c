@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   assign_z_depth.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:22 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
 void	assign_z_depth_ordered_by_distance(t_cub3d *cub3d, t_enemy **enemies,
-	t_key_node **keys, t_distraction **distractions)
+	t_key_node **keys, t_distract **distractions)
 {
 	t_four_vector	indexes;
 

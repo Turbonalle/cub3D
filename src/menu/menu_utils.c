@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:26:24 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:12:54 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	pause_menu_helper(t_cub3d *cub3d, t_pause_menu *menu)
 		return (err("Failed to create image"));
 	menu->sensitivity_slider.marker = mlx_new_image(cub3d->mlx,
 			SLIDER_MARKER_WIDTH, SLIDER_MARKER_HEIGHT);
-	printf("put market to window in pause_menu_helper\n");
 	if (!menu->sensitivity_slider.marker)
 		return (err("Failed to create image"));
 	return (SUCCESS);
@@ -35,7 +34,6 @@ int	pause_menu_helper(t_cub3d *cub3d, t_pause_menu *menu)
 void	delete_start_menu(t_cub3d *cub3d, t_start_menu *menu)
 {
 	mlx_delete_image(cub3d->mlx, menu->img);
-	printf("deleting start menu title image. pointer: %p\n", menu->title.img);
 	mlx_delete_image(cub3d->mlx, menu->title.img);
 	mlx_delete_image(cub3d->mlx, menu->start.img);
 	mlx_delete_image(cub3d->mlx, menu->level.img);

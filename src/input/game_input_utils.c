@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:08:16 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:27:47 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,12 @@ static int	check_util_keys(mlx_key_data_t keydata, t_cub3d *cub3d)
 		return (SUCCESS);
 	}
 	else if (keydata.key == MLX_KEY_T)
-	{
-		printf("Time passed: %f\n", mlx_get_time() - cub3d->start_timestamp);
-		return (SUCCESS);
-	}
+		return (1);
 	else if (keydata.key == MLX_KEY_SPACE)
 	{
 		if (cub3d->player.mushroom_count > 0)
 			cause_distraction(cub3d);
-		else
-			printf("You have no mushroom to throw\n");
-		return (SUCCESS);
+		return (1);
 	}
 	return (FAIL);
 }
@@ -63,7 +58,6 @@ static int	check_escape(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
-		printf("Back to start menu\n");
 		if (cub3d->player.thrown)
 			cub3d->level->distractions[cub3d->level->num_distractions]
 				.img_distraction->instances[0].enabled = FALSE;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_distractions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:46 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	count_visible_distractions(t_cub3d *cub3d)
 }
 
 static void	fill_visible_distractions_array(t_cub3d *cub3d,
-	t_distraction **distractions)
+	t_distract **distractions)
 {
 	int	i;
 	int	j;
@@ -52,11 +52,11 @@ static void	fill_visible_distractions_array(t_cub3d *cub3d,
 	}
 }
 
-static void	sort_distractions_by_dist_to_player(t_distraction **distractions)
+static void	sort_distractions_by_dist_to_player(t_distract **distractions)
 {
 	int				i;
 	int				j;
-	t_distraction	*tmp;
+	t_distract	*tmp;
 
 	i = 0;
 	while (distractions[i])
@@ -77,13 +77,13 @@ static void	sort_distractions_by_dist_to_player(t_distraction **distractions)
 	}
 }
 
-t_distraction	**create_array_of_distractions_ordered_by_dist(t_cub3d *cub3d)
+t_distract	**create_array_of_distractions_ordered_by_dist(t_cub3d *cub3d)
 {
-	t_distraction	**distractions;
+	t_distract	**distractions;
 	int				count;
 
 	count = count_visible_distractions(cub3d);
-	distractions = malloc(sizeof(t_distraction *) * (count + 1));
+	distractions = malloc(sizeof(t_distract *) * (count + 1));
 	if (!distractions)
 		return (NULL);
 	distractions[count] = NULL;

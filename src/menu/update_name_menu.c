@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:22:28 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:28:42 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	update_letter(mlx_t *mlx, t_name_menu *menu, int *key, int i)
 		-= menu->letters_img[i]->height * 0.5;
 	if (menu->current < MAX_NAME_LENGTH)
 		menu->current++;
-	print_letter_indexes(menu, 0);
-	return (SUCCESS);
+	return (1);
 }
 
 int	name_is_empty(t_name_menu *menu)

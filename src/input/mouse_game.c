@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:32:01 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:37:23 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,9 @@ void	mouse_game(t_cub3d *cub3d)
 void	mouse_pause_menu(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	if (hover_any_box(cub3d, menu))
-	{
 		update_pause_settings(cub3d, menu);
-		print_settings(cub3d);
-	}
 	if (hover_image(cub3d, menu->sensitivity_slider.marker))
 	{
-		printf("clicked on sensitivity slider\n");
 		menu->sensitivity_slider.on_marker = TRUE;
 		menu->sensitivity_slider.marker_orig_pos = cub3d->mouse.x;
 	}
@@ -50,7 +46,6 @@ void	mouse_intro(t_cub3d *cub3d)
 		cub3d->level = &cub3d->levels[0];
 		if (!load_level(cub3d, cub3d->level))
 		{
-			printf("handle_intro_input: Failed to load level\n");
 			disable_intro(cub3d);
 			enable_start_menu(&cub3d->start_menu);
 			cub3d->state = STATE_START;

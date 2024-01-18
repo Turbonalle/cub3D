@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:35:53 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:56:53 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:03:33 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_enemy
 	int				visible;
 	int				is_hunting;
 	mlx_image_t		*img_curr_frame;
-}	t_enemy;
+}					t_enemy;
 
 typedef struct keypress_s
 {
@@ -161,7 +161,7 @@ typedef struct keypress_s
 	int	down;
 	int	mouse_left;
 	int	mouse_right;
-}			t_keypress;
+}		t_keypress;
 
 //---- DOORS  ------------------------------------------------------------------
 
@@ -191,7 +191,7 @@ typedef struct key_group_s
 	int				prev_frame_index;
 	int				curr_frame_index;
 	t_vector		key_icon_coords;
-}				t_key_group;
+}					t_key_group;
 
 typedef struct door_pos_s
 {
@@ -232,7 +232,7 @@ typedef struct minimap_s
 	int			color_key_3;
 	int			color_key_4;
 	int			transparency;
-}			t_minimap;
+}				t_minimap;
 
 //---- RAY ---------------------------------------------------------------------
 
@@ -421,7 +421,14 @@ typedef struct start_menu_s
 # define LEVEL_TITLE_PNG "./assets/textures/menu/level_title.png"
 # define LEADERBOARD_PNG "./assets/textures/menu/leaderboard_normal.png"
 # define LEADERBOARD_HOVER_PNG "./assets/textures/menu/leaderboard_hover.png"
-# define NUMBER_PNGS { "./assets/textures/level_numbers/1.png", "./assets/textures/level_numbers/2.png", "./assets/textures/level_numbers/3.png", "./assets/textures/level_numbers/4.png", "./assets/textures/level_numbers/5.png", "./assets/textures/level_numbers/6.png", "./assets/textures/level_numbers/7.png", "./assets/textures/level_numbers/8.png" }
+# define NUM_1_PNG "./assets/textures/level_numbers/1.png"
+# define NUM_2_PNG "./assets/textures/level_numbers/2.png"
+# define NUM_3_PNG "./assets/textures/level_numbers/3.png"
+# define NUM_4_PNG "./assets/textures/level_numbers/4.png"
+# define NUM_5_PNG "./assets/textures/level_numbers/5.png"
+# define NUM_6_PNG "./assets/textures/level_numbers/6.png"
+# define NUM_7_PNG "./assets/textures/level_numbers/7.png"
+# define NUM_8_PNG "./assets/textures/level_numbers/8.png"
 # define MINILEVEL_BORDER_COLOR YELLOW_PALE
 # define MINILEVEL_BG_COLOR BLACK
 # define MINILEVEL_RECT_COLOR RED_LIGHT
@@ -474,15 +481,6 @@ typedef struct leaderboard_s
 	t_rectangle	rect_level[LEVELS];
 	mlx_image_t	*text_level[LEVELS];
 }				t_leaderboard;
-
-// typedef struct settings_menu_s
-// {
-// 	mlx_image_t	*img;
-// 	mlx_image_t	*text_settings;
-// 	mlx_image_t	*text_e_difficulty;
-// 	mlx_image_t	*text_minimap_view;
-// 	int			background_color;
-// }				settings_menu_t;
 
 //---- NAME MENU ---------------------------------------------------------------
 
@@ -622,7 +620,7 @@ typedef struct map_node_s
 {
 	char		*line;
 	t_map_node	*next;
-}			t_map_node;
+}				t_map_node;
 
 typedef struct record_s
 {
@@ -632,9 +630,9 @@ typedef struct record_s
 	mlx_image_t		*text_name;
 	mlx_image_t		*text_time;
 	struct record_s	*next;
-}			t_record;
+}				t_record;
 
-typedef struct distraction_s
+typedef struct distract_s
 {
 	int			collected;
 	int			visible;
@@ -643,8 +641,7 @@ typedef struct distraction_s
 	t_vector	pos_screen;
 	double		dist_to_player;
 	mlx_image_t	*img_distraction;
-	//int			poison;
-}			t_distraction;
+}				t_distract;
 
 typedef struct level_s
 {
@@ -665,11 +662,10 @@ typedef struct level_s
 	int				element_found[6];
 	t_door_group	door_groups[NUM_DOORS_MAX];
 	t_key_group		key_groups[NUM_DOORS_MAX];
-	t_distraction	*distractions;
+	t_distract		*distractions;
 	int				num_distractions;
 	t_dvector		distraction;
 	double			distraction_amount;
-	//int				num_poison;
 	t_record		*records;
 	mlx_image_t		*heart_img;
 	mlx_image_t		*heart_half_img;
@@ -765,10 +761,7 @@ enum e_state
 	STATE_GAMEOVER
 };
 
-# define FLOOR_PNG "./assets/textures/surfaces/black_sludge.png"
-# define FLOOR1_PNG "./assets/textures/surfaces/floor_test.png"		// DEBUG
-# define FLOOR2_PNG "./assets/textures/surfaces/floor_test2.png"	// DEBUG
-# define FLOOR3_PNG "./assets/textures/surfaces/floor_test3.png"	// DEBUG
+# define FLOOR_PNG "./assets/textures/surfaces/floor.png"
 
 # define NUM_ENEMY_DIRECTIONS 6
 # define NUM_DOOR_TEXTURES 5
@@ -811,7 +804,6 @@ typedef struct cub3d_s
 	t_start_menu	start_menu;
 	t_level_menu	level_menu;
 	t_leaderboard	leaderboard;
-	// settings_menu_t	settings_menu;
 	t_pause_menu	pause_menu;
 	t_name_menu		name_menu;
 	t_gameover_menu	gameover_menu;

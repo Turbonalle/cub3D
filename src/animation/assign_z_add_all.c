@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_z_add_all.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:26:22 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	add_all_enemies(t_enemy **enemies, t_four_vector *indexes)
 	}
 }
 
-void	add_all_distractions(t_distraction **distractions,
+void	add_all_distractions(t_distract **distractions,
 	t_four_vector *indexes)
 {
 	while (distractions[indexes->d])

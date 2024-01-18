@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils_additional.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:53:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:11:16 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ void	free_leaderboard(t_leaderboard *board)
 void	free_shroom(t_cub3d *cub3d)
 {
 	if (cub3d->shroom && cub3d->shroom->shroom.texture)
-	{
-		printf("shroom needs freeing\n");
 		mlx_delete_texture(cub3d->shroom->shroom.texture);
-	}
 	if (cub3d->shroom)
 		free(cub3d->shroom);
 	if (cub3d->distraction_texture)

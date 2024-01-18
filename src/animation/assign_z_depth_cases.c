@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   assign_z_depth_cases.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:25:03 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
 void	case_all_3(
-	t_enemy **enemies, t_key_node **keys, t_distraction **distractions,
+	t_enemy **enemies, t_key_node **keys, t_distract **distractions,
 	t_four_vector *indexes)
 {
 	if (largest(enemies[indexes->e]->dist_to_player,
@@ -37,7 +37,7 @@ void	case_all_3(
 	}
 }
 
-void	case_without_keys(t_enemy **enemies, t_distraction **distractions,
+void	case_without_keys(t_enemy **enemies, t_distract **distractions,
 	t_four_vector *indexes)
 {
 	if (enemies[indexes->e]->dist_to_player
@@ -69,7 +69,7 @@ void	case_without_distractions(t_enemy **enemies, t_key_node **keys,
 }
 
 void	case_without_enemies(t_key_node **keys,
-	t_distraction **distractions, t_four_vector *indexes)
+	t_distract **distractions, t_four_vector *indexes)
 {
 	if (keys[indexes->k]->dist_to_player
 		> distractions[indexes->d]->dist_to_player)

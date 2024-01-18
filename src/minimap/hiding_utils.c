@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:39:52 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 13:41:05 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:37:53 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	get_door_key_color(t_cub3d *cub3d, int index)
 
 int	next_to_hidden(t_cub3d *cub3d, int row, int column)
 {
+	if (cub3d->level->map[row][column] == '0')
+		return (0);
 	if (ft_strchr("hr", cub3d->level->map[row - 1][column]))
 		return (1);
 	if (ft_strchr("hr", cub3d->level->map[row + 1][column]))
@@ -43,16 +45,21 @@ int	get_hidden_color(t_cub3d *cub3d, int index, int row, int column)
 {
 	if (next_to_hidden(cub3d, row, column))
 		return (cub3d->minimap.color_wall);
-	if (index == 0)
-		return (cub3d->minimap.color_key_1);
-	else if (index == 1)
-		return (cub3d->minimap.color_key_2);
-	else if (index == 2)
-		return (cub3d->minimap.color_key_3);
-	else if (index == 3)
-		return (cub3d->minimap.color_key_4);
+	if (cub3d->speedrun == 1)
+		return (cub3d->minimap.color_door_locked);
 	else
-		return (cub3d->minimap.color_door_open);
+	{
+		if (index == 0)
+			return (cub3d->minimap.color_key_1);
+		else if (index == 1)
+			return (cub3d->minimap.color_key_2);
+		else if (index == 2)
+			return (cub3d->minimap.color_key_3);
+		else if (index == 3)
+			return (cub3d->minimap.color_key_4);
+		else
+			return (cub3d->minimap.color_door_open);
+	}
 }
 
 void	draw_shroom(t_cub3d *cub3d, int row, int column, t_vector pos)

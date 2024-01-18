@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:31:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 13:40:25 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:38:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,12 @@ static void	draw_correct_square(t_cub3d *cub3d, int row, int column)
 	coord.y = row * cub3d->minimap.tile_size;
 	if (index > -1)
 	{
-		if (cub3d->speedrun == 0)
-			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
-				get_hidden_color(cub3d, index, row, column));
-		else
-			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
-				cub3d->minimap.color_door_locked);
+		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
+			get_hidden_color(cub3d, index, row, column));
 	}
-	else if (ft_strchr("0mo", cub3d->level->map[row][column])
-			|| get_key_index(cub3d->level->map[row][column]) > -1)
+	else if ((ft_strchr("0mo", cub3d->level->map[row][column])
+		|| get_key_index(cub3d->level->map[row][column]) > -1)
+			&& !next_to_hidden(cub3d, row, column))
 		draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
 			cub3d->minimap.color_floor);
 	else if (ft_strchr("1hr", cub3d->level->map[row][column]))

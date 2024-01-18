@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:21:11 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:24:56 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	set_indexes(t_cub3d *cub3d, int i)
 		while (cub3d->level->map[i][j])
 		{
 			door_key_index = get_door_index(cub3d->level->map[i][j]);
-			if (door_key_index != -1)
+			if (door_key_index >= 1 && door_key_index < 4)
 			{
 				if (init_door(cub3d, i, j, door_key_index) == FAIL)
 					return (FAIL);

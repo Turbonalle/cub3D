@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:02 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:33:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_locked_door(t_cub3d *cub3d, int y, int x)
 	int	index;
 
 	index = get_door_index(cub3d->level->map[y][x]);
-	if (index == -1)
+	if (index == -1 || index == 14)
 	{
 		return (FALSE);
 	}

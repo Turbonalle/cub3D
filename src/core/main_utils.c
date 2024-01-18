@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:04:25 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:47:41 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:56:05 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ static void	write_down(t_record *ptr, int fd)
 			write(fd, "\n", 1);
 			free(time);
 		}
+		free(ptr->name);
 		next = ptr->next;
+		free(ptr);
 		ptr = next;
 	}
 }

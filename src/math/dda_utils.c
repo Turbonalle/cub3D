@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:59:13 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:08:15 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	all_keys_found(t_cub3d *cub3d, int i)
 {
 	t_key_node	*temp;
 
+	if (i > NUM_DOORS_MAX)
+		return (SUCCESS);
 	temp = cub3d->level->key_groups[i].keys;
 	while (temp != NULL)
 	{
@@ -55,7 +57,8 @@ int	obstacle_found_dist(t_cub3d *cub3d, t_vector v_map_check, int dist)
 		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == 'A'
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'B'
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'C'
-		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'))
+		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'
+		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'O'))
 	{
 		if (dist > 1)
 			return (SUCCESS);

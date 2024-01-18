@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:34:33 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:03:36 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	wall_or_door_found(t_cub3d *cub3d, t_vector v_map_check)
 		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == 'A'
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'B'
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'C'
-		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'))
+		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'
+		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'O'))
 	{
 		if (dist_to_door(v_map_check, cub3d->player.pos) > 2)
 			return (SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validity.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:19 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:27:52 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:07:09 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	flood(char **map, int row, int column, int elements)
 	if (map[row][column + 1])
 		flood(map, row, column + 1, elements);
 }
-
-//------------------------------------------------------------------------------
 
 int	all_walls_changed(char **map, int elements)
 {
@@ -51,8 +49,6 @@ int	all_walls_changed(char **map, int elements)
 	return (TRUE);
 }
 
-//------------------------------------------------------------------------------
-
 int	next_to_empty(char **map, int row, int column)
 {
 	return (map[row - 1][column - 1] == ' '
@@ -64,8 +60,6 @@ int	next_to_empty(char **map, int row, int column)
 		|| map[row + 1][column] == ' '
 		|| map[row + 1][column + 1] == ' ');
 }
-
-//------------------------------------------------------------------------------
 
 int	surrounded_by_walls(char **map)
 {
@@ -91,8 +85,6 @@ int	surrounded_by_walls(char **map)
 	}
 	return (TRUE);
 }
-
-//------------------------------------------------------------------------------
 
 int	check_map_validity(char **map)
 {

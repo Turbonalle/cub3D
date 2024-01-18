@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_level.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:42:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:06:53 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
-//------------------------------------------------------------------------------
 
 int	find_member_of_set_from_string(char *set, char *string)
 {
@@ -26,8 +25,6 @@ int	find_member_of_set_from_string(char *set, char *string)
 	}
 	return (SUCCESS);
 }
-
-//------------------------------------------------------------------------------
 
 int	get_preliminary_map(t_level *level, int fd)
 {
@@ -58,8 +55,6 @@ int	get_preliminary_map(t_level *level, int fd)
 	return (SUCCESS);
 }
 
-//------------------------------------------------------------------------------
-
 int	get_starting_point(t_level *level)
 {
 	int			starting_point_found;
@@ -88,8 +83,6 @@ int	get_starting_point(t_level *level)
 		return (err("No starting point found"));
 	return (SUCCESS);
 }
-
-//------------------------------------------------------------------------------
 
 int	get_map(t_level *level, int fd)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   consts.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:57:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 14:05:20 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:42:48 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,16 +150,6 @@
 # define STATIONARY 0
 # define NORMAL 1
 # define WANDERING 2
-
-// enum elements
-// {
-// 	F,
-// 	C,
-// 	NO,
-// 	SO,
-// 	WE,
-// 	EA
-// };
 
 enum e_elements
 {

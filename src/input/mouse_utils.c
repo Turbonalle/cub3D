@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:47:18 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:26 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:06:39 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	mouse_leaderboard(t_cub3d *cub3d, t_leaderboard *board)
 		cub3d->state = STATE_LEVEL;
 	}
 }
-
-//------------------------------------------------------------------------------
 
 void	mouse_entername_menu(t_cub3d *cub3d, t_name_menu *menu)
 {

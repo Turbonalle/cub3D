@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:29:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 12:45:41 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:44:33 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 
 void		count_enemies(t_cub3d *cub3d);
 void		set_initial_direction(t_cub3d *cub3d);
-int			count_t_minimapilesize(t_cub3d *cub3d, int size_percentage);
 int			init_minimap(t_cub3d *cub3d);
 
 //---- COLOR -------------------------------------------------------------------
@@ -628,7 +627,7 @@ int			check_seventh_eight(t_cub3d *cub3d, int i, t_dvector new_pos);
 int			check_eighth_eight(t_cub3d *cub3d, t_dvector new_pos);
 int			check_pos(t_cub3d *cub3d, int pos_y, int pos_x);
 
-// texture general TODO
+// texture general
 char		*create_file_path(int i, char *path);
 int			find_index(t_cub3d *cub3d);
 

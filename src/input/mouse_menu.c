@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_menu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:47:42 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:50:01 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:06:23 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	mouse_start_menu(t_cub3d *cub3d)
 	hover_start_menu(cub3d);
 }
 
-//------------------------------------------------------------------------------
-
 void	hover_level_menu(t_cub3d *cub3d)
 {
 	if (hover_image(cub3d, cub3d->level_menu.back.img))
@@ -93,8 +91,6 @@ void	mouse_level_menu(t_cub3d *cub3d)
 	}
 	hover_level_menu(cub3d);
 }
-
-//------------------------------------------------------------------------------
 
 void	mouse_gameover_menu(t_cub3d *cub3d, t_gameover_menu *menu)
 {

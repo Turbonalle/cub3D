@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_game_entities.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:42 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 11:41:47 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	draw_all_entities_in_order(t_cub3d *cub3d)
 {
-	t_key_node		**ordered_keys;
-	t_enemy			**ordered_enemies;
+	t_key_node	**ordered_keys;
+	t_enemy		**ordered_enemies;
 	t_distract	**ordered_distractions;
 
 	ordered_keys = create_array_of_keys_ordered_by_dist(cub3d);

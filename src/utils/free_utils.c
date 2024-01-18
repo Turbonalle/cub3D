@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:33:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:42:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	free_backup(t_level level)
 	int	i;
 
 	i = 0;
-	//TODO: Check for double free
 	while (level.backup[i])
 	{
 		free(level.backup[i]);

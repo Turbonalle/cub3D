@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_distractions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:46 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 11:41:41 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void	fill_visible_distractions_array(t_cub3d *cub3d,
 
 static void	sort_distractions_by_dist_to_player(t_distract **distractions)
 {
-	int				i;
-	int				j;
+	int			i;
+	int			j;
 	t_distract	*tmp;
 
 	i = 0;
@@ -80,7 +80,7 @@ static void	sort_distractions_by_dist_to_player(t_distract **distractions)
 t_distract	**create_array_of_distractions_ordered_by_dist(t_cub3d *cub3d)
 {
 	t_distract	**distractions;
-	int				count;
+	int			count;
 
 	count = count_visible_distractions(cub3d);
 	distractions = malloc(sizeof(t_distract *) * (count + 1));

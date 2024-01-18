@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:29:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 12:45:41 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -508,6 +508,10 @@ void		draw_fov(t_cub3d *cub3d);
 int			hover_minimap(t_cub3d *cub3d);
 int			zoom_in_minimap(t_cub3d *cub3d);
 int			zoom_out_minimap(t_cub3d *cub3d);
+
+int			next_to_hidden(t_cub3d *cub3d, int row, int column);
+int			get_hidden_color(t_cub3d *cub3d, int index, int row, int column);
+void		draw_shroom(t_cub3d *cub3d, int row, int column, t_vector pos);
 
 //---- RAYCASTING --------------------------------------------------------------
 

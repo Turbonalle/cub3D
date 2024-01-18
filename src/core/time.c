@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:32:11 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:52:02 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ void	draw_timer(t_cub3d *cub3d)
 {
 	update_timer(cub3d);
 	mlx_delete_image(cub3d->mlx, cub3d->timer.img_time);
-	cub3d->timer.img_time = mlx_put_string(cub3d->mlx, cub3d->timer.text_time,
-			cub3d->timer.pos.x, cub3d->timer.pos.y);
-	cub3d->timer.img_time->instances[0].x -= cub3d->timer.img_time->width;
+	if (cub3d->timer.text_time)
+	{
+		cub3d->timer.img_time = mlx_put_string(cub3d->mlx,
+				cub3d->timer.text_time,
+				cub3d->timer.pos.x, cub3d->timer.pos.y);
+		cub3d->timer.img_time->instances[0].x -= cub3d->timer.img_time->width;
+	}
 	free(cub3d->timer.text_time);
 }

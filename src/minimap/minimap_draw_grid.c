@@ -6,23 +6,11 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:31:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:46:01 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
-
-int	get_door_key_color(t_cub3d *cub3d, int index)
-{
-	if (index == 0)
-		return (cub3d->minimap.color_key_1);
-	else if (index == 1)
-		return (cub3d->minimap.color_key_2);
-	else if (index == 2)
-		return (cub3d->minimap.color_key_3);
-	else
-		return (cub3d->minimap.color_key_4);
-}
 
 static void	draw_correct_square(t_cub3d *cub3d, int row, int column)
 {
@@ -36,7 +24,7 @@ static void	draw_correct_square(t_cub3d *cub3d, int row, int column)
 	{
 		if (cub3d->speedrun == 0)
 			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
-				get_door_key_color(cub3d, index));
+				get_hidden_color(cub3d, index, row, column));
 		else
 			draw_square(cub3d->minimap.img, coord, cub3d->minimap.tile_size,
 				cub3d->minimap.color_door);
@@ -63,17 +51,19 @@ void	draw_extras(t_cub3d *cub3d, int row, int column)
 	pos.y = row * cub3d->minimap.tile_size;
 	if (index > -1)
 	{
-		draw_circle(cub3d->minimap.img,
-			pos,
-			cub3d->minimap.tile_size / 2,
-			get_door_key_color(cub3d, index));
-	}
-	if (cub3d->level->map[row][column] == 'm')
-	{
-		draw_circle(cub3d->minimap.img,
-			pos,
-			cub3d->minimap.tile_size / 2,
-			MINIMAP_COLOR_SHROOM);
+		if (next_to_hidden(cub3d, row, column))
+		{
+			draw_square(cub3d->minimap.img, pos, cub3d->minimap.tile_size,
+				cub3d->minimap.color_wall);
+		}
+		else
+		{
+			draw_circle(cub3d->minimap.img,
+				pos,
+				cub3d->minimap.tile_size / 2,
+				get_door_key_color(cub3d, index));
+		}
+		draw_shroom(cub3d, row, column, pos);
 	}
 }
 

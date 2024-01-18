@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:32:43 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:43:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,19 @@ void	draw_non_speedrun(t_cub3d *cub3d, t_vector coord, int size)
 	double	column;
 	int		i;
 
-	i = 0;
-	while (i < cub3d->num_enemies)
+	i = -1;
+	while (++i < cub3d->num_enemies)
 	{
 		coord.y = ((cub3d->enemy[i].pos.y - 0.5) * cub3d->minimap.tile_size)
 			- (size / 2);
 		coord.x = ((cub3d->enemy[i].pos.x - 0.5) * cub3d->minimap.tile_size)
 			- (size / 2);
-		draw_square(cub3d->minimap.img, coord, size * 4,
-			cub3d->minimap.color_enemy);
-		i++;
+		if (!next_to_hidden(cub3d, cub3d->enemy[i].pos.y,
+				cub3d->enemy[i].pos.x))
+		{
+			draw_square(cub3d->minimap.img, coord, size * 4,
+				cub3d->minimap.color_enemy);
+		}
 	}
 	row = -1;
 	while (++row < cub3d->level->map_rows)

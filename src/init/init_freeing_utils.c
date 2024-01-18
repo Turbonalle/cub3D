@@ -6,35 +6,11 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:53:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:40:14 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
-
-void	free_enemy_frames(t_cub3d *cub3d)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < NUM_ENEMY_DIRECTIONS)
-	{
-		j = 0;
-		while (j < NUM_FRAMES_ENEMY_IDLE)
-			if (cub3d->frames_idle[i][j])
-				mlx_delete_texture(cub3d->frames_idle[i][j++]);
-		j = 0;
-		while (j < NUM_FRAMES_WALKING)
-			if (cub3d->frames_walking[i][j])
-				mlx_delete_texture(cub3d->frames_walking[i][j++]);
-		j = 0;
-		while (j < NUM_FRAMES_HUNTING)
-			if (cub3d->frames_hunting[i][j])
-				mlx_delete_texture(cub3d->frames_hunting[i][j++]);
-		i++;
-	}
-}
 
 static int	handle_message_extra(int i)
 {

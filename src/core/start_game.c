@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:17:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 14:00:25 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:05:28 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	handle_state_game(t_cub3d *cub3d)
 		draw_game_entities(cub3d);
 		handle_halo(&cub3d->halo);
 		if (cub3d->level->distraction_amount)
-			cub3d->level->distraction_amount -= 0.01;
+			cub3d->level->distraction_amount -= FOOD_ROTTING_SPEED;
 	}
 	if (cub3d->player.health <= 0)
 		game_over(cub3d);

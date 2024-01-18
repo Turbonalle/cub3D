@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:57:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 14:01:13 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:05:20 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # define ENEMY_CATCH_DISTANCE 1
 
 # define ENEMY_FOOD_AMOUNT 10
+# define FOOD_ROTTING_SPEED 0.01
 
 # define INVULNERABILITY_TIME 2
 

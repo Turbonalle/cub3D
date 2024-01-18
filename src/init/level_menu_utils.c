@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   level_menu_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:01:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:12:30 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 14:57:45 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	set_number_values(t_minilevel *minilevel)
 
 static void	draw_right_square(int spec, t_minilevel *minilevel, t_vector coord)
 {
-	if (spec == '1' || spec == 'h' || spec == 'G' || spec == 'i'
-		|| spec == 'j' || spec == 'k' || spec == 'l' || spec == 'r')
+	if (spec)
 	{
 		draw_square(minilevel->img,
 			coord,
@@ -70,6 +69,20 @@ static void	draw_right_square(int spec, t_minilevel *minilevel, t_vector coord)
 			minilevel->square_size,
 			PREVIEW_FLOOR_COLOR);
 	}
+}
+
+int	check_adjacents(char **map, int row, int column)
+{
+	if (!map[row - 1] || !map[row + 1]
+		|| !map[row][column - 1] || ! map[row][column + 1])
+		return (1);
+	if (ft_strchr("1hGijklr", map[row][column])
+	|| ft_strchr("hr", map[row - 1][column])
+	|| ft_strchr("hr", map[row + 1][column])
+	|| ft_strchr("hr", map[row][column - 1])
+	|| ft_strchr("hr", map[row][column + 1]))
+		return (1);
+	return (0);
 }
 
 void	draw_preview_map(t_minilevel *minilevel, t_level *level, char **backup)
@@ -88,25 +101,10 @@ void	draw_preview_map(t_minilevel *minilevel, t_level *level, char **backup)
 				+ column * minilevel->square_size;
 			coord.y = minilevel->preview_pos.y
 				+ row * minilevel->square_size;
-			draw_right_square(backup[row][column], minilevel, coord);
+			if (check_adjacents(backup, row, column))
+				draw_right_square(1, minilevel, coord);
+			else
+				draw_right_square(0, minilevel, coord);
 		}
 	}
-}
-
-int	free_prev_level_menu(t_level_menu *menu, int i, int j)
-{
-	while (i > 0)
-	{
-		mlx_delete_texture(menu->minilevels[--i].number.texture);
-	}
-	mlx_delete_texture(menu->title.texture);
-	if (j > 0)
-		mlx_delete_texture(menu->back.texture);
-	if (j > 1)
-		mlx_delete_texture(menu->back_hover.texture);
-	if (j > 2)
-		mlx_delete_texture(menu->leaderboard.texture);
-	if (j > 3)
-		mlx_delete_texture(menu->leaderboard_hover.texture);
-	return (FAIL);
 }

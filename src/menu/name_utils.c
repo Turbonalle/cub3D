@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:47:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:40:51 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	handle_backspace(t_cub3d *cub3d, t_name_menu *menu)
 			index = menu->letter_index[menu->current];
 			menu->name[menu->current] = '\0';
 			menu->letters_img[letter]->instances[index].enabled = FALSE;
-			print_letter_indexes(menu, 1);
 		}
 	}
 }

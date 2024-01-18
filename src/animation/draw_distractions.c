@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_distractions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:28 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	position_distraction(t_distraction *distr, mlx_texture_t *texture,
+static void	position_distraction(t_distract *distr, mlx_texture_t *texture,
 	double factor)
 {
 	distr->img_distraction->instances[0].x
@@ -21,7 +21,7 @@ static void	position_distraction(t_distraction *distr, mlx_texture_t *texture,
 		= distr->pos_screen.y - texture->height * factor * 1.5;
 }
 
-static void	scale_distraction(t_cub3d *cub3d, t_distraction *dist,
+static void	scale_distraction(t_cub3d *cub3d, t_distract *dist,
 	mlx_texture_t *texture, double factor)
 {
 	t_uvector	src;
@@ -51,7 +51,7 @@ static void	scale_distraction(t_cub3d *cub3d, t_distraction *dist,
 	position_distraction(dist, texture, factor);
 }
 
-static void	draw_distraction_frame(t_cub3d *cub3d, t_distraction *distr)
+static void	draw_distraction_frame(t_cub3d *cub3d, t_distract *distr)
 {
 	double			scale_factor;
 	mlx_texture_t	*texture;
@@ -71,7 +71,7 @@ static void	draw_distraction_frame(t_cub3d *cub3d, t_distraction *distr)
 	);
 }
 
-void	draw_all_distractions(t_cub3d *cub3d, t_distraction **distractions)
+void	draw_all_distractions(t_cub3d *cub3d, t_distract **distractions)
 {
 	int	i;
 

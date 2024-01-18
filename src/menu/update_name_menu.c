@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_name_menu.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:22:28 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:41:14 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	update_letter(mlx_t *mlx, t_name_menu *menu, int *key, int i)
 		-= menu->letters_img[i]->height * 0.5;
 	if (menu->current < MAX_NAME_LENGTH)
 		menu->current++;
-	print_letter_indexes(menu, 0);
 	return (1);
 }
 

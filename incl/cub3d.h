@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:29:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 10:06:27 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ int			copy_array(char **src, char **dst);
 int			free_map_helper(t_level *level, int i);
 
 // get_texture.c
-// int		get_texture(t_cub3d *cub3d, int element, char **info);
 int			get_texture(t_level *level, int element, char **info);
 int			check_map_validity(char **map);
 void		zero_map(char **map);
@@ -282,7 +281,6 @@ int			change_name(t_cub3d *cub3d, t_name_menu *menu);
 // start menu
 void		disable_start_menu(t_start_menu *menu);
 void		enable_start_menu(t_start_menu *menu);
-/* void	get_transition_color(t_cub3d *cub3d, int *color); */
 void		update_start_menu(t_cub3d *cub3d, t_start_menu *menu);
 
 // gameover menu
@@ -402,18 +400,18 @@ double		calculate_scale_factor(double dist, double normal_dist);
 // assign_z_add_all.c
 void		add_all_enemies(t_enemy **enemies, t_four_vector *indexes);
 void		add_all_keys(t_key_node **keys, t_four_vector *indexes);
-void		add_all_distractions(t_distraction **distractions,
+void		add_all_distractions(t_distract **distractions,
 				t_four_vector *indexes);
 
 // assign_z_depth_cases.c
 void		case_all_3(t_enemy **enemies, t_key_node **keys,
-				t_distraction **distractions, t_four_vector *indexes);
-void		case_without_keys(t_enemy **enemies, t_distraction **distractions,
+				t_distract **distractions, t_four_vector *indexes);
+void		case_without_keys(t_enemy **enemies, t_distract **distractions,
 				t_four_vector *indexes);
 void		case_without_distractions(t_enemy **enemies, t_key_node **keys,
 				t_four_vector *indexes);
 void		case_without_enemies(t_key_node **keys,
-				t_distraction **distractions, t_four_vector *indexes);
+				t_distract **distractions, t_four_vector *indexes);
 
 // assign_z_depth_utils.c
 int			largest(double i, double j, double k);
@@ -422,11 +420,11 @@ void		init_indexes_and_z(t_cub3d *cub3d, t_four_vector *indexes);
 // assign_z_depth.c
 void		assign_z_depth_ordered_by_distance(t_cub3d *cub3d,
 				t_enemy **enemies, t_key_node **keys,
-				t_distraction **distractions);
+				t_distract **distractions);
 
 // draw_distractions.c
 void		draw_all_distractions(t_cub3d *cub3d,
-				t_distraction **distractions);
+				t_distract **distractions);
 
 // draw_enemies.c
 void		draw_all_enemies(t_cub3d *cub3d, t_enemy **enemies);
@@ -452,7 +450,7 @@ int			fps_frame_changed(t_cub3d *cub3d);
 void		update_prev_frames(t_cub3d *cub3d);
 
 // sort_distrations.c
-t_distraction	**create_array_of_distractions_ordered_by_dist(t_cub3d *cub3d);
+t_distract	**create_array_of_distractions_ordered_by_dist(t_cub3d *cub3d);
 
 // sort_enemies.c
 t_enemy		**create_array_of_enemies_ordered_by_dist(t_cub3d *cub3d);
@@ -646,15 +644,5 @@ void		nullify_gametimer(t_gametimer *timer);
 void		nullify_hearts(t_heart *hearts);
 void		nullify_png(t_png *png);
 void		nullify_texture(t_texture *texture);
-
-//---- EXTRA (REMOVE THESE BEFORE EVALUATION) ----------------------------------
-
-// extra.c
-void	print_level_info(t_level *level);
-void	print_array(char **array, char *name);
-void	print_map(char **map);
-void	test(void);
-void	print_settings(t_cub3d *cub3d);
-void	print_letter_indexes(t_name_menu *menu, int backspace);
 
 #endif

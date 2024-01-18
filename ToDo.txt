@@ -3,6 +3,7 @@
 TODO:
 
 
+
 -----------------------------------------------------------------------------
 
 OPTIONAL:
@@ -19,9 +20,6 @@ BUGS:
 
 WHEN PROJECT IS DONE:
 
-- Norminette
-- Remove extra folder
-- Remove extra function prototypes from header file
 - Remove debug prints
 
 -----------------------------------------------------------------------------

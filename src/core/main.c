@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:46:36 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:36:09 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_ext(char *str)
 int	init_floor(t_cub3d *cub3d)
 {
 	cub3d->floor.path = FLOOR_PNG;
-	cub3d->floor.texture = mlx_load_png(FLOOR3_PNG);
+	cub3d->floor.texture = mlx_load_png(FLOOR_PNG);
 	if (!cub3d->floor.texture)
 		return (FAIL);
 	return (SUCCESS);

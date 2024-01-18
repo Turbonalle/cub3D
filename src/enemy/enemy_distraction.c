@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_distraction.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:18:38 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:06:24 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	set_thrown_shroom(t_distraction *distractions, int i, t_ray *ray)
+void	set_thrown_shroom(t_distract *distractions, int i, t_ray *ray)
 {
 	distractions[i].pos.x = ray->end.x;
 	distractions[i].pos.y = ray->end.y;
@@ -24,7 +24,7 @@ void	set_thrown_shroom(t_distraction *distractions, int i, t_ray *ray)
 	distractions[i].dist_to_player = 100;
 }
 
-void	cause_distraction_rest(t_cub3d *cub3d, t_distraction *distractions,
+void	cause_distraction_rest(t_cub3d *cub3d, t_distract *distractions,
 	int num_distractions, t_ray *ray)
 {
 	if (cub3d->player.thrown)

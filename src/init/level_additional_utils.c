@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   level_additional_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:26:53 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:44 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:31:20 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 static int	load_png_helper(t_level_menu *menu)
 {
-	const char	*number_png[LEVELS] = NUMBER_PNGS;
+	const char	*number_png[LEVELS];
 	int			i;
 
+	number_png[0] = NUM_1_PNG;
+	number_png[1] = NUM_2_PNG;
+	number_png[2] = NUM_3_PNG;
+	number_png[3] = NUM_4_PNG;
+	number_png[4] = NUM_5_PNG;
+	number_png[5] = NUM_6_PNG;
+	number_png[6] = NUM_7_PNG;
+	number_png[7] = NUM_8_PNG;
 	i = -1;
 	while (++i < LEVELS)
 	{

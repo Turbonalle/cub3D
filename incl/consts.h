@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:57:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 14:05:20 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:16:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
 # define ENEMIES "neswijkl"
+# define ITEM "newsijklabcdmr"
+
+# define ITEM_MAX 100
 
 # define NORTH 'N'
 # define SOUTH 'S'

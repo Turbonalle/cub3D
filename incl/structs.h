@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:35:53 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:03:33 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 13:44:04 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,12 +217,13 @@ typedef struct minimap_s
 	int			height;
 	int			size_percentage;
 	int			tile_size;
-	int			color;			// DON'T THINK WE NEED THIS...
+	// int			color;			// DON'T THINK WE NEED THIS...
 	int			color_player;
 	int			color_playerdir;
 	int			color_fov;
 	int			color_floor;
-	int			color_door;
+	int			color_door_locked;
+	int			color_door_open;
 	int			color_wall;
 	int			color_empty;
 	int			color_shroom;

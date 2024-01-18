@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:57:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 13:01:47 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:01:13 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@
 # define MINIMAP_COLOR_KEY_2 GREEN_BRIGHT
 # define MINIMAP_COLOR_KEY_3 YELLOW_LIGHT
 # define MINIMAP_COLOR_KEY_4 BLUE
+# define MINIMAP_COLOR_DOOR_LOCKED GRAY_LIGHT
+# define MINIMAP_COLOR_DOOR_OPEN WHITE
 # define MINIMAP_TRANSPARENCY 20
 
 # define RECORD_FILE "./assets/records.txt"

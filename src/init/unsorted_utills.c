@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:32:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:37:47 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,11 @@ int	init_minimap(t_cub3d *cub3d)
 	cub3d->mouse_set_pos.y = 0;
 	cub3d->on_minimap = FALSE;
 	cub3d->minimap.transparency = MINIMAP_TRANSPARENCY;
+	cub3d->minimap.color_door_locked
+		= set_transparency(MINIMAP_COLOR_DOOR_LOCKED,
+			cub3d->minimap.transparency);
+	cub3d->minimap.color_door_open
+		= set_transparency(MINIMAP_COLOR_DOOR_OPEN,
+			cub3d->minimap.transparency);
 	return (init_minimap_rest(cub3d));
 }

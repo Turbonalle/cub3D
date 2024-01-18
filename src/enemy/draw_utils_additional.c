@@ -37,18 +37,6 @@ static void	check_distraction(t_cub3d *cub3d, int i)
 					- cub3d->player.pos.x) * 180 / M_PI));
 	if (cub3d->level->distractions[i].collected == FALSE)
 		see_distraction(cub3d, dir_to_distraction, i);
-	if (cub3d->level->distraction_amount <= 0)
-	{
-		if (cub3d->level->distractions[cub3d->level->num_distractions]
-			.img_distraction)
-		{
-			printf("Setting distraction %d to false\n", cub3d->level->num_distractions);
-			cub3d->level->distractions[cub3d->level->num_distractions]
-				.img_distraction->enabled = FALSE;
-			printf("Distraction %d is now set to FALSE\n", cub3d->level->num_distractions);
-		}
-		cub3d->player.thrown = FALSE;
-	}
 }
 
 void	draw_enemies(t_cub3d *cub3d)

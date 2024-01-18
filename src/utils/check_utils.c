@@ -50,3 +50,19 @@ int	all_digits(char *str)
 	}
 	return (SUCCESS);
 }
+
+int	find_member_of_set_from_string(char *set, char *string)
+{
+	int	i;
+
+	i = 0;
+	while (string[i])
+	{
+		if (ft_strchr(set, string[i]) == 0)
+		{
+			return (FAIL);
+		}
+		i++;
+	}
+	return (SUCCESS);
+}

@@ -85,6 +85,7 @@ int	main(int ac, char **av)
 	cub3d.levels = malloc(sizeof(t_level) * (LEVELS + 1));
 	if (!cub3d.levels)
 		return (!err("Failed to malloc levels"));
+	set_level_indexes(cub3d.levels);
 	cub3d.level = &cub3d.levels[0];
 	if (!read_cub_file(cub3d.level, av[1]))
 		return (free(cub3d.levels), 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_level.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:42:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 16:06:53 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 17:10:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	find_member_of_set_from_string(char *set, char *string)
 	while (string[i])
 	{
 		if (ft_strchr(set, string[i]) == 0)
+		{
 			return (FAIL);
+		}
 		i++;
 	}
 	return (SUCCESS);

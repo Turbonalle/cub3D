@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:32:47 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:25:04 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_distractions(t_cub3d *cub3d)
 	if (cub3d->level->num_distractions)
 	{
 		i = 0;
-		while (i < cub3d->level->num_distractions)
+		while (i < cub3d->level->num_distractions + 1)
 		{
 			mlx_delete_image(cub3d->mlx,
 				cub3d->level->distractions[i].img_distraction);

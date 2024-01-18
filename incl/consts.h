@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   consts.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:57:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 15:42:48 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:40:53 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
 # define ENEMIES "neswijkl"
+# define ITEM "newsijklabcdmr"
+
+# define ITEM_MAX 100
 
 # define NORTH 'N'
 # define SOUTH 'S'

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:29:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 15:44:33 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:40:59 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -566,6 +566,7 @@ int			free_on_fail(t_cub3d *cub3d);
 
 // error_utils.c
 int			err(char *error_message);
+int			err_number(char *error_message, int num);
 
 // drawing_utils.c
 void		draw_square(mlx_image_t *img, t_vector coord, int size, int color);

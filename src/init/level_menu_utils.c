@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   level_menu_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:01:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:44 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:12:30 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,11 @@ void	set_number_values(t_minilevel *minilevel)
 	minilevel->number_rect.height = number_rect_size;
 	minilevel->number_rect.pos.x = 0;
 	minilevel->number_rect.pos.y = 0;
-	printf("numrect pos: %d, %d\n", minilevel->number_rect.pos.x,
-		minilevel->number_rect.pos.y);
 	minilevel->number_rect.color = MINILEVEL_RECT_COLOR;
 	minilevel->number.pos.x = minilevel->pos.x + number_rect_size
 		/ 2 - minilevel->number.img->width / 2;
 	minilevel->number.pos.y = minilevel->pos.y + number_rect_size
 		/ 2 - minilevel->number.img->height / 2;
-	printf("num pos: %d, %d\n", minilevel->number.pos.x,
-		minilevel->number.pos.y);
 }
 
 static void	draw_right_square(int spec, t_minilevel *minilevel, t_vector coord)

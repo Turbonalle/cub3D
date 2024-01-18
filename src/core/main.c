@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:46:36 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 10:36:09 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 11:10:15 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,9 @@ void	free_records(t_cub3d *cub3d)
 	i = -1;
 	while (++i < LEVELS + 1)
 	{
-		printf("free_records i: %d\n", i);
-		printf("cub3d->levels: %p\n", cub3d->levels);
-		printf("cub3d->levels[i].records: %p\n", cub3d->levels[i].records);
 		while (cub3d->levels[i].records)
 		{
 			next_rec = cub3d->levels[i].records->next;
-			printf("freeing pointer: %p\n", cub3d->levels[i].records);
 			free_record(cub3d->levels[i].records);
 			cub3d->levels[i].records = next_rec;
 		}
@@ -101,6 +97,6 @@ int	main(int ac, char **av)
 	if (cub3d.state == STATE_GAME)
 		free_level(&cub3d);
 	free_cub3d(&cub3d);
-	system("leaks cub3D");
+	system("leaks cub3D");	// DEBUG
 	return (0);
 }

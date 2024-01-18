@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_start_menu.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:00:08 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:59 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:11:46 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,9 @@ static int	put_images_to_window(mlx_t *mlx, t_start_menu *menu)
 {
 	if (mlx_image_to_window(mlx, menu->img, 0, 0) < 0)
 		return (err("Failed to put start menu image to window"));
-	printf("menu image z: %d\n", menu->img->instances[0].z);
 	if (mlx_image_to_window(mlx, menu->title.img, menu->title.pos.x,
 			menu->title.pos.y) < 0)
 		return (err("Failed to put start menu title image to window"));
-	printf("put start menu title image to window\n");
-	printf("title image z: %d\n", menu->title.img->instances[0].z);
 	if (mlx_image_to_window(mlx, menu->exit.img, menu->exit.pos.x,
 			menu->exit.pos.y) < 0)
 		return (err("Failed to put start menu exit image to window"));

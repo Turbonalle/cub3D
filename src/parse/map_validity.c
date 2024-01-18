@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validity.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:19 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 15:54:08 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:13:07 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	surrounded_by_walls(char **map)
 			if (ft_strchr(MAP_ALL_BUT_WALL, map[row][column]))
 			{
 				if (row == 0 || !map[row + 1])
-					return (printf("row, col is %i,%i\n", row, column), FALSE);
+					return (FALSE);
 				if (column == 0 || map[row][column + 1] == '\0')
 					return (FALSE);
 				if (next_to_empty(map, row, column))

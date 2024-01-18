@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_input_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:08:16 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:12:48 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,11 @@ static int	check_util_keys(mlx_key_data_t keydata, t_cub3d *cub3d)
 		return (1);
 	}
 	else if (keydata.key == MLX_KEY_T)
-	{
-		printf("Time passed: %f\n", mlx_get_time() - cub3d->start_timestamp);
 		return (1);
-	}
 	else if (keydata.key == MLX_KEY_SPACE)
 	{
 		if (cub3d->player.mushroom_count > 0)
 			cause_distraction(cub3d);
-		else
-			printf("You have no mushroom to throw\n");
 		return (1);
 	}
 	return (0);
@@ -63,7 +58,6 @@ static int	check_escape(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
-		printf("Back to start menu\n");
 		if (cub3d->player.thrown)
 			cub3d->level->distractions[cub3d->level->num_distractions]
 				.img_distraction->instances[0].enabled = FALSE;

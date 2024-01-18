@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:04:25 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:09:56 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	free_already_allocated(t_cub3d *cub3d, int i)
 	{
 		free_list(cub3d->levels[--i].map_list);
 		if (i >= 0)
-		{
-			printf("freeing BACKUP for level %d on malloc fail\n", i);
 			free_backup(cub3d->levels[i]);
-		}
 	}
 	free(cub3d->levels);
 }

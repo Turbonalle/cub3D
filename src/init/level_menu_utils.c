@@ -71,27 +71,31 @@ static void	draw_right_square(int spec, t_minilevel *minilevel, t_vector coord)
 	}
 }
 
-int	check_adjacents(char **map, int row, int column)
+static int	check_adjacents(char **map, int row, int column, t_vector map_size)
 {
-	if (!map[row - 1] || !map[row + 1]
-		|| !map[row][column - 1] || ! map[row][column + 1])
+	if (ft_strchr("1hGijklr", map[row][column]))
 		return (1);
-	if (ft_strchr("1hGijklr", map[row][column])
-	|| ft_strchr("hr", map[row - 1][column])
-	|| ft_strchr("hr", map[row + 1][column])
-	|| ft_strchr("hr", map[row][column - 1])
-	|| ft_strchr("hr", map[row][column + 1]))
+	if (row > 0 && ft_strchr("hr", map[row - 1][column]))
+		return (1);
+	if (row < map_size.y - 1 && ft_strchr("hr", map[row + 1][column]))
+		return (1);
+	if (column > 0 && ft_strchr("hr", map[row][column - 1]))
+		return (1);
+	if (column < map_size.x - 1 && ft_strchr("hr", map[row][column + 1]))
 		return (1);
 	return (0);
 }
 
 void	draw_preview_map(t_minilevel *minilevel, t_level *level, char **backup)
 {
+	t_vector	map_size;
 	int			row;
 	int			column;
 	t_vector	coord;
 
 	row = -1;
+	map_size.y = level->map_rows;
+	map_size.x = level->map_columns;
 	while (++row < level->map_rows)
 	{
 		column = -1;
@@ -101,7 +105,7 @@ void	draw_preview_map(t_minilevel *minilevel, t_level *level, char **backup)
 				+ column * minilevel->square_size;
 			coord.y = minilevel->preview_pos.y
 				+ row * minilevel->square_size;
-			if (check_adjacents(backup, row, column))
+			if (check_adjacents(backup, row, column, map_size))
 				draw_right_square(1, minilevel, coord);
 			else
 				draw_right_square(0, minilevel, coord);

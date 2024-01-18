@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:39:52 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 12:45:36 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:41:05 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	get_door_key_color(t_cub3d *cub3d, int index)
 		return (cub3d->minimap.color_key_2);
 	else if (index == 2)
 		return (cub3d->minimap.color_key_3);
-	else
+	else if (index == 3)
 		return (cub3d->minimap.color_key_4);
+	else
+		return (cub3d->minimap.color_door_open);
 }
 
 int	next_to_hidden(t_cub3d *cub3d, int row, int column)
@@ -47,8 +49,10 @@ int	get_hidden_color(t_cub3d *cub3d, int index, int row, int column)
 		return (cub3d->minimap.color_key_2);
 	else if (index == 2)
 		return (cub3d->minimap.color_key_3);
-	else
+	else if (index == 3)
 		return (cub3d->minimap.color_key_4);
+	else
+		return (cub3d->minimap.color_door_open);
 }
 
 void	draw_shroom(t_cub3d *cub3d, int row, int column, t_vector pos)

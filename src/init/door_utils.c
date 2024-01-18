@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:15:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 12:24:11 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:33:25 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	get_door_index(char symbol)
 	int	res;
 
 	res = symbol - 'A';
+	if (res == 14)
+		return (res);
 	if (res < 0 || res >= NUM_DOORS_MAX)
 		return (-1);
 	return (res);

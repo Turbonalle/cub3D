@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:28:08 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:07 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	init_halo(t_cub3d *cub3d)
 	cub3d->halo.active = FALSE;
 	cub3d->halo.color = 0;
 	cub3d->halo.timestamp = 0;
-	return (1);
+	return (SUCCESS);
 }
 
 void	activate_halo(t_halo *halo, int color)

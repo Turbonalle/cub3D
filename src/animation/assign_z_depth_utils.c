@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:25:41 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	largest(double i, double j, double k)
 	if (i > j)
 	{
 		if (i > k)
-			return (1);
+			return (SUCCESS);
 		if (k > i)
 			return (3);
 	}
@@ -26,16 +26,16 @@ int	largest(double i, double j, double k)
 		if (j > i)
 			return (2);
 		if (i > j)
-			return (1);
+			return (SUCCESS);
 	}
 	if (j > k)
 	{
 		if (i > j)
-			return (1);
+			return (SUCCESS);
 		if (j > i)
 			return (2);
 	}
-	return (0);
+	return (FAIL);
 }
 
 void	init_indexes_and_z(t_cub3d *cub3d, t_four_vector *indexes)

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:29:57 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	draw_pause(t_cub3d *cub3d, t_pause_menu *menu)
 int	init_pause_menu(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	if (!load_png_pause_menu(menu))
-		return (0);
+		return (FAIL);
 	if (!init_images_pause_menu(cub3d->mlx, menu))
 	{
 		mlx_delete_texture(menu->title.texture);

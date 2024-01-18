@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:12:52 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	change_name(t_cub3d *cub3d, t_name_menu *menu)
 		cub3d->state = STATE_LEVEL;
 		cub3d->speedrun = FALSE;
 		menu->changed = FALSE;
-		return (1);
+		return (SUCCESS);
 	}
 	if (cub3d->keys.enter)
 	{
@@ -41,12 +41,12 @@ int	change_name(t_cub3d *cub3d, t_name_menu *menu)
 		cub3d->state = STATE_LEADERBOARD;
 		cub3d->speedrun = FALSE;
 		menu->changed = FALSE;
-		return (1);
+		return (SUCCESS);
 	}
 	if (cub3d->keys.backspace)
 		handle_backspace(cub3d, menu);
 	else if (menu->current < MAX_NAME_LENGTH)
 		get_letter(cub3d, menu);
 	menu->changed = FALSE;
-	return (0);
+	return (FAIL);
 }

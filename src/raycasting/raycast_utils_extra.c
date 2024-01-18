@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:00:05 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static int	door_found(t_cub3d *cub3d, t_vector v_map_check)
 	{
 		dist = dist_to_door(cub3d->player, v_map_check);
 		if (dist > 2)
-			return (1);
+			return (SUCCESS);
 		if (check_if_door_unlocked(cub3d, v_map_check.x, v_map_check.y))
-			return (0);
+			return (FAIL);
 		else
-			return (1);
+			return (SUCCESS);
 	}
-	return (0);
+	return (FAIL);
 }
 
 int	obstacle_found(t_cub3d *cub3d, t_vector v_map_check, t_ray *ray, double dir)
@@ -62,13 +62,13 @@ int	obstacle_found(t_cub3d *cub3d, t_vector v_map_check, t_ray *ray, double dir)
 	{
 		ray->target = cub3d->level->map[v_map_check.y][v_map_check.x];
 		update_end(cub3d, dir, ray);
-		return (1);
+		return (SUCCESS);
 	}
 	if (goal_found(cub3d, v_map_check))
 	{
 		ray->target = cub3d->level->map[v_map_check.y][v_map_check.x];
 		update_end(cub3d, dir, ray);
-		return (1);
+		return (SUCCESS);
 	}
 	if (door_found(cub3d, v_map_check))
 	{
@@ -76,7 +76,7 @@ int	obstacle_found(t_cub3d *cub3d, t_vector v_map_check, t_ray *ray, double dir)
 		if (check_if_door_unlocked(cub3d, v_map_check.x, v_map_check.y))
 			ray->target = 'O';
 		update_end(cub3d, dir, ray);
-		return (1);
+		return (SUCCESS);
 	}
-	return (0);
+	return (FAIL);
 }

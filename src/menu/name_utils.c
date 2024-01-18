@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:47:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	get_letter_first_third(t_cub3d *cub3d, t_name_menu *menu)
 	else if (cub3d->keys.k)
 		return (update_letter(cub3d->mlx, menu, &cub3d->keys.k, k));
 	else
-		return (0);
+		return (FAIL);
 }
 
 int	get_letter_second_third(t_cub3d *cub3d, t_name_menu *menu)
@@ -61,7 +61,7 @@ int	get_letter_second_third(t_cub3d *cub3d, t_name_menu *menu)
 	else if (cub3d->keys.t)
 		return (update_letter(cub3d->mlx, menu, &cub3d->keys.t, t));
 	else
-		return (0);
+		return (FAIL);
 }
 
 int	get_letter_last_third(t_cub3d *cub3d, t_name_menu *menu)
@@ -79,7 +79,7 @@ int	get_letter_last_third(t_cub3d *cub3d, t_name_menu *menu)
 	else if (cub3d->keys.z)
 		return (update_letter(cub3d->mlx, menu, &cub3d->keys.z, z));
 	else
-		return (0);
+		return (FAIL);
 }
 
 void	handle_backspace(t_cub3d *cub3d, t_name_menu *menu)

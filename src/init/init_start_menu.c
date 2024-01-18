@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:00:08 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:59 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	put_rest_images_to_window(mlx_t *mlx, t_start_menu *menu)
 	if (mlx_image_to_window(mlx, menu->arrow_level.img, menu->arrow_level.pos.x,
 			menu->arrow_level.pos.y) < 0)
 		return (err("Failed to put start menu arrow level image to window"));
-	return (1);
+	return (SUCCESS);
 }
 
 static int	put_images_to_window(mlx_t *mlx, t_start_menu *menu)

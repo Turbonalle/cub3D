@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:16:12 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:50:01 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	load_png_gameover(t_gameover_menu *menu)
 {
 	menu->title_win.texture = mlx_load_png(GAMEOVER_WIN_PNG);
 	if (!menu->title_win.texture)
-		return (0);
+		return (FAIL);
 	menu->title_gameover.texture = mlx_load_png(GAMEOVER_GAMEOVER_PNG);
 	if (!menu->title_gameover.texture)
 		return (free_prev_gameover_menu(menu, 0));
@@ -115,5 +115,5 @@ int	free_prev_gameover_menu(t_gameover_menu *menu, int i)
 		mlx_delete_texture(menu->arrow_back.texture);
 	if (i > 7)
 		mlx_delete_texture(menu->arrow_restart.texture);
-	return (0);
+	return (FAIL);
 }

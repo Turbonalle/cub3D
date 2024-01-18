@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:22:45 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:50:22 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	free_prev_name_menu(t_name_menu *menu, int i)
 		mlx_delete_texture(menu->back.texture);
 	if (i > 1)
 		mlx_delete_texture(menu->back_hover.texture);
-	return (0);
+	return (FAIL);
 }
 
 void	draw_letter_box(mlx_image_t *img, t_letter_box *box)

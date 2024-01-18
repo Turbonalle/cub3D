@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:49:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	draw_menu(t_cub3d *cub3d, t_pause_menu *menu)
 int	enable_pause_menu(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	if (!pause_menu_helper(cub3d, menu))
-		return (0);
+		return (FAIL);
 	if (mlx_image_to_window(cub3d->mlx, menu->bg, 0, 0) < 0)
 		return (err("Failed to put image to window"));
 	if (mlx_image_to_window(cub3d->mlx, menu->menu, menu->menu_pos.x,

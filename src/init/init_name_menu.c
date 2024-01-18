@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:17:58 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static int	load_png(t_name_menu *menu)
 		return (FAIL);
 	menu->timer.texture = mlx_load_png(TIMER_PNG);
 	if (!menu->timer.texture)
-		return (0);
+		return (FAIL);
 	menu->back.texture = mlx_load_png(BACK_PNG);
 	if (!menu->back.texture)
 		return (free_prev_name_menu(menu, 0));
 	menu->back_hover.texture = mlx_load_png(BACK_HOVER_PNG);
 	if (!menu->back_hover.texture)
 		return (free_prev_name_menu(menu, 1));
-	return (1);
+	return (SUCCESS);
 }
 
 static int	init_images(mlx_t *mlx, t_name_menu *menu)
@@ -123,7 +123,7 @@ int	init_name_menu(t_cub3d *cub3d, t_name_menu *menu)
 	if (!put_images_to_window(cub3d->mlx, menu))
 	{
 		free_prev_name_menu(menu, 2);
-		return (0);
+		return (FAIL);
 	}
 	init_letter_images(cub3d, menu);
 	disable_name_menu(cub3d->mlx, menu);

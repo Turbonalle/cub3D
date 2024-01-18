@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:00:22 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:59:02 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	init_enemy_dir(t_enemy *enemy, int i, char spec)
 {
 	if (spec == 'e' || spec == 'l')
-		enemy[i].angle = to_radians(0);
+		enemy[i].angle = to_radians(FAIL);
 	if (spec == 's' || spec == 'k')
 		enemy[i].angle = to_radians(90);
 	if (spec == 'w' || spec == 'j')

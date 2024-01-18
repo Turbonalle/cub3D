@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:20:00 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	init_player_and_enemies(t_cub3d *cub3d, t_level *level)
 	cub3d->player.is_dirty_cheater = 0;
 	count_enemies(cub3d);
 	if (!init_enemy(cub3d))
-		return (0);
-	return (1);
+		return (FAIL);
+	return (SUCCESS);
 }
 
 static int	free_half_done(t_cub3d *cub3d, t_level *level, int i)
@@ -44,7 +44,7 @@ static int	free_half_done(t_cub3d *cub3d, t_level *level, int i)
 		return (err("Failed to init minimap"));
 	if (i == 3)
 		return (err("Failed to init doors or keys"));
-	return (0);
+	return (FAIL);
 }
 
 static int	fill_backup(t_level *level)

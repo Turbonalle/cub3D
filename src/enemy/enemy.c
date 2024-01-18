@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	enemy_movement_ray(t_cub3d *cub3d, t_enemy *enemy, int i, double max_dist)
 			enemy[i].angle * 180 / M_PI, v_map_check, v_ray_step_size);
 	ray = init_ray(enemy, i);
 	if (!ray)
-		return (0);
+		return (FAIL);
 	while (ray->length < max_dist)
 	{
 		adjust(&v_map_check, ray, v_step, &v_ray_1d_length);
@@ -87,5 +87,5 @@ int	enemy_movement_ray(t_cub3d *cub3d, t_enemy *enemy, int i, double max_dist)
 			return (update_and_free(cub3d, ray, i), 0);
 	}
 	free(ray);
-	return (1);
+	return (SUCCESS);
 }

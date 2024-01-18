@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:00:55 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	draw_key_count(t_cub3d *cub3d, int index)
 			cub3d->level->key_groups[index].key_icon_coords.y
 			+ cub3d->mlx->height * 0.01);
 	free(text);
-	return (1);
+	return (SUCCESS);
 }
 
 int	draw_key_counts(t_cub3d *cub3d)
@@ -89,10 +89,10 @@ int	draw_key_counts(t_cub3d *cub3d)
 			else
 			{
 				if (!draw_key_count(cub3d, index))
-					return (0);
+					return (FAIL);
 			}
 		}
 		index++;
 	}
-	return (1);
+	return (SUCCESS);
 }

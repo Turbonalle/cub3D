@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:34:26 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ray_to_distraction(t_cub3d *cub3d, double dir_to_distraction,
 			v_map_check, v_ray_step_size);
 	ray = init_ray_dir(dir_to_distraction);
 	if (!ray)
-		return (0);
+		return (FAIL);
 	while (ray->length < max_dist)
 	{
 		if (wall_or_door_found(cub3d, v_map_check))
@@ -38,7 +38,7 @@ static int	ray_to_distraction(t_cub3d *cub3d, double dir_to_distraction,
 		adjust_no_flag(&v_ray_1d_length, v_ray_step_size);
 	}
 	free(ray);
-	return (1);
+	return (SUCCESS);
 }
 
 int	do_distraction_max_smaller(t_cub3d *cub3d, double dir_to_distraction,

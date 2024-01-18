@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:26:53 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:44 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	load_png_level(t_level_menu *menu)
 {
 	menu->title.texture = mlx_load_png(LEVEL_TITLE_PNG);
 	if (!menu->title.texture)
-		return (0);
+		return (FAIL);
 	menu->back.texture = mlx_load_png(BACK_PNG);
 	if (!menu->back.texture)
 		return (free_prev_level_menu(menu, 0, 0));

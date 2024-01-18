@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:42:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:26 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,21 @@ int	load_png_board(t_leaderboard *board)
 {
 	board->title.texture = mlx_load_png(LEADERBOARD_TITLE_PNG);
 	if (!board->title.texture)
-		return (0);
+		return (FAIL);
 	board->back.texture = mlx_load_png(BACK_PNG);
 	if (!board->back.texture)
 	{
 		mlx_delete_texture(board->title.texture);
-		return (0);
+		return (FAIL);
 	}
 	board->back_hover.texture = mlx_load_png(BACK_HOVER_PNG);
 	if (!board->back_hover.texture)
 	{
 		mlx_delete_texture(board->title.texture);
 		mlx_delete_texture(board->back.texture);
-		return (0);
+		return (FAIL);
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 int	init_images_board(mlx_t *mlx, t_leaderboard *board)

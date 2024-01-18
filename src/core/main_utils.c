@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:04:25 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	read_all_levels(t_cub3d *cub3d)
 		free(full_path);
 		i++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 static void	write_down(t_record *ptr, int fd)
@@ -89,8 +89,6 @@ static void	write_down(t_record *ptr, int fd)
 			free(time);
 		}
 		next = ptr->next;
-		free(ptr->name);
-		free(ptr);
 		ptr = next;
 	}
 }

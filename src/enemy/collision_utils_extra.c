@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:44:27 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,21 @@ int	check_fifth_eight(t_cub3d *cub3d, int i, t_dvector new_pos)
 			(int)(new_pos.x - ENEMY_RADIUS)))
 		{
 			cub3d->enemy[i].pos.x = new_pos.x;
-			return (1);
+			return (SUCCESS);
 		}
 		if (check_pos(cub3d, (int)(new_pos.y), (int)(new_pos.x - ENEMY_RADIUS)))
 		{
 			cub3d->enemy[i].pos.x = new_pos.x;
-			return (1);
+			return (SUCCESS);
 		}
 		if (check_pos(cub3d, (int)(new_pos.y - ENEMY_RADIUS),
 			(int)(new_pos.x - ENEMY_RADIUS)))
 		{
 			cub3d->enemy[i].pos.x = new_pos.x;
-			return (1);
+			return (SUCCESS);
 		}
 	}
-	return (0);
+	return (FAIL);
 }
 
 int	check_sixth_eight(t_cub3d *cub3d, int i, t_dvector new_pos)
@@ -58,19 +58,19 @@ int	check_sixth_eight(t_cub3d *cub3d, int i, t_dvector new_pos)
 	{
 		if (check_pos(cub3d, (int)(new_pos.y), (int)(new_pos.x - ENEMY_RADIUS)))
 		{
-			return (1);
+			return (SUCCESS);
 		}
 		if (check_pos(cub3d, (int)(new_pos.y - ENEMY_RADIUS),
 			(int)(new_pos.x - ENEMY_RADIUS)))
 		{
-			return (1);
+			return (SUCCESS);
 		}
 		if (check_pos(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x)))
 		{
-			return (1);
+			return (SUCCESS);
 		}
 	}
-	return (0);
+	return (FAIL);
 }
 
 int	check_seventh_eight(t_cub3d *cub3d, int i, t_dvector new_pos)
@@ -81,37 +81,37 @@ int	check_seventh_eight(t_cub3d *cub3d, int i, t_dvector new_pos)
 			(int)(new_pos.x - ENEMY_RADIUS)))
 		{
 			cub3d->enemy[i].pos.y = new_pos.y;
-			return (1);
+			return (SUCCESS);
 		}
 		if (check_pos(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x)))
 		{
 			cub3d->enemy[i].pos.y = new_pos.y;
-			return (1);
+			return (SUCCESS);
 		}
 		if (check_pos(cub3d, (int)(new_pos.y - ENEMY_RADIUS),
 			(int)(new_pos.x + ENEMY_RADIUS)))
 		{
 			cub3d->enemy[i].pos.y = new_pos.y;
-			return (1);
+			return (SUCCESS);
 		}
 	}
-	return (0);
+	return (FAIL);
 }
 
 int	check_eighth_eight(t_cub3d *cub3d, t_dvector new_pos)
 {
 	if (check_pos(cub3d, (int)(new_pos.y - ENEMY_RADIUS), (int)(new_pos.x)))
 	{
-		return (1);
+		return (SUCCESS);
 	}
 	if (check_pos(cub3d, (int)(new_pos.y - ENEMY_RADIUS),
 		(int)(new_pos.x + ENEMY_RADIUS)))
 	{
-		return (1);
+		return (SUCCESS);
 	}
 	if (check_pos(cub3d, (int)(new_pos.y), (int)(new_pos.x + ENEMY_RADIUS)))
 	{
-		return (1);
+		return (SUCCESS);
 	}
-	return (0);
+	return (FAIL);
 }

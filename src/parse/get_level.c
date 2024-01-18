@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:42:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	find_member_of_set_from_string(char *set, char *string)
 	while (string[i])
 	{
 		if (ft_strchr(set, string[i]) == 0)
-			return (0);
+			return (FAIL);
 		i++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 //------------------------------------------------------------------------------

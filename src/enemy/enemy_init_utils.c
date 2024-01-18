@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:59:50 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ int	init_enemy(t_cub3d *cub3d)
 
 	i = -1;
 	if (cub3d->num_enemies == 0)
-		return (1);
+		return (SUCCESS);
 	cub3d->enemy = malloc(sizeof(t_enemy) * cub3d->num_enemies);
 	if (!cub3d->enemy)
-		return (0);
+		return (FAIL);
 	init_frame_indexes(cub3d);
 	while (++i < cub3d->num_enemies)
 	{
@@ -106,9 +106,9 @@ int	init_enemy(t_cub3d *cub3d)
 			while (i)
 				mlx_delete_image(cub3d->mlx, cub3d->enemy[--i].img_curr_frame);
 			free(cub3d->enemy);
-			return (0);
+			return (FAIL);
 		}
 		mlx_image_to_window(cub3d->mlx, cub3d->enemy[i].img_curr_frame, 0, 0);
 	}
-	return (1);
+	return (SUCCESS);
 }

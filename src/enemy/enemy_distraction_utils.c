@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:18:48 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	enemy_ray_to_distraction(t_cub3d *cub3d, t_dvector distraction,
 	v_ray_1d_length = init_len(cub3d->enemy[i].pos, dir_to, v_map_check, step);
 	ray = init_ray(cub3d->enemy, i);
 	if (!ray)
-		return (0);
+		return (FAIL);
 	ray->angle = dir_to;
 	while (ray->length < max_dist)
 	{
@@ -89,7 +89,7 @@ int	ray_to_enemy(t_cub3d *cub3d, double dir_to_enemy, double max_dist)
 			v_map_check, v_ray_step_size);
 	ray = init_ray_dir(dir_to_enemy);
 	if (!ray)
-		return (0);
+		return (FAIL);
 	while (ray->length < max_dist)
 	{
 		if (wall_or_door_found(cub3d, v_map_check))
@@ -98,5 +98,5 @@ int	ray_to_enemy(t_cub3d *cub3d, double dir_to_enemy, double max_dist)
 		adjust_no_flag(&v_ray_1d_length, v_ray_step_size);
 	}
 	free(ray);
-	return (1);
+	return (SUCCESS);
 }

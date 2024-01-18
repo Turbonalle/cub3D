@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:53:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:56:53 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	handle_message_extra(int i)
 		return (err("Failed to init enemy_frames"));
 	if (i == 19)
 		return (err("Failed to init floor"));
-	return (1);
+	return (SUCCESS);
 }
 
 static int	handle_message(int i)

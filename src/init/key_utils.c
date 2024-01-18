@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:21:11 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,21 @@ int	load_door_textures(t_cub3d *cub3d)
 {
 	cub3d->level->key_groups[0].texture_key_icon = mlx_load_png(TEXTURE_KEY_1);
 	if (!cub3d->level->key_groups[0].texture_key_icon)
-		return (0);
+		return (FAIL);
 	cub3d->level->key_groups[1].texture_key_icon = mlx_load_png(TEXTURE_KEY_2);
 	if (!cub3d->level->key_groups[1].texture_key_icon)
-		return (0);
+		return (FAIL);
 	cub3d->level->key_groups[2].texture_key_icon = mlx_load_png(TEXTURE_KEY_3);
 	if (!cub3d->level->key_groups[2].texture_key_icon)
-		return (0);
+		return (FAIL);
 	cub3d->level->key_groups[3].texture_key_icon = mlx_load_png(TEXTURE_KEY_4);
 	if (!cub3d->level->key_groups[3].texture_key_icon)
-		return (0);
+		return (FAIL);
 	cub3d->level->key_groups[0].texture_dir = FRAME_PATH_KEY_1;
 	cub3d->level->key_groups[1].texture_dir = FRAME_PATH_KEY_2;
 	cub3d->level->key_groups[2].texture_dir = FRAME_PATH_KEY_3;
 	cub3d->level->key_groups[3].texture_dir = FRAME_PATH_KEY_4;
-	return (1);
+	return (SUCCESS);
 }
 
 int	set_indexes(t_cub3d *cub3d, int i)

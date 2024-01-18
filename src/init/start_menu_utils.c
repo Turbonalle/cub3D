@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:51:19 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:59 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	free_prev_start_menu(t_start_menu *menu, int i)
 		mlx_delete_texture(menu->arrow_start.texture);
 	if (i > 8)
 		mlx_delete_texture(menu->arrow_level.texture);
-	return (0);
+	return (FAIL);
 }
 
 static int	load_png_rest(t_start_menu *menu)
@@ -54,7 +54,7 @@ int	load_png_start_menu(t_start_menu *menu)
 {
 	menu->title.texture = mlx_load_png(START_TITLE_PNG);
 	if (!menu->title.texture)
-		return (0);
+		return (FAIL);
 	menu->exit.texture = mlx_load_png(START_EXIT_PNG);
 	if (!menu->exit.texture)
 		return (free_prev_start_menu(menu, 0));
@@ -94,7 +94,7 @@ static int	init_images_rest(mlx_t *mlx, t_start_menu *menu)
 		= mlx_texture_to_image(mlx, menu->arrow_level.texture);
 	if (!menu->arrow_level.img)
 		return (err("Failed to create start menu arrow level image"));
-	return (1);
+	return (SUCCESS);
 }
 
 int	init_images_start_menu(mlx_t *mlx, t_start_menu *menu)
@@ -122,5 +122,5 @@ int	init_images_start_menu(mlx_t *mlx, t_start_menu *menu)
 	if (!menu->level.img)
 		return (err("Failed to create start menu level image"));
 	init_images_rest(mlx, menu);
-	return (1);
+	return (SUCCESS);
 }

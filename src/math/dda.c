@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:42:54 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	find_end_point(t_cub3d *cub3d, t_player *player, double radians,
 
 	wall = NO_WALL;
 	if (cub3d->level->map[(int)player->pos.y][(int)player->pos.x] == WALL)
-		return (0);
+		return (FAIL);
 	cub3d->raycast.delta = dist_between_d_vectors(player->pos, end);
 	cub3d->raycast.v_ray_step_size = init_step_size(radians);
 	cub3d->raycast.v_map_check.x = (int)player->pos.x;

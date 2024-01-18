@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:22:09 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	parse_map_for_distractions(t_cub3d *cub3d)
 int	init_distractions(t_cub3d *cub3d)
 {
 	if (cub3d->level->num_distractions == 0)
-		return (1);
+		return (SUCCESS);
 	cub3d->level->distractions = malloc(sizeof(t_distraction)
 			* (cub3d->level->num_distractions + 1));
 	if (!cub3d->level->distractions)

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:41:12 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,5 @@ int	null_textures(t_level *level)
 		level->texture[i].texture = NULL;
 		i++;
 	}
-	return (0);
+	return (FAIL);
 }

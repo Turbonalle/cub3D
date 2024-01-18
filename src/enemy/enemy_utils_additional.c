@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:59:38 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,25 @@ int	check_collisions(t_cub3d *cub3d, int i)
 	cub3d->enemy[i].is_walking = 0;
 	new_pos = set_new_pos(cub3d, i);
 	if (check_each_other(cub3d, i, new_pos))
-		return (1);
+		return (SUCCESS);
 	if (check_first_eight(cub3d, i, new_pos))
-		return (1);
+		return (SUCCESS);
 	else if (check_second_eight(cub3d, i, new_pos))
-		return (1);
+		return (SUCCESS);
 	else if (check_third_eight(cub3d, i, new_pos))
-		return (1);
+		return (SUCCESS);
 	else if (check_fourth_eight(cub3d, i, new_pos))
-		return (1);
+		return (SUCCESS);
 	else if (check_fifth_eight(cub3d, i, new_pos))
-		return (1);
+		return (SUCCESS);
 	else if (check_sixth_eight(cub3d, i, new_pos))
-		return (1);
+		return (SUCCESS);
 	else if (check_seventh_eight(cub3d, i, new_pos))
-		return (1);
+		return (SUCCESS);
 	else if (check_eighth_eight(cub3d, new_pos))
-		return (1);
+		return (SUCCESS);
 	cub3d->enemy[i].pos = new_pos;
-	return (0);
+	return (FAIL);
 }
 
 void	enemy_advance(t_cub3d *cub3d, int i)
@@ -83,15 +83,15 @@ static int	check_angles(t_cub3d *cub3d, int i)
 	{
 		if (cub3d->enemy[i].dir_player > angle_max
 			&& cub3d->enemy[i].dir_player < angle_min)
-			return (1);
+			return (SUCCESS);
 	}
 	else
 	{
 		if (cub3d->enemy[i].dir_player < angle_min
 			|| cub3d->enemy[i].dir_player > angle_max)
-			return (1);
+			return (SUCCESS);
 	}
-	return (0);
+	return (FAIL);
 }
 
 int	check_if_player_is_seen(t_cub3d *cub3d, int i)
@@ -100,15 +100,15 @@ int	check_if_player_is_seen(t_cub3d *cub3d, int i)
 
 	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_speed) * 2;
 	if (check_angles(cub3d, i))
-		return (0);
+		return (FAIL);
 	else if (enemy_ray(cub3d, cub3d->player, cub3d->enemy, i)
 		&& (dist_between_d_vectors(cub3d->player.pos,
 				cub3d->enemy[i].pos) > at_target))
 	{
 		cub3d->enemy[i].is_hunting = TRUE;
 		printf("is_hunting is set to true\n");
-		return (1);
+		return (SUCCESS);
 	}
 	else
-		return (0);
+		return (FAIL);
 }

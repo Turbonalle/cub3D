@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:29:28 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	init_intro(t_cub3d *cub3d)
 	cub3d->intro_watched = FALSE;
 	cub3d->intro.texture = mlx_load_png(INTRO_PNG);
 	if (!cub3d->intro.texture)
-		return (0);
+		return (FAIL);
 	cub3d->intro.img = mlx_texture_to_image(cub3d->mlx, cub3d->intro.texture);
 	if (!cub3d->intro.img)
 	{

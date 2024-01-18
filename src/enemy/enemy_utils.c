@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:34:33 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	check_if_door_unlocked(t_cub3d *cub3d, int xcoord, int ycoord)
 
 	index = cub3d->level->map[ycoord][xcoord];
 	if (all_keys_found(cub3d, index - 'A'))
-		return (1);
-	return (0);
+		return (SUCCESS);
+	return (FAIL);
 }
 
 static double	dist_to_door(t_vector v_map_check, t_dvector pos)
@@ -46,7 +46,7 @@ int	wall_or_door_found(t_cub3d *cub3d, t_vector v_map_check)
 		&& v_map_check.y >= 0
 		&& v_map_check.y < cub3d->level->map_rows
 		&& cub3d->level->map[v_map_check.y][v_map_check.x] == WALL)
-		return (1);
+		return (SUCCESS);
 	if (v_map_check.x >= 0
 		&& v_map_check.x < cub3d->level->map_columns && v_map_check.y >= 0
 		&& v_map_check.y < cub3d->level->map_rows
@@ -56,11 +56,11 @@ int	wall_or_door_found(t_cub3d *cub3d, t_vector v_map_check)
 		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'D'))
 	{
 		if (dist_to_door(v_map_check, cub3d->player.pos) > 2)
-			return (1);
+			return (SUCCESS);
 		if (check_if_door_unlocked(cub3d, v_map_check.x, v_map_check.y))
-			return (0);
+			return (FAIL);
 		else
-			return (1);
+			return (SUCCESS);
 	}
-	return (0);
+	return (FAIL);
 }

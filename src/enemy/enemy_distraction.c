@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:18:38 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ static int	check_angles(t_cub3d *cub3d, int i, double dir_to_distraction)
 	{
 		if (dir_to_distraction > angle_max
 			&& dir_to_distraction < angle_min)
-			return (1);
+			return (SUCCESS);
 	}
 	else
 	{
 		if (dir_to_distraction < angle_min
 			|| dir_to_distraction > angle_max)
-			return (1);
+			return (SUCCESS);
 	}
-	return (0);
+	return (FAIL);
 }
 
 int	distraction(t_cub3d *cub3d, int i)
@@ -91,18 +91,18 @@ int	distraction(t_cub3d *cub3d, int i)
 	double		at_target;
 
 	if (cub3d->level->distraction_amount <= 0)
-		return (0);
+		return (FAIL);
 	distraction = cub3d->level->distraction;
 	dir_to_distraction = within_360(atan2(distraction.y
 				- cub3d->enemy[i].pos.y, distraction.x
 				- cub3d->enemy[i].pos.x) * 180 / M_PI);
 	at_target = ENEMY_SPEED * (1 + cub3d->settings.e_speed) * 2;
 	if (check_angles(cub3d, i, dir_to_distraction))
-		return (0);
+		return (FAIL);
 	else if (enemy_ray_to_distraction(cub3d, distraction, dir_to_distraction, i)
 		&& (dist_between_d_vectors(distraction, cub3d->enemy[i].pos)
 			> at_target))
-		return (1);
+		return (SUCCESS);
 	else
-		return (0);
+		return (FAIL);
 }

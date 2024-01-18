@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:16:12 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:50:01 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static int	put_images_to_window(mlx_t *mlx, t_gameover_menu *menu)
 int	init_gameover_menu(t_cub3d *cub3d, t_gameover_menu *menu)
 {
 	if (!load_png_gameover(menu))
-		return (0);
+		return (FAIL);
 	if (!init_images_gameover(cub3d->mlx, menu))
 		return (FAIL);
 	set_positions(menu);

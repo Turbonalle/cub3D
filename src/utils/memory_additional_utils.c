@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:46:09 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	free_on_fail(t_cub3d *cub3d)
 		free_keys(cub3d->level->key_groups[i].keys);
 		i++;
 	}
-	return (0);
+	return (FAIL);
 }
 
 void	free_key_helper(t_cub3d *cub3d, int i)

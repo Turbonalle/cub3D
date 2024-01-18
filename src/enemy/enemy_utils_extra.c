@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:57:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	start_wandering(t_cub3d *cub3d, int i)
 	if (cub3d->settings.e_behaviour == 2 || (cub3d->settings.e_behaviour == 1
 			&& fabs(cub3d->enemy[i].angle - cub3d->enemy[i].angle_start)
 			< to_radians(ENEMY_ROT_SPEED)))
-		return (1);
-	return (0);
+		return (SUCCESS);
+	return (FAIL);
 }
 
 void	spin(t_cub3d *cub3d, int i, double at_target)
@@ -66,7 +66,7 @@ void	spin(t_cub3d *cub3d, int i, double at_target)
 			cub3d->enemy[i].angle = within_two_pi(to_radians(2)
 					+ cub3d->enemy[i].angle);
 			if (fabs(cub3d->enemy[i].angle - cub3d->enemy[i].angle_start)
-				< to_radians(1))
+				< to_radians(SUCCESS))
 				return ;
 			enemy_movement_ray(cub3d, cub3d->enemy, i, max_dist);
 		}
@@ -83,6 +83,6 @@ int	not_at_end(t_ray *ray, t_player player, t_enemy *enemy, int i)
 	max_dist = sqrt(pow(player.pos.x - enemy[i].pos.x, 2)
 			+ pow(player.pos.y - enemy[i].pos.y, 2));
 	if (ray->length < max_dist)
-		return (1);
-	return (0);
+		return (SUCCESS);
+	return (FAIL);
 }

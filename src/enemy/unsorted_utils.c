@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:23:58 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ray_to_key(t_cub3d *cub3d, double dir_to, double max_dist)
 			dir_to, v_map_check, v_ray_step_size);
 	ray = init_ray_dir(dir_to);
 	if (!ray)
-		return (0);
+		return (FAIL);
 	while (ray->length < max_dist)
 	{
 		if (wall_or_door_found(cub3d, v_map_check))
@@ -37,7 +37,7 @@ static int	ray_to_key(t_cub3d *cub3d, double dir_to, double max_dist)
 		adjust_no_flag(&v_ray_1d_length, v_ray_step_size);
 	}
 	free(ray);
-	return (1);
+	return (SUCCESS);
 }
 
 static void	draw_key(t_cub3d *cub3d, double dir_to, t_key_node *key)

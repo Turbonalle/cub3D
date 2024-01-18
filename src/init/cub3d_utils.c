@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:14:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	init_rays(t_cub3d *cub3d)
 void	set_initial_direction(t_cub3d *cub3d)
 {
 	if (cub3d->level->starting_dir == 'E')
-		cub3d->player.angle = to_radians(0);
+		cub3d->player.angle = to_radians(FAIL);
 	else if (cub3d->level->starting_dir == 'S')
 		cub3d->player.angle = to_radians(90);
 	else if (cub3d->level->starting_dir == 'W')

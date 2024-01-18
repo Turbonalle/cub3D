@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:46:36 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:20:45 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_records(t_cub3d *cub3d)
 	{
 		printf("free_records i: %d\n", i);
 		printf("cub3d->levels: %p\n", cub3d->levels);
-		printf("cub3d->levels[i].records: %p\n", cub3d->levels[i].records);
+		printf("cub3d->levels[%i].records: %p\n", i, cub3d->levels[i].records);
 		while (cub3d->levels[i].records)
 		{
 			next_rec = cub3d->levels[i].records->next;
@@ -65,15 +65,15 @@ void	free_records(t_cub3d *cub3d)
 int	init_half(t_cub3d *cub3d)
 {
 	if (!init_cub3d(cub3d))
-		return (1);
+		return (FAIL);
 	if (!read_records(cub3d))
-		return (!free_all(cub3d, 16));
+		return (free_all(cub3d, 16));
 	if (!init_leaderboard(cub3d, &cub3d->leaderboard))
-		return (!free_all(cub3d, 17));
+		return (free_all(cub3d, 17));
 	if (!init_enemy_frames(cub3d))
-		return (!free_all(cub3d, 18));
+		return (free_all(cub3d, 18));
 	if (!init_floor(cub3d))
-		return (!free_all(cub3d, 19));
+		return (free_all(cub3d, 19));
 	return (SUCCESS);
 }
 
@@ -100,7 +100,7 @@ int	main(int ac, char **av)
 	write_records(&cub3d, cub3d.levels);
 	if (cub3d.state == STATE_GAME)
 		free_level(&cub3d);
-	free_cub3d(&cub3d);
+	free_all(&cub3d, -1);
 	system("leaks cub3D");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:32:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:51:59 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	init_minimap(t_cub3d *cub3d)
 			cub3d->minimap.width, cub3d->minimap.height);
 	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx,
 				cub3d->minimap.img, 0, 0) < 0))
-		return (err("Failed to create minimap image"));
+		return (FAIL);
 	cub3d->minimap.pos.x = 0;
 	cub3d->minimap.pos.y = 0;
 	cub3d->orig_minimap_pos.x = 0;

@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:58:41 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int	copy_array(char **src, char **dst)
 		if (!dst[i])
 		{
 			free_info(dst);
-			return (0);
+			return (FAIL);
 		}
 		i++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 int	free_map_helper(t_level *level, int i)
@@ -65,5 +65,5 @@ int	free_map_helper(t_level *level, int i)
 		free_info(level->map);
 		free_info(level->backup);
 	}
-	return (0);
+	return (FAIL);
 }

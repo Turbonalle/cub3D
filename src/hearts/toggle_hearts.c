@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 11:05:11 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	disable_hearts(cub3d_t *cub3d)
+void	disable_hearts(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ void	disable_hearts(cub3d_t *cub3d)
 	}
 }
 
-void	enable_hearts(cub3d_t *cub3d)
+void	enable_hearts(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ void	enable_hearts(cub3d_t *cub3d)
 	}
 }
 
-void	adjust_hearts(cub3d_t *cub3d)
+void	adjust_hearts(t_cub3d *cub3d)
 {
 	int	i;
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   frame_update_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:38 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 00:11:28 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:56:53 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	animation_frames_changed(cub3d_t *cub3d)
+int	animation_frames_changed(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -21,9 +21,9 @@ int	animation_frames_changed(cub3d_t *cub3d)
 	if (cub3d->prev_frame_index_idle != cub3d->curr_frame_index_idle)
 	{
 		cub3d->curr_frame_index_walking = (int)(cub3d->run_time
-				/ ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_WALKING;
+				/ ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_WALKING;
 		cub3d->curr_frame_index_hunting = (int)(cub3d->run_time
-				/ ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_ENEMY_HUNTING;
+				/ ANIMATION_INTERVAL_MS * 1000) % NUM_FRAMES_HUNTING;
 		i = 0;
 		while (i < NUM_DOORS_MAX)
 		{
@@ -38,7 +38,7 @@ int	animation_frames_changed(cub3d_t *cub3d)
 	return (FALSE);
 }
 
-int	fps_frame_changed(cub3d_t *cub3d)
+int	fps_frame_changed(t_cub3d *cub3d)
 {
 	if (cub3d->run_time - cub3d->prev_frame_update_timestamp
 		>= cub3d->frame_time)
@@ -49,7 +49,7 @@ int	fps_frame_changed(cub3d_t *cub3d)
 	return (FALSE);
 }
 
-void	update_prev_frames(cub3d_t *cub3d)
+void	update_prev_frames(t_cub3d *cub3d)
 {
 	int	i;
 

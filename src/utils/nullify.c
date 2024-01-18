@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:57:57 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 08:57:58 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:49:15 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	nullify_cub3d(cub3d_t *cub3d)
+void	nullify_cub3d(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -34,18 +34,18 @@ void	nullify_cub3d(cub3d_t *cub3d)
 		nullify_texture(&cub3d->door[i]);
 }
 
-void	nullify_minimap(minimap_t *minimap)
+void	nullify_minimap(t_minimap *minimap)
 {
 	minimap->img = NULL;
 }
 
-void	nullify_gametimer(gametimer_t *timer)
+void	nullify_gametimer(t_gametimer *timer)
 {
 	timer->img_time = NULL;
 	timer->text_time = NULL;
 }
 
-void	nullify_hearts(heart_t *hearts)
+void	nullify_hearts(t_heart *hearts)
 {
 	int	i;
 
@@ -57,7 +57,7 @@ void	nullify_hearts(heart_t *hearts)
 	}
 }
 
-void	nullify_everything(cub3d_t *cub3d)
+void	nullify_everything(t_cub3d *cub3d)
 {
 	nullify_cub3d(cub3d);
 	nullify_minimap(&cub3d->minimap);

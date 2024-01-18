@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:32:01 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 09:54:49 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	mouse_game(cub3d_t *cub3d)
+void	mouse_game(t_cub3d *cub3d)
 {
 	if (hover_minimap(cub3d))
 	{
@@ -26,7 +26,7 @@ void	mouse_game(cub3d_t *cub3d)
 		cub3d->on_minimap = FALSE;
 }
 
-void	mouse_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+void	mouse_pause_menu(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	if (hover_any_box(cub3d, menu))
 	{
@@ -43,7 +43,7 @@ void	mouse_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 		menu->sensitivity_slider.on_marker = FALSE;
 }
 
-void	mouse_intro(cub3d_t *cub3d)
+void	mouse_intro(t_cub3d *cub3d)
 {
 	if (hover_image(cub3d, cub3d->intro.img))
 	{

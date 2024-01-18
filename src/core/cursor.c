@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:16:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 23:16:15 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	handle_cursor(cub3d_t *cub3d)
+void	handle_cursor(t_cub3d *cub3d)
 {
-	vector_t	mouse_pos;
+	t_vector	mouse_pos;
 
 	if (cub3d->settings.mouse == TRUE && cub3d->state == STATE_GAME)
 	{

@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:26:53 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 10:33:03 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:44 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	load_png_helper(level_menu_t *menu)
+static int	load_png_helper(t_level_menu *menu)
 {
 	const char	*number_png[LEVELS] = NUMBER_PNGS;
 	int			i;
@@ -27,7 +27,7 @@ static int	load_png_helper(level_menu_t *menu)
 	return (SUCCESS);
 }
 
-int	load_png_level(level_menu_t *menu)
+int	load_png_level(t_level_menu *menu)
 {
 	menu->title.texture = mlx_load_png(LEVEL_TITLE_PNG);
 	if (!menu->title.texture)
@@ -47,7 +47,7 @@ int	load_png_level(level_menu_t *menu)
 	return (load_png_helper(menu));
 }
 
-static int	images_helper(mlx_t *mlx, level_menu_t *menu)
+static int	images_helper(mlx_t *mlx, t_level_menu *menu)
 {
 	int	size;
 	int	i;
@@ -72,7 +72,7 @@ static int	images_helper(mlx_t *mlx, level_menu_t *menu)
 	return (SUCCESS);
 }
 
-int	init_images_level(mlx_t *mlx, level_menu_t *menu)
+int	init_images_level(mlx_t *mlx, t_level_menu *menu)
 {
 	menu->img = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (!menu->img)
@@ -97,7 +97,7 @@ int	init_images_level(mlx_t *mlx, level_menu_t *menu)
 	return (images_helper(mlx, menu));
 }
 
-void	draw_minimap_preview(minilevel_t *minilevel, level_t *level)
+void	draw_minimap_preview(t_minilevel *minilevel, t_level *level)
 {
 	draw_background(minilevel->img, MINILEVEL_BG_COLOR);
 	set_preview_values(minilevel, level);

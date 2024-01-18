@@ -6,15 +6,15 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:59:09 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 12:49:35 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	update_end(cub3d_t *cub3d, double dir, ray_t *ray)
+static void	update_end(t_cub3d *cub3d, double dir, t_ray *ray)
 {
-	dvector_t	v_ray_dir;
+	t_dvector	v_ray_dir;
 
 	v_ray_dir.x = cos(dir);
 	v_ray_dir.y = sin(dir);
@@ -22,7 +22,7 @@ static void	update_end(cub3d_t *cub3d, double dir, ray_t *ray)
 	ray->end.y = cub3d->player.pos.y + v_ray_dir.y * ray->length;
 }
 
-void	adjust(vector_t *c_pos, ray_t *ray, vector_t v_step, dvector_t *ray_len)
+void	adjust(t_vector *c_pos, t_ray *ray, t_vector v_step, t_dvector *ray_len)
 {
 	if (ray_len->x < ray_len->y)
 	{
@@ -36,7 +36,7 @@ void	adjust(vector_t *c_pos, ray_t *ray, vector_t v_step, dvector_t *ray_len)
 	}
 }
 
-void	adjust_wall_flag(dvector_t *ray_len, dvector_t d_step, int *wall_flag)
+void	adjust_wall_flag(t_dvector *ray_len, t_dvector d_step, int *wall_flag)
 {
 	if (ray_len->x < ray_len->y)
 	{
@@ -50,10 +50,10 @@ void	adjust_wall_flag(dvector_t *ray_len, dvector_t d_step, int *wall_flag)
 	}
 }
 
-static dvector_t	shorten_vector(dvector_t pos, dvector_t target)
+static t_dvector	shorten_vector(t_dvector pos, t_dvector target)
 {
-	dvector_t	len_target;
-	dvector_t	result;
+	t_dvector	len_target;
+	t_dvector	result;
 
 	len_target.x = target.x - pos.x;
 	len_target.y = target.y - pos.y;
@@ -62,12 +62,12 @@ static dvector_t	shorten_vector(dvector_t pos, dvector_t target)
 	return (result);
 }
 
-ray_t	*cast_ray(cub3d_t *cub3d, ray_t *ray)
+t_ray	*cast_ray(t_cub3d *cub3d, t_ray *ray)
 {
-	dvector_t	d_step;
-	dvector_t	ray_len;
-	vector_t	c_pos;
-	vector_t	v_step;
+	t_dvector	d_step;
+	t_dvector	ray_len;
+	t_vector	c_pos;
+	t_vector	v_step;
 
 	d_step = init_step_size(cub3d->player.angle);
 	c_pos.x = (int)cub3d->player.pos.x;

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_zoom_in.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 16:27:40 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 16:50:47 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static vector_t	get_new_pos(cub3d_t *cub3d, unsigned int new_height,
+static t_vector	get_new_pos(t_cub3d *cub3d, unsigned int new_height,
 	unsigned int new_width)
 {
-	vector_t	new_pos;
+	t_vector	new_pos;
 
 	new_pos.x = cub3d->minimap.pos.x - (new_width - cub3d->minimap.width) / 2;
 	new_pos.y = cub3d->minimap.pos.y - (new_height - cub3d->minimap.height) / 2;
@@ -40,7 +40,7 @@ static int	get_new_percentage_zoom_in(int current_size_percentage)
 	return (new_size_percentage);
 }
 
-static int	new_minimap_image(cub3d_t *cub3d)
+static int	new_minimap_image(t_cub3d *cub3d)
 {
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
 	cub3d->minimap.img = NULL;
@@ -56,13 +56,13 @@ static int	new_minimap_image(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	zoom_in_minimap(cub3d_t *cub3d)
+int	zoom_in_minimap(t_cub3d *cub3d)
 {
 	int				new_size_percentage;
 	unsigned int	new_width;
 	unsigned int	new_height;
 	unsigned int	new_tile_size;
-	vector_t		new_pos;
+	t_vector		new_pos;
 
 	new_size_percentage
 		= get_new_percentage_zoom_in(cub3d->minimap.size_percentage);

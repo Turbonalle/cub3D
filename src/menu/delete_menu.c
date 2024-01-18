@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   delete_menu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:38:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 19:51:32 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
+void	delete_leaderboard(t_cub3d *cub3d, t_leaderboard *board)
 {
-	record_t	*ptr;
+	t_record	*ptr;
 	int			i;
 	int			entry;
 
@@ -36,7 +36,7 @@ void	delete_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	}
 }
 
-void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu)
+void	delete_name_menu(t_cub3d *cub3d, t_name_menu *menu)
 {
 	int	i;
 
@@ -51,7 +51,7 @@ void	delete_name_menu(cub3d_t *cub3d, name_menu_t *menu)
 		mlx_delete_image(cub3d->mlx, menu->letters_img[i]);
 }
 
-void	delete_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+void	delete_pause_menu(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	mlx_delete_image(cub3d->mlx, menu->bg);
 	mlx_delete_image(cub3d->mlx, menu->menu);
@@ -69,7 +69,7 @@ void	delete_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	mlx_delete_image(cub3d->mlx, menu->box_mouse[1].text);
 }
 
-void	delete_menus(cub3d_t *cub3d)
+void	delete_menus(t_cub3d *cub3d)
 {
 	delete_start_menu(cub3d, &cub3d->start_menu);
 	delete_level_menu(cub3d, &cub3d->level_menu);

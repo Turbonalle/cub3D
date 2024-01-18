@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:18:24 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 18:44:08 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	free_textures_before_failed_old(texture_t *textures, int failed_index)
+void	free_textures_before_failed_old(t_texture *textures, int failed_index)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ void	free_textures_before_failed_old(texture_t *textures, int failed_index)
 	}
 }
 
-int	init_textures(cub3d_t *cub3d)
+int	init_textures(t_cub3d *cub3d)
 {
 	int	i;
 

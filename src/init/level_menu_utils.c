@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:01:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:40:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:44 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	set_preview_values(minilevel_t *minilevel, level_t *level)
+void	set_preview_values(t_minilevel *minilevel, t_level *level)
 {
 	int	drawable_area_size;
 
@@ -37,7 +37,7 @@ void	set_preview_values(minilevel_t *minilevel, level_t *level)
 	}
 }
 
-void	set_number_values(minilevel_t *minilevel)
+void	set_number_values(t_minilevel *minilevel)
 {
 	int	number_rect_size;
 
@@ -57,7 +57,7 @@ void	set_number_values(minilevel_t *minilevel)
 		minilevel->number.pos.y);
 }
 
-static void	draw_right_square(int spec, minilevel_t *minilevel, vector_t coord)
+static void	draw_right_square(int spec, t_minilevel *minilevel, t_vector coord)
 {
 	if (spec == '1' || spec == 'h' || spec == 'G' || spec == 'i'
 		|| spec == 'j' || spec == 'k' || spec == 'l' || spec == 'r')
@@ -76,11 +76,11 @@ static void	draw_right_square(int spec, minilevel_t *minilevel, vector_t coord)
 	}
 }
 
-void	draw_preview_map(minilevel_t *minilevel, level_t *level, char **backup)
+void	draw_preview_map(t_minilevel *minilevel, t_level *level, char **backup)
 {
 	int			row;
 	int			column;
-	vector_t	coord;
+	t_vector	coord;
 
 	row = -1;
 	while (++row < level->map_rows)
@@ -97,7 +97,7 @@ void	draw_preview_map(minilevel_t *minilevel, level_t *level, char **backup)
 	}
 }
 
-int	free_prev_level_menu(level_menu_t *menu, int i, int j)
+int	free_prev_level_menu(t_level_menu *menu, int i, int j)
 {
 	while (i > 0)
 	{

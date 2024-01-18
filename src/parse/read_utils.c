@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:58:41 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 14:53:09 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	read_map(level_t *level, char *map_path)
+int	read_map(t_level *level, char *map_path)
 {
 	int	fd;
 
@@ -52,7 +52,7 @@ int	copy_array(char **src, char **dst)
 	return (1);
 }
 
-int	free_map_helper(level_t *level, int i)
+int	free_map_helper(t_level *level, int i)
 {
 	free_delete_textures(level);
 	free_list(level->map_list);

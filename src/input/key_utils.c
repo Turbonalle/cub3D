@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:23:45 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 12:00:21 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	check_input_first_third(mlx_key_data_t keydata, cub3d_t *cub3d)
+int	check_input_first_third(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_Q)
 		return (cub3d->keys.q = TRUE, 1);
@@ -39,7 +39,7 @@ int	check_input_first_third(mlx_key_data_t keydata, cub3d_t *cub3d)
 	return (0);
 }
 
-int	check_input_second_third(mlx_key_data_t keydata, cub3d_t *cub3d)
+int	check_input_second_third(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_S)
 		return (cub3d->keys.s = TRUE, 1);
@@ -66,7 +66,7 @@ int	check_input_second_third(mlx_key_data_t keydata, cub3d_t *cub3d)
 	return (0);
 }
 
-void	handle_name_input(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_name_input(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	cub3d->name_menu.changed = TRUE;
 	if (check_input_first_third(keydata, cub3d))
@@ -91,7 +91,7 @@ void	handle_name_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.escape = TRUE;
 }
 
-void	handle_pause_input(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_pause_input(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_P || keydata.key == MLX_KEY_ESCAPE)
 	{
@@ -102,7 +102,7 @@ void	handle_pause_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	}
 }
 
-void	handle_start_input(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_start_input(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 		mlx_close_window(cub3d->mlx);

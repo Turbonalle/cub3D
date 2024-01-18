@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   halo_time.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:16:27 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 23:16:27 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static double	parametric_blend(double t)
 	return (sqt / (2 * (sqt - t) + 1));
 }
 
-double	get_time_fade(halo_t *halo)
+double	get_time_fade(t_halo *halo)
 {
 	double	fade;
 	double	time_delta;

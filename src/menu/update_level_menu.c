@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:19:36 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:21:03 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:36 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	check_hover_back(cub3d_t *cub3d, level_menu_t *menu)
+static void	check_hover_back(t_cub3d *cub3d, t_level_menu *menu)
 {
 	if (hover_image(cub3d, menu->back.img))
 	{
@@ -26,7 +26,7 @@ static void	check_hover_back(cub3d_t *cub3d, level_menu_t *menu)
 	}
 }
 
-void	update_level_menu(cub3d_t *cub3d, level_menu_t *menu)
+void	update_level_menu(t_cub3d *cub3d, t_level_menu *menu)
 {
 	int	i;
 

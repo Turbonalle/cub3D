@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   dda_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:59:13 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 16:10:24 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	all_keys_found(cub3d_t *cub3d, int i)
+int	all_keys_found(t_cub3d *cub3d, int i)
 {
-	key_node_t	*temp;
+	t_key_node	*temp;
 
 	temp = cub3d->level->key_groups[i].keys;
 	while (temp != NULL)
@@ -26,10 +26,10 @@ int	all_keys_found(cub3d_t *cub3d, int i)
 	return (SUCCESS);
 }
 
-dvector_t	init_step_size(double angle)
+t_dvector	init_step_size(double angle)
 {
-	dvector_t	v_ray_step_size;
-	dvector_t	v_ray_dir;
+	t_dvector	v_ray_step_size;
+	t_dvector	v_ray_dir;
 
 	v_ray_dir.x = cos(angle);
 	v_ray_dir.y = sin(angle);
@@ -40,7 +40,7 @@ dvector_t	init_step_size(double angle)
 	return (v_ray_step_size);
 }
 
-int	obstacle_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dist)
+int	obstacle_found_dist(t_cub3d *cub3d, t_vector v_map_check, int dist)
 {
 	if (v_map_check.x >= 0
 		&& v_map_check.x < cub3d->level->map_columns
@@ -67,7 +67,7 @@ int	obstacle_found_dist(cub3d_t *cub3d, vector_t v_map_check, int dist)
 	return (FAIL);
 }
 
-int	wall_checker(int wall_flag, dvector_t end, dvector_t pos)
+int	wall_checker(int wall_flag, t_dvector end, t_dvector pos)
 {
 	if (wall_flag == 0 && pos.y < end.y)
 		return (NO);

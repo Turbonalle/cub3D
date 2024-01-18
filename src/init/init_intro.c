@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:29:28 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 18:29:30 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	init_intro(cub3d_t *cub3d)
+int	init_intro(t_cub3d *cub3d)
 {
 	cub3d->intro_watched = FALSE;
 	cub3d->intro.texture = mlx_load_png(INTRO_PNG);

@@ -6,15 +6,15 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:37:36 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:49:09 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:26 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	disable_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
+void	disable_leaderboard(t_cub3d *cub3d, t_leaderboard *board)
 {
-	record_t	*ptr;
+	t_record	*ptr;
 	int			i;
 	int			entry;
 
@@ -36,9 +36,9 @@ void	disable_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
 	}
 }
 
-void	enable_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
+void	enable_leaderboard(t_cub3d *cub3d, t_leaderboard *board)
 {
-	record_t	*ptr;
+	t_record	*ptr;
 	int			i;
 	int			entry;
 

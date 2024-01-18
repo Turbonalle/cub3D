@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:46:36 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/17 15:20:03 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_ext(char *str)
 	return (SUCCESS);
 }
 
-int	init_floor(cub3d_t *cub3d)
+int	init_floor(t_cub3d *cub3d)
 {
 	cub3d->floor.path = FLOOR_PNG;
 	cub3d->floor.texture = mlx_load_png(FLOOR3_PNG);
@@ -41,10 +41,10 @@ int	init_floor(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-void	free_records(cub3d_t *cub3d)
+void	free_records(t_cub3d *cub3d)
 {
 	int			i;
-	record_t	*next_rec;
+	t_record	*next_rec;
 
 	i = -1;
 	while (++i < LEVELS + 1)
@@ -62,7 +62,7 @@ void	free_records(cub3d_t *cub3d)
 	}
 }
 
-int	init_half(cub3d_t *cub3d)
+int	init_half(t_cub3d *cub3d)
 {
 	if (!init_cub3d(cub3d))
 		return (1);
@@ -79,14 +79,14 @@ int	init_half(cub3d_t *cub3d)
 
 int	main(int ac, char **av)
 {
-	cub3d_t	cub3d;
+	t_cub3d	cub3d;
 
 	if (ac != 2)
 		return (!err("Wrong number of arguments\nUsage: ./cub3D <map.cub>"));
 	if (!check_ext(av[1]))
 		return (!err("Invalid extension"));
 	nullify_everything(&cub3d);
-	cub3d.levels = malloc(sizeof(level_t) * (LEVELS + 1));
+	cub3d.levels = malloc(sizeof(t_level) * (LEVELS + 1));
 	if (!cub3d.levels)
 		return (!err("Failed to malloc levels"));
 	cub3d.level = &cub3d.levels[0];

@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   player_is_hit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:41:13 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 12:45:03 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	player_is_invulnerable(cub3d_t *cub3d)
+static int	player_is_invulnerable(t_cub3d *cub3d)
 {
 	return (mlx_get_time() - cub3d->player.hit_timestamp
 		< INVULNERABILITY_TIME);
 }
 
-void	draw_health(cub3d_t *cub3d)
+void	draw_health(t_cub3d *cub3d)
 {
 	cub3d->level->heart_img->instances[0].enabled = FALSE;
 	cub3d->level->heart_half_img->instances[0].enabled = FALSE;
@@ -29,7 +29,7 @@ void	draw_health(cub3d_t *cub3d)
 		cub3d->level->heart_empty_img->instances[0].enabled = TRUE;
 }
 
-void	player_is_hit(cub3d_t *cub3d, int i)
+void	player_is_hit(t_cub3d *cub3d, int i)
 {
 	if (cub3d->player.is_dirty_cheater == 1 || player_is_invulnerable(cub3d))
 		return ;

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   toggle_pause_menu.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:49:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 16:35:58 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	get_marker_pos(cub3d_t *cub3d)
+int	get_marker_pos(t_cub3d *cub3d)
 {
-	range_t	marker_range;
-	range_t	sensitivity_range;
+	t_range	marker_range;
+	t_range	sensitivity_range;
 
 	marker_range.start = cub3d->pause_menu.sensitivity_slider.marker_min_pos;
 	marker_range.end = cub3d->pause_menu.sensitivity_slider.marker_max_pos;
@@ -25,10 +25,10 @@ int	get_marker_pos(cub3d_t *cub3d)
 			cub3d->settings.mouse_sensitivity) - SLIDER_MARKER_WIDTH / 2);
 }
 
-double	get_sensitivity(cub3d_t *cub3d)
+double	get_sensitivity(t_cub3d *cub3d)
 {
-	range_t	marker_range;
-	range_t	sensitivity_range;
+	t_range	marker_range;
+	t_range	sensitivity_range;
 
 	sensitivity_range.start = MOUSE_MIN_SENSITIVITY;
 	sensitivity_range.end = MOUSE_MAX_SENSITIVITY;
@@ -41,7 +41,7 @@ double	get_sensitivity(cub3d_t *cub3d)
 			+ SLIDER_MARKER_WIDTH / 2));
 }
 
-void	disable_pause_menu(mlx_t *mlx, pause_menu_t *menu)
+void	disable_pause_menu(mlx_t *mlx, t_pause_menu *menu)
 {
 	mlx_delete_image(mlx, menu->bg);
 	mlx_delete_image(mlx, menu->menu);
@@ -61,7 +61,7 @@ void	disable_pause_menu(mlx_t *mlx, pause_menu_t *menu)
 	mlx_delete_image(mlx, menu->sensitivity_slider.marker);
 }
 
-void	draw_menu(cub3d_t *cub3d, pause_menu_t *menu)
+void	draw_menu(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	draw_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR,
 			PAUSE_MENU_TRANSPARENCY));
@@ -72,7 +72,7 @@ void	draw_menu(cub3d_t *cub3d, pause_menu_t *menu)
 	add_checkbox_text(cub3d, menu);
 }
 
-int	enable_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+int	enable_pause_menu(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	if (!pause_menu_helper(cub3d, menu))
 		return (0);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pause_text.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:08:13 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 14:13:00 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu)
+void	add_category_text(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	menu->text_fps = mlx_put_string(cub3d->mlx, "FPS:", menu->pos_col_text,
 			menu->pos_row_1);
@@ -33,7 +33,7 @@ void	add_category_text(cub3d_t *cub3d, pause_menu_t *menu)
 		- menu->text_mouse_sensitivity->height * 0.5;
 }
 
-void	add_fps_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu)
+void	add_fps_checkbox_text(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	menu->box_fps[0].text = mlx_put_string(cub3d->mlx, "15",
 			menu->pos_col_box_1 + menu->box_fps[0].size * 0.5,
@@ -53,7 +53,7 @@ void	add_fps_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu)
 	center(menu->box_fps[3].text);
 }
 
-void	add_checkbox_text(cub3d_t *cub3d, pause_menu_t *menu)
+void	add_checkbox_text(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	add_fps_checkbox_text(cub3d, menu);
 	menu->box_fisheye[0].text = mlx_put_string(cub3d->mlx, "On",

@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:57:51 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 08:57:52 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	nullify_start_menu(start_menu_t *menu)
+void	nullify_start_menu(t_start_menu *menu)
 {
 	menu->img = NULL;
 	nullify_png(&menu->title);
@@ -27,7 +27,7 @@ void	nullify_start_menu(start_menu_t *menu)
 	nullify_png(&menu->arrow_level);
 }
 
-void	nullify_leaderboard(leaderboard_t *leaderboard)
+void	nullify_leaderboard(t_leaderboard *leaderboard)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ void	nullify_leaderboard(leaderboard_t *leaderboard)
 		leaderboard->text_level[i] = NULL;
 }
 
-void	nullify_gameover_menu(gameover_menu_t *menu)
+void	nullify_gameover_menu(t_gameover_menu *menu)
 {
 	menu->img = NULL;
 	nullify_png(&menu->title_win);
@@ -55,7 +55,7 @@ void	nullify_gameover_menu(gameover_menu_t *menu)
 	menu->text_time = NULL;
 }
 
-void	nullify_name_menu(name_menu_t *menu)
+void	nullify_name_menu(t_name_menu *menu)
 {
 	int	i;
 
@@ -71,7 +71,7 @@ void	nullify_name_menu(name_menu_t *menu)
 		menu->letters_img[i] = NULL;
 }
 
-void	nullify_pause_menu(pause_menu_t *menu)
+void	nullify_pause_menu(t_pause_menu *menu)
 {
 	menu->bg = NULL;
 	menu->menu = NULL;

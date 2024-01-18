@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minmap_utils.c                                     :+:      :+:    :+:   */
+/*   minimap_move.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:04:19 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 13:05:46 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	move_minimap_x(cub3d_t *cub3d)
+void	move_minimap_x(t_cub3d *cub3d)
 {
-	vector_t	mouse_moved;
+	t_vector	mouse_moved;
 
 	mouse_moved.x = cub3d->mouse.x - cub3d->mouse_set_pos.x;
 	mouse_moved.y = cub3d->mouse.y - cub3d->mouse_set_pos.y;
@@ -34,9 +34,9 @@ void	move_minimap_x(cub3d_t *cub3d)
 	cub3d->minimap.pos.x = cub3d->minimap.img->instances[0].x;
 }
 
-void	move_minimap_y(cub3d_t *cub3d)
+void	move_minimap_y(t_cub3d *cub3d)
 {
-	vector_t	mouse_moved;
+	t_vector	mouse_moved;
 
 	mouse_moved.x = cub3d->mouse.x - cub3d->mouse_set_pos.x;
 	mouse_moved.y = cub3d->mouse.y - cub3d->mouse_set_pos.y;

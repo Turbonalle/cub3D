@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:12:52 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:16:20 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	get_letter(cub3d_t *cub3d, name_menu_t *menu)
+void	get_letter(t_cub3d *cub3d, t_name_menu *menu)
 {
 	if (get_letter_first_third(cub3d, menu))
 		return ;
@@ -22,7 +22,7 @@ void	get_letter(cub3d_t *cub3d, name_menu_t *menu)
 		get_letter_last_third(cub3d, menu);
 }
 
-int	change_name(cub3d_t *cub3d, name_menu_t *menu)
+int	change_name(t_cub3d *cub3d, t_name_menu *menu)
 {
 	if (cub3d->keys.escape)
 	{

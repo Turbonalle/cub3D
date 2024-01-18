@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:10:36 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 12:15:53 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	count_distractions(cub3d_t *cub3d)
+void	count_distractions(t_cub3d *cub3d)
 {
 	int	i;
 	int	j;
@@ -33,13 +33,13 @@ void	count_distractions(cub3d_t *cub3d)
 	}
 }
 
-void	init_timer(cub3d_t *cub3d)
+void	init_timer(t_cub3d *cub3d)
 {
 	cub3d->timer.pos.x = cub3d->img->width * 0.96;
 	cub3d->timer.pos.y = cub3d->img->height * 0.05;
 }
 
-static void	set_init_stats(cub3d_t *cub3d)
+static void	set_init_stats(t_cub3d *cub3d)
 {
 	cub3d->state = STATE_START;
 	cub3d->mouse_set_pos.x = 0;
@@ -56,7 +56,7 @@ static void	set_init_stats(cub3d_t *cub3d)
 	cub3d->draw_floor = FALSE;
 }
 
-int	init_cub3d_rest(cub3d_t *cub3d)
+int	init_cub3d_rest(t_cub3d *cub3d)
 {
 	if (!init_intro(cub3d))
 		return (free_all(cub3d, 7));
@@ -85,7 +85,7 @@ int	init_cub3d_rest(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	init_cub3d(cub3d_t *cub3d)
+int	init_cub3d(t_cub3d *cub3d)
 {
 	int	i;
 

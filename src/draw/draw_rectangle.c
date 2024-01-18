@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rectangle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:32:01 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 13:32:45 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:15 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_rectangle(mlx_image_t *img, rectangle_t *rect)
+void	draw_rectangle(mlx_image_t *img, t_rectangle *rect)
 {
 	int	row;
 	int	column;
@@ -26,7 +26,7 @@ void	draw_rectangle(mlx_image_t *img, rectangle_t *rect)
 	}
 }
 
-static void	set_box_bg_color(box_t *box)
+static void	set_box_bg_color(t_box *box)
 {
 	if (box->state == TRUE)
 		box->background_color = BOX_ON_COLOR;
@@ -34,7 +34,7 @@ static void	set_box_bg_color(box_t *box)
 		box->background_color = BOX_OFF_COLOR;
 }
 
-void	draw_checkbox(cub3d_t *cub3d, box_t *box)
+void	draw_checkbox(t_cub3d *cub3d, t_box *box)
 {
 	int	row;
 	int	column;
@@ -61,7 +61,7 @@ void	draw_checkbox(cub3d_t *cub3d, box_t *box)
 	}
 }
 
-void	draw_hovered_checkbox(cub3d_t *cub3d, box_t *box)
+void	draw_hovered_checkbox(t_cub3d *cub3d, t_box *box)
 {
 	int	row;
 	int	column;

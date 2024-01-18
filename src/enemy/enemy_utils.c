@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:34:33 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 12:35:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	check_if_door_unlocked(cub3d_t *cub3d, int xcoord, int ycoord)
+int	check_if_door_unlocked(t_cub3d *cub3d, int xcoord, int ycoord)
 {
 	char	index;
 
@@ -22,9 +22,9 @@ int	check_if_door_unlocked(cub3d_t *cub3d, int xcoord, int ycoord)
 	return (0);
 }
 
-static double	dist_to_door(vector_t v_map_check, dvector_t pos)
+static double	dist_to_door(t_vector v_map_check, t_dvector pos)
 {
-	dvector_t	help;
+	t_dvector	help;
 	double		dist;
 
 	if (v_map_check.x == 1)
@@ -39,7 +39,7 @@ static double	dist_to_door(vector_t v_map_check, dvector_t pos)
 	return (dist);
 }
 
-int	wall_or_door_found(cub3d_t *cub3d, vector_t v_map_check)
+int	wall_or_door_found(t_cub3d *cub3d, t_vector v_map_check)
 {
 	if (v_map_check.x >= 0
 		&& v_map_check.x < cub3d->level->map_columns

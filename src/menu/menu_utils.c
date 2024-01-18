@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   menu_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:26:24 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/14 19:23:17 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	pause_menu_helper(cub3d_t *cub3d, pause_menu_t *menu)
+int	pause_menu_helper(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	menu->bg = mlx_new_image(cub3d->mlx, cub3d->mlx->width, cub3d->mlx->height);
 	if (!menu->bg)
@@ -32,7 +32,7 @@ int	pause_menu_helper(cub3d_t *cub3d, pause_menu_t *menu)
 	return (SUCCESS);
 }
 
-void	delete_start_menu(cub3d_t *cub3d, start_menu_t *menu)
+void	delete_start_menu(t_cub3d *cub3d, t_start_menu *menu)
 {
 	mlx_delete_image(cub3d->mlx, menu->img);
 	printf("deleting start menu title image. pointer: %p\n", menu->title.img);
@@ -42,7 +42,7 @@ void	delete_start_menu(cub3d_t *cub3d, start_menu_t *menu)
 	mlx_delete_image(cub3d->mlx, menu->exit.img);
 }
 
-void	delete_level_menu(cub3d_t *cub3d, level_menu_t *menu)
+void	delete_level_menu(t_cub3d *cub3d, t_level_menu *menu)
 {
 	int	i;
 

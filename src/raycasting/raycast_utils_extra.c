@@ -6,15 +6,15 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:00:05 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 12:48:14 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	update_end(cub3d_t *cub3d, double dir, ray_t *ray)
+static void	update_end(t_cub3d *cub3d, double dir, t_ray *ray)
 {
-	dvector_t	v_ray_dir;
+	t_dvector	v_ray_dir;
 
 	v_ray_dir.x = cos(dir);
 	v_ray_dir.y = sin(dir);
@@ -22,10 +22,10 @@ static void	update_end(cub3d_t *cub3d, double dir, ray_t *ray)
 	ray->end.y = cub3d->player.pos.y + v_ray_dir.y * ray->length;
 }
 
-static double	dist_to_door(player_t player, vector_t door)
+static double	dist_to_door(t_player player, t_vector door)
 {
 	double		dist;
-	dvector_t	door_middle;
+	t_dvector	door_middle;
 
 	door_middle.x = door.x + 0.5;
 	door_middle.y = door.y + 0.5;
@@ -33,7 +33,7 @@ static double	dist_to_door(player_t player, vector_t door)
 	return (dist);
 }
 
-static int	door_found(cub3d_t *cub3d, vector_t v_map_check)
+static int	door_found(t_cub3d *cub3d, t_vector v_map_check)
 {
 	double	dist;
 
@@ -56,7 +56,7 @@ static int	door_found(cub3d_t *cub3d, vector_t v_map_check)
 	return (0);
 }
 
-int	obstacle_found(cub3d_t *cub3d, vector_t v_map_check, ray_t *ray, double dir)
+int	obstacle_found(t_cub3d *cub3d, t_vector v_map_check, t_ray *ray, double dir)
 {
 	if (wall_found(cub3d, v_map_check))
 	{

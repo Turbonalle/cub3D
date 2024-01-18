@@ -6,17 +6,17 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:42:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:52:24 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:26 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_times(mlx_t *mlx, record_t **records,
-	leaderboard_t *board, int level)
+void	draw_times(mlx_t *mlx, t_record **records,
+	t_leaderboard *board, int level)
 {
-	record_t	*ptr;
-	vector_t	pos;
+	t_record	*ptr;
+	t_vector	pos;
 	int			i;
 	int			margin_x;
 	int			margin_y;
@@ -36,11 +36,11 @@ void	draw_times(mlx_t *mlx, record_t **records,
 	}
 }
 
-void	draw_names(mlx_t *mlx, record_t **records,
-	leaderboard_t *board, int level)
+void	draw_names(mlx_t *mlx, t_record **records,
+	t_leaderboard *board, int level)
 {
-	record_t	*ptr;
-	vector_t	pos;
+	t_record	*ptr;
+	t_vector	pos;
 	int			i;
 	int			margin_x;
 	int			margin_y;
@@ -60,7 +60,7 @@ void	draw_names(mlx_t *mlx, record_t **records,
 	}
 }
 
-void	set_record_texts(cub3d_t *cub3d, leaderboard_t *board)
+void	set_record_texts(t_cub3d *cub3d, t_leaderboard *board)
 {
 	int	i;
 
@@ -72,7 +72,7 @@ void	set_record_texts(cub3d_t *cub3d, leaderboard_t *board)
 	}
 }
 
-int	load_png_board(leaderboard_t *board)
+int	load_png_board(t_leaderboard *board)
 {
 	board->title.texture = mlx_load_png(LEADERBOARD_TITLE_PNG);
 	if (!board->title.texture)
@@ -93,7 +93,7 @@ int	load_png_board(leaderboard_t *board)
 	return (1);
 }
 
-int	init_images_board(mlx_t *mlx, leaderboard_t *board)
+int	init_images_board(mlx_t *mlx, t_leaderboard *board)
 {
 	board->img = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (!board->img)

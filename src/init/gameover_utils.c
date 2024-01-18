@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:16:12 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 18:28:03 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:01 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	load_png_rest(gameover_menu_t *menu)
+static int	load_png_rest(t_gameover_menu *menu)
 {
 	menu->restart_hover.texture = mlx_load_png(GAMEOVER_RESTART_HOVER_PNG);
 	if (!menu->restart_hover.texture)
@@ -26,7 +26,7 @@ static int	load_png_rest(gameover_menu_t *menu)
 	return (SUCCESS);
 }
 
-int	load_png_gameover(gameover_menu_t *menu)
+int	load_png_gameover(t_gameover_menu *menu)
 {
 	menu->title_win.texture = mlx_load_png(GAMEOVER_WIN_PNG);
 	if (!menu->title_win.texture)
@@ -51,7 +51,7 @@ int	load_png_gameover(gameover_menu_t *menu)
 	return (SUCCESS);
 }
 
-static int	init_images_rest(mlx_t *mlx, gameover_menu_t *menu)
+static int	init_images_rest(mlx_t *mlx, t_gameover_menu *menu)
 {
 	menu->restart_hover.img = mlx_texture_to_image(mlx,
 			menu->restart_hover.texture);
@@ -67,7 +67,7 @@ static int	init_images_rest(mlx_t *mlx, gameover_menu_t *menu)
 	return (SUCCESS);
 }
 
-int	init_images_gameover(mlx_t *mlx, gameover_menu_t *menu)
+int	init_images_gameover(mlx_t *mlx, t_gameover_menu *menu)
 {
 	menu->img = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (!menu->img)
@@ -96,7 +96,7 @@ int	init_images_gameover(mlx_t *mlx, gameover_menu_t *menu)
 	return (SUCCESS);
 }
 
-int	free_prev_gameover_menu(gameover_menu_t *menu, int i)
+int	free_prev_gameover_menu(t_gameover_menu *menu, int i)
 {
 	mlx_delete_texture(menu->title_win.texture);
 	if (i > 0)

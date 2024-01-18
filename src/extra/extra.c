@@ -3,7 +3,7 @@
 
 //------------------------------------------------------------------------------
 
-void print_level_info(level_t *level)
+void print_level_info(t_level *level)
 {
 	printf(TERMINAL_CYAN"INFO:\n"TERMINAL_RESET);
 	printf(TERMINAL_GREEN"NO"TERMINAL_RESET" = %s\n", level->texture[NO].path);
@@ -54,7 +54,7 @@ void test(void)
 	printf("\n");
 }
 
-void print_settings(cub3d_t *cub3d)
+void print_settings(t_cub3d *cub3d)
 {
 	printf(TERMINAL_CYAN"[SETTINGS]\n"TERMINAL_RESET);
 	printf("FPS: "TERMINAL_GREEN"%d"TERMINAL_RESET"\n", cub3d->settings.fps);
@@ -63,7 +63,7 @@ void print_settings(cub3d_t *cub3d)
 }
 
 
-void	print_letter_indexes(name_menu_t *menu, int backspace)
+void	print_letter_indexes(t_name_menu *menu, int backspace)
 {
 	int i;
 

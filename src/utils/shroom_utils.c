@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:45:52 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 08:57:39 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_shroom_count(cub3d_t *cub3d)
+void	draw_shroom_count(t_cub3d *cub3d)
 {
 	char	*text;
 
@@ -34,14 +34,14 @@ void	draw_shroom_count(cub3d_t *cub3d)
 	free(text);
 }
 
-void	disable_shroom(cub3d_t *cub3d)
+void	disable_shroom(t_cub3d *cub3d)
 {
 	if (cub3d->shroom->text)
 		mlx_delete_image(cub3d->mlx, cub3d->shroom->text);
 	cub3d->shroom->shroom.img->instances[0].enabled = FALSE;
 }
 
-void	enable_shroom(cub3d_t *cub3d)
+void	enable_shroom(t_cub3d *cub3d)
 {
 	cub3d->shroom->shroom.img->instances[0].enabled = TRUE;
 }

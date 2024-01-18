@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:16:48 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 23:16:50 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-double	elapsed_time(cub3d_t *cub3d)
+double	elapsed_time(t_cub3d *cub3d)
 {
 	return (mlx_get_time() - cub3d->start_timestamp);
 }
 
-double	elapsed_frame_time(cub3d_t *cub3d)
+double	elapsed_frame_time(t_cub3d *cub3d)
 {
 	return (mlx_get_time() - cub3d->frame_start_timestamp);
 }
 
-void	handle_fps(cub3d_t *cub3d)
+void	handle_fps(t_cub3d *cub3d)
 {
 	while (elapsed_frame_time(cub3d) < cub3d->frame_time)
 		;
@@ -35,7 +35,7 @@ void	set_fps(double *frame_time, int fps)
 	*frame_time = 1.0 / (double)fps;
 }
 
-void	start_timer(cub3d_t *cub3d)
+void	start_timer(t_cub3d *cub3d)
 {
 	cub3d->run_time = 0;
 	cub3d->pause_timestamp = 0;

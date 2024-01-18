@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_z_depth_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:25:41 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 21:00:05 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	largest(double i, double j, double k)
 	return (0);
 }
 
-void	init_indexes_and_z(cub3d_t *cub3d, four_vector_t *indexes)
+void	init_indexes_and_z(t_cub3d *cub3d, t_four_vector *indexes)
 {
 	indexes->e = 0;
 	indexes->k = 0;

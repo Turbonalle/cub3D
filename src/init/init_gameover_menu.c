@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:16:12 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:52:35 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:01 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	set_rest_positions(gameover_menu_t *menu)
+static void	set_rest_positions(t_gameover_menu *menu)
 {
 	int	back_x;
 	int	restart_x;
@@ -38,7 +38,7 @@ static void	set_rest_positions(gameover_menu_t *menu)
 	menu->restart_hover.pos.y = button_y;
 }
 
-static void	set_positions(gameover_menu_t *menu)
+static void	set_positions(t_gameover_menu *menu)
 {
 	int	back_x;
 	int	button_y;
@@ -64,7 +64,7 @@ static void	set_positions(gameover_menu_t *menu)
 	set_rest_positions(menu);
 }
 
-static int	put_rest_images_to_window(mlx_t *mlx, gameover_menu_t *menu)
+static int	put_rest_images_to_window(mlx_t *mlx, t_gameover_menu *menu)
 {
 	if (mlx_image_to_window(mlx, menu->restart_hover.img,
 			menu->restart_hover.pos.x, menu->restart_hover.pos.y) < 0)
@@ -78,7 +78,7 @@ static int	put_rest_images_to_window(mlx_t *mlx, gameover_menu_t *menu)
 	return (SUCCESS);
 }
 
-static int	put_images_to_window(mlx_t *mlx, gameover_menu_t *menu)
+static int	put_images_to_window(mlx_t *mlx, t_gameover_menu *menu)
 {
 	if (mlx_image_to_window(mlx, menu->img, 0, 0) < 0)
 		return (err("Failed to put image to window"));
@@ -103,7 +103,7 @@ static int	put_images_to_window(mlx_t *mlx, gameover_menu_t *menu)
 	return (put_rest_images_to_window(mlx, menu));
 }
 
-int	init_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
+int	init_gameover_menu(t_cub3d *cub3d, t_gameover_menu *menu)
 {
 	if (!load_png_gameover(menu))
 		return (0);

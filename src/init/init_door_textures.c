@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:32:25 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 18:44:25 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	free_textures_before_failed(texture_t *textures, int failed_index)
+void	free_textures_before_failed(t_texture *textures, int failed_index)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ void	free_textures_before_failed(texture_t *textures, int failed_index)
 	}
 }
 
-void	nullify_star_textures(cub3d_t *cub3d)
+void	nullify_star_textures(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ void	nullify_star_textures(cub3d_t *cub3d)
 	}
 }
 
-int	init_stars_textures(cub3d_t *cub3d)
+int	init_stars_textures(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -63,7 +63,7 @@ int	init_stars_textures(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-static int	init_rest_door_textures(cub3d_t *cub3d)
+static int	init_rest_door_textures(t_cub3d *cub3d)
 {
 	cub3d->door[3].texture = mlx_load_png(TEXTURE_DOOR_D);
 	if (!cub3d->door[3].texture)
@@ -80,7 +80,7 @@ static int	init_rest_door_textures(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	init_door_textures(cub3d_t *cub3d)
+int	init_door_textures(t_cub3d *cub3d)
 {
 	int	i;
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   load_level.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:20:00 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 18:46:31 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
+static int	init_player_and_enemies(t_cub3d *cub3d, t_level *level)
 {
 	cub3d->player.pos.x = level->starting_pos.x + 0.5;
 	cub3d->player.pos.y = level->starting_pos.y + 0.5;
@@ -27,7 +27,7 @@ static int	init_player_and_enemies(cub3d_t *cub3d, level_t *level)
 	return (1);
 }
 
-static int	free_half_done(cub3d_t *cub3d, level_t *level, int i)
+static int	free_half_done(t_cub3d *cub3d, t_level *level, int i)
 {
 	free_info(level->map);
 	if (i > 0)
@@ -47,7 +47,7 @@ static int	free_half_done(cub3d_t *cub3d, level_t *level, int i)
 	return (0);
 }
 
-static int	fill_backup(level_t *level)
+static int	fill_backup(t_level *level)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ static int	fill_backup(level_t *level)
 	return (SUCCESS);
 }
 
-int	load_level(cub3d_t *cub3d, level_t *level)
+int	load_level(t_cub3d *cub3d, t_level *level)
 {
 	level->map = ft_calloc(sizeof(char *), level->nodes + 1);
 	if (!level->map)

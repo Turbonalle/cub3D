@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keys.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:17:04 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 19:50:21 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	handle_gameover_input(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_gameover_input(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
@@ -22,7 +22,7 @@ void	handle_gameover_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	}
 }
 
-void	handle_intro_input(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_intro_input(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ENTER)
 	{
@@ -50,7 +50,7 @@ void	handle_intro_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	}
 }
 
-void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_keypresses(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (cub3d->state == STATE_GAME)
 		handle_game_input(keydata, cub3d);
@@ -72,7 +72,7 @@ void	handle_keypresses(mlx_key_data_t keydata, cub3d_t *cub3d)
 
 void	get_input(mlx_key_data_t keydata, void *param)
 {
-	cub3d_t	*cub3d;
+	t_cub3d	*cub3d;
 
 	cub3d = param;
 	if (keydata.action == MLX_PRESS)

@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:13 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 11:05:14 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	init_hearts(cub3d_t *cub3d)
+int	init_hearts(t_cub3d *cub3d)
 {
 	if (!load_heart_png(cub3d))
 		return (FAIL);

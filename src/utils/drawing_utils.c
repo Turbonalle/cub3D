@@ -6,15 +6,15 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:58:51 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 08:58:59 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:37:42 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_square(mlx_image_t *img, vector_t coord, int size, int color)
+void	draw_square(mlx_image_t *img, t_vector coord, int size, int color)
 {
-	vector_t	end;
+	t_vector	end;
 	int			x;
 
 	end.x = coord.x + size;
@@ -32,7 +32,7 @@ void	draw_square(mlx_image_t *img, vector_t coord, int size, int color)
 	}
 }
 
-void	draw_lines(mlx_image_t *img, vector_t center, vector_t pos, int color)
+void	draw_lines(mlx_image_t *img, t_vector center, t_vector pos, int color)
 {
 	int	start;
 
@@ -52,10 +52,10 @@ void	draw_lines(mlx_image_t *img, vector_t center, vector_t pos, int color)
 	}
 }
 
-void	draw_circle(mlx_image_t *img, vector_t pos, int radius, int color)
+void	draw_circle(mlx_image_t *img, t_vector pos, int radius, int color)
 {
-	vector_t	center;
-	vector_t	new_pos;
+	t_vector	center;
+	t_vector	new_pos;
 	int			decision;
 
 	center.x = pos.x + radius;

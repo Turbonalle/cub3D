@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:31:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/17 11:10:35 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	get_door_key_color(cub3d_t *cub3d, int index)
+int	get_door_key_color(t_cub3d *cub3d, int index)
 {
 	if (index == 0)
 		return (cub3d->minimap.color_key_1);
@@ -24,10 +24,10 @@ int	get_door_key_color(cub3d_t *cub3d, int index)
 		return (cub3d->minimap.color_key_4);
 }
 
-static void	draw_correct_square(cub3d_t *cub3d, int row, int column)
+static void	draw_correct_square(t_cub3d *cub3d, int row, int column)
 {
 	int			index;
-	vector_t	coord;
+	t_vector	coord;
 
 	index = get_door_index(cub3d->level->map[row][column]);
 	coord.x = column * cub3d->minimap.tile_size;
@@ -53,10 +53,10 @@ static void	draw_correct_square(cub3d_t *cub3d, int row, int column)
 			cub3d->minimap.color_empty);
 }
 
-void	draw_extras(cub3d_t *cub3d, int row, int column)
+void	draw_extras(t_cub3d *cub3d, int row, int column)
 {
 	int			index;
-	vector_t	pos;
+	t_vector	pos;
 
 	index = get_key_index(cub3d->level->map[row][column]);
 	pos.x = column * cub3d->minimap.tile_size;
@@ -77,7 +77,7 @@ void	draw_extras(cub3d_t *cub3d, int row, int column)
 	}
 }
 
-void	draw_minimap(cub3d_t *cub3d)
+void	draw_minimap(t_cub3d *cub3d)
 {
 	int	row;
 	int	column;
@@ -91,7 +91,7 @@ void	draw_minimap(cub3d_t *cub3d)
 	}
 }
 
-void	draw_minimap_border(cub3d_t *cub3d)
+void	draw_minimap_border(t_cub3d *cub3d)
 {
 	int	row;
 	int	column;

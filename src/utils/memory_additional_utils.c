@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:46:09 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 16:39:35 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/cub3d.h"
 
-void	delete_heart(cub3d_t *cub3d)
+void	delete_heart(t_cub3d *cub3d)
 {
 	mlx_delete_texture(cub3d->level->heart.texture);
 	mlx_delete_texture(cub3d->level->heart_half.texture);
@@ -28,7 +28,7 @@ void	delete_heart(cub3d_t *cub3d)
 	cub3d->level->heart_empty_img = NULL;
 }
 
-int	free_on_fail(cub3d_t *cub3d)
+int	free_on_fail(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ int	free_on_fail(cub3d_t *cub3d)
 	return (0);
 }
 
-void	free_key_helper(cub3d_t *cub3d, int i)
+void	free_key_helper(t_cub3d *cub3d, int i)
 {
 	int			j;
 
@@ -65,9 +65,9 @@ void	free_key_helper(cub3d_t *cub3d, int i)
 	free(cub3d->level->key_groups[i].textures_frames);
 }
 
-void	free_key_and_door_groups(cub3d_t *cub3d, int i)
+void	free_key_and_door_groups(t_cub3d *cub3d, int i)
 {
-	key_node_t	*tmp;
+	t_key_node	*tmp;
 
 	free_doors(cub3d->level->door_groups[i].door_positions);
 	cub3d->level->door_groups[i].door_positions = NULL;
@@ -87,7 +87,7 @@ void	free_key_and_door_groups(cub3d_t *cub3d, int i)
 	}
 }
 
-void	free_keys_and_doors(cub3d_t *cub3d)
+void	free_keys_and_doors(t_cub3d *cub3d)
 {
 	int	i;
 

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_cursor_position.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:21:02 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 20:22:06 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	cursor_right_side(cub3d_t *cub3d, double cursor_angle,
-	dvector_t *position)
+static void	cursor_right_side(t_cub3d *cub3d, double cursor_angle,
+	t_dvector *position)
 {
 	double	theta;
 
@@ -30,8 +30,8 @@ static void	cursor_right_side(cub3d_t *cub3d, double cursor_angle,
 	}
 }
 
-static void	cursor_left_side(cub3d_t *cub3d, double cursor_angle,
-	dvector_t *position)
+static void	cursor_left_side(t_cub3d *cub3d, double cursor_angle,
+	t_dvector *position)
 {
 	double	theta;
 
@@ -48,8 +48,8 @@ static void	cursor_left_side(cub3d_t *cub3d, double cursor_angle,
 	}
 }
 
-void	set_enemy_cursor_position(cub3d_t *cub3d, double cursor_angle,
-	dvector_t *position)
+void	set_enemy_cursor_position(t_cub3d *cub3d, double cursor_angle,
+	t_dvector *position)
 {
 	if (cursor_angle <= 180)
 		cursor_right_side(cub3d, cursor_angle, position);

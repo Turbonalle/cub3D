@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   consts.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/18 09:57:35 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/18 09:59:02 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CONSTS_H
 # define CONSTS_H
 
@@ -12,7 +24,7 @@
 # define HEIGHT 720
 
 # define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd neswijkl Gm hro"
-# define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswijklGmhrop" // TODO: check if p is done
+# define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswijklGmhro"
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
 # define ENEMIES "neswijkl"
@@ -103,21 +115,21 @@
 # define FRAME_PATH_ENEMY_IDLE_STRAIGHT "./assets/textures/green_idle_straight/"
 # define FRAME_PATH_ENEMY_IDLE_LEFT_45 "./assets/textures/green_idle_left45/"
 # define FRAME_PATH_ENEMY_IDLE_LEFT "./assets/textures/green_idle_left/"
-# define FRAME_PATH_ENEMY_WALKING "./assets/textures/blue_walking/"
-# define FRAME_PATH_ENEMY_WALKING_RIGHT "./assets/textures/blue_walking_right/"
-# define FRAME_PATH_ENEMY_WALKING_RIGHT_45 "./assets/textures/blue_walking_right45/"
-# define FRAME_PATH_ENEMY_WALKING_STRAIGHT "./assets/textures/blue_walking_straight/"
-# define FRAME_PATH_ENEMY_WALKING_LEFT_45 "./assets/textures/blue_walking_left45/"
-# define FRAME_PATH_ENEMY_WALKING_LEFT "./assets/textures/blue_walking_left/"
-# define FRAME_PATH_ENEMY_HUNTING "./assets/textures/red_walking/"
-# define FRAME_PATH_ENEMY_HUNTING_RIGHT "./assets/textures/red_walking_right/"
-# define FRAME_PATH_ENEMY_HUNTING_RIGHT_45 "./assets/textures/red_walking_right45/"
-# define FRAME_PATH_ENEMY_HUNTING_STRAIGHT "./assets/textures/red_walking_straight/"
-# define FRAME_PATH_ENEMY_HUNTING_LEFT_45 "./assets/textures/red_walking_left45/"
-# define FRAME_PATH_ENEMY_HUNTING_LEFT "./assets/textures/red_walking_left/"
+# define FRAME_PATH_WALKING "./assets/textures/blue_walking/"
+# define FRAME_PATH_WALKING_RIGHT "./assets/textures/blue_walking_right/"
+# define FRAME_PATH_WALKING_RIGHT_45 "./assets/textures/blue_walking_right45/"
+# define FRAME_PATH_WALKING_STRAIGHT "./assets/textures/blue_walking_straight/"
+# define FRAME_PATH_WALKING_LEFT_45 "./assets/textures/blue_walking_left45/"
+# define FRAME_PATH_WALKING_LEFT "./assets/textures/blue_walking_left/"
+# define FRAME_PATH_HUNTING "./assets/textures/red_walking/"
+# define FRAME_PATH_HUNTING_RIGHT "./assets/textures/red_walking_right/"
+# define FRAME_PATH_HUNTING_RIGHT_45 "./assets/textures/red_walking_right45/"
+# define FRAME_PATH_HUNTING_STRAIGHT "./assets/textures/red_walking_straight/"
+# define FRAME_PATH_HUNTING_LEFT_45 "./assets/textures/red_walking_left45/"
+# define FRAME_PATH_HUNTING_LEFT "./assets/textures/red_walking_left/"
 # define NUM_FRAMES_ENEMY_IDLE 8
-# define NUM_FRAMES_ENEMY_WALKING 8
-# define NUM_FRAMES_ENEMY_HUNTING 8
+# define NUM_FRAMES_WALKING 8
+# define NUM_FRAMES_HUNTING 8
 # define ENEMY_NORMAL_SCALE_DISTANCE 20
 
 # define DISTRACTION_NORMAL_SCALE_DISTANCE 13
@@ -146,7 +158,7 @@
 // 	EA
 // };
 
-enum elements
+enum e_elements
 {
 	NO,
 	SO,

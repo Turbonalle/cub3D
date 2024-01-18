@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:41:41 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:51:41 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:26 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	set_positions_rest(mlx_t *mlx, leaderboard_t *board, vector_t coord)
+static void	set_positions_rest(mlx_t *mlx, t_leaderboard *board, t_vector coord)
 {
 	int			i;
 	int			size;
@@ -34,12 +34,12 @@ static void	set_positions_rest(mlx_t *mlx, leaderboard_t *board, vector_t coord)
 	}
 }
 
-static void	set_positions(mlx_t *mlx, leaderboard_t *board)
+static void	set_positions(mlx_t *mlx, t_leaderboard *board)
 {
 	int			size;
 	int			gap;
 	int			margin_x;
-	vector_t	coord;
+	t_vector	coord;
 
 	board->title.pos.x = (board->img->width - board->title.img->width) / 2;
 	board->title.pos.y = board->img->height * 0.12;
@@ -60,7 +60,7 @@ static void	set_positions(mlx_t *mlx, leaderboard_t *board)
 	set_positions_rest(mlx, board, coord);
 }
 
-static int	put_images_to_window(mlx_t *mlx, leaderboard_t *board)
+static int	put_images_to_window(mlx_t *mlx, t_leaderboard *board)
 {
 	if (mlx_image_to_window(mlx, board->img, 0, 0) < 0)
 		return (err("Failed to put leaderboard image to window"));
@@ -76,7 +76,7 @@ static int	put_images_to_window(mlx_t *mlx, leaderboard_t *board)
 	return (SUCCESS);
 }
 
-int	free_half_done_textures(leaderboard_t *board)
+int	free_half_done_textures(t_leaderboard *board)
 {
 	mlx_delete_texture(board->title.texture);
 	mlx_delete_texture(board->back.texture);
@@ -84,7 +84,7 @@ int	free_half_done_textures(leaderboard_t *board)
 	return (FAIL);
 }
 
-int	init_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
+int	init_leaderboard(t_cub3d *cub3d, t_leaderboard *board)
 {
 	int	i;
 

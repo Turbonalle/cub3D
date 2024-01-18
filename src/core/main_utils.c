@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:04:25 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 15:20:21 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	free_already_allocated(cub3d_t *cub3d, int i)
+void	free_already_allocated(t_cub3d *cub3d, int i)
 {
 	while (i > 0)
 	{
@@ -46,7 +46,7 @@ char	*create_path(int i)
 	return (full_path);
 }
 
-int	read_all_levels(cub3d_t *cub3d)
+int	read_all_levels(t_cub3d *cub3d)
 {
 	int		fd;
 	int		i;
@@ -72,9 +72,9 @@ int	read_all_levels(cub3d_t *cub3d)
 	return (1);
 }
 
-static void	write_down(record_t *ptr, int fd)
+static void	write_down(t_record *ptr, int fd)
 {
-	record_t	*next;
+	t_record	*next;
 	char		*time;
 
 	while (ptr)
@@ -95,11 +95,11 @@ static void	write_down(record_t *ptr, int fd)
 	}
 }
 
-int	write_records(cub3d_t *cub3d, level_t *levels)
+int	write_records(t_cub3d *cub3d, t_level *levels)
 {
 	int			fd;
 	int			i;
-	record_t	*ptr;
+	t_record	*ptr;
 
 	fd = open(RECORD_FILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)

@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:22:45 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 15:27:18 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:22 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	free_prev_name_menu(name_menu_t *menu, int i)
+int	free_prev_name_menu(t_name_menu *menu, int i)
 {
 	mlx_delete_texture(menu->timer.texture);
 	if (i > 0)
@@ -22,7 +22,7 @@ int	free_prev_name_menu(name_menu_t *menu, int i)
 	return (0);
 }
 
-void	draw_letter_box(mlx_image_t *img, letter_box_t *box)
+void	draw_letter_box(mlx_image_t *img, t_letter_box *box)
 {
 	int	col;
 	int	row;
@@ -45,7 +45,7 @@ void	draw_letter_box(mlx_image_t *img, letter_box_t *box)
 	}
 }
 
-void	init_letter_images(cub3d_t *cub3d, name_menu_t *menu)
+void	init_letter_images(t_cub3d *cub3d, t_name_menu *menu)
 {
 	int	i;
 
@@ -60,7 +60,7 @@ void	init_letter_images(cub3d_t *cub3d, name_menu_t *menu)
 	}
 }
 
-void	set_letter_fields(name_menu_t *menu)
+void	set_letter_fields(t_name_menu *menu)
 {
 	int	i;
 
@@ -81,7 +81,7 @@ void	set_letter_fields(name_menu_t *menu)
 	}
 }
 
-void	init_name_values(name_menu_t *menu)
+void	init_name_values(t_name_menu *menu)
 {
 	int	i;
 

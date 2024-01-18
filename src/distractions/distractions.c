@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   distractions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:22:09 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 20:12:33 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	init_dist(cub3d_t *cub3d, int i, int j, int distr_index)
+static int	init_dist(t_cub3d *cub3d, int i, int j, int distr_index)
 {
 	cub3d->level->distractions[distr_index].pos.x = j + 0.5;
 	cub3d->level->distractions[distr_index].pos.y = i + 0.5;
@@ -40,7 +40,7 @@ static int	init_dist(cub3d_t *cub3d, int i, int j, int distr_index)
 	return (distr_index + 1);
 }
 
-static int	parse_map_for_distractions(cub3d_t *cub3d)
+static int	parse_map_for_distractions(t_cub3d *cub3d)
 {
 	int	i;
 	int	j;
@@ -67,11 +67,11 @@ static int	parse_map_for_distractions(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	init_distractions(cub3d_t *cub3d)
+int	init_distractions(t_cub3d *cub3d)
 {
 	if (cub3d->level->num_distractions == 0)
 		return (1);
-	cub3d->level->distractions = malloc(sizeof(distraction_t)
+	cub3d->level->distractions = malloc(sizeof(t_distraction)
 			* (cub3d->level->num_distractions + 1));
 	if (!cub3d->level->distractions)
 		return (FAIL);

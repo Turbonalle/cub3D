@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:02 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 13:54:09 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	is_locked_door(cub3d_t *cub3d, int y, int x)
+int	is_locked_door(t_cub3d *cub3d, int y, int x)
 {
 	int	index;
 
@@ -24,7 +24,7 @@ int	is_locked_door(cub3d_t *cub3d, int y, int x)
 	return (cub3d->level->door_groups[index].num_keys_left > 0);
 }
 
-int	deactivate_key(cub3d_t *cub3d, key_node_t *head, double y, double x)
+int	deactivate_key(t_cub3d *cub3d, t_key_node *head, double y, double x)
 {
 	while (head)
 	{
@@ -41,7 +41,7 @@ int	deactivate_key(cub3d_t *cub3d, key_node_t *head, double y, double x)
 	return (FALSE);
 }
 
-void	collect_key(cub3d_t *cub3d, double y, double x)
+void	collect_key(t_cub3d *cub3d, double y, double x)
 {
 	int	index;
 
@@ -54,7 +54,7 @@ void	collect_key(cub3d_t *cub3d, double y, double x)
 	activate_halo(&cub3d->halo, GREEN);
 }
 
-void	collect_shroom(cub3d_t *cub3d, double y, double x)
+void	collect_shroom(t_cub3d *cub3d, double y, double x)
 {
 	int	i;
 
@@ -82,7 +82,7 @@ void	collect_shroom(cub3d_t *cub3d, double y, double x)
 	}
 }
 
-void	item_collected_checker(cub3d_t *cub3d)
+void	item_collected_checker(t_cub3d *cub3d)
 {
 	double	new_y;
 	double	new_x;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   memory_utils_extra.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 00:10:50 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:56:53 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/cub3d.h"
 
-static void	delete_textures_additional(cub3d_t *cub3d)
+static void	delete_textures_additional(t_cub3d *cub3d)
 {
 	mlx_delete_texture(cub3d->start_menu.title.texture);
 	mlx_delete_texture(cub3d->start_menu.exit.texture);
@@ -33,7 +33,7 @@ static void	delete_textures_additional(cub3d_t *cub3d)
 	mlx_delete_texture(cub3d->distraction_thrown_texture);
 }
 
-static void	delete_enemy_frames(cub3d_t *cub3d)
+static void	delete_enemy_frames(t_cub3d *cub3d)
 {
 	int	j;
 	int	i;
@@ -45,16 +45,16 @@ static void	delete_enemy_frames(cub3d_t *cub3d)
 		while (i < NUM_FRAMES_ENEMY_IDLE)
 			mlx_delete_texture(cub3d->frames_idle[j][i++]);
 		i = 0;
-		while (i < NUM_FRAMES_ENEMY_WALKING)
+		while (i < NUM_FRAMES_WALKING)
 			mlx_delete_texture(cub3d->frames_walking[j][i++]);
 		i = 0;
-		while (i < NUM_FRAMES_ENEMY_HUNTING)
+		while (i < NUM_FRAMES_HUNTING)
 			mlx_delete_texture(cub3d->frames_hunting[j][i++]);
 		j++;
 	}
 }
 
-static void	delete_textures(cub3d_t *cub3d)
+static void	delete_textures(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -80,7 +80,7 @@ static void	delete_textures(cub3d_t *cub3d)
 	}
 }
 
-void	free_cub3d(cub3d_t *cub3d)
+void	free_cub3d(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -102,7 +102,7 @@ void	free_cub3d(cub3d_t *cub3d)
 	mlx_terminate(cub3d->mlx);
 }
 
-void	free_delete_textures(level_t *level)
+void	free_delete_textures(t_level *level)
 {
 	int	i;
 

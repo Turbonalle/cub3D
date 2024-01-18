@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_additional_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:05:22 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 20:05:32 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-dvector_t	init_len(dvector_t start_pos, double dir, vector_t check,
-	dvector_t step_size)
+t_dvector	init_len(t_dvector start_pos, double dir, t_vector check,
+	t_dvector step_size)
 {
-	dvector_t		v_ray_1d_length;
-	dvector_t		v_ray_dir;
+	t_dvector		v_ray_1d_length;
+	t_dvector		v_ray_dir;
 
 	v_ray_dir.x = cos(to_radians(dir));
 	v_ray_dir.y = sin(to_radians(dir));
@@ -31,10 +31,10 @@ dvector_t	init_len(dvector_t start_pos, double dir, vector_t check,
 	return (v_ray_1d_length);
 }
 
-vector_t	init_v_step(double dir)
+t_vector	init_v_step(double dir)
 {
-	vector_t	v_step;
-	dvector_t	v_ray_dir;
+	t_vector	v_step;
+	t_dvector	v_ray_dir;
 
 	v_ray_dir.x = cos(to_radians(dir));
 	v_ray_dir.y = sin(to_radians(dir));
@@ -49,7 +49,7 @@ vector_t	init_v_step(double dir)
 	return (v_step);
 }
 
-void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t step_size)
+void	adjust_no_flag(t_dvector *v_ray_1d_length, t_dvector step_size)
 {
 	if (v_ray_1d_length->x < v_ray_1d_length->y)
 		v_ray_1d_length->x += step_size.x;
@@ -57,7 +57,7 @@ void	adjust_no_flag(dvector_t *v_ray_1d_length, dvector_t step_size)
 		v_ray_1d_length->y += step_size.y;
 }
 
-int	wall_found(cub3d_t *cub3d, vector_t v_map_check)
+int	wall_found(t_cub3d *cub3d, t_vector v_map_check)
 {
 	return (v_map_check.x >= 0
 		&& v_map_check.x < cub3d->level->map_columns
@@ -66,7 +66,7 @@ int	wall_found(cub3d_t *cub3d, vector_t v_map_check)
 		&& cub3d->level->map[v_map_check.y][v_map_check.x] == WALL);
 }
 
-int	goal_found(cub3d_t *cub3d, vector_t v_map_check)
+int	goal_found(t_cub3d *cub3d, t_vector v_map_check)
 {
 	return (v_map_check.x >= 0
 		&& v_map_check.x < cub3d->level->map_columns

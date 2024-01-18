@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   record_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:19:44 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 20:09:40 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int	get_record_name(char *line, char **name)
 	return (SUCCESS);
 }
 
-record_t	*new_record(int time, char *name)
+t_record	*new_record(int time, char *name)
 {
-	record_t	*new;
+	t_record	*new;
 
-	new = malloc(sizeof(record_t));
+	new = malloc(sizeof(t_record));
 	if (!new)
 		return (NULL);
 	new->time = time;
@@ -69,10 +69,10 @@ record_t	*new_record(int time, char *name)
 	return (new);
 }
 
-int	count_records(record_t *records)
+int	count_records(t_record *records)
 {
 	int			count;
-	record_t	*ptr;
+	t_record	*ptr;
 
 	count = 0;
 	ptr = records;

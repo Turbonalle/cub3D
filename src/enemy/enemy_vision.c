@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:31:20 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/17 09:53:50 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	handle_movement(cub3d_t *cub3d, double at_target, int target, int i)
+static void	handle_movement(t_cub3d *cub3d, double at_target, int target, int i)
 {
 	if (target == 0)
 	{
@@ -40,14 +40,14 @@ static void	handle_movement(cub3d_t *cub3d, double at_target, int target, int i)
 	}
 }
 
-static double	get_dir_player(cub3d_t *cub3d, int i)
+static double	get_dir_player(t_cub3d *cub3d, int i)
 {
 	return (within_360(atan2(cub3d->player.pos.y
 				- cub3d->enemy[i].pos.y, cub3d->player.pos.x
 				- cub3d->enemy[i].pos.x) * 180 / M_PI));
 }
 
-static int	get_enemy_state(t_enemy enemy)
+static int	get_e_enemy_state(t_enemy enemy)
 {
 	if (enemy.is_hunting)
 		return (HUNTING);
@@ -57,7 +57,7 @@ static int	get_enemy_state(t_enemy enemy)
 		return (IDLE);
 }
 
-void	enemy_vision(cub3d_t *cub3d)
+void	enemy_vision(t_cub3d *cub3d)
 {
 	int		i;
 	double	at_target;
@@ -81,7 +81,7 @@ void	enemy_vision(cub3d_t *cub3d)
 			else
 				spin(cub3d, i, at_target);
 		}
-		cub3d->enemy[i].state = get_enemy_state(cub3d->enemy[i]);
+		cub3d->enemy[i].state = get_e_enemy_state(cub3d->enemy[i]);
 		i++;
 	}
 }

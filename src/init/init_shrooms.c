@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:17:34 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 15:17:36 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:47:45 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	load_png(cub3d_t *cub3d)
+static int	load_png(t_cub3d *cub3d)
 {
 	cub3d->shroom->shroom.texture = mlx_load_png(TEXTURE_MUSHROOM_COUNTER);
 	if (!cub3d->shroom->shroom.texture)
@@ -20,7 +20,7 @@ static int	load_png(cub3d_t *cub3d)
 	return (1);
 }
 
-static int	init_images(cub3d_t *cub3d)
+static int	init_images(t_cub3d *cub3d)
 {
 	cub3d->shroom->shroom.img
 		= mlx_texture_to_image(cub3d->mlx, cub3d->shroom->shroom.texture);
@@ -29,7 +29,7 @@ static int	init_images(cub3d_t *cub3d)
 	return (1);
 }
 
-static void	set_position(cub3d_t *cub3d)
+static void	set_position(t_cub3d *cub3d)
 {
 	cub3d->shroom->shroom.pos.x = cub3d->mlx->width
 		* 0.95 - cub3d->shroom->shroom.img->width;
@@ -37,7 +37,7 @@ static void	set_position(cub3d_t *cub3d)
 		* 0.95 - cub3d->shroom->shroom.img->height;
 }
 
-static int	put_image_to_window(cub3d_t *cub3d)
+static int	put_image_to_window(t_cub3d *cub3d)
 {
 	if (mlx_image_to_window(cub3d->mlx, cub3d->shroom->shroom.img,
 			cub3d->shroom->shroom.pos.x, cub3d->shroom->shroom.pos.y) == -1)
@@ -45,9 +45,9 @@ static int	put_image_to_window(cub3d_t *cub3d)
 	return (1);
 }
 
-int	init_shroom(cub3d_t *cub3d)
+int	init_shroom(t_cub3d *cub3d)
 {
-	cub3d->shroom = ft_calloc(1, sizeof(shroom_t));
+	cub3d->shroom = ft_calloc(1, sizeof(t_shroom));
 	if (!load_png(cub3d))
 		return (0);
 	if (!init_images(cub3d))

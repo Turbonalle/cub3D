@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:50:06 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 11:57:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	check_first_third(mlx_key_data_t keydata, cub3d_t *cub3d)
+static int	check_first_third(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_Q)
 		return (cub3d->keys.q = FALSE, 1);
@@ -41,7 +41,7 @@ static int	check_first_third(mlx_key_data_t keydata, cub3d_t *cub3d)
 	return (0);
 }
 
-static int	check_second_third(mlx_key_data_t keydata, cub3d_t *cub3d)
+static int	check_second_third(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_D)
 		return (cub3d->keys.d = FALSE, 1);
@@ -70,7 +70,7 @@ static int	check_second_third(mlx_key_data_t keydata, cub3d_t *cub3d)
 	return (0);
 }
 
-void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_keyreleases(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (check_first_third(keydata, cub3d))
 		return ;
@@ -98,7 +98,7 @@ void	handle_keyreleases(mlx_key_data_t keydata, cub3d_t *cub3d)
 		cub3d->keys.escape = FALSE;
 }
 
-void	handle_level_input(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_level_input(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
@@ -108,7 +108,7 @@ void	handle_level_input(mlx_key_data_t keydata, cub3d_t *cub3d)
 	}
 }
 
-void	handle_leaderboard_input(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_leaderboard_input(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{

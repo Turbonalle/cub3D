@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_textured_line_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:50:05 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 14:51:10 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	find_wall_texture(cub3d_t *cub3d, ray_t ray, texture_t *texture)
+static void	find_wall_texture(t_cub3d *cub3d, t_ray ray, t_texture *texture)
 {
 	if (ray.wall == NO)
 		*texture = cub3d->level->texture[0];
@@ -24,9 +24,9 @@ static void	find_wall_texture(cub3d_t *cub3d, ray_t ray, texture_t *texture)
 		*texture = cub3d->level->texture[3];
 }
 
-texture_t	find_texture(cub3d_t *cub3d, ray_t ray)
+t_texture	find_texture(t_cub3d *cub3d, t_ray ray)
 {
-	texture_t	texture;
+	t_texture	texture;
 	int			frame_index;
 
 	find_wall_texture(cub3d, ray, &texture);

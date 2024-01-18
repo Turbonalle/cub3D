@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:36:37 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:36:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	player_walking(cub3d_t *cub3d)
+void	player_walking(t_cub3d *cub3d)
 {
 	if (cub3d->keys.w && !cub3d->keys.s)
 	{
@@ -33,7 +33,7 @@ void	player_walking(cub3d_t *cub3d)
 	}
 }
 
-void	player_strafing(cub3d_t *cub3d)
+void	player_strafing(t_cub3d *cub3d)
 {
 	if (cub3d->keys.a && !cub3d->keys.d)
 	{
@@ -55,7 +55,7 @@ void	player_strafing(cub3d_t *cub3d)
 	}
 }
 
-void	player_both(cub3d_t *cub3d)
+void	player_both(t_cub3d *cub3d)
 {
 	if (cub3d->keys.w && cub3d->keys.a)
 	{
@@ -83,7 +83,7 @@ void	player_both(cub3d_t *cub3d)
 		* MOVEMENT_SPEED * cub3d->delta_time;
 }
 
-void	player_movement(cub3d_t *cub3d)
+void	player_movement(t_cub3d *cub3d)
 {
 	player_rotation(cub3d);
 	cub3d->player.is_walking = is_walking(cub3d);

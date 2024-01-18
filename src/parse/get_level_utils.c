@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:41:12 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 15:55:19 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	create_map(level_t *level, map_node_t *current_map_node, int length)
+static int	create_map(t_level *level, t_map_node *current_map_node, int length)
 {
 	int			i;
 	int			j;
@@ -38,9 +38,9 @@ static int	create_map(level_t *level, map_node_t *current_map_node, int length)
 	return (SUCCESS);
 }
 
-int	create_rectangular_map(level_t *level)
+int	create_rectangular_map(t_level *level)
 {
-	map_node_t	*current_map_node;
+	t_map_node	*current_map_node;
 	int			longest_length;
 
 	level->map = malloc(sizeof(char *) * (level->nodes + 1));
@@ -81,12 +81,12 @@ void	zero_map(char **map)
 	}
 }
 
-int	add_map_line(map_node_t **first_node, char *line)
+int	add_map_line(t_map_node **first_node, char *line)
 {
-	map_node_t	*new_map_node;
-	map_node_t	*current_map_node;
+	t_map_node	*new_map_node;
+	t_map_node	*current_map_node;
 
-	new_map_node = malloc(sizeof(map_node_t));
+	new_map_node = malloc(sizeof(t_map_node));
 	if (!new_map_node)
 		return (FAIL);
 	new_map_node->line = line;
@@ -103,7 +103,7 @@ int	add_map_line(map_node_t **first_node, char *line)
 	return (SUCCESS);
 }
 
-int	null_textures(level_t *level)
+int	null_textures(t_level *level)
 {
 	int	i;
 

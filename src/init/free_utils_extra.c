@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:58:16 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:58:35 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:36 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	free_level_menu(level_menu_t *menu)
+void	free_level_menu(t_level_menu *menu)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ void	free_level_menu(level_menu_t *menu)
 	}
 }
 
-void	free_name_menu(name_menu_t *menu)
+void	free_name_menu(t_name_menu *menu)
 {
 	if (menu->title_win.texture)
 		mlx_delete_texture(menu->title_win.texture);
@@ -48,7 +48,7 @@ void	free_name_menu(name_menu_t *menu)
 		mlx_delete_texture(menu->timer.texture);
 }
 
-void	free_gameover_menu(gameover_menu_t *menu)
+void	free_gameover_menu(t_gameover_menu *menu)
 {
 	if (menu->title_win.texture)
 		mlx_delete_texture(menu->title_win.texture);
@@ -70,13 +70,13 @@ void	free_gameover_menu(gameover_menu_t *menu)
 		mlx_delete_texture(menu->timer.texture);
 }
 
-void	free_intro(cub3d_t *cub3d)
+void	free_intro(t_cub3d *cub3d)
 {
 	if (cub3d->intro.texture)
 		mlx_delete_texture(cub3d->intro.texture);
 }
 
-void	free_hearts(cub3d_t *cub3d)
+void	free_hearts(t_cub3d *cub3d)
 {
 	int	i;
 

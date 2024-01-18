@@ -6,17 +6,17 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:18:48 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 13:24:47 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static ray_t	*init_ray(t_enemy *enemy, int i)
+static t_ray	*init_ray(t_enemy *enemy, int i)
 {
-	ray_t	*ray;
+	t_ray	*ray;
 
-	ray = malloc(sizeof(ray_t));
+	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		return (NULL);
 	ray->angle = enemy[i].dir_player;
@@ -29,10 +29,10 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	return (ray);
 }
 
-dvector_t	init_ray_step_size(double dir)
+t_dvector	init_ray_step_size(double dir)
 {
-	dvector_t		v_ray_dir;
-	dvector_t		v_ray_step_size;
+	t_dvector		v_ray_dir;
+	t_dvector		v_ray_step_size;
 
 	v_ray_dir.x = cos(to_radians(dir));
 	v_ray_dir.y = sin(to_radians(dir));
@@ -43,13 +43,13 @@ dvector_t	init_ray_step_size(double dir)
 	return (v_ray_step_size);
 }
 
-int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction,
+int	enemy_ray_to_distraction(t_cub3d *cub3d, t_dvector distraction,
 	double dir_to, int i)
 {
-	dvector_t		step;
-	dvector_t		v_ray_1d_length;
-	vector_t		v_map_check;
-	ray_t			*ray;
+	t_dvector		step;
+	t_dvector		v_ray_1d_length;
+	t_vector		v_map_check;
+	t_ray			*ray;
 	double			max_dist;
 
 	max_dist = dist_between_d_vectors(distraction, cub3d->enemy[i].pos);
@@ -73,13 +73,13 @@ int	enemy_ray_to_distraction(cub3d_t *cub3d, dvector_t distraction,
 	return (free(ray), 1);
 }
 
-int	ray_to_enemy(cub3d_t *cub3d, double dir_to_enemy, double max_dist)
+int	ray_to_enemy(t_cub3d *cub3d, double dir_to_enemy, double max_dist)
 {
-	dvector_t		v_ray_step_size;
-	dvector_t		v_ray_1d_length;
-	vector_t		v_map_check;
-	vector_t		v_step;
-	ray_t			*ray;
+	t_dvector		v_ray_step_size;
+	t_dvector		v_ray_1d_length;
+	t_vector		v_map_check;
+	t_vector		v_step;
+	t_ray			*ray;
 
 	v_map_check.x = (int)cub3d->player.pos.x;
 	v_map_check.y = (int)cub3d->player.pos.y;

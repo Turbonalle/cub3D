@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_enemies.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:31 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 00:15:11 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static void	position_enemy(t_enemy *enemy, mlx_texture_t *texture,
 		= enemy->pos_screen.y - texture->height * factor;
 }
 
-static void	scale_enemy(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *texture,
+static void	scale_enemy(t_cub3d *cub3d, t_enemy *enemy, mlx_texture_t *texture,
 	double factor)
 {
-	uvector_t	src;
-	uvector_t	res;
+	t_uvector	src;
+	t_uvector	res;
 	int			ray;
 
 	enemy->img_curr_frame->instances[0].enabled = TRUE;
@@ -51,7 +51,7 @@ static void	scale_enemy(cub3d_t *cub3d, t_enemy *enemy, mlx_texture_t *texture,
 	position_enemy(enemy, texture, factor);
 }
 
-static void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
+static void	draw_enemy_frame(t_cub3d *cub3d, t_enemy *enemy)
 {
 	double			scale_factor;
 	mlx_texture_t	*frame;
@@ -75,7 +75,7 @@ static void	draw_enemy_frame(cub3d_t *cub3d, t_enemy *enemy)
 		scale_factor);
 }
 
-void	draw_all_enemies(cub3d_t *cub3d, t_enemy **enemies)
+void	draw_all_enemies(t_cub3d *cub3d, t_enemy **enemies)
 {
 	int	i;
 

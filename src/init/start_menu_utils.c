@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:51:19 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 18:30:26 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:59 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	free_prev_start_menu(start_menu_t *menu, int i)
+int	free_prev_start_menu(t_start_menu *menu, int i)
 {
 	mlx_delete_texture(menu->title.texture);
 	if (i > 0)
@@ -36,7 +36,7 @@ int	free_prev_start_menu(start_menu_t *menu, int i)
 	return (0);
 }
 
-static int	load_png_rest(start_menu_t *menu)
+static int	load_png_rest(t_start_menu *menu)
 {
 	menu->arrow_exit.texture = mlx_load_png(ARROW_PNG);
 	if (!menu->arrow_exit.texture)
@@ -50,7 +50,7 @@ static int	load_png_rest(start_menu_t *menu)
 	return (SUCCESS);
 }
 
-int	load_png_start_menu(start_menu_t *menu)
+int	load_png_start_menu(t_start_menu *menu)
 {
 	menu->title.texture = mlx_load_png(START_TITLE_PNG);
 	if (!menu->title.texture)
@@ -76,7 +76,7 @@ int	load_png_start_menu(start_menu_t *menu)
 	return (load_png_rest(menu));
 }
 
-static int	init_images_rest(mlx_t *mlx, start_menu_t *menu)
+static int	init_images_rest(mlx_t *mlx, t_start_menu *menu)
 {
 	menu->level_hover.img
 		= mlx_texture_to_image(mlx, menu->level_hover.texture);
@@ -97,7 +97,7 @@ static int	init_images_rest(mlx_t *mlx, start_menu_t *menu)
 	return (1);
 }
 
-int	init_images_start_menu(mlx_t *mlx, start_menu_t *menu)
+int	init_images_start_menu(mlx_t *mlx, t_start_menu *menu)
 {
 	menu->img = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (!menu->img)

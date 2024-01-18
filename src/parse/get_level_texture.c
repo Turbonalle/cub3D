@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:17 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 09:13:03 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	get_texture(level_t *level, int element, char **info)
+int	get_texture(t_level *level, int element, char **info)
 {
 	level->texture[element].path = ft_strdup(info[1]);
 	free_info(info);

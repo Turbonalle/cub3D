@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:17:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/17 14:57:35 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_game_background(cub3d_t *cub3d)
+void	draw_game_background(t_cub3d *cub3d)
 {
 	unsigned int	row;
 	unsigned int	column;
@@ -33,7 +33,7 @@ void	draw_game_background(cub3d_t *cub3d)
 	}
 }
 
-void	handle_state_game(cub3d_t *cub3d)
+void	handle_state_game(t_cub3d *cub3d)
 {
 	handle_fps(cub3d);
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
@@ -61,7 +61,7 @@ void	handle_state_game(cub3d_t *cub3d)
 
 void	update(void *param)
 {
-	cub3d_t	*cub3d;
+	t_cub3d	*cub3d;
 
 	cub3d = param;
 	if (cub3d->state == STATE_START)
@@ -84,7 +84,7 @@ void	update(void *param)
 		update_gameover_menu(cub3d, &cub3d->gameover_menu);
 }
 
-void	start_game(cub3d_t *cub3d)
+void	start_game(t_cub3d *cub3d)
 {
 	enable_start_menu(&cub3d->start_menu);
 	mlx_close_hook(cub3d->mlx, &handle_close_window, cub3d->mlx);

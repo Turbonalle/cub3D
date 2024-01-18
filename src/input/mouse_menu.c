@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_menu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:47:42 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 18:10:48 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:01 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	hover_start_menu(cub3d_t *cub3d)
+void	hover_start_menu(t_cub3d *cub3d)
 {
 	if (hover_image(cub3d, cub3d->start_menu.level.img))
 	{
@@ -22,7 +22,7 @@ void	hover_start_menu(cub3d_t *cub3d)
 	}
 }
 
-void	mouse_start_menu(cub3d_t *cub3d)
+void	mouse_start_menu(t_cub3d *cub3d)
 {
 	if (hover_image(cub3d, cub3d->start_menu.exit.img))
 		mlx_close_window(cub3d->mlx);
@@ -52,7 +52,7 @@ void	mouse_start_menu(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-void	hover_level_menu(cub3d_t *cub3d)
+void	hover_level_menu(t_cub3d *cub3d)
 {
 	if (hover_image(cub3d, cub3d->level_menu.back.img))
 	{
@@ -68,7 +68,7 @@ void	hover_level_menu(cub3d_t *cub3d)
 	}
 }
 
-void	mouse_level_menu(cub3d_t *cub3d)
+void	mouse_level_menu(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -96,7 +96,7 @@ void	mouse_level_menu(cub3d_t *cub3d)
 
 //------------------------------------------------------------------------------
 
-void	mouse_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
+void	mouse_gameover_menu(t_cub3d *cub3d, t_gameover_menu *menu)
 {
 	if (hover_image(cub3d, menu->back.img))
 	{

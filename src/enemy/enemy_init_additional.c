@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_init_additional.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:00:22 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 00:14:21 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:59:02 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	init_enemy_dir(t_enemy *enemy, int i, char spec)
 		enemy[i].angle = to_radians(270);
 }
 
-static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
+static int	enemy_starting_point(t_cub3d *cub3d, int enemy_i)
 {
 	int	i;
 	int	j;
@@ -51,7 +51,7 @@ static int	enemy_starting_point(cub3d_t *cub3d, int enemy_i)
 	return (FAIL);
 }
 
-void	set_enemy_stats(cub3d_t *cub3d, int i)
+void	set_enemy_stats(t_cub3d *cub3d, int i)
 {
 	cub3d->enemy[i].dir_player = 0;
 	cub3d->enemy[i].is_spinning = 0;
@@ -78,16 +78,16 @@ void	init_file_paths(char **idle_file_paths, char **walking_file_paths,
 	idle_file_paths[3] = FRAME_PATH_ENEMY_IDLE_STRAIGHT;
 	idle_file_paths[4] = FRAME_PATH_ENEMY_IDLE_LEFT_45;
 	idle_file_paths[5] = FRAME_PATH_ENEMY_IDLE_LEFT;
-	walking_file_paths[0] = FRAME_PATH_ENEMY_WALKING;
-	walking_file_paths[1] = FRAME_PATH_ENEMY_WALKING_RIGHT;
-	walking_file_paths[2] = FRAME_PATH_ENEMY_WALKING_RIGHT_45;
-	walking_file_paths[3] = FRAME_PATH_ENEMY_WALKING_STRAIGHT;
-	walking_file_paths[4] = FRAME_PATH_ENEMY_WALKING_LEFT_45;
-	walking_file_paths[5] = FRAME_PATH_ENEMY_WALKING_LEFT;
-	hunting_file_paths[0] = FRAME_PATH_ENEMY_HUNTING;
-	hunting_file_paths[1] = FRAME_PATH_ENEMY_HUNTING_RIGHT;
-	hunting_file_paths[2] = FRAME_PATH_ENEMY_HUNTING_RIGHT_45;
-	hunting_file_paths[3] = FRAME_PATH_ENEMY_HUNTING_STRAIGHT;
-	hunting_file_paths[4] = FRAME_PATH_ENEMY_HUNTING_LEFT_45;
-	hunting_file_paths[5] = FRAME_PATH_ENEMY_HUNTING_LEFT;
+	walking_file_paths[0] = FRAME_PATH_WALKING;
+	walking_file_paths[1] = FRAME_PATH_WALKING_RIGHT;
+	walking_file_paths[2] = FRAME_PATH_WALKING_RIGHT_45;
+	walking_file_paths[3] = FRAME_PATH_WALKING_STRAIGHT;
+	walking_file_paths[4] = FRAME_PATH_WALKING_LEFT_45;
+	walking_file_paths[5] = FRAME_PATH_WALKING_LEFT;
+	hunting_file_paths[0] = FRAME_PATH_HUNTING;
+	hunting_file_paths[1] = FRAME_PATH_HUNTING_RIGHT;
+	hunting_file_paths[2] = FRAME_PATH_HUNTING_RIGHT_45;
+	hunting_file_paths[3] = FRAME_PATH_HUNTING_STRAIGHT;
+	hunting_file_paths[4] = FRAME_PATH_HUNTING_LEFT_45;
+	hunting_file_paths[5] = FRAME_PATH_HUNTING_LEFT;
 }

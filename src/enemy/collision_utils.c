@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:39:20 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/15 09:46:52 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	check_each_other(cub3d_t *cub3d, int i, dvector_t new_pos)
+int	check_each_other(t_cub3d *cub3d, int i, t_dvector new_pos)
 {
 	int			j;
 
@@ -28,7 +28,7 @@ int	check_each_other(cub3d_t *cub3d, int i, dvector_t new_pos)
 	return (0);
 }
 
-int	check_first_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
+int	check_first_eight(t_cub3d *cub3d, int i, t_dvector new_pos)
 {
 	if (cub3d->enemy[i].angle > M_PI * 15 / 8
 		|| cub3d->enemy[i].angle < M_PI * 1 / 8)
@@ -54,7 +54,7 @@ int	check_first_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
 	return (0);
 }
 
-int	check_second_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
+int	check_second_eight(t_cub3d *cub3d, int i, t_dvector new_pos)
 {
 	if (cub3d->enemy[i].angle < M_PI * 3 / 8)
 	{
@@ -75,7 +75,7 @@ int	check_second_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
 	return (0);
 }
 
-int	check_third_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
+int	check_third_eight(t_cub3d *cub3d, int i, t_dvector new_pos)
 {
 	if (cub3d->enemy[i].angle < M_PI * 5 / 8)
 	{
@@ -100,7 +100,7 @@ int	check_third_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
 	return (0);
 }
 
-int	check_fourth_eight(cub3d_t *cub3d, int i, dvector_t new_pos)
+int	check_fourth_eight(t_cub3d *cub3d, int i, t_dvector new_pos)
 {
 	if (cub3d->enemy[i].angle < M_PI * 7 / 8)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:08:57 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 13:49:15 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:38:02 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ double	to_radians(double degrees)
 	return (degrees * (M_PI / 180));
 }
 
-double	dist_between(vector_t a, dvector_t b)
+double	dist_between(t_vector a, t_dvector b)
 {
 	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }

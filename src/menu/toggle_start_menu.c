@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   toggle_start_menu.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:22:18 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 22:56:43 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:59 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	disable_start_menu(start_menu_t *menu)
+void	disable_start_menu(t_start_menu *menu)
 {
 	menu->img->instances[0].enabled = FALSE;
 	menu->title.img->instances[0].enabled = FALSE;
@@ -27,7 +27,7 @@ void	disable_start_menu(start_menu_t *menu)
 	menu->arrow_level.img->instances[0].enabled = FALSE;
 }
 
-void	enable_start_menu(start_menu_t *menu)
+void	enable_start_menu(t_start_menu *menu)
 {
 	menu->img->instances[0].enabled = TRUE;
 	menu->title.img->instances[0].enabled = TRUE;

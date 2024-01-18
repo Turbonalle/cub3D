@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_keys.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:35 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 21:42:39 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	position_key(key_node_t *key, mlx_texture_t *texture, double factor)
+static void	position_key(t_key_node *key, mlx_texture_t *texture, double factor)
 {
 	key->img_curr_frame->instances[0].x
 		= key->pos_screen.x - texture->width * factor * 0.5;
@@ -20,11 +20,11 @@ static void	position_key(key_node_t *key, mlx_texture_t *texture, double factor)
 		= key->pos_screen.y - texture->height * factor * 1.5;
 }
 
-static void	scale_key(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *texture,
+static void	scale_key(t_cub3d *cub3d, t_key_node *key, mlx_texture_t *texture,
 	double factor)
 {
-	uvector_t	src;
-	uvector_t	res;
+	t_uvector	src;
+	t_uvector	res;
 	int			ray;
 
 	empty_image(key->img_curr_frame);
@@ -49,9 +49,9 @@ static void	scale_key(cub3d_t *cub3d, key_node_t *key, mlx_texture_t *texture,
 	position_key(key, texture, factor);
 }
 
-static void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
+static void	draw_keys(t_cub3d *cub3d, int group_index, int curr_frame_num)
 {
-	key_node_t	*tmp;
+	t_key_node	*tmp;
 	double		scale_factor;
 
 	tmp = cub3d->level->key_groups[group_index].keys;
@@ -77,7 +77,7 @@ static void	draw_keys(cub3d_t *cub3d, int group_index, int curr_frame_num)
 	}
 }
 
-void	draw_all_keys(cub3d_t *cub3d)
+void	draw_all_keys(t_cub3d *cub3d)
 {
 	int	i;
 

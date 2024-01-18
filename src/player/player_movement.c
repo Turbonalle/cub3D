@@ -6,25 +6,25 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:00:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 13:54:14 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	is_walking(cub3d_t *cub3d)
+int	is_walking(t_cub3d *cub3d)
 {
 	return ((cub3d->keys.w && !cub3d->keys.s)
 		|| (!cub3d->keys.w && cub3d->keys.s));
 }
 
-int	is_strafing(cub3d_t *cub3d)
+int	is_strafing(t_cub3d *cub3d)
 {
 	return ((cub3d->keys.a && !cub3d->keys.d)
 		|| (!cub3d->keys.a && cub3d->keys.d));
 }
 
-void	player_rotation(cub3d_t *cub3d)
+void	player_rotation(t_cub3d *cub3d)
 {
 	if (cub3d->settings.mouse == FALSE)
 	{

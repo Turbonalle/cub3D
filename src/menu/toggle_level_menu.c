@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:37:33 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:48:41 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:36 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	disable_level_menu(level_menu_t *menu)
+void	disable_level_menu(t_level_menu *menu)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ void	disable_level_menu(level_menu_t *menu)
 	}
 }
 
-void	enable_level_menu(level_menu_t *menu)
+void	enable_level_menu(t_level_menu *menu)
 {
 	int	i;
 

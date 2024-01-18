@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:42:54 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/17 16:14:42 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	update_player_vertically(cub3d_t *cub3d, player_t *player,
-	dvector_t end, int dist)
+void	update_player_vertically(t_cub3d *cub3d, t_player *player,
+	t_dvector end, int dist)
 {
-	vector_t	check;
+	t_vector	check;
 
 	player->new_pos.x = player->pos.x;
 	check.x = player->pos.x;
@@ -40,10 +40,10 @@ void	update_player_vertically(cub3d_t *cub3d, player_t *player,
 	}
 }
 
-void	update_player_horizontally(cub3d_t *cub3d, player_t *player,
-	dvector_t end, int dist)
+void	update_player_horizontally(t_cub3d *cub3d, t_player *player,
+	t_dvector end, int dist)
 {
-	vector_t	check;
+	t_vector	check;
 
 	player->new_pos.y = player->pos.y;
 	check.x = player->pos.x;
@@ -68,7 +68,7 @@ void	update_player_horizontally(cub3d_t *cub3d, player_t *player,
 	}
 }
 
-void	move_x_step(cub3d_t *cub3d, player_t *player, dvector_t end, int *wall)
+void	move_x_step(t_cub3d *cub3d, t_player *player, t_dvector end, int *wall)
 {
 	cub3d->raycast.v_map_check.x += cub3d->raycast.v_step.x;
 	cub3d->raycast.dist = cub3d->raycast.v_ray_1d_length.x;
@@ -82,7 +82,7 @@ void	move_x_step(cub3d_t *cub3d, player_t *player, dvector_t end, int *wall)
 	}
 }
 
-void	move_y_step(cub3d_t *cub3d, player_t *player, dvector_t end, int *wall)
+void	move_y_step(t_cub3d *cub3d, t_player *player, t_dvector end, int *wall)
 {
 	cub3d->raycast.v_map_check.y += cub3d->raycast.v_step.y;
 	cub3d->raycast.dist = cub3d->raycast.v_ray_1d_length.y;
@@ -96,8 +96,8 @@ void	move_y_step(cub3d_t *cub3d, player_t *player, dvector_t end, int *wall)
 	}
 }
 
-int	find_end_point(cub3d_t *cub3d, player_t *player, double radians,
-	dvector_t end)
+int	find_end_point(t_cub3d *cub3d, t_player *player, double radians,
+	t_dvector end)
 {
 	int		wall;
 

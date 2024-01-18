@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_triangle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:26:32 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 13:26:50 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:25 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	fill_bottom_flat_triangle(mlx_image_t *img, triangle_t *triangle,
+void	fill_bottom_flat_triangle(mlx_image_t *img, t_triangle *triangle,
 	int color)
 {
 	float	invslope1;
@@ -30,15 +30,15 @@ void	fill_bottom_flat_triangle(mlx_image_t *img, triangle_t *triangle,
 	scanline_y = triangle->a.y;
 	while (scanline_y <= triangle->b.y && scanline_y < (int)img->height)
 	{
-		draw_line(img, (dvector_t){curx1, scanline_y},
-			(dvector_t){curx2, scanline_y}, color);
+		draw_line(img, (t_dvector){curx1, scanline_y},
+			(t_dvector){curx2, scanline_y}, color);
 		curx1 += invslope1;
 		curx2 += invslope2;
 		scanline_y++;
 	}
 }
 
-void	fill_top_flat_triangle(mlx_image_t *img, triangle_t *triangle,
+void	fill_top_flat_triangle(mlx_image_t *img, t_triangle *triangle,
 	int color)
 {
 	float	invslope1;
@@ -57,24 +57,24 @@ void	fill_top_flat_triangle(mlx_image_t *img, triangle_t *triangle,
 	while (scanline_y > triangle->a.y)
 	{
 		if (scanline_y < (int)img->height)
-			draw_line(img, (dvector_t){curx1, scanline_y},
-				(dvector_t){curx2, scanline_y}, color);
+			draw_line(img, (t_dvector){curx1, scanline_y},
+				(t_dvector){curx2, scanline_y}, color);
 		curx1 -= invslope1;
 		curx2 -= invslope2;
 		scanline_y--;
 	}
 }
 
-void	swap_dvectors(dvector_t *v1, dvector_t *v2)
+void	swap_dvectors(t_dvector *v1, t_dvector *v2)
 {
-	dvector_t	tmp;
+	t_dvector	tmp;
 
 	tmp = *v1;
 	*v1 = *v2;
 	*v2 = tmp;
 }
 
-void	sort_vertices_ascending_by_y(triangle_t *triangle)
+void	sort_vertices_ascending_by_y(t_triangle *triangle)
 {
 	if (triangle->a.y > triangle->b.y)
 		swap_dvectors(&triangle->a, &triangle->b);
@@ -84,11 +84,11 @@ void	sort_vertices_ascending_by_y(triangle_t *triangle)
 		swap_dvectors(&triangle->b, &triangle->c);
 }
 
-void	draw_filled_triangle(mlx_image_t *img, triangle_t *triangle, int color)
+void	draw_filled_triangle(mlx_image_t *img, t_triangle *triangle, int color)
 {
-	dvector_t	v4;
-	triangle_t	top;
-	triangle_t	bottom;
+	t_dvector	v4;
+	t_triangle	top;
+	t_triangle	bottom;
 
 	sort_vertices_ascending_by_y(triangle);
 	if (triangle->b.y == triangle->c.y)

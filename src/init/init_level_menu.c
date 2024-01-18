@@ -6,14 +6,14 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:26:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:41:35 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:36 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	set_positions_rest(level_menu_t *menu, vector_t *back_button_pos,
-	int gap, vector_t coord)
+static void	set_positions_rest(t_level_menu *menu, t_vector *back_button_pos,
+	int gap, t_vector coord)
 {
 	int			i;
 	int			size;
@@ -38,11 +38,11 @@ static void	set_positions_rest(level_menu_t *menu, vector_t *back_button_pos,
 	}
 }
 
-static void	set_positions(level_menu_t *menu, vector_t *back_button_pos)
+static void	set_positions(t_level_menu *menu, t_vector *back_button_pos)
 {
 	int			size;
 	int			gap;
-	vector_t	coord;
+	t_vector	coord;
 
 	menu->title.pos.x = (menu->img->width - menu->title.img->width) / 2;
 	menu->title.pos.y = menu->img->height * 0.12;
@@ -65,7 +65,7 @@ static void	set_positions(level_menu_t *menu, vector_t *back_button_pos)
 	set_positions_rest(menu, back_button_pos, gap, coord);
 }
 
-static int	put_rest_images_to_window(mlx_t *mlx, level_menu_t *menu)
+static int	put_rest_images_to_window(mlx_t *mlx, t_level_menu *menu)
 {
 	int	i;
 
@@ -87,7 +87,7 @@ static int	put_rest_images_to_window(mlx_t *mlx, level_menu_t *menu)
 	return (SUCCESS);
 }
 
-static int	put_images_to_window(mlx_t *mlx, level_menu_t *menu)
+static int	put_images_to_window(mlx_t *mlx, t_level_menu *menu)
 {
 	if (mlx_image_to_window(mlx, menu->img, 0, 0) < 0)
 		return (err("Failed to put level menu image to window"));
@@ -109,7 +109,7 @@ static int	put_images_to_window(mlx_t *mlx, level_menu_t *menu)
 	return (put_rest_images_to_window(mlx, menu));
 }
 
-int	init_level_menu(cub3d_t *cub3d, level_menu_t *menu)
+int	init_level_menu(t_cub3d *cub3d, t_level_menu *menu)
 {
 	int	i;
 

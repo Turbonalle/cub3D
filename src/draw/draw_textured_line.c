@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_textured_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:44:02 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 15:01:18 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-uint32_t	get_pixel_color(texture_t texture, vector_t src)
+uint32_t	get_pixel_color(t_texture texture, t_vector src)
 {
 	uint32_t	color;
 	int			src_i;
@@ -28,7 +28,7 @@ uint32_t	get_pixel_color(texture_t texture, vector_t src)
 	return (color);
 }
 
-static void	set_src_x(vector_t *src, ray_t ray, texture_t texture)
+static void	set_src_x(t_vector *src, t_ray ray, t_texture texture)
 {
 	src->x = fmod(ray.end.y, 1.0) * texture.texture->width;
 	if (ray.wall == NO || ray.wall == SO || (ft_strchr("ABCDOG", ray.wall)
@@ -39,11 +39,11 @@ static void	set_src_x(vector_t *src, ray_t ray, texture_t texture)
 		src->x = texture.texture->width - src->x - 1;
 }
 
-void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end,
-	ray_t ray)
+void	draw_textured_line_close(t_cub3d *cub3d, t_dvector start, t_dvector end,
+	t_ray ray)
 {
-	texture_t	texture;
-	vector_t	src;
+	t_texture	texture;
+	t_vector	src;
 	int			y;
 	double		wall_height;
 	double		src_start;
@@ -68,12 +68,12 @@ void	draw_textured_line_close(cub3d_t *cub3d, dvector_t start, dvector_t end,
 	}
 }
 
-void	draw_textured_line(cub3d_t *cub3d, dvector_t start, dvector_t end,
-	ray_t ray)
+void	draw_textured_line(t_cub3d *cub3d, t_dvector start, t_dvector end,
+	t_ray ray)
 {
-	texture_t	texture;
+	t_texture	texture;
 	uint32_t	color;
-	vector_t	src;
+	t_vector	src;
 	int			y;
 
 	texture = find_texture(cub3d, ray);

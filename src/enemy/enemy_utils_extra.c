@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:57:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 12:59:32 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	eat(cub3d_t *cub3d, int i)
+void	eat(t_cub3d *cub3d, int i)
 {
 	if (cub3d->enemy[i].target.x != cub3d->level->distraction.x
 		|| cub3d->enemy[i].target.y != cub3d->level->distraction.y)
@@ -27,7 +27,7 @@ void	eat(cub3d_t *cub3d, int i)
 	}
 }
 
-void	begin_spin(cub3d_t *cub3d, int i)
+void	begin_spin(t_cub3d *cub3d, int i)
 {
 	if (cub3d->enemy[i].is_spinning == 0 && cub3d->settings.e_behaviour < 2)
 	{
@@ -39,7 +39,7 @@ void	begin_spin(cub3d_t *cub3d, int i)
 			+ to_radians(ENEMY_ROT_SPEED));
 }
 
-int	start_wandering(cub3d_t *cub3d, int i)
+int	start_wandering(t_cub3d *cub3d, int i)
 {
 	if (cub3d->settings.e_behaviour == 2 || (cub3d->settings.e_behaviour == 1
 			&& fabs(cub3d->enemy[i].angle - cub3d->enemy[i].angle_start)
@@ -48,7 +48,7 @@ int	start_wandering(cub3d_t *cub3d, int i)
 	return (0);
 }
 
-void	spin(cub3d_t *cub3d, int i, double at_target)
+void	spin(t_cub3d *cub3d, int i, double at_target)
 {
 	double	max_dist;
 
@@ -76,7 +76,7 @@ void	spin(cub3d_t *cub3d, int i, double at_target)
 	}
 }
 
-int	not_at_end(ray_t *ray, player_t player, t_enemy *enemy, int i)
+int	not_at_end(t_ray *ray, t_player player, t_enemy *enemy, int i)
 {
 	double			max_dist;
 

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_utils_additional.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:59:38 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 23:58:54 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	check_collisions(cub3d_t *cub3d, int i)
+int	check_collisions(t_cub3d *cub3d, int i)
 {
-	dvector_t	new_pos;
+	t_dvector	new_pos;
 
 	cub3d->enemy[i].is_walking = 0;
 	new_pos = set_new_pos(cub3d, i);
@@ -40,7 +40,7 @@ int	check_collisions(cub3d_t *cub3d, int i)
 	return (0);
 }
 
-void	enemy_advance(cub3d_t *cub3d, int i)
+void	enemy_advance(t_cub3d *cub3d, int i)
 {
 	if (check_collisions(cub3d, i) == 1)
 	{
@@ -72,7 +72,7 @@ char	*create_file_path(int i, char *path)
 	return (file_path);
 }
 
-static int	check_angles(cub3d_t *cub3d, int i)
+static int	check_angles(t_cub3d *cub3d, int i)
 {
 	double	angle_min;
 	double	angle_max;
@@ -94,7 +94,7 @@ static int	check_angles(cub3d_t *cub3d, int i)
 	return (0);
 }
 
-int	check_if_player_is_seen(cub3d_t *cub3d, int i)
+int	check_if_player_is_seen(t_cub3d *cub3d, int i)
 {
 	double	at_target;
 

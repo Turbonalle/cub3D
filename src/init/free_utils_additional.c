@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:53:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:57:01 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	free_leaderboard(leaderboard_t *board)
+void	free_leaderboard(t_leaderboard *board)
 {
 	if (board->title.texture)
 		mlx_delete_texture(board->title.texture);
@@ -22,7 +22,7 @@ void	free_leaderboard(leaderboard_t *board)
 		mlx_delete_texture(board->back_hover.texture);
 }
 
-void	free_shroom(cub3d_t *cub3d)
+void	free_shroom(t_cub3d *cub3d)
 {
 	if (cub3d->shroom && cub3d->shroom->shroom.texture)
 	{
@@ -37,7 +37,7 @@ void	free_shroom(cub3d_t *cub3d)
 		mlx_delete_texture(cub3d->distraction_thrown_texture);
 }
 
-void	free_door_textures(cub3d_t *cub3d)
+void	free_door_textures(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ void	free_door_textures(cub3d_t *cub3d)
 	}
 }
 
-void	free_star_textures(cub3d_t *cub3d)
+void	free_star_textures(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -65,7 +65,7 @@ void	free_star_textures(cub3d_t *cub3d)
 	}
 }
 
-void	free_pause_menu(pause_menu_t *menu)
+void	free_pause_menu(t_pause_menu *menu)
 {
 	if (menu->title.texture)
 		mlx_delete_texture(menu->title.texture);

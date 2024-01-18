@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:00:08 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 15:00:10 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:59 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	set_positions_rest(start_menu_t *menu)
+static void	set_positions_rest(t_start_menu *menu)
 {
 	int		exit_x;
 	int		start_x;
@@ -31,7 +31,7 @@ static void	set_positions_rest(start_menu_t *menu)
 	menu->start.pos.y = button_y;
 }
 
-static void	set_positions(start_menu_t *menu)
+static void	set_positions(t_start_menu *menu)
 {
 	int		level_x;
 	int		button_y;
@@ -59,7 +59,7 @@ static void	set_positions(start_menu_t *menu)
 	set_positions_rest(menu);
 }
 
-static int	put_rest_images_to_window(mlx_t *mlx, start_menu_t *menu)
+static int	put_rest_images_to_window(mlx_t *mlx, t_start_menu *menu)
 {
 	if (mlx_image_to_window(mlx, menu->start_hover.img, menu->start_hover.pos.x,
 			menu->start_hover.pos.y) < 0)
@@ -79,7 +79,7 @@ static int	put_rest_images_to_window(mlx_t *mlx, start_menu_t *menu)
 	return (1);
 }
 
-static int	put_images_to_window(mlx_t *mlx, start_menu_t *menu)
+static int	put_images_to_window(mlx_t *mlx, t_start_menu *menu)
 {
 	if (mlx_image_to_window(mlx, menu->img, 0, 0) < 0)
 		return (err("Failed to put start menu image to window"));
@@ -106,7 +106,7 @@ static int	put_images_to_window(mlx_t *mlx, start_menu_t *menu)
 	return (SUCCESS);
 }
 
-int	init_start_menu(cub3d_t *cub3d, start_menu_t *menu)
+int	init_start_menu(t_cub3d *cub3d, t_start_menu *menu)
 {
 	if (!load_png_start_menu(menu))
 		return (FAIL);

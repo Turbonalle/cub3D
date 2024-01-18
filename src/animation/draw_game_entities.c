@@ -6,17 +6,17 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:42 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 11:03:10 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	draw_all_entities_in_order(cub3d_t *cub3d)
+static int	draw_all_entities_in_order(t_cub3d *cub3d)
 {
-	key_node_t		**ordered_keys;
+	t_key_node		**ordered_keys;
 	t_enemy			**ordered_enemies;
-	distraction_t	**ordered_distractions;
+	t_distraction	**ordered_distractions;
 
 	ordered_keys = create_array_of_keys_ordered_by_dist(cub3d);
 	ordered_enemies = create_array_of_enemies_ordered_by_dist(cub3d);
@@ -34,7 +34,7 @@ static int	draw_all_entities_in_order(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	draw_game_entities(cub3d_t *cub3d)
+int	draw_game_entities(t_cub3d *cub3d)
 {
 	int	animation_frame_change;
 	int	fps_frame_change;

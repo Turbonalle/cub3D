@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:48:01 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 21:59:59 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static ray_t	*init_ray(t_enemy *enemy, int i)
+static t_ray	*init_ray(t_enemy *enemy, int i)
 {
-	ray_t	*ray;
+	t_ray	*ray;
 
-	ray = malloc(sizeof(ray_t));
+	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		return (NULL);
 	ray->angle = enemy[i].dir_player;
@@ -29,20 +29,20 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	return (ray);
 }
 
-static void	set_enemy_angle_and_target(cub3d_t *cub3d, t_enemy *enemy,
-	ray_t *ray)
+static void	set_enemy_angle_and_target(t_cub3d *cub3d, t_enemy *enemy,
+	t_ray *ray)
 {
 	enemy->angle = to_radians(ray->angle);
 	enemy->target = cub3d->player.pos;
 }
 
-int	enemy_ray(cub3d_t *cub3d, player_t player, t_enemy *enemy, int i)
+int	enemy_ray(t_cub3d *cub3d, t_player player, t_enemy *enemy, int i)
 {
-	dvector_t		v_ray_step_size;
-	dvector_t		v_ray_1d_length;
-	vector_t		v_map_check;
-	vector_t		v_step;
-	ray_t			*ray;
+	t_dvector		v_ray_step_size;
+	t_dvector		v_ray_1d_length;
+	t_vector		v_map_check;
+	t_vector		v_step;
+	t_ray			*ray;
 
 	v_map_check.x = (int)enemy[i].pos.x;
 	v_map_check.y = (int)enemy[i].pos.y;

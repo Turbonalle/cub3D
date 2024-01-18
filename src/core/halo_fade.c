@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   halo_fade.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:16:21 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 23:16:21 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:07 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	set_fade(double time_fade, double edge_fade)
 	return (100 - fade);
 }
 
-void	draw_halo(mlx_image_t *img, halo_t *halo)
+void	draw_halo(mlx_image_t *img, t_halo *halo)
 {
 	unsigned int	column;
 	unsigned int	row;

@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:21:18 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:22:11 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:01 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	update_gameover_menu(cub3d_t *cub3d, gameover_menu_t *menu)
+void	update_gameover_menu(t_cub3d *cub3d, t_gameover_menu *menu)
 {
 	if (hover_image(cub3d, menu->back.img))
 	{

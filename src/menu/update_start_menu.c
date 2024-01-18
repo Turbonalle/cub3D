@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:34 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 16:46:07 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:59 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	check_hover_exit(cub3d_t *cub3d, start_menu_t *menu)
+static void	check_hover_exit(t_cub3d *cub3d, t_start_menu *menu)
 {
 	if (hover_image(cub3d, menu->exit.img))
 	{
@@ -28,7 +28,7 @@ static void	check_hover_exit(cub3d_t *cub3d, start_menu_t *menu)
 	}
 }
 
-static void	check_hover_start(cub3d_t *cub3d, start_menu_t *menu)
+static void	check_hover_start(t_cub3d *cub3d, t_start_menu *menu)
 {
 	if (hover_image(cub3d, menu->start.img))
 	{
@@ -44,7 +44,7 @@ static void	check_hover_start(cub3d_t *cub3d, start_menu_t *menu)
 	}
 }
 
-static void	check_hover_level(cub3d_t *cub3d, start_menu_t *menu)
+static void	check_hover_level(t_cub3d *cub3d, t_start_menu *menu)
 {
 	if (hover_image(cub3d, menu->level.img))
 	{
@@ -60,7 +60,7 @@ static void	check_hover_level(cub3d_t *cub3d, start_menu_t *menu)
 	}
 }
 
-void	update_start_menu(cub3d_t *cub3d, start_menu_t *menu)
+void	update_start_menu(t_cub3d *cub3d, t_start_menu *menu)
 {
 	check_hover_exit(cub3d, menu);
 	check_hover_start(cub3d, menu);

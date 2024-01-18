@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:17:58 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 15:31:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	load_png(name_menu_t *menu)
+static int	load_png(t_name_menu *menu)
 {
 	menu->title_win.texture = mlx_load_png(GAMEOVER_WIN_PNG);
 	if (!menu->title_win.texture)
@@ -32,7 +32,7 @@ static int	load_png(name_menu_t *menu)
 	return (1);
 }
 
-static int	init_images(mlx_t *mlx, name_menu_t *menu)
+static int	init_images(mlx_t *mlx, t_name_menu *menu)
 {
 	menu->img = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (!menu->img)
@@ -55,7 +55,7 @@ static int	init_images(mlx_t *mlx, name_menu_t *menu)
 	return (SUCCESS);
 }
 
-static void	set_positions(name_menu_t *menu, vector_t back_button_pos)
+static void	set_positions(t_name_menu *menu, t_vector back_button_pos)
 {
 	menu->title_win.pos.x = menu->img->width
 		* 0.5 - menu->title_win.img->width * 0.5;
@@ -80,7 +80,7 @@ static void	set_positions(name_menu_t *menu, vector_t back_button_pos)
 	set_letter_fields(menu);
 }
 
-static int	put_images_to_window(mlx_t *mlx, name_menu_t *menu)
+static int	put_images_to_window(mlx_t *mlx, t_name_menu *menu)
 {
 	if (mlx_image_to_window(mlx, menu->img, 0, 0) < 0)
 		return (err("Failed to put name menu image to window"));
@@ -102,7 +102,7 @@ static int	put_images_to_window(mlx_t *mlx, name_menu_t *menu)
 	return (SUCCESS);
 }
 
-int	init_name_menu(cub3d_t *cub3d, name_menu_t *menu)
+int	init_name_menu(t_cub3d *cub3d, t_name_menu *menu)
 {
 	int	i;
 

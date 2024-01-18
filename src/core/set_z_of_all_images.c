@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set_z_of_all_images.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:44:41 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 18:45:19 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	count_all_keys(cub3d_t *cub3d)
+static int	count_all_keys(t_cub3d *cub3d)
 {
 	int			count;
 	int			i;
@@ -27,7 +27,7 @@ static int	count_all_keys(cub3d_t *cub3d)
 	return (count);
 }
 
-static int	set_z_for_key_groups(cub3d_t *cub3d, int starting_z)
+static int	set_z_for_key_groups(t_cub3d *cub3d, int starting_z)
 {
 	int			i;
 
@@ -48,7 +48,7 @@ static int	set_z_for_key_groups(cub3d_t *cub3d, int starting_z)
 	return (starting_z);
 }
 
-void	set_z_of_all_images(cub3d_t *cub3d)
+void	set_z_of_all_images(t_cub3d *cub3d)
 {
 	int	z;
 

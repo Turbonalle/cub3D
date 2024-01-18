@@ -6,17 +6,17 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:04:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 12:49:35 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static ray_t	*init_ray(t_enemy *enemy, int i)
+static t_ray	*init_ray(t_enemy *enemy, int i)
 {
-	ray_t	*ray;
+	t_ray	*ray;
 
-	ray = malloc(sizeof(ray_t));
+	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		return (NULL);
 	ray->angle = enemy[i].dir_player;
@@ -29,11 +29,11 @@ static ray_t	*init_ray(t_enemy *enemy, int i)
 	return (ray);
 }
 
-dvector_t	shorten_vector(dvector_t pos, dvector_t target)
+t_dvector	shorten_vector(t_dvector pos, t_dvector target)
 {
 	double		multi;
-	dvector_t	len_target;
-	dvector_t	result;
+	t_dvector	len_target;
+	t_dvector	result;
 
 	multi = (rand() % 81 + 20) / 100.0;
 	len_target.x = target.x - pos.x;
@@ -43,9 +43,9 @@ dvector_t	shorten_vector(dvector_t pos, dvector_t target)
 	return (result);
 }
 
-static void	update_end(cub3d_t *cub3d, ray_t *ray, int i)
+static void	update_end(t_cub3d *cub3d, t_ray *ray, int i)
 {
-	dvector_t		v_ray_dir;
+	t_dvector		v_ray_dir;
 
 	v_ray_dir.x = cos((cub3d->enemy[i].angle));
 	v_ray_dir.y = sin((cub3d->enemy[i].angle));
@@ -53,7 +53,7 @@ static void	update_end(cub3d_t *cub3d, ray_t *ray, int i)
 	ray->end.y = cub3d->enemy[i].pos.y + v_ray_dir.y * ray->length;
 }
 
-static void	update_and_free(cub3d_t *cub3d, ray_t *ray, int i)
+static void	update_and_free(t_cub3d *cub3d, t_ray *ray, int i)
 {
 	update_end(cub3d, ray, i);
 	cub3d->enemy[i].target = ray->end;
@@ -62,13 +62,13 @@ static void	update_and_free(cub3d_t *cub3d, ray_t *ray, int i)
 	free(ray);
 }
 
-int	enemy_movement_ray(cub3d_t *cub3d, t_enemy *enemy, int i, double max_dist)
+int	enemy_movement_ray(t_cub3d *cub3d, t_enemy *enemy, int i, double max_dist)
 {
-	dvector_t		v_ray_step_size;
-	dvector_t		v_ray_1d_length;
-	vector_t		v_map_check;
-	vector_t		v_step;
-	ray_t			*ray;
+	t_dvector		v_ray_step_size;
+	t_dvector		v_ray_1d_length;
+	t_vector		v_map_check;
+	t_vector		v_step;
+	t_ray			*ray;
 
 	v_map_check.x = (int)enemy[i].pos.x;
 	v_map_check.y = (int)enemy[i].pos.y;

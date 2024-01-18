@@ -6,15 +6,15 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:45:57 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 16:46:56 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	count_keys(cub3d_t *cub3d, int i)
+int	count_keys(t_cub3d *cub3d, int i)
 {
-	key_node_t	*temp;
+	t_key_node	*temp;
 	int			count;
 
 	temp = cub3d->level->key_groups[i].keys;
@@ -35,7 +35,7 @@ int	count_keys(cub3d_t *cub3d, int i)
 	return (count);
 }
 
-int	free_doors_and_keys(cub3d_t *cub3d)
+int	free_doors_and_keys(t_cub3d *cub3d)
 {
 	int	i;
 

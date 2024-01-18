@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:30:43 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 13:30:46 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	get_current_level(cub3d_t *cub3d)
+int	get_current_level(t_cub3d *cub3d)
 {
 	int	i;
 

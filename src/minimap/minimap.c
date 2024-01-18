@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:31:00 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/17 11:10:45 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	update_minimap_fov(cub3d_t *cub3d)
+void	update_minimap_fov(t_cub3d *cub3d)
 {
 	if (cub3d->settings.fisheye == 1)
 	{
@@ -23,7 +23,7 @@ void	update_minimap_fov(cub3d_t *cub3d)
 	}
 }
 
-void	update_minimap_player_pos(cub3d_t *cub3d)
+void	update_minimap_player_pos(t_cub3d *cub3d)
 {
 	cub3d->minimap.player_pos.x
 		= cub3d->player.pos.x * cub3d->minimap.tile_size;
@@ -31,7 +31,7 @@ void	update_minimap_player_pos(cub3d_t *cub3d)
 		= cub3d->player.pos.y * cub3d->minimap.tile_size;
 }
 
-void	update_minimap_enemy_pos(cub3d_t *cub3d)
+void	update_minimap_enemy_pos(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -46,7 +46,7 @@ void	update_minimap_enemy_pos(cub3d_t *cub3d)
 	}
 }
 
-void	minimap(cub3d_t *cub3d)
+void	minimap(t_cub3d *cub3d)
 {
 	update_minimap_fov(cub3d);
 	update_minimap_player_pos(cub3d);

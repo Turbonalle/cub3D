@@ -6,17 +6,17 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:18:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 13:28:21 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-ray_t	*init_ray_dir(double dir_to_enemy)
+t_ray	*init_ray_dir(double dir_to_enemy)
 {
-	ray_t	*ray;
+	t_ray	*ray;
 
-	ray = malloc(sizeof(ray_t));
+	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		return (NULL);
 	ray->angle = to_radians(dir_to_enemy);
@@ -29,7 +29,7 @@ ray_t	*init_ray_dir(double dir_to_enemy)
 	return (ray);
 }
 
-void	draw_distraction(cub3d_t *cub3d, double dir_to_distraction, int index)
+void	draw_distraction(t_cub3d *cub3d, double dir_to_distraction, int index)
 {
 	double	dir_as_rad;
 	int		i;

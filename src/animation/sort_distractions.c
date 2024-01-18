@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_distractions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:46 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 15:29:33 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	count_visible_distractions(cub3d_t *cub3d)
+static int	count_visible_distractions(t_cub3d *cub3d)
 {
 	int	count;
 	int	i;
@@ -28,8 +28,8 @@ static int	count_visible_distractions(cub3d_t *cub3d)
 	return (count);
 }
 
-static void	fill_visible_distractions_array(cub3d_t *cub3d,
-	distraction_t **distractions)
+static void	fill_visible_distractions_array(t_cub3d *cub3d,
+	t_distraction **distractions)
 {
 	int	i;
 	int	j;
@@ -52,11 +52,11 @@ static void	fill_visible_distractions_array(cub3d_t *cub3d,
 	}
 }
 
-static void	sort_distractions_by_dist_to_player(distraction_t **distractions)
+static void	sort_distractions_by_dist_to_player(t_distraction **distractions)
 {
 	int				i;
 	int				j;
-	distraction_t	*tmp;
+	t_distraction	*tmp;
 
 	i = 0;
 	while (distractions[i])
@@ -77,13 +77,13 @@ static void	sort_distractions_by_dist_to_player(distraction_t **distractions)
 	}
 }
 
-distraction_t	**create_array_of_distractions_ordered_by_dist(cub3d_t *cub3d)
+t_distraction	**create_array_of_distractions_ordered_by_dist(t_cub3d *cub3d)
 {
-	distraction_t	**distractions;
+	t_distraction	**distractions;
 	int				count;
 
 	count = count_visible_distractions(cub3d);
-	distractions = malloc(sizeof(distraction_t *) * (count + 1));
+	distractions = malloc(sizeof(t_distraction *) * (count + 1));
 	if (!distractions)
 		return (NULL);
 	distractions[count] = NULL;

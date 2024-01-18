@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_slider.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:27:19 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 13:27:55 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:07 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_slider_line(mlx_image_t *img, slider_t *slider)
+void	draw_slider_line(mlx_image_t *img, t_slider *slider)
 {
 	int		x;
 	int		y;
@@ -26,7 +26,7 @@ void	draw_slider_line(mlx_image_t *img, slider_t *slider)
 	}
 }
 
-void	draw_slider_ends(mlx_image_t *img, slider_t *slider)
+void	draw_slider_ends(mlx_image_t *img, t_slider *slider)
 {
 	int		x;
 	int		y;
@@ -46,7 +46,7 @@ void	draw_slider_ends(mlx_image_t *img, slider_t *slider)
 	}
 }
 
-void	draw_slider(mlx_image_t *img, slider_t *slider)
+void	draw_slider(mlx_image_t *img, t_slider *slider)
 {
 	draw_slider_line(img, slider);
 	draw_slider_ends(img, slider);

@@ -6,16 +6,16 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:00:47 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 15:31:19 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	delete_last_record(cub3d_t *cub3d, mlx_t *mlx, record_t **records)
+void	delete_last_record(t_cub3d *cub3d, mlx_t *mlx, t_record **records)
 {
-	record_t	*ptr;
-	record_t	*prev;
+	t_record	*ptr;
+	t_record	*prev;
 
 	ptr = *records;
 	while (ptr->next)
@@ -32,7 +32,7 @@ void	delete_last_record(cub3d_t *cub3d, mlx_t *mlx, record_t **records)
 	free_record(ptr);
 }
 
-int	record_is_top(record_t **records, record_t *new, int time)
+int	record_is_top(t_record **records, t_record *new, int time)
 {
 	if (!*records)
 	{
@@ -48,7 +48,7 @@ int	record_is_top(record_t **records, record_t *new, int time)
 	return (FAIL);
 }
 
-void	delete_extra_records(cub3d_t *cub3d, record_t **records)
+void	delete_extra_records(t_cub3d *cub3d, t_record **records)
 {
 	int			i;
 
@@ -60,10 +60,10 @@ void	delete_extra_records(cub3d_t *cub3d, record_t **records)
 	}
 }
 
-int	add_record(cub3d_t *cub3d, record_t **records, int time, char *name)
+int	add_record(t_cub3d *cub3d, t_record **records, int time, char *name)
 {
-	record_t	*new;
-	record_t	*temp;
+	t_record	*new;
+	t_record	*temp;
 	int			i;
 
 	new = new_record(time, name);
@@ -89,7 +89,7 @@ int	add_record(cub3d_t *cub3d, record_t **records, int time, char *name)
 	return (SUCCESS);
 }
 
-int	read_records(cub3d_t *cub3d)
+int	read_records(t_cub3d *cub3d)
 {
 	char	*line;
 	int		fd;

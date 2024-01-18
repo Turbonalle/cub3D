@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:33:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 14:56:10 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/cub3d.h"
 
-void	free_backup(level_t level)
+void	free_backup(t_level level)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ void	free_backup(level_t level)
 	level.backup = NULL;
 }
 
-void	free_level_textures(cub3d_t *cub3d)
+void	free_level_textures(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ void	free_level_textures(cub3d_t *cub3d)
 	}
 }
 
-void	free_enemies(cub3d_t *cub3d)
+void	free_enemies(t_cub3d *cub3d)
 {
 	int	i;
 

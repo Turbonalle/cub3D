@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:21:12 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:49:13 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:26 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	update_leaderboard(cub3d_t *cub3d, leaderboard_t *board)
+void	update_leaderboard(t_cub3d *cub3d, t_leaderboard *board)
 {
 	if (hover_image(cub3d, board->back.img))
 	{

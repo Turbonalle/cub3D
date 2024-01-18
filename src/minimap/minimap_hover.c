@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_hover.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:31:58 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 17:32:24 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	hover_minimap(cub3d_t *cub3d)
+int	hover_minimap(t_cub3d *cub3d)
 {
 	int	mouse_x;
 	int	mouse_y;

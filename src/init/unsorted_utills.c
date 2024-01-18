@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:32:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 12:10:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:51:59 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_border_image(minilevel_t *minilevel)
+void	draw_border_image(t_minilevel *minilevel)
 {
 	unsigned int	row;
 	unsigned int	col;
@@ -33,7 +33,7 @@ void	draw_border_image(minilevel_t *minilevel)
 	}
 }
 
-void	free_start_menu(start_menu_t *menu)
+void	free_start_menu(t_start_menu *menu)
 {
 	if (menu->title.texture)
 		mlx_delete_texture(menu->title.texture);
@@ -57,7 +57,7 @@ void	free_start_menu(start_menu_t *menu)
 		mlx_delete_texture(menu->arrow_level.texture);
 }
 
-int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
+int	count_minimap_tilesize(t_cub3d *cub3d, int size_percentage)
 {
 	float	tile_size;
 	float	minimap_width;
@@ -71,7 +71,7 @@ int	count_minimap_tilesize(cub3d_t *cub3d, int size_percentage)
 	return ((int)tile_size);
 }
 
-static int	init_minimap_rest(cub3d_t *cub3d)
+static int	init_minimap_rest(t_cub3d *cub3d)
 {
 	cub3d->minimap.color_player
 		= set_transparency(MINIMAP_COLOR_PLAYER, cub3d->minimap.transparency);
@@ -100,7 +100,7 @@ static int	init_minimap_rest(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	init_minimap(cub3d_t *cub3d)
+int	init_minimap(t_cub3d *cub3d)
 {
 	cub3d->minimap.size_percentage = MINIMAP_SIZE_PERCENTAGE;
 	cub3d->minimap.tile_size

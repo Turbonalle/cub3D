@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/18 09:35:53 by slampine          #+#    #+#             */
+/*   Updated: 2024/01/18 09:56:53 by slampine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
 # include "MLX42/MLX42.h"
 
 // prototypes
-typedef struct map_node_s map_node_t;
-typedef struct key_node_s key_node_t;
-typedef struct door_pos_s door_pos_t;
+typedef struct map_node_s	t_map_node;
+typedef struct key_node_s	t_key_node;
+typedef struct door_pos_s	t_door_pos;
 
 //---- VECTORS -----------------------------------------------------------------
 
@@ -14,25 +26,25 @@ typedef struct vector_s
 {
 	int	x;
 	int	y;
-}		vector_t;
+}		t_vector;
 
-typedef struct dvector_t
+typedef struct t_dvector
 {
 	double	x;
 	double	y;
-}			dvector_t;
+}			t_dvector;
 
-typedef struct range_t
+typedef struct t_range
 {
 	double	start;
 	double	end;
-}			range_t;
+}			t_range;
 
 typedef struct uvector_s
 {
 	uint32_t	col;
 	uint32_t	row;
-}				uvector_t;
+}				t_uvector;
 
 typedef struct four_vector_s
 {
@@ -40,7 +52,7 @@ typedef struct four_vector_s
 	int	k;
 	int	d;
 	int	z;
-}		four_vector_t;
+}		t_four_vector;
 
 //---- TEXTURE -----------------------------------------------------------------
 
@@ -48,7 +60,7 @@ typedef struct texture_s
 {
 	char			*path;
 	mlx_texture_t	*texture;
-}					texture_t;
+}					t_texture;
 
 //---- PNG ---------------------------------------------------------------------
 
@@ -56,10 +68,10 @@ typedef struct png_s
 {
 	mlx_image_t		*img;
 	mlx_texture_t	*texture;
-	vector_t		pos;
+	t_vector		pos;
 	int				width;
 	int				height;
-}					png_t;
+}					t_png;
 
 //---- PLAYER ------------------------------------------------------------------
 
@@ -67,9 +79,9 @@ typedef struct png_s
 
 typedef struct player_s
 {
-	dvector_t	pos;
-	dvector_t	new_pos;
-	dvector_t	dir;
+	t_dvector	pos;
+	t_dvector	new_pos;
+	t_dvector	dir;
 	int			thrown;
 	double		angle;
 	double		movement_angle;
@@ -80,9 +92,9 @@ typedef struct player_s
 	int			is_strafing;
 	int			num_completed;
 	int			is_dirty_cheater;
-}				player_t;
+}				t_player;
 
-enum enemy_state
+enum e_enemy_state
 {
 	IDLE,
 	WALKING,
@@ -91,11 +103,11 @@ enum enemy_state
 
 typedef struct s_enemy
 {
-	dvector_t		pos;
-	dvector_t		target;
-	dvector_t		dir;
-	dvector_t		minimap_pos;
-	vector_t		pos_screen;
+	t_dvector		pos;
+	t_dvector		target;
+	t_dvector		dir;
+	t_dvector		minimap_pos;
+	t_vector		pos_screen;
 	double			freeze_start;
 	double			angle;
 	double			angle_start;
@@ -109,7 +121,6 @@ typedef struct s_enemy
 	int				is_hunting;
 	mlx_image_t		*img_curr_frame;
 }	t_enemy;
-
 
 typedef struct keypress_s
 {
@@ -150,7 +161,7 @@ typedef struct keypress_s
 	int	down;
 	int	mouse_left;
 	int	mouse_right;
-}			keypress_t;
+}			t_keypress;
 
 //---- DOORS  ------------------------------------------------------------------
 
@@ -158,51 +169,50 @@ typedef struct keypress_s
 
 typedef struct key_node_s
 {
-	dvector_t	pos;
-	vector_t	pos_screen;
+	t_dvector	pos;
+	t_vector	pos_screen;
 	double		dist_to_player;
 	int			visible;
 	int			collected;
 	mlx_image_t	*img_curr_frame;
-	key_node_t	*next;
-}				key_node_t;
+	t_key_node	*next;
+}				t_key_node;
 
 typedef struct key_group_s
 {
-	int			index;
-	int			num_keys_total;
-	key_node_t	*keys;
-	mlx_image_t	*img_key_icon;
-	mlx_image_t	*img_text_key_count;
+	int				index;
+	int				num_keys_total;
+	t_key_node		*keys;
+	mlx_image_t		*img_key_icon;
+	mlx_image_t		*img_text_key_count;
 	mlx_texture_t	**textures_frames; // TODO: delete textures in the end
 	mlx_texture_t	*texture_key_icon;
-	char		*texture_dir;
-	int			prev_frame_index;
-	int			curr_frame_index;
-	vector_t	key_icon_coords;
-}				key_group_t;
+	char			*texture_dir;
+	int				prev_frame_index;
+	int				curr_frame_index;
+	t_vector		key_icon_coords;
+}				t_key_group;
 
 typedef struct door_pos_s
 {
-	vector_t	pos;
-	door_pos_t	*next;
-}				door_pos_t;
+	t_vector	pos;
+	t_door_pos	*next;
+}				t_door_pos;
 
 typedef struct door_group_s
 {
-	int			index; // unnecessary?
-	door_pos_t	*door_positions;
-
-	int			num_keys_left; // is it needed?
-}				door_group_t;
+	int			index;
+	t_door_pos	*door_positions;
+	int			num_keys_left;
+}				t_door_group;
 
 //---- MINIMAP -----------------------------------------------------------------
 
 typedef struct minimap_s
 {
 	mlx_image_t	*img;
-	vector_t	pos;
-	dvector_t	player_pos;
+	t_vector	pos;
+	t_dvector	player_pos;
 	int			width;
 	int			height;
 	int			size_percentage;
@@ -222,19 +232,19 @@ typedef struct minimap_s
 	int			color_key_3;
 	int			color_key_4;
 	int			transparency;
-}			minimap_t;
+}			t_minimap;
 
 //---- RAY ---------------------------------------------------------------------
 
 typedef struct ray_s
 {
-	dvector_t	end;
+	t_dvector	end;
 	double		angle;
 	double		length;
 	char		target;
 	int			wall;
 	int			door_dir;
-}				ray_t;
+}				t_ray;
 
 //---- TRIANGLE ----------------------------------------------------------------
 
@@ -247,26 +257,26 @@ typedef struct triangle_s
 {
 	int			height;
 	int			base;
-	dvector_t	a;
-	dvector_t	b;
-	dvector_t	c;
-}				triangle_t;
+	t_dvector	a;
+	t_dvector	b;
+	t_dvector	c;
+}				t_triangle;
 
 //---- RECTANGLE ---------------------------------------------------------------
 
 typedef struct rectangle_s
 {
-	vector_t	pos;
+	t_vector	pos;
 	int			width;
 	int			height;
 	int			color;
-}				rectangle_t;
+}				t_rectangle;
 
 //---- SLIDER ------------------------------------------------------------------
 
 typedef struct slider_s
 {
-	vector_t	pos;
+	t_vector	pos;
 	int			width;
 	int			height;
 	int			length;
@@ -278,10 +288,10 @@ typedef struct slider_s
 	int			marker_min_pos;
 	int			marker_max_pos;
 	mlx_image_t	*marker;
-	vector_t	marker_pos;
+	t_vector	marker_pos;
 	int			marker_orig_pos;
 	int			on_marker;
-}				slider_t;
+}				t_slider;
 
 //---- BOX ---------------------------------------------------------------------
 
@@ -297,14 +307,14 @@ typedef struct slider_s
 typedef struct box_s
 {
 	mlx_image_t	*text;
-	vector_t	pos;
+	t_vector	pos;
 	int			size;
 	int			background_color;
 	int			border_width;
 	int			border_color;
 	int			value;
 	int			state;
-}				box_t;
+}				t_box;
 
 //---- BUTTON ------------------------------------------------------------------
 
@@ -317,14 +327,14 @@ typedef struct box_s
 typedef struct button_s
 {
 	mlx_image_t	*text;
-	vector_t	pos;
+	t_vector	pos;
 	int			width;
 	int			height;
 	int			background_color;
 	int			border_width;
 	int			border_color;
 	int			state;
-}				button_t;
+}				t_button;
 
 //---- PAUSE MENU --------------------------------------------------------------
 
@@ -344,8 +354,8 @@ typedef struct pause_menu_s
 {
 	mlx_image_t	*bg;
 	mlx_image_t	*menu;
-	vector_t	menu_pos;
-	png_t		title;
+	t_vector	menu_pos;
+	t_png		title;
 	mlx_image_t	*text_title;
 	mlx_image_t	*text_fps;
 	mlx_image_t	*text_fisheye;
@@ -365,11 +375,11 @@ typedef struct pause_menu_s
 	int			pos_row_2;
 	int			pos_row_3;
 	int			pos_row_4;
-	box_t		box_fps[4];
-	box_t		box_fisheye[2];
-	box_t		box_mouse[2];
-	slider_t	sensitivity_slider;
-}			pause_menu_t;
+	t_box		box_fps[4];
+	t_box		box_fisheye[2];
+	t_box		box_mouse[2];
+	t_slider	sensitivity_slider;
+}			t_pause_menu;
 
 //---- START MENU --------------------------------------------------------------
 
@@ -394,17 +404,17 @@ typedef struct pause_menu_s
 typedef struct start_menu_s
 {
 	mlx_image_t	*img;
-	png_t		title;
-	png_t		exit;
-	png_t		start;
-	png_t		level;
-	png_t		exit_hover;
-	png_t		start_hover;
-	png_t		level_hover;
-	png_t		arrow_exit;
-	png_t		arrow_start;
-	png_t		arrow_level;
-}				start_menu_t;
+	t_png		title;
+	t_png		exit;
+	t_png		start;
+	t_png		level;
+	t_png		exit_hover;
+	t_png		start_hover;
+	t_png		level_hover;
+	t_png		arrow_exit;
+	t_png		arrow_start;
+	t_png		arrow_level;
+}				t_start_menu;
 
 //---- LEVEL MENU --------------------------------------------------------------
 
@@ -427,27 +437,27 @@ typedef struct start_menu_s
 typedef struct minilevel_s
 {
 	mlx_image_t	*img;
-	vector_t	pos;
-	png_t		number;
-	rectangle_t	number_rect;
+	t_vector	pos;
+	t_png		number;
+	t_rectangle	number_rect;
 	int			size;
 	mlx_image_t	*border;
-	vector_t	preview_pos;
+	t_vector	preview_pos;
 	int			width;
 	int			height;
 	int			square_size;
-}				minilevel_t;
+}				t_minilevel;
 
 typedef struct level_menu_s
 {
 	mlx_image_t	*img;
-	png_t		title;
-	png_t		back;
-	png_t		leaderboard;
-	png_t		back_hover;
-	png_t		leaderboard_hover;
-	minilevel_t	minilevels[LEVELS];
-}				level_menu_t;
+	t_png		title;
+	t_png		back;
+	t_png		leaderboard;
+	t_png		back_hover;
+	t_png		leaderboard_hover;
+	t_minilevel	minilevels[LEVELS];
+}				t_level_menu;
 
 //---- LEADERBOARD -------------------------------------------------------------
 
@@ -457,13 +467,13 @@ typedef struct level_menu_s
 typedef struct leaderboard_s
 {
 	mlx_image_t	*img;
-	png_t		title;
-	png_t		back;
-	png_t		back_hover;
+	t_png		title;
+	t_png		back;
+	t_png		back_hover;
 	int			n_entries;
-	rectangle_t	rect_level[LEVELS];
+	t_rectangle	rect_level[LEVELS];
 	mlx_image_t	*text_level[LEVELS];
-}				leaderboard_t;
+}				t_leaderboard;
 
 // typedef struct settings_menu_s
 // {
@@ -482,7 +492,7 @@ typedef struct leaderboard_s
 # define ALPHABET_LENGTH 26
 # define NAME_BOX_GAP 5
 
-enum letters
+enum e_letters
 {
 	a,
 	b,
@@ -515,7 +525,7 @@ enum letters
 typedef struct letter_box_s
 {
 	char		letter[2];
-	vector_t	pos;
+	t_vector	pos;
 	int			width;
 	int			height;
 	int			background_color;
@@ -523,29 +533,29 @@ typedef struct letter_box_s
 	int			border_color;
 	int			value;
 	int			state;
-}				letter_box_t;
+}				t_letter_box;
 
 typedef struct name_menu_s
 {
-	mlx_image_t	*img;
-	png_t		title_win;
-	png_t		title_top3;
-	png_t		back;
-	png_t		back_hover;
-	png_t		timer;
-	char		time_str[9];
-	mlx_image_t	*text_time;
-	rectangle_t	rect_title;
-	rectangle_t	rect_input;
-	int			current;
-	char		letter;
-	mlx_image_t *letters_img[ALPHABET_LENGTH];
-	char		letter_str[ALPHABET_LENGTH + 1][2];
-	letter_box_t	box[MAX_NAME_LENGTH];
-	char		name[MAX_NAME_LENGTH + 1];
-	int			letter_index[MAX_NAME_LENGTH];
-	int			changed;
-}				name_menu_t;
+	mlx_image_t		*img;
+	t_png			title_win;
+	t_png			title_top3;
+	t_png			back;
+	t_png			back_hover;
+	t_png			timer;
+	char			time_str[9];
+	mlx_image_t		*text_time;
+	t_rectangle		rect_title;
+	t_rectangle		rect_input;
+	int				current;
+	char			letter;
+	mlx_image_t		*letters_img[ALPHABET_LENGTH];
+	char			letter_str[ALPHABET_LENGTH + 1][2];
+	t_letter_box	box[MAX_NAME_LENGTH];
+	char			name[MAX_NAME_LENGTH + 1];
+	int				letter_index[MAX_NAME_LENGTH];
+	int				changed;
+}				t_name_menu;
 
 //---- GAMEOVER MENU -----------------------------------------------------------
 
@@ -560,22 +570,22 @@ typedef struct name_menu_s
 typedef struct gameover_menu_s
 {
 	mlx_image_t	*img;
-	png_t		title_win;
-	png_t		title_gameover;
-	png_t		back;	
-	png_t		back_hover;
-	png_t		restart;
-	png_t		restart_hover;
-	png_t		arrow_back;
-	png_t		arrow_restart;
-	png_t		timer;
+	t_png		title_win;
+	t_png		title_gameover;
+	t_png		back;	
+	t_png		back_hover;
+	t_png		restart;
+	t_png		restart_hover;
+	t_png		arrow_back;
+	t_png		arrow_restart;
+	t_png		timer;
 	char		time_str[9];
 	mlx_image_t	*text_time;
-}				gameover_menu_t;
+}				t_gameover_menu;
 
 //---- SETTINGS ----------------------------------------------------------------
 
-enum fps
+enum e_fps
 {
 	FPS_15,
 	FPS_30,
@@ -591,7 +601,7 @@ typedef struct settings_s
 	int		fisheye;
 	int		mouse;
 	double	mouse_sensitivity;
-}			settings_t;
+}			t_settings;
 
 //---- TIMER -------------------------------------------------------------------
 
@@ -599,20 +609,20 @@ typedef struct gametimer_s
 {
 	mlx_image_t	*img_time;
 	char		*text_time;
-	vector_t	pos;
+	t_vector	pos;
 	double		start_timestamp;
 	double		pause_timestamp;
 	double		run_time;
 	double		delta_time;
-}				gametimer_t;
+}				t_gametimer;
 
 //---- MAPS --------------------------------------------------------------------
 
 typedef struct map_node_s
 {
 	char		*line;
-	map_node_t	*next;
-}			map_node_t;
+	t_map_node	*next;
+}			t_map_node;
 
 typedef struct record_s
 {
@@ -622,49 +632,49 @@ typedef struct record_s
 	mlx_image_t		*text_name;
 	mlx_image_t		*text_time;
 	struct record_s	*next;
-}			record_t;
+}			t_record;
 
 typedef struct distraction_s
 {
 	int			collected;
 	int			visible;
 	int			thrown;
-	dvector_t	pos;
-	vector_t	pos_screen;
+	t_dvector	pos;
+	t_vector	pos_screen;
 	double		dist_to_player;
 	mlx_image_t	*img_distraction;
 	//int			poison;
-}			distraction_t;
+}			t_distraction;
 
 typedef struct level_s
 {
 	char			**map;
 	char			**backup;
-	vector_t		starting_pos;
+	t_vector		starting_pos;
 	char			starting_dir;
 	int				map_rows;
 	int				map_columns;
-	map_node_t		*map_list;
+	t_map_node		*map_list;
 	int				nodes;
-	texture_t		texture[4];
-	texture_t		heart;
-	texture_t		heart_half;
-	texture_t		heart_empty;
+	t_texture		texture[4];
+	t_texture		heart;
+	t_texture		heart_half;
+	t_texture		heart_empty;
 	int				floor_color;
 	int				ceiling_color;
 	int				element_found[6];
-	door_group_t	door_groups[NUM_DOORS_MAX];
-	key_group_t		key_groups[NUM_DOORS_MAX];
-	distraction_t	*distractions;
+	t_door_group	door_groups[NUM_DOORS_MAX];
+	t_key_group		key_groups[NUM_DOORS_MAX];
+	t_distraction	*distractions;
 	int				num_distractions;
-	dvector_t		distraction;
+	t_dvector		distraction;
 	double			distraction_amount;
 	//int				num_poison;
-	record_t		*records;
+	t_record		*records;
 	mlx_image_t		*heart_img;
 	mlx_image_t		*heart_half_img;
 	mlx_image_t		*heart_empty_img;
-}			level_t;
+}			t_level;
 
 //---- HALO --------------------------------------------------------------------
 
@@ -674,7 +684,7 @@ typedef struct halo_s
 	int			active;
 	int			color;
 	double		timestamp;
-}				halo_t;
+}				t_halo;
 
 //---- HEARTS ------------------------------------------------------------------
 
@@ -685,32 +695,31 @@ typedef struct halo_s
 
 typedef struct heart_s
 {
-	png_t		full;
-	png_t		empty;
-}				heart_t;
-
+	t_png		full;
+	t_png		empty;
+}				t_heart;
 
 //---- SHROOM ------------------------------------------------------------------
 
 typedef struct shroom_s
 {
-	png_t		shroom;
+	t_png		shroom;
 	mlx_image_t	*text;
-}			shroom_t;
+}			t_shroom;
 
 //---- FISHEYE -----------------------------------------------------------------
 
-typedef struct fisheye_t
+typedef struct t_fisheye
 {
 	double		perp_dist;
-	dvector_t	orto_dir;
-	dvector_t	ray;
+	t_dvector	orto_dir;
+	t_dvector	ray;
 	double		proj_len;
-	dvector_t	ray_proj;
-	dvector_t	ray_perp;
+	t_dvector	ray_proj;
+	t_dvector	ray_perp;
 	double		view_fill_dist;
 	double		window_aspect_ratio;
-}				fisheye_t;
+}				t_fisheye;
 
 //---- FRUSTUM -----------------------------------------------------------------
 
@@ -720,31 +729,31 @@ typedef struct fisheye_t
 typedef struct frustum_s
 {
 	double		half_fov;
-	dvector_t	far_left;
-	dvector_t	far_right;
-	dvector_t	near_left;
-	dvector_t	near_right;
-	dvector_t	left;
-	dvector_t	right;
-}				frustum_t;
+	t_dvector	far_left;
+	t_dvector	far_right;
+	t_dvector	near_left;
+	t_dvector	near_right;
+	t_dvector	left;
+	t_dvector	right;
+}				t_frustum;
 
 //---- RAYCAST -----------------------------------------------------------------
 
-typedef struct	raycast_s
+typedef struct raycast_s
 {
-	dvector_t	v_ray_step_size;
-	dvector_t	v_ray_1d_length;
-	vector_t	v_map_check;
-	vector_t	v_step;
+	t_dvector	v_ray_step_size;
+	t_dvector	v_ray_1d_length;
+	t_vector	v_map_check;
+	t_vector	v_step;
 	double		dist;
 	double		delta;
-}				raycast_t;
+}				t_raycast;
 
 //---- CUB3D -------------------------------------------------------------------
 
 # define INTRO_PNG "./assets/textures/menu/intro.png"
 
-enum state
+enum e_state
 {
 	STATE_START,
 	STATE_LEVEL,
@@ -764,7 +773,7 @@ enum state
 # define NUM_ENEMY_DIRECTIONS 6
 # define NUM_DOOR_TEXTURES 5
 
-enum enemy_direction
+enum e_enemy_direction
 {
 	AWAY,
 	RIGHT,
@@ -785,42 +794,42 @@ typedef struct cub3d_s
 	double			delta_time;
 	double			pause_timestamp;
 	int				time_finished;
-	vector_t		mouse;
-	vector_t		mouse_set_pos;
+	t_vector		mouse;
+	t_vector		mouse_set_pos;
 	int				on_minimap;
-	vector_t		orig_minimap_pos;
-	keypress_t		keys;
-	player_t		player;
+	t_vector		orig_minimap_pos;
+	t_keypress		keys;
+	t_player		player;
 	double			fov;
-	minimap_t		minimap;
-	halo_t			halo;
-	heart_t			hearts[HEARTS];
-	ray_t			*rays;
+	t_minimap		minimap;
+	t_halo			halo;
+	t_heart			hearts[HEARTS];
+	t_ray			*rays;
 	int				state;
 	int				prev;
 	int				num_enemies;
-	start_menu_t	start_menu;
-	level_menu_t	level_menu;
-	leaderboard_t	leaderboard;
+	t_start_menu	start_menu;
+	t_level_menu	level_menu;
+	t_leaderboard	leaderboard;
 	// settings_menu_t	settings_menu;
-	pause_menu_t	pause_menu;
-	name_menu_t		name_menu;
-	gameover_menu_t	gameover_menu;
-	vector_t		back_button_pos;
-	settings_t		settings;
-	png_t			intro;
+	t_pause_menu	pause_menu;
+	t_name_menu		name_menu;
+	t_gameover_menu	gameover_menu;
+	t_vector		back_button_pos;
+	t_settings		settings;
+	t_png			intro;
 	int				intro_watched;
-	gametimer_t		timer;
+	t_gametimer		timer;
 	int				n_levels;
-	level_t			*levels;
-	level_t			*level;
+	t_level			*levels;
+	t_level			*level;
 	t_enemy			*enemy;
 	mlx_texture_t	*frames_idle[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_IDLE];
-	mlx_texture_t	*frames_walking[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_WALKING];
-	mlx_texture_t	*frames_hunting[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_ENEMY_HUNTING];
+	mlx_texture_t	*frames_walking[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_WALKING];
+	mlx_texture_t	*frames_hunting[NUM_ENEMY_DIRECTIONS][NUM_FRAMES_HUNTING];
 	mlx_texture_t	*distraction_texture;
 	mlx_texture_t	*distraction_thrown_texture;
-	shroom_t		*shroom;
+	t_shroom		*shroom;
 	int				curr_frame_index_hunting;
 	int				prev_frame_index_hunting;
 	int				curr_frame_index_walking;
@@ -830,12 +839,12 @@ typedef struct cub3d_s
 	double			prev_frame_update_timestamp;
 	int				speedrun;
 	int				draw_floor;
-	texture_t		floor;
-	texture_t		stars[NUM_FRAMES_STARS];
-	texture_t		door[NUM_DOOR_TEXTURES];
-	fisheye_t		fisheye;
-	frustum_t		frustum;
-	raycast_t		raycast;
-}					cub3d_t;
+	t_texture		floor;
+	t_texture		stars[NUM_FRAMES_STARS];
+	t_texture		door[NUM_DOOR_TEXTURES];
+	t_fisheye		fisheye;
+	t_frustum		frustum;
+	t_raycast		raycast;
+}					t_cub3d;
 
 #endif

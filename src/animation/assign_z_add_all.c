@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   assign_z_add_all.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:26:22 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 17:26:40 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	add_all_enemies(t_enemy **enemies, four_vector_t *indexes)
+void	add_all_enemies(t_enemy **enemies, t_four_vector *indexes)
 {
 	while (enemies[indexes->e])
 	{
@@ -22,8 +22,8 @@ void	add_all_enemies(t_enemy **enemies, four_vector_t *indexes)
 	}
 }
 
-void	add_all_distractions(distraction_t **distractions,
-	four_vector_t *indexes)
+void	add_all_distractions(t_distraction **distractions,
+	t_four_vector *indexes)
 {
 	while (distractions[indexes->d])
 	{
@@ -33,7 +33,7 @@ void	add_all_distractions(distraction_t **distractions,
 	}
 }
 
-void	add_all_keys(key_node_t **keys, four_vector_t *indexes)
+void	add_all_keys(t_key_node **keys, t_four_vector *indexes)
 {
 	while (keys[indexes->k])
 	{

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   update_pause_menu.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:46:23 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/14 20:02:51 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	update_settings(cub3d_t *cub3d, pause_menu_t *menu)
+void	update_settings(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ void	update_settings(cub3d_t *cub3d, pause_menu_t *menu)
 	cub3d->settings.mouse_sensitivity = get_sensitivity(cub3d);
 }
 
-void	update_fps_boxes(pause_menu_t *menu, int n)
+void	update_fps_boxes(t_pause_menu *menu, int n)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ void	update_fps_boxes(pause_menu_t *menu, int n)
 	}
 }
 
-void	update_fisheye_boxes(pause_menu_t *menu, int n)
+void	update_fisheye_boxes(t_pause_menu *menu, int n)
 {
 	int	i;
 
@@ -64,7 +64,7 @@ void	update_fisheye_boxes(pause_menu_t *menu, int n)
 	}
 }
 
-void	update_mouse_boxes(pause_menu_t *menu, int n)
+void	update_mouse_boxes(t_pause_menu *menu, int n)
 {
 	int	i;
 
@@ -78,7 +78,7 @@ void	update_mouse_boxes(pause_menu_t *menu, int n)
 	}
 }
 
-void	update_pause_settings(cub3d_t *cub3d, pause_menu_t *menu)
+void	update_pause_settings(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	int	i;
 

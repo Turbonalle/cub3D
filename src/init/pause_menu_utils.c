@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:05:33 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:41:11 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	load_png_pause_menu(pause_menu_t *menu)
+int	load_png_pause_menu(t_pause_menu *menu)
 {
 	menu->title.texture = mlx_load_png(PAUSE_PNG);
 	if (!menu->title.texture)
@@ -20,7 +20,7 @@ int	load_png_pause_menu(pause_menu_t *menu)
 	return (1);
 }
 
-int	init_images_pause_menu(mlx_t *mlx, pause_menu_t *menu)
+int	init_images_pause_menu(mlx_t *mlx, t_pause_menu *menu)
 {
 	menu->bg = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (!menu->bg)
@@ -34,7 +34,7 @@ int	init_images_pause_menu(mlx_t *mlx, pause_menu_t *menu)
 	return (SUCCESS);
 }
 
-int	init_sensitivity_slider(cub3d_t *cub3d, pause_menu_t *menu)
+int	init_sensitivity_slider(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	menu->sensitivity_slider.pos.x = menu->pos_col_box_1;
 	menu->sensitivity_slider.pos.y = menu->pos_row_4 + menu->box_fps[0].size
@@ -61,7 +61,7 @@ int	init_sensitivity_slider(cub3d_t *cub3d, pause_menu_t *menu)
 	return (SUCCESS);
 }
 
-void	init_settings(settings_t *settings)
+void	init_settings(t_settings *settings)
 {
 	settings->e_speed = 0;
 	settings->e_behaviour = 0;

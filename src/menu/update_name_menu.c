@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:22:28 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 10:44:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	update_letter(mlx_t *mlx, name_menu_t *menu, int *key, int i)
+int	update_letter(mlx_t *mlx, t_name_menu *menu, int *key, int i)
 {
 	*key = FALSE;
 	menu->name[menu->current] = i + 'a';
@@ -31,12 +31,12 @@ int	update_letter(mlx_t *mlx, name_menu_t *menu, int *key, int i)
 	return (1);
 }
 
-int	name_is_empty(name_menu_t *menu)
+int	name_is_empty(t_name_menu *menu)
 {
 	return (menu->name[0] == '\0');
 }
 
-void	submit_name(cub3d_t *cub3d, name_menu_t *menu)
+void	submit_name(t_cub3d *cub3d, t_name_menu *menu)
 {
 	int	i;
 
@@ -56,7 +56,7 @@ void	submit_name(cub3d_t *cub3d, name_menu_t *menu)
 	draw_times(cub3d->mlx, &cub3d->level->records, &cub3d->leaderboard, i);
 }
 
-void	update_name_menu(cub3d_t *cub3d, name_menu_t *menu)
+void	update_name_menu(t_cub3d *cub3d, t_name_menu *menu)
 {
 	if (hover_image(cub3d, menu->back.img))
 	{

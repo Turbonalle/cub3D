@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:56 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 14:22:29 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	free_info(char **info)
 	}
 }
 
-void	free_list(map_node_t *head)
+void	free_list(t_map_node *head)
 {
-	map_node_t	*temp;
+	t_map_node	*temp;
 
 	while (head)
 	{
@@ -44,7 +44,7 @@ void	free_list(map_node_t *head)
 	}
 }
 
-void	free_record(record_t *record)
+void	free_record(t_record *record)
 {
 	if (record)
 	{
@@ -54,9 +54,9 @@ void	free_record(record_t *record)
 	}
 }
 
-void	free_keys(key_node_t *head)
+void	free_keys(t_key_node *head)
 {
-	key_node_t	*temp;
+	t_key_node	*temp;
 
 	while (head)
 	{
@@ -66,9 +66,9 @@ void	free_keys(key_node_t *head)
 	}
 }
 
-void	free_doors(door_pos_t *head)
+void	free_doors(t_door_pos *head)
 {
-	door_pos_t	*temp;
+	t_door_pos	*temp;
 
 	while (head)
 	{

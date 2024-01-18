@@ -6,17 +6,17 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:15:10 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 16:17:18 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	add_door_pos(cub3d_t *cub3d, int i, int j, int door_group_index)
+int	add_door_pos(t_cub3d *cub3d, int i, int j, int door_group_index)
 {
-	door_pos_t	*new_pos;
+	t_door_pos	*new_pos;
 
-	new_pos = ft_calloc(1, sizeof(door_pos_t));
+	new_pos = ft_calloc(1, sizeof(t_door_pos));
 	if (!new_pos)
 		return (FAIL);
 	new_pos->pos.x = j;
@@ -26,7 +26,7 @@ int	add_door_pos(cub3d_t *cub3d, int i, int j, int door_group_index)
 	return (SUCCESS);
 }
 
-int	init_door(cub3d_t *cub3d, int i, int j, int door_group_index)
+int	init_door(t_cub3d *cub3d, int i, int j, int door_group_index)
 {
 	cub3d->level->door_groups[door_group_index].index = door_group_index;
 	if (add_door_pos(cub3d, i, j, door_group_index) == FAIL)
@@ -44,7 +44,7 @@ int	get_door_index(char symbol)
 	return (res);
 }
 
-void	init_door_values(cub3d_t *cub3d)
+void	init_door_values(t_cub3d *cub3d)
 {
 	int	i;
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_distractions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:28 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 21:35:19 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	position_distraction(distraction_t *distr, mlx_texture_t *texture,
+static void	position_distraction(t_distraction *distr, mlx_texture_t *texture,
 	double factor)
 {
 	distr->img_distraction->instances[0].x
@@ -21,11 +21,11 @@ static void	position_distraction(distraction_t *distr, mlx_texture_t *texture,
 		= distr->pos_screen.y - texture->height * factor * 1.5;
 }
 
-static void	scale_distraction(cub3d_t *cub3d, distraction_t *dist,
+static void	scale_distraction(t_cub3d *cub3d, t_distraction *dist,
 	mlx_texture_t *texture, double factor)
 {
-	uvector_t	src;
-	uvector_t	res;
+	t_uvector	src;
+	t_uvector	res;
 	int			ray;
 
 	dist->img_distraction->instances[0].enabled = TRUE;
@@ -51,7 +51,7 @@ static void	scale_distraction(cub3d_t *cub3d, distraction_t *dist,
 	position_distraction(dist, texture, factor);
 }
 
-static void	draw_distraction_frame(cub3d_t *cub3d, distraction_t *distr)
+static void	draw_distraction_frame(t_cub3d *cub3d, t_distraction *distr)
 {
 	double			scale_factor;
 	mlx_texture_t	*texture;
@@ -71,7 +71,7 @@ static void	draw_distraction_frame(cub3d_t *cub3d, distraction_t *distr)
 	);
 }
 
-void	draw_all_distractions(cub3d_t *cub3d, distraction_t **distractions)
+void	draw_all_distractions(t_cub3d *cub3d, t_distraction **distractions)
 {
 	int	i;
 

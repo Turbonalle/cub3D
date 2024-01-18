@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:16 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/12 11:05:17 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	load_heart_png(cub3d_t *cub3d)
+int	load_heart_png(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ int	load_heart_png(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	init_full_hearts(cub3d_t *cub3d)
+int	init_full_hearts(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -60,7 +60,7 @@ int	init_full_hearts(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	init_empty_hearts(cub3d_t *cub3d)
+int	init_empty_hearts(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -81,7 +81,7 @@ int	init_empty_hearts(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	set_heart_positions(cub3d_t *cub3d)
+int	set_heart_positions(t_cub3d *cub3d)
 {
 	int				i;
 	int				margin;
@@ -106,7 +106,7 @@ int	set_heart_positions(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-int	put_hearts_to_window(cub3d_t *cub3d)
+int	put_hearts_to_window(t_cub3d *cub3d)
 {
 	int	i;
 

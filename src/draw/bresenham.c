@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:17:31 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 15:18:01 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:37:42 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	set_delta_low_slope(vector_t *delta, vector_t start, vector_t end,
+static void	set_delta_low_slope(t_vector *delta, t_vector start, t_vector end,
 	int *yi)
 {
 	delta->x = end.x - start.x;
@@ -25,11 +25,11 @@ static void	set_delta_low_slope(vector_t *delta, vector_t start, vector_t end,
 	}
 }
 
-static void	bresenham_low_slope(mlx_image_t *img, vector_t start, vector_t end,
+static void	bresenham_low_slope(mlx_image_t *img, t_vector start, t_vector end,
 	int color)
 {
-	vector_t	delta;
-	vector_t	pixel;
+	t_vector	delta;
+	t_vector	pixel;
 	int			yi;
 	int			decision_var;
 
@@ -53,7 +53,7 @@ static void	bresenham_low_slope(mlx_image_t *img, vector_t start, vector_t end,
 	}
 }
 
-static void	set_delta_high_slope(vector_t *delta, vector_t start, vector_t end,
+static void	set_delta_high_slope(t_vector *delta, t_vector start, t_vector end,
 	int *xi)
 {
 	delta->x = end.x - start.x;
@@ -66,11 +66,11 @@ static void	set_delta_high_slope(vector_t *delta, vector_t start, vector_t end,
 	}
 }
 
-static void	bresenham_high_slope(mlx_image_t *img, vector_t start, vector_t end,
+static void	bresenham_high_slope(mlx_image_t *img, t_vector start, t_vector end,
 	int color)
 {
-	vector_t	delta;
-	vector_t	pixel;
+	t_vector	delta;
+	t_vector	pixel;
 	int			xi;
 	int			decision_var;
 
@@ -94,7 +94,7 @@ static void	bresenham_high_slope(mlx_image_t *img, vector_t start, vector_t end,
 	}
 }
 
-void	bresenham(mlx_image_t *img, vector_t start, vector_t end, int color)
+void	bresenham(mlx_image_t *img, t_vector start, t_vector end, int color)
 {
 	if (abs(end.y - start.y) < abs(end.x - start.x))
 	{

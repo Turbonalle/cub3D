@@ -6,20 +6,20 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:34:26 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 12:34:58 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	ray_to_distraction(cub3d_t *cub3d, double dir_to_distraction,
+static int	ray_to_distraction(t_cub3d *cub3d, double dir_to_distraction,
 	double max_dist)
 {
-	dvector_t		v_ray_step_size;
-	dvector_t		v_ray_1d_length;
-	vector_t		v_map_check;
-	vector_t		v_step;
-	ray_t			*ray;
+	t_dvector		v_ray_step_size;
+	t_dvector		v_ray_1d_length;
+	t_vector		v_map_check;
+	t_vector		v_step;
+	t_ray			*ray;
 
 	v_map_check.x = (int)cub3d->player.pos.x;
 	v_map_check.y = (int)cub3d->player.pos.y;
@@ -41,7 +41,7 @@ static int	ray_to_distraction(cub3d_t *cub3d, double dir_to_distraction,
 	return (1);
 }
 
-int	do_distraction_max_smaller(cub3d_t *cub3d, double dir_to_distraction,
+int	do_distraction_max_smaller(t_cub3d *cub3d, double dir_to_distraction,
 	double max_dist)
 {
 	double	angle_min;
@@ -57,7 +57,7 @@ int	do_distraction_max_smaller(cub3d_t *cub3d, double dir_to_distraction,
 	return (SUCCESS);
 }
 
-int	do_distraction_min_smaller(cub3d_t *cub3d, double dir_to_distraction,
+int	do_distraction_min_smaller(t_cub3d *cub3d, double dir_to_distraction,
 	double max_dist)
 {
 	double	angle_min;
@@ -73,7 +73,7 @@ int	do_distraction_min_smaller(cub3d_t *cub3d, double dir_to_distraction,
 	return (SUCCESS);
 }
 
-void	see_distraction(cub3d_t *cub3d, double dir_to_distraction, int i)
+void	see_distraction(t_cub3d *cub3d, double dir_to_distraction, int i)
 {
 	double	angle_min;
 	double	angle_max;

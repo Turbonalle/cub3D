@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_init_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:59:50 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 00:13:51 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	init_frame_group(mlx_texture_t **frames_array, char *path)
 	return (SUCCESS);
 }
 
-int	init_enemy_frames(cub3d_t *cub3d)
+int	init_enemy_frames(t_cub3d *cub3d)
 {
 	int		dir_index;
 	char	*idle_file_paths[6];
@@ -75,7 +75,7 @@ int	init_enemy_frames(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-static void	init_frame_indexes(cub3d_t *cub3d)
+static void	init_frame_indexes(t_cub3d *cub3d)
 {
 	cub3d->curr_frame_index_idle = 0;
 	cub3d->prev_frame_index_idle = 0;
@@ -85,7 +85,7 @@ static void	init_frame_indexes(cub3d_t *cub3d)
 	cub3d->prev_frame_index_hunting = 0;
 }
 
-int	init_enemy(cub3d_t *cub3d)
+int	init_enemy(t_cub3d *cub3d)
 {
 	int	i;
 

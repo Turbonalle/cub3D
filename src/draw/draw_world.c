@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   draw_world.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:16:00 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 14:43:19 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:47:26 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static double	fisheye_correction(cub3d_t *cub3d,
-	fisheye_t *fisheye,
+static double	fisheye_correction(t_cub3d *cub3d,
+	t_fisheye *fisheye,
 	int index)
 {
 	fisheye->orto_dir.x = sin(cub3d->player.angle);
@@ -42,7 +42,7 @@ static int	is_texture(char wall)
 		|| wall == 'O' || wall == 'G');
 }
 
-static void	set_height(cub3d_t *cub3d, int index, double *height, int *close)
+static void	set_height(t_cub3d *cub3d, int index, double *height, int *close)
 {
 	*close = FALSE;
 	if (cub3d->rays[index].length < 0)
@@ -62,7 +62,7 @@ static void	set_height(cub3d_t *cub3d, int index, double *height, int *close)
 	}
 }
 
-static void	set_end(cub3d_t *cub3d, dvector_t *end, int index, double height)
+static void	set_end(t_cub3d *cub3d, t_dvector *end, int index, double height)
 {
 	end->x = index;
 	end->y = (cub3d->img->height + height) / 2;
@@ -70,13 +70,13 @@ static void	set_end(cub3d_t *cub3d, dvector_t *end, int index, double height)
 		end->y--;
 }
 
-void	draw_world(cub3d_t *cub3d)
+void	draw_world(t_cub3d *cub3d)
 {
 	int			index;
 	int			close;
 	double		height;
-	dvector_t	start;
-	dvector_t	end;
+	t_dvector	start;
+	t_dvector	end;
 
 	if (cub3d->draw_floor)
 		draw_floor(cub3d, &cub3d->frustum);

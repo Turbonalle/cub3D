@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:58:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 13:59:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-char	*create_minutes_str(cub3d_t *cub3d)
+char	*create_minutes_str(t_cub3d *cub3d)
 {
 	int		minutes;
 	char	*minutes_str;
@@ -33,7 +33,7 @@ char	*create_minutes_str(cub3d_t *cub3d)
 	return (minutes_str);
 }
 
-char	*create_seconds_str(cub3d_t *cub3d)
+char	*create_seconds_str(t_cub3d *cub3d)
 {
 	int		seconds;
 	char	*seconds_str;
@@ -54,7 +54,7 @@ char	*create_seconds_str(cub3d_t *cub3d)
 	return (seconds_str);
 }
 
-char	*create_hundredths_str(cub3d_t *cub3d)
+char	*create_hundredths_str(t_cub3d *cub3d)
 {
 	int		hundredths;
 	char	*hundredths_str;
@@ -74,7 +74,7 @@ char	*create_hundredths_str(cub3d_t *cub3d)
 	return (hundredths_str);
 }
 
-void	create_timer_text(cub3d_t *cub3d, char *minutes_str,
+void	create_timer_text(t_cub3d *cub3d, char *minutes_str,
 	char *seconds_str, char *hundredths_str)
 {
 	char	*temp;
@@ -95,7 +95,7 @@ void	create_timer_text(cub3d_t *cub3d, char *minutes_str,
 	free_three_strs(minutes_str, seconds_str, hundredths_str);
 }
 
-void	update_timer(cub3d_t *cub3d)
+void	update_timer(t_cub3d *cub3d)
 {
 	char	*minutes_str;
 	char	*seconds_str;

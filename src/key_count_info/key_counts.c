@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   key_counts.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:00:55 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 18:07:41 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	draw_door_open(cub3d_t *cub3d, int index)
+static void	draw_door_open(t_cub3d *cub3d, int index)
 {
 	mlx_delete_image(cub3d->mlx,
 		cub3d->level->key_groups[index].img_text_key_count);
@@ -25,7 +25,7 @@ static void	draw_door_open(cub3d_t *cub3d, int index)
 			+ cub3d->mlx->height * 0.01);
 }
 
-static char	*get_key_count_text(cub3d_t *cub3d, int index)
+static char	*get_key_count_text(t_cub3d *cub3d, int index)
 {
 	char	*text_collected;
 	char	*text_collected_slash;
@@ -54,7 +54,7 @@ static char	*get_key_count_text(cub3d_t *cub3d, int index)
 	return (text);
 }
 
-static int	draw_key_count(cub3d_t *cub3d, int index)
+static int	draw_key_count(t_cub3d *cub3d, int index)
 {
 	char	*text;
 
@@ -75,7 +75,7 @@ static int	draw_key_count(cub3d_t *cub3d, int index)
 	return (1);
 }
 
-int	draw_key_counts(cub3d_t *cub3d)
+int	draw_key_counts(t_cub3d *cub3d)
 {
 	int	index;
 

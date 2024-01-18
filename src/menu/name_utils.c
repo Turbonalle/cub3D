@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:47:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 17:48:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	get_letter_first_third(cub3d_t *cub3d, name_menu_t *menu)
+int	get_letter_first_third(t_cub3d *cub3d, t_name_menu *menu)
 {
 	if (cub3d->keys.a)
 		return (update_letter(cub3d->mlx, menu, &cub3d->keys.a, a));
@@ -40,7 +40,7 @@ int	get_letter_first_third(cub3d_t *cub3d, name_menu_t *menu)
 		return (0);
 }
 
-int	get_letter_second_third(cub3d_t *cub3d, name_menu_t *menu)
+int	get_letter_second_third(t_cub3d *cub3d, t_name_menu *menu)
 {
 	if (cub3d->keys.l)
 		return (update_letter(cub3d->mlx, menu, &cub3d->keys.l, l));
@@ -64,7 +64,7 @@ int	get_letter_second_third(cub3d_t *cub3d, name_menu_t *menu)
 		return (0);
 }
 
-int	get_letter_last_third(cub3d_t *cub3d, name_menu_t *menu)
+int	get_letter_last_third(t_cub3d *cub3d, t_name_menu *menu)
 {
 	if (cub3d->keys.u)
 		return (update_letter(cub3d->mlx, menu, &cub3d->keys.u, u));
@@ -82,7 +82,7 @@ int	get_letter_last_third(cub3d_t *cub3d, name_menu_t *menu)
 		return (0);
 }
 
-void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu)
+void	handle_backspace(t_cub3d *cub3d, t_name_menu *menu)
 {
 	int	letter;
 	int	index;
@@ -101,9 +101,9 @@ void	handle_backspace(cub3d_t *cub3d, name_menu_t *menu)
 	}
 }
 
-void	remove_record_image_pointers(cub3d_t *cub3d)
+void	remove_record_image_pointers(t_cub3d *cub3d)
 {
-	record_t	*ptr;
+	t_record	*ptr;
 
 	ptr = cub3d->level->records;
 	while (ptr)

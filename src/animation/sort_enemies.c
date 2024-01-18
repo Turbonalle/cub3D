@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_enemies.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:50 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 12:04:25 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	count_visible_enemies(cub3d_t *cub3d)
+static int	count_visible_enemies(t_cub3d *cub3d)
 {
 	int	count;
 	int	i;
@@ -28,7 +28,7 @@ static int	count_visible_enemies(cub3d_t *cub3d)
 	return (count);
 }
 
-static void	fill_visible_enemies_array(cub3d_t *cub3d, t_enemy **enemies)
+static void	fill_visible_enemies_array(t_cub3d *cub3d, t_enemy **enemies)
 {
 	int	i;
 	int	j;
@@ -74,7 +74,7 @@ static void	sort_enemies_by_dist_to_player(t_enemy **enemies)
 	}
 }
 
-t_enemy	**create_array_of_enemies_ordered_by_dist(cub3d_t *cub3d)
+t_enemy	**create_array_of_enemies_ordered_by_dist(t_cub3d *cub3d)
 {
 	t_enemy		**enemies;
 	int			count;

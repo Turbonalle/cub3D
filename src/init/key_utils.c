@@ -6,17 +6,17 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:21:11 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 16:27:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
+int	add_key(t_cub3d *cub3d, int i, int j, int key_group_index)
 {
-	key_node_t	*new_key;
+	t_key_node	*new_key;
 
-	new_key = ft_calloc(1, sizeof(key_node_t));
+	new_key = ft_calloc(1, sizeof(t_key_node));
 	if (!new_key)
 		return (FAIL);
 	new_key->pos.x = j + 0.5;
@@ -27,7 +27,7 @@ int	add_key(cub3d_t *cub3d, int i, int j, int key_group_index)
 	return (SUCCESS);
 }
 
-int	init_key(cub3d_t *cub3d, int i, int j, int key_group_index)
+int	init_key(t_cub3d *cub3d, int i, int j, int key_group_index)
 {
 	if (add_key(cub3d, i, j, key_group_index) == FAIL)
 		return (FAIL);
@@ -48,7 +48,7 @@ int	get_key_index(char symbol)
 	return (res);
 }
 
-int	load_door_textures(cub3d_t *cub3d)
+int	load_door_textures(t_cub3d *cub3d)
 {
 	cub3d->level->key_groups[0].texture_key_icon = mlx_load_png(TEXTURE_KEY_1);
 	if (!cub3d->level->key_groups[0].texture_key_icon)
@@ -69,7 +69,7 @@ int	load_door_textures(cub3d_t *cub3d)
 	return (1);
 }
 
-int	set_indexes(cub3d_t *cub3d, int i)
+int	set_indexes(t_cub3d *cub3d, int i)
 {
 	int	j;
 	int	door_key_index;

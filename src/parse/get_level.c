@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_level.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:42:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/14 16:47:35 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	find_member_of_set_from_string(char *set, char *string)
 
 //------------------------------------------------------------------------------
 
-int	get_preliminary_map(level_t *level, int fd)
+int	get_preliminary_map(t_level *level, int fd)
 {
-	map_node_t	*current_map_node;
+	t_map_node	*current_map_node;
 	char		*line;
 
 	level->map_list = NULL;
@@ -60,10 +60,10 @@ int	get_preliminary_map(level_t *level, int fd)
 
 //------------------------------------------------------------------------------
 
-int	get_starting_point(level_t *level)
+int	get_starting_point(t_level *level)
 {
 	int			starting_point_found;
-	vector_t	pos;
+	t_vector	pos;
 
 	starting_point_found = FALSE;
 	pos.y = -1;
@@ -91,7 +91,7 @@ int	get_starting_point(level_t *level)
 
 //------------------------------------------------------------------------------
 
-int	get_map(level_t *level, int fd)
+int	get_map(t_level *level, int fd)
 {
 	if (!get_preliminary_map(level, fd))
 		return (FAIL);
@@ -102,7 +102,7 @@ int	get_map(level_t *level, int fd)
 	return (SUCCESS);
 }
 
-int	read_cub_file(level_t *level, char *map_path)
+int	read_cub_file(t_level *level, char *map_path)
 {
 	int	fd;
 

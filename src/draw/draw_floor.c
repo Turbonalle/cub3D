@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   draw_floor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:10:56 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 14:11:13 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:47:10 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	draw_horizon(cub3d_t *cub3d)
+static void	draw_horizon(t_cub3d *cub3d)
 {
-	dvector_t	horizon_left;
-	dvector_t	horizon_right;
+	t_dvector	horizon_left;
+	t_dvector	horizon_right;
 
 	horizon_left.x = 0;
 	horizon_left.y = cub3d->img->height / 2;
@@ -24,7 +24,7 @@ static void	draw_horizon(cub3d_t *cub3d)
 	draw_line(cub3d->img, horizon_left, horizon_right, BLACK);
 }
 
-static void	set_frustum(cub3d_t *cub3d, frustum_t *frustum)
+static void	set_frustum(t_cub3d *cub3d, t_frustum *frustum)
 {
 	frustum->half_fov = to_radians(cub3d->fov / 2);
 	frustum->far_left.x = cub3d->player.pos.x + FRUSTUM_FAR
@@ -45,7 +45,7 @@ static void	set_frustum(cub3d_t *cub3d, frustum_t *frustum)
 		* sin(cub3d->player.angle + frustum->half_fov);
 }
 
-static void	set_frustum_vectors(cub3d_t *cub3d, frustum_t *frustum, int y)
+static void	set_frustum_vectors(t_cub3d *cub3d, t_frustum *frustum, int y)
 {
 	double	sample_height;
 
@@ -70,11 +70,11 @@ static void	set_frustum_vectors(cub3d_t *cub3d, frustum_t *frustum, int y)
 	}
 }
 
-static int	get_floor_color(cub3d_t *cub3d, frustum_t *frustum, int x)
+static int	get_floor_color(t_cub3d *cub3d, t_frustum *frustum, int x)
 {
 	double		sample_width;
-	dvector_t	d_sample;
-	vector_t	sample;
+	t_dvector	d_sample;
+	t_vector	sample;
 	int			color;
 
 	sample_width = (double)x / (double)cub3d->img->width;
@@ -90,7 +90,7 @@ static int	get_floor_color(cub3d_t *cub3d, frustum_t *frustum, int x)
 	return (color);
 }
 
-void	draw_floor(cub3d_t *cub3d, frustum_t *frustum)
+void	draw_floor(t_cub3d *cub3d, t_frustum *frustum)
 {
 	int	y;
 	int	x;

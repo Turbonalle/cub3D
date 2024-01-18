@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_button.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:11:36 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 14:11:56 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:45 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_button(mlx_image_t *img, button_t *button)
+void	draw_button(mlx_image_t *img, t_button *button)
 {
 	int	row;
 	int	column;

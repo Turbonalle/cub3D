@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:18:38 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 13:18:41 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	set_thrown_shroom(distraction_t *distractions, int i, ray_t *ray)
+void	set_thrown_shroom(t_distraction *distractions, int i, t_ray *ray)
 {
 	distractions[i].pos.x = ray->end.x;
 	distractions[i].pos.y = ray->end.y;
@@ -24,8 +24,8 @@ void	set_thrown_shroom(distraction_t *distractions, int i, ray_t *ray)
 	distractions[i].dist_to_player = 100;
 }
 
-void	cause_distraction_rest(cub3d_t *cub3d, distraction_t *distractions,
-	int num_distractions, ray_t *ray)
+void	cause_distraction_rest(t_cub3d *cub3d, t_distraction *distractions,
+	int num_distractions, t_ray *ray)
 {
 	if (cub3d->player.thrown)
 		distractions[num_distractions].img_distraction->instances[0].enabled
@@ -39,11 +39,11 @@ void	cause_distraction_rest(cub3d_t *cub3d, distraction_t *distractions,
 	draw_shroom_count(cub3d);
 }
 
-void	cause_distraction(cub3d_t *cub3d)
+void	cause_distraction(t_cub3d *cub3d)
 {
-	ray_t	*ray;
+	t_ray	*ray;
 
-	ray = malloc(sizeof(ray_t));
+	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		return ;
 	ray->angle = cub3d->player.angle;
@@ -62,7 +62,7 @@ void	cause_distraction(cub3d_t *cub3d)
 	free(ray);
 }
 
-static int	check_angles(cub3d_t *cub3d, int i, double dir_to_distraction)
+static int	check_angles(t_cub3d *cub3d, int i, double dir_to_distraction)
 {
 	double	angle_min;
 	double	angle_max;
@@ -84,9 +84,9 @@ static int	check_angles(cub3d_t *cub3d, int i, double dir_to_distraction)
 	return (0);
 }
 
-int	distraction(cub3d_t *cub3d, int i)
+int	distraction(t_cub3d *cub3d, int i)
 {
-	dvector_t	distraction;
+	t_dvector	distraction;
 	double		dir_to_distraction;
 	double		at_target;
 

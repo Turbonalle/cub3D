@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:14:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 12:15:32 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	count_enemies(cub3d_t *cub3d)
+void	count_enemies(t_cub3d *cub3d)
 {
 	int	i;
 	int	j;
@@ -32,11 +32,11 @@ void	count_enemies(cub3d_t *cub3d)
 	}
 }
 
-int	init_rays(cub3d_t *cub3d)
+int	init_rays(t_cub3d *cub3d)
 {
 	int	i;
 
-	cub3d->rays = malloc(sizeof(ray_t) * WIDTH);
+	cub3d->rays = malloc(sizeof(t_ray) * WIDTH);
 	if (!cub3d->rays)
 		return (FAIL);
 	i = -1;
@@ -53,7 +53,7 @@ int	init_rays(cub3d_t *cub3d)
 	return (SUCCESS);
 }
 
-void	set_initial_direction(cub3d_t *cub3d)
+void	set_initial_direction(t_cub3d *cub3d)
 {
 	if (cub3d->level->starting_dir == 'E')
 		cub3d->player.angle = to_radians(0);
@@ -67,7 +67,7 @@ void	set_initial_direction(cub3d_t *cub3d)
 	cub3d->player.dir.y = sin(cub3d->player.angle);
 }
 
-void	set_keys_rest(keypress_t *keys)
+void	set_keys_rest(t_keypress *keys)
 {
 	keys->n = FALSE;
 	keys->m = FALSE;
@@ -84,7 +84,7 @@ void	set_keys_rest(keypress_t *keys)
 	keys->mouse_right = FALSE;
 }
 
-void	set_keys(keypress_t *keys)
+void	set_keys(t_keypress *keys)
 {
 	keys->q = FALSE;
 	keys->w = FALSE;

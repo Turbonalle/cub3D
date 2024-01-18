@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:29:57 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 15:30:00 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:52:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	set_positions(pause_menu_t *menu)
+static void	set_positions(t_pause_menu *menu)
 {
 	int	gap_x;
 	int	gap_y;
@@ -36,7 +36,7 @@ static void	set_positions(pause_menu_t *menu)
 	menu->pos_row_4 = menu->pos_row_3 + gap_y;
 }
 
-static int	put_images_to_window(mlx_t *mlx, pause_menu_t *menu)
+static int	put_images_to_window(mlx_t *mlx, t_pause_menu *menu)
 {
 	if (mlx_image_to_window(mlx, menu->bg, 0, 0) < 0)
 		return (err("Failed to put image to window"));
@@ -49,7 +49,7 @@ static int	put_images_to_window(mlx_t *mlx, pause_menu_t *menu)
 	return (SUCCESS);
 }
 
-void	draw_pause(cub3d_t *cub3d, pause_menu_t *menu)
+void	draw_pause(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	update_settings(cub3d, menu);
 	draw_background(menu->bg, set_transparency(PAUSE_MENU_BACKGROUND_COLOR,
@@ -62,7 +62,7 @@ void	draw_pause(cub3d_t *cub3d, pause_menu_t *menu)
 	disable_pause_menu(cub3d->mlx, menu);
 }
 
-int	init_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+int	init_pause_menu(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	if (!load_png_pause_menu(menu))
 		return (0);

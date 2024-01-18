@@ -6,16 +6,16 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:16:11 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 13:16:30 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	see_keys(cub3d_t *cub3d, int i)
+static void	see_keys(t_cub3d *cub3d, int i)
 {
 	double		dir_to_key;
-	key_node_t	*temp;
+	t_key_node	*temp;
 
 	temp = cub3d->level->key_groups[i].keys;
 	while (temp)
@@ -28,7 +28,7 @@ static void	see_keys(cub3d_t *cub3d, int i)
 	}
 }
 
-static void	check_distraction(cub3d_t *cub3d, int i)
+static void	check_distraction(t_cub3d *cub3d, int i)
 {
 	double		dir_to_distraction;
 
@@ -39,7 +39,7 @@ static void	check_distraction(cub3d_t *cub3d, int i)
 		see_distraction(cub3d, dir_to_distraction, i);
 }
 
-void	draw_enemies(cub3d_t *cub3d)
+void	draw_enemies(t_cub3d *cub3d)
 {
 	int	i;
 

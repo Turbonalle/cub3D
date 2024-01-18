@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_freeing_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:53:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 23:54:37 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:56:53 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	free_enemy_frames(cub3d_t *cub3d)
+void	free_enemy_frames(t_cub3d *cub3d)
 {
 	int	i;
 	int	j;
@@ -25,11 +25,11 @@ void	free_enemy_frames(cub3d_t *cub3d)
 			if (cub3d->frames_idle[i][j])
 				mlx_delete_texture(cub3d->frames_idle[i][j++]);
 		j = 0;
-		while (j < NUM_FRAMES_ENEMY_WALKING)
+		while (j < NUM_FRAMES_WALKING)
 			if (cub3d->frames_walking[i][j])
 				mlx_delete_texture(cub3d->frames_walking[i][j++]);
 		j = 0;
-		while (j < NUM_FRAMES_ENEMY_HUNTING)
+		while (j < NUM_FRAMES_HUNTING)
 			if (cub3d->frames_hunting[i][j])
 				mlx_delete_texture(cub3d->frames_hunting[i][j++]);
 		i++;
@@ -86,7 +86,7 @@ static int	handle_message(int i)
 	return (handle_message_extra(i));
 }
 
-static void	free_levels(cub3d_t *cub3d)
+static void	free_levels(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -101,7 +101,7 @@ static void	free_levels(cub3d_t *cub3d)
 	free(cub3d->levels);
 }
 
-int	free_all(cub3d_t *cub3d, int i)
+int	free_all(t_cub3d *cub3d, int i)
 {
 	free_records(cub3d);
 	free_levels(cub3d);

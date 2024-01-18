@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:01:52 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/17 15:11:06 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:38:02 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d,
+void	draw_line(mlx_image_t *img, t_dvector start_d, t_dvector end_d,
 	int color)
 {
-	vector_t	start;
-	vector_t	end;
+	t_vector	start;
+	t_vector	end;
 
 	start.x = start_d.x;
 	start.y = start_d.y;
@@ -32,7 +32,7 @@ void	draw_line(mlx_image_t *img, dvector_t start_d, dvector_t end_d,
 	bresenham(img, start, end, color);
 }
 
-void	draw_vertical_line(mlx_image_t *img, dvector_t start, dvector_t end,
+void	draw_vertical_line(mlx_image_t *img, t_dvector start, t_dvector end,
 	int color)
 {
 	int	y;

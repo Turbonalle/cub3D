@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:08 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 15:43:38 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,23 @@ int	all_elements_found(int *element_found)
 	return (SUCCESS);
 }
 
-int	get_element(level_t *level, int element, char **info)
+int	get_element(t_level *level, int element, char **info)
 {
 	if (level->element_found[element])
 		return (free_info(info), err("Duplicate element found"));
 	level->element_found[element] = 1;
+	if (element == F || element == C)
+	{
+		if (!color_comma_checker(info[1]))
+			return (free_info(info), FAIL);
+	}
 	if (element == F || element == C)
 		return (get_color(level, element, info));
 	else
 		return (get_texture(level, element, info));
 }
 
-int	find_element(level_t *level, char *line)
+int	find_element(t_level *level, char *line)
 {
 	char	**info;
 
@@ -70,7 +75,7 @@ void	remove_newline(char *line)
 	}
 }
 
-int	get_elements(level_t *level, int fd)
+int	get_elements(t_level *level, int fd)
 {
 	char	*line;
 	int		i;

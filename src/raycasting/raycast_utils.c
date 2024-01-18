@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:00:01 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 12:49:35 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	raycasting(cub3d_t *cub3d)
+void	raycasting(t_cub3d *cub3d)
 {
 	double			fov_start;
 	double			max_dist;
@@ -32,7 +32,7 @@ void	raycasting(cub3d_t *cub3d)
 	}
 }
 
-void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
+void	set_wall_direction(t_ray *ray, t_player *player, int wall_flag)
 {
 	if (wall_flag == X && player->pos.x < ray->end.x)
 		ray->wall = WE;
@@ -44,7 +44,7 @@ void	set_wall_direction(ray_t *ray, player_t *player, int wall_flag)
 		ray->wall = SO;
 }
 
-void	set_door_direction(ray_t *ray, player_t *player, int wall_flag)
+void	set_door_direction(t_ray *ray, t_player *player, int wall_flag)
 {
 	if (wall_flag == X && player->pos.x < ray->end.x)
 		ray->door_dir = WE;
@@ -57,7 +57,7 @@ void	set_door_direction(ray_t *ray, player_t *player, int wall_flag)
 	ray->wall = ray->target;
 }
 
-static void	reveal_hidden(cub3d_t *cub3d, vector_t v_map_check)
+static void	reveal_hidden(t_cub3d *cub3d, t_vector v_map_check)
 {
 	if (v_map_check.x >= 0 && v_map_check.x
 		< cub3d->level->map_columns && v_map_check.y >= 0
@@ -76,12 +76,12 @@ static void	reveal_hidden(cub3d_t *cub3d, vector_t v_map_check)
 		cub3d->level->map[v_map_check.y][v_map_check.x] = '1';
 }
 
-void	raycast(cub3d_t *cub3d, player_t *player, ray_t *ray, double max_dist)
+void	raycast(t_cub3d *cub3d, t_player *player, t_ray *ray, double max_dist)
 {
-	dvector_t	d_step;
-	dvector_t	ray_len;
-	vector_t	v_map_check;
-	vector_t	v_step;
+	t_dvector	d_step;
+	t_dvector	ray_len;
+	t_vector	v_map_check;
+	t_vector	v_step;
 	int			wall_flag;
 
 	d_step = init_step_size(ray->angle);

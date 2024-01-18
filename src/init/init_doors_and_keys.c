@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:15:13 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/16 16:55:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	init_key_frames(key_group_t *key_group)
+int	init_key_frames(t_key_group *key_group)
 {
 	int		i;
 	char	*file_path;
@@ -41,7 +41,7 @@ int	init_key_frames(key_group_t *key_group)
 	return (SUCCESS);
 }
 
-int	create_images(cub3d_t *cub3d, int i, int active_key_groups)
+int	create_images(t_cub3d *cub3d, int i, int active_key_groups)
 {
 	cub3d->level->key_groups[i].key_icon_coords.x = cub3d->mlx->width * 0.035;
 	cub3d->level->key_groups[i].key_icon_coords.y = cub3d->mlx->height * 0.907
@@ -62,7 +62,7 @@ int	create_images(cub3d_t *cub3d, int i, int active_key_groups)
 	return (SUCCESS);
 }
 
-int	init_doors_and_keys(cub3d_t *cub3d)
+int	init_doors_and_keys(t_cub3d *cub3d)
 {
 	int	i;
 	int	count;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_level_color.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:09:07 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 11:08:17 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:24 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	set_color(level_t *level, int element, int color)
+void	set_color(t_level *level, int element, int color)
 {
 	if (element == F)
 		level->floor_color = color;
@@ -20,7 +20,7 @@ void	set_color(level_t *level, int element, int color)
 		level->ceiling_color = color;
 }
 
-static int	color_comma_checker(char *info)
+int	color_comma_checker(char *info)
 {
 	int	i;
 	int	comma;
@@ -43,15 +43,13 @@ static int	color_comma_checker(char *info)
 	return (SUCCESS);
 }
 
-int	get_color(level_t *level, int element, char **info)
+int	get_color(t_level *level, int element, char **info)
 {
 	int		i;
 	int		color_part;
 	int		color;
 	char	**rgb;
 
-	if (!color_comma_checker(info[1]))
-		return (free_info(info), FAIL);
 	rgb = ft_split(info[1], ',');
 	free_info(info);
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])

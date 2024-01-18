@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_keys.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:53 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 12:03:58 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	count_not_collected_visible_keys(key_node_t	*keys)
+static int	count_not_collected_visible_keys(t_key_node	*keys)
 {
 	int	count;
 
@@ -26,7 +26,7 @@ static int	count_not_collected_visible_keys(key_node_t	*keys)
 	return (count);
 }
 
-static int	count_all_not_collected_visible_keys(cub3d_t *cub3d)
+static int	count_all_not_collected_visible_keys(t_cub3d *cub3d)
 {
 	int			count;
 	int			i;
@@ -42,11 +42,11 @@ static int	count_all_not_collected_visible_keys(cub3d_t *cub3d)
 	return (count);
 }
 
-static void	sort_keys_by_dist_to_player(key_node_t **keys)
+static void	sort_keys_by_dist_to_player(t_key_node **keys)
 {
 	int			i;
 	int			j;
-	key_node_t	*tmp;
+	t_key_node	*tmp;
 
 	i = 0;
 	while (keys[i])
@@ -66,11 +66,11 @@ static void	sort_keys_by_dist_to_player(key_node_t **keys)
 	}
 }
 
-static void	fill_keys_array(cub3d_t *cub3d, key_node_t **keys)
+static void	fill_keys_array(t_cub3d *cub3d, t_key_node **keys)
 {
 	int			i;
 	int			j;
-	key_node_t	*tmp;
+	t_key_node	*tmp;
 
 	i = 0;
 	j = 0;
@@ -90,13 +90,13 @@ static void	fill_keys_array(cub3d_t *cub3d, key_node_t **keys)
 	}
 }
 
-key_node_t	**create_array_of_keys_ordered_by_dist(cub3d_t *cub3d)
+t_key_node	**create_array_of_keys_ordered_by_dist(t_cub3d *cub3d)
 {
-	key_node_t	**keys;
+	t_key_node	**keys;
 	int			count;
 
 	count = count_all_not_collected_visible_keys(cub3d);
-	keys = malloc(sizeof(key_node_t *) * (count + 1));
+	keys = malloc(sizeof(t_key_node *) * (count + 1));
 	if (!keys)
 		return (NULL);
 	keys[count] = NULL;

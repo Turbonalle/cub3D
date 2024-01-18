@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_draw_player.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:32:43 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 14:32:44 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	draw_non_speedrun(cub3d_t *cub3d, vector_t coord, int size)
+void	draw_non_speedrun(t_cub3d *cub3d, t_vector coord, int size)
 {
 	double	row;
 	double	column;
@@ -21,9 +21,9 @@ void	draw_non_speedrun(cub3d_t *cub3d, vector_t coord, int size)
 	i = 0;
 	while (i < cub3d->num_enemies)
 	{
-		coord.y = (cub3d->enemy[i].pos.y * cub3d->minimap.tile_size)
+		coord.y = ((cub3d->enemy[i].pos.y - 0.5) * cub3d->minimap.tile_size)
 			- (size / 2);
-		coord.x = (cub3d->enemy[i].pos.x * cub3d->minimap.tile_size)
+		coord.x = ((cub3d->enemy[i].pos.x - 0.5) * cub3d->minimap.tile_size)
 			- (size / 2);
 		draw_square(cub3d->minimap.img, coord, size * 4,
 			cub3d->minimap.color_enemy);
@@ -38,9 +38,9 @@ void	draw_non_speedrun(cub3d_t *cub3d, vector_t coord, int size)
 	}
 }
 
-void	draw_minimap_player(cub3d_t *cub3d)
+void	draw_minimap_player(t_cub3d *cub3d)
 {
-	vector_t	coord;
+	t_vector	coord;
 	int			size;
 
 	size = cub3d->minimap.tile_size / 4;
@@ -53,9 +53,9 @@ void	draw_minimap_player(cub3d_t *cub3d)
 		draw_non_speedrun(cub3d, coord, size);
 }
 
-void	draw_minimap_playerdir(cub3d_t *cub3d)
+void	draw_minimap_playerdir(t_cub3d *cub3d)
 {
-	dvector_t	end;
+	t_dvector	end;
 
 	cub3d->player.dir.x = cos(cub3d->player.angle);
 	cub3d->player.dir.y = sin(cub3d->player.angle);
@@ -67,9 +67,9 @@ void	draw_minimap_playerdir(cub3d_t *cub3d)
 		cub3d->minimap.color_playerdir);
 }
 
-void	draw_fov(cub3d_t *cub3d)
+void	draw_fov(t_cub3d *cub3d)
 {
-	dvector_t		end;
+	t_dvector		end;
 	unsigned int	i;
 
 	i = 0;

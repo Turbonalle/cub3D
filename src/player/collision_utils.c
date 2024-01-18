@@ -6,19 +6,19 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:43:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 15:36:55 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	pos_is_goal(cub3d_t *cub3d)
+int	pos_is_goal(t_cub3d *cub3d)
 {
 	return (cub3d->level->map[(int)cub3d->player.pos.y]
 		[(int)cub3d->player.pos.x] == 'G');
 }
 
-void	check_hori_wall(cub3d_t *cub3d)
+void	check_hori_wall(t_cub3d *cub3d)
 {
 	if (cub3d->level->map[(int)cub3d->player.pos.y]
 		[(int)cub3d->player.new_pos.x] != WALL && !is_locked_door(cub3d,
@@ -26,7 +26,7 @@ void	check_hori_wall(cub3d_t *cub3d)
 		cub3d->player.pos.x = cub3d->player.new_pos.x;
 }
 
-void	check_vert_wall(cub3d_t *cub3d)
+void	check_vert_wall(t_cub3d *cub3d)
 {
 	if (cub3d->level->map[(int)cub3d->player.new_pos.y]
 		[(int)cub3d->player.pos.x] != WALL && !is_locked_door(cub3d,
@@ -34,9 +34,9 @@ void	check_vert_wall(cub3d_t *cub3d)
 		cub3d->player.pos.y = cub3d->player.new_pos.y;
 }
 
-void	collision_checker(cub3d_t *cub3d)
+void	collision_checker(t_cub3d *cub3d)
 {
-	dvector_t	delta;
+	t_dvector	delta;
 	int			wall;
 
 	delta.x = cub3d->player.new_pos.x - cub3d->player.pos.x;

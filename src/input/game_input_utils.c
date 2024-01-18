@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   game_input_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:08:16 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 18:30:22 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	check_movement_keys(mlx_key_data_t keydata, cub3d_t *cub3d)
+static int	check_movement_keys(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_W)
 		return (cub3d->keys.w = TRUE, 1);
@@ -33,7 +33,7 @@ static int	check_movement_keys(mlx_key_data_t keydata, cub3d_t *cub3d)
 	return (0);
 }
 
-static int	check_util_keys(mlx_key_data_t keydata, cub3d_t *cub3d)
+static int	check_util_keys(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_P)
 	{
@@ -59,7 +59,7 @@ static int	check_util_keys(mlx_key_data_t keydata, cub3d_t *cub3d)
 	return (0);
 }
 
-static int	check_escape(mlx_key_data_t keydata, cub3d_t *cub3d)
+static int	check_escape(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
@@ -87,7 +87,7 @@ static int	check_escape(mlx_key_data_t keydata, cub3d_t *cub3d)
 	return (0);
 }
 
-void	handle_game_input(mlx_key_data_t keydata, cub3d_t *cub3d)
+void	handle_game_input(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (check_movement_keys(keydata, cub3d))
 		return ;

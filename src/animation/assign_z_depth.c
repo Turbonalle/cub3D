@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   assign_z_depth.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:02:22 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 17:26:48 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:48:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	assign_z_depth_ordered_by_distance(cub3d_t *cub3d, t_enemy **enemies,
-	key_node_t **keys, distraction_t **distractions)
+void	assign_z_depth_ordered_by_distance(t_cub3d *cub3d, t_enemy **enemies,
+	t_key_node **keys, t_distraction **distractions)
 {
-	four_vector_t	indexes;
+	t_four_vector	indexes;
 
 	init_indexes_and_z(cub3d, &indexes);
 	while (enemies[indexes.e] || keys[indexes.k] || distractions[indexes.d])

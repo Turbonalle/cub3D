@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:00:32 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 13:28:39 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:51 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
+static void	draw_enemy(t_cub3d *cub3d, double dir_to_enemy, int index)
 {
 	double	dir_as_rad;
 	int		i;
@@ -36,7 +36,7 @@ static void	draw_enemy(cub3d_t *cub3d, double dir_to_enemy, int index)
 		/ cub3d->enemy[index].dist_to_player * 2;
 }
 
-void	enemy_visibility_max_smaller(cub3d_t *cub3d, int i,
+void	enemy_visibility_max_smaller(t_cub3d *cub3d, int i,
 	double max_dist, double dir_to_enemy)
 {
 	double	angle_min;
@@ -58,7 +58,7 @@ void	enemy_visibility_max_smaller(cub3d_t *cub3d, int i,
 	}
 }
 
-void	enemy_visibility_min_smaller(cub3d_t *cub3d, int i,
+void	enemy_visibility_min_smaller(t_cub3d *cub3d, int i,
 	double max_dist, double dir_to_enemy)
 {
 	double	angle_min;
@@ -80,7 +80,7 @@ void	enemy_visibility_min_smaller(cub3d_t *cub3d, int i,
 	}
 }
 
-void	see_enemy(cub3d_t *cub3d, int i)
+void	see_enemy(t_cub3d *cub3d, int i)
 {
 	double	angle_min;
 	double	angle_max;

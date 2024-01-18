@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mouse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:10:57 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/17 16:33:06 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	left_mouse_button_press(cub3d_t *cub3d)
+void	left_mouse_button_press(t_cub3d *cub3d)
 {
 	if (cub3d->state == STATE_GAME && cub3d->settings.mouse == FALSE)
 		mouse_game(cub3d);
@@ -35,7 +35,7 @@ void	left_mouse_button_press(cub3d_t *cub3d)
 void	hook_mouse_buttons(enum mouse_key key, enum action action,
 	enum modifier_key modifier, void *param)
 {
-	cub3d_t	*cub3d;
+	t_cub3d	*cub3d;
 
 	cub3d = param;
 	(void)modifier;
@@ -57,7 +57,7 @@ void	hook_mouse_buttons(enum mouse_key key, enum action action,
 
 void	hook_mouse_scroll(double xdelta, double ydelta, void *param)
 {
-	cub3d_t	*cub3d;
+	t_cub3d	*cub3d;
 
 	(void)xdelta;
 	cub3d = param;
@@ -67,7 +67,6 @@ void	hook_mouse_scroll(double xdelta, double ydelta, void *param)
 		{
 			if (!zoom_in_minimap(cub3d))
 				mlx_close_window(cub3d->mlx);
-			
 		}
 		else if (ydelta < 0 && hover_minimap(cub3d))
 		{

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   toggle_name_menu.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:37:29 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 19:54:13 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:50:12 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	disable_name_menu(mlx_t *mlx, name_menu_t *menu)
+void	disable_name_menu(mlx_t *mlx, t_name_menu *menu)
 {
 	int	letter;
 	int	index;
@@ -34,7 +34,7 @@ void	disable_name_menu(mlx_t *mlx, name_menu_t *menu)
 	}
 }
 
-void	reset_name_menu(name_menu_t *menu)
+void	reset_name_menu(t_name_menu *menu)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ void	reset_name_menu(name_menu_t *menu)
 		menu->box[i].letter[0] = '\0';
 }
 
-void	enable_name_menu(cub3d_t *cub3d, name_menu_t *menu)
+void	enable_name_menu(t_cub3d *cub3d, t_name_menu *menu)
 {
 	create_time_string(menu->time_str, cub3d->time_finished);
 	menu->text_time = mlx_put_string(cub3d->mlx, menu->time_str,

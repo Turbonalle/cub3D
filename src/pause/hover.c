@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   hover.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:02:02 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/16 14:12:37 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:15 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	hover_image(cub3d_t *cub3d, mlx_image_t *img)
+int	hover_image(t_cub3d *cub3d, mlx_image_t *img)
 {
-	vector_t	mouse;
+	t_vector	mouse;
 
 	mlx_get_mouse_pos(cub3d->mlx, &mouse.x, &mouse.y);
 	if (mouse.x >= (int)img->instances[0].x
@@ -25,7 +25,7 @@ int	hover_image(cub3d_t *cub3d, mlx_image_t *img)
 	return (FALSE);
 }
 
-int	hover_button(cub3d_t *cub3d, button_t *button)
+int	hover_button(t_cub3d *cub3d, t_button *button)
 {
 	int	mouse_x;
 	int	mouse_y;
@@ -37,7 +37,7 @@ int	hover_button(cub3d_t *cub3d, button_t *button)
 		&& mouse_y <= button->pos.y + button->height);
 }
 
-int	hover_rectangle(cub3d_t *cub3d, rectangle_t *rect)
+int	hover_rectangle(t_cub3d *cub3d, t_rectangle *rect)
 {
 	int	mouse_x;
 	int	mouse_y;
@@ -49,7 +49,7 @@ int	hover_rectangle(cub3d_t *cub3d, rectangle_t *rect)
 		&& mouse_y <= rect->pos.y + rect->height);
 }
 
-int	hover_box(cub3d_t *cub3d, box_t *box)
+int	hover_box(t_cub3d *cub3d, t_box *box)
 {
 	int	mouse_x;
 	int	mouse_y;
@@ -61,7 +61,7 @@ int	hover_box(cub3d_t *cub3d, box_t *box)
 		&& mouse_y - cub3d->pause_menu.menu_pos.y <= box->pos.y + box->size);
 }
 
-int	hover_any_box(cub3d_t *cub3d, pause_menu_t *menu)
+int	hover_any_box(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	int	i;
 

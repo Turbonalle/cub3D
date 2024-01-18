@@ -6,19 +6,19 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:23:58 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/17 13:29:00 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	ray_to_key(cub3d_t *cub3d, double dir_to, double max_dist)
+static int	ray_to_key(t_cub3d *cub3d, double dir_to, double max_dist)
 {
-	dvector_t		v_ray_step_size;
-	dvector_t		v_ray_1d_length;
-	vector_t		v_map_check;
-	vector_t		v_step;
-	ray_t			*ray;
+	t_dvector		v_ray_step_size;
+	t_dvector		v_ray_1d_length;
+	t_vector		v_map_check;
+	t_vector		v_step;
+	t_ray			*ray;
 
 	v_map_check.x = (int)cub3d->player.pos.x;
 	v_map_check.y = (int)cub3d->player.pos.y;
@@ -40,7 +40,7 @@ static int	ray_to_key(cub3d_t *cub3d, double dir_to, double max_dist)
 	return (1);
 }
 
-static void	draw_key(cub3d_t *cub3d, double dir_to, key_node_t *key)
+static void	draw_key(t_cub3d *cub3d, double dir_to, t_key_node *key)
 {
 	double	dir_as_rad;
 	int		i;
@@ -63,7 +63,7 @@ static void	draw_key(cub3d_t *cub3d, double dir_to, key_node_t *key)
 		+ (cub3d->img->height / 2) / key->dist_to_player * 2;
 }
 
-void	see_key(cub3d_t *cub3d, double dir_to, key_node_t *key)
+void	see_key(t_cub3d *cub3d, double dir_to, t_key_node *key)
 {
 	double	angle_min;
 	double	angle_max;
@@ -90,7 +90,7 @@ void	see_key(cub3d_t *cub3d, double dir_to, key_node_t *key)
 	return ;
 }
 
-int	find_index(cub3d_t *cub3d)
+int	find_index(t_cub3d *cub3d)
 {
 	int		i;
 

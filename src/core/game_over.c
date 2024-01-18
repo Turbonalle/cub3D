@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   game_over.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvagapov <vvagapov@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:16:17 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/15 23:16:18 by vvagapov         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:49:06 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-int	is_top_score(level_t *level, int time)
+int	is_top_score(t_level *level, int time)
 {
-	record_t	*ptr;
+	t_record	*ptr;
 	int			i;
 
 	i = -1;
@@ -30,7 +30,7 @@ int	is_top_score(level_t *level, int time)
 	return (FALSE);
 }
 
-void	clean_level_data(cub3d_t *cub3d)
+void	clean_level_data(t_cub3d *cub3d)
 {
 	cub3d->halo.img->instances[0].enabled = FALSE;
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
@@ -47,7 +47,7 @@ void	clean_level_data(cub3d_t *cub3d)
 	cub3d->keys.down = FALSE;
 }
 
-void	level_finished(cub3d_t *cub3d)
+void	level_finished(t_cub3d *cub3d)
 {
 	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
 	clean_level_data(cub3d);
@@ -68,7 +68,7 @@ void	level_finished(cub3d_t *cub3d)
 	handle_cursor(cub3d);
 }
 
-void	game_over(cub3d_t *cub3d)
+void	game_over(t_cub3d *cub3d)
 {
 	cub3d->time_finished = (int)(elapsed_time(cub3d) * 1000);
 	if (cub3d->player.thrown)

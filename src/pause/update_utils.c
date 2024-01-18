@@ -6,13 +6,13 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:46:26 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/11 15:05:41 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:53:07 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	move_slider_marker(cub3d_t *cub3d, slider_t *slider)
+void	move_slider_marker(t_cub3d *cub3d, t_slider *slider)
 {
 	int	mouse_moved;
 
@@ -34,7 +34,7 @@ void	move_slider_marker(cub3d_t *cub3d, slider_t *slider)
 	}
 }
 
-void	update_pause_mouse(cub3d_t *cub3d, pause_menu_t *menu)
+void	update_pause_mouse(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse.x, &cub3d->mouse.y);
 	if (cub3d->keys.mouse_left && menu->sensitivity_slider.on_marker == TRUE)
@@ -44,7 +44,7 @@ void	update_pause_mouse(cub3d_t *cub3d, pause_menu_t *menu)
 	}
 }
 
-void	update_pause_menu(cub3d_t *cub3d, pause_menu_t *menu)
+void	update_pause_menu(t_cub3d *cub3d, t_pause_menu *menu)
 {
 	int	i;
 

@@ -6,11 +6,35 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:58:41 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:30:32 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
+
+int	count_items_in_map(char **map)
+{
+	int	i;
+	int	j;
+	int	sum;
+
+	sum = 0;
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (ft_strchr(ITEM, map[i][j]))
+				sum++;
+			j++;
+		}
+		i++;
+	}
+	if (sum > ITEM_MAX)
+		return (FAIL);
+	return (SUCCESS);
+}
 
 int	read_map(t_level *level, char *map_path)
 {
@@ -31,6 +55,13 @@ int	read_map(t_level *level, char *map_path)
 		return (close(fd), free_info(level->map), FAIL);
 	}
 	close(fd);
+	if (!count_items_in_map(level->map))
+	{
+		free_delete_textures(level);
+		free_list(level->map_list);
+		return (free_info(level->map), err_number("Too many items, max is ",
+				ITEM_MAX));
+	}
 	return (SUCCESS);
 }
 

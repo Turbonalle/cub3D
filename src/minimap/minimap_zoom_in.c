@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 16:27:40 by jbagger           #+#    #+#             */
-/*   Updated: 2024/01/18 09:45:50 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:01:32 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ static int	get_new_percentage_zoom_in(int current_size_percentage)
 	return (new_size_percentage);
 }
 
+static void	set_tile_size(t_cub3d *cub3d, int new_size_percentage,
+	unsigned int *new_tile_size)
+{
+	*new_tile_size = count_minimap_tilesize(cub3d, new_size_percentage);
+	if (*new_tile_size < 1)
+		*new_tile_size = 1;
+}
+
 static int	new_minimap_image(t_cub3d *cub3d)
 {
 	mlx_delete_image(cub3d->mlx, cub3d->minimap.img);
@@ -66,7 +74,7 @@ int	zoom_in_minimap(t_cub3d *cub3d)
 
 	new_size_percentage
 		= get_new_percentage_zoom_in(cub3d->minimap.size_percentage);
-	new_tile_size = count_minimap_tilesize(cub3d, new_size_percentage);
+	set_tile_size(cub3d, new_size_percentage, &new_tile_size);
 	new_width = new_tile_size * cub3d->level->map_columns;
 	new_height = new_tile_size * cub3d->level->map_rows;
 	if (new_width > cub3d->img->width || new_height > cub3d->img->height)

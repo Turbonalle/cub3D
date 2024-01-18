@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:57:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:59:02 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:01:47 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd neswijkl Gm hro"
-# define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswijklGmhro"
+# define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd neswijkl GmO hro"
+# define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswijklGmOhro"
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"
 # define ENEMIES "neswijkl"

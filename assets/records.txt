@@ -1,32 +1,32 @@
 3600000 TimTardy
-3600000 DanDrowsee
 3600000 JackWalker
+3600000 DanDrowsee
 
 3600000 SaraSlowpoke
-3600000 LukeLethargy
 3600000 TerryTurtles
+3600000 LukeLethargy
 
 3600000 BillyDally
-3600000 WandaWander
 3600000 AceAmbleton
+3600000 WandaWander
 
 3600000 NoraNapsalot
-3600000 SueStroll
 3600000 ClydeCrawlie
+3600000 SueStroll
 
 3600000 TimmyTiptoe
-3600000 DonnaDozer
 3600000 LinhGerr
+3600000 DonnaDozer
 
 3600000 MikeMosey
-3600000 SamDriftwood
 3600000 DinaDriftsby
+3600000 SamDriftwood
 
 3600000 AnnieMeander
-3600000 NickNomove
 3600000 FelixFumble
+3600000 NickNomove
 
 3600000 SusieSnoozie
-3600000 LarryLanguid
 3600000 WayneWaddle
+3600000 LarryLanguid
 

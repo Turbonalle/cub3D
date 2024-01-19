@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:29:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 16:40:59 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:13:35 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,6 +372,8 @@ void		player_rotation(t_cub3d *cub3d);
 // fov.c
 void		increase_fov(t_cub3d *cub3d);
 void		decrease_fov(t_cub3d *cub3d);
+
+void		set_health(t_cub3d *cub3d);
 
 //---- DOORS -------------------------------------------------------------------
 

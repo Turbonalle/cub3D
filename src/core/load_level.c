@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_level.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:20:00 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:22:13 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	load_level(t_cub3d *cub3d, t_level *level)
 	if (!init_doors_and_keys(cub3d))
 		return (free_half_done(cub3d, level, 3));
 	set_z_of_all_images(cub3d);
-	enable_hearts(cub3d);
+	set_health(cub3d);
+	adjust_hearts(cub3d);
 	return (SUCCESS);
 }

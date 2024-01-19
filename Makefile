@@ -173,6 +173,7 @@ SRC_FILES =	src/animation/animation_utils.c \
 			src/player/player_is_hit.c \
 			src/player/player_movement_utils.c \
 			src/player/player_movement.c \
+			src/player/set_health.c \
 			src/raycasting/raycast_additional_utils.c \
 			src/raycasting/raycast_utils_extra.c \
 			src/raycasting/raycast_utils.c \

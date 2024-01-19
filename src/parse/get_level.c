@@ -6,27 +6,11 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:42:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 17:10:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:15:19 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
-
-/* int	find_member_of_set_from_string(char *set, char *string)
-{
-	int	i;
-
-	i = 0;
-	while (string[i])
-	{
-		if (ft_strchr(set, string[i]) == 0)
-		{
-			return (FAIL);
-		}
-		i++;
-	}
-	return (SUCCESS);
-} */
 
 static int	all_chars_are_valid(t_level *level, char *line)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_over.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:16:17 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 11:09:42 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/19 13:07:29 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	clean_level_data(t_cub3d *cub3d)
 	cub3d->keys.right = FALSE;
 	cub3d->keys.up = FALSE;
 	cub3d->keys.down = FALSE;
+	cub3d->player.thrown = FALSE;
 }
 
 void	level_finished(t_cub3d *cub3d)

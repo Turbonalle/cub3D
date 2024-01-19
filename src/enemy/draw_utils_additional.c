@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils_additional.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:16:11 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 19:02:26 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/19 12:45:02 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ static void	check_distraction(t_cub3d *cub3d, int i)
 					- cub3d->player.pos.x) * 180 / M_PI));
 	if (cub3d->level->distractions[i].collected == FALSE)
 		see_distraction(cub3d, dir_to_distraction, i);
+	if (cub3d->level->distraction_amount <= 0)
+	{
+		if (cub3d->player.thrown)
+		{
+			cub3d->level->distractions[cub3d->level->num_distractions]
+				.img_distraction->instances[0].enabled = FALSE;
+			cub3d->player.thrown = FALSE;
+		}
+	}
 }
 
 void	draw_enemies(t_cub3d *cub3d)

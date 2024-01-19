@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils_additional.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:53:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:11:16 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:28:18 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ void	free_shroom(t_cub3d *cub3d)
 {
 	if (cub3d->shroom && cub3d->shroom->shroom.texture)
 		mlx_delete_texture(cub3d->shroom->shroom.texture);
+	cub3d->shroom->shroom.texture = NULL;
 	if (cub3d->shroom)
 		free(cub3d->shroom);
 	if (cub3d->distraction_texture)
 		mlx_delete_texture(cub3d->distraction_texture);
+	cub3d->distraction_texture = NULL;
 	if (cub3d->distraction_thrown_texture)
 		mlx_delete_texture(cub3d->distraction_thrown_texture);
+	cub3d->distraction_thrown_texture = NULL;
 }
 
 void	free_door_textures(t_cub3d *cub3d)

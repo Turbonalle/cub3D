@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:59 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 09:56:53 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:45:01 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,14 @@
 
 static void	delete_textures_additional(t_cub3d *cub3d)
 {
-	mlx_delete_texture(cub3d->start_menu.title.texture);
-	mlx_delete_texture(cub3d->start_menu.exit.texture);
-	mlx_delete_texture(cub3d->start_menu.start.texture);
-	mlx_delete_texture(cub3d->start_menu.level.texture);
-	mlx_delete_texture(cub3d->start_menu.exit_hover.texture);
-	mlx_delete_texture(cub3d->start_menu.start_hover.texture);
-	mlx_delete_texture(cub3d->start_menu.level_hover.texture);
-	mlx_delete_texture(cub3d->start_menu.arrow_exit.texture);
-	mlx_delete_texture(cub3d->start_menu.arrow_start.texture);
-	mlx_delete_texture(cub3d->start_menu.arrow_level.texture);
-	mlx_delete_texture(cub3d->level_menu.title.texture);
-	mlx_delete_texture(cub3d->level_menu.back.texture);
-	mlx_delete_texture(cub3d->level_menu.leaderboard.texture);
-	mlx_delete_texture(cub3d->level_menu.back_hover.texture);
-	mlx_delete_texture(cub3d->level_menu.leaderboard_hover.texture);
-	mlx_delete_texture(cub3d->distraction_texture);
-	mlx_delete_texture(cub3d->distraction_thrown_texture);
+	free_start_menu(&cub3d->start_menu);
+	free_name_menu(&cub3d->name_menu);
+	free_gameover_menu(&cub3d->gameover_menu);
+	free_level_menu(&cub3d->level_menu);
+	mlx_delete_texture(cub3d->leaderboard.title.texture);
+	mlx_delete_texture(cub3d->leaderboard.back.texture);
+	mlx_delete_texture(cub3d->leaderboard.back_hover.texture);
+	mlx_delete_texture(cub3d->pause_menu.title.texture);
 }
 
 static void	delete_enemy_frames(t_cub3d *cub3d)
@@ -59,9 +50,6 @@ static void	delete_textures(t_cub3d *cub3d)
 	int	i;
 
 	delete_textures_additional(cub3d);
-	i = 0;
-	while (i < LEVELS)
-		mlx_delete_texture(cub3d->level_menu.minilevels[i++].number.texture);
 	i = 0;
 	while (i < HEARTS)
 	{
@@ -99,6 +87,9 @@ void	free_cub3d(t_cub3d *cub3d)
 	}
 	delete_textures(cub3d);
 	free(cub3d->levels);
+	mlx_delete_texture(cub3d->floor.texture);
+	free_shroom(cub3d);
+	free_intro(cub3d);
 	mlx_terminate(cub3d->mlx);
 }
 

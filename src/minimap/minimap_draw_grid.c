@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:31:12 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 14:38:43 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:29:38 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	draw_extras(t_cub3d *cub3d, int row, int column)
 				cub3d->minimap.tile_size / 2,
 				get_door_key_color(cub3d, index));
 		}
-		draw_shroom(cub3d, row, column, pos);
 	}
+	draw_shroom(cub3d, row, column, pos);
 }
 
 void	draw_minimap(t_cub3d *cub3d)

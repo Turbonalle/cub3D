@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:16:11 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 17:23:15 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:44:04 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ static void	check_distraction(t_cub3d *cub3d, int i)
 		see_distraction(cub3d, dir_to_distraction, i);
 	if (cub3d->level->distraction_amount <= 0)
 	{
-		if (cub3d->level->distractions[cub3d->level->num_distractions]
-			.img_distraction)
+		if (cub3d->player.thrown)
+		{
 			cub3d->level->distractions[cub3d->level->num_distractions]
-				.img_distraction->enabled = FALSE;
-		cub3d->player.thrown = FALSE;
+				.img_distraction->instances[0].enabled = FALSE;
+			cub3d->player.thrown = FALSE;
+		}
 	}
 }
 

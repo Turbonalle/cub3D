@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:16:11 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 19:02:26 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/19 11:27:22 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static void	check_distraction(t_cub3d *cub3d, int i)
 		if (cub3d->level->distractions[cub3d->level->num_distractions]
 			.img_distraction)
 		{
-			printf("Setting distraction %d to false\n", cub3d->level->num_distractions);
+			printf("Setting distraction %d to false\n", cub3d->level->num_distractions);	// DEBUG
 			cub3d->level->distractions[cub3d->level->num_distractions]
 				.img_distraction->enabled = FALSE;
-			printf("Distraction %d is now set to FALSE\n", cub3d->level->num_distractions);
+			printf("Distraction %d is now set to FALSE\n", cub3d->level->num_distractions);	// DEBUG
 		}
 		cub3d->player.thrown = FALSE;
 	}

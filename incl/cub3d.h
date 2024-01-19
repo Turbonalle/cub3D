@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:29:44 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/19 11:13:35 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:52:42 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ int			free_prev_level_menu(t_level_menu *menu, int i, int j);
 int			free_prev_gameover_menu(t_gameover_menu *menu, int i);
 int			free_prev_name_menu(t_name_menu *menu, int i);
 void		free_textures_before_failed(t_texture *textures, int failed_index);
+void		free_levels(t_cub3d *cub3d);
 void		free_leaderboard(t_leaderboard *board);
 void		free_shroom(t_cub3d *cub3d);
 void		free_door_textures(t_cub3d *cub3d);

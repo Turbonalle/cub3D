@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:53:39 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:40:14 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:52:31 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	handle_message(int i)
 	return (handle_message_extra(i));
 }
 
-static void	free_levels(t_cub3d *cub3d)
+void	free_levels(t_cub3d *cub3d)
 {
 	int	i;
 

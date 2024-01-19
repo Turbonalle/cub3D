@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 09:57:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/19 13:20:22 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:10:09 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ enum e_elements
 	EA,
 	F,
 	C,
+	HIDDEN_WALL,
 	NO_WALL
 };
 

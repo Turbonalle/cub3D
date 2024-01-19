@@ -6,7 +6,7 @@
 /*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:34:33 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 13:03:36 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:22:43 by slampine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	wall_or_door_found(t_cub3d *cub3d, t_vector v_map_check)
 		&& v_map_check.x < cub3d->level->map_columns
 		&& v_map_check.y >= 0
 		&& v_map_check.y < cub3d->level->map_rows
-		&& cub3d->level->map[v_map_check.y][v_map_check.x] == WALL)
+		&& (cub3d->level->map[v_map_check.y][v_map_check.x] == WALL
+		|| cub3d->level->map[v_map_check.y][v_map_check.x] == 'o'))
 		return (SUCCESS);
 	if (v_map_check.x >= 0
 		&& v_map_check.x < cub3d->level->map_columns && v_map_check.y >= 0

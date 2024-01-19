@@ -5,6 +5,7 @@ TARGET = cub3D
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g
 DEBUG_FLAGS = -fsanitize=address
+ALLOWED_CHAR_MACRO_BONUS = -D MAP_ALL_ELEMENTS="MAP_ALL_ELEMENTS_BONUS"
 
 # Directories
 SRC_PATH = src
@@ -208,6 +209,9 @@ $(TARGET): $(OBJ_FILES) libft mlx
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+bonus: CFLAGS += $(ALLOWED_CHAR_MACRO_BONUS)
+bonus: all
 
 debug: CFLAGS += $(DEBUG_FLAGS)
 debug: all

@@ -646,6 +646,7 @@ typedef struct distract_s
 
 typedef struct level_s
 {
+	int				index;
 	char			**map;
 	char			**backup;
 	t_vector		starting_pos;

@@ -23,7 +23,10 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define MAP_ALL_ELEMENTS "NSWE 01 ABCD abcd neswijkl GmO hro"
+# define MAP_ALL_ELEMENTS_BONUS "NSWE 01 ABCD abcd neswijkl GmO hro"
+# ifndef MAP_ALL_ELEMENTS
+#  define MAP_ALL_ELEMENTS "NSWE01 "
+# endif
 # define MAP_ALL_BUT_WALL "NSWE0ABCDabcdneswijklGmOhro"
 # define MAP_DIRECTIONS "NSWE"
 # define MAP_ELEMENTS "01"

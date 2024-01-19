@@ -29,3 +29,15 @@ int	set_records(t_cub3d *cub3d, t_level *level, char **line, int fd)
 	}
 	return (SUCCESS);
 }
+
+void	set_level_indexes(t_level *levels)
+{
+	int	i;
+
+	i = 0;
+	while (i < LEVELS + 1)
+	{
+		levels[i].index = i;
+		i++;
+	}
+}

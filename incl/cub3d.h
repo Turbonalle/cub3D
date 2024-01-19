@@ -87,6 +87,7 @@ int			count_records(t_record *records);
 t_record	*new_record(int time, char *name);
 int			write_records(t_cub3d *cub3d, t_level *levels);
 int			set_records(t_cub3d *cub3d, t_level *level, char **line, int fd);
+void		set_level_indexes(t_level *levels);
 
 // set_z_of_all_images.c
 void		set_z_of_all_images(t_cub3d *cub3d);
@@ -542,6 +543,7 @@ void		adjust_no_flag(t_dvector *v_ray_1d_length, t_dvector step_size);
 int			get_current_level(t_cub3d *cub3d);
 int			all_alpha(char *str);
 int			all_digits(char *str);
+int			find_member_of_set_from_string(char *set, char *string);
 
 // memory_utils.c
 void		free_enemy_frames(t_cub3d *cub3d);

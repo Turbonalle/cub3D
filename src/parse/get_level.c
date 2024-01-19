@@ -12,7 +12,7 @@
 
 #include "../incl/cub3d.h"
 
-int	find_member_of_set_from_string(char *set, char *string)
+/* int	find_member_of_set_from_string(char *set, char *string)
 {
 	int	i;
 
@@ -26,6 +26,14 @@ int	find_member_of_set_from_string(char *set, char *string)
 		i++;
 	}
 	return (SUCCESS);
+} */
+
+static int	all_chars_are_valid(t_level *level, char *line)
+{
+	if (level->index == 0)
+		return (find_member_of_set_from_string(MAP_ALL_ELEMENTS, line));
+	else
+		return (find_member_of_set_from_string(MAP_ALL_ELEMENTS_BONUS, line));
 }
 
 int	get_preliminary_map(t_level *level, int fd)
@@ -44,7 +52,7 @@ int	get_preliminary_map(t_level *level, int fd)
 	while (line)
 	{
 		remove_newline(line);
-		if (!find_member_of_set_from_string(MAP_ALL_ELEMENTS, line))
+		if (!all_chars_are_valid(level, line))
 			return (free(line), err("Invalid character in map"));
 		if (!add_map_line(&level->map_list, line))
 			return (free(line), err("Failed to allocate memory for map"));

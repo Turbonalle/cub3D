@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_init_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:59:50 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:01:34 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,42 @@ int	init_enemy(t_cub3d *cub3d)
 {
 	int	i;
 
-	i = -1;
 	if (cub3d->num_enemies == 0)
 		return (SUCCESS);
+	// printf("init_enemy: malloc(sizeof(t_enemy) * cub3d->num_enemies)\n");
 	cub3d->enemy = malloc(sizeof(t_enemy) * cub3d->num_enemies);
+	// printf("init_enemy: checking if cub3d->enemy is NULL\n");
 	if (!cub3d->enemy)
 		return (FAIL);
+	// printf("init_enemy: init_enemy_frames()\n");
 	init_frame_indexes(cub3d);
+	// printf("init_enemy: while (++i < cub3d->num_enemies)\n");
+	i = -1;
 	while (++i < cub3d->num_enemies)
 	{
+		printf("init_enemy: set_enemy_stats()\n");
 		set_enemy_stats(cub3d, i);
+		printf("init_enemy: cub3d->enemy[%d].img_curr_frame = mlx_new_image()\n", i);
 		cub3d->enemy[i].img_curr_frame
 			= mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+		printf("init_enemy: checking if cub3d->enemy[%d].img_curr_frame is NULL\n", i);
 		if (!cub3d->enemy[i].img_curr_frame)
 		{
 			while (i)
+			{
+				printf("init_enemy: mlx_delete_image(%d)\n", i);
 				mlx_delete_image(cub3d->mlx, cub3d->enemy[--i].img_curr_frame);
+			}
+			printf("init_enemy: free(cub3d->enemy)\n");
 			free(cub3d->enemy);
+			printf("init_enemy: return FAIL\n");
 			return (FAIL);
 		}
-		mlx_image_to_window(cub3d->mlx, cub3d->enemy[i].img_curr_frame, 0, 0);
+		printf("init_enemy: image_to_window(%d)\n", i);
+		if (mlx_image_to_window(cub3d->mlx, cub3d->enemy[i].img_curr_frame, 0, 0) < 0)
+			printf("init_enemy: mlx_image_to_window(%d) failed\n", i);
+		printf("init_enemy: end of while loop\n");
 	}
+	printf("init_enemy: return SUCCESS\n");
 	return (SUCCESS);
 }

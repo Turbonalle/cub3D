@@ -5,4 +5,5 @@ cub3D
 *.o
 *.a
 lib/MLX42/build
-assets/records.txt
+Info.txt
+README.md

@@ -6,7 +6,7 @@
 /*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:10:36 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/19 11:21:34 by jbagger          ###   ########.fr       */
+/*   Updated: 2024/01/19 14:39:21 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	count_distractions(t_cub3d *cub3d)
 
 	i = 0;
 	cub3d->level->num_distractions = 0;
+	// printf("count_distractions: while (cub3d->level->map[%d])\n", i);
 	while (cub3d->level->map[i])
 	{
 		j = 0;
+		// printf("count_distractions: while (cub3d->level->map[%d][%d])\n", i, j);
 		while (cub3d->level->map[i][j])
 		{
+			// printf("count_distractions: if (cub3d->level->map[%d][%d] == 'm' || cub3d->level->map[%d][%d] == 'r')\n", i, j, i, j);
 			if (cub3d->level->map[i][j] == 'm'
 				|| cub3d->level->map[i][j] == 'r')
 				cub3d->level->num_distractions++;

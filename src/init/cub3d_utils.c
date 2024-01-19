@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:14:00 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:34 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:39:21 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	count_enemies(t_cub3d *cub3d)
 
 	i = 0;
 	cub3d->num_enemies = 0;
+	// printf("count_enemies: while (cub3d->level->map[i])\n");
 	while (cub3d->level->map[i])
 	{
 		j = 0;
+		// printf("count_enemies: while (cub3d->level->map[%d][%d])\n", i, j);
 		while (cub3d->level->map[i][j])
 		{
+			// printf("count_enemies: if (ft_strchr(ENEMIES, cub3d->level->map[%d][%d]))\n", i, j);
 			if (ft_strchr(ENEMIES, cub3d->level->map[i][j]))
 				cub3d->num_enemies++;
 			j++;
@@ -55,6 +58,7 @@ int	init_rays(t_cub3d *cub3d)
 
 void	set_initial_direction(t_cub3d *cub3d)
 {
+	// printf("set_initial_direction: setting player angle and dir\n");
 	if (cub3d->level->starting_dir == 'E')
 		cub3d->player.angle = to_radians(FAIL);
 	else if (cub3d->level->starting_dir == 'S')

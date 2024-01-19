@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsorted_utills.c                                  :+:      :+:    :+:   */
+/*   unsorted_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:32:35 by slampine          #+#    #+#             */
-/*   Updated: 2024/01/18 13:37:47 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:39:21 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,16 @@ int	count_minimap_tilesize(t_cub3d *cub3d, int size_percentage)
 	float	minimap_width;
 	float	minimap_height;
 
+	// printf("count_minimap_tilesize: setting minimap_width\n");
 	minimap_width = (float)cub3d->img->width * (float)size_percentage / 100;
+	// printf("count_minimap_tilesize: setting tilesize\n");
 	tile_size = minimap_width / (float)cub3d->level->map_columns;
+	// printf("count_minimap_tilesize: setting minimap_height\n");
 	minimap_height = (float)cub3d->img->height * (float)size_percentage / 100;
+	// printf("count_minimap_tilesize: if (tile_size * (float)cub3d->level->map_rows > minimap_height)\n");
 	if (tile_size * (float)cub3d->level->map_rows > minimap_height)
 		tile_size = minimap_height / (float)cub3d->level->map_rows;
+	// printf("count_minimap_tilesize: return tile_size\n");
 	return ((int)tile_size);
 }
 
@@ -97,18 +102,23 @@ static int	init_minimap_rest(t_cub3d *cub3d)
 		= set_transparency(MINIMAP_COLOR_KEY_3, cub3d->minimap.transparency);
 	cub3d->minimap.color_key_4
 		= set_transparency(MINIMAP_COLOR_KEY_4, cub3d->minimap.transparency);
+	// printf("init_minimap: return SUCCESS\n");
 	return (SUCCESS);
 }
 
 int	init_minimap(t_cub3d *cub3d)
 {
 	cub3d->minimap.size_percentage = MINIMAP_SIZE_PERCENTAGE;
+	// printf("init_minimap: count_minimap_tilesize()\n");
 	cub3d->minimap.tile_size
 		= count_minimap_tilesize(cub3d, cub3d->minimap.size_percentage);
+	// printf("init_minimap: setting width and height\n");
 	cub3d->minimap.width = cub3d->minimap.tile_size * cub3d->level->map_columns;
 	cub3d->minimap.height = cub3d->minimap.tile_size * cub3d->level->map_rows;
+	// printf("init_minimap: cub3d->minimap.img = mlx_new_image()\n");
 	cub3d->minimap.img = mlx_new_image(cub3d->mlx,
 			cub3d->minimap.width, cub3d->minimap.height);
+	// printf("init_minimap: checking if cub3d->minimap.img is NULL\n");
 	if (!cub3d->minimap.img || (mlx_image_to_window(cub3d->mlx,
 				cub3d->minimap.img, 0, 0) < 0))
 		return (FAIL);
@@ -126,5 +136,6 @@ int	init_minimap(t_cub3d *cub3d)
 	cub3d->minimap.color_door_open
 		= set_transparency(MINIMAP_COLOR_DOOR_OPEN,
 			cub3d->minimap.transparency);
+	// printf("init_minimap: init_minimap_rest()\n");
 	return (init_minimap_rest(cub3d));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slampine <slampine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jbagger <jbagger@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:46:36 by vvagapov          #+#    #+#             */
-/*   Updated: 2024/01/18 16:02:59 by slampine         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:03:11 by jbagger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ int	main(int ac, char **av)
 	if (cub3d.state == STATE_GAME)
 		free_level(&cub3d);
 	free_cub3d(&cub3d);
-	system("leaks cub3D");	// DEBUG
 	return (0);
 }

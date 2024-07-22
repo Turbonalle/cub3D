@@ -15,3 +15,8 @@ To clone the repository:
 To compile, navigate to the root of the repo and run:
 
 `make`
+
+Run the executable with the path to any of the maps as a parameter:
+
+Ex.
+`./cub3D assets/maps/showcase.cub`

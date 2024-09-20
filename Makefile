@@ -195,11 +195,16 @@ SRC_FILES =	src/animation/animation_utils.c \
 			src/utils/shroom_utils.c
 OBJ_FILES = $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(SRC_FILES))
 
-# Include directories
-INC = -I$(INC_PATH) -I$(MLX42DIR)/include -I$(LIBFTDIR)/include -I"/Users/$(USER)/.brew/opt/glfw/include"
+# Detect platform (macOS or Linux) and include the appropriate libraries
+UNAME_S := $(shell uname -s)
 
-# Libraries
-LIBS = -L$(MLX42DIR)/build -lmlx42 -L$(LIBFTDIR) -lft -L"/Users/$(USER)/.brew/opt/glfw/lib" -lglfw -framework OpenGL -framework AppKit
+ifeq ($(UNAME_S), Darwin)  # macOS
+    INC = -I$(INC_PATH) -I$(MLX42DIR)/include -I$(LIBFTDIR)/include -I"/Users/$(USER)/.brew/opt/glfw/include"
+    LIBS = -L$(MLX42DIR)/build -lmlx42 -L$(LIBFTDIR) -lft -L"/Users/$(USER)/.brew/opt/glfw/lib" -lglfw -framework OpenGL -framework AppKit
+else ifeq ($(UNAME_S), Linux)  # Linux (WSL)
+    INC = -I$(INC_PATH) -I$(MLX42DIR)/include -I$(LIBFTDIR)/include -I/usr/include
+    LIBS = -L$(MLX42DIR)/build -lmlx42 -L$(LIBFTDIR) -lft -lglfw -lGL -lm -lpthread -ldl -lX11 -lXrandr -lXi
+endif
 
 all: $(TARGET)
 

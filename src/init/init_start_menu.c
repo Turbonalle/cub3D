@@ -14,39 +14,12 @@
 
 static void	set_positions_rest(t_start_menu *menu)
 {
-	int		exit_x;
-	int		start_x;
-	int		button_y;
-
-	button_y = menu->img->height * 0.7;
-	exit_x = menu->img->width * 0.35;
-	start_x = menu->img->width * 0.5;
-	menu->exit.pos.x = exit_x - menu->exit.img->width * 0.5;
-	menu->exit.pos.y = button_y;
-	menu->start_hover.pos.x = start_x - menu->start_hover.img->width * 0.5;
-	menu->start_hover.pos.y = button_y;
-	menu->exit_hover.pos.x = exit_x - menu->exit_hover.img->width * 0.5;
-	menu->exit_hover.pos.y = button_y;
-	menu->start.pos.x = start_x - menu->start.img->width * 0.5;
-	menu->start.pos.y = button_y;
-}
-
-static void	set_positions(t_start_menu *menu)
-{
-	int		level_x;
 	int		button_y;
 	int		arrow_y;
 
-	level_x = menu->img->width * 0.65;
 	button_y = menu->img->height * 0.7;
-	arrow_y = button_y + menu->exit.img->height
-		* 0.5 - menu->arrow_exit.img->height * 0.5;
-	menu->title.pos.x = menu->img->width * 0.5 - menu->title.img->width * 0.5;
-	menu->title.pos.y = menu->img->height * 0.3;
-	menu->level.pos.x = level_x - menu->level.img->width * 0.5;
-	menu->level.pos.y = button_y;
-	menu->level_hover.pos.x = level_x - menu->level_hover.img->width * 0.5;
-	menu->level_hover.pos.y = button_y;
+	arrow_y = button_y + menu->exit.img->height * 0.5
+		- menu->arrow_exit.img->height * 0.5;
 	menu->arrow_exit.pos.x = menu->exit.pos.x
 		- menu->arrow_exit.img->width * 1.5;
 	menu->arrow_exit.pos.y = arrow_y;
@@ -56,6 +29,33 @@ static void	set_positions(t_start_menu *menu)
 	menu->arrow_level.pos.x = menu->level.pos.x
 		- menu->arrow_level.img->width * 1.5;
 	menu->arrow_level.pos.y = arrow_y;
+}
+
+static void	set_positions(t_start_menu *menu)
+{
+	int		level_x;
+	int		exit_x;
+	int		start_x;
+	int		button_y;
+
+	exit_x = menu->img->width * 0.35;
+	start_x = menu->img->width * 0.5;
+	level_x = menu->img->width * 0.65;
+	button_y = menu->img->height * 0.7;
+	menu->title.pos.x = menu->img->width * 0.5 - menu->title.img->width * 0.5;
+	menu->title.pos.y = menu->img->height * 0.3;
+	menu->start.pos.x = start_x - menu->start.img->width * 0.5;
+	menu->start.pos.y = button_y;
+	menu->start_hover.pos.x = start_x - menu->start_hover.img->width * 0.5;
+	menu->start_hover.pos.y = button_y;
+	menu->level.pos.x = level_x - menu->level.img->width * 0.5;
+	menu->level.pos.y = button_y;
+	menu->level_hover.pos.x = level_x - menu->level_hover.img->width * 0.5;
+	menu->level_hover.pos.y = button_y;
+	menu->exit.pos.x = exit_x - menu->exit.img->width * 0.5;
+	menu->exit.pos.y = button_y;
+	menu->exit_hover.pos.x = exit_x - menu->exit_hover.img->width * 0.5;
+	menu->exit_hover.pos.y = button_y;
 	set_positions_rest(menu);
 }
 

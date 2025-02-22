@@ -6,7 +6,7 @@ This is a raycasting game inspired by the old Wolfenstein3D game. The world has 
 
 ---
 
-## Goals
+### Goals
 
 The goals of this project was to:
 - create a raycasting game
@@ -14,7 +14,7 @@ The goals of this project was to:
 - enable the player to move and look around
 
 Some of the extra features we added for fun:
-- 
+- Collision detection
 - Timer
 - Built-in speedrun levels with locally stored records
 - Health bar
@@ -28,7 +28,7 @@ Some of the extra features we added for fun:
 
 ---
 
-## How to play
+### How to play
 
 - W,S,A,D - move around
 - Left/Right arrow - turn around

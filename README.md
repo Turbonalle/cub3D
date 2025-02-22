@@ -2,7 +2,7 @@
 
 You're trapped in a slimey dungeon, with only one goal - to escape in one piece!
 
-This is a raycasting game inspired by the old Wolfenstein3D game. The world has seen so many first person shooters, though, so we took a non-violent approach. There are hungry slime monsters lurking around, but you have no weapons to take care of them. If only you had something to distract them with, so you can run past them.
+This is a raycasting game inspired by the old Wolfenstein3D game. The world has seen so many first person shooters, though, so we took a non-violent approach. There are hungry slime monsters lurking around, but you have no weapons to take care of them. If only you had something to distract them with, so you can run past them.  
 
 ---
 

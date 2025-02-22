@@ -27,10 +27,10 @@ Some of the extra features we added for fun:
 
 ## How to play
 
-W,S,A,D            move around
-Left/Right arrow   turn around
-P                  toggle pause menu
-Esc                go back to previous menu
+- W,S,A,D            move around
+- Left/Right arrow   turn around
+- P                  toggle pause menu
+- Esc                go back to previous menu
 
 
 ## Installation

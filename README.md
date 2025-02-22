@@ -4,7 +4,7 @@ You're trapped in a slimey dungeon, with only one goal - to escape in one piece!
 
 This is a raycasting game inspired by the old Wolfenstein3D game. The world has seen so many first person shooters, though, so we took a non-violent approach. There are hungry slime monsters lurking around, but you have no weapons to take care of them. If only you had something to distract them with, so you can run past them.
 
-<br><br>
+<br>
 
 ### Goals
 
@@ -27,7 +27,7 @@ Some of the extra features we added for fun:
 - Ability to set FOV
 - Zoomable and movable minimap
 
-<br><br>
+<br>
 
 ### How to play
 
@@ -36,7 +36,7 @@ Some of the extra features we added for fun:
 - P - toggle pause menu
 - Esc - go back to previous menu
 
-<br><br>
+<br>
 
 ## Installation
 

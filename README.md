@@ -21,6 +21,6 @@ Run the executable with the path to any of the maps as a parameter:
 Ex.
 `./cub3D assets/maps/showcase.cub`
 
-Due to project constraints, compiling the game normally will give you a basic version, which won't be able to read all the maps. For an improved version that can run all the extra features we added, run this command instead:
+Due to project constraints, compiling the game normally will give you a basic version, which won't be able to read all the maps. For an improved version that can run all the maps with every extra feature, run this command instead:
 
 `make bonus`
